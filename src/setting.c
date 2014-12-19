@@ -21,7 +21,6 @@
 
 #include <glib/gi18n.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -120,27 +119,34 @@ void Init_Config_Variables (void)
  *
  * Check that the provided @filename exists, and if not, create it.
  */
-static void check_or_create_file (const gchar *filename)
+static void
+check_or_create_file (const gchar *filename)
 {
-    FILE  *file;
-    gchar *file_path = NULL;
+    gchar *file_path;
+    GFile *file;
+    GFileOutputStream *ostream;
+    GError *error = NULL;
 
     g_return_if_fail (filename != NULL);
 
     file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
                                   filename, NULL);
 
-    if ((file = fopen (file_path, "a+")) != NULL )
+    file = g_file_new_for_path (file_path);
+
+    if (!(ostream = g_file_append_to (file, G_FILE_CREATE_NONE, NULL, &error)))
     {
-        fclose (file);
+        Log_Print (LOG_ERROR, _("Cannot create or open file ‘%s’: %s"),
+                   file_path, error->message);
+        g_error_free (error);
     }
     else
     {
-        Log_Print (LOG_ERROR, _("Cannot create or open file ‘%s’: %s"),
-                   filename, g_strerror (errno));
+        g_object_unref (ostream);
     }
 
     g_free (file_path);
+    g_object_unref (file);
 }
 
 /*
@@ -170,103 +176,158 @@ gboolean Setting_Create_Files (void)
  * Save the contents of a list store to a file
  */
 static void
-Save_List_Store_To_File (const gchar *filename, GtkListStore *liststore, gint colnum)
+Save_List_Store_To_File (const gchar *filename,
+                         GtkListStore *liststore,
+                         gint colnum)
 {
-    gchar *file_path = NULL;
-    FILE *file;
-    gchar *text;
+    gchar *file_path;
+    GFile *file;
+    GFileOutputStream *ostream;
     GtkTreeIter iter;
+    GError *error = NULL;
 
-    if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(liststore), &iter))
+    if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (liststore), &iter)
+        || !Create_Easytag_Directory ())
+    {
         return;
+    }
 
     /* The file to write */
     file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
                                   filename, NULL);
+    file = g_file_new_for_path (file_path);
+    g_free (file_path);
 
-    if (!Create_Easytag_Directory () || (file = fopen (file_path, "w+")) == NULL)
+    if (!(ostream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL,
+                                    &error)))
     {
-        Log_Print (LOG_ERROR, _("Cannot write list to file ‘%s’: %s"),
-                   file_path, g_strerror (errno));
-    }else
+        goto err;
+    }
+    else
     {
+        GString *data;
+        gsize bytes_written;
+
+        data = g_string_new ("");
+
         do
         {
-            GString *data;
+            gchar *text;
 
             gtk_tree_model_get (GTK_TREE_MODEL (liststore), &iter, colnum,
                                 &text, -1);
-            data = g_string_new (text);
+            g_string_append (data, text);
             g_free (text);
             g_string_append_c (data, '\n');
+        } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (liststore), &iter));
 
-            if (*data->str != '\n')
-            {
-                if (fwrite (data->str, data->len, 1, file) != 1)
-                {
-                    Log_Print (LOG_ERROR, _("Error while writing list file ‘%s’"),
-                               file_path);
-                    fclose (file);
-                    g_string_free (data, TRUE);
-                    g_free (file_path);
-                    return;
-                }
-            }
+        if (!g_output_stream_write_all (G_OUTPUT_STREAM (ostream), data->str,
+                                        data->len, &bytes_written, NULL,
+                                        &error))
+        {
             g_string_free (data, TRUE);
-        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(liststore), &iter));
-        fclose(file);
+            g_object_unref (ostream);
+            goto err;
+        }
+
+        g_string_free (data, TRUE);
+        g_object_unref (ostream);
     }
-    g_free(file_path);
+
+    g_object_unref (file);
+    return;
+
+err:
+    /* FIXME: Format filename encoding for display. */
+    file_path = g_file_get_path (file);
+    Log_Print (LOG_ERROR, _("Cannot write list to file ‘%s’: %s"),
+               file_path, error->message);
+
+    g_error_free (error);
+    g_free (file_path);
+    g_object_unref (file);
+    return;
 }
 
 /*
  * Populate a list store with data from a file passed in as first parameter
  */
 static gboolean
-Populate_List_Store_From_File (const gchar *filename, GtkListStore *liststore, gint text_column)
+Populate_List_Store_From_File (const gchar *filename,
+                               GtkListStore *liststore,
+                               gint text_column)
 {
-
-    gchar *file_path = NULL;
-    FILE *file;
-    gchar buffer[MAX_STRING_LEN];
+    gchar *file_path;
+    GFile *file;
+    GFileInputStream *istream;
     gboolean entries_set = FALSE;
+    GError *error = NULL;
 
     /* The file to write */
     g_return_val_if_fail (filename != NULL, FALSE);
 
     file_path = g_build_filename (g_get_user_config_dir (), PACKAGE_TARNAME,
                                   filename, NULL);
+    file = g_file_new_for_path (file_path);
+    g_free (file_path);
 
-    if ((file = fopen (file_path, "r")) == NULL)
-    {
-        Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
-                   g_strerror (errno));
-    }else
-    {
-        gchar *data = NULL;
+    istream = g_file_read (file, NULL, &error);
 
-        while(fgets(buffer,sizeof(buffer),file))
+    if (!istream)
+    {
+        goto err;
+    }
+    else
+    {
+        GDataInputStream *data;
+        gsize bytes_read;
+        gchar *line;
+
+        data = g_data_input_stream_new (G_INPUT_STREAM (istream));
+        /* TODO: Find a safer alternative to _ANY. */
+        g_data_input_stream_set_newline_type (data,
+                                              G_DATA_STREAM_NEWLINE_TYPE_ANY);
+
+        while ((line = g_data_input_stream_read_line (data, &bytes_read, NULL,
+                                                      &error)))
         {
-            if (buffer[strlen(buffer)-1]=='\n')
-                buffer[strlen(buffer)-1]='\0';
+            gchar *utf8_line;
 
-            /*if (g_utf8_validate(buffer, -1, NULL))
-                data = g_strdup(buffer);
-            else
-                data = convert_to_utf8(buffer);*/
-            data = Try_To_Validate_Utf8_String(buffer);
+            utf8_line = Try_To_Validate_Utf8_String (line);
+            g_free (line);
 
-            if (data && g_utf8_strlen(data, -1) > 0)
+            if (utf8_line && g_utf8_strlen (utf8_line, -1) > 0)
             {
                 gtk_list_store_insert_with_values (liststore, NULL, G_MAXINT,
-                                                   text_column, data, -1);
+                                                   text_column, utf8_line, -1);
                 entries_set = TRUE;
             }
-            g_free(data);
+
+            g_free (utf8_line);
         }
-        fclose(file);
+
+        g_object_unref (data);
+
+        if (error)
+        {
+            g_object_unref (istream);
+            goto err;
+        }
     }
-    g_free(file_path);
+
+    g_object_unref (istream);
+    g_object_unref (file);
+
+    return entries_set;
+
+err:
+    file_path = g_file_get_path (file);
+    Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
+               error->message);
+
+    g_free (file_path);
+    g_error_free (error);
+    g_object_unref (file);
     return entries_set;
 }
 
