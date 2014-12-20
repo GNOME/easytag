@@ -21,8 +21,6 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
-#include <fcntl.h>
-#include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
@@ -50,6 +48,7 @@
  ****************/
 #define MULTIFIELD_SEPARATOR " - "
 #define EASYTAG_STRING_ENCODEDBY "Encoded by"
+#define ID3V1_TAG_SIZE 128
 
 enum {
     EASYTAG_ID3_FIELD_LATIN1        = 0x0001,
@@ -190,7 +189,7 @@ id3tag_read_file_tag (GFile *gfile,
     }
 
     /* Go to the beginning of ID3v1 tag. */
-    if (g_seekable_seek (seekable, -128, G_SEEK_END, NULL, error)
+    if (g_seekable_seek (seekable, -ID3V1_TAG_SIZE, G_SEEK_END, NULL, error)
     && (string1)
         && g_input_stream_read_all (istream, string1, 3, &bytes_read, NULL,
                                     NULL /* Ignore errors. */)
@@ -1514,29 +1513,36 @@ etag_write_tags (const gchar *filename,
 {
     id3_byte_t *v1buf, *v2buf;
     id3_length_t v1size = 0, v2size = 0;
-    char tmp[ID3_TAG_QUERYSIZE];
-    int fd;
-    int curpos;
+    gchar tmp[ID3_TAG_QUERYSIZE];
+    GFile *file;
+    GFileIOStream *iostream;
+    GSeekable *seekable;
+    GInputStream *istream;
+    GOutputStream *ostream;
     long filev2size;
     gsize ctxsize;
-    char *ctx = NULL;
+    gchar *ctx = NULL;
     gboolean success = TRUE;
-    gssize size_read = 0;
+    gsize bytes_read;
+    gsize bytes_written;
 
     v1buf = v2buf = NULL;
-    if ( !strip_tags )
+
+    if (!strip_tags)
     {
         /* Render v1 tag */
         if (v1tag)
         {
-            v1size = id3_tag_render(v1tag, NULL);
-            if (v1size == 128)
+            v1size = id3_tag_render (v1tag, NULL);
+
+            if (v1size == ID3V1_TAG_SIZE)
             {
-                v1buf = g_try_malloc(v1size);
-                if (id3_tag_render(v1tag, v1buf) != v1size)
+                v1buf = g_malloc (v1size);
+
+                if (id3_tag_render (v1tag, v1buf) != v1size)
                 {
                     /* NOTREACHED */
-                    g_free(v1buf);
+                    g_free (v1buf);
                     v1buf = NULL;
                 }
             }
@@ -1545,14 +1551,16 @@ etag_write_tags (const gchar *filename,
         /* Render v2 tag */
         if (v2tag)
         {
-            v2size = id3_tag_render(v2tag, NULL);
+            v2size = id3_tag_render (v2tag, NULL);
+
             if (v2size > 10)
             {
-                v2buf = g_try_malloc0(v2size);
-                if ((v2size = id3_tag_render(v2tag, v2buf)) == 0)
+                v2buf = g_malloc0 (v2size);
+
+                if ((v2size = id3_tag_render (v2tag, v2buf)) == 0)
                 {
                     /* NOTREACHED */
-                    g_free(v2buf);
+                    g_free (v2buf);
                     v2buf = NULL;
                 }
             }
@@ -1560,184 +1568,239 @@ etag_write_tags (const gchar *filename,
     }
     
     if (v1buf == NULL)
-        v1size = 0;
-    if (v2buf == NULL)
-        v2size = 0;
-
-    if ((fd = open (filename, O_RDWR)) < 0)
     {
-        g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
-                     "%s", g_strerror (errno));
-        g_free (v1buf);
-        g_free (v2buf);
-        return FALSE;
+        v1size = 0;
+    }
+    if (v2buf == NULL)
+    {
+        v2size = 0;
+    }
+
+    file = g_file_new_for_path (filename);
+    iostream = g_file_open_readwrite (file, NULL, error);
+
+    if (!iostream)
+    {
+        goto err;
+    }
+
+    /* Seeking on the IOStream seeks to the same position on both the input and
+     * output streams. */
+    seekable = G_SEEKABLE (iostream);
+
+    if (!g_seekable_can_seek (seekable))
+    {
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_BADF, "%s",
+                     g_strerror (EBADF));
+        goto err;
     }
 
     success = FALSE;
 
-    /* Handle Id3v1 tag */
-    if ((curpos = lseek (fd, -128, SEEK_END)) < 0)
-        goto out;
-    if ((size_read = read (fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+    /* Handle ID3v1 tag */
+    if (!g_seekable_seek (seekable, -ID3V1_TAG_SIZE, G_SEEK_END, NULL, error))
     {
-        goto out;
+        goto err;
     }
 
-    if ( (tmp[0] == 'T')
-    &&   (tmp[1] == 'A')
-    &&   (tmp[2] == 'G')
-       )
+    istream = g_io_stream_get_input_stream (G_IO_STREAM (iostream));
+
+    if (!g_input_stream_read_all (istream, tmp, ID3_TAG_QUERYSIZE, &bytes_read,
+                                  NULL, error))
     {
-        if ((curpos = lseek(fd, -128, SEEK_END)) < 0)
+        goto err;
+    }
+
+    /* Seek to the beginning of the ID3v1 tag, if it exists. */
+    if ((tmp[0] == 'T') && (tmp[1] == 'A') && (tmp[2] == 'G'))
+    {
+        if (!g_seekable_seek (seekable, -ID3V1_TAG_SIZE, G_SEEK_END, NULL,
+                              error))
         {
-            goto out;
+            goto err;
         }
-    }else
+    }
+    else
     {
-        if ((curpos = lseek(fd, 0, SEEK_END)) < 0)
+        if (!g_seekable_seek (seekable, 0, G_SEEK_END, NULL, error))
         {
-            goto out;
+            goto err;
         }
     }
 
-    /* Search id3v2 tags at the end of the file (before any ID3v1 tag) */
+    /* Search ID3v2 tags at the end of the file (before any ID3v1 tag) */
     /* XXX: Unsafe */
-    if ((curpos = lseek (fd, -ID3_TAG_QUERYSIZE, SEEK_CUR)) >= 0)
+    if (g_seekable_seek (seekable, -ID3_TAG_QUERYSIZE, G_SEEK_CUR, NULL,
+                         error))
     {
-        if (read (fd, tmp, ID3_TAG_QUERYSIZE) != ID3_TAG_QUERYSIZE)
-            goto out;
-        filev2size = id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
-        if ((filev2size > 10) && (curpos = lseek (fd, -filev2size, SEEK_CUR)))
+        if (!g_input_stream_read_all (istream, tmp, ID3_TAG_QUERYSIZE,
+                                      &bytes_read, NULL, error))
         {
-            if ((size_read = read (fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+            goto err;
+        }
+
+        filev2size = id3_tag_query ((id3_byte_t const *)tmp,
+                                    ID3_TAG_QUERYSIZE);
+
+        if (filev2size > 10)
+        {
+            if (!g_seekable_seek (seekable, -filev2size, G_SEEK_CUR, NULL,
+                                  error))
             {
-                goto out;
+                goto err;
             }
-            if (id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE) != filev2size)
-                curpos = lseek (fd, -ID3_TAG_QUERYSIZE - filev2size, SEEK_CUR);
+
+            if (!g_input_stream_read_all (istream, tmp, ID3_TAG_QUERYSIZE,
+                                          &bytes_read, NULL, error))
+            {
+                goto err;
+            }
+
+            if (id3_tag_query ((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE)
+                != filev2size)
+            {
+                if (!g_seekable_seek (seekable,
+                                      -ID3_TAG_QUERYSIZE - filev2size,
+                                      G_SEEK_CUR, NULL, error))
+                {
+                    goto err;
+                }
+            }
             else
-                curpos = lseek (fd, -ID3_TAG_QUERYSIZE, SEEK_CUR);
+            {
+                if (!g_seekable_seek (seekable, -ID3_TAG_QUERYSIZE,
+                                      G_SEEK_CUR, NULL, error))
+                {
+                    goto err;
+                }
+            }
         }
     }
+
+    ostream = g_io_stream_get_output_stream (G_IO_STREAM (iostream));
 
     /* Write id3v1 tag */
     if (v1buf)
     {
-        if (write (fd, v1buf, v1size) != v1size)
-            goto out;
+        if (!g_output_stream_write_all (ostream, v1buf, v1size, &bytes_written,
+                                        NULL, error))
+        {
+            goto err;
+        }
     }
 
     /* Truncate file (strip tags at the end of file) */
-    if ((curpos = lseek (fd, 0, SEEK_CUR)) <= 0)
-        goto out;
-    if (ftruncate (fd, curpos) == -1)
-        goto out;
-
-    /* Handle Id3v2 tag */
-    if ((curpos = lseek(fd, 0, SEEK_SET)) < 0)
-        goto out;
-
-    if ( (size_read = read(fd, tmp, ID3_TAG_QUERYSIZE)) != ID3_TAG_QUERYSIZE)
+    if (!g_seekable_can_truncate (seekable))
     {
-        goto out;
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_BADF, "%s",
+                     g_strerror (EBADF));
+        goto err;
     }
 
-    filev2size = id3_tag_query((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
+    if (!g_seekable_truncate (seekable, g_seekable_tell (seekable), NULL,
+                              error))
+    {
+        goto err;
+    }
 
-    // No ID3v2 tag in the file, and no new tag
-    if ( (filev2size == 0)
-    &&   (v2size == 0) )
-        goto out;
+    /* Handle Id3v2 tag */
+    if (!g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, error))
+    {
+        goto err;
+    }
+
+    if (!g_input_stream_read_all (istream, tmp, ID3_TAG_QUERYSIZE, &bytes_read,
+                                  NULL, error))
+    {
+        goto err;
+    }
+
+    filev2size = id3_tag_query ((id3_byte_t const *)tmp, ID3_TAG_QUERYSIZE);
+
+    /* No ID3v2 tag in the file, and no new tag. */
+    if ((filev2size == 0) && (v2size == 0))
+    {
+        /* TODO: Improve error description. */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_BADF, "%s",
+                     g_strerror (EBADF));
+        goto err;
+    }
 
     if (filev2size == v2size)
     {
-        if ((curpos = lseek(fd, 0, SEEK_SET)) < 0)
-            goto out;
-        if (write(fd, v2buf, v2size) != v2size)
-            goto out;
-    }else
+        if (!g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, error))
+        {
+            goto err;
+        }
+
+        if (!g_output_stream_write_all (ostream, v2buf, v2size, &bytes_written,
+                                        NULL, error))
+        {
+            goto err;
+        }
+    }
+    else
     {
         /* XXX */
-        // Size of audio data (tags at the end were already removed)
-        ctxsize = lseek (fd, 0, SEEK_END) - filev2size;
-
-        if ((ctx = g_try_malloc(ctxsize)) == NULL)
-            goto out;
-        if ((curpos = lseek (fd, filev2size, SEEK_SET)) < 0)
-            goto out;
-        if ((size_read = read (fd, ctx, ctxsize)) != ctxsize)
+        /* Size of audio data (tags at the end were already removed) */
+        if (!g_seekable_seek (seekable, 0, G_SEEK_END, NULL, error))
         {
-            gchar *filename_utf8 = filename_to_display(filename);
-            gchar *basename_utf8 = g_path_get_basename(filename_utf8);
-            gchar *bytes_missing = g_strdup_printf ("%" G_GSIZE_FORMAT,
-                                                    ctxsize - size_read);
+            goto err;
+        }
 
-            /* Construct the string in this awkward way as xgettext does not
-             * support macros in extracted strings.
-             * https://bugzilla.gnome.org/show_bug.cgi?id=705952
-             */
-            g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
-                         /* Translators: The first string is a filename, the
-                          * second string is the number of bytes that were
-                          * missing (not read for some reason) while reading
-                          * from the file.
-                          */
-                         ngettext ("Cannot write tag of file ‘%s’ (a byte was missing)",
-                                   "Cannot write tag of file ‘%s’ (%s bytes were missing)",
-                                   ctxsize - size_read),
-                         basename_utf8, bytes_missing);
-            g_free (filename_utf8);
-            g_free (basename_utf8);
-            g_free (bytes_missing);
-            goto out;
+        ctxsize = g_seekable_tell (seekable) - filev2size;
+
+        ctx = g_malloc (ctxsize);
+
+        if (!g_seekable_seek (seekable, filev2size, G_SEEK_SET, NULL, error))
+        {
+            goto err;
+        }
+
+        if (!g_input_stream_read_all (istream, ctx, ctxsize, &bytes_read, NULL,
+                                      error))
+        {
+            goto err;
         }
         
-        // Return to the beginning of the file
-        if (lseek (fd, 0, SEEK_SET) < 0)
-            goto out;
-            
-        // Write the ID3v2 tag
+        /* Return to the beginning of the file. */
+        if (!g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, error))
+        {
+            goto err;
+        }
+
+        /* Write the ID3v2 tag. */
         if (v2buf)
         {
-            if (write (fd, v2buf, v2size) != v2size)
+            if (!g_output_stream_write_all (ostream, v2buf, v2size,
+                                            &bytes_written, NULL, error))
             {
-                gchar *filename_utf8 = filename_to_display (filename);
-                gchar *basename_utf8 = g_path_get_basename (filename_utf8);
-                g_set_error (error, G_FILE_ERROR,
-                             g_file_error_from_errno (errno),
-                             _("Cannot save tag of file ‘%s’"), basename_utf8);
-                g_free (basename_utf8);
-                goto out;
+                goto err;
             }
         }
-        // Write audio data
-        if (write(fd, ctx, ctxsize) != ctxsize)
+
+        /* Write audio data. */
+        if (!g_output_stream_write_all (ostream, ctx, ctxsize, &bytes_written,
+                                        NULL, error))
         {
-            gchar *filename_utf8 = filename_to_display(filename);
-            gchar *basename_utf8 = g_path_get_basename(filename_utf8);
-            g_set_error (error, G_FILE_ERROR,
-                         g_file_error_from_errno (errno),
-                         _("Size error while saving tag of ‘%s’"),
-                         basename_utf8);
-            g_free (filename_utf8);
-            g_free (basename_utf8);
-            goto out;
+            goto err;
         }
 
-        if ((curpos = lseek (fd, 0, SEEK_CUR)) <= 0)
-            goto out;
-
-        if (ftruncate (fd, curpos) < 0)
-            goto out;
+        if (!g_seekable_truncate (seekable, g_seekable_tell (seekable), NULL,
+                                  error))
+        {
+            goto err;
+        }
     }
 
     success = TRUE;
-out:
-    g_free(ctx);
-    lseek(fd, 0, SEEK_SET);
-    close(fd);
-    g_free(v1buf);
-    g_free(v2buf);
+
+err:
+    g_free (ctx);
+    g_object_unref (file);
+    g_clear_object (&iostream);
+    g_free (v1buf);
+    g_free (v2buf);
     return success;
 }
 
