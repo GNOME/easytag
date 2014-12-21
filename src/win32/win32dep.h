@@ -66,11 +66,6 @@ extern void  ET_Win32_Path_Replace_Slashes           (gchar *path);
 extern gint et_w32_mkstemp (char *template);
 #endif /* HAVE_MKSTEMP */
 
-#ifndef HAVE_FTRUNCATE
-#define et_w32_ftruncate ftruncate
-extern gint et_w32_ftruncate (gint fd, off_t length);
-#endif /* !HAVE_FTRUNCATE */
-
 #ifndef HAVE_TRUNCATE
 #define et_w32_truncate truncate
 extern gint et_w32_truncate (const gchar *path, off_t length);

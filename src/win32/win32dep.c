@@ -209,16 +209,4 @@ et_w32_truncate (const gchar *path, off_t length)
     return ret;
 }
 
-gint
-et_w32_ftruncate (gint fd, off_t length)
-{
-    HANDLE h;
-
-    h = (HANDLE)_get_osfhandle (fd);
-
-    if (h == (HANDLE) - 1) return -1;
-
-    return chsize ((gint)h, length);
-}
-
 #endif /* G_OS_WIN32 */

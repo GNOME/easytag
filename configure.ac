@@ -388,7 +388,7 @@ AC_SUBST([DEPRECATED_CPPFLAGS], ["-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SING
 dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
-AC_CHECK_FUNCS([ftruncate mkstemp truncate])
+AC_CHECK_FUNCS([mkstemp truncate])
 
 GLIB_GSETTINGS
 
