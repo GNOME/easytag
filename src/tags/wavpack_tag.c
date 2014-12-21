@@ -146,11 +146,20 @@ wavpack_tag_read_file_tag (GFile *file,
 
     if (field2 && FileTag->disc_total == NULL)
     {
-        FileTag->disc_total = et_disc_number_to_string (atoi (Try_To_Validate_Utf8_String (field2)));
+        gchar *tmp;
+
+        tmp = Try_To_Validate_Utf8_String (field2);
+        FileTag->disc_total = et_disc_number_to_string (atoi (tmp));
+        g_free (tmp);
     }
+
     if (length > 0 && FileTag->disc_number == NULL)
     {
-        FileTag->disc_number = et_disc_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
+        gchar *tmp;
+
+        tmp = Try_To_Validate_Utf8_String (field);
+        FileTag->disc_number = et_disc_number_to_string (atoi (tmp));
+        g_free (tmp);
     }
 
     memset (field, '\0', MAXLEN);
@@ -180,11 +189,20 @@ wavpack_tag_read_file_tag (GFile *file,
 
     if (field2 && FileTag->track_total == NULL)
     {
-        FileTag->track_total = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field2)));
+        gchar *tmp;
+
+        tmp = Try_To_Validate_Utf8_String (field2);
+        FileTag->track_total = et_track_number_to_string (atoi (tmp));
+        g_free (tmp);
     }
+
     if (length > 0 && FileTag->track == NULL)
     {
-        FileTag->track = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
+        gchar *tmp;
+
+        tmp = Try_To_Validate_Utf8_String (field);
+        FileTag->track = et_track_number_to_string (atoi (tmp));
+        g_free (tmp);
     }
 
     memset (field, '\0', MAXLEN);
