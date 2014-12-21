@@ -875,17 +875,6 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
     cddb_server_port     = cddbalbum->server_port;
     cddb_server_cgi_path = cddbalbum->server_cgi_path;
 
-    if (!cddb_server_name)
-    {
-        // Local access
-        if ( (file=fopen(cddb_server_cgi_path,"r"))==0 )
-        {
-            Log_Print (LOG_ERROR, _("Cannot load file ‘%s’: %s"),
-                       cddb_server_cgi_path, g_strerror (errno));
-            return FALSE;
-        }
-
-    }else
     {
         /* Connection to the server. */
         proxy_enabled = g_settings_get_boolean (MainSettings,
