@@ -97,8 +97,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->title = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Artist
@@ -109,8 +108,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->artist = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /* Album artist. */
     length = WavpackGetTagItem (wpc, "album artist", field, MAXLEN);
@@ -131,8 +129,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->album = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Discnumber + Disctotal.
@@ -156,8 +153,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->disc_number = et_disc_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Year
@@ -168,8 +164,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->year = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Tracknumber + tracktotal
@@ -192,8 +187,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->track = et_track_number_to_string (atoi (Try_To_Validate_Utf8_String (field)));
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Genre
@@ -204,8 +198,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->genre = Try_To_Validate_Utf8_String(field);
     }
 
-    /* FIXME: Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Comment
@@ -216,8 +209,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->comment = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Composer
@@ -228,8 +220,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->composer = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Original artist
@@ -240,8 +231,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->orig_artist  = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Copyright
@@ -252,8 +242,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->copyright = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * URL
@@ -264,8 +253,7 @@ wavpack_tag_read_file_tag (GFile *file,
         FileTag->url = Try_To_Validate_Utf8_String(field);
     }
 
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
+    memset (field, '\0', MAXLEN);
 
     /*
      * Encoded by
@@ -275,9 +263,6 @@ wavpack_tag_read_file_tag (GFile *file,
     if ( length > 0 && FileTag->encoded_by == NULL ) {
         FileTag->encoded_by = Try_To_Validate_Utf8_String(field);
     }
-
-    /* Fill the array with \0. */
-    strncpy (field, "", MAXLEN);
 
     WavpackCloseFile(wpc);
 
