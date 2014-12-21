@@ -344,7 +344,7 @@ AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
      AC_MSG_RESULT([$have_ws2])])
 
 dnl Check that the compiler accepts the given warning flags.
-warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Werror=missing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs -Werror=declaration-after-statement"
+warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Werror=missing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs -Werror=declaration-after-statement -Werror=return-type"
 
 realsave_CFLAGS="$CFLAGS"
 for option in $warning_flags; do
