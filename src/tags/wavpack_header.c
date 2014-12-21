@@ -58,12 +58,42 @@ et_wavpack_header_read_file_info (GFile *file,
     ETFileInfo->bitrate     = WavpackGetAverageBitrate(wpc, 0)/1000;
     ETFileInfo->samplerate  = WavpackGetSampleRate(wpc);
     ETFileInfo->mode        = WavpackGetNumChannels(wpc);
+    ETFileInfo->layer = WavpackGetChannelMask (wpc);
     ETFileInfo->size        = WavpackGetFileSize(wpc);
     ETFileInfo->duration    = WavpackGetNumSamples(wpc)/ETFileInfo->samplerate;
 
     WavpackCloseFile(wpc);
 
     return TRUE;
+}
+
+/*
+ * et_wavpack_channel_mask_to_string:
+ * @channels: total number of channels
+ * @mask: Microsoft channel mask
+ *
+ * Formats a number of channels and a channel mask into a string, suitable for
+ * display to the user.
+ *
+ * Returns: the formatted channel information
+ */
+static gchar *
+et_wavpack_channel_mask_to_string (gint channels,
+                                   gint mask)
+{
+    gboolean lfe;
+
+    /* Low frequency effects channel is bit 3. */
+    lfe = mask & (1 << 3);
+
+    if (lfe)
+    {
+        return g_strdup_printf ("%d.1", channels - 1);
+    }
+    else
+    {
+        return g_strdup_printf ("%d", channels);
+    }
 }
 
 EtFileHeaderFields *
@@ -93,7 +123,8 @@ et_wavpack_header_display_file_info_to_ui (const ET_File *ETFile)
 
     /* Mode */
     fields->mode_label = _("Channels:");
-    fields->mode = g_strdup_printf ("%d", info->mode);
+    fields->mode = et_wavpack_channel_mask_to_string (info->mode,
+                                                      info->layer);
 
     /* Size */
     size = g_format_size (info->size);
