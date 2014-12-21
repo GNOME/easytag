@@ -102,6 +102,16 @@ gboolean Wavpack_Tag_Read_File_Tag (gchar *filename, File_Tag *FileTag)
 
     memset (field, '\0', MAXLEN);
 
+    /* Album artist. */
+    length = WavpackGetTagItem (wpc, "album artist", field, MAXLEN);
+
+    if (length > 0 && FileTag->album_artist == NULL)
+    {
+        FileTag->album_artist = Try_To_Validate_Utf8_String (field);
+    }
+
+    memset (field, '\0', MAXLEN);
+
     /*
      * Album
      */
@@ -281,6 +291,14 @@ gboolean Wavpack_Tag_Write_File_Tag (ET_File *ETFile)
      * Artist
      */
     if (FileTag->artist && WavpackAppendTagItem(wpc, "artist", FileTag->artist, strlen(FileTag->artist)) == 0) {
+        return FALSE;
+    }
+
+    /* Album artist. */
+    if (FileTag->album_artist
+        && WavpackAppendTagItem (wpc, "album artist", FileTag->album_artist,
+                                 strlen (FileTag->album_artist)) == 0)
+    {
         return FALSE;
     }
 
