@@ -269,6 +269,35 @@ wavpack_tag_read_file_tag (GFile *file,
     return TRUE;
 }
 
+/*
+ * et_wavpack_append_or_delete_tag_item:
+ * @wpc: the #WavpackContext of which to modify tags
+ * @tag: the tag item name
+ * @value: the tag value to write, or %NULL to delete
+ *
+ * Appends @value to the @tag item of @wpc, or removes the tag item if @value
+ * is %NULL.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise
+ */
+static gboolean
+et_wavpack_append_or_delete_tag_item (WavpackContext *wpc,
+                                      const gchar *tag,
+                                      const gchar *value)
+{
+    if (value)
+    {
+        return WavpackAppendTagItem (wpc, tag, value, strlen (value));
+    }
+    else
+    {
+        WavpackDeleteTagItem (wpc, tag);
+
+        /* It is not an error if there was no tag item to delete. */
+        return TRUE;
+    }
+}
+
 gboolean
 wavpack_tag_write_file_tag (const ET_File *ETFile,
                             GError **error)
@@ -294,44 +323,38 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
         return FALSE;
     }
 
-    /*
-     * Title
-     */
-    if (FileTag->title && WavpackAppendTagItem(wpc, "title", FileTag->title, strlen(FileTag->title)) == 0) {
-        goto err;
-    }
-
-    /*
-     * Artist
-     */
-    if (FileTag->artist && WavpackAppendTagItem(wpc, "artist", FileTag->artist, strlen(FileTag->artist)) == 0) {
-        goto err;
-    }
-
-    /* Album artist. */
-    if (FileTag->album_artist
-        && WavpackAppendTagItem (wpc, "album artist", FileTag->album_artist,
-                                 strlen (FileTag->album_artist)) == 0)
+    /* Title. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "title", FileTag->title))
     {
         goto err;
     }
 
-    /*
-     * Album
-     */
-    if (FileTag->album && WavpackAppendTagItem(wpc, "album", FileTag->album, strlen(FileTag->album)) == 0) {
+    /* Artist. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "artist", FileTag->artist))
+    {
         goto err;
     }
 
-    /*
-     * Discnumber
-    */
+    /* Album artist. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "album artist",
+                                               FileTag->album_artist))
+    {
+        goto err;
+    }
+
+    /* Album. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "album", FileTag->album))
+    {
+        goto err;
+    }
+
+    /* Discnumber. */
     if (FileTag->disc_number && FileTag->disc_total)
     {
         buffer = g_strdup_printf ("%s/%s", FileTag->disc_number,
                                   FileTag->disc_total);
 
-        if (WavpackAppendTagItem (wpc, "part", buffer, strlen (buffer)) == 0)
+        if (!et_wavpack_append_or_delete_tag_item (wpc, "part", buffer))
         {
             g_free (buffer);
             goto err;
@@ -343,84 +366,88 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
     }
     else
     {
-        if (FileTag->disc_number && WavpackAppendTagItem (wpc, "part",
-                                                          FileTag->disc_number,
-                                                          strlen (FileTag->disc_number)) == 0)
+        if (!et_wavpack_append_or_delete_tag_item (wpc, "part",
+                                                   FileTag->disc_number))
         {
             goto err;
         }
     }
 
-    /*
-     * Year
-     */
-    if (FileTag->year && WavpackAppendTagItem(wpc, "year", FileTag->year, strlen(FileTag->year)) == 0) {
+    /* Year. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "year", FileTag->year))
+    {
         goto err;
     }
 
-    /*
-     * Tracknumber + tracktotal
-     */
-    if (FileTag->track_total) {
-        buffer = g_strdup_printf("%s/%s", FileTag->track, FileTag->track_total);
-        if (FileTag->track && WavpackAppendTagItem(wpc, "track", buffer, strlen(buffer)) == 0) {
-            g_free(buffer);
-            goto err;
-        } else {
-            g_free(buffer);
-        }
-    } else {
-        if (FileTag->track && WavpackAppendTagItem(wpc, "track", FileTag->track, strlen(FileTag->track)) == 0) {
+    /* Tracknumber + tracktotal. */
+    if (FileTag->track_total)
+    {
+        buffer = g_strdup_printf ("%s/%s", FileTag->track,
+                                  FileTag->track_total);
+
+        if (!et_wavpack_append_or_delete_tag_item (wpc, "track", buffer))
+        {
+            g_free (buffer);
             goto err;
         }
+        else
+        {
+            g_free (buffer);
+        }
+    }
+    else
+    {
+        if (!et_wavpack_append_or_delete_tag_item (wpc, "track",
+                                                   FileTag->track))
+        {
+            goto err;
+        }
     }
 
-    /*
-     * Genre
-     */
-    if (FileTag->genre && WavpackAppendTagItem(wpc, "genre", FileTag->genre, strlen(FileTag->genre)) == 0) {
+    /* Genre. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "genre", FileTag->genre))
+    {
         goto err;
     }
 
-    /*
-     * Comment
-     */
-    if (FileTag->comment && WavpackAppendTagItem(wpc, "comment", FileTag->comment, strlen(FileTag->comment)) == 0) {
+    /* Comment. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "comment", FileTag->comment))
+    {
         goto err;
     }
 
-    /*
-     * Composer
-     */
-    if (FileTag->composer && WavpackAppendTagItem(wpc, "composer", FileTag->composer, strlen(FileTag->composer)) == 0) {
+    /* Composer. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "composer",
+                                               FileTag->composer))
+    {
         goto err;
     }
 
-    /*
-     * Original artist
-     */
-    if (FileTag->orig_artist && WavpackAppendTagItem(wpc, "original artist", FileTag->orig_artist, strlen(FileTag->orig_artist)) == 0) {
+    /* Original artist. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "original artist",
+                                               FileTag->orig_artist))
+    {
         goto err;
     }
 
-    /*
-     * Copyright
-     */
-    if (FileTag->copyright && WavpackAppendTagItem(wpc, "copyright", FileTag->copyright, strlen(FileTag->copyright)) == 0) {
+    /* Copyright. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "copyright",
+                                               FileTag->copyright))
+    {
         goto err;
     }
 
-    /*
-     * URL
-     */
-    if (FileTag->url && WavpackAppendTagItem(wpc, "copyright url", FileTag->url, strlen(FileTag->url)) == 0) {
+    /* URL. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "copyright url",
+                                               FileTag->url))
+    {
         goto err;
     }
 
-    /*
-     * Encoded by
-     */
-    if (FileTag->encoded_by && WavpackAppendTagItem(wpc, "encoded by", FileTag->encoded_by, strlen(FileTag->encoded_by)) == 0) {
+    /* Encoded by. */
+    if (!et_wavpack_append_or_delete_tag_item (wpc, "encoded by",
+                                               FileTag->encoded_by))
+    {
         goto err;
     }
 
