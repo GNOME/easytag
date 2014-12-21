@@ -242,7 +242,7 @@ et_file_area_set_file_fields (EtFileArea *self,
     EtFileAreaPrivate *priv;
     GFile *file;
     gchar *text;
-    gchar *cur_filename;
+    const gchar *cur_filename;
     gchar *basename_utf8;
     gchar *pos;
     GFileInfo *info;

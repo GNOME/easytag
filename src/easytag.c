@@ -175,11 +175,11 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         GFile *file;
         GFileInfo *fileinfo;
 
-        ET_File *ETFile = (ET_File *)l->data;
-        File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
-        File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
-        gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
-        gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
+        const ET_File *ETFile = (ET_File *)l->data;
+        const File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
+        const File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
+        const gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
+        const gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
         gchar *basename_cur_utf8 = g_path_get_basename(filename_cur_utf8);
 
         // Count only the changed files or all files if force_saving_files==TRUE
@@ -376,13 +376,11 @@ static gint
 Save_File (ET_File *ETFile, gboolean multiple_files,
            gboolean force_saving_files)
 {
-    File_Tag  *FileTag;
-    File_Name *FileNameNew;
+    const File_Tag *FileTag;
+    const File_Name *FileNameNew;
     gint stop_loop = 0;
-    //struct stat   statbuf;
-    //gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
-    gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
-    gchar *filename_new_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
+    const gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
+    const gchar *filename_new_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
     gchar *basename_cur_utf8, *basename_new_utf8;
     gchar *dirname_cur_utf8, *dirname_new_utf8;
 
@@ -632,8 +630,8 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
             {
                 gboolean rc;
                 GError *error = NULL;
-                gchar *cur_filename = ((File_Name *)ETFile->FileNameCur->data)->value;
-                gchar *new_filename = ((File_Name *)ETFile->FileNameNew->data)->value;
+                const gchar *cur_filename = ((File_Name *)ETFile->FileNameCur->data)->value;
+                const gchar *new_filename = ((File_Name *)ETFile->FileNameNew->data)->value;
                 rc = et_rename_file (cur_filename, new_filename, &error);
 
                 // if 'SF_HideMsgbox_Rename_File is TRUE', then errors are displayed only in log
@@ -848,7 +846,7 @@ static gboolean
 Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 {
     GError *error = NULL;
-    gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
+    const gchar *cur_filename_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
     gchar *msg = NULL;
     gchar *basename_utf8;
     GtkWidget *msgdialog;

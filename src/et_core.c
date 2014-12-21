@@ -23,7 +23,6 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -4531,7 +4530,7 @@ ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
     for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
         ET_File *ETFile = (ET_File *)l->data;
-        gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
+        const gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
         gchar *dirname_utf8      = g_path_get_dirname(cur_filename_utf8);
 
         if (g_utf8_collate(dirname_utf8, path_utf8) == 0)

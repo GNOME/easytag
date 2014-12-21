@@ -287,8 +287,8 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
 {
     GtkWidget *msgdialog;
     GtkWidget *msgdialog_check_button = NULL;
-    gchar *cur_filename;
-    gchar *cur_filename_utf8;
+    const gchar *cur_filename;
+    const gchar *cur_filename_utf8;
     gchar *basename_utf8;
     gint response;
     gint stop_loop;
@@ -1481,7 +1481,7 @@ run_audio_player_using_directory (GError **error)
     for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
         ET_File *etfile = (ET_File *)l->data;
-        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        const gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
         file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 

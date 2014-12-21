@@ -344,7 +344,7 @@ et_browser_run_player_for_album_list (EtBrowser *self)
     for (; l != NULL; l = g_list_next (l))
     {
         ET_File *etfile = (ET_File *)l->data;
-        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        const gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
         file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 
@@ -386,7 +386,7 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
         for (m = l->data; m != NULL; m = g_list_next (m))
         {
             ET_File *etfile = (ET_File *)m->data;
-            gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+            const gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
             file_list = g_list_prepend (file_list, g_file_new_for_path (path));
         }
     }
@@ -421,7 +421,7 @@ et_browser_run_player_for_selection (EtBrowser *self)
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
         ET_File *etfile = et_browser_get_et_file_from_path (self, l->data);
-        gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
+        const gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;
         file_list = g_list_prepend (file_list, g_file_new_for_path (path));
     }
 
@@ -1261,8 +1261,8 @@ et_browser_load_file_list (EtBrowser *self,
     for (l = g_list_first (etfilelist); l != NULL; l = g_list_next (l))
     {
         guint fileKey = ((ET_File *)l->data)->ETFileKey;
-        gchar *current_filename_utf8 = ((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value_utf8;
-        gchar *basename_utf8         = g_path_get_basename(current_filename_utf8);
+        const gchar *current_filename_utf8 = ((File_Name *)((ET_File *)l->data)->FileNameCur->data)->value_utf8;
+        gchar *basename_utf8 = g_path_get_basename (current_filename_utf8);
         File_Tag *FileTag = ((File_Tag *)((ET_File *)l->data)->FileTag->data);
         gchar *track;
         gchar *disc;
@@ -1272,7 +1272,7 @@ et_browser_load_file_list (EtBrowser *self,
         {
             gchar *dir1_utf8;
             gchar *dir2_utf8;
-            gchar *previous_filename_utf8 = ((File_Name *)((ET_File *)l->prev->data)->FileNameCur->data)->value_utf8;
+            const gchar *previous_filename_utf8 = ((File_Name *)((ET_File *)l->prev->data)->FileNameCur->data)->value_utf8;
 
             dir1_utf8 = g_path_get_dirname(previous_filename_utf8);
             dir2_utf8 = g_path_get_dirname(current_filename_utf8);
@@ -1342,9 +1342,6 @@ void
 et_browser_refresh_list (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    ET_File   *ETFile;
-    File_Tag  *FileTag;
-    File_Name *FileName;
     //GtkTreeIter iter;
     GtkTreePath *currentPath = NULL;
     GtkTreeIter iter;
@@ -1374,6 +1371,9 @@ et_browser_refresh_list (EtBrowser *self)
     valid = gtk_tree_model_get_iter(GTK_TREE_MODEL(priv->file_model), &iter, currentPath);
     while (valid)
     {
+        const ET_File *ETFile;
+        const File_Tag *FileTag;
+        const File_Name *FileName;
         // Refresh filename and other fields
         gtk_tree_model_get(GTK_TREE_MODEL(priv->file_model), &iter,
                            LIST_FILE_POINTER, &ETFile, -1);
@@ -1465,9 +1465,9 @@ et_browser_refresh_file_in_list (EtBrowser *self,
     GVariant *variant;
     GtkTreeSelection *selection;
     GtkTreeIter selectedIter;
-    ET_File   *etfile;
-    File_Tag  *FileTag;
-    File_Name *FileName;
+    const ET_File *etfile;
+    const File_Tag *FileTag;
+    const File_Name *FileName;
     gboolean row_found = FALSE;
     gchar *current_basename_utf8;
     gchar *track;
@@ -4720,7 +4720,6 @@ Run_Program_With_Selected_Files (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
     gchar   *program_name;
-    ET_File *ETFile;
     GList   *selected_paths;
     GList *l;
     GList   *args_list = NULL;
@@ -4744,6 +4743,8 @@ Run_Program_With_Selected_Files (EtBrowser *self)
         if (gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->file_model), &iter,
                                      (GtkTreePath *)l->data))
         {
+            const ET_File *ETFile;
+
             gtk_tree_model_get (GTK_TREE_MODEL (priv->file_model), &iter,
                                 LIST_FILE_POINTER, &ETFile, -1);
 

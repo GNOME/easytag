@@ -71,13 +71,10 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
     GFile *parent;
     GFileOutputStream *ostream;
     GString *to_write;
-    ET_File *etfile;
     GList *l;
     GList *etfilelist = NULL;
-    gchar *filename;
     gchar *basedir;
     gchar *temp;
-    gint duration;
     EtPlaylistContent playlist_content;
 
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -133,6 +130,8 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
 
         for (l = selfilelist; l != NULL; l = g_list_next (l))
         {
+            ET_File *etfile;
+
             etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
                                                                           l->data);
             etfilelist = g_list_prepend (etfilelist, etfile);
@@ -148,6 +147,10 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
 
     for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
+        const ET_File *etfile;
+        const gchar *filename;
+        gint duration;
+
         etfile = (ET_File *)l->data;
         filename = ((File_Name *)etfile->FileNameCur->data)->value;
         duration = ((ET_File_Info *)etfile->ETFileInfo)->duration;

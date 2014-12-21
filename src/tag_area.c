@@ -384,7 +384,7 @@ on_apply_to_selection (GObject *object,
         while (etfilelist && etfilelistfull)
         {
             // To get the path of the file
-            File_Name *FileNameCur = (File_Name *)((ET_File *)etfilelistfull->data)->FileNameCur->data;
+            const File_Name *FileNameCur = (File_Name *)((ET_File *)etfilelistfull->data)->FileNameCur->data;
             // The ETFile in the selected file list
             etfile = etfilelist->data;
 
@@ -1522,7 +1522,7 @@ on_picture_add_button_clicked (GObject *object,
     // Starting directory (the same of the current file)
     if (ETCore->ETFileDisplayed)
     {
-        gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETCore->ETFileDisplayed->FileNameCur)->data)->value_utf8;
+        const gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETCore->ETFileDisplayed->FileNameCur)->data)->value_utf8;
         init_dir = g_path_get_dirname(cur_filename_utf8);
         gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),init_dir);
     }else

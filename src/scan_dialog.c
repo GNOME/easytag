@@ -1007,8 +1007,8 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
     gchar *path_tmp;
     const gchar *combo_text = NULL;
     gchar *combo_tmp;
-    ET_File *ETFile = ETCore->ETFileDisplayed;
-    gchar *filename_utf8_cur;
+    const ET_File *ETFile = ETCore->ETFileDisplayed;
+    const gchar *filename_utf8_cur;
     gchar *path_utf8_cur;
 
     if (!ETFile)
