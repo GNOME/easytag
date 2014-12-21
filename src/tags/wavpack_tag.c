@@ -112,6 +112,16 @@ wavpack_tag_read_file_tag (GFile *file,
     /* Fill the array with \0. */
     strncpy (field, "", MAXLEN);
 
+    /* Album artist. */
+    length = WavpackGetTagItem (wpc, "album artist", field, MAXLEN);
+
+    if (length > 0 && FileTag->album_artist == NULL)
+    {
+        FileTag->album_artist = Try_To_Validate_Utf8_String (field);
+    }
+
+    memset (field, '\0', MAXLEN);
+
     /*
      * Album
      */
@@ -310,6 +320,14 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
      * Artist
      */
     if (FileTag->artist && WavpackAppendTagItem(wpc, "artist", FileTag->artist, strlen(FileTag->artist)) == 0) {
+        goto err;
+    }
+
+    /* Album artist. */
+    if (FileTag->album_artist
+        && WavpackAppendTagItem (wpc, "album artist", FileTag->album_artist,
+                                 strlen (FileTag->album_artist)) == 0)
+    {
         goto err;
     }
 
