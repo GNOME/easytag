@@ -28,6 +28,7 @@
 #include "et_core.h"
 #include "misc.h"
 #include "wavpack_header.h"
+#include "wavpack_private.h"
 
 
 gboolean
@@ -35,21 +36,44 @@ et_wavpack_header_read_file_info (GFile *file,
                                   ET_File_Info *ETFileInfo,
                                   GError **error)
 {
-    gchar *filename;
+    WavpackStreamReader reader = { wavpack_read_bytes, wavpack_get_pos,
+                                   wavpack_set_pos_abs, wavpack_set_pos_rel,
+                                   wavpack_push_back_byte, wavpack_get_length,
+                                   wavpack_can_seek, NULL /* No writing. */ };
+    EtWavpackState state;
     WavpackContext *wpc;
     gchar message[80];
 
     g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    /* TODO: Use WavpackOpenFileInputEx() instead. */
-    filename = g_file_get_path (file);
-    wpc = WavpackOpenFileInput (filename, message, 0, 0);
-    g_free (filename);
+    state.error = NULL;
+    state.istream = g_file_read (file, NULL, &state.error);
+
+    if (!state.istream)
+    {
+        g_propagate_error (error, state.error);
+        return FALSE;
+    }
+
+    state.seekable = G_SEEKABLE (state.istream);
+
+    /* NULL for the WavPack correction file. */
+    wpc = WavpackOpenFileInputEx (&reader, &state, NULL, message, 0, 0);
 
     if (wpc == NULL)
     {
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s", message);
+        if (state.error)
+        {
+            g_propagate_error (error, state.error);
+        }
+        else
+        {
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                         message);
+        }
+
+        g_object_unref (state.istream);
         return FALSE;
     }
 
@@ -63,6 +87,8 @@ et_wavpack_header_read_file_info (GFile *file,
     ETFileInfo->duration    = WavpackGetNumSamples(wpc)/ETFileInfo->samplerate;
 
     WavpackCloseFile(wpc);
+
+    g_object_unref (state.istream);
 
     return TRUE;
 }

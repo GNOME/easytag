@@ -86,6 +86,7 @@ easytag_SOURCES = \
 	src/tags/opus_tag.c \
 	src/tags/vcedit.c \
 	src/tags/wavpack_header.c \
+	src/tags/wavpack_private.c \
 	src/tags/wavpack_tag.c \
 	src/win32/win32dep.c
 
@@ -139,6 +140,7 @@ easytag_headers = \
 	src/tags/opus_tag.h \
 	src/tags/vcedit.h \
 	src/tags/wavpack_header.h \
+	src/tags/wavpack_private.h \
 	src/tags/wavpack_tag.h \
 	src/win32/win32dep.h
 
