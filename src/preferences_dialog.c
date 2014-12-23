@@ -506,7 +506,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /* Disc formatting. */
     pad_disc_number = GTK_WIDGET (gtk_builder_get_object (builder,
                                                           "tags_disc_check"));
-    g_settings_bind (MainSettings, "tag-number-padded", pad_disc_number,
+    g_settings_bind (MainSettings, "tag-disc-padded", pad_disc_number,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     pad_disc_number_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder,
