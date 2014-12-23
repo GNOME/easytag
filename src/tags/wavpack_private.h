@@ -35,6 +35,17 @@ typedef struct
     GError *error;
 } EtWavpackState;
 
+typedef struct
+{
+    /* Start fields copied from EtWavpackState. */
+    GFileInputStream *istream;
+    GSeekable *seekable;
+    GError *error;
+    /* End fields copied from EtWavpackState. */
+    GFileIOStream *iostream;
+    GFileOutputStream *ostream;
+} EtWavpackWriteState;
+
 int32_t wavpack_read_bytes (void *id, void *data, int32_t bcount);
 uint32_t wavpack_get_pos (void *id);
 int wavpack_set_pos_abs (void *id, uint32_t pos);
@@ -42,6 +53,9 @@ int wavpack_set_pos_rel (void *id, int32_t delta, int mode);
 int wavpack_push_back_byte (void *id, int c);
 uint32_t wavpack_get_length (void *id);
 int wavpack_can_seek (void *id);
+
+/* Only use this with EtWavpackWriteState. */
+int32_t wavpack_write_bytes (void *id, void *data, int32_t bcount);
 
 G_END_DECLS
 

@@ -345,6 +345,12 @@ gboolean
 wavpack_tag_write_file_tag (const ET_File *ETFile,
                             GError **error)
 {
+    WavpackStreamReader writer = { wavpack_read_bytes, wavpack_get_pos,
+                                   wavpack_set_pos_abs, wavpack_set_pos_rel,
+                                   wavpack_push_back_byte, wavpack_get_length,
+                                   wavpack_can_seek, wavpack_write_bytes };
+    GFile *file;
+    EtWavpackWriteState state;
     const gchar *filename;
     const File_Tag *FileTag;
     WavpackContext *wpc;
@@ -357,12 +363,38 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
     filename = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value;
     FileTag = (File_Tag *)ETFile->FileTag->data;
 
-    /* TODO: Use WavpackOpenFileInputEx() instead. */
-    wpc = WavpackOpenFileInput (filename, message, OPEN_EDIT_TAGS, 0);
+    file = g_file_new_for_path (filename);
+    state.error = NULL;
+    state.iostream = g_file_open_readwrite (file, NULL, &state.error);
+    g_object_unref (file);
+
+    if (!state.iostream)
+    {
+        g_propagate_error (error, state.error);
+        return FALSE;
+    }
+
+    state.istream = G_FILE_INPUT_STREAM (g_io_stream_get_input_stream (G_IO_STREAM (state.iostream)));
+    state.ostream = G_FILE_OUTPUT_STREAM (g_io_stream_get_output_stream (G_IO_STREAM (state.iostream)));
+    state.seekable = G_SEEKABLE (state.iostream);
+
+    /* NULL for the WavPack correction file. */
+    wpc = WavpackOpenFileInputEx (&writer, &state, NULL, message,
+                                  OPEN_EDIT_TAGS, 0);
 
     if (wpc == NULL)
     {
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s", message);
+        if (state.error)
+        {
+            g_propagate_error (error, state.error);
+        }
+        else
+        {
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                         message);
+        }
+
+        g_object_unref (state.iostream);
         return FALSE;
     }
 
@@ -500,6 +532,8 @@ wavpack_tag_write_file_tag (const ET_File *ETFile,
     }
 
     WavpackCloseFile (wpc);
+
+    g_object_unref (state.iostream);
 
     return TRUE;
 

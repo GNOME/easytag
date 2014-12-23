@@ -159,3 +159,24 @@ wavpack_can_seek (void *id)
 
     return g_seekable_can_seek (state->seekable);
 }
+
+int32_t
+wavpack_write_bytes (void *id,
+                     void *data,
+                     int32_t bcount)
+{
+    EtWavpackWriteState *state;
+    gssize bytes_written;
+
+    state = (EtWavpackWriteState *)id;
+
+    bytes_written = g_output_stream_write (G_OUTPUT_STREAM (state->ostream),
+                                           data, bcount, NULL, &state->error);
+
+    if (bytes_written == -1)
+    {
+        return 0;
+    }
+
+    return bytes_written;
+}
