@@ -39,11 +39,10 @@ et_flac_header_read_file_info (GFile *file,
     FLAC__Metadata_Chain *chain;
     EtFlacReadState state;
     GFileInputStream *istream;
-    FLAC__IOCallbacks callbacks = { et_flac_read_read_func,
+    FLAC__IOCallbacks callbacks = { et_flac_read_func,
                                     NULL, /* Do not set a write callback. */
-                                    et_flac_read_seek_func,
-                                    et_flac_read_tell_func,
-                                    et_flac_read_eof_func,
+                                    et_flac_seek_func, et_flac_tell_func,
+                                    et_flac_eof_func,
                                     et_flac_read_close_func };
     FLAC__Metadata_Iterator *iter;
     gsize metadata_len;
@@ -72,6 +71,7 @@ et_flac_header_read_file_info (GFile *file,
     state.eof = FALSE;
     state.error = NULL;
     state.istream = istream;
+    state.seekable = G_SEEKABLE (istream);
 
     if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
     {

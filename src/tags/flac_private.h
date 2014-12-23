@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 typedef struct
 {
     GFileInputStream *istream;
+    GSeekable *seekable;
     gboolean eof;
     GError *error;
 } EtFlacReadState;
@@ -48,25 +49,28 @@ typedef struct
  */
 typedef struct
 {
-    GFile *file;
+    /* Begin fields copied from EtFlacReadState. */
     GFileInputStream *istream;
-    GFileOutputStream *ostream;
-    GFileIOStream *iostream;
+    GSeekable *seekable;
     gboolean eof;
     GError *error;
+    /* End fields copied from EtFlacReadState. */
+    GFile *file;
+    GFileOutputStream *ostream;
+    GFileIOStream *iostream;
 } EtFlacWriteState;
 
-size_t et_flac_read_read_func (void *ptr, size_t size, size_t nmemb, FLAC__IOHandle handle);
-int et_flac_read_seek_func (FLAC__IOHandle handle, FLAC__int64 offset, int whence);
-FLAC__int64 et_flac_read_tell_func (FLAC__IOHandle handle);
-int et_flac_read_eof_func (FLAC__IOHandle handle);
+/* Used with both EtFlacReadState and EtFlacWriteState. */
+size_t et_flac_read_func (void *ptr, size_t size, size_t nmemb, FLAC__IOHandle handle);
+int et_flac_seek_func (FLAC__IOHandle handle, FLAC__int64 offset, int whence);
+FLAC__int64 et_flac_tell_func (FLAC__IOHandle handle);
+int et_flac_eof_func (FLAC__IOHandle handle);
+
+/* Only to be used with EtFlacReadState. */
 int et_flac_read_close_func (FLAC__IOHandle handle);
 
-size_t et_flac_write_read_func (void *ptr, size_t size, size_t nmemb, FLAC__IOHandle handle);
-size_t et_flac_write_write_func (const void *ptr, size_t size, size_t nmemb, FLAC__IOHandle handle);
-int et_flac_write_seek_func (FLAC__IOHandle handle, FLAC__int64 offset, int whence);
-FLAC__int64 et_flac_write_tell_func (FLAC__IOHandle handle);
-int et_flac_write_eof_func (FLAC__IOHandle handle);
+/* Only to be used with EtFlacWriteState. */
+size_t et_flac_write_func (const void *ptr, size_t size, size_t nmemb, FLAC__IOHandle handle);
 int et_flac_write_close_func (FLAC__IOHandle handle);
 
 G_END_DECLS

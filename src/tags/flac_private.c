@@ -20,18 +20,21 @@
 
 #include <errno.h>
 
-static size_t
-read_func (GInputStream *istream,
-           void *buffer,
-           gsize count,
-           gboolean *eof,
-           GError **error)
+size_t
+et_flac_read_func (void *ptr,
+                   size_t size,
+                   size_t nmemb,
+                   FLAC__IOHandle handle)
 {
+    EtFlacReadState *state;
     gssize bytes_read;
 
-    *eof = FALSE;
+    state = (EtFlacReadState *)handle;
 
-    bytes_read = g_input_stream_read (istream, buffer, count, NULL, error);
+    state->eof = FALSE;
+
+    bytes_read = g_input_stream_read (state->istream, ptr, size * nmemb, NULL,
+                                      &state->error);
 
     if (bytes_read == -1)
     {
@@ -40,45 +43,17 @@ read_func (GInputStream *istream,
     }
     else if (bytes_read == 0)
     {
-        *eof = TRUE;
+        state->eof = TRUE;
     }
 
     return bytes_read;
 }
 
 size_t
-et_flac_read_read_func (void *ptr,
-                        size_t size,
-                        size_t nmemb,
-                        FLAC__IOHandle handle)
-{
-    EtFlacReadState *state;
-
-    state = (EtFlacReadState *)handle;
-
-    return read_func (G_INPUT_STREAM (state->istream), ptr, size * nmemb,
-                      &state->eof, &state->error);
-}
-
-size_t
-et_flac_write_read_func (void *ptr,
-                         size_t size,
-                         size_t nmemb,
-                         FLAC__IOHandle handle)
-{
-    EtFlacWriteState *state;
-
-    state = (EtFlacWriteState *)handle;
-
-    return read_func (G_INPUT_STREAM (state->istream), ptr, size * nmemb,
-                      &state->eof, &state->error);
-}
-
-size_t
-et_flac_write_write_func (const void *ptr,
-                          size_t size,
-                          size_t nmemb,
-                          FLAC__IOHandle handle)
+et_flac_write_func (const void *ptr,
+                    size_t size,
+                    size_t nmemb,
+                    FLAC__IOHandle handle)
 {
     EtFlacWriteState *state;
     gsize bytes_written;
@@ -98,15 +73,17 @@ et_flac_write_write_func (const void *ptr,
     return bytes_written;
 }
 
-static gint
-seek_func (GSeekable *seekable,
-           goffset offset,
-           gint whence,
-           GError **error)
+int
+et_flac_seek_func (FLAC__IOHandle handle,
+                   FLAC__int64 offset,
+                   int whence)
 {
     GSeekType seektype;
+    EtFlacReadState *state;
 
-    if (!g_seekable_can_seek (seekable))
+    state = (EtFlacReadState *)handle;
+
+    if (!g_seekable_can_seek (state->seekable))
     {
         errno = EBADF;
         return -1;
@@ -129,7 +106,8 @@ seek_func (GSeekable *seekable,
                 return -1;
         }
 
-        if (g_seekable_seek (seekable, offset, seektype, NULL, error))
+        if (g_seekable_seek (state->seekable, offset, seektype, NULL,
+                             &state->error))
         {
             return 0;
         }
@@ -142,85 +120,30 @@ seek_func (GSeekable *seekable,
     }
 }
 
-int
-et_flac_read_seek_func (FLAC__IOHandle handle,
-                        FLAC__int64 offset,
-                        int whence)
+FLAC__int64
+et_flac_tell_func (FLAC__IOHandle handle)
 {
     EtFlacReadState *state;
 
     state = (EtFlacReadState *)handle;
 
-    return seek_func (G_SEEKABLE (state->istream), offset, whence,
-                      &state->error);
-}
-
-int
-et_flac_write_seek_func (FLAC__IOHandle handle,
-                         FLAC__int64 offset,
-                         int whence)
-{
-    EtFlacWriteState *state;
-
-    state = (EtFlacWriteState *)handle;
-
-    /* Seeking on the IOStream causes both the input and output stream to have
-     * the same offset. */
-    return seek_func (G_SEEKABLE (state->iostream), offset, whence,
-                      &state->error);
-}
-
-static FLAC__int64
-tell_func (GSeekable *seekable)
-{
-    if (!g_seekable_can_seek (seekable))
+    if (!g_seekable_can_seek (state->seekable))
     {
         errno = EBADF;
         return -1;
     }
     else
     {
-        return g_seekable_tell (seekable);
+        return g_seekable_tell (state->seekable);
     }
 }
 
-FLAC__int64
-et_flac_read_tell_func (FLAC__IOHandle handle)
+int
+et_flac_eof_func (FLAC__IOHandle handle)
 {
     EtFlacReadState *state;
 
     state = (EtFlacReadState *)handle;
-
-    return tell_func (G_SEEKABLE (state->istream));
-}
-
-FLAC__int64
-et_flac_write_tell_func (FLAC__IOHandle handle)
-{
-    EtFlacWriteState *state;
-
-    state = (EtFlacWriteState *)handle;
-
-    return tell_func (G_SEEKABLE (state->iostream));
-}
-
-int
-et_flac_read_eof_func (FLAC__IOHandle handle)
-{
-    EtFlacReadState *state;
-
-    state = (EtFlacReadState *)handle;
-
-    /* EOF is not directly supported by GFileInputStream. */
-    return state->eof ? 1 : 0;
-}
-
-int
-et_flac_write_eof_func (FLAC__IOHandle handle)
-{
-    EtFlacWriteState *state;
-
-    state = (EtFlacWriteState *)handle;
 
     /* EOF is not directly supported by GFileInputStream. */
     return state->eof ? 1 : 0;

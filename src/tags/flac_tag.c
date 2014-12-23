@@ -81,11 +81,10 @@ flac_tag_read_file_tag (GFile *file,
 {
     FLAC__Metadata_Chain *chain;
     EtFlacReadState state;
-    FLAC__IOCallbacks callbacks = { et_flac_read_read_func,
+    FLAC__IOCallbacks callbacks = { et_flac_read_func,
                                     NULL, /* Do not set a write callback. */
-                                    et_flac_read_seek_func,
-                                    et_flac_read_tell_func,
-                                    et_flac_read_eof_func,
+                                    et_flac_seek_func, et_flac_tell_func,
+                                    et_flac_eof_func,
                                     et_flac_read_close_func };
     FLAC__Metadata_Iterator *iter;
 
@@ -108,6 +107,7 @@ flac_tag_read_file_tag (GFile *file,
 
     state.error = NULL;
     state.istream = g_file_read (file, NULL, &state.error);
+    state.seekable = G_SEEKABLE (state.istream);
 
     if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
     {
@@ -813,11 +813,9 @@ flac_tag_write_file_tag (const ET_File *ETFile,
     GFile *file;
     GFileIOStream *iostream;
     EtFlacWriteState state;
-    FLAC__IOCallbacks callbacks = { et_flac_write_read_func,
-                                    et_flac_write_write_func,
-                                    et_flac_write_seek_func,
-                                    et_flac_write_tell_func,
-                                    et_flac_write_eof_func,
+    FLAC__IOCallbacks callbacks = { et_flac_read_func, et_flac_write_func,
+                                    et_flac_seek_func, et_flac_tell_func,
+                                    et_flac_eof_func,
                                     et_flac_write_close_func };
     const gchar *filename;
     const gchar *filename_utf8;
@@ -867,6 +865,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
 
     state.istream = G_FILE_INPUT_STREAM (g_io_stream_get_input_stream (G_IO_STREAM (iostream)));
     state.ostream = G_FILE_OUTPUT_STREAM (g_io_stream_get_output_stream (G_IO_STREAM (iostream)));
+    state.seekable = G_SEEKABLE (iostream);
     state.iostream = iostream;
 
     if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
@@ -1165,6 +1164,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         temp_state.error = NULL;
         temp_state.istream = G_FILE_INPUT_STREAM (g_io_stream_get_input_stream (G_IO_STREAM (temp_iostream)));
         temp_state.ostream = G_FILE_OUTPUT_STREAM (g_io_stream_get_output_stream (G_IO_STREAM (temp_iostream)));
+        temp_state.seekable = G_SEEKABLE (temp_iostream);
         temp_state.iostream = temp_iostream;
 
         if (!FLAC__metadata_chain_write_with_callbacks_and_tempfile (chain,
