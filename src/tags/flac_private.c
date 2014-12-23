@@ -33,8 +33,8 @@ et_flac_read_func (void *ptr,
 
     state->eof = FALSE;
 
-    bytes_read = g_input_stream_read (state->istream, ptr, size * nmemb, NULL,
-                                      &state->error);
+    bytes_read = g_input_stream_read (G_INPUT_STREAM (state->istream), ptr,
+                                      size * nmemb, NULL, &state->error);
 
     if (bytes_read == -1)
     {
