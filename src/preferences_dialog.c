@@ -511,10 +511,10 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     pad_disc_number_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                      "tags_disc_button"));
-    g_settings_bind (MainSettings, "tag-number-length",
+    g_settings_bind (MainSettings, "tag-disc-length",
                      pad_disc_number_spinbutton, "value",
                      G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "tag-number-padded",
+    g_settings_bind (MainSettings, "tag-disc-padded",
                      pad_disc_number_spinbutton, "sensitive",
                      G_SETTINGS_BIND_GET);
     g_signal_emit_by_name (G_OBJECT (pad_disc_number), "toggled");
