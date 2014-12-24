@@ -296,6 +296,9 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     GError *error = NULL;
 
     self = ET_LOG_AREA (et_application_window_get_log_area (ET_APPLICATION_WINDOW (MainWindow)));
+
+    g_return_if_fail (self != NULL);
+
     priv = et_log_area_get_instance_private (self);
 
     va_start (args, format);
