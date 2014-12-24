@@ -136,8 +136,8 @@ check_or_create_file (const gchar *filename)
 
     if (!(ostream = g_file_append_to (file, G_FILE_CREATE_NONE, NULL, &error)))
     {
-        Log_Print (LOG_ERROR, _("Cannot create or open file ‘%s’: %s"),
-                   file_path, error->message);
+        g_debug ("Cannot create or open file ‘%s’: %s", file_path,
+                 error->message);
         g_error_free (error);
     }
     else
@@ -460,9 +460,8 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
                                         NULL
     };
 
-    Log_Print (LOG_OK,
-               _("Migrating configuration from directory ‘%s’ to ‘%s’"),
-               old_path, new_path);
+    g_debug ("Migrating configuration from directory ‘%s’ to ‘%s’", old_path,
+             new_path);
 
     for (i = 0; filenames[i]; i++)
     {
@@ -484,9 +483,8 @@ migrate_config_file_dir (const gchar *old_path, const gchar *new_path)
         if (!g_file_move (old_file, new_file, G_FILE_COPY_NONE, NULL, NULL,
                           NULL, NULL))
         {
-            Log_Print (LOG_ERROR,
-                       _("Failed to migrate configuration file ‘%s’"),
-                       filenames[i]);
+            g_debug ("Failed to migrate configuration file ‘%s’",
+                     filenames[i]);
         }
 
         g_free (old_filename);
@@ -522,8 +520,8 @@ Create_Easytag_Directory (void)
 
     if (result == -1)
     {
-        Log_Print (LOG_ERROR, _("Cannot create directory ‘%s’: %s"),
-                  easytag_path, g_strerror (errno));
+        g_debug ("Cannot create directory ‘%s’: %s", easytag_path,
+                 g_strerror (errno));
         g_free (easytag_path);
         return FALSE;
     }
