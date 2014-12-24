@@ -40,9 +40,6 @@ struct _EtLogAreaPrivate
 {
     GtkWidget *log_view;
     GtkListStore *log_model;
-    /* Temporary list to store messages for the LogList when this control was
-     * not yet created. */
-    GList *log_tmp_list;
 
     /* Popup menu. */
     GtkWidget *menu;
@@ -59,20 +56,10 @@ enum
 /* File for log. */
 static const gchar LOG_FILE[] = "easytag.log";
 
-// Structure used to store information for the temporary list
-typedef struct
-{
-    gchar *time;    /* The time of this line of log */
-    EtLogAreaKind error_type;
-    gchar *string;  /* The string of the line of log to display */
-} EtLogAreaData;
-
-
 /**************
  * Prototypes *
  **************/
 static void Log_List_Set_Row_Visible (EtLogArea *self, GtkTreeIter *rowIter);
-static void Log_Print_Tmp_List (EtLogArea *self);
 static gchar *Log_Format_Date (void);
 
 
@@ -193,9 +180,6 @@ et_log_area_init (EtLogArea *self)
                       self);
     g_signal_connect (priv->log_view, "button-press-event",
                       G_CALLBACK (on_button_press_event), self);
-
-    /* Load pending messages in the Log list. */
-    Log_Print_Tmp_List (self);
 }
 
 
@@ -302,6 +286,8 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     EtLogAreaPrivate *priv;
     va_list args;
     gchar *string;
+    gchar *time;
+    gint n_items;
     GtkTreeIter iter;
     static gboolean first_time = TRUE;
     static gchar *file_path = NULL;
@@ -316,41 +302,26 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     string = g_strdup_vprintf (format, args);
     va_end (args);
 
-    // If the log window is displayed then messages are displayed, else
-    // the messages are stored in a temporary list.
-    if (priv->log_view && priv->log_model)
+    time = Log_Format_Date ();
+
+    /* Remove lines that exceed the limit. */
+    n_items = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->log_model),
+                                              NULL);
+
+    if (n_items > g_settings_get_uint (MainSettings, "log-lines") - 1
+        && gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->log_model),
+                                          &iter))
     {
-        gint n_items;
-        gchar *time = Log_Format_Date();
-
-        /* Remove lines that exceed the limit. */
-        n_items = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->log_model),
-                                                  NULL);
-
-        if (n_items > g_settings_get_uint (MainSettings, "log-lines") - 1
-            &&  gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->log_model),
-                                               &iter))
-        {
-            gtk_list_store_remove (GTK_LIST_STORE (priv->log_model), &iter);
-        }
-
-        gtk_list_store_insert_with_values (priv->log_model, &iter, G_MAXINT,
-                                           LOG_ICON_NAME,
-                                           get_icon_name_from_error_kind (error_type),
-                                           LOG_TIME_TEXT, time, LOG_TEXT,
-                                           string, -1);
-        Log_List_Set_Row_Visible (self, &iter);
-        g_free (time);
+        gtk_list_store_remove (GTK_LIST_STORE (priv->log_model), &iter);
     }
-    else
-    {
-        EtLogAreaData *log_data = g_slice_new (EtLogAreaData);
-        log_data->time = Log_Format_Date ();
-        log_data->error_type = error_type;
-        log_data->string = g_strdup (string);
 
-        priv->log_tmp_list = g_list_append (priv->log_tmp_list, log_data);
-    }
+    gtk_list_store_insert_with_values (priv->log_model, &iter, G_MAXINT,
+                                       LOG_ICON_NAME,
+                                       get_icon_name_from_error_kind (error_type),
+                                       LOG_TIME_TEXT, time, LOG_TEXT,
+                                       string, -1);
+    Log_List_Set_Row_Visible (self, &iter);
+    g_free (time);
 
     // Store also the messages in the log file.
     if (!file_path)
@@ -440,51 +411,4 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
 
     g_object_unref (file_ostream);
     g_object_unref (file);
-}
-
-/*
- * Display pending messages in the LogList
- */
-static void
-Log_Print_Tmp_List (EtLogArea *self)
-{
-    EtLogAreaPrivate *priv;
-    GList *l;
-    GtkTreeIter iter;
-
-    priv = et_log_area_get_instance_private (self);
-
-    priv->log_tmp_list = g_list_first (priv->log_tmp_list);
-
-    for (l = priv->log_tmp_list; l != NULL; l = g_list_next (l))
-    {
-        if (priv->log_model && priv->log_view)
-        {
-            EtLogAreaData *log_data = (EtLogAreaData *)l->data;
-            gtk_list_store_insert_with_values (priv->log_model, &iter,
-                                               G_MAXINT, LOG_ICON_NAME,
-                                               get_icon_name_from_error_kind (log_data->error_type),
-                                               LOG_TIME_TEXT, log_data->time,
-                                               LOG_TEXT, log_data->string, -1);
-            Log_List_Set_Row_Visible (self, &iter);
-        }
-    }
-
-    /* Free the list. */
-    if (priv->log_tmp_list)
-    {
-        GList *l;
-
-        for (l = priv->log_tmp_list; l != NULL; l = g_list_next (l))
-        {
-            EtLogAreaData *log_data = (EtLogAreaData *)l->data;
-
-            g_free (log_data->string);
-            g_free (log_data->time);
-            g_slice_free (EtLogAreaData, log_data);
-        }
-
-        g_list_free (priv->log_tmp_list);
-        priv->log_tmp_list = NULL;
-    }
 }
