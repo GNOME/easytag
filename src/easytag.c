@@ -741,12 +741,10 @@ et_rename_file (const char *old_filepath, const char *new_filepath,
         /* Ignore an error if the directory already exists. */
         if (!g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_EXISTS))
         {
-            g_object_unref (file_old);
-            g_object_unref (file_new);
             g_object_unref (file_new_parent);
-            g_assert (error == NULL || *error != NULL);
-            return FALSE;
+            goto err;
         }
+
         g_clear_error (error);
     }
 
@@ -830,7 +828,6 @@ out:
     return TRUE;
 
 err:
-    g_object_unref (file_new_parent);
     g_object_unref (file_old);
     g_object_unref (file_new);
     g_assert (error == NULL || *error != NULL);
