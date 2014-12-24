@@ -86,6 +86,14 @@ ape_tag_read_file_tag (GFile *file,
     if (FileTag->artist == NULL)
         FileTag->artist = Try_To_Validate_Utf8_String(string);
 
+    /* Album artist. */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_ALBUMARTIST);
+
+    if (FileTag->album_artist == NULL)
+    {
+        FileTag->album_artist = Try_To_Validate_Utf8_String (string);
+    }
+
     /*********
      * Album *
      *********/
@@ -248,6 +256,17 @@ ape_tag_write_file_tag (const ET_File *ETFile,
         apefrm_add(ape_mem, 0, APE_TAG_FIELD_ARTIST, FileTag->artist);
     else
         apefrm_remove(ape_mem,APE_TAG_FIELD_ARTIST);
+
+    /* Album artist. */
+    if (FileTag->album_artist && g_utf8_strlen (FileTag->album_artist, -1) > 0)
+    {
+        apefrm_add (ape_mem, 0, APE_TAG_FIELD_ALBUMARTIST,
+                    FileTag->album_artist);
+    }
+    else
+    {
+        apefrm_remove (ape_mem, APE_TAG_FIELD_ALBUMARTIST);
+    }
 
     /*********
      * Album *
