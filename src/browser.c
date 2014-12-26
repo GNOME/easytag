@@ -1006,6 +1006,7 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
      */
     if (n_selected == 0)
     {
+        /* TODO: Clear the tag area and file area. */
         return;
     }
 
@@ -1020,9 +1021,14 @@ Browser_List_Row_Selected (GtkTreeSelection *selection, gpointer data)
     if (gtk_tree_model_get_iter (GTK_TREE_MODEL (fileListModel), &cursor_iter,
                                  cursor_path))
     {
-        gtk_tree_model_get (GTK_TREE_MODEL (fileListModel), &cursor_iter,
-                            LIST_FILE_POINTER, &cursor_et_file, -1);
-        Action_Select_Nth_File_By_Etfile (cursor_et_file);
+        if (gtk_tree_selection_iter_is_selected (selection, &cursor_iter))
+        {
+            gtk_tree_model_get (GTK_TREE_MODEL (fileListModel), &cursor_iter,
+                                LIST_FILE_POINTER, &cursor_et_file, -1);
+            Action_Select_Nth_File_By_Etfile (cursor_et_file);
+        }
+        /* TODO: Clear the tag/file area if the cursor row was unselected, such
+         * as by inverting the selection or Ctrl-clicking. */
     }
     else
     {
