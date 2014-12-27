@@ -2808,26 +2808,29 @@ gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
 
 
 /*
- * Set the value of a field of a FileTag Picture item.
+ * et_file_tag_set_picture:
+ * @file_tag: the #File_Tag on which to set the image
+ * @pic: the image to set
+ *
+ * Set the images inside @file_tag to be @pic, freeing existing images as
+ * necessary. Copies @pic with et_picture_copy_all().
  */
-gboolean
-ET_Set_Field_File_Tag_Picture (EtPicture **FileTagField,
-                               const EtPicture *pic)
+void
+et_file_tag_set_picture (File_Tag *file_tag,
+                         const EtPicture *pic)
 {
-    g_return_val_if_fail (FileTagField != NULL, FALSE);
+    g_return_if_fail (file_tag != NULL);
 
-    if (*FileTagField != NULL)
+    if (file_tag->picture != NULL)
     {
-        et_picture_free ((EtPicture *)*FileTagField);
-        *FileTagField = NULL;
+        et_picture_free (file_tag->picture);
+        file_tag->picture = NULL;
     }
 
     if (pic)
     {
-        *FileTagField = et_picture_copy_all (pic);
+        file_tag->picture = et_picture_copy_all (pic);
     }
-
-    return TRUE;
 }
 
 

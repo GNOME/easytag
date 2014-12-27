@@ -639,8 +639,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Picture ((EtPicture **)&FileTag->picture,
-                                           res);
+            et_file_tag_set_picture (FileTag, res);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (res)

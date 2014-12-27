@@ -298,7 +298,7 @@ gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
 gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
 gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value);
-gboolean ET_Set_Field_File_Tag_Picture (EtPicture **FileTagField, const EtPicture *pic);
+void et_file_tag_set_picture (File_Tag *file_tag, const EtPicture *pic);
 
 GList   *ET_Displayed_File_List_First       (void);
 GList   *ET_Displayed_File_List_Previous    (void);
