@@ -4522,22 +4522,31 @@ gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
 guint
 ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
 {
+    gchar *path_key;
     GList *l;
     guint  count = 0;
 
     g_return_val_if_fail (path_utf8 != NULL, count);
+
+    path_key = g_utf8_collate_key (path_utf8, -1);
 
     for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {
         ET_File *ETFile = (ET_File *)l->data;
         const gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
         gchar *dirname_utf8      = g_path_get_dirname(cur_filename_utf8);
+        gchar *dirname_key = g_utf8_collate_key (dirname_utf8, -1);
 
-        if (g_utf8_collate(dirname_utf8, path_utf8) == 0)
+        if (strcmp (dirname_utf8, path_utf8) == 0)
+        {
             count++;
+        }
 
-        g_free(dirname_utf8 );
+        g_free (dirname_utf8);
+        g_free (dirname_key);
     }
+
+    g_free (path_key);
 
     return count;
 }
