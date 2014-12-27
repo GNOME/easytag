@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -38,6 +38,7 @@ gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 
 void et_filename_prepare (gchar *filename_utf8, gboolean replace_illegal);
+gboolean et_rename_file (const gchar *old_filename, const gchar *new_filename, GError **error);
 
 guint et_undo_key_new (void);
 gint et_normalized_strcmp0 (const gchar *str1, const gchar *str2);

@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,8 @@
 #include "misc.h"
 
 #include <glib/gi18n.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 
 #include "easytag.h"
 #include "id3_tag.h"
@@ -367,6 +369,130 @@ et_track_number_to_string (const guint track_number)
     {
         return g_strdup_printf ("%u", track_number);
     }
+}
+
+/*
+ * et_rename_file:
+ * @old_filepath: path of file to be renamed
+ * @new_filepath: path of renamed file
+ * @error: a #GError to provide information on errors, or %NULL to ignore
+ *
+ * Rename @old_filepath to @new_filepath.
+ *
+ * Returns: %TRUE if the rename was successful, %FALSE otherwise
+ */
+gboolean
+et_rename_file (const char *old_filepath,
+                const char *new_filepath,
+                GError **error)
+{
+    GFile *file_old;
+    GFile *file_new;
+    GFile *file_new_parent;
+
+    g_return_val_if_fail (old_filepath != NULL && new_filepath != NULL, FALSE);
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    file_old = g_file_new_for_path (old_filepath);
+    file_new = g_file_new_for_path (new_filepath);
+    file_new_parent = g_file_get_parent (file_new);
+
+    if (!g_file_make_directory_with_parents (file_new_parent, NULL, error))
+    {
+        /* Ignore an error if the directory already exists. */
+        if (!g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_EXISTS))
+        {
+            g_object_unref (file_new_parent);
+            goto err;
+        }
+
+        g_clear_error (error);
+    }
+
+    g_assert (error == NULL || *error == NULL);
+    g_object_unref (file_new_parent);
+
+    /* Move the file. */
+    if (!g_file_move (file_old, file_new, G_FILE_COPY_NONE, NULL, NULL, NULL,
+                      error))
+    {
+        if (g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_EXISTS))
+        {
+            /* Possibly a case change on a case-insensitive filesystem. */
+            /* TODO: casefold the paths of both files, and check to see whether
+             * they only differ by case? */
+            gchar *tmp_filename;
+            mode_t old_mode;
+            gint fd;
+            GFile *tmp_file;
+            GError *tmp_error = NULL;
+
+            tmp_filename = g_strconcat (old_filepath, ".XXXXXX", NULL);
+
+            old_mode = umask (077);
+            fd = mkstemp (tmp_filename);
+            umask (old_mode);
+
+            if (fd >= 0)
+            {
+                close (fd);
+            }
+
+            tmp_file = g_file_new_for_path (tmp_filename);
+            g_free (tmp_filename);
+
+            if (!g_file_move (file_old, tmp_file, G_FILE_COPY_OVERWRITE, NULL,
+                              NULL, NULL, &tmp_error))
+            {
+                g_file_delete (tmp_file, NULL, NULL);
+
+                g_object_unref (tmp_file);
+                g_clear_error (error);
+                g_propagate_error (error, tmp_error);
+                goto err;
+            }
+            else
+            {
+                /* Move to temporary file succeeded, now move to the real new
+                 * location. */
+                if (!g_file_move (tmp_file, file_new, G_FILE_COPY_NONE, NULL,
+                                  NULL, NULL, &tmp_error))
+                {
+                    g_file_move (tmp_file, file_old, G_FILE_COPY_NONE, NULL,
+                                 NULL, NULL, NULL);
+                    g_object_unref (tmp_file);
+                    g_clear_error (error);
+                    g_propagate_error (error, tmp_error);
+                    goto err;
+                }
+                else
+                {
+                    /* Move succeeded, so clear the original error about the
+                     * new file already existing. */
+                    g_object_unref (tmp_file);
+                    g_clear_error (error);
+                    goto out;
+                }
+            }
+        }
+        else
+        {
+            /* Error moving file. */
+            goto err;
+        }
+    }
+
+out:
+    g_object_unref (file_old);
+    g_object_unref (file_new);
+    g_assert (error == NULL || *error == NULL);
+    return TRUE;
+
+err:
+    g_object_unref (file_old);
+    g_object_unref (file_new);
+    g_assert (error == NULL || *error != NULL);
+    return FALSE;
 }
 
 /*
