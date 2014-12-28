@@ -28,6 +28,7 @@ G_BEGIN_DECLS
 #include <gdk/gdk.h>
 
 #include "core_types.h"
+#include "file_tag.h"
 #include "picture.h"
 
 /*
@@ -47,36 +48,6 @@ struct _File_Name
     gchar *value_utf8;     /* Same than "value", but converted to UTF-8 to avoid multiple call to the convertion function */
     gchar *value_ck;       /* Collate key of "value_utf8" to speed up comparaison */
 };
-
-/*
- * Description of each item of the TagList list
- */
-typedef struct _File_Tag File_Tag;
-struct _File_Tag
-{
-    guint key;             /* Incremented value */
-    gboolean saved;        /* Set to TRUE if this tag had been saved */
-
-    gchar *title;          /* Title of track */
-    gchar *artist;         /* Artist name */
-    gchar *album_artist;   /* Album Artist */
-    gchar *album;          /* Album name */
-    gchar *disc_number;    /* Disc number */
-    gchar *disc_total; /* The total number of discs of the album (ex: 1/2). */
-    gchar *year;           /* Year of track */
-    gchar *track;          /* Position of track in the album */
-    gchar *track_total;    /* The number of tracks for the album (ex: 12/20) */
-    gchar *genre;          /* Genre of song */
-    gchar *comment;        /* Comment */
-    gchar *composer;       /* Composer */
-    gchar *orig_artist;    /* Original artist / Performer */
-    gchar *copyright;      /* Copyright */
-    gchar *url;            /* URL */
-    gchar *encoded_by;     /* Encoded by */
-    EtPicture *picture; /* Picture */
-    GList *other;          /* List of unsupported fields (used for ogg only) */
-};
-
 
 /*
  * Structure containing informations of the header of file
@@ -241,30 +212,14 @@ gboolean ET_Check_If_All_Files_Are_Saved (void);
 
 ET_File      *ET_File_Item_New       (void);
 File_Name    *ET_File_Name_Item_New  (void);
-File_Tag     *ET_File_Tag_Item_New   (void);
-gboolean      ET_Free_File_Tag_Item  (File_Tag *FileTag);
 void      ET_Free_File_List_Item (ET_File *ETFile);
 
-gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
 gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
-void et_file_tag_set_title (File_Tag *file_tag, const gchar *title);
-void et_file_tag_set_artist (File_Tag *file_tag, const gchar *artist);
-void et_file_tag_set_album_artist (File_Tag *file_tag, const gchar *album_artist);
-void et_file_tag_set_album (File_Tag *file_tag, const gchar *album);
-void et_file_tag_set_disc_number (File_Tag *file_tag, const gchar *disc_number);
-void et_file_tag_set_disc_total (File_Tag *file_tag, const gchar *disc_total);
-void et_file_tag_set_year (File_Tag *file_tag, const gchar *year);
-void et_file_tag_set_track_number (File_Tag *file_tag, const gchar *track_number);
-void et_file_tag_set_track_total (File_Tag *file_tag, const gchar *track_total);
-void et_file_tag_set_genre (File_Tag *file_tag, const gchar *genre);
-void et_file_tag_set_comment (File_Tag *file_tag, const gchar *comment);
-void et_file_tag_set_composer (File_Tag *file_tag, const gchar *composer);
-void et_file_tag_set_orig_artist (File_Tag *file_tag, const gchar *orig_artist);
-void et_file_tag_set_copyright (File_Tag *file_tag, const gchar *copyright);
-void et_file_tag_set_url (File_Tag *file_tag, const gchar *url);
-void et_file_tag_set_encoded_by (File_Tag *file_tag, const gchar *encoded_by);
-void et_file_tag_set_picture (File_Tag *file_tag, const EtPicture *pic);
+
+/* FIXME: Move to file_tag.h. */
+gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
+void ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile, File_Tag *FileTag);
 
 GList   *ET_Displayed_File_List_First       (void);
 GList   *ET_Displayed_File_List_Previous    (void);
@@ -277,6 +232,8 @@ gboolean ET_Set_Displayed_File_List         (GList *ETFileList);
 void     ET_Display_File_Data_To_UI (ET_File *ETFile);
 void     ET_Save_File_Data_From_UI  (ET_File *ETFile);
 gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error);
+
+guint ET_Undo_Key_New (void);
 
 gboolean ET_Undo_File_Data          (ET_File *ETFile);
 gboolean ET_Redo_File_Data          (ET_File *ETFile);
@@ -294,8 +251,6 @@ void ET_Update_Directory_Name_Into_File_List (const gchar *last_path, const gcha
 gboolean ET_File_Name_Convert_Character          (gchar *filename_utf8);
 gchar *ET_File_Name_Generate (const ET_File *ETFile, const gchar *new_file_name);
 guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
-
-gboolean ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1, const File_Tag  *FileTag2);
 
 GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
 void ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type);
