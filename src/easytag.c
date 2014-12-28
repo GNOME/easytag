@@ -29,6 +29,7 @@
 
 #include "application_window.h"
 #include "browser.h"
+#include "file_description.h"
 #include "log.h"
 #include "misc.h"
 #include "cddb_dialog.h"
@@ -1161,7 +1162,7 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                 }
             }
             else if (type == G_FILE_TYPE_REGULAR &&
-                      ET_File_Is_Supported (file_name))
+                     et_file_is_supported (file_name))
             {
                 GFile *file = g_file_get_child (g_file_enumerator_get_container (dir_enumerator),
                                                 file_name);

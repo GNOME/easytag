@@ -75,47 +75,6 @@
 
 ET_Core *ETCore = NULL;
 
-const ET_File_Description ETFileDescription[] =
-{
-#ifdef ENABLE_MP3
-    { MP3_FILE, ".mp3", ID3_TAG},
-    { MP2_FILE, ".mp2", ID3_TAG},
-#endif
-#ifdef ENABLE_OPUS
-    { OPUS_FILE, ".opus", OPUS_TAG},
-#endif
-#ifdef ENABLE_OGG
-    { OGG_FILE, ".ogg", OGG_TAG},
-    { OGG_FILE, ".oga", OGG_TAG},
-#endif
-#ifdef ENABLE_SPEEX
-    { SPEEX_FILE, ".spx", OGG_TAG}, /* Implemented by Pierre Dumuid. */
-#endif
-#ifdef ENABLE_FLAC
-    { FLAC_FILE, ".flac", FLAC_TAG},
-    { FLAC_FILE, ".fla",  FLAC_TAG},
-#endif
-    { MPC_FILE, ".mpc", APE_TAG}, /* Implemented by Artur Polaczynski. */
-    { MPC_FILE, ".mp+", APE_TAG}, /* Implemented by Artur Polaczynski. */
-    { MPC_FILE, ".mpp", APE_TAG}, /* Implemented by Artur Polaczynski. */
-    { MAC_FILE, ".ape", APE_TAG}, /* Implemented by Artur Polaczynski. */
-    { MAC_FILE, ".mac", APE_TAG}, /* Implemented by Artur Polaczynski. */
-    { OFR_FILE, ".ofr", APE_TAG},
-    { OFR_FILE, ".ofs", APE_TAG},
-#ifdef ENABLE_MP4
-    { MP4_FILE, ".mp4", MP4_TAG}, /* Implemented by Michael Ihde. */
-    { MP4_FILE, ".m4a", MP4_TAG}, /* Implemented by Michael Ihde. */
-    { MP4_FILE, ".m4p", MP4_TAG}, /* Implemented by Michael Ihde. */
-    { MP4_FILE, ".m4v", MP4_TAG},
-#endif
-#ifdef ENABLE_WAVPACK
-    { WAVPACK_FILE, ".wv", WAVPACK_TAG}, /* Implemented by Maarten Maathuis. */
-#endif
-    { UNKNOWN_FILE, "", UNKNOWN_TAG } /* This item must be placed at the end! */
-};
-
-const gsize ET_FILE_DESCRIPTION_SIZE = G_N_ELEMENTS (ETFileDescription) - 1;
-
 /*
  * Colors Used
  */
@@ -125,10 +84,6 @@ GdkRGBA RED = {1.0, 0.0, 0.0, 1.0 };
 /**************
  * Prototypes *
  **************/
-
-//gboolean ET_File_Is_Supported (gchar *filename);
-static const ET_File_Description *ET_Get_File_Description (const gchar *filename);
-static const ET_File_Description *ET_Get_File_Description_From_Extension (const gchar *extension);
 
 static gboolean ET_Free_File_List                 (void);
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
@@ -186,66 +141,6 @@ static void set_sort_order_for_column_id (gint column_id,
 /*******************
  * Basic functions *
  *******************/
-
-/*
- * Returns the extension of the file
- */
-static const gchar *
-ET_Get_File_Extension (const gchar *filename)
-{
-    if (filename)
-        return strrchr(filename, '.');
-    else
-        return NULL;
-}
-
-
-/*
- * Determine description of file using his extension.
- * If extension is NULL or not found into the tab, it returns the last entry for UNKNOWN_FILE.
- */
-static const ET_File_Description *
-ET_Get_File_Description_From_Extension (const gchar *extension)
-{
-    guint i;
-
-    if (!extension) // Unknown file
-        return &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
-
-    for (i=0; i<ET_FILE_DESCRIPTION_SIZE; i++)  // Use of '<' instead of '<=' to avoid to test for Unknown file
-        if ( strcasecmp(extension,ETFileDescription[i].Extension)==0 )
-            return &ETFileDescription[i];
-
-    // If not found in the list
-    return &ETFileDescription[ET_FILE_DESCRIPTION_SIZE];
-}
-
-
-/*
- * Determines description of file.
- * Determines first the extension. If extension is NULL or not found into the tab,
- * it returns the last entry for UNKNOWN_FILE.
- */
-static const ET_File_Description *
-ET_Get_File_Description (const gchar *filename)
-{
-    return ET_Get_File_Description_From_Extension(ET_Get_File_Extension(filename));
-}
-
-
-/*
- * Returns TRUE if the file is supported, else returns FALSE
- */
-gboolean ET_File_Is_Supported (const gchar *filename)
-{
-    if (ET_Get_File_Description(filename)->FileType != UNKNOWN_FILE)
-        return TRUE;
-    else
-        return FALSE;
-}
-
-
-
 
 /*****************************************************************************
  * Manipulation of ET_Core functions (main functions needed for the program) *

@@ -28,6 +28,7 @@ G_BEGIN_DECLS
 #include <gdk/gdk.h>
 
 #include "core_types.h"
+#include "file_description.h"
 #include "file_tag.h"
 #include "picture.h"
 
@@ -48,27 +49,6 @@ struct _File_Name
     gchar *value_utf8;     /* Same than "value", but converted to UTF-8 to avoid multiple call to the convertion function */
     gchar *value_ck;       /* Collate key of "value_utf8" to speed up comparaison */
 };
-
-/*
- * Structure for descripting supported files
- */
-typedef struct _ET_File_Description ET_File_Description;
-struct _ET_File_Description
-{
-    ET_File_Type FileType;    /* Type of file (ex: MP3) */
-    const gchar *Extension; /* Extension (ex: ".mp3") */
-    ET_Tag_Type  TagType;     /* Type of tag (ex: ID3) */
-};
-
-
-/*
- * Description of supported files
- */
-extern const ET_File_Description ETFileDescription[];
-
-/* Calculate the last index of the previous tab */
-extern const gsize ET_FILE_DESCRIPTION_SIZE;
-
 
 /*
  * Description of each item of the ETFileList list
