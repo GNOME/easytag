@@ -70,6 +70,54 @@ typedef enum
     UNKNOWN_TAG
 } ET_Tag_Type;
 
+/*
+ * Structure containing informations of the header of file
+ * Nota: This struct was copied from an "MP3 structure", and will change later.
+ */
+typedef struct
+{
+    gint version;               /* Version of bitstream (mpeg version for mp3, encoder version for ogg) */
+    gint mpeg25;                /* Version is MPEG 2.5? */
+    gint layer;                 /* "MP3 data" */
+    gint bitrate;               /* Bitrate (kb/s) */
+    gboolean variable_bitrate;  /* Is a VBR file? */
+    gint samplerate;            /* Samplerate (Hz) */
+    gint mode;                  /* Stereo, ... or channels for ogg */
+    goffset size;               /* The size of file (in bytes) */
+    gint duration;              /* The duration of file (in seconds) */
+    gchar *mpc_profile;         /* MPC data */
+    gchar *mpc_version;         /* MPC data : encoder version  (also for Speex) */
+} ET_File_Info;
+
+/*
+ * EtFileHeaderFields:
+ * @description: a description of the file type, such as MP3 File
+ * @version_label: the label for the encoder version, such as MPEG
+ * @version: the encoder version (such as 2, Layer III)
+ * @bitrate: the bitrate of the file (not the bit depth of the samples)
+ * @samplerate: the sample rate of the primary audio track, generally in Hz
+ * @mode_label: the label for the audio mode, for example Mode
+ * @mode: the audio mode (stereo, mono, and so on)
+ * @size: the size of the audio file
+ * @duration: the length of the primary audio track
+ *
+ * UI-visible strings, populated by the tagging support code to be displayed in
+ * the EtFileArea.
+ */
+typedef struct
+{
+    /*< public >*/
+    gchar *description;
+    gchar *version_label;
+    gchar *version;
+    gchar *bitrate;
+    gchar *samplerate;
+    gchar *mode_label;
+    gchar *mode;
+    gchar *size;
+    gchar *duration;
+} EtFileHeaderFields;
+
 G_END_DECLS
 
 #endif /* ET_TYPES_H_ */
