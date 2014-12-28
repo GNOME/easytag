@@ -2793,6 +2793,149 @@ ET_Set_Field_File_Tag_Item (gchar **FileTagField,
     }
 }
 
+void
+et_file_tag_set_title (File_Tag *file_tag,
+                       const gchar *title)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->title, title);
+}
+
+void
+et_file_tag_set_artist (File_Tag *file_tag,
+                        const gchar *artist)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->artist, artist);
+}
+
+void
+et_file_tag_set_album_artist (File_Tag *file_tag,
+                              const gchar *album_artist)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->album_artist, album_artist);
+}
+
+void
+et_file_tag_set_album (File_Tag *file_tag,
+                       const gchar *album)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->album, album);
+}
+
+void
+et_file_tag_set_disc_number (File_Tag *file_tag,
+                             const gchar *disc_number)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->disc_number, disc_number);
+}
+
+void
+et_file_tag_set_disc_total (File_Tag *file_tag,
+                            const gchar *disc_total)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->disc_total, disc_total);
+}
+
+void
+et_file_tag_set_year (File_Tag *file_tag,
+                      const gchar *year)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->year, year);
+}
+
+void
+et_file_tag_set_track_number (File_Tag *file_tag,
+                              const gchar *track_number)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->track, track_number);
+}
+
+void
+et_file_tag_set_track_total (File_Tag *file_tag,
+                             const gchar *track_total)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->track_total, track_total);
+}
+
+void
+et_file_tag_set_genre (File_Tag *file_tag,
+                       const gchar *genre)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->genre, genre);
+}
+
+void
+et_file_tag_set_comment (File_Tag *file_tag,
+                         const gchar *comment)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->comment, comment);
+}
+
+void
+et_file_tag_set_composer (File_Tag *file_tag,
+                          const gchar *composer)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->composer, composer);
+}
+
+void
+et_file_tag_set_orig_artist (File_Tag *file_tag,
+                             const gchar *orig_artist)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->orig_artist, orig_artist);
+}
+
+void
+et_file_tag_set_copyright (File_Tag *file_tag,
+                           const gchar *copyright)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->copyright, copyright);
+}
+
+void
+et_file_tag_set_url (File_Tag *file_tag,
+                     const gchar *url)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->url, url);
+}
+
+void
+et_file_tag_set_encoded_by (File_Tag *file_tag,
+                            const gchar *encoded_by)
+{
+    g_return_if_fail (file_tag != NULL);
+
+    ET_Set_Field_File_Tag_Item (&file_tag->encoded_by, encoded_by);
+}
 
 /*
  * et_file_tag_set_picture:

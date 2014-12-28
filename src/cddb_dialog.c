@@ -2368,29 +2368,29 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->title,
-                                                cddbtrackalbum->track_name);
+                    et_file_tag_set_title (FileTag,
+                                           cddbtrackalbum->track_name);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
                     && cddbtrackalbum->cddbalbum->artist)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->artist,
-                                                cddbtrackalbum->cddbalbum->artist);
+                    et_file_tag_set_artist (FileTag,
+                                            cddbtrackalbum->cddbalbum->artist);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
                     && cddbtrackalbum->cddbalbum->album)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->album,
-                                                cddbtrackalbum->cddbalbum->album);
+                    et_file_tag_set_album (FileTag,
+                                           cddbtrackalbum->cddbalbum->album);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
                     && cddbtrackalbum->cddbalbum->year)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->year,
-                                                cddbtrackalbum->cddbalbum->year);
+                    et_file_tag_set_year (FileTag,
+                                          cddbtrackalbum->cddbalbum->year);
                 }
 
                 if (set_fields & ET_CDDB_SET_FIELD_TRACK)
@@ -2399,7 +2399,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                     track_number = et_track_number_to_string (cddbtrackalbum->track_number);
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track, track_number);
+                    et_file_tag_set_track_number (FileTag, track_number);
 
                     g_free (track_number);
                 }
@@ -2410,8 +2410,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                     track_total = et_track_number_to_string (list_length);
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track_total,
-                                                track_total);
+                    et_file_tag_set_track_total (FileTag, track_total);
 
                     g_free (track_total);
                 }
@@ -2423,13 +2422,13 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                     if (cddbtrackalbum->cddbalbum->genre
                         && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
                     {
-                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
-                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
+                        et_file_tag_set_genre (FileTag,
+                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
                     }
                     else
                     {
-                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
-                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
+                        et_file_tag_set_genre (FileTag,
+                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
                     }
                 }
             }
@@ -2498,29 +2497,29 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->title,
-                                                cddbtrackalbum->track_name);
+                    et_file_tag_set_title (FileTag,
+                                           cddbtrackalbum->track_name);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
                     && cddbtrackalbum->cddbalbum->artist)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->artist,
-                                                cddbtrackalbum->cddbalbum->artist);
+                    et_file_tag_set_artist (FileTag,
+                                            cddbtrackalbum->cddbalbum->artist);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
                     && cddbtrackalbum->cddbalbum->album)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->album,
-                                                cddbtrackalbum->cddbalbum->album);
+                    et_file_tag_set_album (FileTag,
+                                           cddbtrackalbum->cddbalbum->album);
                 }
 
                 if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
                     && cddbtrackalbum->cddbalbum->year)
                 {
-                    ET_Set_Field_File_Tag_Item (&FileTag->year,
-                                                cddbtrackalbum->cddbalbum->year);
+                    et_file_tag_set_year (FileTag,
+                                          cddbtrackalbum->cddbalbum->year);
                 }
 
                 if (set_fields & ET_CDDB_SET_FIELD_TRACK)
@@ -2529,7 +2528,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                     track_number = et_track_number_to_string (cddbtrackalbum->track_number);
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track, track_number);
+                    et_file_tag_set_track_number (FileTag, track_number);
 
                     g_free (track_number);
                 }
@@ -2540,8 +2539,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
                     track_total = et_track_number_to_string (list_length);
 
-                    ET_Set_Field_File_Tag_Item (&FileTag->track_total,
-                                                track_total);
+                    et_file_tag_set_track_total (FileTag, track_total);
 
                     g_free (track_total);
                 }
@@ -2553,13 +2551,13 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                     if (cddbtrackalbum->cddbalbum->genre
                         && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
                     {
-                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
-                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
+                        et_file_tag_set_genre (FileTag,
+                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
                     }
                     else
                     {
-                        ET_Set_Field_File_Tag_Item (&FileTag->genre,
-                                                    Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
+                        et_file_tag_set_genre (FileTag,
+                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
                     }
                 }
             }

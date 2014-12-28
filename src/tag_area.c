@@ -178,7 +178,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->title,string_to_set);
+            et_file_tag_set_title (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -200,7 +200,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->artist,string_to_set);
+            et_file_tag_set_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -221,7 +221,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->album_artist,string_to_set);
+            et_file_tag_set_album_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -243,7 +243,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->album,string_to_set);
+            et_file_tag_set_album (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -281,8 +281,8 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item (&FileTag->disc_number, string_to_set);
-            ET_Set_Field_File_Tag_Item (&FileTag->disc_total, string_to_set1);
+            et_file_tag_set_disc_number (FileTag, string_to_set);
+            et_file_tag_set_disc_total (FileTag, string_to_set1);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
@@ -313,7 +313,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->year,string_to_set);
+            et_file_tag_set_year (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -341,8 +341,11 @@ on_apply_to_selection (GObject *object,
             // We apply the TrackEntry field to all others files only if it is to delete
             // the field (string=""). Else we don't overwrite the track number
             if (!string_to_set || g_utf8_strlen(string_to_set, -1) == 0)
-                ET_Set_Field_File_Tag_Item(&FileTag->track,string_to_set);
-            ET_Set_Field_File_Tag_Item(&FileTag->track_total,string_to_set1);
+            {
+                et_file_tag_set_track_number (FileTag, string_to_set);
+            }
+
+            et_file_tag_set_track_total (FileTag, string_to_set1);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
@@ -401,7 +404,7 @@ on_apply_to_selection (GObject *object,
             {
                 FileTag = ET_File_Tag_Item_New();
                 ET_Copy_File_Tag_Item(etfile,FileTag);
-                ET_Set_Field_File_Tag_Item(&FileTag->track,string_to_set);
+                et_file_tag_set_track_number (FileTag, string_to_set);
                 ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
 
                 if (!etfilelist->next) break;
@@ -438,7 +441,7 @@ on_apply_to_selection (GObject *object,
 
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->track_total,string_to_set);
+            et_file_tag_set_track_total (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
@@ -461,7 +464,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->genre,string_to_set);
+            et_file_tag_set_genre (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -490,7 +493,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->comment,string_to_set);
+            et_file_tag_set_comment (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -511,7 +514,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->composer,string_to_set);
+            et_file_tag_set_composer (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -533,7 +536,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->orig_artist,string_to_set);
+            et_file_tag_set_orig_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -555,7 +558,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->copyright,string_to_set);
+            et_file_tag_set_copyright (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -577,7 +580,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->url,string_to_set);
+            et_file_tag_set_url (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
@@ -599,7 +602,7 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = ET_File_Tag_Item_New();
             ET_Copy_File_Tag_Item(etfile,FileTag);
-            ET_Set_Field_File_Tag_Item(&FileTag->encoded_by,string_to_set);
+            et_file_tag_set_encoded_by (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
         if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)

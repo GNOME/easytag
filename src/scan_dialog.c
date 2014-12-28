@@ -272,8 +272,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     {
         gchar *default_comment = g_settings_get_string (MainSettings,
                                                         "fill-default-comment");
-        ET_Set_Field_File_Tag_Item ((void *)&FileTag->comment,
-                                    default_comment);
+        et_file_tag_set_comment  (FileTag, default_comment);
         g_free (default_comment);
     }
 
@@ -298,7 +297,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
                 {
                     buffer = g_strdup_printf ("%.8" G_GUINT32_FORMAT,
                                               crc32_value);
-                    ET_Set_Field_File_Tag_Item((void *)&FileTag->comment,buffer);
+                    et_file_tag_set_comment (FileTag, buffer);
                     g_free(buffer);
                 }
                 else
@@ -1262,7 +1261,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->title,string);
+            et_file_tag_set_title (FileTag, string);
 
             g_free(string);
         }
@@ -1281,7 +1280,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->artist,string);
+            et_file_tag_set_artist (FileTag, string);
 
             g_free(string);
         }
@@ -1300,7 +1299,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->album_artist,string);
+            et_file_tag_set_album_artist (FileTag, string);
 
             g_free(string);
         }
@@ -1319,7 +1318,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->album,string);
+            et_file_tag_set_album (FileTag, string);
 
             g_free(string);
         }
@@ -1338,7 +1337,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->genre,string);
+            et_file_tag_set_genre (FileTag, string);
 
             g_free(string);
         }
@@ -1357,7 +1356,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->comment,string);
+            et_file_tag_set_comment (FileTag, string);
 
             g_free(string);
         }
@@ -1376,7 +1375,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->composer,string);
+            et_file_tag_set_composer (FileTag, string);
 
             g_free(string);
         }
@@ -1395,7 +1394,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->orig_artist,string);
+            et_file_tag_set_orig_artist (FileTag, string);
 
             g_free(string);
         }
@@ -1414,7 +1413,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->copyright,string);
+            et_file_tag_set_copyright (FileTag, string);
 
             g_free(string);
         }
@@ -1433,7 +1432,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->url,string);
+            et_file_tag_set_url (FileTag, string);
 
             g_free(string);
         }
@@ -1452,7 +1451,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            ET_Set_Field_File_Tag_Item(&FileTag->encoded_by,string);
+            et_file_tag_set_encoded_by (FileTag, string);
 
             g_free(string);
         }
