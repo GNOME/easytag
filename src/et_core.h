@@ -27,46 +27,12 @@ G_BEGIN_DECLS
 #include <glib.h>
 #include <gdk/gdk.h>
 
+#include "core_types.h"
+
 /*
  * Colors Used (see declaration into et_core.c)
  */
 extern GdkRGBA RED;
-
-/*
- * Types of files
- */
-typedef enum
-{                    //                                             (.ext) is not so popular 
-    MP2_FILE = 0,    // Mpeg audio Layer 2        : .mp2            (.mpg) (.mpga)
-    MP3_FILE,        // Mpeg audio Layer 3        : .mp3            (.mpg) (.mpga)
-    MP4_FILE, /* MPEG audio Layer 4 / AAC: .mp4 (.m4a) (.m4p) (.m4v) */
-    OGG_FILE,        // Ogg Vorbis audio          : .ogg            (.ogm)
-    FLAC_FILE,       // FLAC (lossless)           : .flac .fla
-    MPC_FILE,        // MusePack                  : .mpc .mp+ .mpp
-    MAC_FILE,        // Monkey's Audio (lossless) : .ape            (.mac)
-    SPEEX_FILE,      // Speech audio files        : .spx
-    OFR_FILE,        // OptimFROG (lossless)      : .ofr .ofs
-    WAVPACK_FILE,    // Wavpack (lossless)        : .wv
-    OPUS_FILE, /* Ogg Opus File: .opus */
-    UNKNOWN_FILE
-} ET_File_Type;
-
-
-/*
- * Types of tags
- */
-typedef enum
-{
-    ID3_TAG = 0,
-    OGG_TAG,
-    APE_TAG,
-    FLAC_TAG,
-    MP4_TAG,
-    WAVPACK_TAG,
-    OPUS_TAG,
-    UNKNOWN_TAG
-} ET_Tag_Type;
-
 
 /*
  * Description of each item of the FileNameList list

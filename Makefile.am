@@ -100,6 +100,7 @@ easytag_headers = \
 	src/cddb_dialog.h \
 	src/charset.h \
 	src/crc32.h \
+	src/core_types.h \
 	src/dlm.h \
 	src/easytag.h \
 	src/et_core.h \

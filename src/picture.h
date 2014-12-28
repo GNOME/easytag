@@ -20,9 +20,12 @@
 #ifndef ET_PICTURE_H_
 #define ET_PICTURE_H_
 
-#include "et_core.h"
+#include <glib-object.h>
 
 G_BEGIN_DECLS
+
+#include "core_types.h"
+#include "et_core.h"
 
 #define ET_TYPE_PICTURE (et_picture_get_type ())
 
