@@ -20,26 +20,13 @@
 #ifndef ET_PICTURE_H_
 #define ET_PICTURE_H_
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
 #include "core_types.h"
-#include "et_core.h"
 
 #define ET_TYPE_PICTURE (et_picture_get_type ())
-
-/* Defined in et_core.h
-typedef struct _Picture Picture;
-struct _Picture
-{
-    gint     type;
-    gchar   *description;
-    gint     width;         // Original width of the picture
-    gint     height;        // Original height of the picture
-    GBytes *bytes;
-    Picture *next;
-};*/
 
 typedef enum // Picture types
 {
@@ -68,6 +55,26 @@ typedef enum // Picture types
     
     ET_PICTURE_TYPE_UNDEFINED
 } EtPictureType;
+
+/*
+ * EtPicture:
+ * @type: type of cover art
+ * @description: string to describe the image, often a suitable filename
+ * @width: original width, or 0 if unknown
+ * @height: original height, or 0 if unknown
+ * @bytes: image data
+ * @next: next image data in the list, or %NULL
+ */
+typedef struct _EtPicture EtPicture;
+struct _EtPicture
+{
+    EtPictureType type;
+    gchar *description;
+    gint width;
+    gint height;
+    GBytes *bytes;
+    EtPicture *next;
+};
 
 typedef enum
 {

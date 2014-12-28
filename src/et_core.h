@@ -28,6 +28,7 @@ G_BEGIN_DECLS
 #include <gdk/gdk.h>
 
 #include "core_types.h"
+#include "picture.h"
 
 /*
  * Colors Used (see declaration into et_core.c)
@@ -46,22 +47,6 @@ struct _File_Name
     gchar *value_utf8;     /* Same than "value", but converted to UTF-8 to avoid multiple call to the convertion function */
     gchar *value_ck;       /* Collate key of "value_utf8" to speed up comparaison */
 };
-
-
-/*
- * Description of EtPicture item (see picture.h)
- */
-typedef struct _EtPicture EtPicture;
-struct _EtPicture
-{
-    gint type;
-    gchar *description;
-    gint width; /* Original width of the picture */
-    gint height; /* Original height of the picture */
-    GBytes *bytes;
-    EtPicture *next;
-};
-
 
 /*
  * Description of each item of the TagList list
