@@ -1429,7 +1429,7 @@ load_picture_from_file (GFile *file,
                 if (g_settings_get_boolean (MainSettings,
                                             "tag-image-type-automatic"))
                 {
-                    type = et_picture_type_from_filename (pic->description);
+                    type = et_picture_type_from_filename (description);
                 }
                 else
                 {

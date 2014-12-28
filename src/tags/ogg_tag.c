@@ -501,11 +501,19 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         {
             type = atoi (string);
         }
+        else
+        {
+            type = ET_PICTURE_TYPE_FRONT_COVER;
+        }
 
         if ((string = vorbis_comment_query (vc, "COVERARTDESCRIPTION",
                                             field_num - 1)) != NULL)
         {
             description = string;
+        }
+        else
+        {
+            description = "";
         }
 
         pic = et_picture_new (type, description, 0, 0, bytes);
