@@ -2422,7 +2422,7 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     g_free(FileTag->copyright);
     g_free(FileTag->url);
     g_free(FileTag->encoded_by);
-    et_picture_free (FileTag->picture);
+    et_file_tag_set_picture (FileTag, NULL);
     // Free list of other fields
     ET_Free_File_Tag_Item_Other_Field(FileTag);
 
@@ -2718,20 +2718,7 @@ ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
         FileTag->encoded_by = NULL;
     }
 
-    if (FileTagCur->picture)
-    {
-        if (FileTag->picture)
-        {
-            et_picture_free (FileTag->picture);
-        }
-
-        FileTag->picture = et_picture_copy_all (FileTagCur->picture);
-    }
-    else if (FileTag->picture)
-    {
-        et_picture_free (FileTag->picture);
-        FileTag->picture = NULL;
-    }
+    et_file_tag_set_picture (FileTag, FileTagCur->picture);
 
     if (FileTagCur->other)
     {
@@ -3473,20 +3460,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Picture */
-    if(FileTagCur->picture)
-    {
-        if (FileTag->picture)
-        {
-            et_picture_free (FileTag->picture);
-        }
-
-        FileTag->picture = et_picture_copy_all (FileTagCur->picture);
-    }
-    else if (FileTag->picture)
-    {
-        et_picture_free (FileTag->picture);
-        FileTag->picture = NULL;
-    }
+    et_file_tag_set_picture (FileTag, FileTagCur->picture);
 
     return TRUE;
 }

@@ -217,7 +217,7 @@ mp4tag_read_file_tag (GFile *file,
     }
     else
     {
-        FileTag->picture = NULL;
+        et_file_tag_set_picture (FileTag, NULL);
     }
 
     return TRUE;

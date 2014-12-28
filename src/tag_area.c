@@ -2928,11 +2928,7 @@ et_tag_area_create_file_tag (EtTagArea *self)
         GtkTreeModel *model;
         GtkTreeIter iter;
 
-        if (FileTag->picture)
-        {
-            et_picture_free (FileTag->picture);
-            FileTag->picture = NULL;
-        }
+        et_file_tag_set_picture (FileTag, NULL);
 
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->picture_entry_view));
 
