@@ -2772,25 +2772,25 @@ ET_Set_Filename_File_Name_Item (File_Name *FileName,
  * Set the value of a field of a FileTag item (for ex, value of FileTag->title)
  * Must be used only for the 'gchar *' components
  */
-gboolean ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value)
+void
+ET_Set_Field_File_Tag_Item (gchar **FileTagField,
+                            const gchar *value)
 {
-    g_return_val_if_fail (FileTagField != NULL, FALSE);
+    g_return_if_fail (FileTagField != NULL);
 
     if (*FileTagField != NULL)
     {
-        g_free(*FileTagField);
+        g_free (*FileTagField);
         *FileTagField = NULL;
     }
 
     if (value != NULL)
     {
-        if (g_utf8_strlen(value, -1) > 0)
-            *FileTagField = g_strdup(value);
-        else
-            *FileTagField = NULL;
+        if (*value != '\0')
+        {
+            *FileTagField = g_strdup (value);
+        }
     }
-
-    return TRUE;
 }
 
 
