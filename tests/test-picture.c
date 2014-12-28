@@ -23,6 +23,7 @@
 static void
 picture_copy (void)
 {
+    GBytes *bytes;
     EtPicture *pic1;
     EtPicture *pic2;
     EtPicture *pic3;
@@ -32,13 +33,10 @@ picture_copy (void)
     const EtPicture *pic3_copy;
     EtPicture *pic4_copy;
 
-    pic1 = et_picture_new ();
-
-    pic1->type = ET_PICTURE_TYPE_LEAFLET_PAGE;
-    pic1->width = 640;
-    pic1->height = 480;
-    pic1->description = g_strdup ("foobar.png");
-    pic1->bytes = g_bytes_new_static ("foobar", 6);
+    bytes = g_bytes_new_static ("foobar", 6);
+    pic1 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 640,
+                           480, bytes);
+    g_bytes_unref (bytes);
 
     pic2 = et_picture_copy_all (pic1);
 
@@ -51,13 +49,10 @@ picture_copy (void)
     g_assert (pic2->bytes == pic1->bytes);
     g_assert (pic2->next == NULL);
 
-    pic3 = et_picture_new ();
-
-    pic3->type = ET_PICTURE_TYPE_ILLUSTRATION;
-    pic3->width = 320;
-    pic3->height = 240;
-    pic3->description = g_strdup ("bash.jpg");
-    pic3->bytes = g_bytes_new_static ("foo", 3);
+    bytes = g_bytes_new_static ("foo", 3);
+    pic3 = et_picture_new (ET_PICTURE_TYPE_ILLUSTRATION, "bash.jpg", 320, 240,
+                           bytes);
+    g_bytes_unref (bytes);
 
     pic1->next = pic2;
     pic2->next = pic3;
@@ -85,13 +80,9 @@ picture_copy (void)
     g_assert_cmpstr (pic3_copy->description, ==, "bash.jpg");
     g_assert_cmpint (g_bytes_get_size (pic3_copy->bytes), ==, 3);
 
-    pic4 = et_picture_new ();
-
-    pic4->type = ET_PICTURE_TYPE_MEDIA;
-    pic4->width = 800;
-    pic4->height = 600;
-    pic4->description = g_strdup ("baz.gif");
-    pic4->bytes = g_bytes_new_static ("foobarbaz", 9);
+    bytes = g_bytes_new_static ("foobarbaz", 9);
+    pic4 = et_picture_new (ET_PICTURE_TYPE_MEDIA, "baz.gif", 800, 600, bytes);
+    g_bytes_unref (bytes);
 
     pic4_copy = g_boxed_copy (ET_TYPE_PICTURE, pic4);
 
@@ -174,11 +165,14 @@ picture_format_from_data (void)
 
     for (i = 0; i < G_N_ELEMENTS (pictures); i++)
     {
+        GBytes *bytes;
         EtPicture *pic;
 
-        pic = et_picture_new ();
-        pic->bytes = g_bytes_new_static (pictures[i].data,
-                                         strlen (pictures[i].data) + 1);
+        bytes = g_bytes_new_static (pictures[i].data,
+                                    strlen (pictures[i].data) + 1);
+        pic = et_picture_new (ET_PICTURE_TYPE_FRONT_COVER, "", 0, 0, bytes);
+        g_bytes_unref (bytes);
+
         g_assert_cmpint (pictures[i].format, ==,
                          Picture_Format_From_Data (pic));
 

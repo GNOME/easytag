@@ -279,10 +279,40 @@ et_picture_format_info (const EtPicture *pic,
     return r;
 }
 
+/*
+ * et_picture_new:
+ * @type: the image type
+ * @description: a text description
+ * @width: image width
+ * @height image height
+ * @bytes: image data
+ *
+ * Create a new #EtPicture instance, copying the string and adding a reference
+ * to the image data.
+ *
+ * Returns: a new #EtPicture, or %NULL on failure
+ */
 EtPicture *
-et_picture_new (void)
+et_picture_new (EtPictureType type,
+                const gchar *description,
+                guint width,
+                guint height,
+                GBytes *bytes)
 {
-    EtPicture *pic = g_slice_new0 (EtPicture);
+    EtPicture *pic;
+
+    g_return_val_if_fail (description != NULL, NULL);
+    g_return_val_if_fail (bytes != NULL, NULL);
+
+    pic = g_slice_new (EtPicture);
+
+    pic->type = type;
+    pic->description = g_strdup (description);
+    pic->width = width;
+    pic->height = height;
+    pic->bytes = g_bytes_ref (bytes);
+    pic->next = NULL;
+
     return pic;
 }
 
@@ -293,17 +323,8 @@ et_picture_copy_single (const EtPicture *pic)
 
     g_return_val_if_fail (pic != NULL, NULL);
 
-    pic2 = et_picture_new ();
-    pic2->type = pic->type;
-    pic2->width  = pic->width;
-    pic2->height = pic->height;
-
-    if (pic->description)
-    {
-        pic2->description = g_strdup (pic->description);
-    }
-
-    pic2->bytes = g_bytes_ref (pic->bytes);
+    pic2 = et_picture_new (pic->type, pic->description, pic->width,
+                           pic->height, pic->bytes);
 
     return pic2;
 }
@@ -349,9 +370,9 @@ et_picture_free (EtPicture *pic)
  *
  * Load an image from the supplied @file.
  *
- * Returns: an image on success, %NULL otherwise
+ * Returns: image data on success, %NULL otherwise
  */
-EtPicture *
+GBytes *
 et_picture_load_file_data (GFile *file, GError **error)
 {
     gsize size;
@@ -404,7 +425,7 @@ et_picture_load_file_data (GFile *file, GError **error)
     else
     {
         /* Image loaded. */
-        EtPicture *pic;
+        GBytes *bytes;
         gpointer data;
         gsize data_size;
 
@@ -419,15 +440,14 @@ et_picture_load_file_data (GFile *file, GError **error)
 
         g_assert (error == NULL || *error == NULL);
 
-        pic = et_picture_new ();
         data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
         data_size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
-        pic->bytes = g_bytes_new_take (data, data_size);
+        bytes = g_bytes_new_take (data, data_size);
         /* TODO: Use g_memory_output_stream_steal_as_bytes(). */
 
         g_object_unref (ostream);
         g_assert (error == NULL || *error == NULL);
-        return pic;
+        return bytes;
     }
 }
 

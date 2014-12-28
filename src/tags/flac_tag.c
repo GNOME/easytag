@@ -661,33 +661,30 @@ flac_tag_read_file_tag (GFile *file,
             //
             case FLAC__METADATA_TYPE_PICTURE: 
             {
-                
-                /***********
-                 * Picture *
-                 ***********/
+                /* Picture. */
                 FLAC__StreamMetadata_Picture *p;
+                GBytes *bytes;
                 EtPicture *pic;
             
-                // Get picture data from block
+                /* Get picture data from block. */
                 p = &block->data.picture;
+
+                bytes = g_bytes_new (p->data, p->data_length);
             
-                pic = et_picture_new ();
+                pic = et_picture_new (p->type, (const gchar *)p->description,
+                                      0, 0, bytes);
+                g_bytes_unref (bytes);
+
                 if (!prev_pic)
+                {
                     FileTag->picture = pic;
+                }
                 else
+                {
                     prev_pic->next = pic;
+                }
+
                 prev_pic = pic;
-
-                pic->bytes = g_bytes_new (p->data, p->data_length);
-                pic->type = p->type;
-                pic->description = g_strdup((gchar *)p->description);
-                // Not necessary: will be calculated later
-                //pic->height = p->height;
-                //pic->width  = p->width;
-
-                //g_print("Image type : %s\n",FLAC__StreamMetadata_Picture_TypeString[p->type]);
-                //g_print("Mime    type : %s\n",p->mime_type);
-
                 break;
             }
                 

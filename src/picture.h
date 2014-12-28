@@ -75,7 +75,7 @@ typedef enum
 } Picture_Format;
 
 GType et_picture_get_type (void);
-EtPicture * et_picture_new (void);
+EtPicture * et_picture_new (EtPictureType type, const gchar *description, guint width, guint height, GBytes *bytes);
 EtPicture * et_picture_copy_single (const EtPicture *pic);
 EtPicture * et_picture_copy_all (const EtPicture *pic);
 void et_picture_free (EtPicture *pic);
@@ -84,7 +84,7 @@ const gchar   *Picture_Mime_Type_String (Picture_Format format);
 const gchar * Picture_Type_String (EtPictureType type);
 gchar * et_picture_format_info (const EtPicture *pic, ET_Tag_Type tag_type);
 
-EtPicture * et_picture_load_file_data (GFile *file, GError **error);
+GBytes * et_picture_load_file_data (GFile *file, GError **error);
 gboolean et_picture_save_file_data (const EtPicture *pic, GFile *file, GError **error);
 
 EtPictureType et_picture_type_from_filename (const gchar *filename_utf8);

@@ -1357,7 +1357,7 @@ static void
 load_picture_from_file (GFile *file,
                         EtTagArea *self)
 {
-    EtPicture *pic;
+    GBytes *bytes;
     const gchar *filename_utf8;
     GFileInfo *info;
     GError *error = NULL;
@@ -1373,9 +1373,9 @@ load_picture_from_file (GFile *file,
     }
 
     filename_utf8 = g_file_info_get_display_name (info);
-    pic = et_picture_load_file_data (file, &error);
+    bytes = et_picture_load_file_data (file, &error);
 
-    if (!pic)
+    if (!bytes)
     {
         GtkWidget *msgdialog;
 
@@ -1404,12 +1404,17 @@ load_picture_from_file (GFile *file,
 
     if (filename_utf8)
     {
+        EtPicture *pic;
+        EtPictureType type;
+        const gchar *description;
+
         // Behaviour following the tag type...
         switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
         {
             // Only one picture supported for MP4
             case MP4_TAG:
-                pic->type = ET_PICTURE_TYPE_FRONT_COVER;
+                description = "";
+                type = ET_PICTURE_TYPE_FRONT_COVER;
                 break;
 
             // Other tag types
@@ -1419,16 +1424,16 @@ load_picture_from_file (GFile *file,
             case APE_TAG:
             case FLAC_TAG:
             case WAVPACK_TAG:
-                pic->description = g_strdup (filename_utf8);
+                description = filename_utf8;
 
                 if (g_settings_get_boolean (MainSettings,
                                             "tag-image-type-automatic"))
                 {
-                    pic->type = et_picture_type_from_filename (pic->description);
+                    type = et_picture_type_from_filename (pic->description);
                 }
                 else
                 {
-                    pic->type = ET_PICTURE_TYPE_FRONT_COVER;
+                    type = ET_PICTURE_TYPE_FRONT_COVER;
                 }
                 break;
 
@@ -1436,11 +1441,14 @@ load_picture_from_file (GFile *file,
                 g_assert_not_reached ();
         }
 
+        pic = et_picture_new (type, description, 0, 0, bytes);
+
         PictureEntry_Update (self, pic, TRUE);
 
         et_picture_free (pic);
     }
 
+    g_bytes_unref (bytes);
     g_object_unref (info);
 }
 

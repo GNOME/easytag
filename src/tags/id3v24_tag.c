@@ -446,14 +446,10 @@ id3tag_read_file_tag (GFile *gfile,
      ******************/
     for (i = 0; (frame = id3_tag_findframe(tag, "APIC", i)); i++)
     {
+        GBytes *bytes = NULL;
+        EtPictureType type = ET_PICTURE_TYPE_FRONT_COVER;
+        gchar *description;
         EtPicture *pic;
-
-        pic = et_picture_new ();
-        if (!prev_pic)
-            FileTag->picture = pic;
-        else
-            prev_pic->next = pic;
-        prev_pic = pic;
 
         /* Picture file data. */
         for (j = 0; (field = id3_frame_field(frame, j)); j++)
@@ -469,26 +465,41 @@ id3tag_read_file_tag (GFile *gfile,
 
                         if (data)
                         {
-                            if (pic->bytes)
+                            if (bytes)
                             {
-                                g_bytes_unref (pic->bytes);
+                                g_bytes_unref (bytes);
                             }
 
-                            pic->bytes = g_bytes_new (data, size);
+                            bytes = g_bytes_new (data, size);
                         }
                     }
                     break;
                 case ID3_FIELD_TYPE_INT8:
-                    /* TODO: Verify that the type matches with EtPictureType. */
-                    pic->type = id3_field_getint(field);
+                    type = id3_field_getint (field);
                     break;
                 default:
                     break;
             }
         }
 
-        // Picture description
-        update |= libid3tag_Get_Frame_Str(frame, EASYTAG_ID3_FIELD_STRING, &pic->description);
+        /* Picture description. */
+        update |= libid3tag_Get_Frame_Str (frame, EASYTAG_ID3_FIELD_STRING,
+                                           &description);
+
+        pic = et_picture_new (type, description, 0, 0, bytes);
+        g_bytes_unref (bytes);
+        g_free (description);
+
+        if (!prev_pic)
+        {
+            FileTag->picture = pic;
+        }
+        else
+        {
+            prev_pic->next = pic;
+        }
+
+        prev_pic = pic;
     }
 
     /**********************

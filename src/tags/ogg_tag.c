@@ -484,38 +484,43 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         EtPicture *pic;
         guchar *data;
         gsize data_size;
+        GBytes *bytes;
+        EtPictureType type;
+        const gchar *description;
             
         /* Force marking the file as modified, so that the deprecated cover art
          * field in converted in a METADATA_PICTURE_BLOCK field. */
         FileTag->saved = FALSE;
 
-        pic = et_picture_new ();
-
-        if (!prev_pic)
-            FileTag->picture = pic;
-        else
-            prev_pic->next = pic;
-        prev_pic = pic;
-
         /* Decode picture data. */
         data = g_base64_decode (string, &data_size);
-        pic->bytes = g_bytes_new_take (data, data_size);
+        bytes = g_bytes_new_take (data, data_size);
 
-        if ( (string = vorbis_comment_query(vc,"COVERARTTYPE",field_num-1)) != NULL )
+        if ((string = vorbis_comment_query (vc, "COVERARTTYPE", field_num - 1))
+            != NULL)
         {
-            pic->type = atoi(string);
+            type = atoi (string);
         }
 
-        if ( (string = vorbis_comment_query(vc,"COVERARTDESCRIPTION",field_num-1)) != NULL )
+        if ((string = vorbis_comment_query (vc, "COVERARTDESCRIPTION",
+                                            field_num - 1)) != NULL)
         {
-            pic->description = g_strdup(string);
+            description = string;
         }
 
-        //if ((string = vorbis_comment_query(vc,"COVERTARTMIME",field_num-1)) != NULL )
-        //{
-        //    pic->description = g_strdup(string);
-        //}
+        pic = et_picture_new (type, description, 0, 0, bytes);
+        g_bytes_unref (bytes);
 
+        if (!prev_pic)
+        {
+            FileTag->picture = pic;
+        }
+        else
+        {
+            prev_pic->next = pic;
+        }
+
+        prev_pic = pic;
     }
 
     /* METADATA_BLOCK_PICTURE tag used for picture information */
@@ -527,10 +532,44 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         gsize bytes_pos, mimelen, desclen;
         guchar *decoded_ustr;
         GBytes *bytes;
+        EtPictureType type;
+        gchar *description;
+        GBytes *pic_bytes;
         gsize decoded_size;
         gsize data_size;
 
-        pic = et_picture_new ();
+        /* Decode picture data. */
+        decoded_ustr = g_base64_decode (string, &decoded_size);
+        bytes = g_bytes_new_take (decoded_ustr, decoded_size);
+
+        /* Reading picture type. */
+        type = read_guint32_from_byte (decoded_ustr, 0);
+        bytes_pos = 4;
+
+        /* Reading MIME data. */
+        mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos = 8 + mimelen;
+
+        /* Reading description */
+        desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos += 4;
+
+        description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
+                                 desclen);
+
+        bytes_pos += desclen + 16;
+
+        /* Reading picture size */
+        data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
+        bytes_pos += 4;
+
+        /* Read only the image data into a new GBytes. */
+        pic_bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
+
+        pic = et_picture_new (type, description, 0, 0, pic_bytes);
+
+        g_free (description);
+        g_bytes_unref (pic_bytes);
 
         if (!prev_pic)
         {
@@ -542,34 +581,6 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         }
 
         prev_pic = pic;
-
-        /* Decode picture data. */
-        decoded_ustr = g_base64_decode (string, &decoded_size);
-        bytes = g_bytes_new_take (decoded_ustr, decoded_size);
-
-        /* Reading picture type. */
-        pic->type = read_guint32_from_byte (decoded_ustr, 0);
-        bytes_pos = 4;
-
-        /* Reading MIME data. */
-        mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos = 8 + mimelen;
-
-        /* Reading description */
-        desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos += 4;
-
-        pic->description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
-                                      desclen);
-
-        bytes_pos += desclen + 16;
-
-        /* Reading picture size */
-        data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos += 4;
-
-        /* Read only the image data into a new GBytes. */
-        pic->bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
 
         /* pic->bytes still holds a ref on the decoded data. */
         g_bytes_unref (bytes);

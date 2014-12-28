@@ -209,11 +209,13 @@ mp4tag_read_file_tag (GFile *file,
         const TagLib::MP4::CoverArtList covers = cover.toCoverArtList ();
         const TagLib::MP4::CoverArt &art = covers.front ();
 
-        FileTag->picture = et_picture_new ();
-
         /* TODO: Use g_bytes_new_with_free_func()? */
-        FileTag->picture->bytes = g_bytes_new (art.data ().data (),
-                                               art.data ().size ());
+        GBytes *bytes = g_bytes_new (art.data ().data (), art.data ().size ());
+
+        /* MP4 does not support image types, nor descriptions. */
+        FileTag->picture = et_picture_new (ET_PICTURE_TYPE_FRONT_COVER, "", 0,
+                                           0, bytes);
+        g_bytes_unref (bytes);
     }
     else
     {
