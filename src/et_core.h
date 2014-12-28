@@ -297,7 +297,6 @@ void      ET_Free_File_List_Item (ET_File *ETFile);
 gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
 gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
-void ET_Set_Field_File_Tag_Item (gchar **FileTagField, const gchar *value);
 void et_file_tag_set_title (File_Tag *file_tag, const gchar *title);
 void et_file_tag_set_artist (File_Tag *file_tag, const gchar *artist);
 void et_file_tag_set_album_artist (File_Tag *file_tag, const gchar *album_artist);

@@ -205,8 +205,6 @@ static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 static void Scan_Free_File_Rename_List (GList *list);
 static void Scan_Free_File_Fill_Tag_List (GList *list);
 
-static gchar **Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag,
-                                                          gchar code);
 static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 
 static void et_scan_on_response (GtkDialog *dialog, gint response_id,
@@ -218,6 +216,117 @@ static void et_scan_on_response (GtkDialog *dialog, gint response_id,
  *************/
 
 /*
+ * Return the field of a 'File_Tag' structure corresponding to the mask code
+ */
+static gchar **
+Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code)
+{
+    switch (code)
+    {
+        case 't':    /* Title */
+            return &FileTag->title;
+        case 'a':    /* Artist */
+            return &FileTag->artist;
+        case 'b':    /* Album */
+            return &FileTag->album;
+        case 'd':    /* Disc Number */
+            return &FileTag->disc_number;
+        case 'x': /* Total number of discs. */
+            return &FileTag->disc_total;
+        case 'y':    /* Year */
+            return &FileTag->year;
+        case 'n':    /* Track */
+            return &FileTag->track;
+        case 'l':    /* Track Total */
+            return &FileTag->track_total;
+        case 'g':    /* Genre */
+            return &FileTag->genre;
+        case 'c':    /* Comment */
+            return &FileTag->comment;
+        case 'p':    /* Composer */
+            return &FileTag->composer;
+        case 'o':    /* Orig. Artist */
+            return &FileTag->orig_artist;
+        case 'r':    /* Copyright */
+            return &FileTag->copyright;
+        case 'u':    /* URL */
+            return &FileTag->url;
+        case 'e':    /* Encoded by */
+            return &FileTag->encoded_by;
+        case 'z':    /* Album Artist */
+            return &FileTag->album_artist;
+        case 'i':    /* Ignored */
+            return NULL;
+        default:
+            Log_Print(LOG_ERROR,"Scanner: Invalid code '%%%c' found!",code);
+            return NULL;
+    }
+}
+
+static void
+et_scan_dialog_set_file_tag_for_mask_item (File_Tag *file_tag,
+                                           Scan_Mask_Item *item)
+{
+    switch (item->code)
+    {
+        case 't':
+            et_file_tag_set_title (file_tag, item->string);
+            break;
+        case 'a':
+            et_file_tag_set_artist (file_tag, item->string);
+            break;
+        case 'b':
+            et_file_tag_set_album (file_tag, item->string);
+            break;
+        case 'd':
+            et_file_tag_set_disc_number (file_tag, item->string);
+            break;
+        case 'x':
+            et_file_tag_set_disc_total (file_tag, item->string);
+            break;
+        case 'y':
+            et_file_tag_set_year (file_tag, item->string);
+            break;
+        case 'n':
+            et_file_tag_set_track_number (file_tag, item->string);
+            break;
+        case 'l':
+            et_file_tag_set_track_total (file_tag, item->string);
+            break;
+        case 'g':
+            et_file_tag_set_genre (file_tag, item->string);
+            break;
+        case 'c':
+            et_file_tag_set_comment (file_tag, item->string);
+            break;
+        case 'p':
+            et_file_tag_set_composer (file_tag, item->string);
+            break;
+        case 'o':
+            et_file_tag_set_orig_artist (file_tag, item->string);
+            break;
+        case 'r':
+            et_file_tag_set_copyright (file_tag, item->string);
+            break;
+        case 'u':
+            et_file_tag_set_url (file_tag, item->string);
+            break;
+        case 'e':
+            et_file_tag_set_encoded_by (file_tag, item->string);
+            break;
+        case 'z':
+            et_file_tag_set_album_artist (file_tag, item->string);
+            break;
+        case 'i':
+            break;
+        default:
+            Log_Print (LOG_ERROR, "Scanner: Invalid code '%%%c' found!",
+                       item->code);
+            break;;
+    }
+}
+
+/*
  * Uses the filename and path to fill tag information
  * Note: mask and source are read from the right to the left
  */
@@ -227,7 +336,6 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     EtScanDialogPrivate *priv;
     GList *fill_tag_list = NULL;
     GList *l;
-    gchar **dest = NULL;
     gchar *mask; // The 'mask' in the entry
     gchar *filename_utf8;
     File_Tag *FileTag;
@@ -250,15 +358,10 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     {
         Scan_Mask_Item *mask_item = l->data;
 
-        // Get the target entry for this code
-        dest = Scan_Return_File_Tag_Field_From_Mask_Code(FileTag,mask_item->code);
-
         /* We display the text affected to the code. */
-        if (dest && (g_settings_get_boolean (MainSettings,
-                                             "fill-overwrite-tag-fields")
-            || *dest == NULL || strlen (*dest) == 0))
+        if (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields"))
         {
-            ET_Set_Field_File_Tag_Item (dest, mask_item->string);
+            et_scan_dialog_set_file_tag_for_mask_item (FileTag, mask_item);
         }
 
     }
@@ -1466,56 +1569,6 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
     ET_Manage_Changes_Of_File_Data(ETFile,FileName,FileTag);
 
 }
-
-/*
- * Return the field of a 'File_Tag' structure corresponding to the mask code
- */
-static gchar
-**Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code)
-{
-    switch (code)
-    {
-        case 't':    /* Title */
-            return &FileTag->title;
-        case 'a':    /* Artist */
-            return &FileTag->artist;
-        case 'b':    /* Album */
-            return &FileTag->album;
-        case 'd':    /* Disc Number */
-            return &FileTag->disc_number;
-        case 'x': /* Total number of discs. */
-            return &FileTag->disc_total;
-        case 'y':    /* Year */
-            return &FileTag->year;
-        case 'n':    /* Track */
-            return &FileTag->track;
-        case 'l':    /* Track Total */
-            return &FileTag->track_total;
-        case 'g':    /* Genre */
-            return &FileTag->genre;
-        case 'c':    /* Comment */
-            return &FileTag->comment;
-        case 'p':    /* Composer */
-            return &FileTag->composer;
-        case 'o':    /* Orig. Artist */
-            return &FileTag->orig_artist;
-        case 'r':    /* Copyright */
-            return &FileTag->copyright;
-        case 'u':    /* URL */
-            return &FileTag->url;
-        case 'e':    /* Encoded by */
-            return &FileTag->encoded_by;
-        case 'z':    /* Album Artist */
-            return &FileTag->album_artist;
-        case 'i':    /* Ignored */
-            return NULL;
-        default:
-            Log_Print(LOG_ERROR,"Scanner: Invalid code '%%%c' found!",code);
-            return NULL;
-    }
-}
-
-
 
 /******************
  * Scanner Window *

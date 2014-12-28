@@ -2772,7 +2772,7 @@ ET_Set_Filename_File_Name_Item (File_Name *FileName,
  * Set the value of a field of a FileTag item (for ex, value of FileTag->title)
  * Must be used only for the 'gchar *' components
  */
-void
+static void
 ET_Set_Field_File_Tag_Item (gchar **FileTagField,
                             const gchar *value)
 {
