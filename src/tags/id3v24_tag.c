@@ -1053,13 +1053,10 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     /***************
      * Part of set *
      ***************/
-    if (FileTag->disc_number)
-    {
-        string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
-        etag_set_tags (string1, "TPOS", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag,
-                       &strip_tags);
-        g_free (string1);
-    }
+    string1 = et_id3tag_get_tpos_from_file_tag (FileTag);
+    etag_set_tags (string1, "TPOS", ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag,
+                   &strip_tags);
+    g_free (string1);
 
     /********
      * Year *
