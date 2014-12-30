@@ -28,6 +28,7 @@
 #include "easytag.h"
 #include "log.h"
 #include "misc.h"
+#include "setting.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
 G_DEFINE_TYPE (EtApplication, et_application, GTK_TYPE_APPLICATION)

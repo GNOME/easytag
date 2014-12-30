@@ -26,7 +26,6 @@ G_BEGIN_DECLS
 #include "core_types.h"
 #include "file_description.h"
 #include "file_tag.h"
-#include "setting.h"
 
 /*
  * Description of each item of the FileNameList list
@@ -73,63 +72,37 @@ typedef struct
     ET_File *ETFile;           /* Pointer to item of ETFileList changed */
 } ET_History_File;
 
-GList   *ET_Add_File_To_File_List        (gchar *filename);
-gboolean ET_Remove_File_From_File_List   (ET_File *ETFile);
-gboolean ET_Free_File_List (void);
-
-gboolean ET_Create_Artist_Album_File_List      (void);
-gboolean ET_Free_Artist_Album_File_List (void);
-gboolean ET_Remove_File_From_File_List         (ET_File *ETFile);
-
 gboolean ET_Check_If_File_Is_Saved (const ET_File *ETFile);
-gboolean ET_Check_If_All_Files_Are_Saved (void);
 
-ET_File      *ET_File_Item_New       (void);
-File_Name    *ET_File_Name_Item_New  (void);
-void      ET_Free_File_List_Item (ET_File *ETFile);
+ET_File * ET_File_Item_New (void);
+ET_File_Info * ET_File_Info_Item_New (void);
+File_Name * ET_File_Name_Item_New (void);
+void ET_Free_File_List_Item (ET_File *ETFile);
 
-gboolean ET_Set_Field_File_Name_Item    (gchar **FileNameField, gchar *value);
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
 
 /* FIXME: Move to file_tag.h. */
 gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
 void ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile, File_Tag *FileTag);
 
-GList   *ET_Displayed_File_List_First       (void);
-GList   *ET_Displayed_File_List_Previous    (void);
-GList   *ET_Displayed_File_List_Next        (void);
-GList   *ET_Displayed_File_List_Last        (void);
-GList *ET_Displayed_File_List_By_Etfile (const ET_File *ETFile);
-
-gboolean ET_Set_Displayed_File_List         (GList *ETFileList);
-gboolean ET_Free_Displayed_File_List (void);
-
-void     ET_Display_File_Data_To_UI (ET_File *ETFile);
-void     ET_Save_File_Data_From_UI  (ET_File *ETFile);
+void ET_Display_File_Data_To_UI (ET_File *ETFile);
+void ET_Save_File_Data_From_UI (ET_File *ETFile);
+gboolean ET_Save_File_Name_Internal (const ET_File *ETFile, File_Name *FileName);
 gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error);
+gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag);
 
 guint ET_Undo_Key_New (void);
 
-gboolean ET_Undo_File_Data          (ET_File *ETFile);
-gboolean ET_Redo_File_Data          (ET_File *ETFile);
+gboolean ET_Undo_File_Data (ET_File *ETFile);
+gboolean ET_Redo_File_Data (ET_File *ETFile);
 gboolean ET_File_Data_Has_Undo_Data (const ET_File *ETFile);
 gboolean ET_File_Data_Has_Redo_Data (const ET_File *ETFile);
 
-ET_File *ET_Undo_History_File_Data          (void);
-ET_File *ET_Redo_History_File_Data          (void);
-gboolean ET_History_File_List_Has_Undo_Data (void);
-gboolean ET_History_File_List_Has_Redo_Data (void);
-gboolean ET_Free_History_File_List (void);
-
-gboolean ET_Manage_Changes_Of_File_Data          (ET_File *ETFile, File_Name *FileName, File_Tag *FileTag);
-void     ET_Mark_File_Name_As_Saved              (ET_File *ETFile);
-void ET_Update_Directory_Name_Into_File_List (const gchar *last_path, const gchar *new_path);
-gboolean ET_File_Name_Convert_Character          (gchar *filename_utf8);
+gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, File_Tag *FileTag);
+void ET_Mark_File_Name_As_Saved (ET_File *ETFile);
+gboolean ET_File_Name_Convert_Character (gchar *filename_utf8);
 gchar *ET_File_Name_Generate (const ET_File *ETFile, const gchar *new_file_name);
-guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
 
-GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
-void ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type);
 gint ET_Comp_Func_Sort_File_By_Ascending_Filename (const ET_File *ETFile1, const ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Descending_Filename (const ET_File *ETFile1, const ET_File *ETFile2);
 gint ET_Comp_Func_Sort_File_By_Ascending_Creation_Date (const ET_File *ETFile1, const ET_File *ETFile2);

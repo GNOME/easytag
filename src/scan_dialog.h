@@ -21,11 +21,12 @@
 #ifndef ET_SCAN_DIALOG_H_
 #define ET_SCAN_DIALOG_H_
 
-#include "et_core.h"
-
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
+
+#include "file.h"
+#include "setting.h"
 
 #define ET_TYPE_SCAN_DIALOG (et_scan_dialog_get_type ())
 #define ET_SCAN_DIALOG(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), ET_TYPE_SCAN_DIALOG, EtScanDialog))

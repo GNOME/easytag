@@ -25,7 +25,7 @@
 #include "application_window.h"
 #include "charset.h"
 #include "easytag.h"
-#include "et_core.h"
+#include "file_list.h"
 #include "genres.h"
 #include "log.h"
 #include "misc.h"

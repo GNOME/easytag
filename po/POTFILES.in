@@ -24,6 +24,7 @@ src/charset.c
 src/easytag.c
 src/et_core.c
 src/file_area.c
+src/file_list.c
 src/file.c
 src/load_files_dialog.c
 src/log.c

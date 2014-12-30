@@ -25,6 +25,7 @@
 #include "charset.h"
 #include "et_core.h"
 #include "log.h"
+#include "setting.h"
 #include "tag_area.h"
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */

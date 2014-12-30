@@ -37,14 +37,15 @@
 #include <errno.h>
 
 #include "application_window.h"
+#include "charset.h"
+#include "dlm.h"
 #include "easytag.h"
 #include "et_core.h"
+#include "file_list.h"
 #include "scan_dialog.h"
 #include "log.h"
 #include "misc.h"
 #include "setting.h"
-#include "charset.h"
-#include "dlm.h"
 
 #include "win32/win32dep.h"
 

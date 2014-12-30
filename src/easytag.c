@@ -30,6 +30,7 @@
 #include "application_window.h"
 #include "browser.h"
 #include "file_description.h"
+#include "file_list.h"
 #include "log.h"
 #include "misc.h"
 #include "cddb_dialog.h"
