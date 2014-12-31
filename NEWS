@@ -1,3 +1,33 @@
+2.3.3 - 2014-12-31 :
+====================
+
+    * Add album artist support for WavPack and APE tags
+    * Add channel mask reading support for WavPack tags
+    * Reduce memory usage when copying cover art, such as when modifying tags
+      which contain images
+    * Use GIO when reading and writing FLAC, ID3v2.4 and WavPack tags
+    * Use GIO for reading and writing list store files
+    * Fix an error check when saving WavPack tags
+    * Clear empty fields when saving WavPack tags
+    * Allow the search dialog tree view to expand to fill the dialog
+    * Fix the disc number preferences controls
+    * Fix a crash when migrating configuration directories
+    * Fix a double unref when renaming files
+    * Fix memory leaks in the CDDB dialog, Ogg tagging code, Speex tagging
+      code, FLAC tagging code, images tree view and the WavPack tagging code
+    * Fix stripping of disc number fields in ID3v2.4 tags
+    * Fix Ctrl-clicking to modify the file list selection
+    * Add an automated test for file type detection
+    * Refactoring of internal file list code
+    * Refactoring of FLAC and WavPack tagging code
+    * Relicense all code (excluding the Nautilus extension) under the GNU GPL
+      version 2 or later
+    * Мирослав Николић’s Serbian translation update
+    * Rafael Ferrera’s Brazilian Portuguese translation update
+    * Balázs Úr’s Hungarian translation update
+    * Marek Černocký’s Czech translation updates
+    * Muhammet Kara’s Turkish translation update
+
 2.3.2 - 2014-11-30 :
 ====================
 

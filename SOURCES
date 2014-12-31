@@ -1,4 +1,4 @@
-Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.3.2
+Source: https://git.gnome.org/browse/easytag/tag/?id=easytag-2.3.3
 
 This binary was generated with GCC/MinGW on Fedora Rawhide.
 
@@ -18,6 +18,7 @@ DLLs and binaries from the following Fedora binary packages are included:
 * mingw32-libid3tag
 * mingw32-libogg
 * mingw32-libpng
+* mingw32-libvorbis
 * mingw32-opus
 * mingw32-opusfile
 * mingw32-pango
