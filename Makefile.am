@@ -363,6 +363,7 @@ dist_noinst_DATA = \
 	src/tags/libapetag/id3v2_read.c \
 	src/tags/libapetag/id3v2_read.h \
 	src/tags/mp4_header.cc \
+	src/win32/easytag.manifest \
 	src/win32/resource.h \
 	data/icons/win32/easytag.ico \
 	data/nsis/easytag-header.bmp \
