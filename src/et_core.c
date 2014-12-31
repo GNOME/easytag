@@ -36,31 +36,16 @@ ET_Core_Create (void)
     /* Allocate. */
     if (ETCore == NULL)
     {
-        ETCore = g_slice_new (ET_Core);
+        ETCore = g_slice_new0 (ET_Core);
     }
-
-    /* Initialize. */
-    ET_Core_Initialize ();
-}
-
-void
-ET_Core_Initialize (void)
-{
-    ETCore->ETFileList                        = NULL;
-    ETCore->ETFileDisplayedList               = NULL;
-    ETCore->ETFileDisplayedListPtr            = NULL;
-    ETCore->ETFileDisplayedList_Length        = 0;
-    ETCore->ETFileDisplayedList_TotalSize     = 0;
-    ETCore->ETFileDisplayedList_TotalDuration = 0;
-    ETCore->ETFileDisplayed                   = NULL;
-    ETCore->ETHistoryFileList                 = NULL;
-    ETCore->ETArtistAlbumFileList             = NULL;
 }
 
 void
 ET_Core_Free (void)
 {
-    // Frees first lists, then initialize
+    g_return_if_fail (ETCore != NULL);
+
+    /* First frees lists. */
     if (ETCore->ETFileList)
         ET_Free_File_List();
 
@@ -73,16 +58,8 @@ ET_Core_Free (void)
     if (ETCore->ETArtistAlbumFileList)
         ET_Free_Artist_Album_File_List();
 
-    // Initialize by security
-    ET_Core_Initialize();
-}
-
-void
-ET_Core_Destroy (void)
-{
     if (ETCore)
     {
-        ET_Core_Free ();
         g_slice_free (ET_Core, ETCore);
         ETCore = NULL;
     }

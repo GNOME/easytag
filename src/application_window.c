@@ -1592,7 +1592,10 @@ et_application_window_dispose (GObject *object)
 
     save_state (self);
 
-    ET_Core_Destroy ();
+    if (ETCore)
+    {
+        ET_Core_Free ();
+    }
 
     if (priv->cddb_dialog)
     {

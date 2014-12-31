@@ -61,10 +61,8 @@ typedef struct
 
 extern ET_Core *ETCore; /* Main pointer to structure needed by EasyTAG. */
 
-void ET_Core_Create     (void);
-void ET_Core_Initialize (void);
-void ET_Core_Free       (void);
-void ET_Core_Destroy    (void);
+void ET_Core_Create (void);
+void ET_Core_Free (void);
 
 G_END_DECLS
 

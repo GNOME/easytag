@@ -920,8 +920,8 @@ Read_Directory (const gchar *path_real)
     ReadingDirectory = TRUE;    /* A flag to avoid to start another reading */
 
     /* Initialize file list */
-    ET_Core_Free();
-    ET_Core_Initialize();
+    ET_Core_Free ();
+    ET_Core_Create ();
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     window = ET_APPLICATION_WINDOW (MainWindow);

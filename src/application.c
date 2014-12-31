@@ -111,7 +111,7 @@ on_idle_init (EtApplication *self)
     priv = et_application_get_instance_private (self);
 
     ET_Core_Free ();
-    ET_Core_Initialize ();
+    ET_Core_Create ();
 
     if (g_settings_get_boolean (MainSettings, "scan-startup"))
     {
