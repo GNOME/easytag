@@ -19,6 +19,7 @@
 #include "flac_private.h"
 
 #include <errno.h>
+#include <unistd.h>
 
 size_t
 et_flac_read_func (void *ptr,
