@@ -1,7 +1,6 @@
-/* about.c - 2000/05/05 */
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - tag editor for audio files
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -79,7 +78,7 @@ void Show_About_Window (void)
         NULL
     };
 
-    static const gchar copyright[] = "Copyright © 2012–2014 David King\n"
+    static const gchar copyright[] = "Copyright © 2012–2015 David King\n"
                                      "Copyright © 2009–2012 Kip Warner\n"
                                      "Copyright © 2000–2008 Jérôme Couderc";
 
