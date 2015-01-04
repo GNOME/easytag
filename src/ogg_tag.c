@@ -546,7 +546,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
         Picture *pic;
         gsize bytes_pos, mimelen, desclen;
         guchar *decoded_ustr;
-        gsize decoded_len;
+        gsize decoded_size;
 
         pic = Picture_Allocate();
 
@@ -564,7 +564,19 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
         pic->data = NULL;
 
         /* Decode picture data. */
-        decoded_ustr = g_base64_decode (string, &decoded_len);
+        decoded_ustr = g_base64_decode (string, &decoded_size);
+
+        /* Check that the comment decoded to a long enough string to hold the
+         * whole structure (8 fields of 4 bytes each). */
+        if (decoded_size < 8 * 4)
+        {
+            /* Mark the file as modified, so that the invalid field is removed
+             * upon saving. */
+            FileTag->saved = FALSE;
+
+            g_free (decoded_ustr);
+            continue;
+        }
 
         /* Reading picture type. */
         pic->type = read_guint32_from_byte (decoded_ustr, 0);
