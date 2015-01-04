@@ -249,7 +249,7 @@ ET_Add_File_To_File_List (gchar *filename)
     FileName->value_ck   = g_utf8_collate_key_for_filename(filename_utf8, -1);
 
     /* Fill the File_Tag structure for FileTagList */
-    FileTag = ET_File_Tag_Item_New();
+    FileTag = et_file_tag_new ();
     FileTag->saved = TRUE;    /* The file hasn't been changed, so it's saved */
 
     /* Patch from Doruk Fisek and Onur Kucuk: avoid upper/lower conversion bugs
@@ -463,7 +463,7 @@ ET_Add_File_To_File_List (gchar *filename)
     FileName->key = undo_key;
     ET_Save_File_Name_Internal(ETFile,FileName);
 
-    FileTag = ET_File_Tag_Item_New();
+    FileTag = et_file_tag_new ();
     FileTag->key = undo_key;
     ET_Save_File_Tag_Internal(ETFile,FileTag);
 

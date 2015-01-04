@@ -559,7 +559,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
         // Delete the APE tag (create a dummy ETFile for the Ape_Tag_... function)
         ET_File   *ETFile_tmp    = ET_File_Item_New();
         File_Name *FileName_tmp  = ET_File_Name_Item_New();
-        File_Tag  *FileTag_tmp   = ET_File_Tag_Item_New();
+        File_Tag  *FileTag_tmp = et_file_tag_new();
         // Same file...
         FileName_tmp->value      = g_strdup(filename);
         FileName_tmp->value_utf8 = g_strdup(filename_utf8);  // Not necessary to fill 'value_ck'
@@ -654,9 +654,11 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                     && g_settings_get_boolean (MainSettings,
                                                "id3v2-enable-unicode"))
                 {
-                    File_Tag  *FileTag_tmp = ET_File_Tag_Item_New();
+                    File_Tag  *FileTag_tmp = et_file_tag_new ();
+
                     if (id3tag_read_file_tag (file, FileTag_tmp, NULL) == TRUE
-                    &&  ET_Detect_Changes_Of_File_Tag(FileTag,FileTag_tmp) == TRUE)
+                        && et_file_tag_detect_difference (FileTag,
+                                                          FileTag_tmp) == TRUE)
                     {
                         GtkWidget *msgdialog;
 
@@ -679,7 +681,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                         gtk_widget_destroy(msgdialog);
                         flag_id3lib_bugged = FALSE; // To display the message only one time
                     }
-                    ET_Free_File_Tag_Item(FileTag_tmp);
+
+                    et_file_tag_free (FileTag_tmp);
                 }
 
             }

@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -75,8 +75,8 @@ typedef struct
     GList *other;
 } File_Tag;
 
-File_Tag * ET_File_Tag_Item_New (void);
-gboolean ET_Free_File_Tag_Item (File_Tag *FileTag);
+File_Tag * et_file_tag_new (void);
+void et_file_tag_free (File_Tag *file_tag);
 
 void et_file_tag_set_title (File_Tag *file_tag, const gchar *title);
 void et_file_tag_set_artist (File_Tag *file_tag, const gchar *artist);
@@ -96,7 +96,7 @@ void et_file_tag_set_url (File_Tag *file_tag, const gchar *url);
 void et_file_tag_set_encoded_by (File_Tag *file_tag, const gchar *encoded_by);
 void et_file_tag_set_picture (File_Tag *file_tag, const EtPicture *pic);
 
-gboolean ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1, const File_Tag  *FileTag2);
+gboolean et_file_tag_detect_difference (const File_Tag *FileTag1, const File_Tag  *FileTag2);
 
 G_END_DECLS
 

@@ -348,7 +348,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     if (!mask) return;
 
     // Create a new File_Tag item
-    FileTag = ET_File_Tag_Item_New();
+    FileTag = et_file_tag_new ();
     ET_Copy_File_Tag_Item(ETFile,FileTag);
 
     // Process this mask with file
@@ -1356,7 +1356,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1375,7 +1375,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1394,7 +1394,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1413,7 +1413,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1432,7 +1432,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1451,7 +1451,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1470,7 +1470,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1489,7 +1489,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1508,7 +1508,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1527,7 +1527,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 
@@ -1546,7 +1546,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
         {
             if (!FileTag)
             {
-                FileTag = ET_File_Tag_Item_New();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item(ETFile,FileTag);
             }
 

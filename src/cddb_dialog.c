@@ -2362,8 +2362,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
             if (set_fields != 0)
             {
-                // Allocation of a new FileTag
-                FileTag = ET_File_Tag_Item_New();
+                /* Allocation of a new FileTag. */
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item (etfile, FileTag);
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
@@ -2492,7 +2492,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             if (set_fields != 0)
             {
                 /* Allocation of a new FileTag. */
-                FileTag = ET_File_Tag_Item_New ();
+                FileTag = et_file_tag_new ();
                 ET_Copy_File_Tag_Item (etfile, FileTag);
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)

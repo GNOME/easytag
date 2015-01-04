@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -21,7 +21,7 @@
 #include "et_core.h"
 
 static void
-ET_Initialize_File_Tag_Item (File_Tag *FileTag)
+et_file_tag_init (File_Tag *FileTag)
 {
     if (FileTag)
     {
@@ -51,12 +51,13 @@ ET_Initialize_File_Tag_Item (File_Tag *FileTag)
 /*
  * Create a new File_Tag structure
  */
-File_Tag *ET_File_Tag_Item_New (void)
+File_Tag *
+et_file_tag_new (void)
 {
     File_Tag *FileTag;
 
     FileTag = g_slice_new (File_Tag);
-    ET_Initialize_File_Tag_Item (FileTag);
+    et_file_tag_init (FileTag);
 
     return FileTag;
 }
@@ -64,21 +65,20 @@ File_Tag *ET_File_Tag_Item_New (void)
 /*
  * Frees the list of 'other' field in a File_Tag item (contains attached gchar data).
  */
-static gboolean
-ET_Free_File_Tag_Item_Other_Field (File_Tag *FileTag)
+static void
+et_file_tag_free_other_field (File_Tag *file_tag)
 {
-    g_list_free_full (FileTag->other, g_free);
-
-    return TRUE;
+    g_list_free_full (file_tag->other, g_free);
 }
 
 
 /*
  * Frees a File_Tag item.
  */
-gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
+void
+et_file_tag_free (File_Tag *FileTag)
 {
-    g_return_val_if_fail (FileTag != NULL, FALSE);
+    g_return_if_fail (FileTag != NULL);
 
     g_free(FileTag->title);
     g_free(FileTag->artist);
@@ -97,11 +97,9 @@ gboolean ET_Free_File_Tag_Item (File_Tag *FileTag)
     g_free(FileTag->url);
     g_free(FileTag->encoded_by);
     et_file_tag_set_picture (FileTag, NULL);
-    // Free list of other fields
-    ET_Free_File_Tag_Item_Other_Field(FileTag);
+    et_file_tag_free_other_field (FileTag);
 
     g_slice_free (File_Tag, FileTag);
-    return TRUE;
 }
 
 /*
@@ -296,7 +294,7 @@ ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
         ET_Copy_File_Tag_Item_Other_Field(ETFile,FileTag);
     }else
     {
-        ET_Free_File_Tag_Item_Other_Field (FileTag);
+        et_file_tag_free_other_field (FileTag);
     }
 
     return TRUE;
@@ -307,8 +305,8 @@ ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
  * Must be used only for the 'gchar *' components
  */
 static void
-ET_Set_Field_File_Tag_Item (gchar **FileTagField,
-                            const gchar *value)
+et_file_tag_set_field (gchar **FileTagField,
+                       const gchar *value)
 {
     g_return_if_fail (FileTagField != NULL);
 
@@ -333,7 +331,7 @@ et_file_tag_set_title (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->title, title);
+    et_file_tag_set_field (&file_tag->title, title);
 }
 
 void
@@ -342,7 +340,7 @@ et_file_tag_set_artist (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->artist, artist);
+    et_file_tag_set_field (&file_tag->artist, artist);
 }
 
 void
@@ -351,7 +349,7 @@ et_file_tag_set_album_artist (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->album_artist, album_artist);
+    et_file_tag_set_field (&file_tag->album_artist, album_artist);
 }
 
 void
@@ -360,7 +358,7 @@ et_file_tag_set_album (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->album, album);
+    et_file_tag_set_field (&file_tag->album, album);
 }
 
 void
@@ -369,7 +367,7 @@ et_file_tag_set_disc_number (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->disc_number, disc_number);
+    et_file_tag_set_field (&file_tag->disc_number, disc_number);
 }
 
 void
@@ -378,7 +376,7 @@ et_file_tag_set_disc_total (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->disc_total, disc_total);
+    et_file_tag_set_field (&file_tag->disc_total, disc_total);
 }
 
 void
@@ -387,7 +385,7 @@ et_file_tag_set_year (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->year, year);
+    et_file_tag_set_field (&file_tag->year, year);
 }
 
 void
@@ -396,7 +394,7 @@ et_file_tag_set_track_number (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->track, track_number);
+    et_file_tag_set_field (&file_tag->track, track_number);
 }
 
 void
@@ -405,7 +403,7 @@ et_file_tag_set_track_total (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->track_total, track_total);
+    et_file_tag_set_field (&file_tag->track_total, track_total);
 }
 
 void
@@ -414,7 +412,7 @@ et_file_tag_set_genre (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->genre, genre);
+    et_file_tag_set_field (&file_tag->genre, genre);
 }
 
 void
@@ -423,7 +421,7 @@ et_file_tag_set_comment (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->comment, comment);
+    et_file_tag_set_field (&file_tag->comment, comment);
 }
 
 void
@@ -432,7 +430,7 @@ et_file_tag_set_composer (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->composer, composer);
+    et_file_tag_set_field (&file_tag->composer, composer);
 }
 
 void
@@ -441,7 +439,7 @@ et_file_tag_set_orig_artist (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->orig_artist, orig_artist);
+    et_file_tag_set_field (&file_tag->orig_artist, orig_artist);
 }
 
 void
@@ -450,7 +448,7 @@ et_file_tag_set_copyright (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->copyright, copyright);
+    et_file_tag_set_field (&file_tag->copyright, copyright);
 }
 
 void
@@ -459,7 +457,7 @@ et_file_tag_set_url (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->url, url);
+    et_file_tag_set_field (&file_tag->url, url);
 }
 
 void
@@ -468,7 +466,7 @@ et_file_tag_set_encoded_by (File_Tag *file_tag,
 {
     g_return_if_fail (file_tag != NULL);
 
-    ET_Set_Field_File_Tag_Item (&file_tag->encoded_by, encoded_by);
+    et_file_tag_set_field (&file_tag->encoded_by, encoded_by);
 }
 
 /*
@@ -503,7 +501,7 @@ et_file_tag_set_picture (File_Tag *file_tag,
  *  - if field is '' or NULL => will be removed
  */
 gboolean
-ET_Detect_Changes_Of_File_Tag (const File_Tag *FileTag1,
+et_file_tag_detect_difference (const File_Tag *FileTag1,
                                const File_Tag *FileTag2)
 {
     const EtPicture *pic1;

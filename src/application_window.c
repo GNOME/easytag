@@ -877,7 +877,7 @@ on_remove_tags (GSimpleAction *action,
     {
         etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
                                                    l->data);
-        FileTag = ET_File_Tag_Item_New ();
+        FileTag = et_file_tag_new ();
         ET_Manage_Changes_Of_File_Data (etfile, NULL, FileTag);
 
         fraction = (++progress_bar_index) / (double) selectcount;

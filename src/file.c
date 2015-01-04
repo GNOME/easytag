@@ -1109,7 +1109,9 @@ ET_Free_File_Tag_List (GList *FileTagList)
     for (l = FileTagList; l != NULL; l = g_list_next (l))
     {
         if ((File_Tag *)l->data)
-            ET_Free_File_Tag_Item ((File_Tag *)l->data);
+        {
+            et_file_tag_free ((File_Tag *)l->data);
+        }
     }
 
     g_list_free (FileTagList);
@@ -1440,7 +1442,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
             break;
         case UNKNOWN_TAG:
         default:
-            FileTag = ET_File_Tag_Item_New ();
+            FileTag = et_file_tag_new ();
             Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
             break;
     }
@@ -1976,13 +1978,16 @@ ET_Manage_Changes_Of_File_Data (ET_File *ETFile,
      */
     if (FileTag)
     {
-        if ( ETFile->FileTag && ET_Detect_Changes_Of_File_Tag( (File_Tag *)(ETFile->FileTag)->data,FileTag )==TRUE )
+        if (ETFile->FileTag
+            && et_file_tag_detect_difference ((File_Tag *)(ETFile->FileTag)->data,
+                                              FileTag) == TRUE)
         {
             ET_Add_File_Tag_To_List(ETFile,FileTag);
             undo_added |= TRUE;
-        }else
+        }
+        else
         {
-            ET_Free_File_Tag_Item(FileTag);
+            et_file_tag_free (FileTag);
         }
     }
 
