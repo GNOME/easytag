@@ -1,0 +1,1314 @@
+# Czech translation for easytag.
+# Copyright (C) 2014 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Marek Černocký <marek@manet.cz>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag easytag-2.2\n"
+"POT-Creation-Date: 2015-01-04 18:28+0000\n"
+"PO-Revision-Date: 2014-08-26 08:37+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr "Marek Černocký <marek@manet.cz>"
+
+#. (itstool) path: credit/name
+#: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
+#: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
+#: C/image.page:15 C/index.page:11 C/introduction.page:12
+#: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
+#: C/problems-ogg-split.page:17 C/scanner.page:11 C/starting.page:10
+#: C/tag-field.page:14 C/tag.page:13
+msgid "Ekaterina Gerasimova"
+msgstr "Ekaterina Gerasimova"
+
+#. (itstool) path: info/desc
+#: C/cddb-search.page:17
+msgid "Fill tags using information from a CD database"
+msgstr "Jak štítky vyplnit informacemi z databáze CD"
+
+#. (itstool) path: page/title
+#: C/cddb-search.page:20
+msgid "Search CDDB"
+msgstr "Vyhledávání v CDDB"
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:22
+msgid ""
+"If your music is organized by album, <app>EasyTAG</app> can search online "
+"databases using the <sys>CDDB</sys> protocol and automatically fill in "
+"several tag fields."
+msgstr ""
+"Pokud je vaše hudba uspořádána do alba, <app>EasyTAG</app> může vyhledat "
+"informace v on-line databázi pomocí protokolu <sys>CDDB</sys> a automaticky "
+"vyplnit některá pole štítku."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:28
+msgid ""
+"<link xref=\"file-select\">Select all the files</link> in the album that you "
+"want to search for. The ordering of the files must match the track order on "
+"the album."
+msgstr ""
+"<link xref=\"file-select\">Vyberte všechna pole</link> v albu, která chcete "
+"vyhledat. Pořadí souborů musí odpovídat pořadí skladeb na albu."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:33
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">CDDB Search…</gui></guiseq>."
+msgstr ""
+"Vyberte <guiseq><gui style=\"menu\">Různé</gui> <gui style=\"menuitem"
+"\">Hledat v CDDB…</gui></guiseq>"
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:37
+msgid ""
+"Press <gui style=\"button\">Find</gui> and wait for the search to finish."
+msgstr ""
+"Zmáčkněte <gui style=\"button\">Najít</gui> a vyčkejte na výsledky hledání."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:43
+msgid ""
+"Select an album from the list of results, and the track information will be "
+"shown to the right. If the album is not the one that you wanted, try "
+"selecting another result in the list."
+msgstr ""
+"V seznamu výsledků vyberte album a napravo se ukáží informace o skladbách. "
+"Pokud se nejedná o album, které jste chtěli, zkuste v seznamu výsledků "
+"vybrat jiné."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:46
+msgid ""
+"If there are no results which match the tracks that you selected, select "
+"<gui style=\"tab\">Manual Search</gui> and enter the name of the album in "
+"the search field. Press <gui style=\"button\">Find</gui> and wait for the "
+"search to finish, and check the results again to see if you can find an "
+"album which matches the tracks that you selected."
+msgstr ""
+"Pokud nezískáte žádné výsledky, které by odpovídali vámi vybraným skladbám, "
+"zvolte <gui style=\"tab\">Ruční hledání</gui> a zadejte do vyhledávacího "
+"pole název alba. Zmáčkněte <gui style=\"button\">Najít</gui> a vyčkejte, než "
+"se hledání dokončí. Pak znovu zkontrolujte, jestli mezi výsledky uvidíte "
+"album, které odpovídá vámi vybraným skladbám."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:53
+msgid ""
+"Choose the tag fields to fill in by selecting either <gui style=\"checkbox"
+"\">All</gui> or a combination of <gui style=\"checkbox\">Filename</gui>, "
+"<gui style=\"checkbox\">Title</gui>, <gui style=\"checkbox\">Artist</gui>, "
+"<gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Year</gui>, "
+"<gui style=\"checkbox\">Track #</gui>, <gui style=\"checkbox\"># Tracks</"
+"gui> and <gui style=\"checkbox\">Genre</gui>."
+msgstr ""
+"Zvolte pole štítku, která se mají vyplnit, buď volbou <gui style=\"checkbox"
+"\">Vše</gui> nebo kombinací <gui style=\"checkbox\">Název souboru</gui>, "
+"<gui style=\"checkbox\">Název</gui>, <gui style=\"checkbox\">Umělec</gui>, "
+"<gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Rok</gui>, <gui "
+"style=\"checkbox\">Číslo skladby</gui>, <gui style=\"checkbox\">Počet "
+"skladeb</gui> a <gui style=\"checkbox\">Žánr</gui>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:64
+msgid ""
+"To fill in the tags of the selected files using the details in the search "
+"result, press <gui style=\"button\">Apply</gui>."
+msgstr ""
+"Pro vyplnění štítků u vybraných souborů podle údajů ve výsledcích hledání "
+"zmáčkněte <gui style=\"button\">Použít</gui>."
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:69
+msgid ""
+"If you wish to tag only specific files, you can change your selection after "
+"the search is complete."
+msgstr ""
+"Jestli chcete vyplnit štítky jen u některých souborů, můžete změnit svůj "
+"výběr i po dokončení hledání."
+
+#. (itstool) path: info/desc
+#: C/file-rename.page:16
+msgid "Change the file names using tags"
+msgstr "Jak změnit název souboru pomocí štítku"
+
+#. (itstool) path: page/title
+#: C/file-rename.page:19
+msgid "Rename files"
+msgstr "Přejmenování souborů"
+
+#. (itstool) path: page/p
+#: C/file-rename.page:21
+msgid ""
+"You can rename your music files using the tags from within <app>EasyTAG</"
+"app>:"
+msgstr ""
+"Přímo v aplikaci <app>EasyTAG</app> můžete své hudební soubory přejmenovat "
+"pomocí štítků:"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:26
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to rename "
+"in the file view."
+msgstr ""
+"<link xref=\"file-select\">Vyberte soubory</link>, které si přejete v "
+"zobrazení souborů přejmenovat."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:30
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Vyberte <guiseq><gui style=\"menu\">Zobrazit</gui> <gui style=\"menuitem"
+"\">Zobrazit průzkumníka</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:34
+msgid "Select the <gui>Rename File and Directory</gui> scanner."
+msgstr "Vyberte průzkumníka <gui>Přejmenovat soubory a složky</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:37
+msgid ""
+"Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
+"that you would like to use for the file naming. For example, if you wish "
+"your files to be named <file>[artist] - [title].[extension]</file>, "
+"enter <input>%a - %t</input> into the renaming field."
+msgstr ""
+"Podle <gui xref=\"format-specifier\">legendy</gui> zapište strukturu názvu "
+"souboru, aby odpovídala tomu, jak chcete soubor pojmenovat. Když například "
+"chcete název ve tvaru <file>[umělec] - [název].[přípona]</file>, zadejte do "
+"pole pro přejmenování <input>%a - %t</input>"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:44
+msgid ""
+"To apply the changes to the selected files, click <gui style=\"button\">Scan "
+"Files</gui>."
+msgstr ""
+"Pro použití změn u vybraných souborů klikněte na <gui style=\"button"
+"\">Prozkoumat soubory</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:48
+msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
+msgstr ""
+"Zavřete dialogové okno <gui style=\"dialog\">Průzkum štítků a názvů souborů</"
+"gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:51
+msgid ""
+"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
+"<gui style=\"menuitem\">Save Files</gui></guiseq>."
+msgstr ""
+"Aby se použité změny uložily, vyberte <guiseq><gui style=\"menu\">Soubor</"
+"gui> <gui style=\"menuitem\">Uložit soubory</gui></guiseq>."
+
+#. (itstool) path: note/p
+#: C/file-rename.page:58
+msgid "If you close the application without saving, your changes will be lost."
+msgstr "Pokud aplikaci zavřete bez uložení, budou vaše změny ztraceny."
+
+#. (itstool) path: info/desc
+#: C/file-select.page:17
+msgid "Choose files in the file list"
+msgstr "Jak vybrat soubory v seznamu souborů"
+
+#. (itstool) path: page/title
+#: C/file-select.page:20
+msgid "Select files"
+msgstr "Výběr souborů"
+
+#. (itstool) path: page/p
+#: C/file-select.page:22
+msgid ""
+"<app>EasyTAG</app> has several features which operate on the files that are "
+"currently selected in the file list. To select multiple files, you can "
+"either hold down <key>Ctrl</key> while you click on the files that you wish "
+"to select or you can select a file then hold down <key>Shift</key> and click "
+"another file to select all the files between the two, including the first "
+"and last file."
+msgstr ""
+"<app>EasyTAG</app> má několik funkcí pracujících se soubory, které jsou "
+"právě označené v seznamu souborů. K výběru více souborů můžete buď držet "
+"zmáčknutou klávesu <key>Ctrl</key> během klikání na soubory, které si "
+"přejete vybrat, nebo můžete držet zmáčknutou klávesu <key>Shift</key> a "
+"kliknout na další soubor, aby se označily všechny soubory mezi dvěma "
+"soubory, včetně toho prvního a posledního."
+
+#. (itstool) path: info/desc
+#: C/format-specifier.page:17
+msgid "What is a format-specifier and which ones can I use?"
+msgstr "Co jsou to formátovací značky, a které můžete použít"
+
+#. (itstool) path: page/title
+#: C/format-specifier.page:21
+msgid "Format specifiers"
+msgstr "Formátovací značky"
+
+#. (itstool) path: page/p
+#: C/format-specifier.page:23
+msgid ""
+"<em>Format specifiers</em> can be used to split a file name into tags and to "
+"name a file or playlist based on existing tags using <link xref=\"scanner"
+"\">the scanner</link>."
+msgstr ""
+"<em>Formátovací značky</em> můžete použí k rozdělení názvu souboru na štítky "
+"a k pojmenování souboru nebo seznamu k přehrání podle štítků pomocí <link "
+"xref=\"scanner\">průzkumníka</link>."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:31
+msgid "Format specifier"
+msgstr "Formátovací značka"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:34
+msgid "Corresponding tag field"
+msgstr "Příslušné pole štítku"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:41
+msgid "%a"
+msgstr "%a"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:44
+msgid ""
+"Artist: this is the artist or artists who created the track, this field may "
+"contact a featured artist as well as the album artist"
+msgstr ""
+"umělec: jedná se o umělce, či více umělců, kteří vytvořili skladbu; pole "
+"může odkazovat na umělce skladby i na umělce alba"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:50
+msgid "%z"
+msgstr "%z"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:53
+msgid "Album artist"
+msgstr "umělec alba"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:58
+msgid "%b"
+msgstr "%b"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:61
+msgid "Album title"
+msgstr "název alba"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:66
+msgid "%c"
+msgstr "%c"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:69
+msgid "Comment: this is the free-form comment field"
+msgstr "komentáře: jedná se o volnou formu"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:74
+msgid "%p"
+msgstr "%p"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:77
+msgid "Composer: this is the creator of the track"
+msgstr "skladatel: jedná se tvůrce skladby"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:82
+msgid "%r"
+msgstr "%r"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:85
+msgid ""
+"Copyright holder: this is usually the artist, but it can also be the record "
+"label"
+msgstr ""
+"držitel autorských práv: obvykle se jedná o umělce, ale může jít i o "
+"vydavatele"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:91
+msgid "%d"
+msgstr "%d"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:94
+msgid "Disc number"
+msgstr "číslo disku"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:99
+msgid "%e"
+msgstr "%e"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:102
+msgid ""
+"Encoded by: this is usually the person who encoded the file, but the field "
+"is also used for the application that was used to encode the file"
+msgstr ""
+"zakódoval: obvykle se jedná o osobu, který soubor kódovala, ale pole bývá "
+"používáno i pro název aplikace, ve které bylo kódování souboru provedeno"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:109
+msgid "%g"
+msgstr "%g"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:112
+msgid "Genre"
+msgstr "žánr"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:117
+msgid "%i"
+msgstr "%i"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:120
+msgid ""
+"Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
+"specify parts of the file name which should be ignored"
+msgstr ""
+"ignorováno: tuto formátovací značku je možné použít jen ve funkci "
+"<gui>Vyplnit štítek</gui> k určení části názvu souboru, která má být "
+"ignorována"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:127
+msgid "%l"
+msgstr "%l"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:130
+msgid "Number of tracks: the total number of tracks on the medium"
+msgstr "počet skladeb: celkový počet skladeb na médiu"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:135
+msgid "%o"
+msgstr "%o"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:138
+msgid "Original artist"
+msgstr "původní umělec"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:143
+msgid "%n"
+msgstr "%n"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:146
+msgid "Track number"
+msgstr "číslo skladby"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:151
+msgid "%t"
+msgstr "%t"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:154
+msgid "Track title"
+msgstr "název skladby"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:159
+msgid "%u"
+msgstr "%u"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:162
+msgid "URL"
+msgstr "adresa URL"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:167
+msgid "%x"
+msgstr "%x"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:170
+msgid "Number of discs"
+msgstr "počet disků"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:175
+msgid "%y"
+msgstr "%y"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:178
+msgid "Year of recording, sometimes the date of release is used instead"
+msgstr "rok nahrání, někdy je místo toho použit rok vydání"
+
+#. (itstool) path: page/title
+#: C/image-delete.page:19
+msgid "Delete an image"
+msgstr "Odstranění obrázku"
+
+#. (itstool) path: page/p
+#: C/image-delete.page:21
+msgid ""
+"To delete an image from a tag, select it and press the <gui style=\"button"
+"\">Remove selected images from the tag</gui> button."
+msgstr ""
+"Když chcete ze štítku odstranit obrázek, vyberte jej a zmáčkněte tlačítko "
+"<gui style=\"button\">Odstranit vybrané obrázky ze štítku</gui>."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:24
+msgid ""
+"To delete more than one image, select those images before deleting them."
+msgstr ""
+"Abyste odstranili více obrázků naráz, nejprve je všechny vyberte a pak "
+"odstraňte."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:27
+msgid ""
+"It is also possible to delete all images from more than one file. To do "
+"this, select the files from which you want to delete the images, delete all "
+"images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
+"style=\"button\">Tag selected files with these images</gui> button."
+msgstr ""
+"Je také možné odstranit všechny obrázky z více souborů naráz. Udělá se to "
+"tak, že se vyberou soubory, ze kterých chcete obrázky odstranit, odstraní se "
+"obrázky z karty <gui style=\"tab\">Obrázek</gui> a po té se zmáčkne tlačítko "
+"<gui style=\"button\">Nastavit vybraným souborům tyto obrázky</gui>."
+
+#. (itstool) path: page/title
+#: C/image-export.page:19
+msgid "Save an image"
+msgstr "Ukládání obrázku"
+
+#. (itstool) path: page/p
+#: C/image-export.page:21
+msgid ""
+"If the file is already tagged with an image, you can export the image from "
+"the tag by selecting it and pressing <gui style=\"button\">Save the selected "
+"images to files</gui> button. The default filename will be the image "
+"description."
+msgstr ""
+"Když máte soubor, který ve štítku obsahuje obrázek, můžete si tento obrázek "
+"vyexportovat. Stačí jej vybrat a zmáčknout tlačítko <gui style=\"button"
+"\">Uložit vybrané obrázky do souborů</gui>. Jako výchozí název souboru se "
+"použije popis obrázku."
+
+#. (itstool) path: page/p
+#: C/image-export.page:26
+msgid ""
+"To export a number of images, select these images, then press the <gui style="
+"\"button\">Save the selected images to files</gui> button."
+msgstr ""
+"Abyste vyexportovali více obrázků, nejprve je vyberte a pak zmáčkněte "
+"tlačítko <gui style=\"button\">Uložit vybrané obrázky do souborů</gui>."
+
+#. (itstool) path: info/desc
+#: C/image.page:19
+msgid "Add images, such as cover art to the tag"
+msgstr "Jak přidat obrázek, např. přebal, do štítku"
+
+#. (itstool) path: page/title
+#: C/image.page:23
+msgid "Add an image to a file"
+msgstr "Přidání obrázku do souboru"
+
+#. (itstool) path: page/p
+#: C/image.page:25
+msgid ""
+"Most audio file formats support an <sys>image</sys> tag field which can be "
+"used to add cover art and other related images to the audio file."
+msgstr ""
+"Většina formátů zvukových souborů podporuje pole štítku <sys>obrázek</sys>, "
+"které lze použít pro přidání grafiky přebalu a jiných obrázků, vztahujících "
+"se k danému zvukovému souboru."
+
+#. (itstool) path: page/p
+#: C/image.page:28
+msgid ""
+"To add an image to the file, select the file, open the <gui style=\"tab"
+"\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
+"tag</gui> button. Select the image and confirm your selection."
+msgstr ""
+"Abyste do souboru přidali obrázek, vyberte soubor, otevřete kartu <gui style="
+"\"tab\">Obrázky</gui> a zmáčkněte tlačítko <gui style=\"button\">Přidat "
+"obrázky do štítku</gui>. Vyberte obrázek a svůj výběr potvrďte."
+
+#. (itstool) path: page/p
+#: C/image.page:33
+msgid ""
+"Once the image is uploaded, it will be automatically marked as a front cover "
+"and the description will be the filename. To change the <gui>type</gui> and "
+"<gui>description</gui>, press the <gui style=\"button\">Edit image "
+"properties</gui> button. Once you have made the changes, press <gui style="
+"\"button\">OK</gui> to apply the changes."
+msgstr ""
+"Jakmile je obrázek načten, je automaticky označen jako přední přebal a "
+"popsán stejně, jako je pojmenován soubor. Jestli chcete <gui>typ</gui> a "
+"<gui>popis</gui> změnit, zmáčkněte tlačítko <gui style=\"button\">Upravit "
+"vlastnosti obrázku</gui>. Po provedení změn zmáčkněte <gui style=\"button"
+"\">Budiž</gui> a změny se použijí."
+
+#. (itstool) path: note/p
+#: C/image.page:40
+msgid "Your changes will not be saved automatically."
+msgstr "Vaše změny se neukládají automaticky."
+
+#. (itstool) path: page/p
+#: C/image.page:43
+msgid ""
+"You can tag multiple files with the same image by selecting them in the list "
+"of files, then selecting the image and pressing the <gui style=\"button"
+"\">Tag selected files with these images</gui> button. You will need to save "
+"these changes to write them to the files."
+msgstr ""
+"Stejný obrázek můžete přiřadit do štítku více souborům. Stačí soubory vybrat "
+"v seznamu souborů, pak vybrat obrázek a zmáčknout tlačítko <gui style="
+"\"button\">Nastavit vybraným souborům tyto obrázky</gui>. Aby se změny do "
+"souboru zapsaly, musíte je uložit."
+
+#. (itstool) path: page/p
+#: C/image.page:48
+msgid ""
+"You can work with more than one image at a time by selecting those images "
+"before you edit, apply, save to file or delete them."
+msgstr ""
+"Můžete pracovat i s více obrázky naráz, ale musíte je před jejich úpravou, "
+"použitím, uložením do souboru nebo smazáním vybrat."
+
+#. (itstool) path: info/title
+#: C/index.page:17
+msgctxt "link"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/title
+#: C/index.page:18
+msgctxt "text"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: page/title
+#: C/index.page:22
+msgid "<_:media-1/> EasyTAG"
+msgstr "<_:media-1/> EasyTAG"
+
+#. (itstool) path: section/title
+#: C/index.page:28
+msgid "Features"
+msgstr "Funkce"
+
+#. (itstool) path: section/title
+#: C/index.page:32
+msgid "Tags"
+msgstr "Štítky"
+
+#. (itstool) path: section/title
+#: C/index.page:36
+msgid "The image tag field"
+msgstr "Pole štítku s obrázkem"
+
+#. (itstool) path: section/title
+#: C/index.page:44
+msgid "Common problems and questions"
+msgstr "Běžné problémy a dotazy"
+
+#. (itstool) path: page/title
+#: C/introduction.page:21
+msgid "Introduction"
+msgstr "Úvod"
+
+#. (itstool) path: page/p
+#: C/introduction.page:23
+msgid ""
+"<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
+"audio files."
+msgstr ""
+"<app>EasyTAG</app> je komplexní editor štítků u zvukových souborů FLAC, "
+"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
+"a WavPack."
+
+#. (itstool) path: page/title
+#: C/keyboard-shortcuts.page:20
+msgid "Keyboard shortcuts"
+msgstr "Klávesové zkratky"
+
+#. (itstool) path: page/p
+#: C/keyboard-shortcuts.page:22
+msgid ""
+"<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
+"listed in the menus. Here are some which are especially useful:"
+msgstr ""
+"<app>EasyTAG</app> má řadu klávesových zkratek, z nichž je většina uvedena v "
+"nabídkách. Zde je vybráno pár opravdu užitečných:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:29
+msgid "Action"
+msgstr "Činnost"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:32
+msgid "Shortcut"
+msgstr "Klávesová zkratka"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:39
+msgid "Apply tag to selected files"
+msgstr "Použít štítky na vybrané soubory"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:42
+msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Enter</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "Search all files, including filenames and tags"
+msgstr "Prohledat všechny soubory, hledá se v názvech souborů i ve štítcích"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50
+msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:55
+msgid "Go to previous file while keeping focus on the same tag field"
+msgstr ""
+"Přejít na předchozí soubor a přitom nechat zaměřené stejné pole ve štítku"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "<key>Page Up</key>"
+msgstr "<key>Page Up</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "Go to next file while keeping focus on the same tag field"
+msgstr ""
+"Přejít na následující soubor a přitom nechat zaměřené stejné pole ve štítku"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66
+msgid "<key>Page Down</key>"
+msgstr "<key>Page Down</key>"
+
+#. (itstool) path: p/link
+#: C/legal.xml:4
+msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+msgstr "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+
+#. (itstool) path: license/p
+#: C/legal.xml:3
+msgid "This work is licensed under a <_:link-1/>."
+msgstr "Tato práce je licencována pod <_:link-1/>."
+
+#. (itstool) path: info/desc
+#: C/playlist-generate.page:17
+msgid "Generate a playlist from the file list"
+msgstr "Jak ze seznamu souborů vygenerovat seznam k přehrání, tzv. playlist"
+
+#. (itstool) path: page/title
+#: C/playlist-generate.page:20
+msgid "Create a playlist"
+msgstr "Vytvoření seznamu k přehrání"
+
+#. (itstool) path: page/p
+#: C/playlist-generate.page:22
+msgid ""
+"You can create a M3U playlist for use with a music player based on the list "
+"of files shown in <app>EasyTAG</app>:"
+msgstr ""
+"V aplikaci <app>EasyTAG</app> si můžete ze seznamu souborů vytvořit seznam k "
+"přehrání (tzv. playlist) M3U, který pak lze použít v hudebních přehrávačích."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:27
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to be in "
+"the playlist in the file list."
+msgstr ""
+"V seznamu souborů <link xref=\"file-select\">vyberte soubory</link>, které "
+"si přejete mít v seznamu k přehrání."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:31
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">Generate Playlist…</gui></guiseq>."
+msgstr ""
+"Zvolte <guiseq><gui style=\"memu\">Různé</gui> <gui style=\"menuitem"
+"\">Vygenerovat seznam k přehrání…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:35
+msgid ""
+"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using "
+"<link xref=\"format-specifier\">format specifiers</link>, or select <gui "
+"style=\"radiobutton\">Use directory name</gui> to name the playlist after "
+"the directory which is selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Vyberte <gui style=\"radiobutton\">Použít masku</gui> a zadejte masku pomocí "
+"<link xref=\"format-specifier\">formátovacích značek</link> nebo vyberte "
+"<gui style=\"radiobutton\">Použít název složky</gui> k pojmenování seznamu k "
+"přehrání podle složky, která je vybrána v <gui style=\"group\">prohlížeči</"
+"gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:42
+msgid ""
+"Select <gui style=\"checkbox\">Include only the selected files</gui> to use "
+"the files which are selected in the file list when generating the playlist. "
+"Deselect it to include all the displayed files in the playlist."
+msgstr ""
+"Zaškrtněte <gui style=\"checkbox\">Zahrnout pouze vybrané soubory</gui>, aby "
+"se při generování seznamu k přehrání použily jen soubory, které jsou vybrané "
+"v seznamu souborů. Když zaškrtnutí zrušíte, budou součástí seznamu k "
+"přehrání všechny zobrazené soubory."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:48
+msgid ""
+"Select <gui style=\"radiobutton\">Use relative path for files in playlist</"
+"gui> unless you only plan to use the playlist on the same computer and you "
+"do not plan to move the audio files, in which case you can select <gui style="
+"\"radiobutton\">Use full path for files in playlist</gui>."
+msgstr ""
+"Vyberte <gui style=\"radiobutton\">Použít relativní cestu k souborům</gui>. "
+"Pouze pokud plánujete používat seznam k přehrání pořád na stejném počítači a "
+"nechystáte se zvukové soubory někam přesouvat, můžete vybrat <gui style="
+"\"radiobutton\">Použít plnou cestu k souborům</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:55
+msgid ""
+"Select <gui style=\"checkbox\">Create playlist in the parent directory</gui> "
+"if you want to save the playlist in the parent of the directory selected in "
+"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
+"saved in the directory selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Zaškrtněte <gui style=\"checkbox\">Vytvořit v nadřazené složce</gui>, pokud "
+"chcete uložit seznam k přehrání v rodičovské složce složky, která je vybraná "
+"v <gui style=\"group\">Prohlížeči</gui>. Když volba zaškrtnutá není, "
+"ukládají se seznamy k přehrání přímo ve složce vybrané v <gui style=\"group"
+"\">Prohlížeči</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:63
+msgid ""
+"If you are creating a playlist for use on a Windows computer, or on a "
+"<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
+"\">Use DOS directory separator</gui>."
+msgstr ""
+"V případě, že vytváříte seznam k přehrání pro použití na počítači s Windows "
+"nebo na souborových systémech <sys>NTFS</sys> nebo <sys>FAT</sys>, "
+"zaškrtněte <gui style=\"checkbox\">Použít oddělovač složek jako v systému "
+"DOS</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:68
+msgid ""
+"Select <gui style=\"radiobutton\">Write only list of files</gui> to create a "
+"playlist which only contains a list of files. Select <gui style=\"radiobutton"
+"\">Write info using filename</gui> to also write extended information, "
+"including the duration of the audio file, to the playlist. Select <gui style="
+"\"radiobutton\">Write info using</gui> and enter a mask, using format "
+"specifiers, to write custom extended information to the playlist."
+msgstr ""
+"Vyberte <gui style=\"radiobutton\">Zapsat jen seznam souborů</gui>, aby se "
+"vytvořit seznam k přehrání, který bude obsahovat jen seznam souborů. Pokud "
+"vyberte <gui style=\"radiobutton\">Zapsat informace za použití názvu "
+"souboru</gui>, zapíší se i rozšiřující informace, včetně délky zvukového "
+"souboru. Pomocí <gui style=\"radiobutton\">Zapsat informace za použití</gui> "
+"a zadání masky z formátovacích značek můžete do seznamu k přehrání nechat "
+"zapsat vlastní rozšiřující informace."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:77
+msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
+msgstr ""
+"Výsledný seznam k přehrání vygenerujete zmáčknutím <gui style=\"button"
+"\">Uložit</gui>."
+
+#. (itstool) path: credit/name
+#: C/problems-id3.page:13 C/problems-ogg-split.page:13
+msgid "David King"
+msgstr "David King"
+
+#. (itstool) path: info/desc
+#: C/problems-id3.page:17
+msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
+msgstr ""
+"Jak opravit štítky MP3, když se v jiných aplikacích zobrazují prázdné nebo "
+"nesprávně"
+
+#. (itstool) path: page/title
+#: C/problems-id3.page:21
+msgid "MP3 tags not showing correctly"
+msgstr "Štítky MP3 se nezobrazují správně"
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:23
+msgid ""
+"<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
+"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.4, which has the "
+"most features and is most efficient."
+msgstr ""
+"Štítky <em>ID3</em>, které se používají u souborů MP3, mohou být v několika "
+"různých verzích. <app>EasyTAG</app> podporuje ID3v2.4, ID3v2.3 a ID3v1.1. "
+"Výchozí verzí je v <app>EasyTAG</app> ID3v2.4, který má nejvíce možností a "
+"je nejefektivnější."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:28
+msgid ""
+"Most applications support the most recent version of the ID3 standard: "
+"ID3v2.4."
+msgstr "Většina aplikací podporuje nejnovější verzi standardu ID3: ID3v2.4."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:31
+msgid ""
+"Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
+"a few may support only ID3v1.1 tags. If another application or a device has "
+"a problem reading tags from your files, you should try changing the ID3 tag "
+"version settings in the preferences:"
+msgstr ""
+"Některé aplikace a zařízení mohou podporovat jen štítky ID3v2.3 a ID3v1.1 a "
+"pár jich dokonce může podporovat jen štítky ID3v1.1. Pokud jiné aplikace "
+"nebo zařízení mají problémy se čtením štítků z vašich souborů, měli byste "
+"zkusit změnit verzi štítků ID3 v předvolbách:"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:38 C/problems-ogg-split.page:45
+msgid ""
+"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
+"\"menuitem\">Preferences</gui></guiseq>"
+msgstr ""
+"Vyberte <guiseq style=\"menuitem\"><gui style=\"menu\">Upravit</gui><gui "
+"style=\"menuitem\">Předvolby</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:42
+msgid "Select the <gui style=\"tab\">ID3 Tag Settings</gui> tab"
+msgstr "Vyberte kartu <gui style=\"tab\">Nastavení štítků ID3</gui>."
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:45
+msgid ""
+"In the <gui style=\"group\">ID3v2 tags</gui> section, choose the "
+"<gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to "
+"improve compatibility with other systems capable of reading ID3v2 tags"
+msgstr ""
+"V části <gui style=\"group\">Štítky ID3v2</gui> zvolte v rozbalovacím "
+"seznamu <gui>Verze</gui> nastavení <gui>ID3v2.3</gui>, abyste zlepšili "
+"kompatibilitu s ostatními systémy ohledně čtení štítků ID3v2."
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:50
+msgid ""
+"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
+"the <gui style=\"group\">ID3v1 tags</gui> section"
+msgstr ""
+"Ujistěte se, že v části <gui style=\"group\">Štítky ID3v1</gui> je "
+"zaškrtnuto <gui style=\"check\">Zapisovat štítky ID3v1.x</gui>."
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:54 C/problems-ogg-split.page:56
+msgid "Click <gui style=\"button\">OK</gui> to save the settings"
+msgstr "Kliknutím na <gui style=\"button\">Budiž</gui> nastavení uložte."
+
+#. (itstool) path: info/desc
+#: C/problems-ogg-split.page:21
+msgid ""
+"Split a single tag field into multiple fields when you save Ogg and FLAC "
+"files"
+msgstr ""
+"Jak jedno pole štítku rozdělit do více polí při ukládání souborů Ogg a FLAC"
+
+#. (itstool) path: page/title
+#: C/problems-ogg-split.page:25
+msgid "Split tag fields when saving"
+msgstr "Rozdělení polí štítku při ukládání"
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:27
+msgid ""
+"In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
+"\">tag field</link> of each type. For example, if two artists performed a "
+"song, there can be two artist fields in the tag, one for each artist. "
+"<app>EasyTAG</app> automatically reads the extra fields, combining them "
+"together and showing them as if they were a single field."
+msgstr ""
+"V souborech Ogg a FLAC je možné mít více než jedno <link xref=\"tag\">pole "
+"štítku</link> stejného typu. Například, když píseň zpívají dva umělci, "
+"můžete mít ve štítku dvě pole s umělci, pro každého jedno. <app>EasyTAG</"
+"app> automaticky načítá dodatečná pole, spojuje je dohromady a zobrazuje je, "
+"jako by šlo o jedno pole."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:33
+msgid ""
+"Many applications do not read the multi-value field correctly, so the "
+"default configuration is to save using a single field per entry. If the "
+"application that you are using supports multiple field of one type, you can "
+"configure EasyTAG to split fields when you save the file. Fields will "
+"automatically be split whenever \" - \" occurs in the field. For example, in "
+"the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
+"\" and \"Queen\"."
+msgstr ""
+"Spousta aplikaci nečte pole s více hodnotami správně, takže výchozí "
+"nastavení je ukládat jen jedno pole na záznam. Pokud aplikace, kterou "
+"používáte podporuje více polí stejného typu, můžete nastavit <app>EasyTAG</"
+"app>, aby pole při ukládání souboru rozděloval. Pole se automaticky rozdělí "
+"na každém výskytu „ - “. Například pole s „David Bowie - Queen“ by se "
+"uložilo do dvou polí: „David Bowie“ a „Queen“."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:41
+msgid "To split fields when you save the files:"
+msgstr "Aby se pole při ukládání rozdělovala:"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:49
+msgid "Select the <gui style=\"tab\">Tag Settings</gui> tab"
+msgstr "Vyberte kartu <gui style=\"tab\">Nastavení štítků</gui>."
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:52
+msgid ""
+"In <gui style=\"group\">Tag Splitting</gui> section, check the fields that "
+"you want to be split into multiple fields when saving"
+msgstr ""
+"V části <gui style=\"group\">Rozdělování štítků</gui> zaškrtněte pole, která "
+"chcete při ukládání rozdělovat na více polí."
+
+#. (itstool) path: info/desc
+#: C/scanner.page:17
+msgid "Update tags automatically."
+msgstr "Jak aktualizovat štítky automaticky"
+
+#. (itstool) path: page/title
+#: C/scanner.page:21
+msgid "The <gui>Scanner</gui>"
+msgstr "Průzkumník"
+
+#. (itstool) path: page/p
+#: C/scanner.page:23
+msgid ""
+"The scanner can be used to fill in fields based on the filename, rename a "
+"file and create a new directory based on the filled fields, and process the "
+"text in fields and the filename."
+msgstr ""
+"Průzkumníka můžete využít k vyplnění polí podle názvu souboru, k "
+"přejmenování souboru a k vytvoření nové složky na základě vyplněných polí a "
+"ke zpracování textu v polích a názvu souboru."
+
+#. (itstool) path: section/title
+#: C/scanner.page:28
+msgid "Fill fields from a filename and directory structure"
+msgstr "Vyplňování polí z názvu souboru a struktury složek"
+
+#. (itstool) path: section/p
+#: C/scanner.page:30
+msgid ""
+"<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
+"and its parent directories."
+msgstr ""
+"<gui>Vyplnit štítek</gui> můžete použít k vyplnění polí štítku na základě "
+"názvu souboru a jeho rodičovských složek."
+
+#. (itstool) path: section/p
+#: C/scanner.page:33
+msgid ""
+"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
+"em> to split the filename and parent directories into different tag fields. "
+"The <em>format specifiers</em>, such as <input>%t</input> for track title, "
+"which are used to indicate the different tag fields, are listed in the "
+"<gui>Legend</gui>. <em>Separators</em> can be any part of the filename or "
+"the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
+"parent directory."
+msgstr ""
+"Použijte <em xref=\"format-specifier\">formátovací značky </em> a "
+"<em>oddělovače</em> k rozdělení názvu souboru a rodičovských složek do "
+"různých polí štítku. <em>Formátovací značky</em>, jako je <input>%t</input> "
+"pro název skladby, které se používají k určení různých polí šítku, jsou "
+"uvedeny v <gui>legendě</gui>. <em>Oddělovače</em> mohou být libovolné části "
+"názvu souboru nebo rodičovských složek. Jako <em>oddělovač</em> rodičovské "
+"složky použijte <key>/</key>."
+
+#. (itstool) path: section/p
+#: C/scanner.page:41
+msgid ""
+"For example, if you keep your audio files using the <file>artist/"
+"album/01 track title.flac</file> directory structure and filenames, use the "
+"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
+"number and title from the filename, the album title from the parent "
+"directory and the artist from the grandparent directory."
+msgstr ""
+"Když například své zvukové soubory uchováváte ve struktuře složek a s názvy "
+"souborů <file>umělec/album/01 název skladby.flac</file>, použijte "
+"<em>formátovací řetězec</em> <input>%a/%b/%n %t</input> k získání čísla "
+"skladby a názvu skladby z názvu souboru, názvu alba z názvu rodičovské "
+"složky a umělce z názvu prarodičovské složky."
+
+#. (itstool) path: section/p
+#: C/scanner.page:47
+msgid ""
+"Fill the tag fields for the selected files using the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"K vyplnění polí štítku u vybraných souborů použijte tlačítko <gui style="
+"\"button\">Prozkoumat soubory</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:53
+msgid "Rename files and create new directories"
+msgstr "Přejmenování souborů a vytváření nových složek"
+
+#. (itstool) path: section/p
+#: C/scanner.page:55
+msgid ""
+"<gui xref=\"file-rename\">Rename File and Directory</gui> can be used to "
+"create a directory hierarchy and update filenames using the filled tag "
+"fields. If a new directory hierarchy is specified, it will be created inside "
+"the directory where the file is currently located."
+msgstr ""
+"<gui xref=\"file-rename\">Přejmenovat soubory a složky</gui> můžete použít k "
+"vytvoření hierarchie složek a k aktualizaci názvů souborů podle vyplněných "
+"polí štítku. V případě, že je zadána nová hierarchie složek, bude vytvořena "
+"uvnitř složky, ve které se soubor zrovna nachází."
+
+#. (itstool) path: section/p
+#: C/scanner.page:60
+msgid ""
+"For example, if you have a tagged file inside the <file>Music</file> "
+"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
+"em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
+"file structure and filename. You will see a preview of the naming scheme "
+"below your specified format string."
+msgstr ""
+"Pokud například máte soubor se štítkem ve složce <file>Hudba</file>, můžete "
+"použít <em>formátovací řetězec</em> <input>%a/%b/%n %t</input>, aby se "
+"vytvořila struktura složek a souborů ve formě <file>Hudba/umělec/album/01 "
+"název skladby.flac</file>. Pod zadaným formátovacím řetězcem uvidíte náhled "
+"schématu pojmenování."
+
+#. (itstool) path: section/p
+#: C/scanner.page:66
+msgid ""
+"To prepare the files for moving and renaming, press the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Pro přípravu souborů k přesunu a přejmenování, zmáčkněte tlačítko <gui style="
+"\"button\">Prozkoumat soubory</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:72
+msgid "Bulk process tag fields and filename"
+msgstr "Hromadné zpracování polí štítků a názvů souborů"
+
+#. (itstool) path: section/p
+#: C/scanner.page:74
+msgid ""
+"<gui>Process Fields</gui> is a sophisticated find and replace feature which "
+"allows you to select which tag fields to process. It also allows for the "
+"filename to be processed as well."
+msgstr ""
+"<gui>Zpracovat pole</gui> je sofistikovaná funkce hledání a nahrazování "
+"umožňující vybrat, která pole štítku se mají zpracovat. Rovněž umožňuje "
+"zpracovat název souboru."
+
+#. (itstool) path: section/p
+#: C/scanner.page:78
+msgid ""
+"You can <gui>Convert</gui> characters for a simple find and replace, change "
+"capitalization and add or remove spaces."
+msgstr ""
+"Můžete <gui>Převést</gui> znaky pomocí jednoduchého vyhledávání a "
+"nahrazování, měnit velikost písmen a přidávat nebo odstraňovat mezery."
+
+#. (itstool) path: section/p
+#: C/scanner.page:81
+msgid ""
+"Use the <gui>Select fields</gui> buttons to specify which fields to change. "
+"You can also select or deselect all fields and invert your selection."
+msgstr ""
+"K určení polí, která se mají změnit, použijte tlačítka <gui>Vybrat pole</"
+"gui>. Můžete i hromadně všechna pole označit nebo zrušit jejich označení, "
+"případně označení prohodit."
+
+#. (itstool) path: info/desc
+#: C/starting.page:16
+msgid "Using <app>EasyTAG</app> for the first time"
+msgstr "Jak používat <app>EasyTAG</app> napoprvé"
+
+#. (itstool) path: page/title
+#: C/starting.page:19
+msgid "Start using <app>EasyTAG</app>"
+msgstr "Začínáme s <app>EasyTAG</app>"
+
+#. (itstool) path: page/p
+#: C/starting.page:21
+msgid ""
+"When you start <app>EasyTAG</app> for the first time, it will search your "
+"<file>Music</file> directory or your home directory for audio files. If you "
+"wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
+msgstr ""
+"Když spustíte <app>EasyTAG</app> poprvé, pokusí se vyhledat zvukové soubory "
+"ve vaší složce <file>Hudba</file> nebo ve vaší domovské složce. Pokud chcete "
+"hledání přeskočit, zmáčkněte tlačítko <gui style=\"button\">Zastavit</gui>."
+
+#. (itstool) path: page/p
+#: C/starting.page:25
+msgid ""
+"<app>EasyTAG</app> may apply some automatic corrections to some of your "
+"music files. These files will be highlighted in bold. These are normally "
+"updates to the tag metadata containers and will not be applied until you "
+"save the changes."
+msgstr ""
+"<app>EasyTAG</app> může použít některé automatické korekce u některých "
+"vašich hudebních souborů. Tyto soubory budou zvýrazněny tučně. Budou mít "
+"aktualizovaná metadata ve štítcích, ale ta se nepoužijí, dokud změny "
+"neuložíte."
+
+#. (itstool) path: page/p
+#: C/starting.page:30
+msgid ""
+"To save these changes, select all the files that have been affected and "
+"press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to "
+"undo the automatic changes but they will not be saved unless you select the "
+"file and save it. You can disable some of the automatic updates in the <gui "
+"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
+"\">Preferences</gui> dialog."
+msgstr ""
+"Když chcete změny uložit, vyberte všechny dotčené soubory a zmáčkněte "
+"<keyseq><key>Ctrl</key><key>S</key></keyseq>. Automaticky provedené změny "
+"není možné vrátit zpět, ale neuloží se, dokud soubory nevyberete a neuložíte "
+"ručně. Některé z těchto automatických aktualizací můžete zakázat na kartě "
+"<gui style=\"tab\">Nastavení štítků ID3</gui> v dialogovém okně <gui style="
+"\"dialog\">Předvolby</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-field.page:18
+msgid "Add text tags to a file"
+msgstr "Jak přidat štítky do souboru"
+
+#. (itstool) path: page/title
+#: C/tag-field.page:22
+msgid "Tag a file"
+msgstr "Přiřazení štítku souboru"
+
+#. (itstool) path: page/p
+#: C/tag-field.page:24
+msgid ""
+"Audio files can support a number of different tag <em>fields</em> which "
+"depend on the file format."
+msgstr ""
+"Zvukové soubory mohou podporovat řadu různých <em>polí</em> štítků, které "
+"závisí na formátu souboru."
+
+#. (itstool) path: steps/title
+#: C/tag-field.page:28
+msgid "Update a tag field in a file"
+msgstr "Aktualizace pole štítku v souboru"
+
+#. (itstool) path: item/p
+#: C/tag-field.page:30
+msgid "Select the file that you wish to tag."
+msgstr "Vyberte soubor, ve kterém si přejete upravit štítek."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:33
+msgid "Update the field that you want to change in the <gui>Tag</gui> panel."
+msgstr ""
+"V panelu <gui>Štítek</gui> aktualizujte informace v poli, které chcete "
+"změnit."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:37
+msgid ""
+"Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
+"files</gui></guiseq> to save your changes to the selected file."
+msgstr ""
+"Zvolte <guiseq><gui style=\"menu\">Soubor</gui> <gui style=\"menuitem"
+"\">Uložit soubory</gui></guiseq>, aby se změny do vybraného souboru uložily."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:42
+msgid ""
+"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
+"\"button\">Save</gui> to save the changes."
+msgstr ""
+"Až jste dotázání na <gui>Potvrzení zápisu štítku</gui>, zmáčkněte <gui style="
+"\"button\">Uložit</gui>, aby se změny uložily."
+
+#. (itstool) path: page/p
+#: C/tag-field.page:47
+msgid ""
+"You can tag multiple files with the same field by selecting them in the list "
+"of files and pressing the <gui>Tag selected files with this […]</gui> icon "
+"in the field that you want to tag. You will need to save these changes to "
+"write them to the files."
+msgstr ""
+"Můžete označit více souborů se stejným polem tak, že soubory vyberete v "
+"seznamu souborů a zmáčknete ikonu <gui>Nastavit vybraným souborům toto […]</"
+"gui> nacházející se v poli, které chcete ve štítcích použít. Změny musíte "
+"uložit, aby se zapsaly do souboru."
+
+#. (itstool) path: info/desc
+#: C/tag.page:17
+msgid "What is a tag and what are fields?"
+msgstr "Co jsou to štítky a co pole?"
+
+#. (itstool) path: page/title
+#: C/tag.page:21
+msgid "Audio file tags"
+msgstr "Štítky zvukových souborů"
+
+#. (itstool) path: page/p
+#: C/tag.page:23
+msgid ""
+"An audio file can contain <em>metadata</em> — information about itself — "
+"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, "
+"such as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these "
+"fields using <app>EasyTAG</app>. The editable fields depend on the format of "
+"the file that you want to tag."
+msgstr ""
+"Zvukové soubory mohou obsahovat <em>metadata</em> – informace o sobě samých "
+"– ve <em>štítcích</em>. Každý štítek může obsahovat jedno nebo více "
+"<em>polí</em>, jako <gui>Název</gui> nebo <gui>Umělec</gui>. Některá z "
+"těchto polí můžete upravovat pomocí aplikace <app>EasyTAG</app>. Která pole "
+"lze upravovat, záleží na formátu souboru se štítky."
