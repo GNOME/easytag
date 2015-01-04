@@ -20,46 +20,18 @@
 
 #include "et_core.h"
 
-static void
-et_file_tag_init (File_Tag *FileTag)
-{
-    if (FileTag)
-    {
-        FileTag->key         = ET_Undo_Key_New();
-        FileTag->saved       = FALSE;
-        FileTag->title       = NULL;
-        FileTag->artist      = NULL;
-        FileTag->album_artist= NULL;
-        FileTag->album       = NULL;
-        FileTag->disc_number = NULL;
-        FileTag->disc_total = NULL;
-        FileTag->track       = NULL;
-        FileTag->track_total = NULL;
-        FileTag->year        = NULL;
-        FileTag->genre       = NULL;
-        FileTag->comment     = NULL;
-        FileTag->composer    = NULL;
-        FileTag->orig_artist = NULL;
-        FileTag->copyright   = NULL;
-        FileTag->url         = NULL;
-        FileTag->encoded_by  = NULL;
-        FileTag->picture     = NULL;
-        FileTag->other       = NULL;
-    }
-}
-
 /*
- * Create a new File_Tag structure
+ * Create a new File_Tag structure.
  */
 File_Tag *
 et_file_tag_new (void)
 {
-    File_Tag *FileTag;
+    File_Tag *file_tag;
 
-    FileTag = g_slice_new (File_Tag);
-    et_file_tag_init (FileTag);
+    file_tag = g_slice_new0 (File_Tag);
+    file_tag->key = ET_Undo_Key_New ();
 
-    return FileTag;
+    return file_tag;
 }
 
 /*
