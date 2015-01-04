@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2014-11-26 06:17+0000\n"
+"POT-Creation-Date: 2015-01-04 21:39+0000\n"
 "PO-Revision-Date: 2014-08-26 08:37+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -619,19 +619,14 @@ msgstr "EasyTAG"
 
 #. (itstool) path: info/desc
 #: C/index.page:23
-#, fuzzy
-#| msgid ""
-#| "<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's "
-#| "Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and "
-#| "WavPack audio files."
 msgid ""
 "Learn how to use <app>EasyTAG</app>, a comprehensive tag editor for FLAC, "
 "Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
 "and WavPack audio files."
 msgstr ""
-"<app>EasyTAG</app> je komplexní editor štítků u zvukových souborů FLAC, "
-"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
-"a WavPack."
+"Naučte se, jak používat <app>EasyTAG</app>, komplexní editor štítků u "
+"zvukových souborů FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg "
+"Opus, Ogg Speex, Ogg Vorbis a WavPack."
 
 #. (itstool) path: page/title
 #: C/index.page:29
