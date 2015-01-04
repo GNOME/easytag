@@ -101,172 +101,44 @@ ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
  * Reallocate data if not null.
  */
 gboolean
-ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag)
+ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *destination)
 {
-    const File_Tag *FileTagCur;
+    const File_Tag *source;
 
     g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL &&
                           (File_Tag *)(ETFile->FileTag)->data != NULL, FALSE);
-    g_return_val_if_fail (FileTag != NULL, FALSE);
+    g_return_val_if_fail (destination != NULL, FALSE);
 
     /* The data to duplicate to FileTag */
-    FileTagCur = (File_Tag *)(ETFile->FileTag)->data;
-    // Key for the item, may be overwritten
-    FileTag->key = ET_Undo_Key_New();
+    source = (File_Tag *)(ETFile->FileTag)->data;
+    /* Key for the item, may be overwritten. */
+    destination->key = ET_Undo_Key_New();
 
-    if (FileTagCur->title)
-    {
-        FileTag->title = g_strdup(FileTagCur->title);
-    }else
-    {
-        g_free(FileTag->title);
-        FileTag->title = NULL;
-    }
+    et_file_tag_set_title (destination, source->title);
+    et_file_tag_set_artist (destination, source->artist);
+    et_file_tag_set_album_artist (destination, source->album_artist);
+    et_file_tag_set_album (destination, source->album);
+    et_file_tag_set_disc_number (destination, source->disc_number);
+    et_file_tag_set_disc_total (destination, source->disc_total);
+    et_file_tag_set_year (destination, source->year);
+    et_file_tag_set_track_number (destination, source->track);
+    et_file_tag_set_track_total (destination, source->track_total);
+    et_file_tag_set_genre (destination, source->genre);
+    et_file_tag_set_comment (destination, source->comment);
+    et_file_tag_set_composer (destination, source->composer);
+    et_file_tag_set_orig_artist (destination, source->orig_artist);
+    et_file_tag_set_copyright (destination, source->copyright);
+    et_file_tag_set_url (destination, source->url);
+    et_file_tag_set_encoded_by (destination, source->encoded_by);
+    et_file_tag_set_picture (destination, source->picture);
 
-    if (FileTagCur->artist)
+    if (source->other)
     {
-        FileTag->artist = g_strdup(FileTagCur->artist);
-    }else
-    {
-        g_free(FileTag->artist);
-        FileTag->artist = NULL;
-    }
-
-    if (FileTagCur->album_artist)
-    {
-        FileTag->album_artist = g_strdup(FileTagCur->album_artist);
-    }else
-    {
-        g_free(FileTag->album_artist);
-        FileTag->album_artist = NULL;
-    }
-
-    if (FileTagCur->album)
-    {
-        FileTag->album = g_strdup(FileTagCur->album);
-    }else
-    {
-        g_free(FileTag->album);
-        FileTag->album = NULL;
-    }
-
-    if (FileTagCur->disc_number)
-    {
-        FileTag->disc_number = g_strdup(FileTagCur->disc_number);
-    }else
-    {
-        g_free(FileTag->disc_number);
-        FileTag->disc_number = NULL;
-    }
-
-    if (FileTagCur->disc_total)
-    {
-        FileTag->disc_total = g_strdup (FileTagCur->disc_total);
+        ET_Copy_File_Tag_Item_Other_Field (ETFile, destination);
     }
     else
     {
-        g_free (FileTag->disc_total);
-        FileTag->disc_total = NULL;
-    }
-
-    if (FileTagCur->year)
-    {
-        FileTag->year = g_strdup(FileTagCur->year);
-    }else
-    {
-        g_free(FileTag->year);
-        FileTag->year = NULL;
-    }
-
-    if (FileTagCur->track)
-    {
-        FileTag->track = g_strdup(FileTagCur->track);
-    }else
-    {
-        g_free(FileTag->track);
-        FileTag->track = NULL;
-    }
-
-    if (FileTagCur->track_total)
-    {
-        FileTag->track_total = g_strdup(FileTagCur->track_total);
-    }else
-    {
-        g_free(FileTag->track_total);
-        FileTag->track_total = NULL;
-    }
-
-    if (FileTagCur->genre)
-    {
-        FileTag->genre = g_strdup(FileTagCur->genre);
-    }else
-    {
-        g_free(FileTag->genre);
-        FileTag->genre = NULL;
-    }
-
-    if (FileTagCur->comment)
-    {
-        FileTag->comment = g_strdup(FileTagCur->comment);
-    }else
-    {
-        g_free(FileTag->comment);
-        FileTag->comment = NULL;
-    }
-
-    if (FileTagCur->composer)
-    {
-        FileTag->composer = g_strdup(FileTagCur->composer);
-    }else
-    {
-        g_free(FileTag->composer);
-        FileTag->composer = NULL;
-    }
-
-    if (FileTagCur->orig_artist)
-    {
-        FileTag->orig_artist = g_strdup(FileTagCur->orig_artist);
-    }else
-    {
-        g_free(FileTag->orig_artist);
-        FileTag->orig_artist = NULL;
-    }
-
-    if (FileTagCur->copyright)
-    {
-        FileTag->copyright = g_strdup(FileTagCur->copyright);
-    }else
-    {
-        g_free(FileTag->copyright);
-        FileTag->copyright = NULL;
-    }
-
-    if (FileTagCur->url)
-    {
-        FileTag->url = g_strdup(FileTagCur->url);
-    }else
-    {
-        g_free(FileTag->url);
-        FileTag->url = NULL;
-    }
-
-    if (FileTagCur->encoded_by)
-    {
-        FileTag->encoded_by = g_strdup(FileTagCur->encoded_by);
-    }else
-    {
-        g_free(FileTag->encoded_by);
-        FileTag->encoded_by = NULL;
-    }
-
-    et_file_tag_set_picture (FileTag, FileTagCur->picture);
-
-    if (FileTagCur->other)
-    {
-        ET_Copy_File_Tag_Item_Other_Field(ETFile,FileTag);
-    }else
-    {
-        et_file_tag_free_other_field (FileTag);
+        et_file_tag_free_other_field (destination);
     }
 
     return TRUE;
