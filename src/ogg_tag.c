@@ -594,9 +594,30 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc, File_Tag *FileTag,
             goto invalid_picture;
         }
 
+        /* Check for a valid MIME type. */
+        if (mimelen > 0)
+        {
+            const gchar *mime;
+
+            mime = (const gchar *)&decoded_ustr[bytes_pos];
+
+            /* TODO: Check for "-->" when adding linked image support. */
+            if (strncmp (mime, "image/", mimelen) != 0
+                && strncmp (mime, "image/png", mimelen) != 0
+                && strncmp (mime, "image/jpeg", mimelen) != 0)
+            {
+                gchar *mime_str;
+
+                mime_str = g_strndup (mime, mimelen);
+                g_debug ("Invalid Vorbis comment image MIME type: %s",
+                         mime_str);
+
+                g_free (mime_str);
+                goto invalid_picture;
+            }
+        }
+
         /* Skip over the MIME type, as gdk-pixbuf does not use it. */
-        /* TODO: Check for one of "image/", "image/png", "image/jpeg" and "-->"
-         * (the check for "", length 0, is already covered). */
         bytes_pos += mimelen;
 
         /* Reading description */
