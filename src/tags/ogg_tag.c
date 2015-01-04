@@ -539,7 +539,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         EtPicture *pic;
         gsize bytes_pos, mimelen, desclen;
         guchar *decoded_ustr;
-        GBytes *bytes;
+        GBytes *bytes = NULL;
         EtPictureType type;
         gchar *description;
         GBytes *pic_bytes;
@@ -553,12 +553,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
          * whole structure (8 fields of 4 bytes each). */
         if (decoded_size < 8 * 4)
         {
-            /* Mark the file as modified, so that the invalid field is removed
-             * upon saving. */
-            FileTag->saved = FALSE;
-
             g_free (decoded_ustr);
-            continue;
+            goto invalid_picture;
         }
 
         bytes = g_bytes_new_take (decoded_ustr, decoded_size);
@@ -567,22 +563,52 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         type = read_guint32_from_byte (decoded_ustr, 0);
         bytes_pos = 4;
 
+        /* TODO: Check that there is a maximum of 1 of each of
+         * ET_PICTURE_TYPE_FILE_ICON and ET_PICTURE_TYPE_OTHER_FILE_ICON types
+         * in the file. */
+        if (type >= ET_PICTURE_TYPE_UNDEFINED)
+        {
+            goto invalid_picture;
+        }
+
         /* Reading MIME data. */
         mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos = 8 + mimelen;
+        bytes_pos += 4;
+
+        if (mimelen > decoded_size - bytes_pos - (6 * 4))
+        {
+            goto invalid_picture;
+        }
+
+        /* Skip over the MIME type, as gdk-pixbuf does not use it. */
+        /* TODO: Check for one of "image/", "image/png", "image/jpeg" and "-->"
+         * (the check for "", length 0, is already covered). */
+        bytes_pos += mimelen;
 
         /* Reading description */
         desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
         bytes_pos += 4;
 
+        if (desclen > decoded_size - bytes_pos - (5 * 4))
+        {
+            goto invalid_picture;
+        }
+
         description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
                                  desclen);
 
+        /* Skip the width, height, color depth and number-of-colors fields. */
         bytes_pos += desclen + 16;
 
         /* Reading picture size */
         data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
         bytes_pos += 4;
+
+        if (data_size > decoded_size - bytes_pos)
+        {
+            g_free (description);
+            goto invalid_picture;
+        }
 
         /* Read only the image data into a new GBytes. */
         pic_bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
@@ -604,6 +630,14 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         prev_pic = pic;
 
         /* pic->bytes still holds a ref on the decoded data. */
+        g_bytes_unref (bytes);
+        continue;
+
+invalid_picture:
+        /* Mark the file as modified, so that the invalid field is removed upon
+         * saving. */
+        FileTag->saved = FALSE;
+
         g_bytes_unref (bytes);
     }
 
