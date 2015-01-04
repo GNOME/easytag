@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -79,7 +79,7 @@ et_show_about_dialog (GtkWindow *parent)
         NULL
     };
 
-    static const gchar copyright[] = "Copyright © 2012–2014 David King\n"
+    static const gchar copyright[] = "Copyright © 2012–2015 David King\n"
                                      "Copyright © 2009–2012 Kip Warner\n"
                                      "Copyright © 2000–2008 Jérôme Couderc";
 
