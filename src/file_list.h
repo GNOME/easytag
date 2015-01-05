@@ -31,7 +31,7 @@ GList * ET_Add_File_To_File_List (gchar *filename);
 gboolean ET_Remove_File_From_File_List (ET_File *ETFile);
 void et_file_list_free (GList *file_list);
 
-gboolean ET_Create_Artist_Album_File_List (void);
+GList * et_artist_album_list_new_from_file_list (GList *file_list);
 void et_artist_album_file_list_free (GList *file_list);
 
 gboolean et_file_list_check_all_saved (GList *etfilelist);

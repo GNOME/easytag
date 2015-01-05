@@ -2764,7 +2764,12 @@ et_browser_set_display_mode (EtBrowser *self,
         case ET_BROWSER_MODE_ARTIST:
             /* Display Artist + Album lists. */
             gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
-            ET_Create_Artist_Album_File_List ();
+            if (ETCore->ETArtistAlbumFileList)
+            {
+                et_artist_album_file_list_free (ETCore->ETArtistAlbumFileList);
+            }
+
+            ETCore->ETArtistAlbumFileList = et_artist_album_list_new_from_file_list (ETCore->ETFileList);
             Browser_Artist_List_Load_Files (self, etfile);
             break;
         default:

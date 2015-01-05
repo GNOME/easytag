@@ -557,8 +557,9 @@ ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename (const ET_File *ETFile1,
  *  - "AlbumList" list is a list of ETFile items.
  * Note : use the function ET_Debug_Print_Artist_Album_List(...) to understand how it works, it needed...
  */
-static gboolean
-ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
+static GList *
+et_artist_album_list_add_file (GList *file_list,
+                               ET_File *ETFile)
 {
     const gchar *ETFile_Artist;
     const gchar *ETFile_Album;
@@ -569,14 +570,14 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
     GList *etfilelist = NULL;
     ET_File *etfile = NULL;
 
-    g_return_val_if_fail (ETFile != NULL, FALSE);
+    g_return_if_fail (ETFile != NULL);
 
     /* Album value of the ETFile passed in parameter. */
     ETFile_Album = ((File_Tag *)ETFile->FileTag->data)->album;
     /* Artist value of the ETFile passed in parameter. */
     ETFile_Artist = ((File_Tag *)ETFile->FileTag->data)->artist;
 
-    for (ArtistList = ETCore->ETArtistAlbumFileList; ArtistList != NULL;
+    for (ArtistList = file_list; ArtistList != NULL;
          ArtistList = g_list_next (ArtistList))
     {
         AlbumList = (GList *)ArtistList->data;  /* Take the first item */
@@ -621,7 +622,7 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
                                                      ETFile);
                     AlbumList->data = g_list_sort ((GList *)AlbumList->data,
                                                    (GCompareFunc)ET_Comp_Func_Sort_Etfile_Item_By_Ascending_Filename);
-                    return TRUE;
+                    return file_list;
                 }
 
                 AlbumList = g_list_next (AlbumList);
@@ -634,7 +635,7 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
                                               etfilelist);
             ArtistList->data = g_list_sort ((GList *)ArtistList->data,
                                             (GCompareFunc)ET_Comp_Func_Sort_Album_Item_By_Ascending_Album);
-            return TRUE;
+            return file_list;
         }
     }
 
@@ -642,34 +643,29 @@ ET_Add_File_To_Artist_Album_File_List (ET_File *ETFile)
      * main list (=ETArtistAlbumFileList). */
     etfilelist = g_list_append (NULL, ETFile);
     AlbumList  = g_list_append (NULL, etfilelist);
-    ETCore->ETArtistAlbumFileList = g_list_append (ETCore->ETArtistAlbumFileList,
-                                                   AlbumList);
+    file_list = g_list_append (file_list, AlbumList);
 
     /* Sort the list by ascending Artist. */
-    ETCore->ETArtistAlbumFileList = g_list_sort (ETCore->ETArtistAlbumFileList,
-                                                 (GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
+    /* TODO: Use g_list_insert_sorted() instead. */
+    file_list = g_list_sort (file_list,
+                             (GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
 
-    return TRUE;
+    return file_list;
 }
 
-gboolean
-ET_Create_Artist_Album_File_List (void)
+GList *
+et_artist_album_list_new_from_file_list (GList *file_list)
 {
+    GList *result = NULL;
     GList *l;
 
-    if (ETCore->ETArtistAlbumFileList)
-    {
-        et_artist_album_file_list_free (ETCore->ETArtistAlbumFileList);
-        ETCore->ETArtistAlbumFileList = NULL;
-    }
-
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    for (l = g_list_first (file_list); l != NULL; l = g_list_next (l))
     {
         ET_File *ETFile = (ET_File *)l->data;
-        ET_Add_File_To_Artist_Album_File_List(ETFile);
+        result = et_artist_album_list_add_file (result, ETFile);
     }
-    //ET_Debug_Print_Artist_Album_List(__FILE__,__LINE__,__FUNCTION__);
-    return TRUE;
+
+    return result;
 }
 
 /*
