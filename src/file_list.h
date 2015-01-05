@@ -34,7 +34,7 @@ gboolean ET_Free_File_List (void);
 gboolean ET_Create_Artist_Album_File_List (void);
 gboolean ET_Free_Artist_Album_File_List (void);
 
-gboolean ET_Check_If_All_Files_Are_Saved (void);
+gboolean et_file_list_check_all_saved (GList *etfilelist);
 
 GList * ET_Displayed_File_List_First (void);
 GList * ET_Displayed_File_List_Previous (void);

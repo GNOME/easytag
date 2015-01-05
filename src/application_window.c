@@ -2674,7 +2674,7 @@ et_application_window_quit (EtApplicationWindow *self)
 
     /* Check if all files have been saved before exit */
     if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
-        && ET_Check_If_All_Files_Are_Saved () != TRUE)
+        && et_file_list_check_all_saved (ETCore->ETFileList) != TRUE)
     {
         /* Some files haven't been saved */
         msgbox = gtk_message_dialog_new (GTK_WINDOW (self),

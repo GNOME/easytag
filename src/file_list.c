@@ -1390,28 +1390,34 @@ ET_Add_File_To_History_List (ET_File *ETFile)
 
     return TRUE;
 }
+
 /*
- * Ckecks if some files, in the list, had been changed but not saved.
- * Returns TRUE if all files have been saved.
- * Returns FALSE if some changes haven't been saved.
+ * et_file_list_check_all_saved:
+ * @etfilelist: (element-type ET_File) (allow-none): a list of files
+ *
+ * Checks if some files, in the list, have been changed but not saved.
+ *
+ * Returns: %TRUE if all files have been saved, %FALSE otherwise
  */
 gboolean
-ET_Check_If_All_Files_Are_Saved (void)
+et_file_list_check_all_saved (GList *etfilelist)
 {
-    /* Check if some files haven't been saved, if didn't nochange=0 */
-    if (!ETCore->ETFileList)
+    if (!etfilelist)
     {
         return TRUE;
-    }else
+    }
+    else
     {
         GList *l;
 
-        for (l = g_list_first (ETCore->ETFileList); l != NULL;
-             l = g_list_next (l))
+        for (l = g_list_first (etfilelist); l != NULL; l = g_list_next (l))
         {
-            if (ET_Check_If_File_Is_Saved ((ET_File *)l->data) == FALSE)
+            if (!ET_Check_If_File_Is_Saved ((ET_File *)l->data))
+            {
                 return FALSE;
+            }
         }
+
         return TRUE;
     }
 }

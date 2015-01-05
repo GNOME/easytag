@@ -852,7 +852,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
 
     /* Check if all files have been saved before changing the directory */
     if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
-        && ET_Check_If_All_Files_Are_Saved () != TRUE)
+        && et_file_list_check_all_saved (ETCore->ETFileList) != TRUE)
     {
         GtkWidget *msgdialog;
         gint response;
