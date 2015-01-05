@@ -62,18 +62,17 @@
 #endif
 
 /*
- * Frees the full main list of files: GList *ETFileList and reinitialize it.
+ * et_file_list_free:
+ * @file_list: (element-type ET_File) (allow-none): a list of files
+ *
+ * Frees the full list of files.
  */
-gboolean
-ET_Free_File_List (void)
+void
+et_file_list_free (GList *file_list)
 {
-    g_return_val_if_fail (ETCore != NULL && ETCore->ETFileList != NULL, FALSE);
+    g_return_if_fail (file_list != NULL);
 
-    g_list_free_full (ETCore->ETFileList,
-                      (GDestroyNotify)ET_Free_File_List_Item);
-    ETCore->ETFileList = NULL;
-
-    return TRUE;
+    g_list_free_full (file_list, (GDestroyNotify)ET_Free_File_List_Item);
 }
 
 static void
@@ -85,53 +84,38 @@ et_history_file_free (ET_History_File *file)
 /*
  * History list contains only pointers, so no data to free except the history structure.
  */
-gboolean
-ET_Free_History_File_List (void)
+void
+et_history_file_list_free (GList *file_list)
 {
-    g_return_val_if_fail (ETCore != NULL && ETCore->ETHistoryFileList != NULL,
-                          FALSE);
+    g_return_if_fail (file_list != NULL);
 
-    ETCore->ETHistoryFileList = g_list_first (ETCore->ETHistoryFileList);
-
-    g_list_free_full (ETCore->ETHistoryFileList,
-                      (GDestroyNotify)et_history_file_free);
-
-    ETCore->ETHistoryFileList = NULL;
-
-    return TRUE;
+    g_list_free_full (file_list, (GDestroyNotify)et_history_file_free);
 }
 
 /*
  * "Display" list contains only pointers, so NOTHING to free
  */
-gboolean
-ET_Free_Displayed_File_List (void)
+void
+et_displayed_file_list_free (GList *file_list)
 {
-    g_return_val_if_fail (ETCore != NULL
-                          && ETCore->ETFileDisplayedList != NULL, FALSE);
-
-    ETCore->ETFileDisplayedList = NULL;
-
-    return TRUE;
 }
 
 /*
  * ArtistAlbum list contains 3 levels of lists
  */
-gboolean
-ET_Free_Artist_Album_File_List (void)
+void
+et_artist_album_file_list_free (GList *file_list)
 {
     GList *l;
 
-    g_return_val_if_fail (ETCore != NULL
-                          && ETCore->ETArtistAlbumFileList != NULL, FALSE);
+    g_return_if_fail (file_list != NULL);
 
     /* Pointers are stored inside the artist/album list-stores, so free them
      * first. */
     et_application_window_browser_clear_artist_model (ET_APPLICATION_WINDOW (MainWindow));
     et_application_window_browser_clear_album_model (ET_APPLICATION_WINDOW (MainWindow));
 
-    for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
+    for (l = file_list; l != NULL; l = g_list_next (l))
     {
         GList *m;
 
@@ -146,12 +130,7 @@ ET_Free_Artist_Album_File_List (void)
             g_list_free ((GList *)l->data);
     }
 
-    if (ETCore->ETArtistAlbumFileList)
-        g_list_free(ETCore->ETArtistAlbumFileList);
-
-    ETCore->ETArtistAlbumFileList = NULL;
-
-    return TRUE;
+    g_list_free (file_list);
 }
 
 /* Key for each item of ETFileList */
@@ -679,7 +658,10 @@ ET_Create_Artist_Album_File_List (void)
     GList *l;
 
     if (ETCore->ETArtistAlbumFileList)
-        ET_Free_Artist_Album_File_List();
+    {
+        et_artist_album_file_list_free (ETCore->ETArtistAlbumFileList);
+        ETCore->ETArtistAlbumFileList = NULL;
+    }
 
     for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
     {

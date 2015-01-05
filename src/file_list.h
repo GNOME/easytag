@@ -29,10 +29,10 @@ G_BEGIN_DECLS
 
 GList * ET_Add_File_To_File_List (gchar *filename);
 gboolean ET_Remove_File_From_File_List (ET_File *ETFile);
-gboolean ET_Free_File_List (void);
+void et_file_list_free (GList *file_list);
 
 gboolean ET_Create_Artist_Album_File_List (void);
-gboolean ET_Free_Artist_Album_File_List (void);
+void et_artist_album_file_list_free (GList *file_list);
 
 gboolean et_file_list_check_all_saved (GList *etfilelist);
 
@@ -43,14 +43,14 @@ GList * ET_Displayed_File_List_Last (void);
 GList * ET_Displayed_File_List_By_Etfile (const ET_File *ETFile);
 
 gboolean ET_Set_Displayed_File_List (GList *ETFileList);
-gboolean ET_Free_Displayed_File_List (void);
+void et_displayed_file_list_free (GList *file_list);
 
 gboolean ET_Add_File_To_History_List (ET_File *ETFile);
 ET_File * ET_Undo_History_File_Data (void);
 ET_File * ET_Redo_History_File_Data (void);
 gboolean ET_History_File_List_Has_Undo_Data (void);
 gboolean ET_History_File_List_Has_Redo_Data (void);
-gboolean ET_Free_History_File_List (void);
+void et_history_file_list_free (GList *file_list);
 
 void ET_Update_Directory_Name_Into_File_List (const gchar *last_path, const gchar *new_path);
 guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);

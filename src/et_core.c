@@ -47,16 +47,28 @@ ET_Core_Free (void)
 
     /* First frees lists. */
     if (ETCore->ETFileList)
-        ET_Free_File_List();
+    {
+        et_file_list_free (ETCore->ETFileList);
+        ETCore->ETFileList = NULL;
+    }
 
     if (ETCore->ETFileDisplayedList)
-        ET_Free_Displayed_File_List();
+    {
+        et_displayed_file_list_free (ETCore->ETFileDisplayedList);
+        ETCore->ETFileDisplayedList = NULL;
+    }
 
     if (ETCore->ETHistoryFileList)
-        ET_Free_History_File_List();
+    {
+        et_history_file_list_free (ETCore->ETHistoryFileList);
+        ETCore->ETHistoryFileList = NULL;
+    }
 
     if (ETCore->ETArtistAlbumFileList)
-        ET_Free_Artist_Album_File_List();
+    {
+        et_artist_album_file_list_free (ETCore->ETArtistAlbumFileList);
+        ETCore->ETArtistAlbumFileList = NULL;
+    }
 
     if (ETCore)
     {
