@@ -18,7 +18,7 @@
 
 #include "file_tag.h"
 
-#include "et_core.h"
+#include "file.h"
 
 /*
  * Create a new File_Tag structure.
@@ -78,21 +78,18 @@ et_file_tag_free (File_Tag *FileTag)
  * Duplicate the 'other' list
  */
 void
-ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
-                                   File_Tag *FileTag)
+et_file_tag_copy_other_into (File_Tag *destination,
+                             const File_Tag *source)
 {
-    const File_Tag *FileTagCur;
     GList *l;
 
-    FileTagCur = (File_Tag *)(ETFile->FileTag)->data;
-
-    for (l = FileTagCur->other; l != NULL; l = g_list_next (l))
+    for (l = source->other; l != NULL; l = g_list_next (l))
     {
-        FileTag->other = g_list_prepend (FileTag->other,
-                                         g_strdup ((gchar *)l->data));
+        destination->other = g_list_prepend (destination->other,
+                                             g_strdup ((gchar *)l->data));
     }
 
-    FileTag->other = g_list_reverse (FileTag->other);
+    destination->other = g_list_reverse (destination->other);
 }
 
 
@@ -100,19 +97,15 @@ ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile,
  * Copy data of the File_Tag structure (of ETFile) to the FileTag item.
  * Reallocate data if not null.
  */
-gboolean
-ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *destination)
+void
+et_file_tag_copy_into (File_Tag *destination,
+                       const File_Tag *source)
 {
-    const File_Tag *source;
+    g_return_if_fail (source != NULL);
+    g_return_if_fail (destination != NULL);
 
-    g_return_val_if_fail (ETFile != NULL && ETFile->FileTag != NULL &&
-                          (File_Tag *)(ETFile->FileTag)->data != NULL, FALSE);
-    g_return_val_if_fail (destination != NULL, FALSE);
-
-    /* The data to duplicate to FileTag */
-    source = (File_Tag *)(ETFile->FileTag)->data;
     /* Key for the item, may be overwritten. */
-    destination->key = ET_Undo_Key_New();
+    destination->key = ET_Undo_Key_New ();
 
     et_file_tag_set_title (destination, source->title);
     et_file_tag_set_artist (destination, source->artist);
@@ -134,14 +127,12 @@ ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *destination)
 
     if (source->other)
     {
-        ET_Copy_File_Tag_Item_Other_Field (ETFile, destination);
+        et_file_tag_copy_other_into (destination, source);
     }
     else
     {
         et_file_tag_free_other_field (destination);
     }
-
-    return TRUE;
 }
 
 /*

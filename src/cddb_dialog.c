@@ -1,6 +1,6 @@
 /* EasyTAG - Tag editor for audio files
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2364,7 +2364,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             {
                 /* Allocation of a new FileTag. */
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item (etfile, FileTag);
+                et_file_tag_copy_into (FileTag, etfile->FileTag->data);
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
                 {
@@ -2493,7 +2493,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             {
                 /* Allocation of a new FileTag. */
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item (etfile, FileTag);
+                et_file_tag_copy_into (FileTag, etfile->FileTag->data);
 
                 if (set_fields & ET_CDDB_SET_FIELD_TITLE)
                 {

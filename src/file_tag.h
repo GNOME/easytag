@@ -96,6 +96,9 @@ void et_file_tag_set_url (File_Tag *file_tag, const gchar *url);
 void et_file_tag_set_encoded_by (File_Tag *file_tag, const gchar *encoded_by);
 void et_file_tag_set_picture (File_Tag *file_tag, const EtPicture *pic);
 
+void et_file_tag_copy_into (File_Tag *destination, const File_Tag *source);
+void et_file_tag_copy_other_into (File_Tag *destination, const File_Tag *source);
+
 gboolean et_file_tag_detect_difference (const File_Tag *FileTag1, const File_Tag  *FileTag2);
 
 G_END_DECLS

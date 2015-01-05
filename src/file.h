@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -80,10 +80,6 @@ File_Name * ET_File_Name_Item_New (void);
 void ET_Free_File_List_Item (ET_File *ETFile);
 
 gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
-
-/* FIXME: Move to file_tag.h. */
-gboolean ET_Copy_File_Tag_Item (const ET_File *ETFile, File_Tag *FileTag);
-void ET_Copy_File_Tag_Item_Other_Field (const ET_File *ETFile, File_Tag *FileTag);
 
 void ET_Display_File_Data_To_UI (ET_File *ETFile);
 void ET_Save_File_Data_From_UI (ET_File *ETFile);

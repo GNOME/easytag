@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -1438,7 +1438,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
 #endif
         case APE_TAG:
             FileTag = et_application_window_tag_area_create_file_tag (ET_APPLICATION_WINDOW (MainWindow));
-            ET_Copy_File_Tag_Item_Other_Field (ETFile, FileTag);
+            et_file_tag_copy_other_into (ETFile->FileTag->data, FileTag);
             break;
         case UNKNOWN_TAG:
         default:

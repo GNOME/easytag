@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014,2014  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -349,7 +349,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
 
     // Create a new File_Tag item
     FileTag = et_file_tag_new ();
-    ET_Copy_File_Tag_Item(ETFile,FileTag);
+    et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
 
     // Process this mask with file
     fill_tag_list = Scan_Generate_New_Tag_From_Mask(ETFile,mask);
@@ -1357,7 +1357,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->title);
@@ -1376,7 +1376,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->artist);
@@ -1395,7 +1395,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->album_artist);
@@ -1414,7 +1414,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->album);
@@ -1433,7 +1433,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->genre);
@@ -1452,7 +1452,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->comment);
@@ -1471,7 +1471,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->composer);
@@ -1490,7 +1490,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->orig_artist);
@@ -1509,7 +1509,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->copyright);
@@ -1528,7 +1528,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->url);
@@ -1547,7 +1547,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             if (!FileTag)
             {
                 FileTag = et_file_tag_new ();
-                ET_Copy_File_Tag_Item(ETFile,FileTag);
+                et_file_tag_copy_into (FileTag, ETFile->FileTag->data);
             }
 
             string = g_strdup(st_filetag->encoded_by);
