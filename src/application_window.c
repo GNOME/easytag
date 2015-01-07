@@ -2340,7 +2340,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "save-force", TRUE);
 
         /* Enable undo command if there are data into main undo list (history list) */
-        if (ET_History_File_List_Has_Undo_Data ())
+        if (et_history_list_has_undo (ETCore->ETHistoryFileList))
         {
             set_action_state (self, "undo-last-changes", TRUE);
         }
@@ -2350,7 +2350,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         }
 
         /* Enable redo commands if there are data into main redo list (history list) */
-        if (ET_History_File_List_Has_Redo_Data ())
+        if (et_history_list_has_redo (ETCore->ETHistoryFileList))
         {
             set_action_state (self, "redo-last-changes", TRUE);
         }

@@ -1012,8 +1012,10 @@ Read_Directory (const gchar *path_real)
         g_free(msg);
         g_free(filename_utf8);
 
-        // Warning: Do not free filename_real because ET_Add_File.. uses it for internal structures
-        ET_Add_File_To_File_List(filename_real);
+        /* Warning: Do not free filename_real because ET_Add_File.. uses it for
+         * internal structures. */
+        ETCore->ETFileList = et_file_list_add (ETCore->ETFileList,
+                                               filename_real);
 
         /* Update the progress bar. */
         fraction = (++progress_bar_index) / (double) nbrfile;

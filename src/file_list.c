@@ -185,12 +185,16 @@ et_core_read_file_info (GFile *file,
 }
 
 /*
- * ET_Add_File_To_File_List: Add a file to the "main" list. And get all information of the file.
- * The filename passed in should be in raw format, only convert it to UTF8 when displaying it.
+ * et_file_list_add:
+ * Add a file to the "main" list. And get all information of the file.
+ * The filename passed in should be in raw format, only convert it to UTF8 when
+ * displaying it.
  */
 GList *
-ET_Add_File_To_File_List (gchar *filename)
+et_file_list_add (GList *file_list,
+                  gchar *filename)
 {
+    GList *result;
     const ET_File_Description *description;
     ET_File      *ETFile;
     File_Name    *FileName;
@@ -206,8 +210,7 @@ ET_Add_File_To_File_List (gchar *filename)
     GError *error = NULL;
     gboolean success;
 
-    if (!filename)
-        return ETCore->ETFileList;
+    g_return_val_if_fail (filename != NULL, file_list);
 
     file = g_file_new_for_path (filename);
 
@@ -434,7 +437,7 @@ ET_Add_File_To_File_List (gchar *filename)
     ETFile->ETFileInfo           = ETFileInfo;
 
     /* Add the item to the "main list" */
-    ETCore->ETFileList = g_list_append(ETCore->ETFileList,ETFile);
+    result = g_list_append (file_list, ETFile);
 
 
     /*
@@ -472,7 +475,7 @@ ET_Add_File_To_File_List (gchar *filename)
     //ET_Add_File_To_Artist_Album_File_List(ETFile);
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
-    return ETCore->ETFileList;
+    return result;
 }
 
 /*
@@ -568,6 +571,7 @@ et_artist_album_list_add_file (GList *file_list,
     GList *ArtistList;
     GList *AlbumList = NULL;
     GList *etfilelist = NULL;
+    GList *result;
     ET_File *etfile = NULL;
 
     g_return_if_fail (ETFile != NULL);
@@ -647,10 +651,10 @@ et_artist_album_list_add_file (GList *file_list,
 
     /* Sort the list by ascending Artist. */
     /* TODO: Use g_list_insert_sorted() instead. */
-    file_list = g_list_sort (file_list,
-                             (GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
+    result = g_list_sort (file_list,
+                          (GCompareFunc)ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist);
 
-    return file_list;
+    return result;
 }
 
 GList *
@@ -732,26 +736,24 @@ ET_Remove_File_From_Artist_Album_List (ET_File *ETFile)
  * Returns the length of the list of displayed files
  */
 static guint
-ET_Displayed_File_List_Get_Length (void)
+et_displayed_file_list_length (GList *displayed_list)
 {
-    GList *list = NULL;
+    GList *list;
 
-    list = g_list_first(ETCore->ETFileDisplayedList);
-    ETCore->ETFileDisplayedList_Length = g_list_length(list);
-    return ETCore->ETFileDisplayedList_Length;
+    list = g_list_first (displayed_list);
+    return g_list_length (list);;
 }
 
 /*
  * Renumber the list of displayed files (IndexKey) from 1 to n
  */
 static void
-ET_Displayed_File_List_Number (void)
+et_displayed_file_list_renumber (GList *displayed_list)
 {
     GList *l = NULL;
     guint i = 1;
 
-    for (l = g_list_first (ETCore->ETFileDisplayedList); l != NULL;
-         l = g_list_next (l))
+    for (l = g_list_first (displayed_list); l != NULL; l = g_list_next (l))
     {
         ((ET_File *)l->data)->IndexKey = i++;
     }
@@ -760,7 +762,7 @@ ET_Displayed_File_List_Number (void)
 /*
  * Delete the corresponding file and free the allocated data. Return TRUE if deleted.
  */
-gboolean
+void
 ET_Remove_File_From_File_List (ET_File *ETFile)
 {
     GList *ETFileList = NULL;          // Item containing the ETFile to delete... (in ETCore->ETFileList)
@@ -811,11 +813,11 @@ ET_Remove_File_From_File_List (ET_File *ETFile)
     if (ETFileDisplayedList)
         g_list_free(ETFileDisplayedList);
 
-    // Recalculate length of ETFileDisplayedList list
-    ET_Displayed_File_List_Get_Length();
+    /* Recalculate length of ETFileDisplayedList list. */
+    ETCore->ETFileDisplayedList_Length = et_displayed_file_list_length (ETCore->ETFileDisplayedList);
 
-    // To number the ETFile in the list
-    ET_Displayed_File_List_Number();
+    /* To number the ETFile in the list. */
+    et_displayed_file_list_renumber (ETCore->ETFileDisplayedList);
 
     // Displaying...
     if (ETCore->ETFileDisplayedList)
@@ -835,24 +837,11 @@ ET_Remove_File_From_File_List (ET_File *ETFile)
         et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
         et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
-
-    return TRUE;
 }
 
 /**************************
  * File sorting functions *
  **************************/
-
-/*
- * Sort the 'ETFileDisplayedList' following the 'Sorting_Type'
- * Note : Add also new sorting in 'Browser_List_Sort_Func'
- */
-void
-ET_Sort_Displayed_File_List (EtSortMode Sorting_Type)
-{
-    ETCore->ETFileDisplayedList = ET_Sort_File_List(ETCore->ETFileDisplayedList,Sorting_Type);
-}
-
 
 /*
  * Set appropriate sort order for the given column_id
@@ -1153,15 +1142,14 @@ ET_Displayed_File_List_By_Etfile (const ET_File *ETFile)
  * Load the list of displayed files (calculate length, size, ...)
  * It contains part (filtrated : view by artists and albums) or full ETCore->ETFileList list
  */
-gboolean
-ET_Set_Displayed_File_List (GList *ETFileList)
+void
+et_displayed_file_list_set (GList *ETFileList)
 {
     GList *l = NULL;
 
     ETCore->ETFileDisplayedList = g_list_first(ETFileList);
 
-    //ETCore->ETFileDisplayedListPtr = ETCore->ETFileDisplayedList;
-    ETCore->ETFileDisplayedList_Length = ET_Displayed_File_List_Get_Length();
+    ETCore->ETFileDisplayedList_Length = et_displayed_file_list_length (ETCore->ETFileDisplayedList);
     ETCore->ETFileDisplayedList_TotalSize     = 0;
     ETCore->ETFileDisplayedList_TotalDuration = 0;
 
@@ -1173,13 +1161,12 @@ ET_Set_Displayed_File_List (GList *ETFileList)
     }
 
     /* Sort the file list. */
-    ET_Sort_Displayed_File_List (g_settings_get_enum (MainSettings,
-                                 "sort-mode"));
+    ET_Sort_File_List (ETCore->ETFileDisplayedList,
+                       g_settings_get_enum (MainSettings,
+                                            "sort-mode"));
 
-    // Should renums ETCore->ETFileDisplayedList only!
-    ET_Displayed_File_List_Number();
-
-    return TRUE;
+    /* Should renums ETCore->ETFileDisplayedList only! */
+    et_displayed_file_list_renumber (ETCore->ETFileDisplayedList);
 }
 
 /*
@@ -1187,26 +1174,32 @@ ET_Set_Displayed_File_List (GList *ETFileList)
  * (for ex: "/mp3/old_path/file.mp3" to "/mp3/new_path/file.mp3"
  */
 void
-ET_Update_Directory_Name_Into_File_List (const gchar *last_path,
-                                         const gchar *new_path)
+et_file_list_update_directory_name (GList *file_list,
+                                    const gchar *old_path,
+                                    const gchar *new_path)
 {
     GList *filelist;
     ET_File *file;
     GList *filenamelist;
     gchar *filename;
-    gchar *last_path_tmp;
+    gchar *old_path_tmp;
 
-    if (!ETCore->ETFileList || !last_path || !new_path ||
-        strlen(last_path) < 1 || strlen(new_path) < 1 )
-        return;
+    g_return_if_fail (file_list != NULL);
+    g_return_if_fail (old_path != NULL && *old_path != '\0');
+    g_return_if_fail (new_path != NULL && *new_path != '\0');
 
-    // Add '/' to end of path to avoid ambiguity between a directory and a filename...
-    if (last_path[strlen(last_path)-1]==G_DIR_SEPARATOR)
-        last_path_tmp = g_strdup(last_path);
+    /* Add '/' to end of path to avoid ambiguity between a directory and a
+     * filename... */
+    if (old_path[strlen (old_path) - 1] == G_DIR_SEPARATOR)
+    {
+        old_path_tmp = g_strdup (old_path);
+    }
     else
-        last_path_tmp = g_strconcat(last_path,G_DIR_SEPARATOR_S,NULL);
+    {
+        old_path_tmp = g_strconcat (old_path, G_DIR_SEPARATOR_S, NULL);
+    }
 
-    for (filelist = g_list_first (ETCore->ETFileList); filelist != NULL;
+    for (filelist = g_list_first (file_list); filelist != NULL;
          filelist = g_list_next (filelist))
     {
         if ((file = filelist->data))
@@ -1218,32 +1211,33 @@ ET_Update_Directory_Name_Into_File_List (const gchar *last_path,
 
                 if ( FileName && (filename=FileName->value) )
                 {
-                    // Replace path of filename
-                    if ( strncmp(filename,last_path_tmp,strlen(last_path_tmp))==0 )
+                    /* Replace path of filename. */
+                    if (strncmp (filename, old_path_tmp, strlen (old_path_tmp))
+                        == 0)
                     {
                         gchar *filename_tmp;
 
                         // Create the new filename
-                        filename_tmp = g_strconcat(new_path,
-                                                   (new_path[strlen(new_path)-1]==G_DIR_SEPARATOR) ? "" : G_DIR_SEPARATOR_S,
-                                                   &filename[strlen(last_path_tmp)],NULL);
+                        filename_tmp = g_strconcat (new_path,
+                                                    (new_path[strlen (new_path) - 1] == G_DIR_SEPARATOR) ? "" : G_DIR_SEPARATOR_S,
+                                                    &filename[strlen (old_path_tmp)],NULL);
 
                         /* Replace the filename (in file system encoding). */
-                        g_free(FileName->value);
+                        g_free (FileName->value);
                         FileName->value = filename_tmp;
                         /* Replace the filename (in file system encoding). */
-                        g_free(FileName->value_utf8);
-                        FileName->value_utf8 = filename_to_display(FileName->value);
-                        // Recalculate the collate key
-                        g_free(FileName->value_ck);
-                        FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
+                        g_free (FileName->value_utf8);
+                        FileName->value_utf8 = filename_to_display (FileName->value);
+                        /* Recalculate the collate key. */
+                        g_free (FileName->value_ck);
+                        FileName->value_ck = g_utf8_collate_key_for_filename (FileName->value_utf8, -1);
                     }
                 }
              }
         }
     }
 
-    g_free(last_path_tmp);
+    g_free (old_path_tmp);
 }
 
 /*
@@ -1256,8 +1250,8 @@ ET_Undo_History_File_Data (void)
     ET_File *ETFile;
     const ET_History_File *ETHistoryFile;
 
-    g_return_val_if_fail (ETCore->ETHistoryFileList != NULL ||
-                          ET_History_File_List_Has_Undo_Data (), NULL);
+    g_return_val_if_fail (ETCore->ETHistoryFileList != NULL, NULL);
+    g_return_val_if_fail (et_history_list_has_undo (ETCore->ETHistoryFileList), NULL);
 
     ETHistoryFile = (ET_History_File *)ETCore->ETHistoryFileList->data;
     ETFile        = (ET_File *)ETHistoryFile->ETFile;
@@ -1270,15 +1264,15 @@ ET_Undo_History_File_Data (void)
 }
 
 /*
- * Returns TRUE if undo file list contains undo data
+ * et_history_list_has_undo:
+ * @history_list: the end of a history list
+ *
+ * Returns: %TRUE if undo file list contains undo data, %FALSE otherwise
  */
 gboolean
-ET_History_File_List_Has_Undo_Data (void)
+et_history_list_has_undo (GList *history_list)
 {
-    if (ETCore->ETHistoryFileList && ETCore->ETHistoryFileList->prev)
-        return TRUE;
-    else
-        return FALSE;
+    return history_list && history_list->prev;
 }
 
 
@@ -1291,7 +1285,11 @@ ET_Redo_History_File_Data (void)
     ET_File *ETFile;
     ET_History_File *ETHistoryFile;
 
-    if (!ETCore->ETHistoryFileList || !ET_History_File_List_Has_Redo_Data()) return NULL;
+    if (!ETCore->ETHistoryFileList
+        || !et_history_list_has_redo (ETCore->ETHistoryFileList))
+    {
+        return NULL;
+    }
 
     ETHistoryFile = (ET_History_File *)ETCore->ETHistoryFileList->next->data;
     ETFile        = (ET_File *)ETHistoryFile->ETFile;
@@ -1303,25 +1301,27 @@ ET_Redo_History_File_Data (void)
     return ETFile;
 }
 
-
 /*
- * Returns TRUE if undo file list contains redo data
+ * et_history_list_has_redo:
+ * @history_list: the end of a history list
+ *
+ * Returns: %TRUE if undo file list contains redo data, %FALSE otherwise
  */
-gboolean ET_History_File_List_Has_Redo_Data (void)
+gboolean
+et_history_list_has_redo (GList *history_list)
 {
-    if (ETCore->ETHistoryFileList && ETCore->ETHistoryFileList->next)
-        return TRUE;
-    else
-        return FALSE;
+    return history_list && history_list->next;
 }
 
 /*
-* - * Add a ETFile item to the main undo list of files
-*   - */
-gboolean
-ET_Add_File_To_History_List (ET_File *ETFile)
+ * Add a ETFile item to the main undo list of files
+ */
+GList *
+et_history_list_add (GList *history_list,
+                     ET_File *ETFile)
 {
     ET_History_File *ETHistoryFile;
+    GList *result;
 
     g_return_val_if_fail (ETFile != NULL, FALSE);
 
@@ -1329,17 +1329,22 @@ ET_Add_File_To_History_List (ET_File *ETFile)
     ETHistoryFile->ETFile = ETFile;
 
     /* The undo list must contains one item before the 'first undo' data */
-    if (!ETCore->ETHistoryFileList)
+    if (!history_list)
     {
-        ETCore->ETHistoryFileList = g_list_append (ETCore->ETHistoryFileList,
-                                                   g_slice_new0 (ET_History_File));
+        result = g_list_append (NULL,
+                                g_slice_new0 (ET_History_File));
+    }
+    else
+    {
+        result = history_list;
     }
 
     /* Add the item to the list (cut end of list from the current element) */
-    ETCore->ETHistoryFileList = g_list_append(ETCore->ETHistoryFileList,ETHistoryFile);
-    ETCore->ETHistoryFileList = g_list_last(ETCore->ETHistoryFileList);
+    result = g_list_append (result, ETHistoryFile);
+    /* TODO: Investigate whether this is sensible. */
+    result = g_list_last (result);
 
-    return TRUE;
+    return result;
 }
 
 /*
@@ -1378,7 +1383,8 @@ et_file_list_check_all_saved (GList *etfilelist)
  * Parameter "path" should be in UTF-8
  */
 guint
-ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
+et_file_list_get_n_files_in_path (GList *file_list,
+                                  const gchar *path_utf8)
 {
     gchar *path_key;
     GList *l;
@@ -1388,7 +1394,7 @@ ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8)
 
     path_key = g_utf8_collate_key (path_utf8, -1);
 
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    for (l = g_list_first (file_list); l != NULL; l = g_list_next (l))
     {
         ET_File *ETFile = (ET_File *)l->data;
         const gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;

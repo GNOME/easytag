@@ -2617,7 +2617,7 @@ Browser_Album_List_Load_Files (EtBrowser *self,
             gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_list), path, NULL, FALSE, 0, 0);
             gtk_tree_path_free(path);
 
-            ET_Set_Displayed_File_List(etfilelist);
+            et_displayed_file_list_set (etfilelist);
             et_browser_load_file_list (self, etfilelist, etfile_to_select);
 
             // Now that we've found the album, no need to continue searching
@@ -2636,8 +2636,8 @@ Browser_Album_List_Load_Files (EtBrowser *self,
                            -1);
         ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
-        // Set the attached list as "Displayed List"
-        ET_Set_Displayed_File_List(etfilelist);
+        /* Set the attached list as "Displayed List". */
+        et_displayed_file_list_set (etfilelist);
         et_browser_load_file_list (self, etfilelist, NULL);
 
         /* Displays the first item. */
@@ -2668,8 +2668,8 @@ Browser_Album_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
     // Save the current displayed data
     ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
 
-    // Set the attached list as "Displayed List"
-    ET_Set_Displayed_File_List(etfilelist);
+    /* Set the attached list as "Displayed List". */
+    et_displayed_file_list_set (etfilelist);
 
     et_browser_load_file_list (self, etfilelist, NULL);
 
@@ -2741,7 +2741,7 @@ et_browser_set_display_mode (EtBrowser *self,
     {
         case ET_BROWSER_MODE_FILE:
             /* Set the whole list as "Displayed list". */
-            ET_Set_Displayed_File_List (ETCore->ETFileList);
+            et_displayed_file_list_set (ETCore->ETFileList);
 
             /* Display Tree Browser. */
             gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
@@ -4535,7 +4535,8 @@ Rename_Directory (EtBrowser *self)
         return;
     }
 
-    ET_Update_Directory_Name_Into_File_List(last_path,new_path);
+    et_file_list_update_directory_name (ETCore->ETFileList, last_path,
+                                        new_path);
     Browser_Tree_Rename_Directory (self, last_path, new_path);
 
     // To update file path in the browser entry

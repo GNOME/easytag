@@ -27,14 +27,15 @@ G_BEGIN_DECLS
 #include "file_tag.h"
 #include "setting.h"
 
-GList * ET_Add_File_To_File_List (gchar *filename);
-gboolean ET_Remove_File_From_File_List (ET_File *ETFile);
+GList * et_file_list_add (GList *file_list, gchar *filename);
+void ET_Remove_File_From_File_List (ET_File *ETFile);
+gboolean et_file_list_check_all_saved (GList *etfilelist);
+void et_file_list_update_directory_name (GList *file_list, const gchar *old_path, const gchar *new_path);
+guint et_file_list_get_n_files_in_path (GList *file_list, const gchar *path_utf8);
 void et_file_list_free (GList *file_list);
 
 GList * et_artist_album_list_new_from_file_list (GList *file_list);
 void et_artist_album_file_list_free (GList *file_list);
-
-gboolean et_file_list_check_all_saved (GList *etfilelist);
 
 GList * ET_Displayed_File_List_First (void);
 GList * ET_Displayed_File_List_Previous (void);
@@ -42,21 +43,18 @@ GList * ET_Displayed_File_List_Next (void);
 GList * ET_Displayed_File_List_Last (void);
 GList * ET_Displayed_File_List_By_Etfile (const ET_File *ETFile);
 
-gboolean ET_Set_Displayed_File_List (GList *ETFileList);
+void et_displayed_file_list_set (GList *ETFileList);
 void et_displayed_file_list_free (GList *file_list);
 
+GList * et_history_list_add (GList *history_list, ET_File *ETFile);
 gboolean ET_Add_File_To_History_List (ET_File *ETFile);
 ET_File * ET_Undo_History_File_Data (void);
 ET_File * ET_Redo_History_File_Data (void);
-gboolean ET_History_File_List_Has_Undo_Data (void);
-gboolean ET_History_File_List_Has_Redo_Data (void);
+gboolean et_history_list_has_undo (GList *history_list);
+gboolean et_history_list_has_redo (GList *history_list);
 void et_history_file_list_free (GList *file_list);
 
-void ET_Update_Directory_Name_Into_File_List (const gchar *last_path, const gchar *new_path);
-guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
-
 GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
-void ET_Sort_Displayed_File_List (EtSortMode Sorting_Type);
 
 G_END_DECLS
 

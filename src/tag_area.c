@@ -433,7 +433,7 @@ on_apply_to_selection (GObject *object,
             filename_utf8 = ((File_Name *)etfile->FileNameNew->data)->value_utf8;
             path_utf8     = g_path_get_dirname(filename_utf8);
 
-            string_to_set = et_track_number_to_string (ET_Get_Number_Of_Files_In_Directory (path_utf8));
+            string_to_set = et_track_number_to_string (et_file_list_get_n_files_in_path (ETCore->ETFileList, path_utf8));
 
             g_free(path_utf8);
             if (!string_to_set1)

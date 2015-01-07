@@ -1328,7 +1328,11 @@ ET_Display_Filename_To_UI (const ET_File *ETFile)
                                                   dirname_utf8);
 
     // And refresh the number of files in this directory
-    text = g_strdup_printf(ngettext("One file","%u files",ET_Get_Number_Of_Files_In_Directory(dirname_utf8)),ET_Get_Number_Of_Files_In_Directory(dirname_utf8));
+    text = g_strdup_printf (ngettext ("One file", "%u files",
+                                      et_file_list_get_n_files_in_path (ETCore->ETFileList,
+                                                                        dirname_utf8)),
+                            et_file_list_get_n_files_in_path (ETCore->ETFileList,
+                                                              dirname_utf8));
     et_application_window_browser_label_set_text (ET_APPLICATION_WINDOW (MainWindow),
                                                   text);
     g_free(dirname_utf8);
@@ -1999,7 +2003,10 @@ ET_Manage_Changes_Of_File_Data (ET_File *ETFile,
      * Generate main undo (file history of modifications)
      */
     if (undo_added)
-        ET_Add_File_To_History_List(ETFile);
+    {
+        ETCore->ETHistoryFileList = et_history_list_add (ETCore->ETHistoryFileList,
+                                                         ETFile);
+    }
 
     //return TRUE;
     return undo_added;
