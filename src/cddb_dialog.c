@@ -1100,7 +1100,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 
                 gchar *alb_ptr = strstr(cddb_out," / ");
                 // Album
-                if (alb_ptr && alb_ptr+3)
+                if (alb_ptr && alb_ptr[3])
                 {
                     cddbalbum->album = Try_To_Validate_Utf8_String(alb_ptr+3);
                     *alb_ptr = 0;
