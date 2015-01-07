@@ -95,9 +95,15 @@ gchar *
 et_id3tag_get_tpos_from_file_tag (File_Tag *FileTag)
 {
     GString *gstring;
-    gchar *p;
+    const gchar *p;
 
     gstring = g_string_new ("");
+
+    if (!FileTag->disc_number)
+    {
+        return g_string_free (gstring, FALSE);
+    }
+
     p = FileTag->disc_number;
 
     while (*p)
