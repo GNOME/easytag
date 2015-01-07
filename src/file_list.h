@@ -57,7 +57,6 @@ guint ET_Get_Number_Of_Files_In_Directory (const gchar *path_utf8);
 
 GList *ET_Sort_File_List (GList *ETFileList, EtSortMode Sorting_Type);
 void ET_Sort_Displayed_File_List (EtSortMode Sorting_Type);
-void ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type);
 
 G_END_DECLS
 

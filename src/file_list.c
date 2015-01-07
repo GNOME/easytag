@@ -1072,33 +1072,6 @@ ET_Sort_File_List (GList *ETFileList,
 }
 
 /*
- * Sort the list of files following the 'Sorting_Type' value. The new sorting is displayed in the UI.
- */
-void
-ET_Sort_Displayed_File_List_And_Update_UI (EtSortMode Sorting_Type)
-{
-    g_return_if_fail (ETCore->ETFileList != NULL);
-
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
-
-    /* Sort the list */
-    ET_Sort_Displayed_File_List(Sorting_Type);
-
-    /* To number the ETFile in the list */
-    ET_Displayed_File_List_Number();
-
-    /* Reload files in browser list */
-    ET_Displayed_File_List_By_Etfile(ETCore->ETFileDisplayed);  // Just to update 'ETFileDisplayedList'
-    et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                                          ETCore->ETFileDisplayed,
-                                                          TRUE);
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
-
-    et_application_window_browser_refresh_sort (ET_APPLICATION_WINDOW (MainWindow));
-    et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
-}
-
-/*
  * Returns the first item of the "displayed list"
  */
 GList *
