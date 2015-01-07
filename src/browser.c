@@ -3541,7 +3541,7 @@ expand_cb (EtBrowser *self, GtkTreeIter *iter, GtkTreePath *gtreePath, GtkTreeVi
         {
             const gchar *name;
             GFile *child;
-            gboolean isdir = FALSE;
+            gboolean isdir;
 
             name = g_file_info_get_name (childinfo);
             child = g_file_get_child (dir, name);
