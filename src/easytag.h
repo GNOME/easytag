@@ -34,16 +34,16 @@
  ***************/
 
 /* Variable to force to quit recursive functions (reading dirs) or stop saving files */
-gboolean Main_Stop_Button_Pressed;
+extern gboolean Main_Stop_Button_Pressed;
 
-GtkWidget *MainWindow;
+extern GtkWidget *MainWindow;
 
 #ifndef errno
 extern int errno;
 #endif
 
 /* A flag to start/avoid a new reading while another one is running */
-gboolean ReadingDirectory;
+extern gboolean ReadingDirectory;
 
 
 /**************

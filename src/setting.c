@@ -44,6 +44,8 @@
 
 #include "win32/win32dep.h"
 
+/* Referenced in the header. */
+GSettings *MainSettings;
 
 /***************
  * Declaration *

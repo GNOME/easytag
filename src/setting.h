@@ -235,7 +235,7 @@ typedef enum
  * Config variables
  */
 
-GSettings *MainSettings;
+extern GSettings *MainSettings;
 
 void Init_Config_Variables (void);
 

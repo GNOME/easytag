@@ -43,6 +43,11 @@
 
 static GtkWidget *QuitRecursionWindow = NULL;
 
+/* Referenced in the header. */
+gboolean Main_Stop_Button_Pressed;
+GtkWidget *MainWindow;
+gboolean ReadingDirectory;
+
 /* Used to force to hide the msgbox when saving tag */
 static gboolean SF_HideMsgbox_Write_Tag;
 /* To remember which button was pressed when saving tag */
