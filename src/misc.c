@@ -142,26 +142,6 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
 #endif
 }
 
-/*
- * Returns the text of the selected item in a combo box
- * Remember to free the returned value...
- */
-gchar *Get_Active_Combo_Box_Item (GtkComboBox *combo)
-{
-    gchar *text;
-    GtkTreeIter iter;
-    GtkTreeModel *model;
-
-    g_return_val_if_fail (combo != NULL, NULL);
-
-    model = gtk_combo_box_get_model(combo);
-    if (!gtk_combo_box_get_active_iter(combo, &iter))
-        return NULL;
-
-    gtk_tree_model_get(model, &iter, MISC_COMBO_TEXT, &text, -1);
-    return text;
-}
-
 static void
 et_on_child_exited (GPid pid, gint status, gpointer user_data)
 {

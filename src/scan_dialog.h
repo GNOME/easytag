@@ -51,7 +51,6 @@ struct _EtScanDialogClass
 GType et_scan_dialog_get_type (void);
 EtScanDialog *et_scan_dialog_new (GtkWindow *parent);
 void et_scan_dialog_apply_changes (EtScanDialog *self);
-void et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type);
 void et_scan_dialog_scan_selected_files (EtScanDialog *self);
 void et_scan_dialog_update_previews (EtScanDialog *self);
 

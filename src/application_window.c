@@ -2626,18 +2626,6 @@ et_application_window_browser_refresh_file_in_list (EtApplicationWindow *self,
     et_browser_refresh_file_in_list (ET_BROWSER (priv->browser), file);
 }
 
-void
-et_application_window_browser_refresh_sort (EtApplicationWindow *self)
-{
-    EtApplicationWindowPrivate *priv;
-
-    g_return_if_fail (ET_APPLICATION_WINDOW (self));
-
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_refresh_sort (ET_BROWSER (priv->browser));
-}
-
 static void
 quit_confirmed (EtApplicationWindow *self)
 {

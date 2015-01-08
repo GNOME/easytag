@@ -1661,19 +1661,6 @@ on_scan_mode_changed (EtScanDialog *self,
     }
 }
 
-void
-et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type)
-{
-    g_return_if_fail (ET_SCAN_DIALOG (self));
-    g_return_if_fail (scanner_type >= ET_SCAN_MODE_FILL_TAG
-                      && scanner_type <= ET_SCAN_MODE_PROCESS_FIELDS);
-
-    if (g_settings_get_enum (MainSettings, "scan-mode") != (gint)scanner_type)
-    {
-        g_settings_set_enum (MainSettings, "scan-mode", scanner_type);
-    }
-}
-
 static void
 Mask_Editor_List_Add (EtScanDialog *self)
 {

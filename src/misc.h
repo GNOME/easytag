@@ -28,7 +28,6 @@ G_BEGIN_DECLS
  * Combobox misc functions
  */
 gboolean Add_String_To_Combo_List(GtkListStore *liststore, const gchar *string);
-gchar   *Get_Active_Combo_Box_Item(GtkComboBox *combo);
 
 gchar *Convert_Duration (gulong duration);
 

@@ -712,29 +712,6 @@ Charset_Populate_Combobox (GtkComboBox *combo, gint select_charset)
     gtk_combo_box_set_active (combo, select_charset);
 }
 
-
-/*
- * Return charset_name from charset_title
- */
-const gchar *
-Charset_Get_Name_From_Title (const gchar *charset_title)
-{
-    guint i;
-
-    g_return_val_if_fail (charset_title != NULL, NULL);
-
-    for (i = 0; i < CHARSET_TRANS_ARRAY_LEN; i++)
-    {
-        if (strcasecmp (_(charset_title),
-                        _(charset_trans_array[i].charset_title)) == 0)
-        {
-            return charset_trans_array[i].charset_name;
-        }
-    }
-
-    return NULL;
-}
-
 const gchar *
 et_charset_get_name_from_index (guint index)
 {
