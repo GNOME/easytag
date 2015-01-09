@@ -1489,24 +1489,23 @@ on_picture_add_button_clicked (GObject *object,
                                                        _("_Open"),
                                                        GTK_RESPONSE_OK, NULL);
 
-    // Add files filters
-    // "All files" filter
+    /* "All Files" filter. */
     filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("All Files"));
-    gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*");
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(FileSelectionWindow), GTK_FILE_FILTER(filter));
+    gtk_file_filter_set_name (filter, _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                 filter);
 
-    // "PNG and JPEG" filter
+    /* "PNG and JPEG" filter. */
     filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("PNG and JPEG"));
-    gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/jpeg"); // Using mime type avoid problem of case sensitive with extensions
-    gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/png");
-    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpeg"); // Warning: *.JPEG or *.JpEg files will not be displayed
-    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.jpg");
-    //gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*.png");
-    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (FileSelectionWindow), GTK_FILE_FILTER(filter));
-    // Make this filter the default
-    gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow), GTK_FILE_FILTER(filter));
+    gtk_file_filter_set_name (filter, _("PNG and JPEG"));
+    gtk_file_filter_add_mime_type (filter, "image/jpeg");
+    gtk_file_filter_add_mime_type (filter, "image/png");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                 filter);
+    /* Make this filter the default. */
+    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                 filter);
 
     // Behaviour following the tag type...
     switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
@@ -1854,21 +1853,23 @@ on_picture_save_button_clicked (GObject *object,
                                                            NULL);
         g_free(title);
 
-        // Add files filters
-        // "All files" filter
+        /* "All Files" filter. */
         filter = gtk_file_filter_new ();
-        gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("All Files"));
-        gtk_file_filter_add_pattern(GTK_FILE_FILTER(filter), "*");
-        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(FileSelectionWindow), GTK_FILE_FILTER(filter));
+        gtk_file_filter_set_name (filter, _("All Files"));
+        gtk_file_filter_add_pattern (filter, "*");
+        gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                     filter);
 
-        // "PNG and JPEG" filter
+        /* "PNG and JPEG" filter. */
         filter = gtk_file_filter_new ();
-        gtk_file_filter_set_name(GTK_FILE_FILTER(filter), _("PNG and JPEG"));
-        gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/jpeg");
-        gtk_file_filter_add_mime_type(GTK_FILE_FILTER(filter), "image/png");
-        gtk_file_chooser_add_filter(GTK_FILE_CHOOSER (FileSelectionWindow), GTK_FILE_FILTER(filter));
-        // Make this filter the default
-        gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(FileSelectionWindow),  GTK_FILE_FILTER(filter));
+        gtk_file_filter_set_name (filter, _("PNG and JPEG"));
+        gtk_file_filter_add_mime_type (filter, "image/jpeg");
+        gtk_file_filter_add_mime_type (filter, "image/png");
+        gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                     filter);
+        /* Make this filter the default. */
+        gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                     filter);
 
         // Set the default folder if defined
         if (init_dir)
