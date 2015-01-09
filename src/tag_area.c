@@ -843,9 +843,13 @@ on_entry_populate_popup (GtkEntry *entry,
                          EtTagArea *self)
 {
     GtkWidget *menu_item;
+    GtkWidget *label;
 
     /* Menu items */
     menu_item = gtk_menu_item_new_with_label (_("Tag selected files with this field"));
+    label = gtk_bin_get_child (GTK_BIN (menu_item));
+    gtk_accel_label_set_accel (GTK_ACCEL_LABEL (label), GDK_KEY_Return,
+                               GDK_CONTROL_MASK);
     g_object_set_data (G_OBJECT (menu_item), "tag-area", self);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     g_signal_connect_swapped (menu_item, "activate",
