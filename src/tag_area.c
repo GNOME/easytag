@@ -1270,13 +1270,7 @@ PictureEntry_Update (EtTagArea *self,
 
     if (loader)
     {
-        gconstpointer data;
-        gsize data_size;
-
-        data = g_bytes_get_data (pic->bytes, &data_size);
-
-        /* TODO: Use gdk_pixbuf_loader_write_bytes(). */
-        if (gdk_pixbuf_loader_write (loader, data, data_size, &error))
+        if (gdk_pixbuf_loader_write_bytes (loader, pic->bytes, &error))
         {
             GtkTreeSelection *selection;
             GdkPixbuf *pixbuf;
