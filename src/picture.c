@@ -421,8 +421,6 @@ et_picture_load_file_data (GFile *file, GError **error)
     {
         /* Image loaded. */
         GBytes *bytes;
-        gpointer data;
-        gsize data_size;
 
         g_object_unref (file_istream);
 
@@ -435,10 +433,7 @@ et_picture_load_file_data (GFile *file, GError **error)
 
         g_assert (error == NULL || *error == NULL);
 
-        data = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
-        data_size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
-        bytes = g_bytes_new_take (data, data_size);
-        /* TODO: Use g_memory_output_stream_steal_as_bytes(). */
+        bytes = g_memory_output_stream_steal_as_bytes (G_MEMORY_OUTPUT_STREAM (ostream));
 
         g_object_unref (ostream);
         g_assert (error == NULL || *error == NULL);
