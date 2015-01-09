@@ -1667,7 +1667,6 @@ et_application_window_init (EtApplicationWindow *self)
         GtkBuilder *builder;
         GError *error = NULL;
         GtkWidget *toolbar;
-        GtkToolButton *button;
 
         builder = gtk_builder_new ();
         gtk_builder_add_from_resource (builder,
@@ -1682,14 +1681,6 @@ et_application_window_init (EtApplicationWindow *self)
 
         toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
         gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
-
-        /* TODO: Use resource property on GtkImage when using GTK+ > 3.8. */
-        button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "artist_view_button"));
-        gtk_tool_button_set_icon_widget (button,
-                                         gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/artist.png"));
-        button = GTK_TOOL_BUTTON (gtk_builder_get_object (builder, "invert_selection_button"));
-        gtk_tool_button_set_icon_widget (button,
-                                         gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png"));
 
         g_object_unref (builder);
     }
