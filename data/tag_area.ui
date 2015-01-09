@@ -7,7 +7,7 @@
     </object>
     <object class="GtkListStore" id="images_model">
         <columns>
-            <column type="GdkPixbuf"/>
+            <column type="CairoSurface"/>
             <column type="gchararray"/>
             <column type="EtPicture"/>
         </columns>
@@ -534,7 +534,7 @@
                                         <child>
                                             <object class="GtkCellRendererPixbuf" id="images_thumbnail_renderer"/>
                                             <attributes>
-                                                <attribute name="pixbuf">0</attribute>
+                                                <attribute name="surface">0</attribute>
                                             </attributes>
                                         </child>
                                         <child>

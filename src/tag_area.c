@@ -115,7 +115,7 @@ enum
 
 enum /* Columns for picture_entry_view. */
 {
-    PICTURE_COLUMN_PIC,
+    PICTURE_COLUMN_SURFACE,
     PICTURE_COLUMN_TEXT,
     PICTURE_COLUMN_DATA,
     PICTURE_COLUMN_COUNT
@@ -1294,7 +1294,10 @@ PictureEntry_Update (EtTagArea *self,
             if (pixbuf)
             {
                 GtkTreeIter iter1;
+                gint scale_factor;
                 GdkPixbuf *scaled_pixbuf;
+                cairo_surface_t *surface;
+                GdkWindow *view_window;
                 gint scaled_pixbuf_width;
                 gint scaled_pixbuf_height;
                 gchar *pic_info;
@@ -1305,28 +1308,40 @@ PictureEntry_Update (EtTagArea *self,
                 // Keep aspect ratio of the picture
                 pic->width  = gdk_pixbuf_get_width(pixbuf);
                 pic->height = gdk_pixbuf_get_height(pixbuf);
+                /* TODO: Connect to notify:scale-factor and update when the
+                 * scale changes. */
+                scale_factor = gtk_widget_get_scale_factor (priv->picture_entry_view);
+
                 if (pic->width > pic->height)
                 {
-                    scaled_pixbuf_width  = 96;
-                    scaled_pixbuf_height = 96 * pic->height / pic->width;
+                    scaled_pixbuf_width = 96 * scale_factor;
+                    scaled_pixbuf_height = 96 * scale_factor * pic->height
+                                           / pic->width;
                 }else
                 {
-                    scaled_pixbuf_width = 96 * pic->width / pic->height;
-                    scaled_pixbuf_height = 96;
+                    scaled_pixbuf_width = 96 * scale_factor * pic->width
+                                          / pic->height;
+                    scaled_pixbuf_height = 96 * scale_factor;
                 }
 
-                scaled_pixbuf = gdk_pixbuf_scale_simple(pixbuf,
-                                    scaled_pixbuf_width, scaled_pixbuf_height,
-                                    //GDK_INTERP_NEAREST); // Lower quality but better speed
-                                    GDK_INTERP_BILINEAR);
-                g_object_unref(pixbuf);
+                scaled_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
+                                                         scaled_pixbuf_width,
+                                                         scaled_pixbuf_height,
+                                                         GDK_INTERP_BILINEAR);
+                g_object_unref (pixbuf);
 
+                /* This ties the model to the view, so if the model is to be
+                 * shared in the future, the surface should be per-view. */
+                view_window = gtk_widget_get_window (priv->picture_entry_view);
+                surface = gdk_cairo_surface_create_from_pixbuf (scaled_pixbuf,
+                                                                scale_factor,
+                                                                view_window);
                 pic_info = et_picture_format_info (pic,
                                                    ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_insert_with_values (priv->images_model, &iter1,
                                                    G_MAXINT,
-                                                   PICTURE_COLUMN_PIC,
-                                                   scaled_pixbuf,
+                                                   PICTURE_COLUMN_SURFACE,
+                                                   surface,
                                                    PICTURE_COLUMN_TEXT,
                                                    pic_info,
                                                    PICTURE_COLUMN_DATA,
