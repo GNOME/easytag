@@ -33,12 +33,7 @@
 #include "scan.h"
 #include "scan_dialog.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtTagArea, et_tag_area, GTK_TYPE_BIN)
-
-#define et_tag_area_get_instance_private(area) (area->priv)
-
-struct _EtTagAreaPrivate
+typedef struct
 {
     GtkWidget *label;
     GtkWidget *notebook;
@@ -94,7 +89,9 @@ struct _EtTagAreaPrivate
     GtkWidget *track_sequence_button;
     GtkWidget *track_number_button;
     GtkWidget *apply_image_toolitem;
-};
+} EtTagAreaPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtTagArea, et_tag_area, GTK_TYPE_BIN)
 
 enum
 {
@@ -2433,8 +2430,6 @@ create_tag_area (EtTagArea *self)
 static void
 et_tag_area_init (EtTagArea *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_TAG_AREA,
-                                              EtTagAreaPrivate);
     create_tag_area (self);
 
     gtk_widget_show_all (GTK_WIDGET (self));
@@ -2443,7 +2438,6 @@ et_tag_area_init (EtTagArea *self)
 static void
 et_tag_area_class_init (EtTagAreaClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtTagAreaPrivate));
 }
 
 /*

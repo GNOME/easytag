@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtPlaylistDialog EtPlaylistDialog;
 typedef struct _EtPlaylistDialogClass EtPlaylistDialogClass;
-typedef struct _EtPlaylistDialogPrivate EtPlaylistDialogPrivate;
 
 struct _EtPlaylistDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtPlaylistDialogPrivate *priv;
 };
 
 struct _EtPlaylistDialogClass

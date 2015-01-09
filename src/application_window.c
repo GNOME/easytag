@@ -60,12 +60,7 @@
 #include "wavpack_header.h"
 #endif
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_WINDOW)
-
-#define et_application_window_get_instance_private(window) (window->priv)
-
-struct _EtApplicationWindowPrivate
+typedef struct
 {
     GtkWidget *browser;
 
@@ -90,7 +85,9 @@ struct _EtApplicationWindowPrivate
     gboolean is_maximized;
     gint height;
     gint width;
-};
+} EtApplicationWindowPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_WINDOW)
 
 /* Used to force to hide the msgbox when deleting file */
 static gboolean SF_HideMsgbox_Delete_File;
@@ -1617,16 +1614,7 @@ et_application_window_init (EtApplicationWindow *self)
     GtkWidget *hbox;
     GtkWidget *grid;
 
-    priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self,
-                                                     ET_TYPE_APPLICATION_WINDOW,
-                                                     EtApplicationWindowPrivate);
-
-    priv->cddb_dialog = NULL;
-    priv->load_files_dialog = NULL;
-    priv->playlist_dialog = NULL;
-    priv->preferences_dialog = NULL;
-    priv->scan_dialog = NULL;
-    priv->search_dialog = NULL;
+    priv = et_application_window_get_instance_private (self);
 
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
@@ -1745,8 +1733,6 @@ static void
 et_application_window_class_init (EtApplicationWindowClass *klass)
 {
     G_OBJECT_CLASS (klass)->dispose = et_application_window_dispose;
-
-    g_type_class_add_private (klass, sizeof (EtApplicationWindowPrivate));
 }
 
 /*

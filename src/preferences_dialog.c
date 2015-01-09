@@ -37,14 +37,7 @@
 #include "charset.h"
 #include "win32/win32dep.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtPreferencesDialog, et_preferences_dialog, GTK_TYPE_DIALOG)
-
-#define et_preferences_dialog_get_instance_private(dialog) (dialog->priv)
-
-static const guint BOX_SPACING = 6;
-
-struct _EtPreferencesDialogPrivate
+typedef struct
 {
     GtkListStore *default_path_model;
     GtkListStore *file_player_model;
@@ -76,7 +69,11 @@ struct _EtPreferencesDialogPrivate
 
     GtkWidget *options_notebook;
     gint options_notebook_scanner;
-};
+} EtPreferencesDialogPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtPreferencesDialog, et_preferences_dialog, GTK_TYPE_DIALOG)
+
+static const guint BOX_SPACING = 6;
 
 /**************
  * Prototypes *
@@ -1190,16 +1187,12 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
 static void
 et_preferences_dialog_init (EtPreferencesDialog *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_PREFERENCES_DIALOG,
-                                              EtPreferencesDialogPrivate);
-
     create_preferences_dialog (self);
 }
 
 static void
 et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtPreferencesDialogPrivate));
 }
 
 /*

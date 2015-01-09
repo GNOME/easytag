@@ -32,13 +32,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtBrowser EtBrowser;
 typedef struct _EtBrowserClass EtBrowserClass;
-typedef struct _EtBrowserPrivate EtBrowserPrivate;
 
 struct _EtBrowser
 {
     /*< private >*/
     GtkBin parent_instance;
-    EtBrowserPrivate *priv;
 };
 
 struct _EtBrowserClass

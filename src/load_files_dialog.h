@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtLoadFilesDialog EtLoadFilesDialog;
 typedef struct _EtLoadFilesDialogClass EtLoadFilesDialogClass;
-typedef struct _EtLoadFilesDialogPrivate EtLoadFilesDialogPrivate;
 
 struct _EtLoadFilesDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtLoadFilesDialogPrivate *priv;
 };
 
 struct _EtLoadFilesDialogClass

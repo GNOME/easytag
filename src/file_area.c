@@ -28,12 +28,7 @@
 #include "setting.h"
 #include "tag_area.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtFileArea, et_file_area, GTK_TYPE_BIN)
-
-#define et_file_area_get_instance_private(area) (area->priv)
-
-struct _EtFileAreaPrivate
+typedef struct
 {
     GtkWidget *file_label;
 
@@ -54,7 +49,9 @@ struct _EtFileAreaPrivate
     GtkWidget *size_value_label;
     GtkWidget *duration_label;
     GtkWidget *duration_value_label;
-};
+} EtFileAreaPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtFileArea, et_file_area, GTK_TYPE_BIN)
 
 static void
 on_file_show_header_changed (EtFileArea *self,
@@ -155,15 +152,12 @@ create_file_area (EtFileArea *self)
 static void
 et_file_area_init (EtFileArea *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_FILE_AREA,
-                                              EtFileAreaPrivate);
     create_file_area (self);
 }
 
 static void
 et_file_area_class_init (EtFileAreaClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtFileAreaPrivate));
 }
 
 /*

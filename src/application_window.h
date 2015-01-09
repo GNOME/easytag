@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtApplicationWindow EtApplicationWindow;
 typedef struct _EtApplicationWindowClass EtApplicationWindowClass;
-typedef struct _EtApplicationWindowPrivate EtApplicationWindowPrivate;
 
 struct _EtApplicationWindow
 {
     /*< private >*/
     GtkApplicationWindow parent_instance;
-    EtApplicationWindowPrivate *priv;
 };
 
 struct _EtApplicationWindowClass

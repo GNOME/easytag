@@ -31,19 +31,16 @@
 
 #include "win32/win32dep.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtLogArea, et_log_area, GTK_TYPE_BIN)
-
-#define et_log_area_get_instance_private(self) (self->priv)
-
-struct _EtLogAreaPrivate
+typedef struct
 {
     GtkWidget *log_view;
     GtkListStore *log_model;
 
     /* Popup menu. */
     GtkWidget *menu;
-};
+} EtLogAreaPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtLogArea, et_log_area, GTK_TYPE_BIN)
 
 enum
 {
@@ -125,7 +122,6 @@ on_button_press_event (GtkWidget *treeview,
 static void
 et_log_area_class_init (EtLogAreaClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtLogAreaPrivate));
 }
 
 static void
@@ -137,8 +133,7 @@ et_log_area_init (EtLogArea *self)
     GError *error = NULL;
     GMenuModel *menu_model;
 
-    priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_LOG_AREA,
-                                                     EtLogAreaPrivate);
+    priv = et_log_area_get_instance_private (self);
 
     gtk_container_set_border_width (GTK_CONTAINER (self), 2);
 

@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtTagArea EtTagArea;
 typedef struct _EtTagAreaClass EtTagAreaClass;
-typedef struct _EtTagAreaPrivate EtTagAreaPrivate;
 
 struct _EtTagArea
 {
     /*< private >*/
     GtkBin parent_instance;
-    EtTagAreaPrivate *priv;
 };
 
 struct _EtTagAreaClass

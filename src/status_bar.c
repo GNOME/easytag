@@ -25,17 +25,14 @@
 
 #include "charset.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtStatusBar, et_status_bar, GTK_TYPE_STATUSBAR)
-
-#define et_status_bar_get_instance_private(bar) (bar->priv)
-
-struct _EtStatusBarPrivate
+typedef struct
 {
     guint message_context;
     guint timer_context;
     guint timer_id;
-};
+} EtStatusBarPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtStatusBar, et_status_bar, GTK_TYPE_STATUSBAR)
 
 static void et_status_bar_remove_timer (EtStatusBar *self);
 
@@ -149,16 +146,12 @@ create_status_bar (EtStatusBar *self)
 static void
 et_status_bar_init (EtStatusBar *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_STATUS_BAR,
-                                              EtStatusBarPrivate);
-
     create_status_bar (self);
 }
 
 static void
 et_status_bar_class_init (EtStatusBarClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtStatusBarPrivate));
 }
 
 /*

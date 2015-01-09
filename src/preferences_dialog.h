@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtPreferencesDialog EtPreferencesDialog;
 typedef struct _EtPreferencesDialogClass EtPreferencesDialogClass;
-typedef struct _EtPreferencesDialogPrivate EtPreferencesDialogPrivate;
 
 struct _EtPreferencesDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtPreferencesDialogPrivate *priv;
 };
 
 struct _EtPreferencesDialogClass

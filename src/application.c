@@ -30,16 +30,13 @@
 #include "misc.h"
 #include "setting.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtApplication, et_application, GTK_TYPE_APPLICATION)
-
-#define et_application_get_instance_private(app) (app->priv)
-
-struct _EtApplicationPrivate
+typedef struct
 {
     guint idle_handler;
     gchar *init_directory;
-};
+} EtApplicationPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtApplication, et_application, GTK_TYPE_APPLICATION)
 
 static const GOptionEntry entries[] =
 {
@@ -596,8 +593,6 @@ et_application_finalize (GObject *object)
 static void
 et_application_init (EtApplication *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_APPLICATION,
-                                              EtApplicationPrivate);
 }
 
 static void
@@ -616,8 +611,6 @@ et_application_class_init (EtApplicationClass *klass)
     gapplication_class->open = et_application_open;
     gapplication_class->shutdown = et_application_shutdown;
     gapplication_class->startup = et_application_startup;
-
-    g_type_class_add_private (klass, sizeof (EtApplicationPrivate));
 }
 
 /*

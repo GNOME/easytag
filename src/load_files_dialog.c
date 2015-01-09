@@ -33,10 +33,21 @@
 #include "scan_dialog.h"
 #include "setting.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtLoadFilesDialog, et_load_files_dialog, GTK_TYPE_DIALOG)
+typedef struct
+{
+    GtkWidget *file_chooser;
+    GtkWidget *load_file_content_view;
+    GtkListStore *load_file_content_model;
+    GtkWidget *load_file_content_menu;
+    GtkWidget *load_file_name_view;
+    GtkListStore *load_file_name_model;
+    GtkWidget *load_file_name_menu;
 
-#define et_load_files_dialog_get_instance_private(dialog) (dialog->priv)
+    GtkWidget *selected_line_entry;
+} EtLoadFilesDialogPrivate;
+
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtLoadFilesDialog, et_load_files_dialog, GTK_TYPE_DIALOG)
 
 static const guint BOX_SPACING = 6;
 
@@ -52,20 +63,6 @@ enum
     LOAD_FILE_NAME_POINTER,
     LOAD_FILE_NAME_COUNT
 };
-
-struct _EtLoadFilesDialogPrivate
-{
-    GtkWidget *file_chooser;
-    GtkWidget *load_file_content_view;
-    GtkListStore *load_file_content_model;
-    GtkWidget *load_file_content_menu;
-    GtkWidget *load_file_name_view;
-    GtkListStore *load_file_name_model;
-    GtkWidget *load_file_name_menu;
-
-    GtkWidget *selected_line_entry;
-};
-
 
 /*
  * Set the new filename of each file.
@@ -1079,16 +1076,12 @@ create_load_files_dialog (EtLoadFilesDialog *self)
 static void
 et_load_files_dialog_init (EtLoadFilesDialog *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_LOAD_FILES_DIALOG,
-                                              EtLoadFilesDialogPrivate);
-
     create_load_files_dialog (self);
 }
 
 static void
 et_load_files_dialog_class_init (EtLoadFilesDialogClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtLoadFilesDialogPrivate));
 }
 
 /*

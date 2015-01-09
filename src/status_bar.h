@@ -28,13 +28,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtStatusBar EtStatusBar;
 typedef struct _EtStatusBarClass EtStatusBarClass;
-typedef struct _EtStatusBarPrivate EtStatusBarPrivate;
 
 struct _EtStatusBar
 {
     /*< private >*/
     GtkStatusbar parent_instance;
-    EtStatusBarPrivate *priv;
 };
 
 struct _EtStatusBarClass

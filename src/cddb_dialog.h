@@ -29,13 +29,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtCDDBDialog EtCDDBDialog;
 typedef struct _EtCDDBDialogClass EtCDDBDialogClass;
-typedef struct _EtCDDBDialogPrivate EtCDDBDialogPrivate;
 
 struct _EtCDDBDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtCDDBDialogPrivate *priv;
 };
 
 struct _EtCDDBDialogClass

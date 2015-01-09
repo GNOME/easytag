@@ -51,12 +51,7 @@
 #include "setting.h"
 #include "charset.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtCDDBDialog, et_cddb_dialog, GTK_TYPE_DIALOG)
-
-#define et_cddb_dialog_get_instance_private(dialog) (dialog->priv)
-
-struct _EtCDDBDialogPrivate
+typedef struct
 {
     GtkWidget *album_list_view;
     GtkWidget *track_list_view;
@@ -79,7 +74,9 @@ struct _EtCDDBDialogPrivate
 
     GtkWidget *run_scanner_toggle;
     GtkWidget *use_dlm2_toggle; /* '2' as also used in prefs.c */
-};
+} EtCDDBDialogPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtCDDBDialog, et_cddb_dialog, GTK_TYPE_DIALOG)
 
 /*
  * Structure used for each item of the album list. Aslo attached to each row of
@@ -3768,12 +3765,6 @@ et_cddb_dialog_finalize (GObject *object)
 static void
 et_cddb_dialog_init (EtCDDBDialog *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_CDDB_DIALOG,
-                                              EtCDDBDialogPrivate);
-
-    self->priv->album_list = NULL;
-    self->priv->stop_searching = FALSE;
-
     create_cddb_dialog (self);
 }
 
@@ -3781,8 +3772,6 @@ static void
 et_cddb_dialog_class_init (EtCDDBDialogClass *klass)
 {
     G_OBJECT_CLASS (klass)->finalize = et_cddb_dialog_finalize;
-
-    g_type_class_add_private (klass, sizeof (EtCDDBDialogPrivate));
 }
 
 /*

@@ -49,12 +49,7 @@
 
 #include "win32/win32dep.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtBrowser, et_browser, GTK_TYPE_BIN)
-
-#define et_browser_get_instance_private(browser) (browser->priv)
-
-struct _EtBrowserPrivate
+typedef struct
 {
     GtkWidget *label;
     GtkWidget *button;
@@ -100,7 +95,9 @@ struct _EtBrowserPrivate
     GtkWidget *rename_directory_preview_label;
 
     gchar *current_path;
-};
+} EtBrowserPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtBrowser, et_browser, GTK_TYPE_BIN)
 
 /*
  * EtPathState:
@@ -5081,17 +5078,6 @@ et_browser_finalize (GObject *object)
 static void
 et_browser_init (EtBrowser *self)
 {
-    EtBrowserPrivate *priv;
-
-    priv = self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_BROWSER,
-                                                     EtBrowserPrivate);
-
-    priv->open_directory_with_dialog = NULL;
-    priv->open_directory_with_combobox = NULL;
-    priv->open_files_with_dialog = NULL;
-    priv->open_files_with_combobox = NULL;
-    priv->current_path = NULL;
-
     create_browser (self);
 }
 
@@ -5100,8 +5086,6 @@ et_browser_class_init (EtBrowserClass *klass)
 {
     G_OBJECT_CLASS (klass)->finalize = et_browser_finalize;
     GTK_WIDGET_CLASS (klass)->destroy = et_browser_destroy;
-
-    g_type_class_add_private (klass, sizeof (EtBrowserPrivate));
 }
 
 /*

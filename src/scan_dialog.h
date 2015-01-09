@@ -33,13 +33,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtScanDialog EtScanDialog;
 typedef struct _EtScanDialogClass EtScanDialogClass;
-typedef struct _EtScanDialogPrivate EtScanDialogPrivate;
 
 struct _EtScanDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtScanDialogPrivate *priv;
 };
 
 struct _EtScanDialogClass

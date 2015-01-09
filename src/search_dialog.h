@@ -30,13 +30,11 @@ G_BEGIN_DECLS
 
 typedef struct _EtSearchDialog EtSearchDialog;
 typedef struct _EtSearchDialogClass EtSearchDialogClass;
-typedef struct _EtSearchDialogPrivate EtSearchDialogPrivate;
 
 struct _EtSearchDialog
 {
     /*< private >*/
     GtkDialog parent_instance;
-    EtSearchDialogPrivate *priv;
 };
 
 struct _EtSearchDialogClass

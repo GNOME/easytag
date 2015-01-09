@@ -40,12 +40,7 @@
 #include "crc32.h"
 #include "charset.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtScanDialog, et_scan_dialog, GTK_TYPE_DIALOG)
-
-#define et_scan_dialog_get_instance_private(dialog) (dialog->priv)
-
-struct _EtScanDialogPrivate
+typedef struct
 {
     GtkListStore *rename_masks_model;
     GtkListStore *scan_tag_masks_model;
@@ -86,7 +81,9 @@ struct _EtScanDialogPrivate
 
     GtkWidget *fill_tag_preview_label;
     GtkWidget *rename_file_preview_label;
-};
+} EtScanDialogPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (EtScanDialog, et_scan_dialog, GTK_TYPE_DIALOG)
 
 /* Some predefined masks -- IMPORTANT: Null-terminate me! */
 static const gchar *Scan_Masks [] =
@@ -2971,16 +2968,12 @@ et_scan_on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 static void
 et_scan_dialog_init (EtScanDialog *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_SCAN_DIALOG,
-                                              EtScanDialogPrivate);
-
     create_scan_dialog (self);
 }
 
 static void
 et_scan_dialog_class_init (EtScanDialogClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtScanDialogPrivate));
 }
 
 /*

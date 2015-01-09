@@ -32,10 +32,20 @@
 #include "scan_dialog.h"
 #include "setting.h"
 
-/* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
-G_DEFINE_TYPE (EtSearchDialog, et_search_dialog, GTK_TYPE_DIALOG)
+typedef struct
+{
+    GtkWidget *search_string_combo;
+    GtkListStore *search_string_model;
+    GtkWidget *search_in_filename;
+    GtkWidget *search_in_tag;
+    GtkWidget *search_case_sensitive;
+    GtkWidget *search_results_view;
+    GtkListStore *search_results_model;
+    GtkWidget *status_bar;
+    guint status_bar_context;
+} EtSearchDialogPrivate;
 
-#define et_search_dialog_get_instance_private(dialog) (dialog->priv)
+G_DEFINE_TYPE_WITH_PRIVATE (EtSearchDialog, et_search_dialog, GTK_TYPE_DIALOG)
 
 static const guint BOX_SPACING = 6;
 
@@ -94,19 +104,6 @@ enum
 
     SEARCH_RESULT_POINTER,
     SEARCH_COLUMN_COUNT
-};
-
-struct _EtSearchDialogPrivate
-{
-    GtkWidget *search_string_combo;
-    GtkListStore *search_string_model;
-    GtkWidget *search_in_filename;
-    GtkWidget *search_in_tag;
-    GtkWidget *search_case_sensitive;
-    GtkWidget *search_results_view;
-    GtkListStore *search_results_model;
-    GtkWidget *status_bar;
-    guint status_bar_context;
 };
 
 /*
@@ -701,16 +698,12 @@ et_search_dialog_apply_changes (EtSearchDialog *self)
 static void
 et_search_dialog_init (EtSearchDialog *self)
 {
-    self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_SEARCH_DIALOG,
-                                              EtSearchDialogPrivate);
-
     create_search_dialog (self);
 }
 
 static void
 et_search_dialog_class_init (EtSearchDialogClass *klass)
 {
-    g_type_class_add_private (klass, sizeof (EtSearchDialogPrivate));
 }
 
 /*
