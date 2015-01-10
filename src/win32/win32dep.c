@@ -51,10 +51,6 @@ const gchar * weasytag_install_dir (void);
  */
 static char *install_dir = NULL, *locale_dir = NULL;
 
-/* Prototypes. */
-void str_replace_char (gchar *str, gchar in_char, gchar out_char);
-
-
 /*
  *  PUBLIC CODE
  */
@@ -129,28 +125,6 @@ et_w32_mkstemp (gchar *template)
 }
 #endif /* !HAVE_MKSTEMP */
 
-void
-str_replace_char (gchar *str, gchar in_char, gchar out_char)
-{
-    while(*str)
-    {
-        if(*str == in_char)
-            *str = out_char;
-        str++;
-    }
-}
-
-/* Remove trailing '/' if any */
-void ET_Win32_Path_Remove_Trailing_Slash (gchar *path)
-{
-    int path_len = strlen(path);
-  
-    if(path_len > 3 && path[path_len - 1] == '/')
-    {
-        path[path_len - 1] = '\0';
-    }
-}
-
 /* Remove trailing '\' if any, but not when 'C:\' */
 void ET_Win32_Path_Remove_Trailing_Backslash (gchar *path)
 {
@@ -160,11 +134,6 @@ void ET_Win32_Path_Remove_Trailing_Backslash (gchar *path)
     {
         path[path_len - 1] = '\0';
     }
-}
-
-void ET_Win32_Path_Replace_Slashes (gchar *path)
-{
-    str_replace_char(path, '/', '\\');
 }
 
 #ifndef HAVE_TRUNCATE

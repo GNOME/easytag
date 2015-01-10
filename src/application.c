@@ -401,7 +401,7 @@ et_application_open (GApplication *self,
     GError *err = NULL;
     GFileType type;
     gchar *path;
-    gchar *path_utf8;
+    gchar *display_path;
 
     priv = et_application_get_instance_private (ET_APPLICATION (self));
 
@@ -414,7 +414,7 @@ et_application_open (GApplication *self,
     check_for_hidden_path_in_tree (arg);
 
     path = g_file_get_path (arg);
-    path_utf8 = filename_to_display (path);
+    display_path = g_filename_display_name (path);
     info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
                               G_FILE_QUERY_INFO_NONE, NULL, &err);
 
@@ -423,17 +423,17 @@ et_application_open (GApplication *self,
         if (activated)
         {
             Log_Print (LOG_ERROR, _("Error while querying information for file ‘%s’: %s"),
-                       path_utf8, err->message);
+                       display_path, err->message);
 
         }
         else
         {
             g_warning ("Error while querying information for file: '%s' (%s)",
-                       path_utf8, err->message);
+                       display_path, err->message);
         }
 
         g_free (path);
-        g_free (path_utf8);
+        g_free (display_path);
         g_error_free (err);
         return;
     }
@@ -453,7 +453,7 @@ et_application_open (GApplication *self,
             priv->init_directory = path;
         }
 
-        g_free (path_utf8);
+        g_free (display_path);
         g_object_unref (info);
     }
     else if (type == G_FILE_TYPE_REGULAR)
@@ -463,7 +463,7 @@ et_application_open (GApplication *self,
 
         if (parent)
         {
-            g_free (path_utf8);
+            g_free (display_path);
             g_free (path);
 
             if (activated)
@@ -486,17 +486,17 @@ et_application_open (GApplication *self,
         }
         else
         {
-            Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), path_utf8);
+            Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), display_path);
             g_free (path);
-            g_free (path_utf8);
+            g_free (display_path);
             return;
         }
     }
     else
     {
-        Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), path_utf8);
+        Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), display_path);
         g_free (path);
-        g_free (path_utf8);
+        g_free (display_path);
         return;
     }
 

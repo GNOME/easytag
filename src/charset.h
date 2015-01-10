@@ -30,7 +30,6 @@ const gchar *get_locale               (void);
 gchar *convert_string   (const gchar *string, const gchar *from_codeset, const gchar *to_codeset, const gboolean display_error);
 gchar *convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset, const gchar *to_codeset, const gboolean display_error);
 
-gchar *filename_to_display   (const gchar *string);
 gchar *filename_from_display (const gchar *string);
 
 gchar *Try_To_Validate_Utf8_String (const gchar *string);

@@ -430,64 +430,6 @@ convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
 }
 
 /*
- * Convert a string from the filename system encoding to UTF-8.
- *  - conversion OK : returns the UTF-8 string (new allocated)
- *  - conversion KO : tries others encodings else returns an 'escaped' string
- */
-gchar *
-filename_to_display (const gchar *string)
-{
-    gchar *ret = NULL;
-    GError *error = NULL;
-
-    g_return_val_if_fail (string != NULL, NULL);
-
-    if (g_utf8_validate(string, -1, NULL))
-    {
-        // String already in UTF-8
-        ret = g_strdup(string);
-    }else
-    {
-        const gchar *char_encoding;
-
-        // Get encoding associated to the locale without using UTF-8 (ex , if LANG=fr_FR.UTF-8 it will return ISO-8859-1)
-        char_encoding = get_encoding_from_locale(get_locale());
-        if (char_encoding)
-        {
-            //g_print("> char_encoding: %s\n",char_encoding);
-            error = NULL;
-            ret = g_convert(string, -1, "UTF-8", char_encoding, NULL, NULL, &error);
-        }
-
-        if (!ret)
-        {
-            // Failing that, try ISO-8859-1
-            error = NULL;
-            ret = g_convert(string, -1, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
-        }
-
-        if (!ret)
-        {
-            gchar *escaped_str = g_strescape(string, NULL);
-            Log_Print (LOG_ERROR,
-                       _("The filename ‘%s’ could not be converted into UTF-8: %s"),
-                        escaped_str,
-                        error && error->message ? error->message : _("Invalid UTF-8"));
-            g_clear_error(&error);
-
-            ret = escaped_str;
-        }
-    }
-
-#ifdef G_OS_WIN32
-    ET_Win32_Path_Remove_Trailing_Slash (ret);
-    ET_Win32_Path_Replace_Slashes (ret);
-#endif /* G_OS_WIN32 */
-
-    return ret;
-}
-
-/*
  * Convert a string from UTF-8 to the filename system encoding.
  *  - conversion OK : returns the string in filename system encoding (new allocated)
  *  - conversion KO : display error message + returns nothing!

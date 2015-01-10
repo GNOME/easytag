@@ -524,7 +524,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     {
         gchar *mask_seq = mask_splitted[mask_splitted_index];
         gchar *file_seq = file_splitted[file_splitted_index];
-        gchar *file_seq_utf8 = filename_to_display(file_seq);
+        gchar *file_seq_utf8 = g_filename_display_name (file_seq);
 
         //g_print(">%d> seq '%s' '%s'\n",loop,mask_seq,file_seq);
         while (!et_str_empty (mask_seq))

@@ -244,7 +244,7 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
     GError *error = NULL;
     gsize size_read;
     gchar *path;
-    gchar *filename_utf8;
+    gchar *display_path;
     gchar *line;
     gchar *valid;
 
@@ -253,7 +253,7 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 
     /* The file to read. */
     path = g_file_get_path (file);
-    filename_utf8 = filename_to_display (path);
+    display_path = g_filename_display_name (path);
     g_free (path);
 
     istream = g_file_read (file, NULL, &error);
@@ -261,15 +261,15 @@ Load_File_Content (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 
     if (!istream)
     {
-        Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), filename_utf8,
+        Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), display_path,
                    error->message);
         g_error_free (error);
         g_object_unref (file);
-        g_free (filename_utf8);
+        g_free (display_path);
         return;
     }
 
-    g_free (filename_utf8);
+    g_free (display_path);
     data = g_data_input_stream_new (G_INPUT_STREAM (istream));
     /* TODO: Find a safer alternative to _ANY. */
     g_data_input_stream_set_newline_type (data,

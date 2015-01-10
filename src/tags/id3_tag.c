@@ -1060,14 +1060,14 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
     //g_print(">>ID:%d >'%s' (string1:'%s') (num_chars:%d)\n",ID3Field_GetINT(id3_field_encoding),string,string1,num_chars);
 
 out:
-    // In case the conversion fails, try 'filename_to_display' character fix...
+    /* In case the conversion fails, try character fix. */
     if (num_chars && !string1)
     {
         gchar *escaped_str = g_strescape(string, NULL);
         g_debug ("Id3tag_Get_Field: Trying to fix string '%s'…", escaped_str);
         g_free(escaped_str);
 
-        string1 = filename_to_display(string);
+        string1 = g_filename_display_name (string);
 
         /* TODO: Set a GError instead. */
         if (!string1)

@@ -919,13 +919,13 @@ Read_Directory (const gchar *path_real)
     {
         GFile *file = l->data;
         gchar *filename_real = g_file_get_path (file);
-        gchar *filename_utf8 = filename_to_display(filename_real);
+        gchar *display_path = g_filename_display_name (filename_real);
 
-        msg = g_strdup_printf (_("File: ‘%s’"), filename_utf8);
+        msg = g_strdup_printf (_("File: ‘%s’"), display_path);
         et_application_window_status_bar_message (window, msg, FALSE);
         g_free(msg);
-        g_free(filename_utf8);
         g_free (filename_real);
+        g_free (display_path);
 
         ETCore->ETFileList = et_file_list_add (ETCore->ETFileList, file);
 

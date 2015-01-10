@@ -658,8 +658,6 @@ ogg_tag_read_file_tag (GFile *file,
 {
     GFileInputStream *istream;
     EtOggState *state;
-    gchar *filename;
-    gchar *filename_utf8;
 
     g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -671,10 +669,6 @@ ogg_tag_read_file_tag (GFile *file,
         g_assert (error == NULL || *error != NULL);
         return FALSE;
     }
-
-    filename = g_file_get_path (file);
-    filename_utf8 = filename_to_display (filename);
-    g_free (filename);
 
     {
     /* Check for an unsupported ID3v2 tag. */
@@ -728,7 +722,6 @@ ogg_tag_read_file_tag (GFile *file,
     {
         g_assert (error == NULL || *error != NULL);
         vcedit_clear(state);
-        g_free (filename_utf8);
         return FALSE;
     }
 
@@ -743,14 +736,12 @@ ogg_tag_read_file_tag (GFile *file,
 
     et_add_file_tags_from_vorbis_comments (vcedit_comments(state), FileTag);
     vcedit_clear(state);
-    g_free (filename_utf8);
 
     return TRUE;
 
 err:
     g_assert (error == NULL || *error != NULL);
     g_object_unref (istream);
-    g_free (filename_utf8);
     return FALSE;
 }
 
