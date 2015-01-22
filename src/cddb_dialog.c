@@ -1219,12 +1219,9 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         file = NULL;
     }
 
-    if (cddb_server_name)
-    {
-        /* Remote access. */
-        /* Close connection */
-        Cddb_Close_Connection (self, socket_id);
-    }
+    /* Remote access. */
+    /* Close connection */
+    Cddb_Close_Connection (self, socket_id);
 
     /* Set color of the selected row (without reloading the whole list) */
     Cddb_Album_List_Set_Row_Appearance (self, &row);
