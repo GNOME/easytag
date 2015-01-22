@@ -621,6 +621,7 @@ vcedit_open (EtOggState *state,
                                     goto err;
                                     break;
                             }
+                            break;
 #endif
                         default:
                             g_assert_not_reached ();
