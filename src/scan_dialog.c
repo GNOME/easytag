@@ -205,8 +205,6 @@ static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
 static void Scan_Free_File_Rename_List (GList *list);
 static void Scan_Free_File_Fill_Tag_List (GList *list);
 
-static GList *Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask);
-
 static void et_scan_on_response (GtkDialog *dialog, gint response_id,
                                  gpointer user_data);
 
