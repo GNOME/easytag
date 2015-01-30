@@ -108,21 +108,14 @@ et_flac_header_read_file_info (GFile *file,
 
         metadata_len += block->length;
 
-        switch (block->type)
+        if (block->type == FLAC__METADATA_TYPE_STREAMINFO)
         {
-            case FLAC__METADATA_TYPE_STREAMINFO:
-                {
-                    const FLAC__StreamMetadata_StreamInfo *stream_info = &block->data.stream_info;
-                    ETFileInfo->duration = stream_info->total_samples
-                                           / stream_info->sample_rate;
-                    ETFileInfo->mode = stream_info->channels;
-                    ETFileInfo->samplerate = stream_info->sample_rate;
-                    ETFileInfo->version = 0; /* Not defined in FLAC file. */
-                }
-                break;
-            default:
-                /* Ignore all other metadata types. */
-                break;
+            const FLAC__StreamMetadata_StreamInfo *stream_info = &block->data.stream_info;
+            ETFileInfo->duration = stream_info->total_samples
+                                   / stream_info->sample_rate;
+            ETFileInfo->mode = stream_info->channels;
+            ETFileInfo->samplerate = stream_info->sample_rate;
+            ETFileInfo->version = 0; /* Not defined in FLAC file. */
         }
     }
     while (FLAC__metadata_iterator_next (iter));

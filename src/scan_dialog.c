@@ -386,33 +386,27 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
         GError *error = NULL;
         guint32 crc32_value;
         gchar *buffer;
-        const ET_File_Description *ETFileDescription;
 
-        ETFileDescription = ETFile->ETFileDescription;
-        switch (ETFileDescription->TagType)
+        if (ETFile->ETFileDescription == ID3_TAG)
         {
-            case ID3_TAG:
-                file = g_file_new_for_path (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value);
+            file = g_file_new_for_path (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value);
 
-                if (crc32_file_with_ID3_tag (file, &crc32_value, &error))
-                {
-                    buffer = g_strdup_printf ("%.8" G_GUINT32_FORMAT,
-                                              crc32_value);
-                    et_file_tag_set_comment (FileTag, buffer);
-                    g_free(buffer);
-                }
-                else
-                {
-                    Log_Print (LOG_ERROR,
-                               _("Cannot calculate CRC value of file ‘%s’"),
-                               error->message);
-                    g_error_free (error);
-                }
+            if (crc32_file_with_ID3_tag (file, &crc32_value, &error))
+            {
+                buffer = g_strdup_printf ("%.8" G_GUINT32_FORMAT,
+                                          crc32_value);
+                et_file_tag_set_comment (FileTag, buffer);
+                g_free(buffer);
+            }
+            else
+            {
+                Log_Print (LOG_ERROR,
+                           _("Cannot calculate CRC value of file ‘%s’"),
+                           error->message);
+                g_error_free (error);
+            }
 
-                g_object_unref (file);
-                break;
-            default:
-                break;
+            g_object_unref (file);
         }
     }
 
@@ -490,6 +484,8 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
             break;
         case ET_CONVERT_SPACES_NO_CHANGE:
             break;
+        /* FIXME: Check if this is intentional. */
+        case ET_CONVERT_SPACES_REMOVE:
         default:
             g_assert_not_reached ();
     }
@@ -950,6 +946,8 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
                     case ET_CONVERT_SPACES_REMOVE:
                         Scan_Remove_Spaces (mask_item->string);
                         break;
+                    /* FIXME: Check that this is intended. */
+                    case ET_CONVERT_SPACES_NO_CHANGE:
                     default:
                         g_assert_not_reached ();
                 }

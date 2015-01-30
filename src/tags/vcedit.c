@@ -526,6 +526,7 @@ vcedit_open (EtOggState *state,
             headerpackets = 2;
 #endif
             break;
+        case ET_OGG_KIND_UNKNOWN:
         default:
             g_assert_not_reached ();
             break;
@@ -629,6 +630,7 @@ vcedit_open (EtOggState *state,
                             }
                             break;
 #endif
+                        case ET_OGG_KIND_UNKNOWN:
                         default:
                             g_assert_not_reached ();
                             break;

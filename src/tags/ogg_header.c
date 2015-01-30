@@ -382,16 +382,17 @@ et_ogg_header_display_file_info_to_ui (const ET_File *ETFile)
     info = ETFile->ETFileInfo;
     fields = g_slice_new (EtFileHeaderFields);
 
-    switch (ETFile->ETFileDescription->FileType)
+    if (ETFile->ETFileDescription->FileType == OGG_FILE)
     {
-        case OGG_FILE:
-            fields->description = _("Ogg Vorbis File");
-            break;
-        case SPEEX_FILE:
-            fields->description = _("Speex File");
-            break;
-        default:
-            g_assert_not_reached ();
+        fields->description = _("Ogg Vorbis File");
+    }
+    else if (ETFile->ETFileDescription->FileType == SPEEX_FILE)
+    {
+        fields->description = _("Speex File");
+    }
+    else
+    {
+        g_assert_not_reached ();
     }
 
     /* Encoder version */

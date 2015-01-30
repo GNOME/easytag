@@ -471,8 +471,11 @@ write_button_clicked (EtPlaylistDialog *self)
             case ET_CONVERT_SPACES_REMOVE:
                 Scan_Remove_Spaces (playlist_basename_utf8);
                 break;
+            /* FIXME: Check that this is intended. */
+            case ET_CONVERT_SPACES_NO_CHANGE:
             default:
                 g_assert_not_reached ();
+                break;
         }
     }else // PLAYLIST_USE_DIR_NAME
     {

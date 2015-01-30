@@ -456,6 +456,7 @@ mp4tag_write_file_tag (const ET_File *ETFile,
             case PICTURE_FORMAT_GIF:
                 f = TagLib::MP4::CoverArt::GIF;
                 break;
+            case PICTURE_FORMAT_UNKNOWN:
             default:
                 g_critical ("Unknown format");
                 f = TagLib::MP4::CoverArt::JPEG;

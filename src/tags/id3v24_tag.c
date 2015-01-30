@@ -454,31 +454,30 @@ id3tag_read_file_tag (GFile *gfile,
         /* Picture file data. */
         for (j = 0; (field = id3_frame_field(frame, j)); j++)
         {
-            switch (id3_field_type(field))
+            enum id3_field_type field_type;
+
+            field_type = id3_field_type (field);
+
+            if (field_type == ID3_FIELD_TYPE_BINARYDATA)
             {
-                case ID3_FIELD_TYPE_BINARYDATA:
+                id3_length_t size;
+                id3_byte_t const *data;
+
+                data = id3_field_getbinarydata (field, &size);
+
+                if (data)
+                {
+                    if (bytes)
                     {
-                        id3_length_t size;
-                        id3_byte_t const *data;
-                        
-                        data = id3_field_getbinarydata (field, &size);
-
-                        if (data)
-                        {
-                            if (bytes)
-                            {
-                                g_bytes_unref (bytes);
-                            }
-
-                            bytes = g_bytes_new (data, size);
-                        }
+                        g_bytes_unref (bytes);
                     }
-                    break;
-                case ID3_FIELD_TYPE_INT8:
-                    type = id3_field_getint (field);
-                    break;
-                default:
-                    break;
+
+                    bytes = g_bytes_new (data, size);
+                }
+            }
+            else if (field_type == ID3_FIELD_TYPE_INT8)
+            {
+                type = id3_field_getint (field);
             }
         }
 
@@ -1158,27 +1157,26 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
             for (i = 0; (field = id3_frame_field(frame, i)); i++)
             {
                 Picture_Format format;
-                
-                switch (id3_field_type(field))
-                {
-                    case ID3_FIELD_TYPE_LATIN1:
-                        format = Picture_Format_From_Data(pic);
-                        id3_field_setlatin1(field, (id3_latin1_t const *)Picture_Mime_Type_String(format));
-                        break;
-                    case ID3_FIELD_TYPE_INT8:
-                        id3_field_setint(field, pic->type);
-                        break;
-                    case ID3_FIELD_TYPE_BINARYDATA:
-                        {
-                            gconstpointer data;
-                            gsize data_size;
+                enum id3_field_type field_type;
 
-                            data = g_bytes_get_data (pic->bytes, &data_size);
-                            id3_field_setbinarydata (field, data, data_size);
-                        }
-                        break;
-                    default:
-                        break;
+                field_type = id3_field_type (field);
+                
+                if (field_type == ID3_FIELD_TYPE_LATIN1)
+                {
+                    format = Picture_Format_From_Data(pic);
+                    id3_field_setlatin1(field, (id3_latin1_t const *)Picture_Mime_Type_String(format));
+                }
+                else if (field_type == ID3_FIELD_TYPE_INT8)
+                {
+                    id3_field_setint (field, pic->type);
+                }
+                else if (field_type == ID3_FIELD_TYPE_BINARYDATA)
+                {
+                    gconstpointer data;
+                    gsize data_size;
+
+                    data = g_bytes_get_data (pic->bytes, &data_size);
+                    id3_field_setbinarydata (field, data, data_size);
                 }
             }
 
@@ -1392,79 +1390,114 @@ id3taglib_set_field(struct id3_frame *frame,
         if (is_set && !clear)
             break;
 
-        switch (curtype = id3_field_type(field))
+        curtype = id3_field_type (field);
+
+        if (curtype == ID3_FIELD_TYPE_TEXTENCODING)
         {
-            case ID3_FIELD_TYPE_TEXTENCODING:
-                id3_field_settextencoding(field, enc_field);
-                break;
-            case ID3_FIELD_TYPE_LATIN1:
+            id3_field_settextencoding (field, enc_field);
+        }
+        else if (curtype == ID3_FIELD_TYPE_LATIN1)
+        {
+            if (clear)
+            {
+                id3_field_setlatin1 (field, NULL);
+            }
+
+            if ((type == curtype) && !is_set)
+            {
+                if (num == 0)
+                {
+                    id3_field_setlatin1 (field,
+                                         (id3_latin1_t const *)latinstr);
+                    is_set = 1;
+                }
+                else
+                {
+                    num--;
+                }
+            }
+        }
+        else if (curtype == ID3_FIELD_TYPE_LATIN1FULL)
+        {
                 if (clear)
-                    id3_field_setlatin1(field, NULL);
+                {
+                    id3_field_setfulllatin1 (field, NULL);
+                }
                 if ((type == curtype) && !is_set)
                 {
                     if (num == 0)
                     {
-                        id3_field_setlatin1(field, (id3_latin1_t const *)latinstr);
+                        id3_field_setfulllatin1 (field,
+                                                 (id3_latin1_t const *)latinstr);
                         is_set = 1;
-                    }else
-                        num--;
-                }
-                break;
-            case ID3_FIELD_TYPE_LATIN1FULL:
-                if (clear)
-                    id3_field_setfulllatin1(field, NULL);
-                if ((type == curtype) && !is_set)
-                {
-                    if (num == 0)
+                    }
+                    else
                     {
-                        id3_field_setfulllatin1(field, (id3_latin1_t const *)latinstr);
-                        is_set = 1;
-                    }else
                         num--;
+                    }
                 }
-                break;
-            case ID3_FIELD_TYPE_STRING:
+        }
+        else if (curtype == ID3_FIELD_TYPE_STRING)
+        {
                 if (clear)
-                    id3_field_setstring(field, NULL);
+                {
+                    id3_field_setstring (field, NULL);
+                }
+
                 if ((type == curtype) && !is_set)
                 {
                     if (num == 0)
                     {
                         id3_field_setstring(field, buf);
                         is_set = 1;
-                    }else
-                        num--;
-                }
-                break;
-            case ID3_FIELD_TYPE_STRINGFULL:
-                if (clear)
-                    id3_field_setfullstring(field, NULL);
-                if ((type == curtype) && !is_set)
-                {
-                    if (num == 0)
+                    }
+                    else
                     {
-                        id3_field_setfullstring(field, buf);
-                        is_set = 1;
-                    }else
                         num--;
+                    }
                 }
-                break;
-            case ID3_FIELD_TYPE_STRINGLIST:
-                if (clear)
-                    id3_field_setstrings(field, 0, NULL);
-                if ((type == curtype) && !is_set)
-                {
-                    if ((num == 0) && (buf))
-                    {
-                        id3_field_addstring(field, buf);
-                        is_set = 1;
-                    }else
-                        num--;
-                }
-                break;
-            default:
-                break;
         }
+        else if (curtype == ID3_FIELD_TYPE_STRINGFULL)
+        {
+            if (clear)
+            {
+                id3_field_setfullstring (field, NULL);
+            }
+
+            if ((type == curtype) && !is_set)
+            {
+                if (num == 0)
+                {
+                    id3_field_setfullstring (field, buf);
+                    is_set = 1;
+                }
+                else
+                {
+                    num--;
+                }
+            }
+        }
+        else if (curtype == ID3_FIELD_TYPE_STRINGLIST)
+        {
+            if (clear)
+            {
+                id3_field_setstrings (field, 0, NULL);
+            }
+
+            if ((type == curtype) && !is_set)
+            {
+                if ((num == 0) && (buf))
+                {
+                    id3_field_addstring (field, buf);
+                    is_set = 1;
+                }
+                else
+                {
+                    num--;
+                }
+            }
+        }
+
         if (is_set)
         {
             free(latinstr);

@@ -122,6 +122,8 @@ et_mpeg_header_read_file_info (GFile *file,
                 ETFileInfo->version = 2;
                 ETFileInfo->mpeg25 = TRUE;
                 break;
+            case MPEGVERSION_FALSE:
+            case MPEGVERSION_Reserved:
             default:
                 break;
         }
@@ -137,6 +139,8 @@ et_mpeg_header_read_file_info (GFile *file,
             case MPEGLAYER_III:
                 ETFileInfo->layer = 3;
                 break;
+            case MPEGLAYER_FALSE:
+            case MPEGLAYER_UNDEFINED:
             default:
                 break;
         }
@@ -159,6 +163,7 @@ et_mpeg_header_read_file_info (GFile *file,
             case MP3CHANNELMODE_SINGLE_CHANNEL:
                 ETFileInfo->mode = 3;
                 break;
+            case MP3CHANNELMODE_FALSE:
             default:
                 break;
         }
@@ -199,16 +204,17 @@ et_mpeg_header_display_file_info_to_ui (const ET_File *ETFile)
     info = ETFile->ETFileInfo;
     fields = g_slice_new (EtFileHeaderFields);
 
-    switch (ETFile->ETFileDescription->FileType)
+    if (ETFile->ETFileDescription->FileType == MP3_FILE)
     {
-        case MP3_FILE:
-            fields->description = _("MP3 File");
-            break;
-        case MP2_FILE:
-            fields->description = _("MP2 File");
-            break;
-        default:
-            g_assert_not_reached ();
+        fields->description = _("MP3 File");
+    }
+    else if (ETFile->ETFileDescription->FileType == MP2_FILE)
+    {
+        fields->description = _("MP2 File");
+    }
+    else
+    {
+        g_assert_not_reached ();
     }
 
     /* MPEG, Layer versions */

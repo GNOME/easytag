@@ -515,6 +515,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                     ID3Field_SetASCII (id3_field, "GIF");
                 }
                 break;
+            case PICTURE_FORMAT_UNKNOWN:
             default:
                 break;
         }
@@ -1031,6 +1032,8 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 string1 = convert_string_1(string,num_chars,"UTF-16BE","UTF-8",FALSE);
                 break;
 
+            case ID3TE_NONE:
+            case ID3TE_NUMENCODINGS:
             default:
                 string = g_malloc0 (4 * ID3V2_MAX_STRING_LEN + 1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
@@ -1211,6 +1214,10 @@ Id3tag_Set_Field (const ID3Frame *id3_frame,
                 break;
 
 override:
+            case ID3TE_UTF16BE:
+            case ID3TE_UTF8:
+            case ID3TE_NUMENCODINGS:
+            case ID3TE_NONE:
             default:
             {
                 //string_converted = convert_string(string,"UTF-8",charset,TRUE);

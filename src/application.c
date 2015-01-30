@@ -447,57 +447,63 @@ et_application_open (GApplication *self,
 
     type = g_file_info_get_file_type (info);
 
-    switch (type)
+    if (type == G_FILE_TYPE_DIRECTORY)
     {
-        case G_FILE_TYPE_DIRECTORY:
+        if (activated)
+        {
+            et_application_window_select_dir (windows->data, path);
+            g_free (path);
+        }
+        else
+        {
+            priv->init_directory = path;
+        }
+
+        g_free (path_utf8);
+        g_object_unref (info);
+    }
+    else if (type == G_FILE_TYPE_REGULAR)
+    {
+        /* When given a file, load the parent directory. */
+        parent = g_file_get_parent (arg);
+
+        if (parent)
+        {
+            g_free (path_utf8);
+            g_free (path);
+
             if (activated)
             {
-                et_application_window_select_dir (windows->data, path);
-                g_free (path);
+                gchar *parent_path;
+
+                parent_path = g_file_get_path (arg);
+                et_application_window_select_dir (windows->data,
+                                                  parent_path);
+
+                g_free (parent_path);
             }
             else
             {
-                priv->init_directory = path;
+                priv->init_directory = g_file_get_path (parent);
             }
 
-            g_free (path_utf8);
+            g_object_unref (parent);
             g_object_unref (info);
-            break;
-        case G_FILE_TYPE_REGULAR:
-            /* When given a file, load the parent directory. */
-            parent = g_file_get_parent (arg);
-
-            if (parent)
-            {
-                g_free (path_utf8);
-                g_free (path);
-
-                if (activated)
-                {
-                    gchar *parent_path;
-
-                    parent_path = g_file_get_path (arg);
-                    et_application_window_select_dir (windows->data,
-                                                      parent_path);
-
-                    g_free (parent_path);
-                }
-                else
-                {
-                    priv->init_directory = g_file_get_path (parent);
-                }
-
-                g_object_unref (parent);
-                g_object_unref (info);
-                break;
-            }
-            /* Fall through on error. */
-        default:
+        }
+        else
+        {
             Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), path_utf8);
             g_free (path);
             g_free (path_utf8);
             return;
-            break;
+        }
+    }
+    else
+    {
+        Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), path_utf8);
+        g_free (path);
+        g_free (path_utf8);
+        return;
     }
 
     if (!activated)

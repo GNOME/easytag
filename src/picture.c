@@ -158,6 +158,7 @@ Picture_Mime_Type_String (Picture_Format format)
             return "image/png";
         case PICTURE_FORMAT_GIF:
             return "image/gif";
+        case PICTURE_FORMAT_UNKNOWN:
         default:
             g_debug ("%s", "Unrecognised image MIME type");
             return "application/octet-stream";
@@ -176,6 +177,7 @@ Picture_Format_String (Picture_Format format)
             return _("PNG image");
         case PICTURE_FORMAT_GIF:
             return _("GIF image");
+        case PICTURE_FORMAT_UNKNOWN:
         default:
             return _("Unknown image");
     }
@@ -252,26 +254,19 @@ et_picture_format_info (const EtPicture *pic,
     type = Picture_Type_String (pic->type);
     size_str = g_format_size (g_bytes_get_size (pic->bytes));
 
-    // Behaviour following the tag type...
-    switch (tag_type)
+    /* Behaviour following the tag type. */
+    if (tag_type == MP4_TAG)
     {
-        case MP4_TAG:
-        {
-            r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s", format,
-                                 size_str, pic->width, pic->height,
-                                 _("pixels"), _("Type"), type);
-            break;
-        }
-
-        // Other tag types
-        default:
-        {
-            r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s\n%s: %s", format,
-                                 size_str, pic->width, pic->height,
-                                 _("pixels"), _("Type"), type,
-                                 _("Description"), desc);
-            break;
-        }
+        r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s", format,
+                             size_str, pic->width, pic->height,
+                             _("pixels"), _("Type"), type);
+    }
+    else
+    {
+        r = g_strdup_printf ("%s (%s - %d×%d %s)\n%s: %s\n%s: %s", format,
+                             size_str, pic->width, pic->height,
+                             _("pixels"), _("Type"), type,
+                             _("Description"), desc);
     }
 
     g_free (size_str);

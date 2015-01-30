@@ -111,19 +111,10 @@ flac_tag_read_file_tag (GFile *file,
 
     if (!FLAC__metadata_chain_read_with_callbacks (chain, &state, callbacks))
     {
-        FLAC__Metadata_ChainStatus status;
-
-        status = FLAC__metadata_chain_status (chain);
-
-        switch (status)
-        {
-            /* TODO: Provide a dedicated error enum corresponding to status. */
-            default:
-                g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
-                             _("Error opening FLAC file"));
-                et_flac_read_close_func (&state);
-                break;
-        }
+        /* TODO: Provide a dedicated error enum corresponding to status. */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
+                     _("Error opening FLAC file"));
+        et_flac_read_close_func (&state);
 
         return FALSE;
     }
@@ -146,10 +137,8 @@ flac_tag_read_file_tag (GFile *file,
 
         block = FLAC__metadata_iterator_get_block (iter);
 
-        switch (block->type)
+        if (block->type == FLAC__METADATA_TYPE_VORBIS_COMMENT)
         {
-            case FLAC__METADATA_TYPE_VORBIS_COMMENT:
-            {
                 FLAC__StreamMetadata_VorbisComment       *vc;
                 FLAC__StreamMetadata_VorbisComment_Entry *field;
                 gint   field_num;
@@ -651,45 +640,33 @@ flac_tag_read_file_tag (GFile *file,
                         FileTag->other = g_list_append(FileTag->other,g_strndup((const gchar *)field->entry, field->length));
                     }
                 }
-                
-                break;
-            }
+        }
+        else if (block->type == FLAC__METADATA_TYPE_PICTURE)
+        {
+            /* Picture. */
+            FLAC__StreamMetadata_Picture *p;
+            GBytes *bytes;
+            EtPicture *pic;
+        
+            /* Get picture data from block. */
+            p = &block->data.picture;
 
-            
-            //
-            // Read the PICTURE block (severals can exist)
-            //
-            case FLAC__METADATA_TYPE_PICTURE: 
+            bytes = g_bytes_new (p->data, p->data_length);
+        
+            pic = et_picture_new (p->type, (const gchar *)p->description,
+                                  0, 0, bytes);
+            g_bytes_unref (bytes);
+
+            if (!prev_pic)
             {
-                /* Picture. */
-                FLAC__StreamMetadata_Picture *p;
-                GBytes *bytes;
-                EtPicture *pic;
-            
-                /* Get picture data from block. */
-                p = &block->data.picture;
-
-                bytes = g_bytes_new (p->data, p->data_length);
-            
-                pic = et_picture_new (p->type, (const gchar *)p->description,
-                                      0, 0, bytes);
-                g_bytes_unref (bytes);
-
-                if (!prev_pic)
-                {
-                    FileTag->picture = pic;
-                }
-                else
-                {
-                    prev_pic->next = pic;
-                }
-
-                prev_pic = pic;
-                break;
+                FileTag->picture = pic;
             }
-                
-            default:
-                break;
+            else
+            {
+                prev_pic->next = pic;
+            }
+
+            prev_pic = pic;
         }
     }
 
@@ -897,43 +874,32 @@ flac_tag_write_file_tag (const ET_File *ETFile,
     
     while (FLAC__metadata_iterator_next (iter))
     {
-        switch (FLAC__metadata_iterator_get_block_type (iter))
+        const FLAC__MetadataType block_type = FLAC__metadata_iterator_get_block_type (iter);
+
+        /* TODO: Modify the blocks directly, rather than deleting and
+         * recreating. */
+        if (block_type == FLAC__METADATA_TYPE_VORBIS_COMMENT)
         {
-            /* TODO: Modify the blocks directly, rather than deleting and
-             * recreating. */
-            //
             // Delete the VORBIS_COMMENT block and convert to padding. But before, save the original vendor string.
-            //
-            case FLAC__METADATA_TYPE_VORBIS_COMMENT:
+            /* Get block data. */
+            FLAC__StreamMetadata *block = FLAC__metadata_iterator_get_block(iter);
+            FLAC__StreamMetadata_VorbisComment *vc = &block->data.vorbis_comment;
+            
+            if (vc->vendor_string.entry != NULL)
             {
-                // Get block data
-                FLAC__StreamMetadata *block = FLAC__metadata_iterator_get_block(iter);
-                FLAC__StreamMetadata_VorbisComment *vc = &block->data.vorbis_comment;
-                
-                if (vc->vendor_string.entry != NULL)
-                {
-                    // Get initial vendor string, to don't alterate it by FLAC__VENDOR_STRING when saving file
-                    vce_field_vendor_string.entry = (FLAC__byte *)g_strdup((gchar *)vc->vendor_string.entry);
-                    vce_field_vendor_string.length = strlen((gchar *)vce_field_vendor_string.entry);
-                    vce_field_vendor_string_found = TRUE;
-                }
-                
-                // Free block data
-                FLAC__metadata_iterator_delete_block(iter,true);
-                break;
+                // Get initial vendor string, to don't alterate it by FLAC__VENDOR_STRING when saving file
+                vce_field_vendor_string.entry = (FLAC__byte *)g_strdup ((gchar *)vc->vendor_string.entry);
+                vce_field_vendor_string.length = strlen ((gchar *)vce_field_vendor_string.entry);
+                vce_field_vendor_string_found = TRUE;
             }
             
-            //
-            // Delete all the PICTURE blocks, and convert to padding
-            //
-            case FLAC__METADATA_TYPE_PICTURE: 
-            {
-                FLAC__metadata_iterator_delete_block(iter,true);
-                break;
-            }
-
-            default:
-                break;
+            /* Free block data. */
+            FLAC__metadata_iterator_delete_block (iter, true);
+        }
+        else if (block_type == FLAC__METADATA_TYPE_PICTURE)
+        {
+            /* Delete all the PICTURE blocks, and convert to padding. */
+            FLAC__metadata_iterator_delete_block (iter, true);
         }
     }
     

@@ -1440,6 +1440,7 @@ load_picture_from_file (GFile *file,
                 }
                 break;
 
+            case UNKNOWN_TAG:
             default:
                 g_assert_not_reached ();
         }
@@ -1508,21 +1509,17 @@ on_picture_add_button_clicked (GObject *object,
                                  filter);
 
     // Behaviour following the tag type...
-    switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
+    if (ETCore->ETFileDisplayed->ETFileDescription->TagType == MP4_TAG)
     {
-        case MP4_TAG:
-        {
-            // Only one file can be selected
-            gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(FileSelectionWindow), FALSE);
-            break;
-        }
-
-        // Other tag types
-        default:
-        {
-            gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(FileSelectionWindow), TRUE);
-            break;
-        }
+        /* Only one file can be selected. */
+        gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                              FALSE);
+    }
+    else
+    {
+        /* Other tag types .*/
+        gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                              TRUE);
     }
 
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (FileSelectionWindow),
@@ -1660,45 +1657,40 @@ on_picture_properties_button_clicked (GObject *object,
         g_object_unref (store);
 
         /* Behaviour following the tag type. */
-        switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
+        if (ETCore->ETFileDisplayed->ETFileDescription->TagType == MP4_TAG)
         {
-            case MP4_TAG:
+            /* Load picture type (only Front Cover!). */
+            GtkTreeIter itertype;
+
+            gtk_list_store_insert_with_values (store, &itertype,
+                                               G_MAXINT,
+                                               PICTURE_TYPE_COLUMN_TEXT,
+                                               _(Picture_Type_String (ET_PICTURE_TYPE_FRONT_COVER)),
+                                               PICTURE_TYPE_COLUMN_TYPE_CODE,
+                                               ET_PICTURE_TYPE_FRONT_COVER,
+                                               -1);
+            /* Line to select by default. */
+            type_iter_to_select = itertype;
+        }
+        else
+        /* Other tag types. */
+        {
+            /* Load pictures types. */
+            for (pic_type = ET_PICTURE_TYPE_OTHER; pic_type < ET_PICTURE_TYPE_UNDEFINED; pic_type++)
             {
-                /* Load picture type (only Front Cover!). */
                 GtkTreeIter itertype;
 
-                gtk_list_store_insert_with_values (store, &itertype, G_MAXINT,
+                gtk_list_store_insert_with_values (store, &itertype,
+                                                   G_MAXINT,
                                                    PICTURE_TYPE_COLUMN_TEXT,
-                                                   _(Picture_Type_String (ET_PICTURE_TYPE_FRONT_COVER)),
+                                                   _(Picture_Type_String (pic_type)),
                                                    PICTURE_TYPE_COLUMN_TYPE_CODE,
-                                                   ET_PICTURE_TYPE_FRONT_COVER,
-                                                   -1);
+                                                   pic_type, -1);
                 /* Line to select by default. */
-                type_iter_to_select = itertype;
-                break;
-            }
-
-            /* Other tag types. */
-            default:
-            {
-                /* Load pictures types. */
-                for (pic_type = ET_PICTURE_TYPE_OTHER; pic_type < ET_PICTURE_TYPE_UNDEFINED; pic_type++)
+                if (pic->type == pic_type)
                 {
-                    GtkTreeIter itertype;
-
-                    gtk_list_store_insert_with_values (store, &itertype,
-                                                       G_MAXINT,
-                                                       PICTURE_TYPE_COLUMN_TEXT,
-                                                       _(Picture_Type_String (pic_type)),
-                                                       PICTURE_TYPE_COLUMN_TYPE_CODE,
-                                                       pic_type, -1);
-                    /* Line to select by default. */
-                    if (pic->type == pic_type)
-                    {
-                        type_iter_to_select = itertype;
-                    }
+                    type_iter_to_select = itertype;
                 }
-                break;
             }
         }
 
@@ -1726,15 +1718,10 @@ on_picture_properties_button_clicked (GObject *object,
             g_free (tmp);
         }
 
-        // Behaviour following the tag type...
-        switch (ETCore->ETFileDisplayed->ETFileDescription->TagType)
+        /* Behaviour following the tag type. */
+        if (ETCore->ETFileDisplayed->ETFileDescription->TagType == MP4_TAG)
         {
-            case MP4_TAG:
-                gtk_widget_set_sensitive (GTK_WIDGET (desc), FALSE);
-                break;
-            /* Other tag types. */
-            default:
-                break;
+            gtk_widget_set_sensitive (GTK_WIDGET (desc), FALSE);
         }
 
         gtk_widget_show_all (PictureTypesWindow);
