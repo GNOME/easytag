@@ -432,7 +432,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
     gchar *buf;
     gchar *separator;
     gchar *string;
-    gint  len, i, loop=0;
+    gsize len, i, loop=0;
     gchar **mask_splitted;
     gchar **file_splitted;
     guint mask_splitted_number;
@@ -449,7 +449,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
 
     // Remove extension of file (if found)
     tmp = strrchr(filename_utf8,'.');
-    for (i=0; i<=(gint)ET_FILE_DESCRIPTION_SIZE; i++)
+    for (i = 0; i <= ET_FILE_DESCRIPTION_SIZE; i++)
     {
         if ( strcasecmp(tmp,ETFileDescription[i].Extension)==0 )
         {
@@ -1666,7 +1666,7 @@ et_scan_dialog_open (EtScanDialog *self, EtScanMode scanner_type)
     g_return_if_fail (scanner_type >= ET_SCAN_MODE_FILL_TAG
                       && scanner_type <= ET_SCAN_MODE_PROCESS_FIELDS);
 
-    if (g_settings_get_enum (MainSettings, "scan-mode") != scanner_type)
+    if (g_settings_get_enum (MainSettings, "scan-mode") != (gint)scanner_type)
     {
         g_settings_set_enum (MainSettings, "scan-mode", scanner_type);
     }

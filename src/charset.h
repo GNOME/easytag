@@ -40,7 +40,7 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string);
 
 void Charset_Populate_Combobox (GtkComboBox *combo, gint select_charset);
 const gchar *Charset_Get_Name_From_Title (const gchar *charset_title);
-const gchar * et_charset_get_name_from_index (gint index);
+const gchar * et_charset_get_name_from_index (guint index);
 
 void Charset_Insert_Locales_Init    (void);
 void Charset_Insert_Locales_Destroy (void);

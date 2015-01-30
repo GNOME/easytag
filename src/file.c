@@ -1355,8 +1355,8 @@ ET_Display_File_Info_To_UI (const ET_File *ETFile)
     fields->description = _("File");
 
     /* MPEG, Layer versions */
-    fields->version = g_strdup_printf ("%d, Layer %d", info->version,
-                                       info->layer);
+    fields->version = g_strdup_printf ("%d, Layer %" G_GSIZE_FORMAT,
+                                       info->version, info->layer);
 
     /* Bitrate */
     fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);

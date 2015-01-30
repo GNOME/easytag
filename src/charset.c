@@ -736,10 +736,9 @@ Charset_Get_Name_From_Title (const gchar *charset_title)
 }
 
 const gchar *
-et_charset_get_name_from_index (gint index)
+et_charset_get_name_from_index (guint index)
 {
-    g_return_val_if_fail (index >= 0 && index <= CHARSET_TRANS_ARRAY_LEN,
-                          NULL);
+    g_return_val_if_fail (index <= CHARSET_TRANS_ARRAY_LEN, NULL);
 
     return charset_trans_array[index].charset_name;
 }

@@ -48,7 +48,7 @@ typedef struct
 
     guint ETFileKey;          /* Primary key to identify each item of the list (no longer used?) */
 
-    time_t FileModificationTime;            /* Save modification time of the file */
+    guint64 FileModificationTime; /* Save modification time of the file */
 
     const ET_File_Description *ETFileDescription;
     gchar               *ETFileExtension;   /* Real extension of the file (keeping the case) (should be placed in ETFileDescription?) */

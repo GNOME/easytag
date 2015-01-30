@@ -840,7 +840,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
     const gchar CDDB_END_STR[] = ".";
     gchar     *proxy_auth;
     gchar     *cddb_server_name;
-    gint       cddb_server_port;
+    guint cddb_server_port;
     gchar     *cddb_server_cgi_path;
     gboolean proxy_enabled;
     gchar *proxy_hostname;
@@ -1487,7 +1487,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     gchar *msg;
     gchar *proxy_auth = NULL;
     gchar *cddb_server_name;
-    gint   cddb_server_port;
+    guint cddb_server_port;
     gchar *cddb_server_cgi_path;
     gboolean proxy_enabled;
     gchar *proxy_hostname;
@@ -1811,7 +1811,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
     gchar *msg;
     gchar *proxy_auth = NULL;
     gchar *cddb_server_name;
-    gint   cddb_server_port;
+    guint cddb_server_port;
     gchar *cddb_server_cgi_path;
     gboolean proxy_enabled;
     gchar *proxy_hostname;
@@ -3249,7 +3249,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     gchar *msg;
     gchar *proxy_auth;
     gchar *cddb_server_name;
-    gint   cddb_server_port;
+    guint cddb_server_port;
     gchar *cddb_server_cgi_path;
     gboolean proxy_enabled;
     gchar *proxy_hostname;

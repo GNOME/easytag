@@ -153,7 +153,7 @@ id3tag_read_file_tag (GFile *gfile,
                                             &string1[ID3_TAG_QUERYSIZE],
                                             tagsize - ID3_TAG_QUERYSIZE,
                                             &bytes_read, NULL, error)
-                && bytes_read == tagsize - ID3_TAG_QUERYSIZE
+                && bytes_read == (gsize)(tagsize - ID3_TAG_QUERYSIZE)
             && (tag = id3_tag_parse((id3_byte_t const *)string1, tagsize))
                )
             {
@@ -1767,7 +1767,7 @@ etag_write_tags (const gchar *filename,
         goto err;
     }
 
-    if (filev2size == v2size)
+    if (filev2size == (long)v2size)
     {
         if (!g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, error))
         {

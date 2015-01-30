@@ -78,7 +78,7 @@ typedef struct
 {
     gint version;               /* Version of bitstream (mpeg version for mp3, encoder version for ogg) */
     gint mpeg25;                /* Version is MPEG 2.5? */
-    gint layer;                 /* "MP3 data" */
+    gsize layer; /* "MP3 data" */
     gint bitrate;               /* Bitrate (kb/s) */
     gboolean variable_bitrate;  /* Is a VBR file? */
     gint samplerate;            /* Samplerate (Hz) */
