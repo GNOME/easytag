@@ -1291,6 +1291,7 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
             et_opus_file_header_fields_free (fields);
             break;
 #endif
+        case OFR_FILE:
         case UNKNOWN_FILE:
         default:
             /* Default displaying. */

@@ -398,6 +398,7 @@ ET_Add_File_To_File_List (gchar *filename)
             success = et_opus_read_file_info (file, ETFileInfo, &error);
             break;
 #endif
+        case OFR_FILE:
         case UNKNOWN_FILE:
         default:
             /* FIXME: Translatable string. */
