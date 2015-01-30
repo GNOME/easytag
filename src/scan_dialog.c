@@ -1579,7 +1579,9 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
  * Function when you select an item of the option menu
  */
 static void
-on_scan_mode_changed (EtScanDialog *self, gchar *key, GSettings *settings)
+on_scan_mode_changed (EtScanDialog *self,
+                      const gchar *key,
+                      GSettings *settings)
 {
     EtScanDialogPrivate *priv;
     EtScanMode mode;
@@ -1827,7 +1829,7 @@ Process_Fields_First_Letters_Check_Button_Toggled (EtScanDialog *self)
  */
 static void
 on_process_fields_changed (EtScanDialog *self,
-                           gchar *key,
+                           const gchar *key,
                            GSettings *settings)
 {
     EtScanDialogPrivate *priv;

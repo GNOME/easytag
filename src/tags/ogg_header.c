@@ -274,7 +274,7 @@ et_ogg_header_read_file_info (GFile *file,
                     message = _("Internal logic fault, indicates a bug or heap/stack corruption");
                     break;
                 default:
-                    message = "";
+                    message = _("Error reading tags from file");
                     break;
             }
 

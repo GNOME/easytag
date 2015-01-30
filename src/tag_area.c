@@ -2107,8 +2107,8 @@ create_tag_area (EtTagArea *self)
     GtkBuilder *builder;
     GError *error = NULL;
 
-    /* For Picture. */
-    static const GtkTargetEntry drops[] = { { "text/uri-list", 0,
+    /* For Picture. Ignore const string warning. */
+    static const GtkTargetEntry drops[] = { { (gchar *)"text/uri-list", 0,
                                               TARGET_URI_LIST } };
     GtkTreeSelection *selection;
 

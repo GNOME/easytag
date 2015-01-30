@@ -58,7 +58,7 @@ struct _EtFileAreaPrivate
 
 static void
 on_file_show_header_changed (EtFileArea *self,
-                             gchar *key,
+                             const gchar *key,
                              GSettings *settings)
 {
     EtFileAreaPrivate *priv;
@@ -184,26 +184,31 @@ et_file_area_clear (EtFileArea *self)
 {
     EtFileAreaPrivate *priv;
     EtFileHeaderFields fields;
+    gchar *empty_str;
 
     g_return_if_fail (ET_FILE_AREA (self));
 
     priv = et_file_area_get_instance_private (self);
 
+    empty_str = g_strdup ("");
+
     /* Default values are MPEG data. */
     fields.description = _("File");
     fields.version_label = _("Encoder:");
-    fields.version =  "";
-    fields.bitrate = "";
-    fields.samplerate = "";
+    fields.version =  empty_str;
+    fields.bitrate = empty_str;
+    fields.samplerate = empty_str;
     fields.mode_label = _("Mode:");
-    fields.mode = "";
-    fields.size = "";
-    fields.duration = "";
+    fields.mode = empty_str;
+    fields.size = empty_str;
+    fields.duration = empty_str;
 
     et_file_area_set_header_fields (self, &fields);
 
-    gtk_entry_set_text (GTK_ENTRY (priv->name_entry), "");
+    gtk_entry_set_text (GTK_ENTRY (priv->name_entry), empty_str);
     gtk_label_set_text (GTK_LABEL (priv->index_label), "0/0:");
+
+    g_free (empty_str);
 }
 
 void
