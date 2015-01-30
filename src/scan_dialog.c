@@ -1240,6 +1240,9 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
             break;
         case ET_PROCESS_FIELDS_CONVERT_NO_CHANGE:
             break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
 
     /* FIXME: Use GSettings keys instead of toggle buton states. */
@@ -2068,6 +2071,9 @@ Mask_Editor_List_Key_Press (GtkWidget *widget,
             case GDK_KEY_Delete:
                 Mask_Editor_List_Remove (self);
                 return GDK_EVENT_STOP;
+                break;
+            default:
+                /* Ignore all other keypresses. */
                 break;
         }
     }

@@ -367,6 +367,9 @@ Load_Filename_List_Key_Press (GtkWidget *treeview, GdkEvent *event)
                 Load_Filename_List_Insert_Blank_Line(treeview);
                 return GDK_EVENT_STOP;
                 break;
+            default:
+                /* Ignore all other keypresses. */
+                break;
         }
     }
 

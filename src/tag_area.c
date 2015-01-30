@@ -1893,7 +1893,8 @@ on_picture_save_button_clicked (GObject *object,
                 case PICTURE_FORMAT_GIF:
                     image_name = g_strdup ("image_name.gif");
                     break;
-                case PICTURE_FORMAT_UNKNOWN :
+                case PICTURE_FORMAT_UNKNOWN:
+                default:
                     image_name = g_strdup("image_name.ext");
                     break;
             }
@@ -2100,6 +2101,9 @@ on_picture_view_key_pressed (GtkTreeView *treeview,
                 on_picture_clear_button_clicked (G_OBJECT (priv->remove_image_toolitem),
                                                  self);
                 return GDK_EVENT_STOP;
+            default:
+                /* Ignore all other keypresses. */
+                break;
         }
     }
 

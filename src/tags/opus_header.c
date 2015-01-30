@@ -122,6 +122,9 @@ et_opus_open_file (GFile *gfile, GError **error)
                              "First/last timestamp in a link failed checks");
                 g_assert (error == NULL || *error != NULL);
                 return NULL;
+            default:
+                g_assert_not_reached ();
+                break;
         }
     }
 

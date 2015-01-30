@@ -226,6 +226,9 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                         g_free (mask);
                         g_free (filename_generated_utf8);
                     }
+                    default:
+                        g_assert_not_reached ();
+                        break;
                 }
 
                 /* 3) Write the file path. */
@@ -345,6 +348,9 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                     g_free (filename_generated_utf8);
                 }
                 break;
+                default:
+                    g_assert_not_reached ();
+                    break;
             }
 
             /* 3) Write the file path. */

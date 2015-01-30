@@ -3049,6 +3049,9 @@ Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
             g_free(text1cp);
             g_free(text2cp);
             break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
 
     return ret;

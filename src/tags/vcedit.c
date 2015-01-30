@@ -577,6 +577,9 @@ vcedit_open (EtOggState *state,
                                     state->bookbuf = g_memdup (header->packet,
                                                                header->bytes);
                                     break;
+                                default:
+                                    g_assert_not_reached ();
+                                    break;
                             }
                             break;
                         case ET_OGG_KIND_SPEEX:
@@ -619,6 +622,9 @@ vcedit_open (EtOggState *state,
                                                  ET_OGG_ERROR_HEADER,
                                                  "Ogg Opus tags do not follow the specification");
                                     goto err;
+                                    break;
+                                default:
+                                    g_assert_not_reached ();
                                     break;
                             }
                             break;

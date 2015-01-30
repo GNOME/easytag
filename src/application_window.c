@@ -553,6 +553,9 @@ on_delete (GSimpleAction *action,
                 et_application_window_file_area_set_sensitive (self, TRUE);
 
                 return; /*We stop all actions. */
+            default:
+                g_assert_not_reached ();
+                break;
         }
     }
 

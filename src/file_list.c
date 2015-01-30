@@ -1078,6 +1078,9 @@ ET_Sort_File_List (GList *ETFileList,
         case ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE:
             etfilelist = g_list_sort(etfilelist,(GCompareFunc)ET_Comp_Func_Sort_File_By_Descending_File_Samplerate);
             break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
     /* Save sorting mode (note: needed when called from UI). */
     g_settings_set_enum (MainSettings, "sort-mode", Sorting_Type);

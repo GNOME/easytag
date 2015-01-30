@@ -700,6 +700,9 @@ Browser_Tree_Key_Press (GtkWidget *tree, GdkEvent *event, gpointer data)
                 gtk_tree_path_free(treePath);
                 return TRUE;
                 break;
+            /* Ignore all other keypresses. */
+            default:
+                break;
         }
         gtk_tree_path_free(treePath);
     }
@@ -732,6 +735,9 @@ Browser_List_Key_Press (GtkWidget *list, GdkEvent *event, gpointer data)
                     g_action_group_activate_action (G_ACTION_GROUP (MainWindow),
                                                     "delete", NULL);
                     return TRUE;
+                /* Ignore all other keypresses. */
+                default:
+                    break;
             }
         }
     }
@@ -2209,6 +2215,9 @@ Browser_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
             break;
         case ET_SORT_MODE_DESCENDING_FILE_SAMPLERATE:
             result = ET_Comp_Func_Sort_File_By_Descending_File_Samplerate(ETFile1, ETFile2);
+            break;
+        default:
+            g_assert_not_reached ();
             break;
     }
 
