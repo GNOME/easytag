@@ -184,7 +184,7 @@ et_log_area_init (EtLogArea *self)
 
 
 GtkWidget *
-et_log_area_new ()
+et_log_area_new (void)
 {
     return g_object_new (ET_TYPE_LOG_AREA, NULL);
 }

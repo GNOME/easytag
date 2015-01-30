@@ -628,7 +628,7 @@ et_application_class_init (EtApplicationClass *klass)
  * Returns: a new #EtApplication
  */
 EtApplication *
-et_application_new ()
+et_application_new (void)
 {
     return g_object_new (ET_TYPE_APPLICATION, "application-id",
                          "org.gnome.EasyTAG", "flags",
