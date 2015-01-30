@@ -1004,19 +1004,21 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         if (format != PICTURE_FORMAT_PNG && format != PICTURE_FORMAT_JPEG)
         {
             GdkPixbufLoader *loader;
-            gconstpointer data;
-            gsize data_size;
-            GError *error = NULL;
+            gconstpointer old_data;
+            gsize old_data_size;
+            GError *loader_error = NULL;
 
             loader = gdk_pixbuf_loader_new ();
 
-            data = g_bytes_get_data (pic->bytes, &data_size);
+            old_data = g_bytes_get_data (pic->bytes, &old_data_size);
 
             /* TODO: Use gdk_pixbuf_loader_write_bytes() */
-            if (!gdk_pixbuf_loader_write (loader, data, data_size, &error))
+            if (!gdk_pixbuf_loader_write (loader, old_data, old_data_size,
+                                          &loader_error))
             {
-                g_debug ("Error parsing image data: %s", error->message);
-                g_error_free (error);
+                g_debug ("Error parsing image data: %s",
+                         loader_error->message);
+                g_error_free (loader_error);
                 g_object_unref (loader);
                 continue;
             }
@@ -1026,11 +1028,11 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
                 gchar *buffer;
                 gsize buffer_size;
 
-                if (!gdk_pixbuf_loader_close (loader, &error))
+                if (!gdk_pixbuf_loader_close (loader, &loader_error))
                 {
                     g_debug ("Error parsing image data: %s",
-                             error->message);
-                    g_error_free (error);
+                             loader_error->message);
+                    g_error_free (loader_error);
                     g_object_unref (loader);
                     continue;
                 }
@@ -1049,11 +1051,11 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
                 /* Always convert to PNG. */
                 if (!gdk_pixbuf_save_to_buffer (pixbuf, &buffer,
                                                 &buffer_size, "png",
-                                                &error, NULL))
+                                                &loader_error, NULL))
                 {
                     g_debug ("Error while converting image to PNG: %s",
-                             error->message);
-                    g_error_free (error);
+                             loader_error->message);
+                    g_error_free (loader_error);
                     g_object_unref (pixbuf);
                     continue;
                 }

@@ -439,7 +439,6 @@ write_button_clicked (EtPlaylistDialog *self)
     /* Build the playlist filename. */
     if (g_settings_get_boolean (MainSettings, "playlist-use-mask"))
     {
-        gchar *playlist_name;
         EtConvertSpaces convert_mode;
 
         if (!ETCore->ETFileList)

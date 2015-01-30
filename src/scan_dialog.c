@@ -1007,20 +1007,22 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
     for (l = g_list_last (rename_file_list); l != NULL;
          l = g_list_previous (l))
     {
-        File_Mask_Item *mask_item = l->data;
+        File_Mask_Item *mask_item2 = l->data;
 
-        if ( mask_item->type==TRAILING_SEPARATOR ) // Trailing characters of mask
+        /* Trailing mask characters. */
+        if (mask_item2->type == TRAILING_SEPARATOR)
         {
             // Doesn't write it if previous field is empty
             if (l->prev
                 && ((File_Mask_Item *)l->prev->data)->type != EMPTY_FIELD)
             {
                 filename_tmp = filename_new_utf8;
-                filename_new_utf8 = g_strconcat(mask_item->string,filename_new_utf8,NULL);
+                filename_new_utf8 = g_strconcat (mask_item2->string,
+                                                 filename_new_utf8, NULL);
                 g_free(filename_tmp);
             }
-        }else
-        if ( mask_item->type==EMPTY_FIELD )
+        }
+        else if (mask_item2->type == EMPTY_FIELD)
         // We don't concatenate the field value (empty) and the previous
         // separator (except leading separator) to the filename.
         // If the empty field is the 'first', we don't concatenate it, and the
@@ -1058,7 +1060,8 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
         }else // SEPARATOR, FIELD, LEADING_SEPARATOR, DIRECTORY_SEPARATOR
         {
             filename_tmp = filename_new_utf8;
-            filename_new_utf8 = g_strconcat(mask_item->string,filename_new_utf8,NULL);
+            filename_new_utf8 = g_strconcat (mask_item2->string,
+                                             filename_new_utf8, NULL);
             g_free(filename_tmp);
         }
     }

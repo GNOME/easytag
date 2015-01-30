@@ -200,23 +200,23 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     {
         GtkWidget *msgdialog;
         gchar *basename;
-        gchar *basename_utf8;
+        gchar *utf8_basename;
 
         basename = g_file_get_basename (file);
-        basename_utf8 = filename_to_display (basename);
+        utf8_basename = filename_to_display (basename);
 
         msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                             GTK_MESSAGE_ERROR,
                                             GTK_BUTTONS_CLOSE,
                                             _("As the following corrupted file ‘%s’ will cause an error in id3lib, it will not be processed"),
-                                            basename_utf8);
+                                            utf8_basename);
         gtk_window_set_title (GTK_WINDOW (msgdialog), _("Corrupted file"));
 
         gtk_dialog_run (GTK_DIALOG (msgdialog));
         gtk_widget_destroy (msgdialog);
         g_free (basename);
-        g_free (basename_utf8);
+        g_free (utf8_basename);
         g_object_unref (file);
         return FALSE;
     }
@@ -989,15 +989,9 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
                 }
                 else if (ID3Field_IsEncodable (id3_field))
                 {
-                    gint id3v1v2_charset;
-                    const gchar *charset;
-
                     string = g_malloc0 (ID3V2_MAX_STRING_LEN + 1);
                     num_chars = ID3Field_GetASCII_1 (id3_field, string,
                                                      ID3V2_MAX_STRING_LEN, 0);
-                    id3v1v2_charset = g_settings_get_enum (MainSettings,
-                                                           "id3v1v2-charset");
-                    charset = et_charset_get_name_from_index (id3v1v2_charset);
                     string1 = convert_string (string, charset, "UTF-8", FALSE);
                     /* Override to a non-standard character encoding. */
                     goto out;

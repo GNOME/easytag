@@ -183,15 +183,16 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
         GFileInfo *fileinfo;
 
         const ET_File *ETFile = (ET_File *)l->data;
-        const File_Tag  *FileTag  = (File_Tag *)ETFile->FileTag->data;
+        const File_Tag *file_tag  = (File_Tag *)ETFile->FileTag->data;
         const File_Name *FileName = (File_Name *)ETFile->FileNameNew->data;
         const gchar *filename_cur = ((File_Name *)ETFile->FileNameCur->data)->value;
         const gchar *filename_cur_utf8 = ((File_Name *)ETFile->FileNameCur->data)->value_utf8;
         gchar *basename_cur_utf8 = g_path_get_basename(filename_cur_utf8);
 
         // Count only the changed files or all files if force_saving_files==TRUE
-        if ( force_saving_files
-        || (FileName && FileName->saved==FALSE) || (FileTag && FileTag->saved==FALSE) )
+        if (force_saving_files
+            || (FileName && FileName->saved == FALSE)
+            || (file_tag && file_tag->saved == FALSE))
             nb_files_to_save++;
 
         file = g_file_new_for_path (filename_cur);
@@ -646,8 +647,6 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
                 {
                     if (!SF_HideMsgbox_Rename_File)
                     {
-                        GtkWidget *msgdialog;
-
                         msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
                                                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                                             GTK_MESSAGE_ERROR,

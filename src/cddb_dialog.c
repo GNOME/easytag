@@ -979,7 +979,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 			// For gnudb (don't check CDDB header)
 			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
 		    {
-		        gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+		        msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
                                                       cddb_out);
 		        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
 		        Log_Print(LOG_ERROR,"%s",msg);
@@ -994,7 +994,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             /* For freedb. */
             if (Cddb_Read_Http_Header (&file, &cddb_out) <= 0)
             {
-                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
                                                       cddb_out);
                 gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                                     priv->status_bar_context, msg);
@@ -1015,7 +1015,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 
             if (Cddb_Read_Cddb_Header (&file, &cddb_out) <= 0)
             {
-                gchar *msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
                                                       cddb_out);
                 gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                                     priv->status_bar_context, msg);

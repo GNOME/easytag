@@ -754,7 +754,7 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, const char *filename, int flag)
         
         for (p = buff; p < end && tagCount--;) {
             /* 8 = sizeof( sizeValue+flags ) */
-            unsigned long flag = ape2long(p + 4);
+            unsigned long flags = ape2long (p + 4);
             unsigned long sizeValue = ape2long(p);
             unsigned long sizeName;
             char *name = (char *)p + 8;
@@ -763,11 +763,11 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, const char *filename, int flag)
             sizeName = strlen((char *)p + 8);
             value = (char *)p + sizeName + 8 + 1;
             if (apeTag2 == 1000 && value[sizeValue - 1] == '\0') {
-                libapetag_maloc_cont(mem_cnt, flag,
+                libapetag_maloc_cont(mem_cnt, flags,
                              sizeName, name,
                              sizeValue - 1, value);
             } else {
-                libapetag_maloc_cont(mem_cnt, flag,
+                libapetag_maloc_cont(mem_cnt, flags,
                              sizeName, name,
                              sizeValue, value);
             }

@@ -47,17 +47,17 @@ GIO_InputStream::name () const
 }
 
 TagLib::ByteVector
-GIO_InputStream::readBlock (TagLib::ulong length)
+GIO_InputStream::readBlock (TagLib::ulong len)
 {
     if (error)
     {
         return TagLib::ByteVector::null;
     }
 
-    TagLib::ByteVector rv (length, 0);
+    TagLib::ByteVector rv (len, 0);
     gsize bytes;
     g_input_stream_read_all (G_INPUT_STREAM (stream), (void *)rv.data (),
-                             length, &bytes, NULL, &error);
+                             len, &bytes, NULL, &error);
 
     return rv.resize (bytes);
 }
@@ -77,7 +77,7 @@ GIO_InputStream::insert (TagLib::ByteVector const &data,
 }
 
 void
-GIO_InputStream::removeBlock (TagLib::ulong start, TagLib::ulong length)
+GIO_InputStream::removeBlock (TagLib::ulong start, TagLib::ulong len)
 {
     g_warning ("%s", "Trying to write to read-only file!");
 }
@@ -161,7 +161,7 @@ GIO_InputStream::length ()
 }
 
 void
-GIO_InputStream::truncate (long int length)
+GIO_InputStream::truncate (long int len)
 {
     g_warning ("%s", "Trying to truncate read-only file");
 }
@@ -200,7 +200,7 @@ GIO_IOStream::name () const
 }
 
 TagLib::ByteVector
-GIO_IOStream::readBlock (TagLib::ulong length)
+GIO_IOStream::readBlock (TagLib::ulong len)
 {
     if (error)
     {
@@ -208,10 +208,10 @@ GIO_IOStream::readBlock (TagLib::ulong length)
     }
 
     gsize bytes = 0;
-    TagLib::ByteVector rv (length, 0);
+    TagLib::ByteVector rv (len, 0);
     GInputStream *istream = g_io_stream_get_input_stream (G_IO_STREAM (stream));
     g_input_stream_read_all (istream,
-                             (void *)rv.data (), length,
+                             (void *)rv.data (), len,
                              &bytes,
                              NULL, &error);
 
@@ -459,14 +459,14 @@ GIO_IOStream::length ()
 }
 
 void
-GIO_IOStream::truncate (long int length)
+GIO_IOStream::truncate (long int len)
 {
     if (error)
     {
         return;
     }
 
-    g_seekable_truncate (G_SEEKABLE (stream), length, NULL, &error);
+    g_seekable_truncate (G_SEEKABLE (stream), len, NULL, &error);
 }
 
 const GError *GIO_IOStream::getError () const

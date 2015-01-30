@@ -1199,7 +1199,7 @@ void
 ET_Display_File_Data_To_UI (ET_File *ETFile)
 {
     EtApplicationWindow *window;
-    const ET_File_Description *ETFileDescription;
+    const ET_File_Description *description;
     const gchar *cur_filename_utf8;
     gchar *msg;
     EtFileHeaderFields *fields;
@@ -1209,7 +1209,7 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
                       /* For the case where ETFile is an "empty" structure. */
 
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
-    ETFileDescription = ETFile->ETFileDescription;
+    description = ETFile->ETFileDescription;
 
     /* Save the current displayed file */
     ETCore->ETFileDisplayed = ETFile;
@@ -1229,7 +1229,7 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
     et_application_window_tag_area_display_controls (window, ETFile);
 
     /* Display file data, header data and file type */
-    switch (ETFileDescription->FileType)
+    switch (description->FileType)
     {
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
@@ -1300,7 +1300,7 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
             et_file_header_fields_free (fields);
             Log_Print (LOG_ERROR,
                        "ETFileInfo: Undefined file type %d for file %s.",
-                       ETFileDescription->FileType, cur_filename_utf8);
+                       description->FileType, cur_filename_utf8);
             break;
     }
 
@@ -1395,7 +1395,7 @@ ET_Display_File_Info_To_UI (const ET_File *ETFile)
  */
 void ET_Save_File_Data_From_UI (ET_File *ETFile)
 {
-    const ET_File_Description *ETFileDescription;
+    const ET_File_Description *description;
     File_Name *FileName;
     File_Tag  *FileTag;
     guint      undo_key;
@@ -1405,7 +1405,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
                       && ETFile->FileNameCur->data != NULL);
 
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
-    ETFileDescription = ETFile->ETFileDescription;
+    description = ETFile->ETFileDescription;
     undo_key = ET_Undo_Key_New();
 
 
@@ -1417,7 +1417,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     FileName->key = undo_key;
     ET_Save_File_Name_From_UI(ETFile,FileName); // Used for all files!
 
-    switch (ETFileDescription->TagType)
+    switch (description->TagType)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
@@ -1444,7 +1444,9 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
         case UNKNOWN_TAG:
         default:
             FileTag = et_file_tag_new ();
-            Log_Print(LOG_ERROR,"FileTag: Undefined tag type %d for file %s.",ETFileDescription->TagType,cur_filename_utf8);
+            Log_Print (LOG_ERROR,
+                       "FileTag: Undefined tag type %d for file %s.",
+                       description->TagType, cur_filename_utf8);
             break;
     }
 
@@ -1827,7 +1829,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 gboolean
 ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 {
-    const ET_File_Description *ETFileDescription;
+    const ET_File_Description *description;
     const gchar *cur_filename;
     const gchar *cur_filename_utf8;
     gboolean state;
@@ -1840,14 +1842,14 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
     cur_filename = ((File_Name *)(ETFile->FileNameCur)->data)->value;
     cur_filename_utf8 = ((File_Name *)(ETFile->FileNameCur)->data)->value_utf8;
 
-    ETFileDescription = ETFile->ETFileDescription;
+    description = ETFile->ETFileDescription;
 
     /* Store the file timestamps (in case they are to be preserved) */
     file = g_file_new_for_path (cur_filename);
     fileinfo = g_file_query_info (file, "time::*", G_FILE_QUERY_INFO_NONE,
                                   NULL, NULL);
 
-    switch (ETFileDescription->TagType)
+    switch (description->TagType)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
@@ -1884,8 +1886,9 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
 #endif
         case UNKNOWN_TAG:
         default:
-            Log_Print(LOG_ERROR,"Saving to HD: Undefined function for tag type '%d' (file %s).",
-                ETFileDescription->TagType,cur_filename_utf8);
+            Log_Print (LOG_ERROR,
+                       "Saving to HD: Undefined function for tag type '%d' (file %s).",
+                       description->TagType, cur_filename_utf8);
             state = FALSE;
             break;
     }

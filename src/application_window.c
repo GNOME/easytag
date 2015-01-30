@@ -738,11 +738,6 @@ on_select_all (GSimpleAction *action,
                                                  focused))
     /* Assume that other widgets should select all in the file view. */
     {
-        EtApplicationWindowPrivate *priv;
-        EtApplicationWindow *self = ET_APPLICATION_WINDOW (user_data);
-
-        priv = et_application_window_get_instance_private (self);
-
         /* Save the current displayed data */
         ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
 

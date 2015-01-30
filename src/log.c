@@ -367,7 +367,6 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
 
     if (file_ostream)
     {
-        gchar *time;
         GString *data;
         gsize bytes_written;
 

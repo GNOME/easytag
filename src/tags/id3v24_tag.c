@@ -615,9 +615,9 @@ etag_guess_byteorder(const id3_ucs4_t *ustr, gchar **ret) /* XXX */
     }
     else
     {
-        const gchar *tmp;
-        g_get_charset (&tmp);
-        charset = g_strdup (tmp);
+        const gchar *temp;
+        g_get_charset (&temp);
+        charset = g_strdup (temp);
     }
 
     if (!charset)

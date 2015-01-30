@@ -826,9 +826,7 @@ vcedit_write (EtOggState *state,
         {
             if (state->oggtype == ET_OGG_KIND_VORBIS)
             {
-                int size;
-                size = _blocksize(state, &op);
-                granpos += size;
+                granpos += _blocksize (state, &op);
             }
 #ifdef ENABLE_OPUS
             else

@@ -212,7 +212,7 @@ et_core_read_file_info (GFile *file,
 GList *
 ET_Add_File_To_File_List (gchar *filename)
 {
-    const ET_File_Description *ETFileDescription;
+    const ET_File_Description *description;
     ET_File      *ETFile;
     File_Name    *FileName;
     File_Tag     *FileTag;
@@ -236,7 +236,7 @@ ET_Add_File_To_File_List (gchar *filename)
     ETFileKey = ET_File_Key_New();
 
     /* Get description of the file */
-    ETFileDescription = ET_Get_File_Description(filename);
+    description = ET_Get_File_Description (filename);
 
     /* Get real extension of the file (keeping the case) */
     ETFileExtension = g_strdup(ET_Get_File_Extension(filename));
@@ -258,7 +258,7 @@ ET_Add_File_To_File_List (gchar *filename)
      * it is written as 'Title=' in the file */
     setlocale(LC_CTYPE, "C");
 
-    switch (ETFileDescription->TagType)
+    switch (description->TagType)
     {
 #ifdef ENABLE_MP3
         case ID3_TAG:
@@ -338,7 +338,9 @@ ET_Add_File_To_File_List (gchar *filename)
         case UNKNOWN_TAG:
         default:
             /* FIXME: Translatable string. */
-            Log_Print(LOG_ERROR,"FileTag: Undefined tag type (%d) for file %s",ETFileDescription->TagType,filename_utf8);
+            Log_Print (LOG_ERROR,
+                       "FileTag: Undefined tag type (%d) for file %s",
+                       description->TagType, filename_utf8);
             break;
     }
 
@@ -352,7 +354,7 @@ ET_Add_File_To_File_List (gchar *filename)
     /* Fill the ET_File_Info structure */
     ETFileInfo = ET_File_Info_Item_New ();
 
-    switch (ETFileDescription->FileType)
+    switch (description->FileType)
     {
 #if defined ENABLE_MP3 && defined ENABLE_ID3LIB
         case MP3_FILE:
@@ -402,7 +404,9 @@ ET_Add_File_To_File_List (gchar *filename)
         case UNKNOWN_FILE:
         default:
             /* FIXME: Translatable string. */
-            Log_Print(LOG_ERROR,"ETFileInfo: Undefined file type (%d) for file %s",ETFileDescription->FileType,filename_utf8);
+            Log_Print (LOG_ERROR,
+                       "ETFileInfo: Undefined file type (%d) for file %s",
+                       description->FileType, filename_utf8);
             /* To get at least the file size. */
             success = et_core_read_file_info (file, ETFileInfo, &error);
             break;
@@ -441,7 +445,7 @@ ET_Add_File_To_File_List (gchar *filename)
 
     ETFile->IndexKey             = 0; // Will be renumered after...
     ETFile->ETFileKey            = ETFileKey;
-    ETFile->ETFileDescription    = ETFileDescription;
+    ETFile->ETFileDescription    = description;
     ETFile->ETFileExtension      = ETFileExtension;
     ETFile->FileNameList         = g_list_append(NULL,FileName);
     ETFile->FileNameCur          = ETFile->FileNameList;
