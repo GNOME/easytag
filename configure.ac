@@ -343,47 +343,8 @@ AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
         [have_ws2=yes], [have_ws2=no LIBS=$saved_LIBS])
      AC_MSG_RESULT([$have_ws2])])
 
-dnl Check that the compiler accepts the given warning flags.
-warning_flags="-Wall -Wstrict-prototypes -Wnested-externs -Werror=missing-prototypes -Werror=implicit-function-declaration -Werror=pointer-arith -Werror=init-self -Werror=format-security -Werror=format=2 -Werror=missing-include-dirs -Werror=declaration-after-statement -Werror=return-type"
-
-realsave_CFLAGS="$CFLAGS"
-for option in $warning_flags; do
-    save_CFLAGS="$CFLAGS"
-    CFLAGS="$CFLAGS $option"
-	AC_MSG_CHECKING([whether the compiler understands $option])
-	AC_COMPILE_IFELSE([AC_LANG_PROGRAM], [has_option=yes], [has_option=no])
-	CFLAGS="$save_CFLAGS"
-	AC_MSG_RESULT([$has_option])
-	AS_IF([test $has_option = yes],
-	      [tested_warning_flags="$tested_warning_flags $option"])
-	unset has_option
-	unset save_CFLAGS
-done
-unset option
-CFLAGS="$realsave_CFLAGS"
-
-AC_SUBST([WARN_CFLAGS], ["$tested_warning_flags"])
-AC_LANG_PUSH([C++])
-
-realsave_CXXFLAGS="$CXXFLAGS"
-for option in $warning_flags; do
-    save_CXXFLAGS="$CXXFLAGS"
-    CXXFLAGS="$CXXFLAGS -Werror $option"
-	AC_MSG_CHECKING([whether the c++ compiler understands $option])
-	AC_COMPILE_IFELSE([AC_LANG_PROGRAM], [has_option=yes], [has_option=no])
-	CXXFLAGS="$save_CXXFLAGS"
-	AC_MSG_RESULT([$has_option])
-	AS_IF([test $has_option = yes],
-	      [tested_cxx_warning_flags="$tested_cxx_warning_flags $option"])
-	unset has_option
-	unset save_CXXFLAGS
-done
-unset option
-CXXFLAGS="$realsave_CXXFLAGS"
-
-AC_LANG_POP([C++])
-AC_SUBST([WARN_CXXFLAGS], ["$tested_cxx_warning_flags"])
-AC_SUBST([DEPRECATED_CPPFLAGS], ["-DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES -DG_DISABLE_DEPRECATED $GLIB_DEPRECATION_FLAGS $GTK_DEPRECATION_FLAGS"])
+dnl Set warning flags
+AX_COMPILER_FLAGS
 
 dnl -------------------------------
 dnl Checks for library functions.
