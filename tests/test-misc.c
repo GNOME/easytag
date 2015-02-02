@@ -18,6 +18,9 @@
 
 #include "misc.h"
 
+GtkWidget *MainWindow;
+GSettings *MainSettings;
+
 static void
 misc_convert_duration (void)
 {
