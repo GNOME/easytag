@@ -344,7 +344,9 @@ AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
      AC_MSG_RESULT([$have_ws2])])
 
 dnl Set warning flags
-AX_COMPILER_FLAGS
+AX_IS_RELEASE([git-directory])
+AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS],
+                  [$ax_is_release])
 
 dnl -------------------------------
 dnl Checks for library functions.
