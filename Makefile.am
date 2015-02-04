@@ -541,15 +541,8 @@ clean-local-dstamp:
 	-rm -f data/.dstamp
 	-rm -f tests/.dstamp
 
-git-changelog-hook:
-	$(AM_V_at)if $(top_srcdir)/build-aux/missing --run git \
-		--git-dir=$(top_srcdir)/.git --work-tree=$(top_srcdir) log \
-		--stat -M -C --name-status --no-color \
-		| fmt --split-only >.ChangeLog.tmp; \
-	then mv -f .ChangeLog.tmp "$(top_distdir)/ChangeLog"; \
-	else rm -f .ChangeLog.tmp; exit 1; fi
+@GENERATE_CHANGELOG_RULES@
+dist-hook: dist-ChangeLog
 
-dist-hook: git-changelog-hook
-
-.PHONY: clean-local-dstamp git-changelog-hook
+.PHONY: clean-local-dstamp
 .PHONY: test test-report perf-report full-report
