@@ -1,3 +1,17 @@
+2.3.4 - 2014-02-06 :
+====================
+
+    * Fix crash when saving FLAC tags
+    * Port to use AX_COMPILER_FLAGS for improved compiler warning checks
+    * Many compiler warning fixes, discovered after enabling extra warnings
+    * Fixes for two Coverity warnings
+    * Improve validation of Vorbis artwork and MIME types
+    * Refactoring of internal file list code
+    * Relicense id3lib wrapper to GPLv2+
+    * Christian Kirbach’s German help translation
+    * Marek Černocký’s Czech help translation
+    * Daniel Mustieles’ Spanish translation update
+
 2.3.3 - 2014-12-31 :
 ====================
 
