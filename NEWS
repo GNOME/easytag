@@ -1,3 +1,20 @@
+2.2.6 - 2015-02-06 :
+====================
+
+    * Fix crash when saving FLAC tags
+    * Fix more CDDB search dialog memory leaks
+    * Fix memory leaks when loading and saving Speex and Ogg files
+    * Fix a crash when renaming files
+    * Fix Ctrl-clicking to toggle file selection
+    * Fix stripping the disc number from ID3v2.4 tags
+    * Support album artist fields in WavPack tags
+    * Improve validation of Vorbis artwork and MIME types
+    * Several improvements to WavPack tag support
+    * Relicense all code under the GNU GPL version 2 or later
+    * Fix menu items used for tag field case conversion
+    * Marek Černocký’s Czech translation
+    * Christian Kirbach’s German help translation
+
 2.2.5 - 2014-11-24 :
 ====================
 
