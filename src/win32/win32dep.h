@@ -34,6 +34,8 @@
 
 G_BEGIN_DECLS
 
+#include "config.h"
+
 #define lstat stat
 #define mkdir(a,b) mkdir(a)
 #define chown(a,b,c) 0
@@ -64,7 +66,7 @@ extern void  ET_Win32_Path_Replace_Slashes           (gchar *path);
 #ifndef HAVE_MKSTEMP
 #define et_w32_mkstemp mkstemp
 extern gint et_w32_mkstemp (char *template);
-#endif /* HAVE_MKSTEMP */
+#endif /* !HAVE_MKSTEMP */
 
 #ifndef HAVE_TRUNCATE
 #define et_w32_truncate truncate

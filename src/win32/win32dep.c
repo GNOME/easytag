@@ -124,6 +124,7 @@ weasytag_locale_dir (void)
 }
 
 /* Miscellaneous */
+#ifndef HAVE_MKSTEMP
 /* emulate the unix function */
 gint
 et_w32_mkstemp (gchar *template)
@@ -138,6 +139,7 @@ et_w32_mkstemp (gchar *template)
 
     return fd;
 }
+#endif /* !HAVE_MKSTEMP */
 
 void
 str_replace_char (gchar *str, gchar in_char, gchar out_char)
@@ -189,6 +191,7 @@ ET_Win32_Get_Audio_File_Player (void)
     return g_strdup("");
 }
 
+#ifndef HAVE_TRUNCATE
 gint
 et_w32_truncate (const gchar *path, off_t length)
 {
@@ -208,5 +211,6 @@ et_w32_truncate (const gchar *path, off_t length)
 
     return ret;
 }
+#endif /* !HAVE_TRUNCATE */
 
 #endif /* G_OS_WIN32 */
