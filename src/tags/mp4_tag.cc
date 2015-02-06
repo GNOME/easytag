@@ -36,6 +36,9 @@
 /* Shadow warning in public TagLib headers. */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
+#ifdef G_OS_WIN32
+#undef NOMINMAX /* Warning in TagLib headers, fixed in git. */
+#endif /* G_OS_WIN32 */
 #include <mp4file.h>
 #include <mp4tag.h>
 #pragma GCC diagnostic pop
