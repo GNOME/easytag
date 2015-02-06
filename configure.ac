@@ -277,7 +277,12 @@ AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
 
        AC_SUBST([ID3LIB_LIBS], [$ac_cv_search_ID3Tag_Link])
        AC_DEFINE([ENABLE_ID3LIB], [], [Define for ID3v2.3 support])
-       ID3LIB_VERSION="(id3lib-$ID3LIB_MAJOR.$ID3LIB_MINOR.$ID3LIB_PATCH)"],
+       ID3LIB_VERSION="(id3lib-$ID3LIB_MAJOR.$ID3LIB_MINOR.$ID3LIB_PATCH)"
+       AC_CHECK_DECLS([ID3Field_SetEncoding,
+                       ID3Field_GetEncoding,
+                       ID3Field_IsEncodable],
+                       [], [],
+                      [[#include <id3.h>]])],
       [have_id3lib=no])
 
 
