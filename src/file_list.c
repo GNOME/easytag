@@ -322,7 +322,7 @@ et_file_list_add (GList *file_list,
             /* FIXME: Translatable string. */
             Log_Print (LOG_ERROR,
                        "FileTag: Undefined tag type (%d) for file %s",
-                       description->TagType, filename_utf8);
+                       (gint)description->TagType, filename_utf8);
             break;
     }
 
@@ -388,7 +388,7 @@ et_file_list_add (GList *file_list,
             /* FIXME: Translatable string. */
             Log_Print (LOG_ERROR,
                        "ETFileInfo: Undefined file type (%d) for file %s",
-                       description->FileType, filename_utf8);
+                       (gint)description->FileType, filename_utf8);
             /* To get at least the file size. */
             success = et_core_read_file_info (file, ETFileInfo, &error);
             break;

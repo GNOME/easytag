@@ -3018,7 +3018,7 @@ et_tag_area_display_et_file (EtTagArea *self,
             /* FIXME: Translatable string. */
             Log_Print (LOG_ERROR,
                        "FileTag: Undefined tag type %d for file %s.",
-                       ETFile->ETFileDescription->TagType,
+                       (gint)ETFile->ETFileDescription->TagType,
                        ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8);
             break;
     }
@@ -3249,7 +3249,7 @@ et_tag_area_display_et_file (EtTagArea *self,
 
         /* Get page "Images" of the notebook. */
         page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), 1);
-        string = g_strdup_printf (_("Images (%d)"), nbr_pic);
+        string = g_strdup_printf (_("Images (%u)"), nbr_pic);
         /* Update the notebook tab. */
         gtk_notebook_set_tab_label_text (GTK_NOTEBOOK (priv->notebook), page,
                                          string);

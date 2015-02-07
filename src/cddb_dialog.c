@@ -901,7 +901,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		    cddb_in = g_strdup_printf("GET %s%s/gnudb/"
 		                              "%s/%s"
 		                              " HTTP/1.1\r\n"
-		                              "Host: %s:%d\r\n"
+		                              "Host: %s:%u\r\n"
 		                              "User-Agent: %s %s\r\n"
 		                              "%s"
 		                              "Connection: close\r\n"
@@ -922,7 +922,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		                              "%s+%s"
 		                              "&hello=noname+localhost+%s+%s"
 		                              "&proto=6 HTTP/1.1\r\n"
-		                              "Host: %s:%d\r\n"
+		                              "Host: %s:%u\r\n"
 		                              "%s"
 		                              "Connection: close\r\n\r\n",
 		                              proxy_enabled ? "http://" : "",
@@ -1563,7 +1563,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
                               "%s"
                               "&grouping=none"
                               " HTTP/1.1\r\n"
-                              "Host: %s:%d\r\n"
+                              "Host: %s:%u\r\n"
                               "User-Agent: %s %s\r\n"
                               "%s"
                               "Connection: close\r\n"
@@ -1783,7 +1783,13 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     if (web_search_disabled)
         msg = g_strdup_printf(_("Sorry, the web-based search is currently not available"));
     else
-        msg = g_strdup_printf(ngettext("Found one matching album","Found %d matching albums",g_list_length(priv->album_list)),g_list_length(priv->album_list));
+    {
+        msg = g_strdup_printf (ngettext ("Found one matching album",
+                                         "Found %u matching albums",
+                                         g_list_length (priv->album_list)),
+                               g_list_length (priv->album_list));
+    }
+
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
     g_free(msg);
 
@@ -1903,7 +1909,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
                                   "%s"
                                   "?page=%d"
                                   " HTTP/1.1\r\n"
-                                  "Host: %s:%d\r\n"
+                                  "Host: %s:%u\r\n"
                                   "User-Agent: %s %s\r\n"
                                   "%s"
                                   "Connection: close\r\n"
@@ -3330,7 +3336,10 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         return FALSE;
     }else
     {
-        msg = g_strdup_printf(ngettext("One file selected","%d files selected",file_selectedcount),file_selectedcount);
+        msg = g_strdup_printf (ngettext ("One file selected",
+                                         "%u files selected",
+                                         file_selectedcount),
+                               file_selectedcount);
         gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
         g_free(msg);
     }
@@ -3353,11 +3362,11 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
         if (query_string->len > 0)
         {
-            g_string_append_printf (query_string, "+%d", total_frames);
+            g_string_append_printf (query_string, "+%u", total_frames);
         }
         else
         {
-            g_string_append_printf (query_string, "%d", total_frames);
+            g_string_append_printf (query_string, "%u", total_frames);
         }
 
         secs = etfile->ETFileInfo->duration;
@@ -3455,11 +3464,11 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             // proto=1 => ISO-8859-1 - proto=6 => UTF-8
             cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+query+"
                                       "%s+"
-                                      "%d+%s+"
-                                      "%d"
+                                      "%u+%s+"
+                                      "%u"
                                       "&hello=noname+localhost+%s+%s"
                                       "&proto=6 HTTP/1.1\r\n"
-                                      "Host: %s:%d\r\n"
+                                      "Host: %s:%u\r\n"
                                       "%s"
                                       "Connection: close\r\n\r\n",
                                       proxy_enabled ? "http://" : "",
@@ -3475,8 +3484,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             g_free (proxy_auth);
             //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 
-            msg = g_strdup_printf(_("Sending request (disc ID: %s, #tracks: %d, Disc length: %d)…"),
-                                cddb_discid,num_tracks,disc_length);
+            msg = g_strdup_printf (_("Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"),
+                                   cddb_discid, num_tracks, disc_length);
             gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
             g_free(msg);
 
@@ -3644,7 +3653,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     g_string_free (query_string, TRUE);
 
     msg = g_strdup_printf (ngettext ("DiscID ‘%s’ gave one matching album",
-                                     "DiscID ‘%s’ gave %d matching albums",
+                                     "DiscID ‘%s’ gave %u matching albums",
                                      g_list_length (priv->album_list)),
                            cddb_discid, g_list_length (priv->album_list));
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);

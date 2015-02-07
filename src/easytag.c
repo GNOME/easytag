@@ -997,7 +997,7 @@ Read_Directory (const gchar *path_real)
     nbrfile = g_list_length(FileList);
 
     et_application_window_progress_set_fraction (window, 0.0);
-    g_snprintf(progress_bar_text, 30, "%d/%d", 0, nbrfile);
+    g_snprintf (progress_bar_text, 30, "%d/%u", 0, nbrfile);
     et_application_window_progress_set_text (window, progress_bar_text);
 
     // Load the supported files (Extension recognized)
@@ -1020,7 +1020,8 @@ Read_Directory (const gchar *path_real)
         /* Update the progress bar. */
         fraction = (++progress_bar_index) / (double) nbrfile;
         et_application_window_progress_set_fraction (window, fraction);
-        g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, nbrfile);
+        g_snprintf (progress_bar_text, 30, "%d/%u", progress_bar_index,
+                    nbrfile);
         et_application_window_progress_set_text (window, progress_bar_text);
         while (gtk_events_pending())
             gtk_main_iteration();
@@ -1057,14 +1058,14 @@ Read_Directory (const gchar *path_real)
         if (g_settings_get_boolean (MainSettings, "browse-subdir"))
         {
             msg = g_strdup_printf (ngettext ("Found one file in this directory and subdirectories",
-                                             "Found %d files in this directory and subdirectories",
+                                             "Found %u files in this directory and subdirectories",
                                              ETCore->ETFileDisplayedList_Length),
                                    ETCore->ETFileDisplayedList_Length);
         }
         else
         {
             msg = g_strdup_printf (ngettext ("Found one file in this directory",
-                                             "Found %d files in this directory",
+                                             "Found %u files in this directory",
                                              ETCore->ETFileDisplayedList_Length),
                                    ETCore->ETFileDisplayedList_Length);
         }

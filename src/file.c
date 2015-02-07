@@ -1300,7 +1300,7 @@ ET_Display_File_Data_To_UI (ET_File *ETFile)
             et_file_header_fields_free (fields);
             Log_Print (LOG_ERROR,
                        "ETFileInfo: Undefined file type %d for file %s.",
-                       description->FileType, cur_filename_utf8);
+                       (gint)description->FileType, cur_filename_utf8);
             break;
     }
 
@@ -1450,7 +1450,7 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
             FileTag = et_file_tag_new ();
             Log_Print (LOG_ERROR,
                        "FileTag: Undefined tag type %d for file %s.",
-                       description->TagType, cur_filename_utf8);
+                       (gint)description->TagType, cur_filename_utf8);
             break;
     }
 
@@ -1892,7 +1892,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
         default:
             Log_Print (LOG_ERROR,
                        "Saving to HD: Undefined function for tag type '%d' (file %s).",
-                       description->TagType, cur_filename_utf8);
+                       (gint)description->TagType, cur_filename_utf8);
             state = FALSE;
             break;
     }

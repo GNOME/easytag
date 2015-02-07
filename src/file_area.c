@@ -356,7 +356,7 @@ et_file_area_set_file_fields (EtFileArea *self,
     g_free (basename_utf8);
 
     /* Show position of current file in list */
-    text = g_strdup_printf ("%d/%d:", ETFile->IndexKey,
+    text = g_strdup_printf ("%u/%u:", ETFile->IndexKey,
                             ETCore->ETFileDisplayedList_Length);
     gtk_label_set_text (GTK_LABEL (priv->index_label), text);
     g_object_unref (file);

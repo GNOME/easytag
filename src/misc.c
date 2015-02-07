@@ -324,16 +324,22 @@ gchar *Convert_Duration (gulong duration)
     gchar *data = NULL;
 
     if (duration == 0)
-        return g_strdup_printf("%d:%.2d",minute,second);
+    {
+        return g_strdup_printf ("%u:%.2u", minute, second);
+    }
 
     hour   = duration/3600;
     minute = (duration%3600)/60;
     second = (duration%3600)%60;
 
     if (hour)
-        data = g_strdup_printf("%d:%.2d:%.2d",hour,minute,second);
+    {
+        data = g_strdup_printf ("%u:%.2u:%.2u", hour, minute, second);
+    }
     else
-        data = g_strdup_printf("%d:%.2d",minute,second);
+    {
+        data = g_strdup_printf ("%u:%.2u", minute, second);
+    }
 
     return data;
 }
@@ -343,13 +349,13 @@ et_disc_number_to_string (const guint disc_number)
 {
     if (g_settings_get_boolean (MainSettings, "tag-disc-padded"))
     {
-        return g_strdup_printf ("%.*d",
-                                g_settings_get_uint (MainSettings,
-                                                     "tag-disc-length"),
+        return g_strdup_printf ("%.*u",
+                                (gint)g_settings_get_uint (MainSettings,
+                                                           "tag-disc-length"),
                                 disc_number);
     }
 
-    return g_strdup_printf ("%d", disc_number);
+    return g_strdup_printf ("%u", disc_number);
 }
 
 gchar *
@@ -357,12 +363,13 @@ et_track_number_to_string (const guint track_number)
 {
     if (g_settings_get_boolean (MainSettings, "tag-number-padded"))
     {
-        return g_strdup_printf ("%.*d", g_settings_get_uint (MainSettings,
-                                                             "tag-number-length"),
+        return g_strdup_printf ("%.*u",
+                                (gint)g_settings_get_uint (MainSettings,
+                                                           "tag-number-length"),
                                 track_number);
     }
     else
     {
-        return g_strdup_printf ("%d", track_number);
+        return g_strdup_printf ("%u", track_number);
     }
 }

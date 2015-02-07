@@ -320,7 +320,7 @@ et_application_local_command_line (GApplication *application,
     n_args = g_strv_length (argv);
     *exit_status = 0;
 
-    g_debug ("Received %d commandline arguments", n_args);
+    g_debug ("Received %u commandline arguments", n_args);
 
     if (n_args <= 1)
     {
