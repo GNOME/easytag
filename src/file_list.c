@@ -574,7 +574,7 @@ et_artist_album_list_add_file (GList *file_list,
     GList *result;
     ET_File *etfile = NULL;
 
-    g_return_if_fail (ETFile != NULL);
+    g_return_val_if_fail (ETFile != NULL, NULL);
 
     /* Album value of the ETFile passed in parameter. */
     ETFile_Album = ((File_Tag *)ETFile->FileTag->data)->album;
