@@ -225,6 +225,8 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
                         g_string_free (to_write, TRUE);
                         g_free (mask);
                         g_free (filename_generated_utf8);
+
+                        break;
                     }
                     default:
                         g_assert_not_reached ();
