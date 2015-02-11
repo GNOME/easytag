@@ -898,9 +898,11 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		{
 			// For gnudb
 			// New version of gnudb doesn't use a cddb request, but a http request
+            /* HTTP/1.0 to avoid the server returning chunked results.
+             * https://bugzilla.gnome.org/show_bug.cgi?id=743812 */
 		    cddb_in = g_strdup_printf("GET %s%s/gnudb/"
 		                              "%s/%s"
-		                              " HTTP/1.1\r\n"
+		                              " HTTP/1.0\r\n"
 		                              "Host: %s:%u\r\n"
 		                              "User-Agent: %s %s\r\n"
 		                              "%s"
@@ -918,10 +920,12 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 		    // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
 		    // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
 		    // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
+            /* HTTP/1.0 to avoid the server returning chunked results.
+             * https://bugzilla.gnome.org/show_bug.cgi?id=743812 */
 		    cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
 		                              "%s+%s"
 		                              "&hello=noname+localhost+%s+%s"
-		                              "&proto=6 HTTP/1.1\r\n"
+		                              "&proto=6 HTTP/1.0\r\n"
 		                              "Host: %s:%u\r\n"
 		                              "%s"
 		                              "Connection: close\r\n\r\n",
