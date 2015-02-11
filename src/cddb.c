@@ -3562,7 +3562,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             // New version of gnudb doesn't use a cddb request, but a http request
             cddb_in = g_strdup_printf("GET %s%s/gnudb/"
                                       "%s/%s"
-                                      " HTTP/1.1\r\n"
+                                      " HTTP/1.0\r\n"
                                       "Host: %s:%d\r\n"
                                       "User-Agent: %s %s\r\n"
                                       "%s"
@@ -3582,7 +3582,7 @@ Cddb_Get_Album_Tracks_List (GtkTreeSelection* selection)
             cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
                                       "%s+%s"
                                       "&hello=noname+localhost+%s+%s"
-                                      "&proto=6 HTTP/1.1\r\n"
+                                      "&proto=6 HTTP/1.0\r\n"
                                       "Host: %s:%d\r\n"
                                       "%s"
                                       "Connection: close\r\n\r\n",
