@@ -485,7 +485,8 @@ id3tag_read_file_tag (GFile *gfile,
         update |= libid3tag_Get_Frame_Str (frame, EASYTAG_ID3_FIELD_STRING,
                                            &description);
 
-        pic = et_picture_new (type, description, 0, 0, bytes);
+        pic = et_picture_new (type, description ? description : "", 0, 0,
+                              bytes);
         g_bytes_unref (bytes);
         g_free (description);
 
