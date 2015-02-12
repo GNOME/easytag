@@ -161,6 +161,9 @@ easytag_LDADD = \
 	$(ID3LIB_LIBS) \
 	$(easytag_rc)
 
+easytag_LDFLAGS = \
+	$(WARN_LDFLAGS)
+
 noinst_resource_files = \
 	$(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(srcdir)/data $(srcdir)/data/org.gnome.EasyTAG.gresource.xml)
 
@@ -177,7 +180,7 @@ easytag_rc.$(OBJEXT): src/win32/easytag.rc src/win32/easytag.manifest data/icons
 
 easytag_rc = easytag_rc.$(OBJEXT)
 
-easytag_LDFLAGS = \
+easytag_LDFLAGS += \
 	-Wl,--subsystem,windows
 
 easytag-$(PACKAGE_VERSION)-setup.exe: easytag-win32-installer.nsi easytag.exe Makefile
@@ -254,7 +257,8 @@ libnautilus_easytag_la_CFLAGS = \
 	$(WARN_CFLAGS)
 
 libnautilus_easytag_la_LDFLAGS = \
-	-module -avoid-version -no-undefined
+	-module -avoid-version -no-undefined \
+	$(WARN_LDFLAGS)
 
 libnautilus_easytag_la_LIBADD = \
 	$(NAUTILUS_LIBS)
