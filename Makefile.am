@@ -25,7 +25,6 @@ easytag_CPPFLAGS = \
 	-I$(top_srcdir)/src/tags \
 	-I$(top_builddir) \
 	-I$(top_builddir)/src \
-	$(DEPRECATED_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\"
 
 easytag_CFLAGS = \
@@ -438,8 +437,7 @@ check_PROGRAMS = \
 
 tests_test_dlm_CPPFLAGS = \
 	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	-I$(top_builddir)
 
 tests_test_dlm_CFLAGS = \
 	$(WARN_CFLAGS) \
@@ -454,8 +452,7 @@ tests_test_dlm_LDADD = \
 
 tests_test_file_description_CPPFLAGS = \
 	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	-I$(top_builddir)
 
 tests_test_file_description_CFLAGS = \
 	$(WARN_CFLAGS) \
@@ -471,8 +468,7 @@ tests_test_file_description_LDADD = \
 tests_test_misc_CPPFLAGS = \
 	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/tags \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	-I$(top_builddir)
 
 tests_test_misc_CFLAGS = \
 	$(WARN_CFLAGS) \
@@ -487,8 +483,7 @@ tests_test_misc_LDADD = \
 
 tests_test_picture_CPPFLAGS = \
 	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	-I$(top_builddir)
 
 tests_test_picture_CFLAGS = \
 	$(WARN_CFLAGS) \
@@ -503,8 +498,7 @@ tests_test_picture_LDADD = \
 
 tests_test_scan_CPPFLAGS = \
 	-I$(top_srcdir)/src \
-	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS)
+	-I$(top_builddir)
 
 tests_test_scan_CFLAGS = \
 	$(WARN_CFLAGS) \
