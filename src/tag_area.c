@@ -1769,6 +1769,7 @@ on_picture_properties_button_clicked (GObject *object,
         }
 
         gtk_widget_destroy (PictureTypesWindow);
+        et_picture_free (pic);
     }
 
     g_list_free_full (selection_list, (GDestroyNotify)gtk_tree_path_free);
