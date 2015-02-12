@@ -377,7 +377,6 @@ echo
 echo Source code location ....: $srcdir
 echo Host System Type ........: $host
 echo Preprocessor ............: $CC $CPPFLAGS
-echo Deprecation defines .....: $DEPRECATED_CPPFLAGS
 echo Compiler ................: $CC $CFLAGS
 echo Compiler warnings .......: $WARN_CFLAGS
 echo C++ Compiler warnings ...: $WARN_CXXFLAGS
