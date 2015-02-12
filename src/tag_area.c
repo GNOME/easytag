@@ -1763,7 +1763,8 @@ on_picture_properties_button_clicked (GObject *object,
                 pic_info = et_picture_format_info (pic,
                                                    ETCore->ETFileDisplayed->ETFileDescription->TagType);
                 gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                    PICTURE_COLUMN_TEXT, pic_info, -1);
+                                    PICTURE_COLUMN_TEXT, pic_info,
+                                    PICTURE_COLUMN_DATA, pic, -1);
                 g_free (pic_info);
             }
         }
