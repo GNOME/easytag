@@ -154,7 +154,7 @@ static void
 on_open_with_easytag (NautilusMenuItem *item,
                       gpointer data)
 {
-    GList *files, *scan;
+    GList *files;
     GDesktopAppInfo *appinfo;
 
     files = g_object_get_data (G_OBJECT (item), "files");

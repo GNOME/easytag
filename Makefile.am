@@ -247,9 +247,11 @@ libnautilus_easytag_la_SOURCES = \
 libnautilus_easytag_la_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
-	$(DEPRECATED_CPPFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(NAUTILUS_CFLAGS)
+
+libnautilus_easytag_la_CFLAGS = \
+	$(WARN_CFLAGS)
 
 libnautilus_easytag_la_LDFLAGS = \
 	-module -avoid-version -no-undefined
