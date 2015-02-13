@@ -1190,7 +1190,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
     {
         // Delete the ID3 tags (create a dummy ETFile for the Id3tag_... function)
         ET_File   *ETFile_tmp    = ET_File_Item_New();
-        File_Name *FileName_tmp  = ET_File_Name_Item_New();
+        File_Name *FileName_tmp = et_file_name_new ();
         File_Tag  *FileTag_tmp = et_file_tag_new ();
         // Same file...
         FileName_tmp->value      = g_strdup(filename);

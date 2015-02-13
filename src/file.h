@@ -26,19 +26,8 @@ G_BEGIN_DECLS
 #include "core_types.h"
 #include "file_description.h"
 #include "file_info.h"
+#include "file_name.h"
 #include "file_tag.h"
-
-/*
- * Description of each item of the FileNameList list
- */
-typedef struct
-{
-    guint key;
-    gboolean saved;        /* Set to TRUE if this filename had been saved */
-    gchar *value;          /* The filename containing the full path and the extension of the file */
-    gchar *value_utf8;     /* Same than "value", but converted to UTF-8 to avoid multiple call to the convertion function */
-    gchar *value_ck;       /* Collate key of "value_utf8" to speed up comparaison */
-} File_Name;
 
 /*
  * Description of each item of the ETFileList list
@@ -76,10 +65,7 @@ typedef struct
 gboolean ET_Check_If_File_Is_Saved (const ET_File *ETFile);
 
 ET_File * ET_File_Item_New (void);
-File_Name * ET_File_Name_Item_New (void);
 void ET_Free_File_List_Item (ET_File *ETFile);
-
-gboolean ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
 
 void ET_Display_File_Data_To_UI (ET_File *ETFile);
 void ET_Save_File_Data_From_UI (ET_File *ETFile);

@@ -2447,8 +2447,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
 
-                // Allocation of a new FileName
-                FileName = ET_File_Name_Item_New();
+                /* Allocation of a new FileName. */
+                FileName = et_file_name_new ();
 
                 /* Build the filename with the path. */
                 track_number = et_track_number_to_string (cddbtrackalbum->track_number);
@@ -2578,8 +2578,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 gchar *filename_generated_utf8;
                 gchar *filename_new_utf8;
 
-                // Allocation of a new FileName
-                FileName = ET_File_Name_Item_New();
+                /* Allocation of a new FileName. */
+                FileName = et_file_name_new ();
 
                 /* Build the filename with the path. */
                 track_number = et_track_number_to_string (cddbtrackalbum->track_number);

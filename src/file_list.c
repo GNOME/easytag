@@ -224,7 +224,7 @@ et_file_list_add (GList *file_list,
     ETFileExtension = g_strdup(ET_Get_File_Extension(filename));
 
     /* Fill the File_Name structure for FileNameList */
-    FileName = ET_File_Name_Item_New();
+    FileName = et_file_name_new ();
     FileName->saved      = TRUE;    /* The file hasn't been changed, so it's saved */
     FileName->value      = filename;
     FileName->value_utf8 = filename_utf8;
@@ -446,7 +446,7 @@ et_file_list_add (GList *file_list,
      */
     undo_key = ET_Undo_Key_New();
 
-    FileName = ET_File_Name_Item_New();
+    FileName = et_file_name_new ();
     FileName->key = undo_key;
     ET_Save_File_Name_Internal(ETFile,FileName);
 

@@ -828,8 +828,8 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
     g_free(filename_generated_utf8);
 
     /* Set the new filename */
-    // Create a new 'File_Name' item
-    FileName = ET_File_Name_Item_New();
+    /* Create a new 'File_Name' item. */
+    FileName = et_file_name_new ();
     // Save changes of the 'File_Name' item
     ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
@@ -1334,7 +1334,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
             filename_utf8 = st_filename->value_utf8;
 
             if (!FileName)
-                FileName = ET_File_Name_Item_New();
+                FileName = et_file_name_new ();
 
             string = g_path_get_basename(filename_utf8);
             // Remove the extension to set it to lower case (to avoid problem with undo)

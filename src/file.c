@@ -70,9 +70,6 @@
 
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
 static gboolean ET_Free_File_Tag_List (GList *FileTagList);
-static void ET_Free_File_Name_Item (File_Name *FileName);
-
-static void ET_Initialize_File_Name_Item (File_Name *FileName);
 
 static void ET_Display_Filename_To_UI (const ET_File *ETFile);
 static EtFileHeaderFields * ET_Display_File_Info_To_UI (const ET_File *ETFile);
@@ -82,26 +79,11 @@ static gboolean ET_Save_File_Name_From_UI (const ET_File *ETFile,
 
 static void ET_Mark_File_Tag_As_Saved (ET_File *ETFile);
 
-static gboolean ET_Detect_Changes_Of_File_Name (const File_Name *FileName1,
-                                                const File_Name *FileName2);
 static gboolean ET_Add_File_Name_To_List (ET_File *ETFile,
                                           File_Name *FileName);
 static gboolean ET_Add_File_Tag_To_List (ET_File *ETFile, File_Tag  *FileTag);
 
-static gchar *ET_File_Name_Format_Extension (const ET_File *ETFile);
-
-/*
- * Create a new File_Name structure
- */
-File_Name *ET_File_Name_Item_New (void)
-{
-    File_Name *FileName;
-
-    FileName = g_slice_new (File_Name);
-    ET_Initialize_File_Name_Item (FileName);
-
-    return FileName;
-}
+static gchar *ET_File_Format_File_Extension (const ET_File *ETFile);
 
 /*
  * Create a new ET_File structure
@@ -116,19 +98,6 @@ ET_File_Item_New (void)
     return ETFile;
 }
 
-
-static void
-ET_Initialize_File_Name_Item (File_Name *FileName)
-{
-    if (FileName)
-    {
-        FileName->key        = ET_Undo_Key_New();
-        FileName->saved      = FALSE;
-        FileName->value      = NULL;
-        FileName->value_utf8 = NULL;
-        FileName->value_ck   = NULL;
-    }
-}
 
 /* Key for Undo */
 guint
@@ -1059,26 +1028,10 @@ ET_Free_File_Name_List (GList *FileNameList)
 
     FileNameList = g_list_first (FileNameList);
 
-    g_list_free_full (FileNameList, (GDestroyNotify)ET_Free_File_Name_Item);
+    g_list_free_full (FileNameList, (GDestroyNotify)et_file_name_free);
 
     return TRUE;
 }
-
-
-/*
- * Frees a File_Name item.
- */
-static void
-ET_Free_File_Name_Item (File_Name *FileName)
-{
-    g_return_if_fail (FileName != NULL);
-
-    g_free(FileName->value);
-    g_free(FileName->value_utf8);
-    g_free(FileName->value_ck);
-    g_slice_free (File_Name, FileName);
-}
-
 
 /*
  * Frees the full list: GList *TagList.
@@ -1109,41 +1062,6 @@ ET_Free_File_Tag_List (GList *FileTagList)
 /*********************
  * Copying functions *
  *********************/
-
-/*
- * Fill content of a FileName item according to the filename passed in argument (UTF-8 filename or not)
- * Calculate also the collate key.
- * It treats numbers intelligently so that "file1" "file10" "file5" is sorted as "file1" "file5" "file10"
- */
-gboolean
-ET_Set_Filename_File_Name_Item (File_Name *FileName,
-                                const gchar *filename_utf8,
-                                const gchar *filename)
-{
-    g_return_val_if_fail (FileName != NULL, FALSE);
-
-    if (filename_utf8 && filename)
-    {
-        FileName->value_utf8 = g_strdup(filename_utf8);
-        FileName->value      = g_strdup(filename);
-        FileName->value_ck   = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
-    }else if (filename_utf8)
-    {
-        FileName->value_utf8 = g_strdup(filename_utf8);
-        FileName->value      = filename_from_display(filename_utf8);
-        FileName->value_ck   = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
-    }else if (filename)
-    {
-        FileName->value_utf8 = filename_to_display(filename);;
-        FileName->value      = g_strdup(filename);
-        FileName->value_ck   = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
-    }else
-    {
-        return FALSE;
-    }
-
-    return TRUE;
-}
 
 /************************
  * Displaying functions *
@@ -1372,7 +1290,6 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
     const ET_File_Description *description;
     File_Name *FileName;
     File_Tag  *FileTag;
-    guint      undo_key;
     const gchar *cur_filename_utf8;
 
     g_return_if_fail (ETFile != NULL && ETFile->FileNameCur != NULL
@@ -1380,15 +1297,10 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
 
     cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
     description = ETFile->ETFileDescription;
-    undo_key = ET_Undo_Key_New();
 
 
-    /*
-     * Save filename and generate undo for filename
-     */
-    FileName = g_slice_new (File_Name);
-    ET_Initialize_File_Name_Item (FileName);
-    FileName->key = undo_key;
+    /* Save filename and generate undo for filename. */
+    FileName = et_file_name_new ();
     ET_Save_File_Name_From_UI(ETFile,FileName); // Used for all files!
 
     switch (description->TagType)
@@ -1481,8 +1393,8 @@ ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
     // Get the current path to the file
     dirname = g_path_get_dirname( ((File_Name *)ETFile->FileNameNew->data)->value );
 
-    // Convert filename extension (lower or upper)
-    extension = ET_File_Name_Format_Extension(ETFile);
+    /* Convert filename extension (lower or upper). */
+    extension = ET_File_Format_File_Extension (ETFile);
 
     // Check length of filename (limit ~255 characters)
     //ET_File_Name_Check_Length(ETFile,filename);
@@ -1554,8 +1466,8 @@ ET_Save_File_Name_Internal (const ET_File *ETFile,
     if ((pos=strrchr(filename, '.'))!=NULL)
         *pos = 0;
 
-    // Convert filename extension (lower/upper)
-    extension = ET_File_Name_Format_Extension(ETFile);
+    /* Convert filename extension (lower/upper). */
+    extension = ET_File_Format_File_Extension (ETFile);
 
     // Check length of filename
     //ET_File_Name_Check_Length(ETFile,filename);
@@ -1941,13 +1853,15 @@ ET_Manage_Changes_Of_File_Data (ET_File *ETFile,
      */
     if (FileName)
     {
-        if ( ETFile->FileNameNew && ET_Detect_Changes_Of_File_Name( (File_Name *)(ETFile->FileNameNew)->data,FileName )==TRUE )
+        if (ETFile->FileNameNew
+            && et_file_name_detect_difference ((File_Name *)(ETFile->FileNameNew)->data,
+                                               FileName) == TRUE)
         {
             ET_Add_File_Name_To_List(ETFile,FileName);
             undo_added |= TRUE;
         }else
         {
-            ET_Free_File_Name_Item(FileName);
+            et_file_name_free (FileName);
         }
     }
 
@@ -1980,43 +1894,6 @@ ET_Manage_Changes_Of_File_Data (ET_File *ETFile,
 
     //return TRUE;
     return undo_added;
-}
-
-/*
- * Compares two File_Name items :
- *  - returns TRUE if there aren't the same
- *  - else returns FALSE
- */
-static gboolean
-ET_Detect_Changes_Of_File_Name (const File_Name *FileName1,
-                                const File_Name *FileName2)
-{
-    const gchar *filename1_ck;
-    const gchar *filename2_ck;
-
-    if (!FileName1 && !FileName2) return FALSE;
-    if (FileName1 && !FileName2) return TRUE;
-    if (!FileName1 && FileName2) return TRUE;
-
-    /* Both FileName1 and FileName2 are != NULL. */
-    if (!FileName1->value && !FileName2->value) return FALSE;
-    if (FileName1->value && !FileName2->value) return TRUE;
-    if (!FileName1->value && FileName2->value) return TRUE;
-
-    /* Compare collate keys (with FileName->value converted to UTF-8 as it
-     * contains raw data). */
-    filename1_ck = FileName1->value_ck;
-    filename2_ck = FileName2->value_ck;
-
-    /* Filename changed ? (we check path + file). */
-    if (strcmp (filename1_ck, filename2_ck) != 0)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
 }
 
 /*
@@ -2292,8 +2169,8 @@ ET_File_Name_Generate (const ET_File *ETFile,
         gchar *extension;
         gchar *new_file_name_path_utf8;
 
-        // Convert filename extension (lower/upper)
-        extension = ET_File_Name_Format_Extension(ETFile);
+        /* Convert filename extension (lower/upper). */
+        extension = ET_File_Format_File_Extension (ETFile);
 
         // Check length of filename (limit ~255 characters)
         //ET_File_Name_Check_Length(ETFile,new_file_name_utf8);
@@ -2336,8 +2213,8 @@ gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
 
         new_file_name = filename_from_display(new_file_name_utf8);
 
-        // Convert filename extension (lower/upper)
-        extension = ET_File_Name_Format_Extension(ETFile);
+        /* Convert filename extension (lower/upper). */
+        extension = ET_File_Format_File_Extension (ETFile);
 
         // Check length of filename (limit ~255 characters)
         //ET_File_Name_Check_Length(ETFile,new_file_name_utf8);
@@ -2370,7 +2247,7 @@ gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
 
 /* Convert filename extension (lower/upper/no change). */
 static gchar *
-ET_File_Name_Format_Extension (const ET_File *ETFile)
+ET_File_Format_File_Extension (const ET_File *ETFile)
 {
     EtFilenameExtensionMode mode;
 
