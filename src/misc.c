@@ -373,3 +373,57 @@ et_track_number_to_string (const guint track_number)
         return g_strdup_printf ("%u", track_number);
     }
 }
+
+/*
+ * et_filename_prepare:
+ * @filename_utf8: UTF8-encoded basename
+ * @replace_illegal: whether to replace illegal characters in the file name
+ *
+ * Used to replace (in place) the illegal characters in the filename.
+ */
+void
+et_filename_prepare (gchar *filename_utf8,
+                     gboolean replace_illegal)
+{
+    gchar *character;
+
+    g_return_if_fail (filename_utf8 != NULL);
+
+    // Convert automatically the directory separator ('/' on LINUX and '\' on WIN32) to '-'.
+    while ( (character=g_utf8_strchr(filename_utf8, -1, G_DIR_SEPARATOR))!=NULL )
+        *character = '-';
+
+#ifdef G_OS_WIN32
+    /* Convert character '\' on WIN32 to '-'. */
+    while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
+        *character = '-';
+    /* Convert character '/' on WIN32 to '-'. May be converted to '\' after. */
+    while ( (character=g_utf8_strchr(filename_utf8, -1, '/'))!=NULL )
+        *character = '-';
+#endif /* G_OS_WIN32 */
+
+    /* Convert other illegal characters on FAT32/16 filesystems and ISO9660 and
+     * Joliet (CD-ROM filesystems). */
+    if (replace_illegal)
+    {
+        // Commented as we display unicode values as "\351" for "é"
+        //while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
+        //    *character = ',';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, ':'))!=NULL )
+            *character = '-';
+        //while ( (character=g_utf8_strchr(filename_utf8, -1, ';'))!=NULL )
+        //    *character = '-';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '*'))!=NULL )
+            *character = '+';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '?'))!=NULL )
+            *character = '_';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '\"'))!=NULL )
+            *character = '\'';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '<'))!=NULL )
+            *character = '(';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '>'))!=NULL )
+            *character = ')';
+        while ( (character=g_utf8_strchr(filename_utf8, -1, '|'))!=NULL )
+            *character = '-';
+    }
+}

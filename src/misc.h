@@ -37,6 +37,8 @@ gboolean et_run_program (const gchar *program_name, GList *args_list, GError **e
 gchar * et_disc_number_to_string (const guint disc_number);
 gchar * et_track_number_to_string (const guint track_number);
 
+void et_filename_prepare (gchar *filename_utf8, gboolean replace_illegal);
+
 G_END_DECLS
 
 #endif /* ET_MISC_H_ */

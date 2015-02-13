@@ -930,7 +930,9 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
             {
                 EtConvertSpaces convert_mode;
 
-                ET_File_Name_Convert_Character (mask_item->string);
+                et_filename_prepare (mask_item->string,
+                                     g_settings_get_boolean (MainSettings,
+                                                             "rename-replace-illegal-chars"));
                 convert_mode = g_settings_get_enum (MainSettings,
                                                     "rename-convert-spaces");
 

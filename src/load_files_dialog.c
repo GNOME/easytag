@@ -120,7 +120,9 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
             gchar *filename_new_utf8;
 
             list_text_tmp = g_strdup(list_text);
-            ET_File_Name_Convert_Character(list_text_tmp); // Replace invalid characters
+            et_filename_prepare (list_text_tmp,
+                                 g_settings_get_boolean (MainSettings,
+                                                         "rename-replace-illegal-chars"));
 
             /* Build the filename with the path */
             filename_new_utf8 = ET_File_Name_Generate(ETFile,list_text_tmp);

@@ -82,7 +82,6 @@ gboolean ET_File_Data_Has_Redo_Data (const ET_File *ETFile);
 
 gboolean ET_Manage_Changes_Of_File_Data (ET_File *ETFile, File_Name *FileName, File_Tag *FileTag);
 void ET_Mark_File_Name_As_Saved (ET_File *ETFile);
-gboolean ET_File_Name_Convert_Character (gchar *filename_utf8);
 gchar *ET_File_Name_Generate (const ET_File *ETFile, const gchar *new_file_name);
 
 gint ET_Comp_Func_Sort_File_By_Ascending_Filename (const ET_File *ETFile1, const ET_File *ETFile2);

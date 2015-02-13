@@ -1424,8 +1424,10 @@ ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
         return FALSE;
     }
 
-    // Convert the illegal characters
-    ET_File_Name_Convert_Character(filename_new); // FIX ME : should be in UTF8?
+    /* Convert the illegal characters. FIXME should be in UTF8? */
+    et_filename_prepare (filename_new,
+                         g_settings_get_boolean (MainSettings,
+                                                 "rename-replace-illegal-chars"));
 
     /* Set the new filename (in file system encoding). */
     FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
@@ -1480,8 +1482,10 @@ ET_Save_File_Name_Internal (const ET_File *ETFile,
     // Check if new filename seems to be correct
     if (filename_new)
     {
-        // Convert the illegal characters
-        ET_File_Name_Convert_Character(filename_new);
+        /* Convert the illegal characters. */
+        et_filename_prepare (filename_new,
+                             g_settings_get_boolean (MainSettings,
+                                                     "rename-replace-illegal-chars"));
 
         /* Set the new filename (in file system encoding). */
         FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
@@ -2264,55 +2268,4 @@ ET_File_Format_File_Extension (const ET_File *ETFile)
         default:
             return g_strdup (ETFile->ETFileExtension);
     };
-}
-
-
-/*
- * Used to replace the illegal characters in the filename
- * Paremeter 'filename' musn't contain the path, else directories separators would be replaced!
- */
-gboolean ET_File_Name_Convert_Character (gchar *filename_utf8)
-{
-    gchar *character;
-
-    g_return_val_if_fail (filename_utf8 != NULL, FALSE);
-
-    // Convert automatically the directory separator ('/' on LINUX and '\' on WIN32) to '-'.
-    while ( (character=g_utf8_strchr(filename_utf8, -1, G_DIR_SEPARATOR))!=NULL )
-        *character = '-';
-
-#ifdef G_OS_WIN32
-    /* Convert character '\' on WIN32 to '-'. */
-    while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
-        *character = '-';
-    /* Convert character '/' on WIN32 to '-'. May be converted to '\' after. */
-    while ( (character=g_utf8_strchr(filename_utf8, -1, '/'))!=NULL )
-        *character = '-';
-#endif /* G_OS_WIN32 */
-
-    /* Convert other illegal characters on FAT32/16 filesystems and ISO9660 and
-     * Joliet (CD-ROM filesystems). */
-    if (g_settings_get_boolean (MainSettings, "rename-replace-illegal-chars"))
-    {
-        // Commented as we display unicode values as "\351" for "é"
-        //while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
-        //    *character = ',';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, ':'))!=NULL )
-            *character = '-';
-        //while ( (character=g_utf8_strchr(filename_utf8, -1, ';'))!=NULL )
-        //    *character = '-';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '*'))!=NULL )
-            *character = '+';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '?'))!=NULL )
-            *character = '_';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '\"'))!=NULL )
-            *character = '\'';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '<'))!=NULL )
-            *character = '(';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '>'))!=NULL )
-            *character = ')';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '|'))!=NULL )
-            *character = '-';
-    }
-    return TRUE;
 }

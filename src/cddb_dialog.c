@@ -2456,7 +2456,9 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 filename_generated_utf8 = g_strconcat (track_number, " - ",
                                                        cddbtrackalbum->track_name,
                                                        NULL);
-                ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
+                et_filename_prepare (filename_generated_utf8,
+                                     g_settings_get_boolean (MainSettings,
+                                                             "rename-replace-illegal-chars"));
                 filename_new_utf8 = ET_File_Name_Generate (etfile,
                                                            filename_generated_utf8);
 
@@ -2587,7 +2589,9 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 filename_generated_utf8 = g_strconcat (track_number, " - ",
                                                        cddbtrackalbum->track_name,
                                                        NULL);
-                ET_File_Name_Convert_Character(filename_generated_utf8); // Replace invalid characters
+                et_filename_prepare (filename_generated_utf8,
+                                     g_settings_get_boolean (MainSettings,
+                                                             "rename-replace-illegal-chars"));
                 filename_new_utf8 = ET_File_Name_Generate(etfile,filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
