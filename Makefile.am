@@ -435,6 +435,7 @@ test-report perf-report full-report: $(check_PROGRAMS)
 check_PROGRAMS = \
 	tests/test-dlm \
 	tests/test-file_description \
+	tests/test-file_info \
 	tests/test-misc \
 	tests/test-picture \
 	tests/test-scan
@@ -467,6 +468,21 @@ tests_test_file_description_SOURCES = \
 	src/file_description.c
 
 tests_test_file_description_LDADD = \
+	$(EASYTAG_LIBS)
+
+tests_test_file_info_CPPFLAGS = \
+	-I$(top_srcdir)/src \
+	-I$(top_builddir)
+
+tests_test_file_info_CFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
+tests_test_file_info_SOURCES = \
+	tests/test-file_info.c \
+	src/file_info.c
+
+tests_test_file_info_LDADD = \
 	$(EASYTAG_LIBS)
 
 tests_test_misc_CPPFLAGS = \
