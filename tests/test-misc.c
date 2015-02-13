@@ -51,12 +51,59 @@ misc_convert_duration (void)
     }
 }
 
+static void
+misc_filename_prepare (void)
+{
+    gsize i;
+
+    static const struct
+    {
+        const gchar *filename;
+        const gchar *result_replace;
+        const gchar *result;
+    } filenames[] =
+    {
+        { "foo:bar", "foo-bar", "foo:bar" },
+        { "foo" G_DIR_SEPARATOR_S "bar", "foo-bar", "foo-bar" },
+        { "foo*bar", "foo+bar", "foo*bar" },
+        { "foo?bar", "foo_bar", "foo?bar" },
+        { "foo\"bar", "foo\'bar", "foo\"bar" },
+        { "foo<bar", "foo(bar", "foo<bar" },
+        { "foo>bar", "foo)bar", "foo>bar" },
+        { "foo|bar", "foo-bar", "foo|bar" },
+        { "foo|bar*baz", "foo-bar+baz", "foo|bar*baz" }
+        /* TODO: Add more tests. */
+    };
+
+    for (i = 0; i < G_N_ELEMENTS (filenames); i++)
+    {
+        gchar *filename;
+
+        filename = g_strdup (filenames[i].filename);
+
+        /* Replace illegal characters. */
+        et_filename_prepare (filename, TRUE);
+        g_assert_cmpstr (filename, ==, filenames[i].result_replace);
+
+        g_free (filename);
+
+        filename = g_strdup (filenames[i].filename);
+
+        /* Leave illegal characters unchanged. */
+        et_filename_prepare (filename, FALSE);
+        g_assert_cmpstr (filename, ==, filenames[i].result);
+
+        g_free (filename);
+    }
+}
+
 int
 main (int argc, char** argv)
 {
     g_test_init (&argc, &argv, NULL);
 
     g_test_add_func ("/misc/convert-duration", misc_convert_duration);
+    g_test_add_func ("/misc/filename-prepare", misc_filename_prepare);
 
     return g_test_run ();
 }
