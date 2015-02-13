@@ -1130,15 +1130,6 @@ ET_Displayed_File_List_By_Etfile (const ET_File *ETFile)
 }
 
 /*
- * Just returns the current item of the "main list"
- */
-/*GList *ET_Displayed_File_List_Current (void)
-{
-    return ETCore->ETFileDisplayedList;
-    //return ETCore->ETFileDisplayedListPtr;
-}*/
-
-/*
  * Load the list of displayed files (calculate length, size, ...)
  * It contains part (filtrated : view by artists and albums) or full ETCore->ETFileList list
  */

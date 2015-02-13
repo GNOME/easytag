@@ -46,7 +46,6 @@ typedef struct
 
     // Displayed list (part of the main list of files displayed in BrowserList) (used when displaying by Artist & Album) 
     GList *ETFileDisplayedList;                 // List of files displayed (List of ET_File from ETFileList / ATArtistAlbumFileList) | !! May not point to the first item!!
-    GList *ETFileDisplayedListPtr;              // Pointer to the current item of ETFileDisplayedList used with ET_Displayed_File_List_First, ET_Displayed_File_List_Previous
     guint  ETFileDisplayedList_Length;          // Contains the length of the displayed list
     gfloat ETFileDisplayedList_TotalSize;       // Total of the size of files in displayed list (in bytes)
     gulong ETFileDisplayedList_TotalDuration;   // Total of duration of files in displayed list (in seconds)
