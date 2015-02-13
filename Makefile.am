@@ -51,6 +51,7 @@ easytag_SOURCES = \
 	src/file.c \
 	src/file_area.c \
 	src/file_description.c \
+	src/file_info.c \
 	src/file_list.c \
 	src/file_tag.c \
 	src/load_files_dialog.c \
@@ -110,6 +111,7 @@ easytag_headers = \
 	src/file.h \
 	src/file_area.h \
 	src/file_description.h \
+	src/file_info.h \
 	src/file_list.h \
 	src/file_tag.h \
 	src/genres.h \

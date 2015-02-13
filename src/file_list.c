@@ -334,7 +334,7 @@ et_file_list_add (GList *file_list,
     }
 
     /* Fill the ET_File_Info structure */
-    ETFileInfo = ET_File_Info_Item_New ();
+    ETFileInfo = et_file_info_new ();
 
     switch (description->FileType)
     {

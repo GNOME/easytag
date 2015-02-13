@@ -25,6 +25,7 @@ G_BEGIN_DECLS
 
 #include "core_types.h"
 #include "file_description.h"
+#include "file_info.h"
 #include "file_tag.h"
 
 /*
@@ -75,7 +76,6 @@ typedef struct
 gboolean ET_Check_If_File_Is_Saved (const ET_File *ETFile);
 
 ET_File * ET_File_Item_New (void);
-ET_File_Info * ET_File_Info_Item_New (void);
 File_Name * ET_File_Name_Item_New (void);
 void ET_Free_File_List_Item (ET_File *ETFile);
 

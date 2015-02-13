@@ -71,7 +71,6 @@
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
 static gboolean ET_Free_File_Tag_List (GList *FileTagList);
 static void ET_Free_File_Name_Item (File_Name *FileName);
-static gboolean ET_Free_File_Info_Item (ET_File_Info *ETFileInfo);
 
 static void ET_Initialize_File_Name_Item (File_Name *FileName);
 
@@ -102,19 +101,6 @@ File_Name *ET_File_Name_Item_New (void)
     ET_Initialize_File_Name_Item (FileName);
 
     return FileName;
-}
-
-/*
- * Create a new File_Info structure
- */
-ET_File_Info *
-ET_File_Info_Item_New (void)
-{
-    ET_File_Info *ETFileInfo;
-
-    ETFileInfo = g_slice_new0 (ET_File_Info);
-
-    return ETFileInfo;
 }
 
 /*
@@ -1054,7 +1040,7 @@ ET_Free_File_List_Item (ET_File *ETFile)
         /* Frees infos of ETFileInfo */
         if (ETFile->ETFileInfo)
         {
-            ET_Free_File_Info_Item (ETFile->ETFileInfo);
+            et_file_info_free (ETFile->ETFileInfo);
         }
 
         g_free(ETFile->ETFileExtension);
@@ -1116,22 +1102,6 @@ ET_Free_File_Tag_List (GList *FileTagList)
 
     g_list_free (FileTagList);
 
-    return TRUE;
-}
-
-
-/*
- * Frees a File_Info item.
- */
-static gboolean
-ET_Free_File_Info_Item (ET_File_Info *ETFileInfo)
-{
-    g_return_val_if_fail (ETFileInfo != NULL, FALSE);
-
-    g_free(ETFileInfo->mpc_profile);
-    g_free(ETFileInfo->mpc_version);
-
-    g_slice_free (ET_File_Info, ETFileInfo);
     return TRUE;
 }
 

@@ -71,25 +71,6 @@ typedef enum
 } ET_Tag_Type;
 
 /*
- * Structure containing informations of the header of file
- * Nota: This struct was copied from an "MP3 structure", and will change later.
- */
-typedef struct
-{
-    gint version;               /* Version of bitstream (mpeg version for mp3, encoder version for ogg) */
-    gint mpeg25;                /* Version is MPEG 2.5? */
-    gsize layer; /* "MP3 data" */
-    gint bitrate;               /* Bitrate (kb/s) */
-    gboolean variable_bitrate;  /* Is a VBR file? */
-    gint samplerate;            /* Samplerate (Hz) */
-    gint mode;                  /* Stereo, ... or channels for ogg */
-    goffset size;               /* The size of file (in bytes) */
-    gint duration;              /* The duration of file (in seconds) */
-    gchar *mpc_profile;         /* MPC data */
-    gchar *mpc_version;         /* MPC data : encoder version  (also for Speex) */
-} ET_File_Info;
-
-/*
  * EtFileHeaderFields:
  * @description: a description of the file type, such as MP3 File
  * @version_label: the label for the encoder version, such as MPEG
