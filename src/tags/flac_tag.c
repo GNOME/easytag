@@ -695,9 +695,7 @@ flac_tag_read_file_tag (GFile *file,
       && FileTag->encoded_by  == NULL
       && FileTag->picture     == NULL)
     {
-        gboolean rc;
-
-        rc = id3tag_read_file_tag (file, FileTag, NULL);
+        id3tag_read_file_tag (file, FileTag, NULL);
 
         // If an ID3 tag has been found (and no FLAC tag), we mark the file as
         // unsaved to rewrite a flac tag.
@@ -721,8 +719,6 @@ flac_tag_read_file_tag (GFile *file,
         {
             FileTag->saved = FALSE;
         }
-
-        return rc;
     }
 #endif
 
