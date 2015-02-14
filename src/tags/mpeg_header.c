@@ -24,6 +24,7 @@
 #include <glib/gi18n.h>
 #include <errno.h>
 
+#include "id3_tag.h"
 #include "mpeg_header.h"
 #include "misc.h"
 
@@ -79,6 +80,12 @@ et_mpeg_header_read_file_info (GFile *file,
 
     g_return_val_if_fail (file != NULL || ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    /* Check if the file is corrupt. */
+    if (!et_id3tag_check_if_file_is_valid (file, error))
+    {
+        return FALSE;
+    }
 
     /* Get size of file */
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,

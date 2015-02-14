@@ -67,9 +67,6 @@ ID3_C_EXPORT size_t ID3Tag_Link_1         (ID3Tag *id3tag, const char *filename)
 ID3_C_EXPORT size_t ID3Field_GetASCII_1   (const ID3Field *field, char *buffer,      size_t maxChars, size_t itemNum);
 ID3_C_EXPORT size_t ID3Field_GetUNICODE_1 (const ID3Field *field, unicode_t *buffer, size_t maxChars, size_t itemNum);
 
-static gboolean et_id3tag_check_if_file_is_valid (GFile *file,
-                                                  GError **error);
-
 static gboolean id3tag_check_if_id3lib_is_buggy (GError **error);
 
 
@@ -1388,7 +1385,7 @@ Id3tag_Rules_For_ISO_Fields (const gchar *string,
  * Some files which contains only zeroes create an infinite loop in id3lib...
  * To generate a file with zeroes : dd if=/dev/zero bs=1M count=6 of=test-corrupted-mp3-zero-contend.mp3
  */
-static gboolean
+gboolean
 et_id3tag_check_if_file_is_valid (GFile *file, GError **error)
 {
     unsigned char tmp[256];
