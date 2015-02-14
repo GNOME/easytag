@@ -1426,8 +1426,15 @@ et_id3tag_check_if_file_is_valid (GFile *file, GError **error)
         }
     }
 
-    g_assert (error == NULL || *error == NULL);
     g_object_unref (file_istream);
+
+    /* The error was not set by g_input_stream_read(), so the file must be
+     * empty. */
+    if (!valid)
+    {
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     "Input truncated or empty");
+    }
 
     return valid;
 }
