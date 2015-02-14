@@ -247,7 +247,7 @@ et_file_list_add (GList *file_list,
             if (!id3tag_read_file_tag (file, FileTag, &error))
             {
                 Log_Print (LOG_ERROR,
-                           "Error reading ID3 tag from file ‘%s’: %s",
+                           _("Error reading ID3 tag from file ‘%s’: %s"),
                            filename_utf8, error->message);
                 g_clear_error (&error);
             }
