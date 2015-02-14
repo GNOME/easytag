@@ -67,8 +67,8 @@ ID3_C_EXPORT size_t ID3Tag_Link_1         (ID3Tag *id3tag, const char *filename)
 ID3_C_EXPORT size_t ID3Field_GetASCII_1   (const ID3Field *field, char *buffer,      size_t maxChars, size_t itemNum);
 ID3_C_EXPORT size_t ID3Field_GetUNICODE_1 (const ID3Field *field, unicode_t *buffer, size_t maxChars, size_t itemNum);
 
-static gboolean et_id3tag_check_if_file_is_corrupted (GFile *file,
-                                                      GError **error);
+static gboolean et_id3tag_check_if_file_is_valid (GFile *file,
+                                                  GError **error);
 
 static gboolean id3tag_check_if_id3lib_is_buggy (GError **error);
 
@@ -196,7 +196,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     /* FIXME: Handle this in the caller instead. */
     /* This is a protection against a bug in id3lib that enters an infinite
      * loop with corrupted MP3 files (files containing only zeroes) */
-    if (et_id3tag_check_if_file_is_corrupted (file, error))
+    if (!et_id3tag_check_if_file_is_valid (file, error))
     {
         GtkWidget *msgdialog;
         gchar *basename;
@@ -1389,12 +1389,12 @@ Id3tag_Rules_For_ISO_Fields (const gchar *string,
  * To generate a file with zeroes : dd if=/dev/zero bs=1M count=6 of=test-corrupted-mp3-zero-contend.mp3
  */
 static gboolean
-et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
+et_id3tag_check_if_file_is_valid (GFile *file, GError **error)
 {
     unsigned char tmp[256];
     unsigned char tmp0[256];
     gssize bytes_read;
-    gboolean result = TRUE;
+    gboolean valid = FALSE;
     GFileInputStream *file_istream;
 
     g_return_val_if_fail (file != NULL, FALSE);
@@ -1404,10 +1404,12 @@ et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
     if (!file_istream)
     {
         g_assert (error == NULL || *error != NULL);
-        return result;
+        return valid;
     }
 
-    memset(&tmp0,0,256);
+    memset (&tmp0, 0, 256);
+
+    /* Keep reading until EOF. */
     while ((bytes_read = g_input_stream_read (G_INPUT_STREAM (file_istream),
                                               tmp, 256, NULL, error)) != 0)
     {
@@ -1416,12 +1418,13 @@ et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
             /* Error in reading file. */
             g_assert (error == NULL || *error != NULL);
             g_object_unref (file_istream);
-            return result;
+            return valid;
         }
 
+        /* Break out of the loop if there is a non-zero byte in the file. */
         if (memcmp (tmp, tmp0, bytes_read) != 0)
         {
-            result = FALSE;
+            valid = TRUE;
             break;
         }
     }
@@ -1429,7 +1432,7 @@ et_id3tag_check_if_file_is_corrupted (GFile *file, GError **error)
     g_assert (error == NULL || *error == NULL);
     g_object_unref (file_istream);
 
-    return result;
+    return valid;
 }
 
 
