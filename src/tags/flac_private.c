@@ -18,6 +18,8 @@
 
 #include "flac_private.h"
 
+#ifdef ENABLE_FLAC
+
 #include <errno.h>
 #include <unistd.h>
 
@@ -178,3 +180,5 @@ et_flac_write_close_func (FLAC__IOHandle handle)
     /* Always return success. */
     return 0;
 }
+
+#endif /* ENABLE_FLAC */
