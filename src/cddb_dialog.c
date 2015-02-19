@@ -2234,8 +2234,6 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
     selectedcount = gtk_tree_selection_count_selected_rows(selection);
 
     /* Check if at least one line was selected. No line selected is equal to all lines selected. */
-    CddbTrackList_Line_Selected = FALSE;
-
     if (selectedcount > 0)
     {
         /* Loop through selected rows only */
