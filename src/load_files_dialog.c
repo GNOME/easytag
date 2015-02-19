@@ -156,7 +156,8 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
     gtk_tree_path_free(currentPath);
 
     et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (MainWindow));
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                           ETCore->ETFileDisplayed);
 }
 
 /*

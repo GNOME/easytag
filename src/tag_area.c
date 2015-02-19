@@ -662,7 +662,7 @@ on_apply_to_selection (GObject *object,
     et_application_window_browser_refresh_list (window);
 
     /* Display the current file (Needed when sequencing tracks) */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (window, ETCore->ETFileDisplayed);
 
     if (msg)
     {
@@ -1558,7 +1558,8 @@ on_picture_add_button_clicked (GObject *object,
 
     if (ETCore->ETFileDisplayed)
     {
-        ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+        et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                               ETCore->ETFileDisplayed);
     }
 
     gtk_widget_destroy(FileSelectionWindow);
@@ -2058,7 +2059,8 @@ on_picture_clear_button_clicked (GObject *object,
 
     if (ETCore->ETFileDisplayed)
     {
-        ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+        et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                               ETCore->ETFileDisplayed);
     }
 
     g_list_free (refs);

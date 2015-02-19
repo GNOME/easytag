@@ -67,7 +67,6 @@ gboolean ET_Check_If_File_Is_Saved (const ET_File *ETFile);
 ET_File * ET_File_Item_New (void);
 void ET_Free_File_List_Item (ET_File *ETFile);
 
-void ET_Display_File_Data_To_UI (ET_File *ETFile);
 void ET_Save_File_Data_From_UI (ET_File *ETFile);
 gboolean ET_Save_File_Name_Internal (const ET_File *ETFile, File_Name *FileName);
 gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error);

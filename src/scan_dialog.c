@@ -2945,7 +2945,7 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     et_application_window_browser_refresh_list (window);
 
     /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (window, ETCore->ETFileDisplayed);
 
     /* To update state of command buttons */
     et_application_window_update_actions (window);

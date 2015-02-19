@@ -4539,7 +4539,8 @@ Rename_Directory (EtBrowser *self)
     // To update file path in the browser entry
     if (ETCore->ETFileDisplayedList)
     {
-        ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+        et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                               ETCore->ETFileDisplayed);
     }else
     {
         gchar *tmp = filename_to_display (et_browser_get_current_path (self));

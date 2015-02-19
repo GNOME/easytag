@@ -27,9 +27,24 @@
 #include "easytag.h"
 #include "file_area.h"
 #include "file_list.h"
+#ifdef ENABLE_FLAC
+#include "flac_header.h"
+#endif
 #include "load_files_dialog.h"
 #include "log.h"
 #include "misc.h"
+#ifdef ENABLE_MP4
+#include "mp4_header.h"
+#endif
+#include "mpeg_header.h"
+#include "monkeyaudio_header.h"
+#include "musepack_header.h"
+#ifdef ENABLE_OGG
+#include "ogg_header.h"
+#endif
+#ifdef ENABLE_OPUS
+#include "opus_header.h"
+#endif
 #include "picture.h"
 #include "playlist_dialog.h"
 #include "preferences_dialog.h"
@@ -40,6 +55,9 @@
 #include "setting.h"
 #include "status_bar.h"
 #include "tag_area.h"
+#ifdef ENABLE_WAVPACK
+#include "wavpack_header.h"
+#endif
 
 /* TODO: Use G_DEFINE_TYPE_WITH_PRIVATE. */
 G_DEFINE_TYPE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_WINDOW)
@@ -503,7 +521,7 @@ on_delete (GSimpleAction *action,
                                                    path);
         gtk_tree_path_free (path);
 
-        ET_Display_File_Data_To_UI(ETFile);
+        et_application_window_display_et_file (self, ETFile);
         et_application_window_browser_select_file_by_et_file (self, ETFile,
                                                               FALSE);
         fraction = (++progress_bar_index) / (double) nb_files_to_delete;
@@ -566,7 +584,9 @@ on_delete (GSimpleAction *action,
 
     /* It's important to displayed the new item, as it'll check the changes in et_browser_toggle_display_mode. */
     if (ETCore->ETFileDisplayed)
-        ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    {
+        et_application_window_display_et_file (self, ETCore->ETFileDisplayed);
+    }
     /*else if (ET_Displayed_File_List_Current())
         ET_Display_File_Data_To_UI((ET_File *)ET_Displayed_File_List_Current()->data);*/
 
@@ -626,7 +646,7 @@ on_undo_file_changes (GSimpleAction *action,
     et_application_window_browser_refresh_list (self);
 
     /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (self, ETCore->ETFileDisplayed);
     et_application_window_update_actions (self);
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
@@ -668,7 +688,7 @@ on_redo_file_changes (GSimpleAction *action,
     et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
 
     /* Display the current file */
-    ET_Display_File_Data_To_UI(ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (self, ETCore->ETFileDisplayed);
     et_application_window_update_actions (self);
 }
 
@@ -795,7 +815,7 @@ on_undo_last_changes (GSimpleAction *action,
 
     if (ETFile)
     {
-        ET_Display_File_Data_To_UI (ETFile);
+        et_application_window_display_et_file (self, ETFile);
         et_application_window_browser_select_file_by_et_file (self, ETFile,
                                                               TRUE);
         et_application_window_browser_refresh_file_in_list (self, ETFile);
@@ -822,7 +842,7 @@ on_redo_last_changes (GSimpleAction *action,
 
     if (ETFile)
     {
-        ET_Display_File_Data_To_UI (ETFile);
+        et_application_window_display_et_file (self, ETFile);
         et_application_window_browser_select_file_by_et_file (self, ETFile,
                                                               TRUE);
         et_application_window_browser_refresh_file_in_list (self, ETFile);
@@ -884,7 +904,7 @@ on_remove_tags (GSimpleAction *action,
     et_application_window_browser_refresh_list (self);
 
     /* Display the current file */
-    ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
+    et_application_window_display_et_file (self, ETCore->ETFileDisplayed);
     et_application_window_update_actions (self);
 
     et_application_window_progress_set_fraction (self, 0.0);
@@ -1277,7 +1297,8 @@ on_go_first (GSimpleAction *action,
         et_application_window_browser_select_file_by_et_file (self,
                                                               (ET_File *)etfilelist->data,
                                                               TRUE);
-        ET_Display_File_Data_To_UI ((ET_File *)etfilelist->data);
+        et_application_window_display_et_file (self,
+                                               (ET_File *)etfilelist->data);
     }
 
     et_application_window_update_actions (self);
@@ -1315,7 +1336,8 @@ on_go_previous (GSimpleAction *action,
         et_application_window_browser_select_file_by_et_file (self,
                                                               (ET_File *)etfilelist->data,
                                                               TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+        et_application_window_display_et_file (self,
+                                               (ET_File *)etfilelist->data);
     }
 
     et_application_window_update_actions (self);
@@ -1353,7 +1375,8 @@ on_go_next (GSimpleAction *action,
         et_application_window_browser_select_file_by_et_file (self,
                                                               (ET_File *)etfilelist->data,
                                                               TRUE);
-        ET_Display_File_Data_To_UI((ET_File *)etfilelist->data);
+        et_application_window_display_et_file (self,
+                                               (ET_File *)etfilelist->data);
     }
 
     et_application_window_update_actions (self);
@@ -1391,7 +1414,8 @@ on_go_last (GSimpleAction *action,
         et_application_window_browser_select_file_by_et_file (self,
                                                               (ET_File *)etfilelist->data,
                                                               TRUE);
-        ET_Display_File_Data_To_UI ((ET_File *)etfilelist->data);
+        et_application_window_display_et_file (self,
+                                               (ET_File *)etfilelist->data);
     }
 
     et_application_window_update_actions (self);
@@ -1989,7 +2013,7 @@ et_application_window_select_file_by_et_file (EtApplicationWindow *self,
     et_application_window_browser_select_file_by_et_file (self, ETFile, TRUE);
     /* Just to update 'ETFileDisplayedList'. */
     ET_Displayed_File_List_By_Etfile (ETFile);
-    ET_Display_File_Data_To_UI (ETFile);
+    et_application_window_display_et_file (self, ETFile);
 
     et_application_window_update_actions (self);
     et_application_window_scan_dialog_update_previews (self);
@@ -2004,6 +2028,211 @@ et_application_window_update_et_file_from_ui (EtApplicationWindow *self)
         ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
     }
 
+}
+
+static void
+et_file_header_fields_free (EtFileHeaderFields *fields)
+{
+    g_free (fields->version);
+    g_free (fields->bitrate);
+    g_free (fields->samplerate);
+    g_free (fields->mode);
+    g_free (fields->size);
+    g_free (fields->duration);
+    g_slice_free (EtFileHeaderFields, fields);
+}
+
+static void
+et_application_window_display_file_name (EtApplicationWindow *self,
+                                         const ET_File *ETFile)
+{
+    const gchar *new_filename_utf8;
+    gchar *dirname_utf8;
+    gchar *text;
+
+    g_return_if_fail (ETFile != NULL);
+
+    new_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8;
+
+    /*
+     * Set the path to the file into BrowserEntry (dirbrowser)
+     */
+    dirname_utf8 = g_path_get_dirname (new_filename_utf8);
+    et_application_window_browser_entry_set_text (self, dirname_utf8);
+
+    // And refresh the number of files in this directory
+    text = g_strdup_printf (ngettext ("One file", "%u files",
+                                      et_file_list_get_n_files_in_path (ETCore->ETFileList,
+                                                                        dirname_utf8)),
+                            et_file_list_get_n_files_in_path (ETCore->ETFileList,
+                                                              dirname_utf8));
+    et_application_window_browser_label_set_text (self, text);
+    g_free(dirname_utf8);
+    g_free(text);
+}
+
+/*
+ * "Default" way to display File Info to the user interface.
+ */
+static EtFileHeaderFields *
+et_header_fields_new_from_unknown (const ET_File *ETFile)
+{
+    EtFileHeaderFields *fields;
+    ET_File_Info *info;
+    gchar *time  = NULL;
+    gchar *time1 = NULL;
+    gchar *size  = NULL;
+    gchar *size1 = NULL;
+
+    info = ETFile->ETFileInfo;
+    fields = g_slice_new (EtFileHeaderFields);
+
+    fields->description = _("File");
+
+    /* MPEG, Layer versions */
+    fields->version = g_strdup_printf ("%d, Layer %" G_GSIZE_FORMAT,
+                                       info->version, info->layer);
+
+    /* Bitrate */
+    fields->bitrate = g_strdup_printf (_("%d kb/s"), info->bitrate);
+
+    /* Samplerate */
+    fields->samplerate = g_strdup_printf (_("%d Hz"), info->samplerate);
+
+    /* Mode */
+    fields->mode = g_strdup_printf ("%d", info->mode);
+
+    /* Size */
+    size = g_format_size (info->size);
+    size1 = g_format_size (ETCore->ETFileDisplayedList_TotalSize);
+    fields->size = g_strdup_printf ("%s (%s)", size, size1);
+    g_free (size);
+    g_free (size1);
+
+    /* Duration */
+    time = Convert_Duration (info->duration);
+    time1 = Convert_Duration (ETCore->ETFileDisplayedList_TotalDuration);
+    fields->duration = g_strdup_printf ("%s (%s)", time, time1);
+    g_free (time);
+    g_free (time1);
+
+    return fields;
+}
+
+/*
+ * Display information of the file (Position + Header + Tag) to the user interface.
+ * Before doing it, it saves data of the file currently displayed
+ */
+void
+et_application_window_display_et_file (EtApplicationWindow *self,
+                                       ET_File *ETFile)
+{
+    const ET_File_Description *description;
+    const gchar *cur_filename_utf8;
+    gchar *msg;
+    EtFileHeaderFields *fields;
+
+    g_return_if_fail (ETFile != NULL &&
+                      ((GList *)ETFile->FileNameCur)->data != NULL);
+                      /* For the case where ETFile is an "empty" structure. */
+
+    cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
+    description = ETFile->ETFileDescription;
+
+    /* Save the current displayed file */
+    ETCore->ETFileDisplayed = ETFile;
+
+    /* Display position in list + show/hide icon if file writable/read_only (cur_filename) */
+    et_application_window_file_area_set_file_fields (self, ETFile);
+
+    /* Display filename (and his path) (value in FileNameNew) */
+    et_application_window_display_file_name (self, ETFile);
+
+    /* Display tag data */
+    et_application_window_tag_area_display_et_file (self, ETFile);
+
+    /* Display controls in tag area */
+    et_application_window_tag_area_display_controls (self, ETFile);
+
+    /* Display file data, header data and file type */
+    switch (description->FileType)
+    {
+#if defined ENABLE_MP3 && defined ENABLE_ID3LIB
+        case MP3_FILE:
+        case MP2_FILE:
+            fields = et_mpeg_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_mpeg_file_header_fields_free (fields);
+            break;
+#endif
+#ifdef ENABLE_OGG
+        case OGG_FILE:
+            fields = et_ogg_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_ogg_file_header_fields_free (fields);
+            break;
+#endif
+#ifdef ENABLE_SPEEX
+        case SPEEX_FILE:
+            fields = et_ogg_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_ogg_file_header_fields_free (fields);
+            break;
+#endif
+#ifdef ENABLE_FLAC
+        case FLAC_FILE:
+            fields = et_flac_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_flac_file_header_fields_free (fields);
+            break;
+#endif
+        case MPC_FILE:
+            fields = et_mpc_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_mpc_file_header_fields_free (fields);
+            break;
+        case MAC_FILE:
+            fields = et_mac_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_mac_file_header_fields_free (fields);
+            break;
+#ifdef ENABLE_MP4
+        case MP4_FILE:
+            fields = et_mp4_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_mp4_file_header_fields_free (fields);
+            break;
+#endif
+#ifdef ENABLE_WAVPACK
+        case WAVPACK_FILE:
+            fields = et_wavpack_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_wavpack_file_header_fields_free (fields);
+            break;
+#endif
+#ifdef ENABLE_OPUS
+        case OPUS_FILE:
+            fields = et_opus_header_display_file_info_to_ui (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_opus_file_header_fields_free (fields);
+            break;
+#endif
+        case OFR_FILE:
+        case UNKNOWN_FILE:
+        default:
+            /* Default displaying. */
+            fields = et_header_fields_new_from_unknown (ETFile);
+            et_application_window_file_area_set_header_fields (self, fields);
+            et_file_header_fields_free (fields);
+            Log_Print (LOG_ERROR,
+                       "ETFileInfo: Undefined file type %d for file %s.",
+                       (gint)description->FileType, cur_filename_utf8);
+            break;
+    }
+
+    msg = g_strdup_printf (_("File: ‘%s’"), cur_filename_utf8);
+    et_application_window_status_bar_message (self, msg, FALSE);
+    g_free (msg);
 }
 
 const gchar *

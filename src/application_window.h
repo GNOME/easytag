@@ -82,6 +82,7 @@ GtkTreeViewColumn *et_application_window_browser_get_column_for_column_id (EtApp
 GtkSortType et_application_window_browser_get_sort_order_for_column_id (EtApplicationWindow *self, gint column_id);
 void et_application_window_browser_select_file_by_iter_string (EtApplicationWindow *self, const gchar *iter_string, gboolean select);
 void et_application_window_update_et_file_from_ui (EtApplicationWindow *self);
+void et_application_window_display_et_file (EtApplicationWindow *self, ET_File *ETFile);
 void et_application_window_browser_select_file_by_et_file (EtApplicationWindow *self, const ET_File *file, gboolean select);
 GtkTreePath * et_application_window_browser_select_file_by_et_file2 (EtApplicationWindow *self, const ET_File *file, gboolean select, GtkTreePath *start_path);
 ET_File * et_application_window_browser_select_file_by_dlm (EtApplicationWindow *self, const gchar *string, gboolean select);

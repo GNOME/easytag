@@ -347,7 +347,8 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     g_simple_action_set_enabled (G_SIMPLE_ACTION (action), FALSE);
 
     /* Return to the saved position in the list */
-    ET_Display_File_Data_To_UI(etfile_save_position);
+    et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                           etfile_save_position);
     et_application_window_browser_select_file_by_et_file (ET_APPLICATION_WINDOW (MainWindow),
                                                           etfile_save_position,
                                                           TRUE);
