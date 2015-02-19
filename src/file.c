@@ -1123,6 +1123,41 @@ void ET_Save_File_Data_From_UI (ET_File *ETFile)
                                                         ETFile);
 }
 
+static gboolean
+et_file_name_set_from_components (File_Name *file_name,
+                                  const gchar *new_name,
+                                  const gchar *dir_name)
+{
+    /* Check if new filename seems to be correct. */
+    if (new_name)
+    {
+        gchar *filename_new;
+        gchar *path_new;
+
+        filename_new = g_strdup (new_name);
+
+        /* Convert the illegal characters. */
+        et_filename_prepare (filename_new,
+                             g_settings_get_boolean (MainSettings,
+                                                     "rename-replace-illegal-chars"));
+
+        /* Set the new filename (in file system encoding). */
+        path_new = g_build_filename (dir_name, filename_new, NULL);
+        ET_Set_Filename_File_Name_Item (file_name, NULL, path_new);
+
+        g_free (path_new);
+        g_free (filename_new);
+        return TRUE;
+    }
+    else
+    {
+        file_name->value = NULL;
+        file_name->value_utf8 = NULL;
+        file_name->value_ck = NULL;
+
+        return FALSE;
+    }
+}
 
 /*
  * Save displayed filename into list if it had been changed. Generates also an history list for undo/redo.
@@ -1140,6 +1175,7 @@ ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
     gchar *filename;
     const gchar *filename_utf8;
     gchar *extension;
+    gboolean success;
 
     g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
@@ -1188,35 +1224,13 @@ ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
     g_free (filename);
     g_free (extension);
 
-    // Check if new filename seems to be correct
-    if ( !filename_new || strlen(filename_new) <= strlen(ETFile->ETFileDescription->Extension) )
-    {
-        FileName->value      = NULL;
-        FileName->value_utf8 = NULL;
-        FileName->value_ck   = NULL;
+    success = et_file_name_set_from_components (FileName, filename_new,
+                                                dirname);
 
-        g_free(filename_new);
-        g_free(dirname);
-        return FALSE;
-    }
-
-    /* Convert the illegal characters. FIXME should be in UTF8? */
-    et_filename_prepare (filename_new,
-                         g_settings_get_boolean (MainSettings,
-                                                 "rename-replace-illegal-chars"));
-
-    /* Set the new filename (in file system encoding). */
-    FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
-    /* Set the new filename (in UTF-8 encoding). */
-    FileName->value_utf8 = filename_to_display(FileName->value);
-    // Calculates collate key
-    FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
-
-    g_free(filename_new);
-    g_free(dirname);
-    return TRUE;
+    g_free (filename_new);
+    g_free (dirname);
+    return success;
 }
-
 
 /*
  * Do the same thing of ET_Save_File_Name_From_UI, but without getting the
@@ -1231,6 +1245,7 @@ ET_Save_File_Name_Internal (const ET_File *ETFile,
     gchar *filename;
     gchar *extension;
     gchar *pos;
+    gboolean success;
 
     g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
 
@@ -1255,34 +1270,12 @@ ET_Save_File_Name_Internal (const ET_File *ETFile,
     g_free(extension);
     g_free(filename);
 
-    // Check if new filename seems to be correct
-    if (filename_new)
-    {
-        /* Convert the illegal characters. */
-        et_filename_prepare (filename_new,
-                             g_settings_get_boolean (MainSettings,
-                                                     "rename-replace-illegal-chars"));
+    success = et_file_name_set_from_components (FileName, filename_new,
+                                                dirname);
 
-        /* Set the new filename (in file system encoding). */
-        FileName->value = g_strconcat(dirname,G_DIR_SEPARATOR_S,filename_new,NULL);
-        /* Set the new filename (in UTF-8 encoding). */
-        FileName->value_utf8 = filename_to_display(FileName->value);
-        // Calculate collate key
-        FileName->value_ck = g_utf8_collate_key_for_filename(FileName->value_utf8, -1);
-
-        g_free(filename_new);
-        g_free(dirname);
-        return TRUE;
-    }else
-    {
-        FileName->value = NULL;
-        FileName->value_utf8 = NULL;
-        FileName->value_ck = NULL;
-
-        g_free(filename_new);
-        g_free(dirname);
-        return FALSE;
-    }
+    g_free (filename_new);
+    g_free (dirname);
+    return success;
 }
 
 /*
