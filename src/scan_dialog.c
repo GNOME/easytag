@@ -2903,11 +2903,10 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    window = ET_APPLICATION_WINDOW (MainWindow);
+    et_application_window_update_et_file_from_ui (window);
 
     /* Initialize status bar */
-    window = ET_APPLICATION_WINDOW (MainWindow);
     selection = et_application_window_browser_get_selection (window);
     selectcount = gtk_tree_selection_count_selected_rows (selection);
     et_application_window_progress_set_fraction (window, 0.0);

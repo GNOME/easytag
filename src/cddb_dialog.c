@@ -2218,8 +2218,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    // Save the current displayed data
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
     /* FIXME: Hack! */
     file_selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));

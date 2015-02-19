@@ -845,8 +845,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     if (!pathName)
         return FALSE;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
+
     /* FIXME: Not clean to put this here. */
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
@@ -2405,7 +2405,7 @@ Browser_Artist_List_Load_Files (EtBrowser *self, ET_File *etfile_to_select)
         gtk_tree_model_get(GTK_TREE_MODEL(priv->artist_model), &iter,
                            ARTIST_ALBUM_LIST_POINTER, &AlbumList,
                            -1);
-        ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+        et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
         Browser_Album_List_Load_Files (self, AlbumList,NULL);
     }
 }
@@ -2427,8 +2427,7 @@ Browser_Artist_List_Row_Selected (EtBrowser *self, GtkTreeSelection* selection)
     if(!gtk_tree_selection_get_selected(selection, NULL, &iter))
         return; // We might be called with no row selected
 
-    // Save the current displayed data
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
     gtk_tree_model_get (GTK_TREE_MODEL (priv->artist_model), &iter,
                         ARTIST_ALBUM_LIST_POINTER, &AlbumList, -1);
@@ -2634,7 +2633,7 @@ Browser_Album_List_Load_Files (EtBrowser *self,
         gtk_tree_model_get(GTK_TREE_MODEL(priv->album_model), &iter,
                            ALBUM_ETFILE_LIST_POINTER, &etfilelist,
                            -1);
-        ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+        et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
         /* Set the attached list as "Displayed List". */
         et_displayed_file_list_set (etfilelist);
@@ -2665,8 +2664,7 @@ Browser_Album_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
     gtk_tree_model_get (GTK_TREE_MODEL (priv->album_model), &iter,
                        ALBUM_ETFILE_LIST_POINTER, &etfilelist, -1);
 
-    // Save the current displayed data
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
     /* Set the attached list as "Displayed List". */
     et_displayed_file_list_set (etfilelist);
@@ -2734,8 +2732,7 @@ et_browser_set_display_mode (EtBrowser *self,
 
     priv = et_browser_get_instance_private (self);
 
-    /* Save the current displayed data. */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
     switch (mode)
     {

@@ -91,8 +91,7 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
     if ( !ETCore->ETFileList || !priv->load_file_content_view || !priv->load_file_name_view)
         return;
 
-    /* Save current file */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
     rowcount = MIN(gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->load_file_name_model), NULL),
                    gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->load_file_content_model), NULL));

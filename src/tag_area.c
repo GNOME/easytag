@@ -150,8 +150,7 @@ on_apply_to_selection (GObject *object,
 
     window = ET_APPLICATION_WINDOW (MainWindow);
 
-    // Save the current displayed data
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (window);
 
     /* Warning : 'selection_filelist' is not a list of 'ETFile' items! */
     selection = et_application_window_browser_get_selection (window);
@@ -1555,9 +1554,10 @@ on_picture_add_button_clicked (GObject *object,
         init_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow));
     }
 
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
+
     if (ETCore->ETFileDisplayed)
     {
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
         ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
     }
 
@@ -2054,9 +2054,10 @@ on_picture_clear_button_clicked (GObject *object,
         gtk_tree_row_reference_free (l->data);
     }
 
+    et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
+
     if (ETCore->ETFileDisplayed)
     {
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
         ET_Display_File_Data_To_UI (ETCore->ETFileDisplayed);
     }
 

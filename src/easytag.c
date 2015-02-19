@@ -166,8 +166,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     /* Save the current position in the list */
     etfile_save_position = ETCore->ETFileDisplayed;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (window);
 
     /* Save widget that has current focus, to give it again the focus after saving */
     widget_focused = gtk_window_get_focus(GTK_WINDOW(MainWindow));

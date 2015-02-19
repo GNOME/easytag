@@ -428,8 +428,7 @@ on_invert_selection (GSimpleAction *action,
 
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     et_browser_invert_selection (ET_BROWSER (priv->browser));
     et_application_window_update_actions (self);
@@ -462,8 +461,7 @@ on_delete (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Number of files to save */
     selection = et_application_window_browser_get_selection (self);
@@ -610,8 +608,7 @@ on_undo_file_changes (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     selection = et_application_window_browser_get_selection (self);
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -653,8 +650,7 @@ on_redo_file_changes (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI(ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
@@ -738,8 +734,7 @@ on_select_all (GSimpleAction *action,
                                                  focused))
     /* Assume that other widgets should select all in the file view. */
     {
-        /* Save the current displayed data */
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+        et_application_window_update_et_file_from_ui (self);
 
         et_browser_select_all (ET_BROWSER (priv->browser));
         et_application_window_update_actions (self);
@@ -774,8 +769,7 @@ on_unselect_all (GSimpleAction *action,
                                                    focused))
     /* Assume that other widgets should unselect all in the file view. */
     {
-        /* Save the current displayed data */
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+        et_application_window_update_et_file_from_ui (self);
 
         et_browser_unselect_all (ET_BROWSER (priv->browser));
 
@@ -795,8 +789,7 @@ on_undo_last_changes (GSimpleAction *action,
 
     g_return_if_fail (ETCore->ETFileList != NULL);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     ETFile = ET_Undo_History_File_Data ();
 
@@ -823,8 +816,7 @@ on_redo_last_changes (GSimpleAction *action,
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     ETFile = ET_Redo_History_File_Data ();
 
@@ -860,8 +852,7 @@ on_remove_tags (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Initialize status bar */
     et_application_window_progress_set_fraction (self, 0.0);
@@ -1002,8 +993,7 @@ on_file_artist_view_change (GSimpleAction *action,
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
-    /* Save the current displayed data. */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     if (strcmp (state, "file") == 0)
     {
@@ -1275,8 +1265,7 @@ on_go_first (GSimpleAction *action,
     if (!ETCore->ETFileDisplayedList)
         return;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Go to the first item of the list */
     etfilelist = ET_Displayed_File_List_First ();
@@ -1315,8 +1304,7 @@ on_go_previous (GSimpleAction *action,
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
         return;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Go to the prev item of the list */
     etfilelist = ET_Displayed_File_List_Previous ();
@@ -1354,8 +1342,7 @@ on_go_next (GSimpleAction *action,
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
         return;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Go to the next item of the list */
     etfilelist = ET_Displayed_File_List_Next ();
@@ -1393,8 +1380,7 @@ on_go_last (GSimpleAction *action,
     if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
         return;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Go to the last item of the list */
     etfilelist = ET_Displayed_File_List_Last ();
@@ -1997,8 +1983,7 @@ et_application_window_select_file_by_et_file (EtApplicationWindow *self,
     if (!ETCore->ETFileDisplayedList)
         return;
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     /* Display the item */
     et_application_window_browser_select_file_by_et_file (self, ETFile, TRUE);
@@ -2008,6 +1993,17 @@ et_application_window_select_file_by_et_file (EtApplicationWindow *self,
 
     et_application_window_update_actions (self);
     et_application_window_scan_dialog_update_previews (self);
+}
+
+void
+et_application_window_update_et_file_from_ui (EtApplicationWindow *self)
+{
+    /* Save the current displayed data */
+    if (ETCore->ETFileDisplayed)
+    {
+        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    }
+
 }
 
 const gchar *
@@ -2594,8 +2590,7 @@ et_application_window_browser_unselect_all (EtApplicationWindow *self)
 
     priv = et_application_window_get_instance_private (self);
 
-    /* Save the current displayed data */
-    ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+    et_application_window_update_et_file_from_ui (self);
 
     et_browser_unselect_all (ET_BROWSER (priv->browser));
     ETCore->ETFileDisplayed = NULL;
@@ -2655,10 +2650,7 @@ et_application_window_quit (EtApplicationWindow *self)
     gint response;
 
     /* If you change the displayed data and quit immediately */
-    if (ETCore->ETFileList)
-    {
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
-    }
+    et_application_window_update_et_file_from_ui (self);
 
     /* Check if all files have been saved before exit */
     if (g_settings_get_boolean (MainSettings, "confirm-when-unsaved-files")
