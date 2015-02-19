@@ -20,7 +20,6 @@
 
 #include "file.h"
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <string.h>
 #include <stdlib.h>
@@ -63,16 +62,11 @@
 static gboolean ET_Free_File_Name_List            (GList *FileNameList);
 static gboolean ET_Free_File_Tag_List (GList *FileTagList);
 
-static gboolean ET_Save_File_Name_From_UI (const ET_File *ETFile,
-                                           File_Name *FileName);
-
 static void ET_Mark_File_Tag_As_Saved (ET_File *ETFile);
 
 static gboolean ET_Add_File_Name_To_List (ET_File *ETFile,
                                           File_Name *FileName);
 static gboolean ET_Add_File_Tag_To_List (ET_File *ETFile, File_Tag  *FileTag);
-
-static gchar *ET_File_Format_File_Extension (const ET_File *ETFile);
 
 /*
  * Create a new ET_File structure
@@ -1057,182 +1051,6 @@ ET_Free_File_Tag_List (GList *FileTagList)
  ********************/
 
 /*
- * Save information of the file, contained into the entries of the user interface, in the list.
- * An undo key is generated to be used for filename and tag if there are changed is the same time.
- * Filename and Tag.
- */
-void ET_Save_File_Data_From_UI (ET_File *ETFile)
-{
-    const ET_File_Description *description;
-    File_Name *FileName;
-    File_Tag  *FileTag;
-    const gchar *cur_filename_utf8;
-
-    g_return_if_fail (ETFile != NULL && ETFile->FileNameCur != NULL
-                      && ETFile->FileNameCur->data != NULL);
-
-    cur_filename_utf8 = ((File_Name *)((GList *)ETFile->FileNameCur)->data)->value_utf8;
-    description = ETFile->ETFileDescription;
-
-
-    /* Save filename and generate undo for filename. */
-    FileName = et_file_name_new ();
-    ET_Save_File_Name_From_UI(ETFile,FileName); // Used for all files!
-
-    switch (description->TagType)
-    {
-#ifdef ENABLE_MP3
-        case ID3_TAG:
-#endif
-#ifdef ENABLE_OGG
-        case OGG_TAG:
-#endif
-#ifdef ENABLE_FLAC
-        case FLAC_TAG:
-#endif
-#ifdef ENABLE_MP4
-        case MP4_TAG:
-#endif
-#ifdef ENABLE_WAVPACK
-        case WAVPACK_TAG:
-#endif
-#ifdef ENABLE_OPUS
-        case OPUS_TAG:
-#endif
-        case APE_TAG:
-            FileTag = et_application_window_tag_area_create_file_tag (ET_APPLICATION_WINDOW (MainWindow));
-            et_file_tag_copy_other_into (ETFile->FileTag->data, FileTag);
-            break;
-        case UNKNOWN_TAG:
-        default:
-            FileTag = et_file_tag_new ();
-            Log_Print (LOG_ERROR,
-                       "FileTag: Undefined tag type %d for file %s.",
-                       (gint)description->TagType, cur_filename_utf8);
-            break;
-    }
-
-    /*
-     * Generate undo for the file and the main undo list.
-     * If no changes detected, FileName and FileTag item are deleted.
-     */
-    ET_Manage_Changes_Of_File_Data(ETFile,FileName,FileTag);
-
-    /* Refresh file into browser list */
-    et_application_window_browser_refresh_file_in_list (ET_APPLICATION_WINDOW (MainWindow),
-                                                        ETFile);
-}
-
-static gboolean
-et_file_name_set_from_components (File_Name *file_name,
-                                  const gchar *new_name,
-                                  const gchar *dir_name)
-{
-    /* Check if new filename seems to be correct. */
-    if (new_name)
-    {
-        gchar *filename_new;
-        gchar *path_new;
-
-        filename_new = g_strdup (new_name);
-
-        /* Convert the illegal characters. */
-        et_filename_prepare (filename_new,
-                             g_settings_get_boolean (MainSettings,
-                                                     "rename-replace-illegal-chars"));
-
-        /* Set the new filename (in file system encoding). */
-        path_new = g_build_filename (dir_name, filename_new, NULL);
-        ET_Set_Filename_File_Name_Item (file_name, NULL, path_new);
-
-        g_free (path_new);
-        g_free (filename_new);
-        return TRUE;
-    }
-    else
-    {
-        file_name->value = NULL;
-        file_name->value_utf8 = NULL;
-        file_name->value_ck = NULL;
-
-        return FALSE;
-    }
-}
-
-/*
- * Save displayed filename into list if it had been changed. Generates also an history list for undo/redo.
- *  - ETFile : the current etfile that we want to save,
- *  - FileName : where is 'temporary' saved the new filename.
- *
- * Note : it builds new filename (with path) from strings encoded into file system
- *        encoding, not UTF-8 (it preserves file system encoding of parent directories).
- */
-static gboolean
-ET_Save_File_Name_From_UI (const ET_File *ETFile, File_Name *FileName)
-{
-    gchar *filename_new = NULL;
-    gchar *dirname = NULL;
-    gchar *filename;
-    const gchar *filename_utf8;
-    gchar *extension;
-    gboolean success;
-
-    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
-
-    filename_utf8 = et_application_window_file_area_get_filename (ET_APPLICATION_WINDOW (MainWindow));
-    filename = filename_from_display (filename_utf8);
-
-    if (!filename)
-    {
-        // If translation fails...
-        GtkWidget *msgdialog;
-        gchar *filename_escaped_utf8 = g_strescape(filename_utf8, NULL);
-        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                           GTK_MESSAGE_ERROR,
-                                           GTK_BUTTONS_CLOSE,
-                                           _("Could not convert filename ‘%s’ to system filename encoding"),
-                                           filename_escaped_utf8);
-        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),_("Try setting the environment variable G_FILENAME_ENCODING."));
-        gtk_window_set_title(GTK_WINDOW(msgdialog), _("Filename translation"));
-
-        gtk_dialog_run(GTK_DIALOG(msgdialog));
-        gtk_widget_destroy(msgdialog);
-        g_free(filename_escaped_utf8);
-        return FALSE;
-    }
-
-    // Get the current path to the file
-    dirname = g_path_get_dirname( ((File_Name *)ETFile->FileNameNew->data)->value );
-
-    /* Convert filename extension (lower or upper). */
-    extension = ET_File_Format_File_Extension (ETFile);
-
-    // Check length of filename (limit ~255 characters)
-    //ET_File_Name_Check_Length(ETFile,filename);
-
-    // Filename (in file system encoding!)
-    if (filename && strlen(filename)>0)
-    {
-        // Regenerate the new filename (without path)
-        filename_new = g_strconcat(filename,extension,NULL);
-    }else
-    {
-        // Keep the 'last' filename (if a 'blank' filename was entered in the fileentry for ex)...
-        filename_new = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value );
-    }
-    g_free (filename);
-    g_free (extension);
-
-    success = et_file_name_set_from_components (FileName, filename_new,
-                                                dirname);
-
-    g_free (filename_new);
-    g_free (dirname);
-    return success;
-}
-
-/*
  * Do the same thing of ET_Save_File_Name_From_UI, but without getting the
  * data from the UI.
  */
@@ -1271,7 +1089,9 @@ ET_Save_File_Name_Internal (const ET_File *ETFile,
     g_free(filename);
 
     success = et_file_name_set_from_components (FileName, filename_new,
-                                                dirname);
+                                                dirname,
+                                                g_settings_get_boolean (MainSettings,
+                                                                        "rename-replace-illegal-chars"));
 
     g_free (filename_new);
     g_free (dirname);
@@ -2019,7 +1839,7 @@ gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
 
 
 /* Convert filename extension (lower/upper/no change). */
-static gchar *
+gchar *
 ET_File_Format_File_Extension (const ET_File *ETFile)
 {
     EtFilenameExtensionMode mode;

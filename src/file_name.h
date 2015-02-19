@@ -38,6 +38,7 @@ typedef struct
 File_Name * et_file_name_new (void);
 void et_file_name_free (File_Name *file_name);
 void ET_Set_Filename_File_Name_Item (File_Name *FileName, const gchar *filename_utf8, const gchar *filename);
+gboolean et_file_name_set_from_components (File_Name *file_name, const gchar *new_name, const gchar *dir_name, gboolean replace_illegal);
 gboolean et_file_name_detect_difference (const File_Name *a, const File_Name *b);
 
 G_END_DECLS

@@ -20,6 +20,7 @@
 
 #include "charset.h"
 #include "file.h"
+#include "misc.h"
 
 #include <string.h>
 
@@ -84,6 +85,41 @@ ET_Set_Filename_File_Name_Item (File_Name *FileName,
         FileName->value_utf8 = filename_to_display (filename);;
         FileName->value = g_strdup (filename);
         FileName->value_ck = g_utf8_collate_key_for_filename (FileName->value_utf8, -1);
+    }
+}
+
+gboolean
+et_file_name_set_from_components (File_Name *file_name,
+                                  const gchar *new_name,
+                                  const gchar *dir_name,
+                                  gboolean replace_illegal)
+{
+    /* Check if new filename seems to be correct. */
+    if (new_name)
+    {
+        gchar *filename_new;
+        gchar *path_new;
+
+        filename_new = g_strdup (new_name);
+
+        /* Convert the illegal characters. */
+        et_filename_prepare (filename_new, replace_illegal);
+
+        /* Set the new filename (in file system encoding). */
+        path_new = g_build_filename (dir_name, filename_new, NULL);
+        ET_Set_Filename_File_Name_Item (file_name, NULL, path_new);
+
+        g_free (path_new);
+        g_free (filename_new);
+        return TRUE;
+    }
+    else
+    {
+        file_name->value = NULL;
+        file_name->value_utf8 = NULL;
+        file_name->value_ck = NULL;
+
+        return FALSE;
     }
 }
 

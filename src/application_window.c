@@ -24,6 +24,7 @@
 
 #include "browser.h"
 #include "cddb_dialog.h"
+#include "charset.h"
 #include "easytag.h"
 #include "file_area.h"
 #include "file_list.h"
@@ -2019,15 +2020,154 @@ et_application_window_select_file_by_et_file (EtApplicationWindow *self,
     et_application_window_scan_dialog_update_previews (self);
 }
 
+/*
+ * Save displayed filename into list if it had been changed. Generates also an history list for undo/redo.
+ *  - ETFile : the current etfile that we want to save,
+ *  - FileName : where is 'temporary' saved the new filename.
+ *
+ * Note : it builds new filename (with path) from strings encoded into file system
+ *        encoding, not UTF-8 (it preserves file system encoding of parent directories).
+ */
+static void
+et_application_window_update_file_name_from_ui (EtApplicationWindow *self,
+                                                const ET_File *ETFile,
+                                                File_Name *FileName)
+{
+    gchar *filename_new = NULL;
+    gchar *dirname = NULL;
+    gchar *filename;
+    const gchar *filename_utf8;
+    gchar *extension;
+
+    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
+
+    filename_utf8 = et_application_window_file_area_get_filename (self);
+    filename = filename_from_display (filename_utf8);
+
+    if (!filename)
+    {
+        /* If conversion fails... */
+        GtkWidget *msgdialog;
+        gchar *filename_escaped_utf8 = g_strescape(filename_utf8, NULL);
+        msgdialog = gtk_message_dialog_new (GTK_WINDOW (self),
+                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                            GTK_MESSAGE_ERROR,
+                                            GTK_BUTTONS_CLOSE,
+                                            _("Could not convert filename ‘%s’ to system filename encoding"),
+                                            filename_escaped_utf8);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                  _("Try setting the environment variable G_FILENAME_ENCODING."));
+        gtk_window_set_title (GTK_WINDOW (msgdialog),
+                              _("Filename translation"));
+
+        gtk_dialog_run (GTK_DIALOG (msgdialog));
+        gtk_widget_destroy (msgdialog);
+        g_free (filename_escaped_utf8);
+        return;
+    }
+
+    /* Get the current path to the file. */
+    dirname = g_path_get_dirname (((File_Name *)ETFile->FileNameNew->data)->value);
+
+    /* Convert filename extension (lower or upper). */
+    extension = ET_File_Format_File_Extension (ETFile);
+
+    // Check length of filename (limit ~255 characters)
+    //ET_File_Name_Check_Length(ETFile,filename);
+
+    /* Filename (in file system encoding!). */
+    if (filename && *filename)
+    {
+        /* Regenerate the new filename (without path). */
+        filename_new = g_strconcat (filename, extension, NULL);
+    }
+    else
+    {
+        /* Keep the 'last' filename (if a 'blank' filename was entered in the
+         * fileentry for example). */
+        filename_new = g_path_get_basename (((File_Name *)ETFile->FileNameNew->data)->value);
+    }
+
+    g_free (filename);
+    g_free (extension);
+
+    et_file_name_set_from_components (FileName, filename_new, dirname,
+                                      g_settings_get_boolean (MainSettings,
+                                                              "rename-replace-illegal-chars"));
+
+    g_free (filename_new);
+    g_free (dirname);
+    return;
+}
+
 void
 et_application_window_update_et_file_from_ui (EtApplicationWindow *self)
 {
-    /* Save the current displayed data */
-    if (ETCore->ETFileDisplayed)
+    const ET_File_Description *description;
+    ET_File *et_file;
+    File_Name *FileName;
+    File_Tag  *FileTag;
+    const gchar *cur_filename_utf8;
+
+    if (!ETCore->ETFileDisplayed)
     {
-        ET_Save_File_Data_From_UI (ETCore->ETFileDisplayed);
+        return;
     }
 
+    et_file = ETCore->ETFileDisplayed;
+
+    g_return_if_fail (et_file != NULL && et_file->FileNameCur != NULL
+                      && et_file->FileNameCur->data != NULL);
+
+    /* Save the current displayed data */
+    cur_filename_utf8 = ((File_Name *)((GList *)et_file->FileNameCur)->data)->value_utf8;
+    description = et_file->ETFileDescription;
+
+    /* Save filename and generate undo for filename. */
+    FileName = et_file_name_new ();
+    et_application_window_update_file_name_from_ui (self, et_file, FileName);
+
+    switch (description->TagType)
+    {
+#ifdef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifdef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifdef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifdef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifdef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifdef ENABLE_OPUS
+        case OPUS_TAG:
+#endif
+        case APE_TAG:
+            FileTag = et_application_window_tag_area_create_file_tag (self);
+            et_file_tag_copy_other_into (et_file->FileTag->data, FileTag);
+            break;
+        case UNKNOWN_TAG:
+        default:
+            FileTag = et_file_tag_new ();
+            Log_Print (LOG_ERROR,
+                       "FileTag: Undefined tag type %d for file %s.",
+                       (gint)description->TagType, cur_filename_utf8);
+            break;
+    }
+
+    /*
+     * Generate undo for the file and the main undo list.
+     * If no changes detected, FileName and FileTag item are deleted.
+     */
+    ET_Manage_Changes_Of_File_Data (et_file, FileName, FileTag);
+
+    /* Refresh file into browser list */
+    et_application_window_browser_refresh_file_in_list (self, et_file);
 }
 
 static void
