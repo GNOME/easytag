@@ -1283,8 +1283,7 @@ on_go_first (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    if (!ETCore->ETFileDisplayedList)
-        return;
+    g_return_if_fail (ETCore->ETFileDisplayedList);
 
     et_application_window_update_et_file_from_ui (self);
 
@@ -1323,8 +1322,8 @@ on_go_previous (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->prev)
-        return;
+    g_return_if_fail (ETCore->ETFileDisplayedList
+                      && ETCore->ETFileDisplayedList->prev);
 
     et_application_window_update_et_file_from_ui (self);
 
@@ -1362,8 +1361,8 @@ on_go_next (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
-        return;
+    g_return_if_fail (ETCore->ETFileDisplayedList
+                      && ETCore->ETFileDisplayedList->next);
 
     et_application_window_update_et_file_from_ui (self);
 
@@ -1401,8 +1400,8 @@ on_go_last (GSimpleAction *action,
     self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    if (!ETCore->ETFileDisplayedList || !ETCore->ETFileDisplayedList->next)
-        return;
+    g_return_if_fail (ETCore->ETFileDisplayedList
+                      && ETCore->ETFileDisplayedList->next);
 
     et_application_window_update_et_file_from_ui (self);
 
