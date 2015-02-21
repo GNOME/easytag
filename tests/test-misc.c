@@ -110,6 +110,31 @@ misc_normalized_strcmp0 (void)
 }
 
 static void
+misc_str_empty (void)
+{
+    gsize i;
+    static const struct
+    {
+        const gchar *string;
+        const gboolean empty;
+    } strings[] =
+    {
+        { NULL, TRUE },
+        { "", TRUE },
+        { "\0a", TRUE },
+        { "a", FALSE }
+    };
+
+    for (i = 0; i < G_N_ELEMENTS (strings); i++)
+    {
+        gint result;
+
+        result = et_str_empty (strings[i].string);
+        g_assert (strings[i].empty == result);
+    }
+}
+
+static void
 misc_undo_key (void)
 {
     guint undo_key;
@@ -127,6 +152,7 @@ main (int argc, char** argv)
     g_test_add_func ("/misc/convert-duration", misc_convert_duration);
     g_test_add_func ("/misc/filename-prepare", misc_filename_prepare);
     g_test_add_func ("/misc/normalized-strcmp0", misc_normalized_strcmp0);
+    g_test_add_func ("/misc/str-empty", misc_str_empty);
     g_test_add_func ("/misc/undo-key", misc_undo_key);
 
     return g_test_run ();
