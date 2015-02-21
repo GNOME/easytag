@@ -98,6 +98,18 @@ misc_filename_prepare (void)
 }
 
 static void
+misc_normalized_strcmp0 (void)
+{
+    static const gchar str1[] = "foo";
+    static const gchar str2[] = "bar";
+
+    g_assert_cmpint (et_normalized_strcmp0 (NULL, NULL), ==, 0);
+    g_assert_cmpint (et_normalized_strcmp0 (str1, NULL), >, 0);
+    g_assert_cmpint (et_normalized_strcmp0 (NULL, str2), <, 0);
+    g_assert_cmpint (et_normalized_strcmp0 (str1, str2), >, 0);
+}
+
+static void
 misc_undo_key (void)
 {
     guint undo_key;
@@ -114,6 +126,7 @@ main (int argc, char** argv)
 
     g_test_add_func ("/misc/convert-duration", misc_convert_duration);
     g_test_add_func ("/misc/filename-prepare", misc_filename_prepare);
+    g_test_add_func ("/misc/normalized-strcmp0", misc_normalized_strcmp0);
     g_test_add_func ("/misc/undo-key", misc_undo_key);
 
     return g_test_run ();
