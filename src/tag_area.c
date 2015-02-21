@@ -1876,8 +1876,8 @@ on_picture_save_button_clicked (GObject *object,
         if (init_dir)
             gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),init_dir);
 
-        // Suggest a filename to the user
-        if ( pic->description && strlen(pic->description) )
+        /* Suggest a filename to the user. */
+        if (!et_str_empty (pic->description))
         {
             gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(FileSelectionWindow), pic->description); //filename in UTF8
         }else
@@ -2012,7 +2012,7 @@ on_picture_view_drag_data (GtkWidget *widget, GdkDragContext *dc,
     uri = uri_list = g_strsplit ((const gchar *)gtk_selection_data_get_data (selection_data),
                                  "\r\n", 0);
 
-    while (*uri && strlen(*uri))
+    while (!et_str_empty (*uri))
     {
         GFile *file = g_file_new_for_uri (*uri);
 

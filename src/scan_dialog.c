@@ -367,7 +367,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     /* Set the default text to comment. */
     if (g_settings_get_boolean (MainSettings, "fill-set-default-comment")
         && (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields")
-            || FileTag->comment == NULL || strlen (FileTag->comment) == 0))
+            || et_str_empty (FileTag->comment)))
     {
         gchar *default_comment = g_settings_get_string (MainSettings,
                                                         "fill-default-comment");
@@ -378,7 +378,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
     /* Set CRC-32 value as default comment (for files with ID3 tag only). */
     if (g_settings_get_boolean (MainSettings, "fill-crc32-comment")
         && (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields")
-            || FileTag->comment == NULL || strlen (FileTag->comment) == 0))
+            || et_str_empty (FileTag->comment)))
     {
         GFile *file;
         GError *error = NULL;
@@ -517,7 +517,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
         gchar *file_seq_utf8 = filename_to_display(file_seq);
 
         //g_print(">%d> seq '%s' '%s'\n",loop,mask_seq,file_seq);
-        while ( mask_seq && strlen(mask_seq)>0 )
+        while (!et_str_empty (mask_seq))
         {
 
             /*
@@ -564,7 +564,7 @@ Scan_Generate_New_Tag_From_Mask (ET_File *ETFile, gchar *mask)
             /*
              * Determine separator between two code or trailing text (after code)
              */
-            if ( mask_seq && strlen(mask_seq)>0 )
+            if (!et_str_empty (mask_seq))
             {
                 if ( (tmp=strchr(mask_seq,'%')) == NULL || strlen(tmp) < 2 )
                 {
@@ -915,7 +915,8 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
         // Now, parses the code to get the corresponding string (from tag)
         source = Scan_Return_File_Tag_Field_From_Mask_Code((File_Tag *)ETFile->FileTag->data,tmp[1]);
         mask_item = g_slice_new0 (File_Mask_Item);
-        if (source && *source && strlen(*source)>0)
+
+        if (source && !et_str_empty (*source))
         {
             mask_item->type = FIELD;
             mask_item->string = g_strdup(*source);
@@ -961,7 +962,7 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
     }
 
     // It may have some characters before the last remaining code ('__%a')
-    if (mask!=NULL && strlen(mask)>0)
+    if (!et_str_empty (mask))
     {
         mask_item = g_slice_new0 (File_Mask_Item);
         mask_item->type = LEADING_SEPARATOR;
@@ -2764,7 +2765,8 @@ entry_check_scan_tag_mask (GtkEntry *entry, gpointer user_data)
     g_return_if_fail (entry != NULL);
 
     mask = g_strdup (gtk_entry_get_text (entry));
-    if (!mask || strlen(mask)<1)
+
+    if (et_str_empty (mask))
         goto Bad_Mask;
 
     while (mask)
@@ -2840,7 +2842,8 @@ entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data)
     g_return_if_fail (entry != NULL);
 
     mask = g_strdup (gtk_entry_get_text (entry));
-    if (!mask || strlen(mask)<1)
+
+    if (et_str_empty (mask))
         goto Bad_Mask;
 
     // Not a valid path....

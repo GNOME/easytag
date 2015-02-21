@@ -3161,8 +3161,7 @@ Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
     {
         g_free (*cddb_out);
     }
-    while (Cddb_Read_Line (file, cddb_out) > 0
-           && *cddb_out && strlen (*cddb_out) > 0);
+    while (Cddb_Read_Line (file, cddb_out) > 0 && !et_str_empty (*cddb_out));
 
     //g_print("Http Header : %s\n",*cddb_out);
     return 1;

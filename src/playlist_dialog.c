@@ -604,7 +604,8 @@ entry_check_content_mask (GtkEntry *entry, gpointer user_data)
     g_return_if_fail (entry != NULL);
 
     mask = g_strdup (gtk_entry_get_text (entry));
-    if (!mask || strlen(mask)<1)
+
+    if (et_str_empty (mask))
         goto Bad_Mask;
 
     while (mask)

@@ -1058,7 +1058,7 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
 
     while (parts[index]) // it is NULL-terminated
     {
-        if (strlen(parts[index]) == 0)
+        if (parts[index] == '\0')
         {
             index++;
             continue;
@@ -4170,7 +4170,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     directory_name = g_strdup(address+1);
     *(address+1) = 0;
 
-    if (!directory_name || strlen(directory_name)==0)
+    if (et_str_empty (directory_name))
     {
         g_free(directory_name);
         g_free(directory_parent);
@@ -4592,10 +4592,12 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
     }
 
     /* Current directory. */
-    current_directory = g_strdup (priv->current_path);
-
-    if (!current_directory || strlen(current_directory)==0)
+    if (et_str_empty (priv->current_path))
+    {
         return;
+    }
+
+    current_directory = g_strdup (priv->current_path);
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder,
