@@ -226,9 +226,7 @@ et_file_list_add (GList *file_list,
     /* Fill the File_Name structure for FileNameList */
     FileName = et_file_name_new ();
     FileName->saved      = TRUE;    /* The file hasn't been changed, so it's saved */
-    FileName->value      = filename;
-    FileName->value_utf8 = filename_utf8;
-    FileName->value_ck   = g_utf8_collate_key_for_filename(filename_utf8, -1);
+    ET_Set_Filename_File_Name_Item (FileName, filename_utf8, filename);
 
     /* Fill the File_Tag structure for FileTagList */
     FileTag = et_file_tag_new ();
@@ -1213,15 +1211,9 @@ et_file_list_update_directory_name (GList *file_list,
                                                     (new_path[strlen (new_path) - 1] == G_DIR_SEPARATOR) ? "" : G_DIR_SEPARATOR_S,
                                                     &filename[strlen (old_path_tmp)],NULL);
 
-                        /* Replace the filename (in file system encoding). */
-                        g_free (FileName->value);
-                        FileName->value = filename_tmp;
-                        /* Replace the filename (in file system encoding). */
-                        g_free (FileName->value_utf8);
-                        FileName->value_utf8 = filename_to_display (FileName->value);
-                        /* Recalculate the collate key. */
-                        g_free (FileName->value_ck);
-                        FileName->value_ck = g_utf8_collate_key_for_filename (FileName->value_utf8, -1);
+                        ET_Set_Filename_File_Name_Item (FileName, NULL,
+                                                        filename_tmp);
+                        g_free (filename_tmp);
                     }
                 }
              }
