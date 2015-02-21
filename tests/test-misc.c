@@ -97,6 +97,16 @@ misc_filename_prepare (void)
     }
 }
 
+static void
+misc_undo_key (void)
+{
+    guint undo_key;
+
+    undo_key = et_undo_key_new ();
+    g_assert_cmpint (undo_key, >, 0U);
+    g_assert_cmpint (undo_key, <, et_undo_key_new ());
+}
+
 int
 main (int argc, char** argv)
 {
@@ -104,6 +114,7 @@ main (int argc, char** argv)
 
     g_test_add_func ("/misc/convert-duration", misc_convert_duration);
     g_test_add_func ("/misc/filename-prepare", misc_filename_prepare);
+    g_test_add_func ("/misc/undo-key", misc_undo_key);
 
     return g_test_run ();
 }
