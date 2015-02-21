@@ -349,98 +349,106 @@ et_file_tag_detect_difference (const File_Tag *FileTag1,
         return TRUE;
 
     /* Title */
-    if ( FileTag1->title && !FileTag2->title && g_utf8_strlen(FileTag1->title, -1)>0 ) return TRUE;
-    if (!FileTag1->title &&  FileTag2->title && g_utf8_strlen(FileTag2->title, -1)>0 ) return TRUE;
-    if ( FileTag1->title &&  FileTag2->title && g_utf8_collate(FileTag1->title,FileTag2->title)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->title, FileTag2->title) != 0)
+    {
+        return TRUE;
+    }
 
     /* Artist */
-    if ( FileTag1->artist && !FileTag2->artist && g_utf8_strlen(FileTag1->artist, -1)>0 ) return TRUE;
-    if (!FileTag1->artist &&  FileTag2->artist && g_utf8_strlen(FileTag2->artist, -1)>0 ) return TRUE;
-    if ( FileTag1->artist &&  FileTag2->artist && g_utf8_collate(FileTag1->artist,FileTag2->artist)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->artist, FileTag2->artist) != 0)
+    {
+        return TRUE;
+    }
 
 	/* Album Artist */
-    if ( FileTag1->album_artist && !FileTag2->album_artist && g_utf8_strlen(FileTag1->album_artist, -1)>0 ) return TRUE;
-    if (!FileTag1->album_artist &&  FileTag2->album_artist && g_utf8_strlen(FileTag2->album_artist, -1)>0 ) return TRUE;
-    if ( FileTag1->album_artist &&  FileTag2->album_artist && g_utf8_collate(FileTag1->album_artist,FileTag2->album_artist)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->album_artist,
+                               FileTag2->album_artist) != 0)
+    {
+        return TRUE;
+    }
 
     /* Album */
-    if ( FileTag1->album && !FileTag2->album && g_utf8_strlen(FileTag1->album, -1)>0 ) return TRUE;
-    if (!FileTag1->album &&  FileTag2->album && g_utf8_strlen(FileTag2->album, -1)>0 ) return TRUE;
-    if ( FileTag1->album &&  FileTag2->album && g_utf8_collate(FileTag1->album,FileTag2->album)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->album, FileTag2->album) != 0)
+    {
+        return TRUE;
+    }
 
     /* Disc Number */
-    if ( FileTag1->disc_number && !FileTag2->disc_number && g_utf8_strlen(FileTag1->disc_number, -1)>0 ) return TRUE;
-    if (!FileTag1->disc_number &&  FileTag2->disc_number && g_utf8_strlen(FileTag2->disc_number, -1)>0 ) return TRUE;
-    if ( FileTag1->disc_number &&  FileTag2->disc_number && g_utf8_collate(FileTag1->disc_number,FileTag2->disc_number)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->disc_number,
+                               FileTag2->disc_number) != 0)
+    {
+        return TRUE;
+    }
 
     /* Discs Total */
-    if (FileTag1->disc_total && !FileTag2->disc_total
-        && g_utf8_strlen (FileTag1->disc_total, -1) > 0)
-    {
-        return TRUE;
-    }
-
-    if (!FileTag1->disc_total &&  FileTag2->disc_total
-        && g_utf8_strlen (FileTag2->disc_total, -1) > 0)
-    {
-        return TRUE;
-    }
-
-    if (FileTag1->disc_total &&  FileTag2->disc_total
-        && g_utf8_collate (FileTag1->disc_total, FileTag2->disc_total) != 0)
+    if (et_normalized_strcmp0 (FileTag1->disc_total,
+                               FileTag2->disc_total) != 0)
     {
         return TRUE;
     }
 
     /* Year */
-    if ( FileTag1->year && !FileTag2->year && g_utf8_strlen(FileTag1->year, -1)>0 ) return TRUE;
-    if (!FileTag1->year &&  FileTag2->year && g_utf8_strlen(FileTag2->year, -1)>0 ) return TRUE;
-    if ( FileTag1->year &&  FileTag2->year && g_utf8_collate(FileTag1->year,FileTag2->year)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->year, FileTag2->year) != 0)
+    {
+        return TRUE;
+    }
 
     /* Track */
-    if ( FileTag1->track && !FileTag2->track && g_utf8_strlen(FileTag1->track, -1)>0 ) return TRUE;
-    if (!FileTag1->track &&  FileTag2->track && g_utf8_strlen(FileTag2->track, -1)>0 ) return TRUE;
-    if ( FileTag1->track &&  FileTag2->track && g_utf8_collate(FileTag1->track,FileTag2->track)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->track, FileTag2->track) != 0)
+    {
+        return TRUE;
+    }
 
     /* Track Total */
-    if ( FileTag1->track_total && !FileTag2->track_total && g_utf8_strlen(FileTag1->track_total, -1)>0 ) return TRUE;
-    if (!FileTag1->track_total &&  FileTag2->track_total && g_utf8_strlen(FileTag2->track_total, -1)>0 ) return TRUE;
-    if ( FileTag1->track_total &&  FileTag2->track_total && g_utf8_collate(FileTag1->track_total,FileTag2->track_total)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->track_total,
+                               FileTag2->track_total) != 0)
+    {
+        return TRUE;
+    }
 
     /* Genre */
-    if ( FileTag1->genre && !FileTag2->genre && g_utf8_strlen(FileTag1->genre, -1)>0 ) return TRUE;
-    if (!FileTag1->genre &&  FileTag2->genre && g_utf8_strlen(FileTag2->genre, -1)>0 ) return TRUE;
-    if ( FileTag1->genre &&  FileTag2->genre && g_utf8_collate(FileTag1->genre,FileTag2->genre)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->genre, FileTag2->genre) != 0)
+    {
+        return TRUE;
+    }
 
     /* Comment */
-    if ( FileTag1->comment && !FileTag2->comment && g_utf8_strlen(FileTag1->comment, -1)>0 ) return TRUE;
-    if (!FileTag1->comment &&  FileTag2->comment && g_utf8_strlen(FileTag2->comment, -1)>0 ) return TRUE;
-    if ( FileTag1->comment &&  FileTag2->comment && g_utf8_collate(FileTag1->comment,FileTag2->comment)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->comment, FileTag2->comment) != 0)
+    {
+        return TRUE;
+    }
 
     /* Composer */
-    if ( FileTag1->composer && !FileTag2->composer && g_utf8_strlen(FileTag1->composer, -1)>0 ) return TRUE;
-    if (!FileTag1->composer &&  FileTag2->composer && g_utf8_strlen(FileTag2->composer, -1)>0 ) return TRUE;
-    if ( FileTag1->composer &&  FileTag2->composer && g_utf8_collate(FileTag1->composer,FileTag2->composer)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->composer, FileTag2->composer) != 0)
+    {
+        return TRUE;
+    }
 
     /* Original artist */
-    if ( FileTag1->orig_artist && !FileTag2->orig_artist && g_utf8_strlen(FileTag1->orig_artist, -1)>0 ) return TRUE;
-    if (!FileTag1->orig_artist &&  FileTag2->orig_artist && g_utf8_strlen(FileTag2->orig_artist, -1)>0 ) return TRUE;
-    if ( FileTag1->orig_artist &&  FileTag2->orig_artist && g_utf8_collate(FileTag1->orig_artist,FileTag2->orig_artist)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->orig_artist,
+                               FileTag2->orig_artist) != 0)
+    {
+        return TRUE;
+    }
 
     /* Copyright */
-    if ( FileTag1->copyright && !FileTag2->copyright && g_utf8_strlen(FileTag1->copyright, -1)>0 ) return TRUE;
-    if (!FileTag1->copyright &&  FileTag2->copyright && g_utf8_strlen(FileTag2->copyright, -1)>0 ) return TRUE;
-    if ( FileTag1->copyright &&  FileTag2->copyright && g_utf8_collate(FileTag1->copyright,FileTag2->copyright)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->copyright, FileTag2->copyright) != 0)
+    {
+        return TRUE;
+    }
 
     /* URL */
-    if ( FileTag1->url && !FileTag2->url && g_utf8_strlen(FileTag1->url, -1)>0 ) return TRUE;
-    if (!FileTag1->url &&  FileTag2->url && g_utf8_strlen(FileTag2->url, -1)>0 ) return TRUE;
-    if ( FileTag1->url &&  FileTag2->url && g_utf8_collate(FileTag1->url,FileTag2->url)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->url, FileTag2->url) != 0)
+    {
+        return TRUE;
+    }
 
     /* Encoded by */
-    if ( FileTag1->encoded_by && !FileTag2->encoded_by && g_utf8_strlen(FileTag1->encoded_by, -1)>0 ) return TRUE;
-    if (!FileTag1->encoded_by &&  FileTag2->encoded_by && g_utf8_strlen(FileTag2->encoded_by, -1)>0 ) return TRUE;
-    if ( FileTag1->encoded_by &&  FileTag2->encoded_by && g_utf8_collate(FileTag1->encoded_by,FileTag2->encoded_by)!=0 ) return TRUE;
+    if (et_normalized_strcmp0 (FileTag1->encoded_by,
+                               FileTag2->encoded_by) != 0)
+    {
+        return TRUE;
+    }
 
     /* Picture */
     for (pic1 = FileTag1->picture, pic2 = FileTag2->picture; ;
@@ -459,15 +467,10 @@ et_file_tag_detect_difference (const File_Tag *FileTag1,
         }
         if (pic1->type != pic2->type)
             return TRUE;
-        if (pic1->description && !pic2->description
-        &&  g_utf8_strlen(pic1->description, -1)>0 )
+        if (et_normalized_strcmp0 (pic1->description, pic2->description) != 0)
+        {
             return TRUE;
-        if (!pic1->description && pic2->description
-        &&  g_utf8_strlen(pic2->description, -1)>0 )
-            return TRUE;
-        if (pic1->description && pic2->description
-        &&  g_utf8_collate(pic1->description, pic2->description)!=0 )
-            return TRUE;
+        }
     }
 
     return FALSE; /* No changes */

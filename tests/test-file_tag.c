@@ -78,21 +78,30 @@ file_tag_difference (void)
 
     g_assert (tag1);
 
-    et_file_tag_set_title (tag1, "foo");
-    et_file_tag_set_artist (tag1, "bar");
-    et_file_tag_set_album_artist (tag1, "baz");
+    et_file_tag_set_title (tag1, "foo：");
 
-    g_assert_cmpstr (tag1->title, ==, "foo");
-    g_assert_cmpstr (tag1->artist, ==, "bar");
-    g_assert_cmpstr (tag1->album_artist, ==, "baz");
+    /* Contains a full-width colon, which should compare differently to a
+     * colon. */
+    g_assert_cmpstr (tag1->title, ==, "foo：");
 
     tag2 = et_file_tag_new ();
 
     g_assert (tag2);
 
-    et_file_tag_set_title (tag2, "flub");
-    et_file_tag_set_artist (tag2, "blub");
-    et_file_tag_set_album_artist (tag2, "slub");
+    et_file_tag_set_title (tag2, "foo:");
+
+    g_assert (et_file_tag_detect_difference (tag1, tag2));
+
+    et_file_tag_free (tag2);
+    et_file_tag_free (tag1);
+
+    tag1 = et_file_tag_new ();
+
+    et_file_tag_set_artist (tag1, "bar");
+
+    tag2 = et_file_tag_new ();
+
+    et_file_tag_set_artist (tag2, "baz");
 
     g_assert (et_file_tag_detect_difference (tag1, tag2));
 

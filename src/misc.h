@@ -40,6 +40,7 @@ gchar * et_track_number_to_string (const guint track_number);
 void et_filename_prepare (gchar *filename_utf8, gboolean replace_illegal);
 
 guint et_undo_key_new (void);
+gint et_normalized_strcmp0 (const gchar *str1, const gchar *str2);
 
 G_END_DECLS
 

@@ -435,3 +435,44 @@ et_undo_key_new (void)
     static guint ETUndoKey = 0;
     return ++ETUndoKey;
 }
+
+/*
+ * et_normalized_strcmp0:
+ * @str1: UTF-8 string, or %NULL
+ * @str2: UTF-8 string to compare against, or %NULL
+ *
+ * Compare two UTF-8 strings, normalizing them before doing so, and return the
+ * difference.
+ *
+ * Returns: an integer less than, equal to, or greater than zero, if str1 is <,
+ * == or > than str2
+ */
+gint
+et_normalized_strcmp0 (const gchar *str1,
+                       const gchar *str2)
+{
+    gint result;
+    gchar *normalized1;
+    gchar *normalized2;
+
+    /* Check for NULL, as it cannot be passed to g_utf8_normalize(). */
+    if (!str1)
+    {
+        return -(str1 != str2);
+    }
+
+    if (!str2)
+    {
+        return str1 != str2;
+    }
+
+    normalized1 = g_utf8_normalize (str1, -1, G_NORMALIZE_DEFAULT);
+    normalized2 = g_utf8_normalize (str2, -1, G_NORMALIZE_DEFAULT);
+
+    result = g_strcmp0 (normalized1, normalized2);
+
+    g_free (normalized1);
+    g_free (normalized2);
+
+    return result;
+}
