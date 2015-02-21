@@ -88,8 +88,6 @@ struct _EtScanDialogPrivate
     GtkWidget *rename_file_preview_label;
 };
 
-static const guint BOX_SPACING = 6;
-
 /* Some predefined masks -- IMPORTANT: Null-terminate me! */
 static const gchar *Scan_Masks [] =
 {

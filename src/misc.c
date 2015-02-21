@@ -34,11 +34,6 @@
 #endif /* G_OS_WIN32 */
 
 
-/***************
- * Declaration *
- ***************/
-static const guint BOX_SPACING = 6;
-
 /*
  * Add the 'string' passed in parameter to the list store
  * If this string already exists in the list store, it doesn't add it.

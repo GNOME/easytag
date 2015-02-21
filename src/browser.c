@@ -102,13 +102,6 @@ struct _EtBrowserPrivate
     gchar *current_path;
 };
 
-/****************
- * Declarations *
- ****************/
-
-
-static const guint BOX_SPACING = 6;
-
 /*
  * EtPathState:
  * @ET_PATH_STATE_OPEN: the path is open or has been read
