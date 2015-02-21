@@ -1074,7 +1074,8 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
     if (path_utf8_cur)
     {
         filename_tmp = filename_new_utf8; // in UTF-8!
-        filename_new_utf8 = g_strconcat(path_utf8_cur,G_DIR_SEPARATOR_S,filename_new_utf8,NULL);
+        filename_new_utf8 = g_build_filename (path_utf8_cur, filename_new_utf8,
+                                              NULL);
         g_free(filename_tmp);
         g_free(path_utf8_cur);
     }

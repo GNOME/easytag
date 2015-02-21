@@ -1079,8 +1079,7 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
             gtk_tree_model_get (GTK_TREE_MODEL (priv->directory_model),
                                 &parentNode, TREE_COLUMN_FULL_PATH,
                                 &parent_path, -1);
-            path = g_build_path (G_DIR_SEPARATOR_S, parent_path, parts[index],
-                                 NULL);
+            path = g_build_filename (parent_path, parts[index], NULL);
             g_free (parent_path);
 
             file = g_file_new_for_path (path);
