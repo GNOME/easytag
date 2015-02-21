@@ -179,6 +179,7 @@ static const gchar *cddb_genre_vs_id3_genre [][2] =
 static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
 
 static const guint BOX_SPACING = 6;
+static const guint MAX_STRING_LEN = 1024;
 
 
 /**************

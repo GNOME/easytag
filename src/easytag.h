@@ -27,12 +27,6 @@
 
 #include "et_core.h"
 
-#define MAX_STRING_LEN     1024
-
-/***************
- * Declaration *
- ***************/
-
 /* Variable to force to quit recursive functions (reading dirs) or stop saving files */
 extern gboolean Main_Stop_Button_Pressed;
 
