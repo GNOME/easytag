@@ -1272,33 +1272,20 @@ on_go_default (GSimpleAction *action,
 }
 
 static void
-on_go_first (GSimpleAction *action,
-             GVariant *variant,
-             gpointer user_data)
+update_ui_for_et_file (EtApplicationWindow *self,
+                       ET_File *et_file)
 {
     EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self;
-    GList *etfilelist;
 
-    self = ET_APPLICATION_WINDOW (user_data);
     priv = et_application_window_get_instance_private (self);
 
-    g_return_if_fail (ETCore->ETFileDisplayedList);
-
-    et_application_window_update_et_file_from_ui (self);
-
-    /* Go to the first item of the list */
-    etfilelist = ET_Displayed_File_List_First ();
-
-    if (etfilelist)
+    if (et_file)
     {
         /* To avoid the last line still selected. */
         et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
+        et_application_window_browser_select_file_by_et_file (self, et_file,
                                                               TRUE);
-        et_application_window_display_et_file (self,
-                                               (ET_File *)etfilelist->data);
+        et_application_window_display_et_file (self, et_file);
     }
 
     et_application_window_update_actions (self);
@@ -1311,16 +1298,35 @@ on_go_first (GSimpleAction *action,
 }
 
 static void
-on_go_previous (GSimpleAction *action,
-                GVariant *variant,
-                gpointer user_data)
+on_go_first (GSimpleAction *action,
+             GVariant *variant,
+             gpointer user_data)
 {
-    EtApplicationWindowPrivate *priv;
     EtApplicationWindow *self;
     GList *etfilelist;
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
+
+    g_return_if_fail (ETCore->ETFileDisplayedList);
+
+    et_application_window_update_et_file_from_ui (self);
+
+    /* Go to the first item of the list */
+    etfilelist = ET_Displayed_File_List_First ();
+
+    update_ui_for_et_file (self, etfilelist ? (ET_File *)etfilelist->data
+                                            : NULL);
+}
+
+static void
+on_go_previous (GSimpleAction *action,
+                GVariant *variant,
+                gpointer user_data)
+{
+    EtApplicationWindow *self;
+    GList *etfilelist;
+
+    self = ET_APPLICATION_WINDOW (user_data);
 
     g_return_if_fail (ETCore->ETFileDisplayedList
                       && ETCore->ETFileDisplayedList->prev);
@@ -1330,23 +1336,8 @@ on_go_previous (GSimpleAction *action,
     /* Go to the prev item of the list */
     etfilelist = ET_Displayed_File_List_Previous ();
 
-    if (etfilelist)
-    {
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        et_application_window_display_et_file (self,
-                                               (ET_File *)etfilelist->data);
-    }
-
-    et_application_window_update_actions (self);
-    et_application_window_scan_dialog_update_previews (self);
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        et_tag_area_title_grab_focus (ET_TAG_AREA (priv->tag_area));
-    }
+    update_ui_for_et_file (self, etfilelist ? (ET_File *)etfilelist->data
+                                            : NULL);
 }
 
 static void
@@ -1354,12 +1345,10 @@ on_go_next (GSimpleAction *action,
             GVariant *variant,
             gpointer user_data)
 {
-    EtApplicationWindowPrivate *priv;
     EtApplicationWindow *self;
     GList *etfilelist;
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
 
     g_return_if_fail (ETCore->ETFileDisplayedList
                       && ETCore->ETFileDisplayedList->next);
@@ -1369,23 +1358,8 @@ on_go_next (GSimpleAction *action,
     /* Go to the next item of the list */
     etfilelist = ET_Displayed_File_List_Next ();
 
-    if (etfilelist)
-    {
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        et_application_window_display_et_file (self,
-                                               (ET_File *)etfilelist->data);
-    }
-
-    et_application_window_update_actions (self);
-    et_application_window_scan_dialog_update_previews (self);
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        et_tag_area_title_grab_focus (ET_TAG_AREA (priv->tag_area));
-    }
+    update_ui_for_et_file (self, etfilelist ? (ET_File *)etfilelist->data
+                                            : NULL);
 }
 
 static void
@@ -1393,12 +1367,10 @@ on_go_last (GSimpleAction *action,
             GVariant *variant,
             gpointer user_data)
 {
-    EtApplicationWindowPrivate *priv;
     EtApplicationWindow *self;
     GList *etfilelist;
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
 
     g_return_if_fail (ETCore->ETFileDisplayedList
                       && ETCore->ETFileDisplayedList->next);
@@ -1408,23 +1380,8 @@ on_go_last (GSimpleAction *action,
     /* Go to the last item of the list */
     etfilelist = ET_Displayed_File_List_Last ();
 
-    if (etfilelist)
-    {
-        et_browser_unselect_all (ET_BROWSER (priv->browser));
-        et_application_window_browser_select_file_by_et_file (self,
-                                                              (ET_File *)etfilelist->data,
-                                                              TRUE);
-        et_application_window_display_et_file (self,
-                                               (ET_File *)etfilelist->data);
-    }
-
-    et_application_window_update_actions (self);
-    et_application_window_scan_dialog_update_previews (self);
-
-    if (!g_settings_get_boolean (MainSettings, "tag-preserve-focus"))
-    {
-        et_tag_area_title_grab_focus (ET_TAG_AREA (priv->tag_area));
-    }
+    update_ui_for_et_file (self, etfilelist ? (ET_File *)etfilelist->data
+                                            : NULL);
 }
 
 static void
