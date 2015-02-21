@@ -32,6 +32,7 @@
 #include "charset.h"
 #include "easytag.h"
 #include "log.h"
+#include "misc.h"
 #include "mpeg_header.h"
 #include "monkeyaudio_header.h"
 #include "musepack_header.h"
@@ -442,7 +443,7 @@ et_file_list_add (GList *file_list,
      * Process the filename and tag to generate undo if needed...
      * The undo key must be the same for FileName and FileTag => changed in the same time
      */
-    undo_key = ET_Undo_Key_New();
+    undo_key = et_undo_key_new ();
 
     FileName = et_file_name_new ();
     FileName->key = undo_key;

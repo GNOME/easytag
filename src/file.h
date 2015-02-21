@@ -72,8 +72,6 @@ gboolean ET_Save_File_Name_Internal (const ET_File *ETFile, File_Name *FileName)
 gboolean ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error);
 gboolean ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag);
 
-guint ET_Undo_Key_New (void);
-
 gboolean ET_Undo_File_Data (ET_File *ETFile);
 gboolean ET_Redo_File_Data (ET_File *ETFile);
 gboolean ET_File_Data_Has_Undo_Data (const ET_File *ETFile);

@@ -427,3 +427,11 @@ et_filename_prepare (gchar *filename_utf8,
             *character = '-';
     }
 }
+
+/* Key for Undo */
+guint
+et_undo_key_new (void)
+{
+    static guint ETUndoKey = 0;
+    return ++ETUndoKey;
+}

@@ -81,15 +81,6 @@ ET_File_Item_New (void)
     return ETFile;
 }
 
-
-/* Key for Undo */
-guint
-ET_Undo_Key_New (void)
-{
-    static guint ETUndoKey = 0;
-    return ++ETUndoKey;
-}
-
 /*
  * Comparison function for sorting by ascending filename.
  */

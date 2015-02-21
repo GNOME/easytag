@@ -19,7 +19,6 @@
 #include "file_name.h"
 
 #include "charset.h"
-#include "file.h"
 #include "misc.h"
 
 #include <string.h>
@@ -33,7 +32,7 @@ et_file_name_new (void)
     File_Name *file_name;
 
     file_name = g_slice_new (File_Name);
-    file_name->key = ET_Undo_Key_New ();
+    file_name->key = et_undo_key_new ();
     file_name->saved = FALSE;
     file_name->value = NULL;
     file_name->value_utf8 = NULL;

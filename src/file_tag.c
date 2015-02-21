@@ -18,7 +18,7 @@
 
 #include "file_tag.h"
 
-#include "file.h"
+#include "misc.h"
 
 /*
  * Create a new File_Tag structure.
@@ -29,7 +29,7 @@ et_file_tag_new (void)
     File_Tag *file_tag;
 
     file_tag = g_slice_new0 (File_Tag);
-    file_tag->key = ET_Undo_Key_New ();
+    file_tag->key = et_undo_key_new ();
 
     return file_tag;
 }
@@ -105,7 +105,7 @@ et_file_tag_copy_into (File_Tag *destination,
     g_return_if_fail (destination != NULL);
 
     /* Key for the item, may be overwritten. */
-    destination->key = ET_Undo_Key_New ();
+    destination->key = et_undo_key_new ();
 
     et_file_tag_set_title (destination, source->title);
     et_file_tag_set_artist (destination, source->artist);
