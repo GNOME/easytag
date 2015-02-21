@@ -236,7 +236,7 @@ update_search_button_sensitivity (EtCDDBDialog *self)
     priv = et_cddb_dialog_get_instance_private (self);
 
     if (priv->search_button
-        && g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)), -1) > 0
+        && *(gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)))
         && (g_settings_get_flags (MainSettings, "cddb-search-fields") != 0)
         && (g_settings_get_flags (MainSettings, "cddb-search-categories") != 0))
     {
@@ -1131,7 +1131,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         }else if ( strncmp(cddb_out,"DYEAR=",6)==0 ) // Year
         {
             valid = Try_To_Validate_Utf8_String(cddb_out+6); // '6' to skip 'DYEAR='
-            if (g_utf8_strlen(valid, -1))
+            if (!et_str_empty (valid))
                 cddbalbum->year = valid;
 
             g_free (cddb_out);
@@ -1140,7 +1140,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         }else if ( strncmp(cddb_out,"DGENRE=",7)==0 ) // Genre
         {
             valid = Try_To_Validate_Utf8_String(cddb_out+7); // '7' to skip 'DGENRE='
-            if (g_utf8_strlen(valid, -1))
+            if (!et_str_empty (valid))
                 cddbalbum->genre = valid;
 
             g_free (cddb_out);
@@ -1515,8 +1515,10 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
 
     /* Get words to search... */
     string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)));
-    if (!string || g_utf8_strlen(string, -1) <= 0)
+    if (et_str_empty (string))
+    {
         return FALSE;
+    }
 
     /* Format the string of words */
     g_strstrip (string);
@@ -1849,8 +1851,10 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
 
     /* Get words to search... */
     string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)));
-    if (!string || g_utf8_strlen(string, -1) <= 0)
+    if (et_str_empty (string))
+    {
         return FALSE;
+    }
 
     /* Format the string of words */
     g_strstrip (string);
@@ -2424,8 +2428,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                     && (cddbtrackalbum->cddbalbum->genre
                         || cddbtrackalbum->cddbalbum->category))
                 {
-                    if (cddbtrackalbum->cddbalbum->genre
-                        && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
+                    if (!et_str_empty (cddbtrackalbum->cddbalbum->genre))
                     {
                         et_file_tag_set_genre (FileTag,
                                                Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
@@ -2555,8 +2558,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                     && (cddbtrackalbum->cddbalbum->genre
                         || cddbtrackalbum->cddbalbum->category) )
                 {
-                    if (cddbtrackalbum->cddbalbum->genre
-                        && g_utf8_strlen (cddbtrackalbum->cddbalbum->genre, -1) > 0)
+                    if (!et_str_empty (cddbtrackalbum->cddbalbum->genre))
                     {
                         et_file_tag_set_genre (FileTag,
                                                Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));

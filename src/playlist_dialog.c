@@ -429,7 +429,7 @@ write_button_clicked (EtPlaylistDialog *self)
 
     /* Check if playlist name was filled. */
     if (g_settings_get_boolean (MainSettings, "playlist-use-mask")
-        && g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY(priv->name_mask_entry)), -1) <=0)
+        && *(gtk_entry_get_text (GTK_ENTRY (priv->name_mask_entry))) == '\0')
     {
         /* TODO: Can this happen? */
         g_settings_set_boolean (MainSettings, "playlist-use-mask", FALSE);

@@ -47,7 +47,7 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
     //gboolean found = FALSE;
     gchar *string = g_strdup(str);
 
-    if (!string || g_utf8_strlen(string, -1) <= 0)
+    if (et_str_empty (string))
     {
         g_free (string);
         return FALSE;
@@ -470,4 +470,18 @@ et_normalized_strcmp0 (const gchar *str1,
     g_free (normalized2);
 
     return result;
+}
+
+/*
+ * et_str_empty:
+ * @str: string to test for emptiness
+ *
+ * Test if @str is empty, in other words either %NULL or the empty string.
+ *
+ * Returns: %TRUE is @str is either %NULL or "", %FALSE otherwise
+ */
+gboolean
+et_str_empty (const gchar *str)
+{
+    return !str || !str[0];
 }

@@ -3151,7 +3151,7 @@ et_browser_reload (EtBrowser *self)
         /* If no node selected, get path from BrowserEntry or default path */
         if (priv->current_path != NULL)
             current_path = g_strdup(priv->current_path);
-        else if (g_utf8_strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))), -1) > 0)
+        else if (*(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo))))))
             current_path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))));
         else
         {
@@ -4337,7 +4337,7 @@ Rename_Directory (EtBrowser *self)
     }
 
     /* Check if a name for the directory have been supplied */
-    if (!directory_new_name || g_utf8_strlen(directory_new_name, -1) < 1)
+    if (et_str_empty (directory_new_name))
     {
         GtkWidget *msgdialog;
 

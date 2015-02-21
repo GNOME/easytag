@@ -298,7 +298,7 @@ Populate_List_Store_From_File (const gchar *filename,
             utf8_line = Try_To_Validate_Utf8_String (line);
             g_free (line);
 
-            if (utf8_line && g_utf8_strlen (utf8_line, -1) > 0)
+            if (!et_str_empty (utf8_line))
             {
                 gtk_list_store_insert_with_values (liststore, NULL, G_MAXINT,
                                                    text_column, utf8_line, -1);

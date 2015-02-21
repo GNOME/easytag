@@ -162,7 +162,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -190,7 +191,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -218,7 +220,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -246,7 +249,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -273,7 +277,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if (field_value && g_utf8_strlen (field_value, -1) > 0)
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup (field_value,
@@ -297,7 +302,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -330,7 +336,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -353,7 +360,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -376,7 +384,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -409,7 +418,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -457,7 +467,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -485,7 +496,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -513,7 +525,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -541,7 +554,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -569,7 +583,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);
@@ -597,7 +612,8 @@ flac_tag_read_file_tag (GFile *file,
                     if (field_value)
                     {
                         field_value++;
-                        if ( field_value && g_utf8_strlen(field_value, -1) > 0 )
+
+                        if (!et_str_empty (field_value))
                         {
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value_tmp = g_strndup(field_value, field_len);

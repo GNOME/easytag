@@ -180,7 +180,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_title (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with title ‘%s’"),
                                    string_to_set);
@@ -202,7 +203,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with artist ‘%s’"),
                                    string_to_set);
@@ -223,7 +225,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_album_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with album artist ‘%s’"),
                                    string_to_set);
@@ -245,7 +248,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_album (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with album ‘%s’"),
                                    string_to_set);
@@ -285,10 +289,9 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
-        if (string_to_set != NULL && g_utf8_strlen (string_to_set, -1) > 0)
+        if (!et_str_empty (string_to_set))
         {
-            if (string_to_set1 != NULL
-                && g_utf8_strlen (string_to_set1, -1) > 0)
+            if (!et_str_empty (string_to_set1))
             {
                 msg = g_strdup_printf (_("Selected files tagged with disc number ‘%s/%s’"),
                                        string_to_set, string_to_set1);
@@ -315,7 +318,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_year (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with year ‘%s’"),
                                    string_to_set);
@@ -339,7 +343,7 @@ on_apply_to_selection (GObject *object,
 
             // We apply the TrackEntry field to all others files only if it is to delete
             // the field (string=""). Else we don't overwrite the track number
-            if (!string_to_set || g_utf8_strlen(string_to_set, -1) == 0)
+            if (et_str_empty (string_to_set))
             {
                 et_file_tag_set_track_number (FileTag, string_to_set);
             }
@@ -348,9 +352,9 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
-        if ( string_to_set && g_utf8_strlen(string_to_set, -1) > 0 ) //&& atoi(string_to_set)>0 )
+        if (!et_str_empty (string_to_set))
         {
-            if ( string_to_set1 != NULL && g_utf8_strlen(string_to_set1, -1)>0 ) //&& atoi(string_to_set1)>0 )
+            if (!et_str_empty (string_to_set1))
             {
                 msg = g_strdup_printf (_("Selected files tagged with track like ‘xx/%s’"),
                                        string_to_set1);
@@ -444,7 +448,7 @@ on_apply_to_selection (GObject *object,
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
 
-        if ( string_to_set1 != NULL && g_utf8_strlen(string_to_set1, -1)>0 ) //&& atoi(string_to_set1)>0 )
+        if (!et_str_empty (string_to_set1))
         {
             msg = g_strdup_printf (_("Selected files tagged with track like ‘xx/%s’"),
                                    string_to_set1);
@@ -466,7 +470,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_genre (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with genre ‘%s’"),
                                    string_to_set);
@@ -495,7 +500,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_comment (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with comment ‘%s’"),
                                    string_to_set);
@@ -516,7 +522,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_composer (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with composer ‘%s’"),
                                    string_to_set);
@@ -538,7 +545,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_orig_artist (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with original artist ‘%s’"),
                                    string_to_set);
@@ -560,7 +568,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_copyright (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with copyright ‘%s’"),
                                    string_to_set);
@@ -582,7 +591,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_url (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with URL ‘%s’"),
                                    string_to_set);
@@ -604,7 +614,8 @@ on_apply_to_selection (GObject *object,
             et_file_tag_set_encoded_by (FileTag, string_to_set);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
-        if (string_to_set != NULL && g_utf8_strlen(string_to_set, -1)>0)
+
+        if (!et_str_empty (string_to_set))
         {
             msg = g_strdup_printf (_("Selected files tagged with encoder name ‘%s’"),
                                    string_to_set);
@@ -2767,7 +2778,7 @@ et_tag_area_create_file_tag (EtTagArea *self)
 
         separator = g_utf8_strchr (buffer, -1, '/');
 
-        if (separator != NULL && g_utf8_strlen (separator + 1, -1) > 0)
+        if (separator && *(separator + 1))
         {
             /* Copy before the separator for the disc number, beyond the
              * separator for the total number of discs. */

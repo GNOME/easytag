@@ -1104,7 +1104,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     FileTagCur = (File_Tag *)ETFile->FileTag->data;
 
     /* Title */
-    if ( FileTagCur->title && g_utf8_strlen(FileTagCur->title, -1)>0 )
+    if (!et_str_empty (FileTagCur->title))
     {
         FileTag->title = g_strdup(FileTagCur->title);
         g_strstrip (FileTag->title);
@@ -1114,7 +1114,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
     }
 
     /* Artist */
-    if ( FileTagCur->artist && g_utf8_strlen(FileTagCur->artist, -1)>0 )
+    if (!et_str_empty (FileTagCur->artist))
     {
         FileTag->artist = g_strdup(FileTagCur->artist);
         g_strstrip (FileTag->artist);
@@ -1123,8 +1123,8 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
         FileTag->artist = NULL;
     }
 
-	/* Album Artist */
-    if ( FileTagCur->album_artist && g_utf8_strlen(FileTagCur->album_artist, -1)>0 )
+    /* Album Artist */
+    if (!et_str_empty (FileTagCur->album_artist))
     {
         FileTag->album_artist = g_strdup(FileTagCur->album_artist);
         g_strstrip (FileTag->album_artist);
@@ -1135,7 +1135,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Album */
-    if ( FileTagCur->album && g_utf8_strlen(FileTagCur->album, -1)>0 )
+    if (!et_str_empty (FileTagCur->album))
     {
         FileTag->album = g_strdup(FileTagCur->album);
         g_strstrip (FileTag->album);
@@ -1146,7 +1146,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Disc Number */
-    if ( FileTagCur->disc_number && g_utf8_strlen(FileTagCur->disc_number, -1)>0 )
+    if (!et_str_empty (FileTagCur->disc_number))
     {
         FileTag->disc_number = g_strdup(FileTagCur->disc_number);
         g_strstrip (FileTag->disc_number);
@@ -1157,8 +1157,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Discs Total */
-    if (FileTagCur->disc_total
-        && g_utf8_strlen (FileTagCur->disc_total, -1) > 0)
+    if (!et_str_empty (FileTagCur->disc_total))
     {
         FileTag->disc_total = et_disc_number_to_string (atoi (FileTagCur->disc_total));
         g_strstrip (FileTag->disc_total);
@@ -1170,7 +1169,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Year */
-    if ( FileTagCur->year && g_utf8_strlen(FileTagCur->year, -1)>0 )
+    if (!et_str_empty (FileTagCur->year))
     {
         FileTag->year = g_strdup(FileTagCur->year);
         g_strstrip (FileTag->year);
@@ -1181,7 +1180,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Track */
-    if ( FileTagCur->track && g_utf8_strlen(FileTagCur->track, -1)>0 )
+    if (!et_str_empty (FileTagCur->track))
     {
         gchar *tmp_str;
 
@@ -1199,7 +1198,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Track Total */
-    if ( FileTagCur->track_total && g_utf8_strlen(FileTagCur->track_total, -1)>0 )
+    if (!et_str_empty (FileTagCur->track_total))
     {
         FileTag->track_total = et_track_number_to_string (atoi (FileTagCur->track_total));
         g_strstrip (FileTag->track_total);
@@ -1210,7 +1209,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Genre */
-    if ( FileTagCur->genre && g_utf8_strlen(FileTagCur->genre, -1)>0 )
+    if (!et_str_empty (FileTagCur->genre))
     {
         FileTag->genre = g_strdup(FileTagCur->genre);
         g_strstrip (FileTag->genre);
@@ -1221,7 +1220,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Comment */
-    if ( FileTagCur->comment && g_utf8_strlen(FileTagCur->comment, -1)>0 )
+    if (!et_str_empty (FileTagCur->comment))
     {
         FileTag->comment = g_strdup(FileTagCur->comment);
         g_strstrip (FileTag->comment);
@@ -1232,7 +1231,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Composer */
-    if ( FileTagCur->composer && g_utf8_strlen(FileTagCur->composer, -1)>0 )
+    if (!et_str_empty (FileTagCur->composer))
     {
         FileTag->composer = g_strdup(FileTagCur->composer);
         g_strstrip (FileTag->composer);
@@ -1243,7 +1242,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Original Artist */
-    if ( FileTagCur->orig_artist && g_utf8_strlen(FileTagCur->orig_artist, -1)>0 )
+    if (!et_str_empty (FileTagCur->orig_artist))
     {
         FileTag->orig_artist = g_strdup(FileTagCur->orig_artist);
         g_strstrip (FileTag->orig_artist);
@@ -1254,7 +1253,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Copyright */
-    if ( FileTagCur->copyright && g_utf8_strlen(FileTagCur->copyright, -1)>0 )
+    if (!et_str_empty (FileTagCur->copyright))
     {
         FileTag->copyright = g_strdup(FileTagCur->copyright);
         g_strstrip (FileTag->copyright);
@@ -1265,7 +1264,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* URL */
-    if ( FileTagCur->url && g_utf8_strlen(FileTagCur->url, -1)>0 )
+    if (!et_str_empty (FileTagCur->url))
     {
         FileTag->url = g_strdup(FileTagCur->url);
         g_strstrip (FileTag->url);
@@ -1276,7 +1275,7 @@ ET_Save_File_Tag_Internal (ET_File *ETFile, File_Tag *FileTag)
 
 
     /* Encoded by */
-    if ( FileTagCur->encoded_by && g_utf8_strlen(FileTagCur->encoded_by, -1)>0 )
+    if (!et_str_empty (FileTagCur->encoded_by))
     {
         FileTag->encoded_by = g_strdup(FileTagCur->encoded_by);
         g_strstrip (FileTag->encoded_by);

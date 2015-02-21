@@ -243,7 +243,7 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TITLE)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
 
-    if (FileTag->title && g_utf8_strlen(FileTag->title, -1) > 0)
+    if (!et_str_empty (FileTag->title))
     {
         id3_frame = ID3Frame_NewID(ID3FID_TITLE);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -257,7 +257,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      **********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_LEADARTIST)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->artist && g_utf8_strlen(FileTag->artist, -1) > 0)
+
+    if (!et_str_empty (FileTag->artist))
     {
         id3_frame = ID3Frame_NewID(ID3FID_LEADARTIST);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -270,7 +271,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      ***************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_BAND)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->album_artist && g_utf8_strlen(FileTag->album_artist, -1) > 0)
+
+    if (!et_str_empty (FileTag->album_artist))
     {
         id3_frame = ID3Frame_NewID(ID3FID_BAND);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -283,7 +285,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ALBUM)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->album && g_utf8_strlen(FileTag->album, -1) > 0)
+
+    if (!et_str_empty (FileTag->album))
     {
         id3_frame = ID3Frame_NewID(ID3FID_ALBUM);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -297,7 +300,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *****************************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_PARTINSET)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->disc_number && g_utf8_strlen(FileTag->disc_number, -1) > 0)
+
+    if (!et_str_empty (FileTag->disc_number))
     {
         id3_frame = ID3Frame_NewID (ID3FID_PARTINSET);
         ID3Tag_AttachFrame (id3_tag, id3_frame);
@@ -313,7 +317,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      ********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_YEAR)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->year && g_utf8_strlen(FileTag->year, -1) > 0)
+
+    if (!et_str_empty (FileTag->year))
     {
         id3_frame = ID3Frame_NewID(ID3FID_YEAR);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -327,12 +332,13 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *************************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_TRACKNUM)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->track && g_utf8_strlen(FileTag->track, -1) > 0)
+
+    if (!et_str_empty (FileTag->track))
     {
         id3_frame = ID3Frame_NewID(ID3FID_TRACKNUM);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
 
-        if ( FileTag->track_total && g_utf8_strlen(FileTag->track_total, -1) > 0)
+        if (!et_str_empty (FileTag->track_total))
             string1 = g_strconcat(FileTag->track,"/",FileTag->track_total,NULL);
         else
             string1 = g_strdup(FileTag->track);
@@ -352,7 +358,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      */
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_CONTENTTYPE)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->genre && strlen(FileTag->genre)>0 )
+
+    if (!et_str_empty (FileTag->genre))
     {
         gchar *genre_string_tmp;
         guchar genre_value;
@@ -383,7 +390,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      ***********/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMMENT)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->comment && g_utf8_strlen(FileTag->comment, -1) > 0)
+
+    if (!et_str_empty (FileTag->comment))
     {
         id3_frame = ID3Frame_NewID(ID3FID_COMMENT);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -401,7 +409,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      ************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COMPOSER)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->composer && g_utf8_strlen(FileTag->composer, -1) > 0)
+
+    if (!et_str_empty (FileTag->composer))
     {
         id3_frame = ID3Frame_NewID(ID3FID_COMPOSER);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -415,7 +424,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *******************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ORIGARTIST)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->orig_artist && g_utf8_strlen(FileTag->orig_artist, -1) > 0)
+
+    if (!et_str_empty (FileTag->orig_artist))
     {
         id3_frame = ID3Frame_NewID(ID3FID_ORIGARTIST);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -429,7 +439,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_COPYRIGHT)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->copyright && g_utf8_strlen(FileTag->copyright, -1) > 0)
+
+    if (!et_str_empty (FileTag->copyright))
     {
         id3_frame = ID3Frame_NewID(ID3FID_COPYRIGHT);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -443,7 +454,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      *******/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_WWWUSER)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->url && g_utf8_strlen(FileTag->url, -1) > 0)
+
+    if (!et_str_empty (FileTag->url))
     {
         id3_frame = ID3Frame_NewID(ID3FID_WWWUSER);
         ID3Tag_AttachFrame(id3_tag,id3_frame);
@@ -457,7 +469,8 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      **************/
     while ( (id3_frame = ID3Tag_FindFrameWithID(id3_tag,ID3FID_ENCODEDBY)) )
         ID3Tag_RemoveFrame(id3_tag,id3_frame);
-    if (FileTag->encoded_by && g_utf8_strlen(FileTag->encoded_by, -1) > 0)
+
+    if (!et_str_empty (FileTag->encoded_by))
     {
         id3_frame = ID3Frame_NewID(ID3FID_ENCODEDBY);
         ID3Tag_AttachFrame(id3_tag,id3_frame);

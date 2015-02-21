@@ -113,7 +113,7 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
             gtk_tree_model_get(GTK_TREE_MODEL(priv->load_file_content_model), &iter_content, 
                                LOAD_FILE_CONTENT_TEXT, &list_text, -1);
 
-        if (ETFile && list_text && (g_utf8_strlen (list_text, -1) > 0))
+        if (ETFile && !et_str_empty (list_text))
         {
             gchar *list_text_tmp;
             gchar *filename_new_utf8;
@@ -398,7 +398,7 @@ Load_Filename_List_Delete_All_Blank_Lines (GtkWidget *treeview)
         gtk_tree_model_get(model, &iter, LOAD_FILE_NAME_TEXT, &text, -1);
 
         /* Check for blank entry */
-        if (!text || g_utf8_strlen(text, -1) == 0)
+        if (et_str_empty (text))
         {
             g_free(text);
 

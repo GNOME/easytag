@@ -793,11 +793,9 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
                                                                        FALSE);
     g_free(mask);
 
-    if (!filename_generated_utf8)
-        return;
-    if (g_utf8_strlen(filename_generated_utf8,-1)<1)
+    if (!et_str_empty (filename_generated_utf8))
     {
-        g_free(filename_generated_utf8);
+        g_free (filename_generated_utf8);
         return;
     }
 
@@ -1735,7 +1733,7 @@ Mask_Editor_Clean_Up_Masks_List (EtScanDialog *self)
             gtk_tree_model_get(treemodel, &currentIter, MASK_EDITOR_TEXT, &text, -1);
 
             /* Check for blank entry */
-            if (text && g_utf8_strlen(text, -1) == 0)
+            if (text && *text == '\0')
             {
                 g_free(text);
 

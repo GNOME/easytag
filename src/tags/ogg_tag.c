@@ -183,7 +183,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->title==NULL)
                 FileTag->title = g_strdup(string);
@@ -203,7 +203,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->artist==NULL)
                 FileTag->artist = g_strdup(string);
@@ -222,7 +222,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->album_artist==NULL)
                 FileTag->album_artist = g_strdup(string);
@@ -241,7 +241,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->album==NULL)
                 FileTag->album = g_strdup(string);
@@ -256,11 +256,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Disc Number (Part of a Set) and Disc Total *
      **********************************************/
     if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
-        && g_utf8_strlen (string, -1) > 0)
+        && !et_str_empty (string))
     {
         /* Check if DISCTOTAL used, else takes it in DISCNUMBER. */
         if ((string1 = vorbis_comment_query (vc, "DISCTOTAL", 0)) != NULL
-            && g_utf8_strlen (string1, -1) > 0)
+            && !et_str_empty (string1))
         {
             FileTag->disc_total = et_disc_number_to_string (atoi (string1));
         }
@@ -277,7 +277,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     /********
      * Year *
      ********/
-    if ( (string = vorbis_comment_query(vc,"DATE",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
+    string = vorbis_comment_query (vc, "DATE", 0);
+
+    if (!et_str_empty (string))
     {
         FileTag->year = g_strdup(string);
     }
@@ -285,11 +287,13 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     /*************************
      * Track and Total Track *
      *************************/
-    if ( (string = vorbis_comment_query(vc,"TRACKNUMBER",0)) != NULL && g_utf8_strlen(string, -1) > 0 )
+    string = vorbis_comment_query (vc, "TRACKNUMBER", 0);
+
+    if (!et_str_empty (string))
     {
         /* Check if TRACKTOTAL used, else takes it in TRACKNUMBER. */
         if ((string1 = vorbis_comment_query (vc, "TRACKTOTAL", 0)) != NULL
-            && g_utf8_strlen (string1, -1) > 0)
+            && !et_str_empty (string1))
         {
             FileTag->track_total = et_track_number_to_string (atoi (string1));
         }
@@ -310,7 +314,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->genre==NULL)
                 FileTag->genre = g_strdup(string);
@@ -334,29 +338,36 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         string1 = Try_To_Validate_Utf8_String(string1);
         string2 = Try_To_Validate_Utf8_String(string2);
 
-        if ( string2 && g_utf8_strlen(string2, -1) > 0 ) // Contains comment to new specifications format and we prefer this format (field name defined)
+        /* Contains comment in new specifications format and we prefer this
+         * format (field name defined). */
+        if (!et_str_empty (string2))
         {
             if (FileTag->comment==NULL)
                 FileTag->comment = g_strdup(string2);
             else
                 FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,string2,NULL);
 
-            // Frees allocated data
-            if (string && g_utf8_strlen(string, -1) > 0)
+            /* Frees allocated data. */
+            if (!et_str_empty (string))
                 g_free(string);
-            if (string1 && g_utf8_strlen(string1, -1) > 0)
+            if (!et_str_empty (string1))
                 g_free(string1);
-        }else if ( string && g_utf8_strlen(string, -1) > 0 ) // Contains comment to Winamp format and we prefer this format (field name defined)
+        }
+        /* Contains comment to Winamp format and we prefer this format (field
+         * name defined). */
+        else if (!et_str_empty (string))
         {
             if (FileTag->comment==NULL)
                 FileTag->comment = g_strdup(string);
             else
                 FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,string,NULL);
 
-            // Frees allocated data
-            if (string1 && g_utf8_strlen(string1, -1) > 0)
+            /* Frees allocated data. */
+            if (!et_str_empty (string1))
                 g_free(string1);
-        }else if ( string1 && g_utf8_strlen(string1, -1) > 0 ) // Contains comment to Xmms format only
+        }
+        /* Contains comment in XMMS format only. */
+        else if (!et_str_empty (string1))
         {
             if (FileTag->comment==NULL)
                 FileTag->comment = g_strdup(string1);
@@ -381,7 +392,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->composer==NULL)
                 FileTag->composer = g_strdup(string);
@@ -400,7 +411,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->orig_artist==NULL)
                 FileTag->orig_artist = g_strdup(string);
@@ -419,7 +430,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->copyright==NULL)
                 FileTag->copyright = g_strdup(string);
@@ -438,7 +449,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->url==NULL)
                 FileTag->url = g_strdup(string);
@@ -457,7 +468,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        if ( g_utf8_strlen(string, -1) > 0 )
+        if (!et_str_empty (string))
         {
             if (FileTag->encoded_by==NULL)
                 FileTag->encoded_by = g_strdup(string);
