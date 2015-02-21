@@ -436,6 +436,7 @@ check_PROGRAMS = \
 	tests/test-dlm \
 	tests/test-file_description \
 	tests/test-file_info \
+	tests/test-file_tag \
 	tests/test-misc \
 	tests/test-picture \
 	tests/test-scan
@@ -483,6 +484,24 @@ tests_test_file_info_SOURCES = \
 	src/file_info.c
 
 tests_test_file_info_LDADD = \
+	$(EASYTAG_LIBS)
+
+tests_test_file_tag_CPPFLAGS = \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/tags \
+	-I$(top_builddir)
+
+tests_test_file_tag_CFLAGS = \
+	$(WARN_CFLAGS) \
+	$(EASYTAG_CFLAGS)
+
+tests_test_file_tag_SOURCES = \
+	tests/test-file_tag.c \
+	src/file_tag.c \
+	src/misc.c \
+	src/picture.c
+
+tests_test_file_tag_LDADD = \
 	$(EASYTAG_LIBS)
 
 tests_test_misc_CPPFLAGS = \
