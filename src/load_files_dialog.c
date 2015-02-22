@@ -1077,12 +1077,6 @@ create_load_files_dialog (EtLoadFilesDialog *self)
 }
 
 static void
-et_load_files_dialog_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (et_load_files_dialog_parent_class)->finalize (object);
-}
-
-static void
 et_load_files_dialog_init (EtLoadFilesDialog *self)
 {
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_LOAD_FILES_DIALOG,
@@ -1094,8 +1088,6 @@ et_load_files_dialog_init (EtLoadFilesDialog *self)
 static void
 et_load_files_dialog_class_init (EtLoadFilesDialogClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = et_load_files_dialog_finalize;
-
     g_type_class_add_private (klass, sizeof (EtLoadFilesDialogPrivate));
 }
 

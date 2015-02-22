@@ -1199,12 +1199,6 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
 }
 
 static void
-et_preferences_dialog_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (et_preferences_dialog_parent_class)->finalize (object);
-}
-
-static void
 et_preferences_dialog_init (EtPreferencesDialog *self)
 {
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_PREFERENCES_DIALOG,
@@ -1216,8 +1210,6 @@ et_preferences_dialog_init (EtPreferencesDialog *self)
 static void
 et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = et_preferences_dialog_finalize;
-
     g_type_class_add_private (klass, sizeof (EtPreferencesDialogPrivate));
 }
 

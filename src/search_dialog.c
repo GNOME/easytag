@@ -696,12 +696,6 @@ et_search_dialog_apply_changes (EtSearchDialog *self)
 }
 
 static void
-et_search_dialog_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (et_search_dialog_parent_class)->finalize (object);
-}
-
-static void
 et_search_dialog_init (EtSearchDialog *self)
 {
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_SEARCH_DIALOG,
@@ -713,8 +707,6 @@ et_search_dialog_init (EtSearchDialog *self)
 static void
 et_search_dialog_class_init (EtSearchDialogClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = et_search_dialog_finalize;
-
     g_type_class_add_private (klass, sizeof (EtSearchDialogPrivate));
 }
 

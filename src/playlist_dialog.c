@@ -776,12 +776,6 @@ create_playlist_dialog (EtPlaylistDialog *self)
 }
 
 static void
-et_playlist_dialog_finalize (GObject *object)
-{
-    G_OBJECT_CLASS (et_playlist_dialog_parent_class)->finalize (object);
-}
-
-static void
 et_playlist_dialog_init (EtPlaylistDialog *self)
 {
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE (self, ET_TYPE_PLAYLIST_DIALOG,
@@ -793,8 +787,6 @@ et_playlist_dialog_init (EtPlaylistDialog *self)
 static void
 et_playlist_dialog_class_init (EtPlaylistDialogClass *klass)
 {
-    G_OBJECT_CLASS (klass)->finalize = et_playlist_dialog_finalize;
-
     g_type_class_add_private (klass, sizeof (EtPlaylistDialogPrivate));
 }
 
