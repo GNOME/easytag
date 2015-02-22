@@ -90,7 +90,10 @@ et_history_file_list_free (GList *file_list)
 {
     g_return_if_fail (file_list != NULL);
 
-    g_list_free_full (file_list, (GDestroyNotify)et_history_file_free);
+    /* et_history_list_add() sets the list to the final element, so explicitly
+     * go back to the start. */
+    g_list_free_full (g_list_first (file_list),
+                      (GDestroyNotify)et_history_file_free);
 }
 
 /*
