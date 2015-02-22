@@ -474,6 +474,9 @@ et_file_list_add (GList *file_list,
     //ET_Add_File_To_Artist_Album_File_List(ETFile);
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
+
+    g_free (filename_utf8);
+
     return result;
 }
 
