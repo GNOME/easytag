@@ -137,8 +137,8 @@ on_apply_to_selection (GObject *object,
     GList *etfilelist = NULL;
     GList *selection_filelist = NULL;
     GList *l;
-    gchar *string_to_set = NULL;
-    gchar *string_to_set1 = NULL;
+    const gchar *string_to_set;
+    const gchar *string_to_set1;
     gchar *msg = NULL;
     ET_File *etfile;
     File_Tag *FileTag;
@@ -170,7 +170,7 @@ on_apply_to_selection (GObject *object,
 
     if (object == G_OBJECT (priv->title_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->title_entry),0,-1); // The string to apply to all other files
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->title_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -193,7 +193,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->artist_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->artist_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->artist_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -216,7 +216,8 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->album_artist_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->album_artist_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->album_artist_entry));
+
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
             etfile = (ET_File *)l->data;
@@ -238,7 +239,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->album_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->album_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->album_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -261,21 +262,21 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->disc_number_entry))
     {
-        const gchar *entry_text;
         gchar *separator;
+        gchar *disc_number = NULL;
 
-        entry_text = gtk_entry_get_text (GTK_ENTRY (priv->disc_number_entry));
-        separator = g_utf8_strchr (entry_text, -1, '/');
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->disc_number_entry));
+        /* g_utf8_strchr() does not allocate a new string, and should probably
+         * return a const gchar *. */
+        separator = g_utf8_strchr (string_to_set, -1, '/');
 
         if (separator)
         {
-            string_to_set1 = g_strdup (separator + 1);
-            string_to_set = g_strndup (entry_text,
-                                       separator - entry_text);
+            string_to_set1 = separator + 1;
+            disc_number = g_strndup (string_to_set, separator - string_to_set);
         }
         else
         {
-            string_to_set = g_strdup (entry_text);
             string_to_set1 = NULL;
         }
 
@@ -284,7 +285,8 @@ on_apply_to_selection (GObject *object,
             etfile = (ET_File *)l->data;
             FileTag = et_file_tag_new ();
             et_file_tag_copy_into (FileTag, etfile->FileTag->data);
-            et_file_tag_set_disc_number (FileTag, string_to_set);
+            et_file_tag_set_disc_number (FileTag, disc_number ? disc_number
+                                                              : string_to_set);
             et_file_tag_set_disc_total (FileTag, string_to_set1);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
         }
@@ -294,7 +296,9 @@ on_apply_to_selection (GObject *object,
             if (!et_str_empty (string_to_set1))
             {
                 msg = g_strdup_printf (_("Selected files tagged with disc number ‘%s/%s’"),
-                                       string_to_set, string_to_set1);
+                                       disc_number ? disc_number
+                                                   : string_to_set,
+                                       string_to_set1);
             }
             else
             {
@@ -305,10 +309,12 @@ on_apply_to_selection (GObject *object,
         {
             msg = g_strdup (_("Removed disc number from selected files"));
         }
+
+        g_free (disc_number);
     }
     else if (object == G_OBJECT (priv->year_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->year_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->year_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -332,8 +338,8 @@ on_apply_to_selection (GObject *object,
     else if (object == G_OBJECT (priv->track_total_entry))
     {
         /* Used of Track and Total Track values */
-        string_to_set = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->track_combo_entry)))));
-        string_to_set1 = gtk_editable_get_chars(GTK_EDITABLE(priv->track_total_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->track_combo_entry))));
+        string_to_set1 = gtk_entry_get_text (GTK_ENTRY (priv->track_total_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -389,6 +395,7 @@ on_apply_to_selection (GObject *object,
 
         while (etfilelist && etfilelistfull)
         {
+            gchar *track_string;
             // To get the path of the file
             const File_Name *FileNameCur = (File_Name *)((ET_File *)etfilelistfull->data)->FileNameCur->data;
             // The ETFile in the selected file list
@@ -400,21 +407,21 @@ on_apply_to_selection (GObject *object,
             if ( path && path1 && strcmp(path,path1)!=0 )
                 i = 0;
 
-            string_to_set = et_track_number_to_string (++i);
+            track_string = et_track_number_to_string (++i);
 
             // The file is in the selection?
             if ( (ET_File *)etfilelistfull->data == etfile )
             {
                 FileTag = et_file_tag_new ();
                 et_file_tag_copy_into (FileTag, etfile->FileTag->data);
-                et_file_tag_set_track_number (FileTag, string_to_set);
+                et_file_tag_set_track_number (FileTag, track_string);
                 ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
 
                 if (!etfilelist->next) break;
                 etfilelist = g_list_next(etfilelist);
             }
 
-            g_free(string_to_set);
+            g_free (track_string);
             g_free(path);
             path = g_strdup(path1);
 
@@ -427,40 +434,52 @@ on_apply_to_selection (GObject *object,
     }
     else if (object==G_OBJECT(priv->track_number_button))
     {
+        gchar *track_total = NULL;
+
         /* Used of Track and Total Track values */
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
-            gchar *path_utf8, *filename_utf8;
+            const gchar *filename_utf8;
+            gchar *path_utf8;
+            gchar *track_string;
 
             etfile        = (ET_File *)l->data;
             filename_utf8 = ((File_Name *)etfile->FileNameNew->data)->value_utf8;
             path_utf8     = g_path_get_dirname(filename_utf8);
 
-            string_to_set = et_track_number_to_string (et_file_list_get_n_files_in_path (ETCore->ETFileList, path_utf8));
+            track_string = et_track_number_to_string (et_file_list_get_n_files_in_path (ETCore->ETFileList, path_utf8));
 
-            g_free(path_utf8);
-            if (!string_to_set1)
-                string_to_set1 = g_strdup(string_to_set); // Just for the message below...
+            g_free (path_utf8);
+
+            if (!track_total)
+            {
+                /* Just for the message below, and only the first directory. */
+                track_total = g_strdup (track_string);
+            }
 
             FileTag = et_file_tag_new ();
             et_file_tag_copy_into (FileTag, etfile->FileTag->data);
-            et_file_tag_set_track_total (FileTag, string_to_set);
+            et_file_tag_set_track_total (FileTag, track_string);
             ET_Manage_Changes_Of_File_Data(etfile,NULL,FileTag);
+
+            g_free (track_string);
         }
 
-        if (!et_str_empty (string_to_set1))
+        if (!et_str_empty (track_total))
         {
             msg = g_strdup_printf (_("Selected files tagged with track like ‘xx/%s’"),
-                                   string_to_set1);
+                                   track_total);
         }
         else
         {
             msg = g_strdup (_("Removed track number from selected files"));
         }
+
+        g_free (track_total);
     }
     else if (object == G_OBJECT (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(priv->genre_combo_entry))),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->genre_combo_entry))));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -490,7 +509,7 @@ on_apply_to_selection (GObject *object,
         //gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(textbuffer),&start_iter,&end_iter);
         //string_to_set = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(textbuffer),&start_iter,&end_iter,TRUE);
 
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->comment_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->comment_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -513,7 +532,8 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->composer_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->composer_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->composer_entry));
+
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
             etfile = (ET_File *)l->data;
@@ -535,7 +555,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->orig_artist_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->orig_artist_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->orig_artist_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -558,7 +578,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->copyright_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->copyright_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->copyright_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -581,7 +601,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->url_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->url_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY( priv->url_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -604,7 +624,7 @@ on_apply_to_selection (GObject *object,
     }
     else if (object == G_OBJECT (priv->encoded_by_entry))
     {
-        string_to_set = gtk_editable_get_chars(GTK_EDITABLE(priv->encoded_by_entry),0,-1);
+        string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->encoded_by_entry));
 
         for (l = etfilelist; l != NULL; l = g_list_next (l))
         {
@@ -681,8 +701,6 @@ on_apply_to_selection (GObject *object,
         et_application_window_status_bar_message (window, msg,TRUE);
         g_free(msg);
     }
-    g_free(string_to_set);
-    g_free(string_to_set1);
 
     /* To update state of Undo button */
     et_application_window_update_actions (window);
