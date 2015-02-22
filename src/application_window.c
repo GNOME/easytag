@@ -1995,7 +1995,7 @@ et_application_window_update_file_name_from_ui (EtApplicationWindow *self,
     const gchar *filename_utf8;
     gchar *extension;
 
-    g_return_val_if_fail (ETFile != NULL && FileName != NULL, FALSE);
+    g_return_if_fail (ETFile != NULL && FileName != NULL);
 
     filename_utf8 = et_application_window_file_area_get_filename (self);
     filename = filename_from_display (filename_utf8);
