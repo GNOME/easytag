@@ -41,6 +41,7 @@ static void
 et_file_tag_free_other_field (File_Tag *file_tag)
 {
     g_list_free_full (file_tag->other, g_free);
+    file_tag->other = NULL;
 }
 
 
@@ -75,7 +76,7 @@ et_file_tag_free (File_Tag *FileTag)
 }
 
 /*
- * Duplicate the 'other' list
+ * Duplicate the 'other' list, preserving the list already in @destination.
  */
 void
 et_file_tag_copy_other_into (File_Tag *destination,

@@ -69,6 +69,37 @@ file_tag_copy (void)
 }
 
 static void
+file_tag_copy_other (void)
+{
+    File_Tag *tag1;
+    File_Tag *tag2;
+    GList *l;
+
+    tag1 = et_file_tag_new ();
+
+    g_assert (tag1);
+
+    tag1->other = g_list_prepend (tag1->other, g_strdup ("foo"));
+
+    tag2 = et_file_tag_new ();
+
+    g_assert (tag2);
+
+    tag2->other = g_list_prepend (tag2->other, g_strdup ("bar"));
+
+    et_file_tag_copy_other_into (tag1, tag2);
+
+    l = tag1->other;
+    g_assert_cmpstr (l->data, ==, "foo");
+
+    l = g_list_next (l);
+    g_assert_cmpstr (l->data, ==, "bar");
+
+    et_file_tag_free (tag2);
+    et_file_tag_free (tag1);
+}
+
+static void
 file_tag_difference (void)
 {
     File_Tag *tag1;
@@ -116,6 +147,7 @@ main (int argc, char** argv)
 
     g_test_add_func ("/file_tag/new", file_tag_new);
     g_test_add_func ("/file_tag/copy", file_tag_copy);
+    g_test_add_func ("/file_tag/copy-other", file_tag_copy_other);
     g_test_add_func ("/file_tag/difference", file_tag_difference);
 
     return g_test_run ();
