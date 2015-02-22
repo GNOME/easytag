@@ -308,7 +308,7 @@
                         <child>
                             <object class="GtkLabel" id="track_label">
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">%n: track</property>
+                                <property name="label" translatable="yes">%n: track number</property>
                                 <property name="visible">True</property>
                             </object>
                             <packing>
