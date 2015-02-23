@@ -121,6 +121,7 @@ file_tag_difference (void)
 
     et_file_tag_set_title (tag2, "foo:");
 
+    g_test_bug ("744897");
     g_assert (et_file_tag_detect_difference (tag1, tag2));
 
     et_file_tag_free (tag2);
@@ -144,6 +145,7 @@ int
 main (int argc, char** argv)
 {
     g_test_init (&argc, &argv, NULL);
+    g_test_bug_base ("https://bugzilla.gnome.org/show_bug.cgi?id=");
 
     g_test_add_func ("/file_tag/new", file_tag_new);
     g_test_add_func ("/file_tag/copy", file_tag_copy);
