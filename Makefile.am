@@ -25,7 +25,9 @@ easytag_CPPFLAGS = \
 	-I$(top_srcdir)/src/tags \
 	-I$(top_builddir) \
 	-I$(top_builddir)/src \
-	-DLOCALEDIR=\"$(localedir)\"
+	-DLOCALEDIR=\"$(localedir)\" \
+	$(GLIB_DEPRECATION_FLAGS) \
+	$(GTK_DEPRECATION_FLAGS)
 
 easytag_CFLAGS = \
 	$(WARN_CFLAGS) \
@@ -254,7 +256,9 @@ libnautilus_easytag_la_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \
 	-DLOCALEDIR=\"$(localedir)\" \
-	$(NAUTILUS_CFLAGS)
+	$(NAUTILUS_CFLAGS) \
+	$(GLIB_DEPRECATION_FLAGS) \
+	$(GTK_DEPRECATION_FLAGS)
 
 libnautilus_easytag_la_CFLAGS = \
 	$(WARN_CFLAGS)
