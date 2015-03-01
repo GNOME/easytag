@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-02-16 16:16+0000\n"
-"PO-Revision-Date: 2015-02-16 22:38+0100\n"
+"POT-Creation-Date: 2015-03-01 16:16+0000\n"
+"PO-Revision-Date: 2015-03-01 19:30+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -92,16 +92,16 @@ msgstr ""
 "Napište název programu, který se má spustit. Tomuto programu se předá "
 "aktuální složka jako parametr."
 
-#: ../data/browser.ui.h:4 ../src/browser.c:3794 ../src/tag_area.c:1490
+#: ../data/browser.ui.h:4 ../src/browser.c:3783 ../src/tag_area.c:1518
 msgid "_Open"
 msgstr "_Otevřít"
 
 #: ../data/browser.ui.h:5 ../data/tag_area.ui.h:3
-#: ../src/application_window.c:324 ../src/application_window.c:338
-#: ../src/application_window.c:2675 ../src/application_window.c:2713
-#: ../src/browser.c:870 ../src/browser.c:3793 ../src/cddb_dialog.c:2304
+#: ../src/application_window.c:343 ../src/application_window.c:357
+#: ../src/application_window.c:2992 ../src/application_window.c:3030
+#: ../src/browser.c:863 ../src/browser.c:3782 ../src/cddb_dialog.c:2306
 #: ../src/easytag.c:475 ../src/easytag.c:482 ../src/easytag.c:607
-#: ../src/playlist_dialog.c:668 ../src/tag_area.c:1488 ../src/tag_area.c:1838
+#: ../src/playlist_dialog.c:669 ../src/tag_area.c:1516 ../src/tag_area.c:1868
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -419,11 +419,11 @@ msgstr "Zda pro srovnání výsledků CDDB vůči souborům použít algoritmus 
 
 #: ../data/cddb_dialog.ui.h:45 ../data/search_dialog.ui.h:10
 #: ../src/load_files_dialog.c:900 ../src/preferences_dialog.c:291
-#: ../src/scan_dialog.c:2309
+#: ../src/scan_dialog.c:2307
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2305
+#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2307
 #: ../src/load_files_dialog.c:901
 msgid "_Apply"
 msgstr "_Použít"
@@ -433,7 +433,8 @@ msgid "Load the selected lines or all lines (if no lines are selected)"
 msgstr "Načíst vybrané řádky nebo všechny řádky (pokud nejsou žádné vybrány)"
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/file_area.c:196 ../src/file.c:1247
+#: ../data/file_area.ui.h:1 ../src/application_window.c:2186
+#: ../src/file_area.c:196
 msgid "File"
 msgstr "Soubor"
 
@@ -541,7 +542,7 @@ msgstr "_Nápověda"
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../data/menus.ui.h:3 ../src/application_window.c:2714
+#: ../data/menus.ui.h:3 ../src/application_window.c:3031
 msgid "_Quit"
 msgstr "U_končit"
 
@@ -1905,8 +1906,8 @@ msgstr "%o: původní umělec"
 
 #: ../data/scan_dialog.ui.h:37
 #, no-c-format
-msgid "%n: track"
-msgstr "%n: skladba"
+msgid "%n: track number"
+msgstr "%n: číslo skladby"
 
 #: ../data/scan_dialog.ui.h:39
 #, no-c-format
@@ -2075,7 +2076,7 @@ msgid "Spaces Conversions"
 msgstr "Převody mezer"
 
 #: ../data/scan_dialog.ui.h:89 ../data/org.gnome.EasyTAG.gschema.xml.h:153
-#: ../src/tag_area.c:878
+#: ../src/tag_area.c:906
 msgid "Remove spaces"
 msgstr "Odstranit mezery"
 
@@ -2109,7 +2110,7 @@ msgstr "Neměnit oddělovače slov"
 msgid "Character Conversions"
 msgstr "Převody znaků"
 
-#: ../data/scan_dialog.ui.h:98 ../src/tag_area.c:834
+#: ../data/scan_dialog.ui.h:98 ../src/tag_area.c:862
 #, no-c-format
 msgid "Convert ‘_’ and ‘%20’ to spaces"
 msgstr "Převést „_“ a „%20“ na mezery"
@@ -2123,7 +2124,7 @@ msgstr ""
 "Podtržítka nebo řetězec „%20“ budou nahrazovány jednou mezerou. Příklad "
 "před: „Text%20v%20nějaké_položce“ a po: „Text v nějaké položce“"
 
-#: ../data/scan_dialog.ui.h:101 ../src/tag_area.c:840
+#: ../data/scan_dialog.ui.h:101 ../src/tag_area.c:868
 msgid "Convert spaces to underscores"
 msgstr "Převést mezery na podržítka"
 
@@ -2215,7 +2216,7 @@ msgstr "Popis"
 msgid "_Accept"
 msgstr "_Přijmout"
 
-#: ../data/tag_area.ui.h:5 ../src/tag_area.c:3019
+#: ../data/tag_area.ui.h:5 ../src/tag_area.c:3051
 msgid "Tag"
 msgstr "Štítek"
 
@@ -2367,7 +2368,7 @@ msgstr "Upravit vlastnosti obrázku"
 msgid "Tag selected files with these images"
 msgstr "Nastavit vybraným souborům tyto obrázky"
 
-#: ../data/tag_area.ui.h:42 ../src/tag_area.c:3272 ../src/tag_area.c:3275
+#: ../data/tag_area.ui.h:42 ../src/tag_area.c:3304 ../src/tag_area.c:3307
 msgid "Images"
 msgstr "Obrázky"
 
@@ -2443,7 +2444,7 @@ msgstr "Hledat názvy souborů a štítků"
 msgid "CDDB Search…"
 msgstr "Hledat v CDDB…"
 
-#: ../data/toolbar.ui.h:28 ../src/cddb_dialog.c:2755
+#: ../data/toolbar.ui.h:28 ../src/cddb_dialog.c:2756
 msgid "CDDB Search"
 msgstr "Hledání v CDDB"
 
@@ -3129,7 +3130,7 @@ msgstr "Webové stránky: %s"
 msgid "- Tag and rename audio files"
 msgstr "– upravovat štítky a názvy zvukových souborů"
 
-#: ../src/application.c:432 ../src/file_list.c:400
+#: ../src/application.c:432 ../src/file_list.c:402
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr "Chyba při dotazování na informace o souboru „%s“: %s"
@@ -3139,157 +3140,204 @@ msgstr "Chyba při dotazování na informace o souboru „%s“: %s"
 msgid "Cannot open path ‘%s’"
 msgstr "Nelze otevřít cestu „%s“"
 
-#: ../src/application_window.c:318 ../src/application_window.c:335
+#: ../src/application_window.c:337 ../src/application_window.c:354
 #, c-format
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Opravdu chcete smazat soubor „%s“?"
 
-#: ../src/application_window.c:321 ../src/easytag.c:470 ../src/easytag.c:603
+#: ../src/application_window.c:340 ../src/easytag.c:470 ../src/easytag.c:603
 msgid "Repeat action for the remaining files"
 msgstr "Opakovat akci pro zbytek souborů"
 
-#: ../src/application_window.c:323
+#: ../src/application_window.c:342
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/application_window.c:325 ../src/application_window.c:339
+#: ../src/application_window.c:344 ../src/application_window.c:358
 msgid "_Delete"
 msgstr "_Smazat"
 
-#: ../src/application_window.c:327 ../src/application_window.c:337
+#: ../src/application_window.c:346 ../src/application_window.c:356
 msgid "Delete File"
 msgstr "Vymazání souboru"
 
-#: ../src/application_window.c:364
+#: ../src/application_window.c:383
 #, c-format
 msgid "File ‘%s’ deleted"
 msgstr "Soubor „%s“ byl vymazán"
 
-#: ../src/application_window.c:541
+#: ../src/application_window.c:558
 #, c-format
 msgid "Cannot delete file ‘%s’"
 msgstr "Nelze smazat soubor „%s“"
 
-#: ../src/application_window.c:565
+#: ../src/application_window.c:582
 msgid "Some files were not deleted"
 msgstr "Některé soubory nebyly smazány"
 
-#: ../src/application_window.c:567
+#: ../src/application_window.c:584
 msgid "All files have been deleted"
 msgstr "Všechny soubory byly smazány"
 
-#: ../src/application_window.c:901
+#: ../src/application_window.c:913
 msgid "All tags have been removed"
 msgstr "Všechny štítky byly odmazány"
 
-#: ../src/application_window.c:1505 ../src/browser.c:356 ../src/browser.c:399
-#: ../src/browser.c:433 ../src/browser.c:4732 ../src/browser.c:4807
+#: ../src/application_window.c:1472 ../src/browser.c:349 ../src/browser.c:392
+#: ../src/browser.c:426 ../src/browser.c:4724 ../src/browser.c:4799
 #, c-format
 msgid "Failed to launch program ‘%s’"
 msgstr "Selhalo spuštění programu: %s"
 
+#: ../src/application_window.c:2012
+#, c-format
+msgid "Could not convert filename ‘%s’ to system filename encoding"
+msgstr "Nelze převést název souboru „%s“ do systémového kódování názvů soborů"
+
+#: ../src/application_window.c:2015
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
+msgstr "Zkuste nastavit proměnnou prostředí G_FILENAME_ENCODING"
+
+#: ../src/application_window.c:2017 ../src/scan_dialog.c:813
+msgid "Filename translation"
+msgstr "Překlad názvu souboru"
+
+#. And refresh the number of files in this directory
+#: ../src/application_window.c:2160
+#, c-format
+msgid "One file"
+msgid_plural "%u files"
+msgstr[0] "jeden soubor"
+msgstr[1] "%u soubory"
+msgstr[2] "%u souborů"
+
+#. Bitrate
+#: ../src/application_window.c:2193 ../src/tags/flac_header.c:172
+#: ../src/tags/monkeyaudio_header.c:82 ../src/tags/mp4_header.cc:144
+#: ../src/tags/mpeg_header.c:252 ../src/tags/musepack_header.c:86
+#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:230
+#: ../src/tags/wavpack_header.c:145
+#, c-format
+msgid "%d kb/s"
+msgstr "%d kb/s"
+
+#. Samplerate
+#: ../src/application_window.c:2196 ../src/tags/flac_header.c:175
+#: ../src/tags/monkeyaudio_header.c:85 ../src/tags/mp4_header.cc:148
+#: ../src/tags/mpeg_header.c:257 ../src/tags/musepack_header.c:89
+#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:233
+#: ../src/tags/wavpack_header.c:148
+#, c-format
+msgid "%d Hz"
+msgstr "%d Hz"
+
+#: ../src/application_window.c:2329 ../src/easytag.c:1010
+#, c-format
+msgid "File: ‘%s’"
+msgstr "Soubor: „%s“"
+
 #. Quit EasyTAG.
-#: ../src/application_window.c:2636
+#: ../src/application_window.c:2956
 msgid "Normal exit"
 msgstr "Standardní ukončení"
 
-#: ../src/application_window.c:2673 ../src/browser.c:865
+#: ../src/application_window.c:2990 ../src/browser.c:858
 msgid "Some files have been modified but not saved"
 msgstr "Některé soubory byly změněny, ale neuloženy"
 
-#: ../src/application_window.c:2674 ../src/browser.c:869 ../src/easytag.c:255
+#: ../src/application_window.c:2991 ../src/browser.c:862 ../src/easytag.c:254
 #: ../src/easytag.c:474 ../src/easytag.c:606 ../src/easytag.c:614
 msgid "_Discard"
 msgstr "Zaho_dit"
 
-#: ../src/application_window.c:2676 ../src/browser.c:871 ../src/easytag.c:256
+#: ../src/application_window.c:2993 ../src/browser.c:864 ../src/easytag.c:255
 #: ../src/easytag.c:476 ../src/easytag.c:483 ../src/easytag.c:608
-#: ../src/easytag.c:615 ../src/playlist_dialog.c:669 ../src/tag_area.c:1840
+#: ../src/easytag.c:615 ../src/playlist_dialog.c:670 ../src/tag_area.c:1870
 msgid "_Save"
 msgstr "_Uložit"
 
-#: ../src/application_window.c:2680 ../src/application_window.c:2718
-#: ../src/easytag.c:261
+#: ../src/application_window.c:2997 ../src/application_window.c:3035
+#: ../src/easytag.c:260
 msgid "Quit"
 msgstr "Ukončit"
 
-#: ../src/application_window.c:2683
+#: ../src/application_window.c:3000
 msgid "Do you want to save them before quitting?"
 msgstr "Chcete je uložit, než skončíte?"
 
-#: ../src/application_window.c:2712
+#: ../src/application_window.c:3029
 msgid "Do you really want to quit?"
 msgstr "Opravdu chcete skončit?"
 
-#: ../src/browser.c:569
+#: ../src/browser.c:562
 msgid "New default directory selected for browser"
 msgstr "Nová výchozí složka vybraná pro prohlížeč"
 
-#: ../src/browser.c:868
+#: ../src/browser.c:861
 msgid "Do you want to save them before changing directory?"
 msgstr "Chcete je před tím, než se změní složka, uložit?"
 
-#: ../src/browser.c:875
+#: ../src/browser.c:868
 msgid "Confirm Directory Change"
 msgstr "Potvrzení změny složky"
 
-#: ../src/browser.c:2572
+#: ../src/browser.c:2563
 msgid "All albums"
 msgstr "Všechna alba"
 
-#: ../src/browser.c:3830
+#: ../src/browser.c:3819
 msgid "Select File"
 msgstr "Výběr souboru"
 
-#: ../src/browser.c:3837
+#: ../src/browser.c:3826
 msgid "Select Directory"
 msgstr "Výběr složky"
 
-#: ../src/browser.c:4220
+#: ../src/browser.c:4209
 #, c-format
 msgid "Rename the directory ‘%s’ to:"
 msgstr "Přejmenovat složku „%s“ na:"
 
-#: ../src/browser.c:4360
+#: ../src/browser.c:4349
 msgid "You must type a directory name"
 msgstr "Musíte vyplnit název složky"
 
-#: ../src/browser.c:4361 ../src/browser.c:4383
+#: ../src/browser.c:4350 ../src/browser.c:4372
 msgid "Directory Name Error"
 msgstr "Chyba v názvu složky"
 
-#: ../src/browser.c:4379
+#: ../src/browser.c:4368
 #, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
 msgstr "Nelze převést „%s“ do kódování názvů souborů"
 
-#: ../src/browser.c:4382
+#: ../src/browser.c:4371
 msgid "Please use another name."
 msgstr "Použijte prosím jiný název."
 
-#: ../src/browser.c:4454
+#: ../src/browser.c:4443
 #, c-format
 msgid "The directory name ‘%s’ already exists."
 msgstr "Složka s názvem „%s“ již existuje."
 
-#: ../src/browser.c:4455 ../src/easytag.c:661
+#: ../src/browser.c:4444 ../src/easytag.c:661
 msgid "Rename File Error"
 msgstr "Chyba při přejmenování souboru"
 
-#: ../src/browser.c:4493 ../src/browser.c:4522
+#: ../src/browser.c:4482 ../src/browser.c:4511
 msgid "Rename Directory Error"
 msgstr "Chyba při přejmenování složky"
 
-#: ../src/browser.c:4562
+#: ../src/browser.c:4552
 msgid "Directory renamed"
 msgstr "Složka přejmenována"
 
-#: ../src/browser.c:4724 ../src/browser.c:4799
+#: ../src/browser.c:4716 ../src/browser.c:4791
 #, c-format
 msgid "Executed command ‘%s’"
 msgstr "Proveden příkaz „%s“"
 
-#: ../src/cddb_dialog.c:270
+#: ../src/cddb_dialog.c:271
 #, c-format
 msgid ""
 "Album: ‘%s’, artist: ‘%s’, length: ‘%s’, year: ‘%s’, genre: ‘%s’, disc ID: "
@@ -3297,57 +3345,57 @@ msgid ""
 msgstr ""
 "Album: „%s“, umělec: „%s“, délka: „%s“, rok: „%s“, žánr: „%s“, ID disku: „%s“"
 
-#: ../src/cddb_dialog.c:586
+#: ../src/cddb_dialog.c:587
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Hledá se server „%s“…"
 
-#: ../src/cddb_dialog.c:628
+#: ../src/cddb_dialog.c:629
 #, c-format
 msgid "Cannot create a new socket ‘%s’"
 msgstr "Nelze vytvořit nový soket: %s"
 
-#: ../src/cddb_dialog.c:642
+#: ../src/cddb_dialog.c:643
 msgid "Cannot set options on the newly-created socket"
 msgstr "Nelze upravit nastavení nově vytvořeného soketu"
 
 #. Open connection to the server.
-#: ../src/cddb_dialog.c:646
+#: ../src/cddb_dialog.c:647
 #, c-format
 msgid "Connecting to host ‘%s’, port ‘%d’…"
 msgstr "Probíhá připojování k serveru „%s“, port „%d“…"
 
-#: ../src/cddb_dialog.c:659
+#: ../src/cddb_dialog.c:660
 #, c-format
 msgid "Cannot connect to host ‘%s’: %s"
 msgstr "Nelze se připojit k serveru „%s“: %s"
 
-#: ../src/cddb_dialog.c:683
+#: ../src/cddb_dialog.c:684
 #, c-format
 msgid "Cannot resolve host ‘%s’: %s"
 msgstr "Nezdařilo se najít server „%s“: %s"
 
-#: ../src/cddb_dialog.c:696
+#: ../src/cddb_dialog.c:697
 #, c-format
 msgid "Connected to host ‘%s’"
 msgstr "Připojeno k serveru „%s“"
 
-#: ../src/cddb_dialog.c:783
+#: ../src/cddb_dialog.c:784
 #, c-format
 msgid "Error while writing CDDB results to file ‘%s’"
 msgstr "Chyba při zápisu výsledků CDDB do souboru „%s“"
 
-#: ../src/cddb_dialog.c:794
+#: ../src/cddb_dialog.c:795
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Přijímají se data (%s)…"
 
-#: ../src/cddb_dialog.c:807
+#: ../src/cddb_dialog.c:808
 #, c-format
 msgid "Error when reading CDDB response ‘%s’"
 msgstr "Chyba při čtení odpovědi od CDDB „%s“"
 
-#: ../src/cddb_dialog.c:814
+#: ../src/cddb_dialog.c:815
 #, c-format
 msgid "Cannot create file ‘%s’: %s"
 msgstr "Nelze vytvořit soubor „%s“: %s"
@@ -3358,13 +3406,13 @@ msgstr "Nelze vytvořit soubor „%s“: %s"
 #. Send the request
 #. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb_dialog.c:947 ../src/cddb_dialog.c:1590
-#: ../src/cddb_dialog.c:1934
+#: ../src/cddb_dialog.c:948 ../src/cddb_dialog.c:1593
+#: ../src/cddb_dialog.c:1939
 msgid "Sending request…"
 msgstr "Odesílá se požadavek…"
 
-#: ../src/cddb_dialog.c:951 ../src/cddb_dialog.c:1594
-#: ../src/cddb_dialog.c:1938 ../src/cddb_dialog.c:3505
+#: ../src/cddb_dialog.c:952 ../src/cddb_dialog.c:1597
+#: ../src/cddb_dialog.c:1943 ../src/cddb_dialog.c:3505
 #, c-format
 msgid "Cannot send the request ‘%s’"
 msgstr "Nelze odeslat požadavek „%s“"
@@ -3373,34 +3421,34 @@ msgstr "Nelze odeslat požadavek „%s“"
 #.
 #. * Read the answer
 #.
-#: ../src/cddb_dialog.c:963 ../src/cddb_dialog.c:1621
+#: ../src/cddb_dialog.c:964 ../src/cddb_dialog.c:1624
 #: ../src/cddb_dialog.c:3523
 msgid "Receiving data…"
 msgstr "Přijímají se data…"
 
-#: ../src/cddb_dialog.c:970 ../src/cddb_dialog.c:1628
-#: ../src/cddb_dialog.c:1969 ../src/cddb_dialog.c:3530
+#: ../src/cddb_dialog.c:971 ../src/cddb_dialog.c:1631
+#: ../src/cddb_dialog.c:1974 ../src/cddb_dialog.c:3530
 msgid "The server returned a bad response"
 msgstr "Server vrátil špatnou odpověď"
 
-#: ../src/cddb_dialog.c:986 ../src/cddb_dialog.c:1001
-#: ../src/cddb_dialog.c:1022 ../src/cddb_dialog.c:1641
-#: ../src/cddb_dialog.c:1985 ../src/cddb_dialog.c:3547
+#: ../src/cddb_dialog.c:987 ../src/cddb_dialog.c:1002
+#: ../src/cddb_dialog.c:1023 ../src/cddb_dialog.c:1644
+#: ../src/cddb_dialog.c:1990 ../src/cddb_dialog.c:3547
 #, c-format
 msgid "The server returned a bad response ‘%s’"
 msgstr "Server vrátil špatnou odpověď „%s“"
 
 #. Load the track list of the album
-#: ../src/cddb_dialog.c:1234
+#: ../src/cddb_dialog.c:1235
 msgid "Loading album track list…"
 msgstr "Načítá se seznam skladeb z alba…"
 
-#: ../src/cddb_dialog.c:1788
+#: ../src/cddb_dialog.c:1791
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Bohužel, ale vyhledávání na webu není v tuto chvíli dostupné"
 
-#: ../src/cddb_dialog.c:1791 ../src/cddb_dialog.c:2156
+#: ../src/cddb_dialog.c:1794 ../src/cddb_dialog.c:2161
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
@@ -3408,34 +3456,34 @@ msgstr[0] "Nalezeno jedno odpovídajících album"
 msgstr[1] "Nalezena %u odpovídající alba"
 msgstr[2] "Nalezeno %u odpovídajících alb"
 
-#: ../src/cddb_dialog.c:1957
+#: ../src/cddb_dialog.c:1962
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Přijímají se data ze stránky %d (album %d/%d)…"
 
-#: ../src/cddb_dialog.c:1959
+#: ../src/cddb_dialog.c:1964
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Přijímají se data ze stránky %d"
 
-#: ../src/cddb_dialog.c:2123
+#: ../src/cddb_dialog.c:2128
 #, c-format
 msgid "More results to load…"
 msgstr "Další výsledky k načtení…"
 
-#: ../src/cddb_dialog.c:2303
+#: ../src/cddb_dialog.c:2305
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "Počet výsledků CDDB neodpovídá počtu vybraných souborů"
 
-#: ../src/cddb_dialog.c:2309
+#: ../src/cddb_dialog.c:2311
 msgid "Write Tag from CDDB"
 msgstr "Zápis štítku z CDDB"
 
-#: ../src/cddb_dialog.c:3015
+#: ../src/cddb_dialog.c:3016
 msgid "Ready to search"
 msgstr "Připraveno k hledání"
 
-#: ../src/cddb_dialog.c:3106 ../src/load_files_dialog.c:263
+#: ../src/cddb_dialog.c:3107 ../src/load_files_dialog.c:263
 #: ../src/setting.c:327
 #, c-format
 msgid "Cannot open file ‘%s’: %s"
@@ -3676,7 +3724,7 @@ msgstr "Řetězec „%s“ v UTF-8 nelze převést do kódování názvu souboru
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
 msgstr "Řetězec „%s“ nelze převést do UTF-8: %s"
 
-#: ../src/easytag.c:251
+#: ../src/easytag.c:250
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
@@ -3684,15 +3732,15 @@ msgstr[0] "Soubor byl změněn externím programem"
 msgstr[1] "%d soubory byly změněny externím programem"
 msgstr[2] "%d souborů bylo změněno externím programem"
 
-#: ../src/easytag.c:260
+#: ../src/easytag.c:259
 msgid "Do you want to continue saving the file?"
 msgstr "Chcete pokračovat v ukládání souboru?"
 
-#: ../src/easytag.c:321 ../src/easytag.c:342
+#: ../src/easytag.c:320 ../src/easytag.c:341
 msgid "Saving files was stopped"
 msgstr "Ukládání souborů bylo zastaveno"
 
-#: ../src/easytag.c:344
+#: ../src/easytag.c:343
 msgid "All files have been saved"
 msgstr "Všechny soubory byly uloženy"
 
@@ -3785,11 +3833,6 @@ msgstr "Chyba při čtení složky"
 msgid "Search in progress…"
 msgstr "Probíhá hledání…"
 
-#: ../src/easytag.c:1010 ../src/file.c:1195
-#, c-format
-msgid "File: ‘%s’"
-msgstr "Soubor: „%s“"
-
 #: ../src/easytag.c:1060
 #, c-format
 msgid "Found one file in this directory and subdirectories"
@@ -3844,42 +3887,42 @@ msgstr "Nelze se dotázat na informace o souboru „%s“"
 msgid "Read-only file"
 msgstr "Soubor jen ke čtení"
 
-#: ../src/file_list.c:250
+#: ../src/file_list.c:252
 #, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ID3 ze souboru „%s“: %s"
 
-#: ../src/file_list.c:261
+#: ../src/file_list.c:263
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru ogg „%s“: %s"
 
-#: ../src/file_list.c:272
+#: ../src/file_list.c:274
 #, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru FLAC „%s“: %s"
 
-#: ../src/file_list.c:282
+#: ../src/file_list.c:284
 #, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
 msgstr "Chyba při čtení štítku APE ze souboru „%s“: %s"
 
-#: ../src/file_list.c:292
+#: ../src/file_list.c:294
 #, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru MP4 „%s“: %s"
 
-#: ../src/file_list.c:303
+#: ../src/file_list.c:305
 #, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru WavPack „%s“: %s"
 
-#: ../src/file_list.c:314
+#: ../src/file_list.c:316
 #, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru Opus „%s“: %s"
 
-#: ../src/file_list.c:332
+#: ../src/file_list.c:334
 #, c-format
 msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
@@ -3888,52 +3931,10 @@ msgstr ""
 "Vypadá to, že údaj o roce „%s“ v souboru „%s“ je neplatný. Při uložení "
 "štítku bude tento údaj ztracen"
 
-#: ../src/file_list.c:470
+#: ../src/file_list.c:472
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
 msgstr "Pro soubor „%s“ byly použity automatické korekce."
-
-#. And refresh the number of files in this directory
-#: ../src/file.c:1219
-#, c-format
-msgid "One file"
-msgid_plural "%u files"
-msgstr[0] "jeden soubor"
-msgstr[1] "%u soubory"
-msgstr[2] "%u souborů"
-
-#. Bitrate
-#: ../src/file.c:1254 ../src/tags/flac_header.c:172
-#: ../src/tags/monkeyaudio_header.c:82 ../src/tags/mp4_header.cc:144
-#: ../src/tags/mpeg_header.c:252 ../src/tags/musepack_header.c:86
-#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:230
-#: ../src/tags/wavpack_header.c:145
-#, c-format
-msgid "%d kb/s"
-msgstr "%d kb/s"
-
-#. Samplerate
-#: ../src/file.c:1257 ../src/tags/flac_header.c:175
-#: ../src/tags/monkeyaudio_header.c:85 ../src/tags/mp4_header.cc:148
-#: ../src/tags/mpeg_header.c:257 ../src/tags/musepack_header.c:89
-#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:233
-#: ../src/tags/wavpack_header.c:148
-#, c-format
-msgid "%d Hz"
-msgstr "%d Hz"
-
-#: ../src/file.c:1382
-#, c-format
-msgid "Could not convert filename ‘%s’ to system filename encoding"
-msgstr "Nelze převést název souboru „%s“ do systémového kódování názvů soborů"
-
-#: ../src/file.c:1384
-msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr "Zkuste nastavit proměnnou prostředí G_FILENAME_ENCODING"
-
-#: ../src/file.c:1385 ../src/scan_dialog.c:817
-msgid "Filename translation"
-msgstr "Překlad názvu souboru"
 
 #: ../src/load_files_dialog.c:293
 #, c-format
@@ -3960,11 +3961,11 @@ msgstr "Posunout tento řádek níž"
 msgid "Load Filenames From a Text File"
 msgstr "Načtení názvů souborů z textového souboru"
 
-#: ../src/misc.c:184
+#: ../src/misc.c:179
 msgid "You must type a program name"
 msgstr "Musíte vyplnit název programu"
 
-#: ../src/misc.c:185
+#: ../src/misc.c:180
 msgid "Program Name Error"
 msgstr "Chyba v názvu programu"
 
@@ -4086,12 +4087,12 @@ msgstr "Chyba souboru se seznamem k přehrání"
 msgid "Wrote playlist file ‘%s’"
 msgstr "Zapsán soubor „%s“ se seznamem k přehrání"
 
-#: ../src/playlist_dialog.c:635 ../src/scan_dialog.c:2820
+#: ../src/playlist_dialog.c:636 ../src/scan_dialog.c:2819
 #: ../src/scan_dialog.c:2882
 msgid "Invalid scanner mask"
 msgstr "Neplatná maska průzkumníka"
 
-#: ../src/playlist_dialog.c:666
+#: ../src/playlist_dialog.c:667
 msgid "Generate Playlist"
 msgstr "Generování seznamu k přehrání"
 
@@ -4117,68 +4118,68 @@ msgstr ""
 msgid "Invalid Path Error"
 msgstr "Chyba způsobená neplatnou cestou"
 
-#: ../src/scan_dialog.c:404
+#: ../src/scan_dialog.c:402
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
 msgstr "Nelze vypočítat hodnotu kontrolního součtu pro soubor „%s“"
 
-#: ../src/scan_dialog.c:419
+#: ../src/scan_dialog.c:417
 msgid "Tag successfully scanned"
 msgstr "Štítek byl úspěšně prozkoumán"
 
-#: ../src/scan_dialog.c:422
+#: ../src/scan_dialog.c:420
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
 msgstr "Štítek v souboru „%s“ byl úspěšně prozkoumán"
 
-#: ../src/scan_dialog.c:465
+#: ../src/scan_dialog.c:463
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
 msgstr "Přípona „%s“ nebyla v názvu souboru „%s“ nalezena"
 
-#: ../src/scan_dialog.c:557 ../src/scan_dialog.c:588
+#: ../src/scan_dialog.c:555 ../src/scan_dialog.c:586
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
 msgstr "Nelze nalézt oddělovač „%s“ vrámci „%s“"
 
-#: ../src/scan_dialog.c:815
+#: ../src/scan_dialog.c:811
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
 msgstr "Nelze převést název souboru „%s“ do systémového kódování názvů soborů"
 
-#: ../src/scan_dialog.c:840
+#: ../src/scan_dialog.c:836
 msgid "New filename successfully scanned"
 msgstr "Nový název souboru byl úspěšně prozkoumán"
 
-#: ../src/scan_dialog.c:844
+#: ../src/scan_dialog.c:840
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
 msgstr "Nový název souboru „%s“ byl úspěšně prozkoumán"
 
-#: ../src/scan_dialog.c:1214
+#: ../src/scan_dialog.c:1212
 #, c-format
 msgid "Error while processing fields ‘%s’"
 msgstr "Chyba při zpracování polí: %s"
 
-#: ../src/scan_dialog.c:2090
+#: ../src/scan_dialog.c:2088
 msgid "New_mask"
 msgstr "Nová _maska"
 
 #. The window
-#: ../src/scan_dialog.c:2307
+#: ../src/scan_dialog.c:2305
 msgid "Tag and Filename Scan"
 msgstr "Průzkum štítků a názvů souborů"
 
 #. 'Scan selected files' button
-#: ../src/scan_dialog.c:2313
+#: ../src/scan_dialog.c:2311
 msgid "Scan Files"
 msgstr "Prozkoumat soubory"
 
-#: ../src/scan_dialog.c:2319
+#: ../src/scan_dialog.c:2317
 msgid "Scan selected files"
 msgstr "Prozkoumat vybrané soubory"
 
-#: ../src/scan_dialog.c:2957
+#: ../src/scan_dialog.c:2956
 msgid "All tags have been scanned"
 msgstr "Všechny štítky byly prozkoumány"
 
@@ -4226,186 +4227,186 @@ msgstr "U vybraných souborů byl ve štítku nastaven název na „%s“"
 msgid "Removed title from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán název"
 
-#: ../src/tag_area.c:208
+#: ../src/tag_area.c:209
 #, c-format
 msgid "Selected files tagged with artist ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven umělec na „%s“"
 
-#: ../src/tag_area.c:213
+#: ../src/tag_area.c:214
 msgid "Removed artist from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán umělec"
 
-#: ../src/tag_area.c:229
+#: ../src/tag_area.c:232
 #, c-format
 msgid "Selected files tagged with album artist ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven umělec alba na „%s“"
 
-#: ../src/tag_area.c:234
+#: ../src/tag_area.c:237
 msgid "Removed album artist from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán umělec alba"
 
-#: ../src/tag_area.c:251
+#: ../src/tag_area.c:255
 #, c-format
 msgid "Selected files tagged with album ‘%s’"
 msgstr "U vybraných souborů bylo ve štítku nastaveno album na „%s“"
 
-#: ../src/tag_area.c:256
+#: ../src/tag_area.c:260
 msgid "Removed album name from selected files"
 msgstr "Z vybraných souborů bylo ve štítku vymazáno album"
 
-#: ../src/tag_area.c:294
+#: ../src/tag_area.c:298
 #, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
 msgstr "U vybraných souborů bylo ve štítku nastaveno číslo disku na „%s/%s“"
 
-#: ../src/tag_area.c:299
+#: ../src/tag_area.c:305
 #, c-format
 msgid "Selected files tagged with disc number like ‘xx’"
 msgstr "U vybraných souborů bylo ve štítku nastaveno číslo disku ve stylu „xx“"
 
-#: ../src/tag_area.c:304
+#: ../src/tag_area.c:310
 msgid "Removed disc number from selected files"
 msgstr "Z vybraných souborů bylo ve štítku vymazáno číslo disku"
 
-#: ../src/tag_area.c:321
+#: ../src/tag_area.c:330
 #, c-format
 msgid "Selected files tagged with year ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven rok na „%s“"
 
-#: ../src/tag_area.c:326
+#: ../src/tag_area.c:335
 msgid "Removed year from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán rok"
 
-#: ../src/tag_area.c:356 ../src/tag_area.c:450
+#: ../src/tag_area.c:365 ../src/tag_area.c:470
 #, c-format
 msgid "Selected files tagged with track like ‘xx/%s’"
 msgstr "U vybraných souborů bylo ve štítku nastaveno pořadí v podobě „xx/%s“"
 
-#: ../src/tag_area.c:360
+#: ../src/tag_area.c:369
 #, c-format
 msgid "Selected files tagged with track like ‘xx’"
 msgstr "U vybraných souborů bylo ve štítku nastaveno pořadí v podobě „xx“"
 
-#: ../src/tag_area.c:365 ../src/tag_area.c:455
+#: ../src/tag_area.c:374 ../src/tag_area.c:475
 msgid "Removed track number from selected files"
 msgstr "Z vybraných souborů bylo ve štítku vymazáno číslo skladby"
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/tag_area.c:423
+#: ../src/tag_area.c:433
 #, c-format
 msgid "Selected tracks numbered sequentially"
 msgstr "Vybrané skladby byly ve štítku sekvenčně očíslovány"
 
-#: ../src/tag_area.c:472
+#: ../src/tag_area.c:495
 #, c-format
 msgid "Selected files tagged with genre ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven žánr na „%s“"
 
-#: ../src/tag_area.c:477
+#: ../src/tag_area.c:500
 msgid "Removed genre from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán žánr"
 
-#: ../src/tag_area.c:501
+#: ../src/tag_area.c:525
 #, c-format
 msgid "Selected files tagged with comment ‘%s’"
 msgstr "U vybraných souborů byla ve štítku nastavena poznámka na „%s“"
 
-#: ../src/tag_area.c:506
+#: ../src/tag_area.c:530
 msgid "Removed comment from selected files"
 msgstr "Z vybraných souborů byla ve štítku vymazána poznámka"
 
-#: ../src/tag_area.c:522
+#: ../src/tag_area.c:548
 #, c-format
 msgid "Selected files tagged with composer ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven skladatel na „%s“"
 
-#: ../src/tag_area.c:527
+#: ../src/tag_area.c:553
 msgid "Removed composer from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán skladatel"
 
-#: ../src/tag_area.c:544
+#: ../src/tag_area.c:571
 #, c-format
 msgid "Selected files tagged with original artist ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven původní umělec na „%s“"
 
-#: ../src/tag_area.c:549
+#: ../src/tag_area.c:576
 msgid "Removed original artist from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán původní umělec"
 
-#: ../src/tag_area.c:566
+#: ../src/tag_area.c:594
 #, c-format
 msgid "Selected files tagged with copyright ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven copyright na „%s“"
 
-#: ../src/tag_area.c:571
+#: ../src/tag_area.c:599
 msgid "Removed copyright from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán copyright"
 
-#: ../src/tag_area.c:588
+#: ../src/tag_area.c:617
 #, c-format
 msgid "Selected files tagged with URL ‘%s’"
 msgstr "U vybraných souborů byla ve štítku nastaven adresa URL na „%s“"
 
-#: ../src/tag_area.c:593
+#: ../src/tag_area.c:622
 msgid "Removed URL from selected files"
 msgstr "Z vybraných souborů byla ve štítku vymazána adresa URL"
 
-#: ../src/tag_area.c:610
+#: ../src/tag_area.c:640
 #, c-format
 msgid "Selected files tagged with encoder name ‘%s’"
 msgstr "U vybraných souborů byl ve štítku nastaven název kodéru na „%s“"
 
-#: ../src/tag_area.c:615
+#: ../src/tag_area.c:645
 msgid "Removed encoder name from selected files"
 msgstr "Z vybraných souborů byl ve štítku vymazán název kodéru"
 
-#: ../src/tag_area.c:650
+#: ../src/tag_area.c:680
 msgid "Selected files tagged with images"
 msgstr "U vybraných souborů byly ve štítku nastaveny obrázky"
 
-#: ../src/tag_area.c:654
+#: ../src/tag_area.c:684
 msgid "Removed images from selected files"
 msgstr "Z vybraných souborů byly ve štítku vymazány obrázky"
 
 #. Menu items
-#: ../src/tag_area.c:823
+#: ../src/tag_area.c:851
 msgid "Tag selected files with this field"
 msgstr "Nastavit vybraným souborům toto pole"
 
-#: ../src/tag_area.c:850
+#: ../src/tag_area.c:878
 msgid "All uppercase"
 msgstr "Vše velkými písmeny"
 
-#: ../src/tag_area.c:856
+#: ../src/tag_area.c:884
 msgid "All lowercase"
 msgstr "Vše malými písmeny"
 
-#: ../src/tag_area.c:862
+#: ../src/tag_area.c:890
 msgid "First letter uppercase"
 msgstr "První písmeno velké"
 
-#: ../src/tag_area.c:868
+#: ../src/tag_area.c:896
 msgid "First letter uppercase of each word"
 msgstr "První písmeno každého slova velké"
 
-#: ../src/tag_area.c:884
+#: ../src/tag_area.c:912
 msgid "Insert space before uppercase letter"
 msgstr "Vložit mezeru před velká písmena"
 
-#: ../src/tag_area.c:890
+#: ../src/tag_area.c:918
 msgid "Remove duplicate spaces or underscores"
 msgstr "Odstranit zdvojené mezery nebo podtržítka"
 
-#: ../src/tag_area.c:896
+#: ../src/tag_area.c:924
 msgid "Remove all text"
 msgstr "Odstranit všechen text"
 
-#: ../src/tag_area.c:1258 ../src/tag_area.c:1336
+#: ../src/tag_area.c:1286 ../src/tag_area.c:1364
 #, c-format
 msgid "Error parsing image data ‘%s’"
 msgstr "Chyba při zpracování dat obrázku: %s"
 
-#: ../src/tag_area.c:1318
+#: ../src/tag_area.c:1346
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer"
@@ -4413,99 +4414,99 @@ msgstr ""
 "Nelze zobrazit obrázek, protože nebyl načten dostatek dat, podle kterých by "
 "se dalo určit, jaká se má vytvořit vyrovnávací paměť pro obrázek."
 
-#: ../src/tag_area.c:1325
+#: ../src/tag_area.c:1353
 msgid "Cannot display the image"
 msgstr "Nelze zobrazit obrázek"
 
-#: ../src/tag_area.c:1327
+#: ../src/tag_area.c:1355
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 "Nebyl načten dostatek dat, podle kterých by se dalo určit, jaká se má "
 "vytvořit vyrovnávací paměť pro obrázek."
 
-#: ../src/tag_area.c:1329
+#: ../src/tag_area.c:1357
 msgid "Load Image File"
 msgstr "Načtení souboru s obrázkem"
 
-#: ../src/tag_area.c:1373 ../src/tag_area.c:1398
+#: ../src/tag_area.c:1401 ../src/tag_area.c:1426
 #, c-format
 msgid "Image file not loaded ‘%s’"
 msgstr "Soubor s obrázkem nebyl načten: %s"
 
-#: ../src/tag_area.c:1390
+#: ../src/tag_area.c:1418
 #, c-format
 msgid "Cannot open file ‘%s’"
 msgstr "Nelze otevřít soubor „%s“"
 
-#: ../src/tag_area.c:1394
+#: ../src/tag_area.c:1422
 msgid "Image File Error"
 msgstr "Chyba souboru s obrázkem"
 
-#: ../src/tag_area.c:1405
+#: ../src/tag_area.c:1433
 msgid "Image file loaded"
 msgstr "Soubor s obrázkem načten"
 
-#: ../src/tag_area.c:1485
+#: ../src/tag_area.c:1513
 msgid "Add Images"
 msgstr "Přidání obrázků"
 
-#: ../src/tag_area.c:1495 ../src/tag_area.c:1847
+#: ../src/tag_area.c:1523 ../src/tag_area.c:1877
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: ../src/tag_area.c:1502 ../src/tag_area.c:1854
+#: ../src/tag_area.c:1530 ../src/tag_area.c:1884
 msgid "PNG and JPEG"
 msgstr "PNG a JPEG"
 
-#: ../src/tag_area.c:1641
+#: ../src/tag_area.c:1671
 #, c-format
 msgid "Image Properties %d/%d"
 msgstr "Vlastnosti obrázku %d/%d"
 
-#: ../src/tag_area.c:1833
+#: ../src/tag_area.c:1863
 #, c-format
 msgid "Save Image %d/%d"
 msgstr "Ukládání obrázku %d/%d"
 
-#: ../src/tag_area.c:1913
+#: ../src/tag_area.c:1943
 #, c-format
 msgid "Image file not saved ‘%s’"
 msgstr "Soubor s obrázkem nebyl uložen: %s"
 
-#: ../src/tag_area.c:2259
+#: ../src/tag_area.c:2291
 msgid "Tag selected files with this genre"
 msgstr "Nastavit vybraným souborům tento žánr"
 
-#: ../src/tag_area.c:2986
+#: ../src/tag_area.c:3018
 msgid "ID3 Tag"
 msgstr "Štítek ID3"
 
-#: ../src/tag_area.c:2991
+#: ../src/tag_area.c:3023
 msgid "Ogg Vorbis Tag"
 msgstr "Štítek Ogg Vorbis"
 
-#: ../src/tag_area.c:2996
+#: ../src/tag_area.c:3028
 msgid "FLAC Vorbis Tag"
 msgstr "Štítek FLAC"
 
-#: ../src/tag_area.c:3000
+#: ../src/tag_area.c:3032
 msgid "APE Tag"
 msgstr "Štítek APE"
 
-#: ../src/tag_area.c:3004
+#: ../src/tag_area.c:3036
 msgid "MP4/M4A/AAC Tag"
 msgstr "Štítek MP4/M4A/AAC"
 
-#: ../src/tag_area.c:3009
+#: ../src/tag_area.c:3041
 msgid "Wavpack Tag"
 msgstr "Štítek Wavpack"
 
-#: ../src/tag_area.c:3014
+#: ../src/tag_area.c:3046
 msgid "Opus Tag"
 msgstr "Štítek Opus"
 
-#: ../src/tag_area.c:3254
+#: ../src/tag_area.c:3286
 #, c-format
 msgid "Images (%u)"
 msgstr "Obrázky (%u)"
@@ -4540,14 +4541,14 @@ msgstr "Soubor FLAC"
 msgid "Channels:"
 msgstr "Kanály:"
 
-#: ../src/tags/flac_tag.c:815 ../src/tags/flac_tag.c:848
-#: ../src/tags/flac_tag.c:862
+#: ../src/tags/flac_tag.c:831 ../src/tags/flac_tag.c:864
+#: ../src/tags/flac_tag.c:878
 #, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
 msgstr "Chyba při otevírání souboru „%s“ jako FLAC: %s"
 
-#: ../src/tags/flac_tag.c:1144 ../src/tags/flac_tag.c:1156
-#: ../src/tags/flac_tag.c:1176
+#: ../src/tags/flac_tag.c:1160 ../src/tags/flac_tag.c:1172
+#: ../src/tags/flac_tag.c:1192
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
 msgstr "Selhal zápis poznámek do souboru „%s“: %s"
@@ -4565,27 +4566,27 @@ msgstr ""
 msgid "Corrupted file"
 msgstr "Poškozený soubor"
 
-#: ../src/tags/id3_tag.c:600
+#: ../src/tags/id3_tag.c:613
 #, c-format
 msgid "Removed tag of ‘%s’"
 msgstr "Odstraněn štítek z „%s“"
 
-#: ../src/tags/id3_tag.c:607 ../src/tags/id3_tag.c:737
+#: ../src/tags/id3_tag.c:620 ../src/tags/id3_tag.c:750
 #, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
 msgstr "Chyba při odstraňování štítku ID3v1 v „%s“: %s"
 
-#: ../src/tags/id3_tag.c:616 ../src/tags/id3_tag.c:700
+#: ../src/tags/id3_tag.c:629 ../src/tags/id3_tag.c:713
 #, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
 msgstr "Chyba při odstraňování štítku ID3v2 v „%s“: %s"
 
-#: ../src/tags/id3_tag.c:642
+#: ../src/tags/id3_tag.c:655
 #, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
 msgstr "Chyba při aktualizaci štítku ID3v1 v „%s“: %s"
 
-#: ../src/tags/id3_tag.c:674
+#: ../src/tags/id3_tag.c:687
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
@@ -4593,7 +4594,7 @@ msgstr ""
 "Zkoušíte uložit tento šítek v Unikódu, ale bylo zjištěno, že máte verzi "
 "id3lib, která obsahuje chyby."
 
-#: ../src/tags/id3_tag.c:676
+#: ../src/tags/id3_tag.c:689
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -4612,76 +4613,76 @@ msgstr ""
 "\n"
 "Soubor: %s"
 
-#: ../src/tags/id3_tag.c:683
+#: ../src/tags/id3_tag.c:696
 msgid "Buggy id3lib"
 msgstr "Chybová id3lib"
 
-#: ../src/tags/id3_tag.c:725
+#: ../src/tags/id3_tag.c:738
 #, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
 msgstr "Chyba při aktualizaci štítku ID3v1 v „%s“: %s"
 
-#: ../src/tags/id3_tag.c:759
+#: ../src/tags/id3_tag.c:772
 msgid "No error reported"
 msgstr "Neohlášena žádná chyba"
 
-#: ../src/tags/id3_tag.c:761
+#: ../src/tags/id3_tag.c:774
 msgid "No available memory"
 msgstr "Není dostupná žádná pamět"
 
-#: ../src/tags/id3_tag.c:763
+#: ../src/tags/id3_tag.c:776
 msgid "No data to parse"
 msgstr "Žádná data ke zpracování"
 
-#: ../src/tags/id3_tag.c:765
+#: ../src/tags/id3_tag.c:778
 msgid "Improperly formatted data"
 msgstr "Chybně zformátovaná data"
 
-#: ../src/tags/id3_tag.c:767
+#: ../src/tags/id3_tag.c:780
 msgid "No buffer to write to"
 msgstr "Nebyla nalezena vyrovnávací paměť pro zápis"
 
-#: ../src/tags/id3_tag.c:769
+#: ../src/tags/id3_tag.c:782
 msgid "Buffer is too small"
 msgstr "Vyrovnávací paměť je příliš malá"
 
-#: ../src/tags/id3_tag.c:771
+#: ../src/tags/id3_tag.c:784
 msgid "Invalid frame ID"
 msgstr "Neplatné ID rámce"
 
-#: ../src/tags/id3_tag.c:773
+#: ../src/tags/id3_tag.c:786
 msgid "Requested field not found"
 msgstr "Požadované pole nebylo nalezeno"
 
-#: ../src/tags/id3_tag.c:775
+#: ../src/tags/id3_tag.c:788
 msgid "Unknown field type"
 msgstr "Neznámý typ pole"
 
-#: ../src/tags/id3_tag.c:777
+#: ../src/tags/id3_tag.c:790
 msgid "Tag is already attached to a file"
 msgstr "Štítek je již k souboru přiložen"
 
-#: ../src/tags/id3_tag.c:779
+#: ../src/tags/id3_tag.c:792
 msgid "Invalid tag version"
 msgstr "Neplatná verze štítku"
 
-#: ../src/tags/id3_tag.c:781
+#: ../src/tags/id3_tag.c:794
 msgid "No file to parse"
 msgstr "Žádný soubor ke zpracování"
 
-#: ../src/tags/id3_tag.c:783
+#: ../src/tags/id3_tag.c:796
 msgid "Attempting to write to a read-only file"
 msgstr "Pokus o zápis do souboru jen ke čtení"
 
-#: ../src/tags/id3_tag.c:785
+#: ../src/tags/id3_tag.c:798
 msgid "Error in compression/uncompression"
 msgstr "Chyba při komprimaci/dekomprimaci"
 
-#: ../src/tags/id3_tag.c:787
+#: ../src/tags/id3_tag.c:800
 msgid "Unknown error message"
 msgstr "Neznámá chybová zpráva"
 
-#: ../src/tags/id3_tag.c:1474
+#: ../src/tags/id3_tag.c:1487
 msgid "Error while creating temporary file"
 msgstr "Chyba při vytváření dočasného souboru"
 
