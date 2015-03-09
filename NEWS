@@ -1,3 +1,25 @@
+2.3.5 - 2015-03-09 :
+====================
+
+    * Fix changing tag fields containing certain characters
+    * Fix for truncated CDDB results
+    * Fix changing the artwork description
+    * Avoid a crash when reading FLAC files with no tags
+    * Avoid a crash when reading invalid MP3 files
+    * Further refactoring of the internal file list code
+    * Add several unit tests
+    * Handle empty descriptions in ID3 tag artwork
+    * Build against the patched Debian version of id3lib
+    * Fix compilation when FLAC support is disabled
+    * Avoid a runtime warning in the file browser
+    * Fix a couple of Coverity warnings
+    * Fix string format sign warnings with GCC 5.0
+    * Further improvements to compiler warning flag checking
+    * Marek Černocký’s Czech translation updates
+    * Piotr Drąg’s Polish translation updates
+    * Åka Sikrom’s Norwegian bokmål translation update
+    * Osman Karagöz’s Turkish translation update
+
 2.3.4 - 2014-02-06 :
 ====================
 
