@@ -22,6 +22,7 @@
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
+#include <locale.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
