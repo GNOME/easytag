@@ -793,7 +793,7 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
                                                                        FALSE);
     g_free(mask);
 
-    if (!et_str_empty (filename_generated_utf8))
+    if (et_str_empty (filename_generated_utf8))
     {
         g_free (filename_generated_utf8);
         return;
