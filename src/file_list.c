@@ -197,7 +197,7 @@ et_core_read_file_info (GFile *file,
  */
 GList *
 et_file_list_add (GList *file_list,
-                  gchar *filename)
+                  GFile *file)
 {
     GList *result;
     const ET_File_Description *description;
@@ -208,21 +208,21 @@ et_file_list_add (GList *file_list,
     gchar        *ETFileExtension;
     guint         ETFileKey;
     guint         undo_key;
-    GFile *file;
     GFileInfo *fileinfo;
-    gchar        *filename_utf8 = filename_to_display(filename);
+    gchar *filename;
+    gchar *filename_utf8;
     const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
     GError *error = NULL;
     gboolean success;
 
-    g_return_val_if_fail (filename != NULL, file_list);
-
-    file = g_file_new_for_path (filename);
+    g_return_val_if_fail (file != NULL, file_list);
 
     /* Primary Key for this file */
     ETFileKey = ET_File_Key_New();
 
     /* Get description of the file */
+    filename = g_file_get_path (file);
+    filename_utf8 = filename_to_display (filename);
     description = ET_Get_File_Description (filename);
 
     /* Get real extension of the file (keeping the case) */
@@ -412,7 +412,6 @@ et_file_list_add (GList *file_list,
      * before saving */
     fileinfo = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                   G_FILE_QUERY_INFO_NONE, NULL, NULL);
-    g_object_unref (file);
 
     /* Attach all data defined above to this ETFile item */
     ETFile = ET_File_Item_New();
@@ -479,6 +478,7 @@ et_file_list_add (GList *file_list,
 
     //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
 
+    g_free (filename);
     g_free (filename_utf8);
 
     return result;

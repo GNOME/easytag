@@ -1004,18 +1004,17 @@ Read_Directory (const gchar *path_real)
     for (l = FileList; l != NULL && !Main_Stop_Button_Pressed;
          l = g_list_next (l))
     {
-        gchar *filename_real = l->data; /* Contains real filenames. */
+        GFile *file = l->data;
+        gchar *filename_real = g_file_get_path (file);
         gchar *filename_utf8 = filename_to_display(filename_real);
 
         msg = g_strdup_printf (_("File: ‘%s’"), filename_utf8);
         et_application_window_status_bar_message (window, msg, FALSE);
         g_free(msg);
         g_free(filename_utf8);
+        g_free (filename_real);
 
-        /* Warning: Do not free filename_real because ET_Add_File.. uses it for
-         * internal structures. */
-        ETCore->ETFileList = et_file_list_add (ETCore->ETFileList,
-                                               filename_real);
+        ETCore->ETFileList = et_file_list_add (ETCore->ETFileList, file);
 
         /* Update the progress bar. */
         fraction = (++progress_bar_index) / (double) nbrfile;
@@ -1027,8 +1026,7 @@ Read_Directory (const gchar *path_real)
             gtk_main_iteration();
     }
 
-    /* Just free the list, not the data. */
-    g_list_free (FileList);
+    g_list_free_full (FileList, g_object_unref);
     et_application_window_progress_set_text (window, "");
 
     /* Close window to quit recursion */
@@ -1172,12 +1170,10 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
             else if (type == G_FILE_TYPE_REGULAR &&
                      et_file_is_supported (file_name))
             {
+                /* TODO: Use g_file_enumerator_get_child(). */
                 GFile *file = g_file_get_child (g_file_enumerator_get_container (dir_enumerator),
                                                 file_name);
-                gchar *file_path = g_file_get_path (file);
-                /*Do not free this file_path, it will be used by g_list*/
-                file_list = g_list_append (file_list, file_path);
-                g_object_unref (file);
+                file_list = g_list_append (file_list, file);
             }
 
             // Just to not block X events

@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 #include "file_tag.h"
 #include "setting.h"
 
-GList * et_file_list_add (GList *file_list, gchar *filename);
+GList * et_file_list_add (GList *file_list, GFile *file);
 void ET_Remove_File_From_File_List (ET_File *ETFile);
 gboolean et_file_list_check_all_saved (GList *etfilelist);
 void et_file_list_update_directory_name (GList *file_list, const gchar *old_path, const gchar *new_path);
