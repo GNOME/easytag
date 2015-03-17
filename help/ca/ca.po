@@ -1,0 +1,1380 @@
+# Catalan translation for easytag.
+# Copyright (C) 2014 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Ferran Roig <forums@ferranroig.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag master\n"
+"POT-Creation-Date: 2014-11-03 21:05+0000\n"
+"PO-Revision-Date: 2014-06-25 19:48+0100\n"
+"Last-Translator: Ferran Roig <forums@ferranroig.com>\n"
+"Language-Team: Catalan <gnome@llistes.softcatala.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr "crèdits-traductor"
+
+#. (itstool) path: credit/name
+#: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
+#: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
+#: C/image.page:15 C/index.page:14 C/introduction.page:12
+#: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
+#: C/problems-ogg-split.page:17 C/scanner.page:11 C/starting.page:10
+#: C/tag-field.page:14 C/tag.page:13
+msgid "Ekaterina Gerasimova"
+msgstr "Ferran Roig"
+
+#. (itstool) path: info/desc
+#: C/cddb-search.page:17
+msgid "Fill tags using information from a CD database"
+msgstr "Emplena etiquetes a partir de la informació de la base de dades de CD"
+
+#. (itstool) path: page/title
+#: C/cddb-search.page:20
+msgid "Search CDDB"
+msgstr "Cerca CDDB"
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:22
+msgid ""
+"If your music is organized by album, <app>EasyTAG</app> can search online "
+"databases using the <sys>CDDB</sys> protocol and automatically fill in "
+"several tag fields."
+msgstr ""
+"Si la vostra música està organitzada per àlbums, <app>EasyTAG</app> pot "
+"cercar base de dades en línia utilitzant el protocol <sys>CDDB</sys> i "
+"emplenar automàticament alguns camps de l'etiqueta."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:28
+msgid ""
+"<link xref=\"file-select\">Select all the files</link> in the album that you "
+"want to search for. The ordering of the files must match the track order on "
+"the album."
+msgstr ""
+"<link xref=\"file-select\">Selecciona tots els fitxers</link> de l'àlbum que "
+"voleu fer la cerca. L'ordre dels fitxers ha de coincidir amb l'ordre de les "
+"pistes del disc."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:33
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">CDDB Search…</gui></guiseq>."
+msgstr ""
+"Seleccioneu <guiseq><gui style=\"menu\">Miscel·lània</gui> <gui style="
+"\"menuitem\">Cerca CDDB…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:37
+msgid ""
+"Press <gui style=\"button\">Find</gui> and wait for the search to finish."
+msgstr ""
+"Cliqueu <gui style=\"button\">Cerca</gui> i espereu que la cerca acabi."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:43
+msgid ""
+"Select an album from the list of results, and the track information will be "
+"shown to the right. If the album is not the one that you wanted, try "
+"selecting another result in the list."
+msgstr ""
+"Quan seleccioneu un àlbum de la llista de resultats a la dreta es mostrarà "
+"la informació de les pistes. Si les dades de l'àlbum mostrades no són les "
+"esperades, trieu un altre resultat de la llista."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:46
+msgid ""
+"If there are no results which match the tracks that you selected, select "
+"<gui style=\"tab\">Manual Search</gui> and enter the name of the album in "
+"the search field. Press <gui style=\"button\">Find</gui> and wait for the "
+"search to finish, and check the results again to see if you can find an "
+"album which matches the tracks that you selected."
+msgstr ""
+"Si no hi han resultats que encaixin amb les pistes que heu seleccionat, "
+"intenteu la <gui style=\"tab\">Cerca manual</gui> i escriviu el nom de "
+"l'àlbum en el camp de cerca. Cliqueu <gui style=\"button\">Cerca</gui>,  "
+"espereu que acabi la cerca i comproveu un altre cop si hi ha algun resultat "
+"que encaixi amb les pistes que heu seleccionat."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:53
+msgid ""
+"Choose the tag fields to fill in by selecting either <gui style=\"checkbox"
+"\">All</gui> or a combination of <gui style=\"checkbox\">Filename</gui>, "
+"<gui style=\"checkbox\">Title</gui>, <gui style=\"checkbox\">Artist</gui>, "
+"<gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Year</gui>, "
+"<gui style=\"checkbox\">Track #</gui>, <gui style=\"checkbox\"># Tracks</"
+"gui> and <gui style=\"checkbox\">Genre</gui>."
+msgstr ""
+"Trieu el camp de l'etiqueta per emplenar seleccionant <gui style=\"checkbox"
+"\">Tot</gui> o bé una combinació de <gui style=\"checkbox\">Nom de fitxer</"
+"gui>, <gui style=\"checkbox\">Títol</gui>, <gui style=\"checkbox\">Artista</"
+"gui>, <gui style=\"checkbox\">Àlbum</gui>, <gui style=\"checkbox\">Any</"
+"gui>, <gui style=\"checkbox\">Pista #</gui>, <gui style=\"checkbox\"># "
+"Pistes</gui> i <gui style=\"checkbox\">Gènere</gui>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:64
+msgid ""
+"To fill in the tags of the selected files using the details in the search "
+"result, press <gui style=\"button\">Apply</gui>."
+msgstr ""
+"Cliqueu <gui style=\"button\">Aplica</gui> per emplenar les etiquetes dels "
+"fitxers seleccionats amb el resultat de la cerca."
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:69
+msgid ""
+"If you wish to tag only specific files, you can change your selection after "
+"the search is complete."
+msgstr ""
+"Si voleu etiquetar només alguns fitxers concrets podeu canviar la selecció "
+"després que la cerca enllesteixi."
+
+#. (itstool) path: info/desc
+#: C/file-rename.page:16
+msgid "Change the file names using tags"
+msgstr "Canvia els noms dels fitxers a partir de l'etiqueta"
+
+#. (itstool) path: page/title
+#: C/file-rename.page:19
+msgid "Rename files"
+msgstr "Reanomena fitxers"
+
+#. (itstool) path: page/p
+#: C/file-rename.page:21
+msgid ""
+"You can rename your music files using the tags from within <app>EasyTAG</"
+"app>:"
+msgstr ""
+"Podeu reanomenar els fitxers de música a partir de les etiquetes des de "
+"l'<app>EasyTAG</app>:"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:26
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to rename "
+"in the file view."
+msgstr ""
+"<link xref=\"file-select\">Seleccioneu els fitxers</link> que voleu "
+"reanomenar des de la finestra de fitxers."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:30
+#, fuzzy
+#| msgid ""
+#| "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style="
+#| "\"menuitem\">CDDB Search…</gui></guiseq>."
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Seleccioneu <guiseq><gui style=\"menu\">Miscel·lània</gui> <gui style="
+"\"menuitem\">Cerca CDDB…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:34
+msgid "Select the <gui>Rename File and Directory</gui> scanner."
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/file-rename.page:37
+msgid ""
+"Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
+"that you would like to use for the file naming. For example, if you wish "
+"your files to be named <file>[artist] - [title].[extension]</file>, "
+"enter <input>%a - %t</input> into the renaming field."
+msgstr ""
+"Consulteu la <gui xref=\"format-specifier\">Llegenda</gui> per escriure "
+"l'estructura de la màscara que voleu utilitzar per nomenar els fitxers. Per "
+"exemple, si voleu anomenar els fitxers amb <file>[artista] - [títol]."
+"[extensió]</file>, escriviu <input>%a - %t</input> dins del camp de la "
+"màscara."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:44
+#, fuzzy
+#| msgid ""
+#| "Fill the tag fields for the selected files using the <gui style=\"button"
+#| "\">Scan Files</gui> button."
+msgid ""
+"To apply the changes to the selected files, click <gui style=\"button\">Scan "
+"Files</gui>."
+msgstr ""
+"Per emplenar els camps d'etiqueta dels fitxers seleccionats cliqueu el botó "
+"<gui style=\"button\">Explorador d'etiquetes</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:48
+#, fuzzy
+#| msgid "Close the <gui style=\"dialog\">Tag and Filename scan</gui> dialog."
+msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
+msgstr "Tanqueu el diàleg <gui style=\"dialog\">Explora etiqueta i nom</gui>"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:51
+msgid ""
+"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
+"<gui style=\"menuitem\">Save Files</gui></guiseq>."
+msgstr ""
+"Per desar els canvis fets, seleccioneu <guiseq><gui style=\"menu\">Fitxer</"
+"gui> <gui style=\"menuitem\">Desa fitxers</gui></guiseq>."
+
+#. (itstool) path: note/p
+#: C/file-rename.page:58
+msgid "If you close the application without saving, your changes will be lost."
+msgstr "Si tanqueu l'aplicació sense desar perdreu tots els canvis."
+
+#. (itstool) path: info/desc
+#: C/file-select.page:17
+msgid "Choose files in the file list"
+msgstr "Trieu fitxers de la llista de fitxers"
+
+#. (itstool) path: page/title
+#: C/file-select.page:20
+msgid "Select files"
+msgstr "Seleccioneu fitxers"
+
+#. (itstool) path: page/p
+#: C/file-select.page:22
+msgid ""
+"<app>EasyTAG</app> has several features which operate on the files that are "
+"currently selected in the file list. To select multiple files, you can "
+"either hold down <key>Ctrl</key> while you click on the files that you wish "
+"to select or you can select a file then hold down <key>Shift</key> and click "
+"another file to select all the files between the two, including the first "
+"and last file."
+msgstr ""
+"<app>EasyTAG</app> té diverses característiques que actuen sobre fitxers "
+"seleccionats en la llista de fitxers. Per seleccionar-ne més d'un podeu "
+"mantenir premuda la tecla <key>Ctrl</key> mentre cliqueu sobre els fitxers "
+"triats, o bé per seleccionar un grup correlatiu, podeu clicar un fitxer i "
+"després mantenint premuda la tecla <key>Majúscula (Shift)</key> i clicar-ne "
+"un altre; tots els fitxers compresos entre aquests dos, primer i últim "
+"inclosos, quedaran seleccionats."
+
+#. (itstool) path: info/desc
+#: C/format-specifier.page:17
+msgid "What is a format-specifier and which ones can I use?"
+msgstr "Què és un Codi-de-format i quins es poden usar?"
+
+#. (itstool) path: page/title
+#: C/format-specifier.page:21
+msgid "Format specifiers"
+msgstr "Codis de format"
+
+#. (itstool) path: page/p
+#: C/format-specifier.page:23
+msgid ""
+"<em>Format specifiers</em> can be used to split a file name into tags and to "
+"name a file or playlist based on existing tags using <link xref=\"scanner"
+"\">the scanner</link>."
+msgstr ""
+"Els <em>Codis de format</em> es poden utilitzar, en l'<link xref=\"scanner"
+"\">Explorador</link>, per dividir un nom de fitxer i introduir-lo a "
+"l'etiqueta i per anomenar un fitxer o una llista de reproducció basant-se en "
+"el contingut de l'etiqueta."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:31
+msgid "Format specifier"
+msgstr "Codi de format"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:34
+msgid "Corresponding tag field"
+msgstr "Camp d'etiqueta corresponent"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:41
+msgid "%a"
+msgstr "%a"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:44
+msgid ""
+"Artist: this is the artist or artists who created the track, this field may "
+"contact a featured artist as well as the album artist"
+msgstr ""
+"Artista: això és l'artista o artistes que han creat la pista, aquest camp "
+"pot tenir relació amb l'artista convidat o l'artista de l'àlbum"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:50
+msgid "%z"
+msgstr "%z"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:53
+msgid "Album artist"
+msgstr "Artista de l'àlbum"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:58
+msgid "%b"
+msgstr "%b"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:61
+msgid "Album title"
+msgstr "Títol de l'àlbum"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:66
+msgid "%c"
+msgstr "%c"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:69
+msgid "Comment: this is the free-form comment field"
+msgstr "Comentari: aquest és un camp de format lliure per comentaris"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:74
+msgid "%p"
+msgstr "%p"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:77
+msgid "Composer: this is the creator of the track"
+msgstr "Compositor: aquest és el creador de la pista"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:82
+msgid "%r"
+msgstr "%r"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:85
+msgid ""
+"Copyright holder: this is usually the artist, but it can also be the record "
+"label"
+msgstr ""
+"Propietari del copyright: normalment és l'artista, però pot ser-ho la "
+"discogràfica"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:91
+msgid "%d"
+msgstr "%d"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:94
+msgid "Disc number"
+msgstr "Número de disc"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:99
+msgid "%e"
+msgstr "%e"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:102
+msgid ""
+"Encoded by: this is usually the person who encoded the file, but the field "
+"is also used for the application that was used to encode the file"
+msgstr ""
+"Codificat per: aquest camp fa referència a la persona que ha codificat el "
+"fitxer, però també s'utilitza pel nom de l'aplicació que s'ha utilitzat per "
+"codificar el fitxer"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:109
+msgid "%g"
+msgstr "%g"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:112
+msgid "Genre"
+msgstr "Gènere"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:117
+msgid "%i"
+msgstr "%i"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:120
+msgid ""
+"Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
+"specify parts of the file name which should be ignored"
+msgstr ""
+"Ignorat: aquest especificador de format només es pot emprar en <gui>Emplena "
+"etiqueta</gui> per especificar parts del nom de fitxer que s'ha d'ignorar"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:127
+msgid "%l"
+msgstr "%l"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:130
+msgid "Number of tracks: the total number of tracks on the medium"
+msgstr "Número de pistes: el número total de pistes de l'obra"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:135
+msgid "%o"
+msgstr "%o"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:138
+msgid "Original artist"
+msgstr "Artista original"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:143
+msgid "%n"
+msgstr "%n"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:146
+msgid "Track number"
+msgstr "Número de pista"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:151
+msgid "%t"
+msgstr "%t"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:154
+msgid "Track title"
+msgstr "Títol de la pista"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:159
+msgid "%u"
+msgstr "%u"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:162
+msgid "URL"
+msgstr "URL"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:167
+msgid "%x"
+msgstr "%x"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:170
+msgid "Number of discs"
+msgstr "Número de discs"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:175
+msgid "%y"
+msgstr "%y"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:178
+msgid "Year of recording, sometimes the date of release is used instead"
+msgstr "Any de l'enregistrament, a vegades, data de llançament"
+
+#. (itstool) path: page/title
+#: C/image-delete.page:19
+msgid "Delete an image"
+msgstr "Elimina una imatge"
+
+#. (itstool) path: page/p
+#: C/image-delete.page:21
+msgid ""
+"To delete an image from a tag, select it and press the <gui style=\"button"
+"\">Remove selected images from the tag</gui> button."
+msgstr ""
+"Per eliminar una imatge de l'etiqueta, seleccioneu-la i cliqueu el botó <gui "
+"style=\"button\">Elimina imatges seleccionades de l'etiqueta</gui>."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:24
+msgid ""
+"To delete more than one image, select those images before deleting them."
+msgstr "Per eliminar més d'una imatge, seleccioneu-les abans d'eliminar-les."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:27
+msgid ""
+"It is also possible to delete all images from more than one file. To do "
+"this, select the files from which you want to delete the images, delete all "
+"images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
+"style=\"button\">Tag selected files with these images</gui> button."
+msgstr ""
+"També és possible eliminar totes les imatges de més d'un fitxer. Per fer-ho, "
+"seleccioneu els fitxers que voleu eliminar-los les imatges, elimineu totes "
+"les imatges des de la pestanya <gui style=\"tab\">Imatge</gui>, després "
+"cliqueu el botó <gui style=\"button\">Etiquetes seleccionades amb aquestes "
+"imatges</gui>. "
+
+#. (itstool) path: page/title
+#: C/image-export.page:19
+msgid "Save an image"
+msgstr "Desa una imatge"
+
+#. (itstool) path: page/p
+#: C/image-export.page:21
+msgid ""
+"If the file is already tagged with an image, you can export the image from "
+"the tag by selecting it and pressing <gui style=\"button\">Save the selected "
+"images to files</gui> button. The default filename will be the image "
+"description."
+msgstr ""
+"Si l'etiqueta del fitxer ja conté una imatge, podeu exportar-la seleccionant-"
+"la i clicant el botó <gui style=\"button\">Desa les imatges seleccionades a "
+"un fitxer</gui>. El nom per defecte és la descripció de la imatge."
+
+#. (itstool) path: page/p
+#: C/image-export.page:26
+msgid ""
+"To export a number of images, select these images, then press the <gui style="
+"\"button\">Save the selected images to files</gui> button."
+msgstr ""
+"Per exportar més d'una imatge, seleccioneu-les i cliqueu el botó <gui style="
+"\"button\">Desa les imatges seleccionades a un fitxer</gui>."
+
+#. (itstool) path: info/desc
+#: C/image.page:19
+msgid "Add images, such as cover art to the tag"
+msgstr "Afegeix imatges a l'etiqueta com a caràtula"
+
+#. (itstool) path: page/title
+#: C/image.page:23
+msgid "Add an image to a file"
+msgstr "Afegeix una imatge a un fitxer"
+
+#. (itstool) path: page/p
+#: C/image.page:25
+msgid ""
+"Most audio file formats support an <sys>image</sys> tag field which can be "
+"used to add cover art and other related images to the audio file."
+msgstr ""
+"La majoria dels formats de fitxer d'àudio poden incloure una <sys>imatge</"
+"sys> a l'etiqueta que s'utilitza per desar la caràtula o qualsevol altre "
+"imatge relacionada amb el fitxer."
+
+#. (itstool) path: page/p
+#: C/image.page:28
+msgid ""
+"To add an image to the file, select the file, open the <gui style=\"tab"
+"\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
+"tag</gui> button. Select the image and confirm your selection."
+msgstr ""
+"Per afegir una imatge a un fitxer seleccionat obriu la pestanya <gui style="
+"\"tab\">Imatges</gui> i cliqueu el botó <gui style=\"button\">Afegeix "
+"imatges a l'etiqueta</gui>. Trieu la imatge i confirmeu la selecció."
+
+#. (itstool) path: page/p
+#: C/image.page:33
+msgid ""
+"Once the image is uploaded, it will be automatically marked as a front cover "
+"and the description will be the filename. To change the <gui>type</gui> and "
+"<gui>description</gui>, press the <gui style=\"button\">Edit image "
+"properties</gui> button. Once you have made the changes, press <gui style="
+"\"button\">OK</gui> to apply the changes."
+msgstr ""
+"Un cop s'ha pujat la imatge, es marcarà automàticament com a caràtula i la "
+"descripció serà el nom del fitxer. Per canviar el <gui>tipus</gui> i la "
+"<gui>descripció</gui> cliqueu el botó <gui style=\"button\">Edita propietats "
+"de la imatge</gui>. Un cop fets els canvis cliqueu el botó <gui style="
+"\"button\">D'acord</gui> i s'aplicaran."
+
+#. (itstool) path: note/p
+#: C/image.page:40
+msgid "Your changes will not be saved automatically."
+msgstr "Els canvis no es desaran automàticament."
+
+#. (itstool) path: page/p
+#: C/image.page:43
+msgid ""
+"You can tag multiple files with the same image by selecting them in the list "
+"of files, then selecting the image and pressing the <gui style=\"button"
+"\">Tag selected files with these images</gui> button. You will need to save "
+"these changes to write them to the files."
+msgstr ""
+"Podeu etiquetar múltiples fitxers amb la mateixa imatge seleccionant-los en "
+"la llista de fitxers, després seleccionant la imatge i clicant el botó <gui "
+"style=\"button\">Etiqueta els fitxers seleccionats amb aquestes imatges</"
+"gui>. Caldrà desar aquests canvis per incloure'ls al fitxer. "
+
+#. (itstool) path: page/p
+#: C/image.page:48
+msgid ""
+"You can work with more than one image at a time by selecting those images "
+"before you edit, apply, save to file or delete them."
+msgstr ""
+"Podeu treballar amb més d'una imatge al mateix temps si les seleccioneu "
+"abans d'editar, aplicar, desar o eliminar-les."
+
+#. (itstool) path: info/title
+#: C/index.page:11 C/index.page:21
+msgctxt "text"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/title
+#: C/index.page:20
+msgctxt "link"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/desc
+#: C/index.page:23
+#, fuzzy
+#| msgid ""
+#| "<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's "
+#| "Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and "
+#| "WavPack audio files."
+msgid ""
+"Learn how to use <app>EasyTAG</app>, a comprehensive tag editor for FLAC, "
+"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
+"and WavPack audio files."
+msgstr ""
+"<app>EasyTAG</app> és un complet editor d'etiquetes per a fitxers d'àudio "
+"FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis i WavPack."
+
+#. (itstool) path: page/title
+#: C/index.page:29
+msgid "<_:media-1/> EasyTAG"
+msgstr "<_:media-1/> EasyTAG"
+
+#. (itstool) path: section/title
+#: C/index.page:35
+msgid "Features"
+msgstr "Característiques"
+
+#. (itstool) path: section/title
+#: C/index.page:39
+msgid "Tags"
+msgstr "Etiquetes"
+
+#. (itstool) path: section/title
+#: C/index.page:43
+msgid "The image tag field"
+msgstr "Camp d'imatge de l'etiqueta"
+
+#. (itstool) path: section/title
+#: C/index.page:51
+msgid "Common problems and questions"
+msgstr "Problemes freqüents i preguntes"
+
+#. (itstool) path: page/title
+#: C/introduction.page:21
+msgid "Introduction"
+msgstr "Introducció"
+
+#. (itstool) path: page/p
+#: C/introduction.page:23
+msgid ""
+"<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
+"audio files."
+msgstr ""
+"<app>EasyTAG</app> és un complet editor d'etiquetes per a fitxers d'àudio "
+"FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis i WavPack."
+
+#. (itstool) path: page/title
+#: C/keyboard-shortcuts.page:20
+msgid "Keyboard shortcuts"
+msgstr "Dreceres de teclat"
+
+#. (itstool) path: page/p
+#: C/keyboard-shortcuts.page:22
+msgid ""
+"<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
+"listed in the menus. Here are some which are especially useful:"
+msgstr ""
+"<app>EasyTAG</app> té una sèrie de dreceres de teclat, la majoria dels quals "
+"s'enumeren en els menús. Aquí hi ha alguns que són especialment útils:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:29
+msgid "Action"
+msgstr "Acció"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:32
+msgid "Shortcut"
+msgstr "Drecera"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:39
+msgid "Apply tag to selected files"
+msgstr "Aplica etiquetes als fitxers seleccionats"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:42
+msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Retorn</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "Search all files, including filenames and tags"
+msgstr "Cerca tots els fitxers, noms de fitxers i etiquetes inclosos"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50
+msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:55
+msgid "Go to previous file while keeping focus on the same tag field"
+msgstr ""
+"Vés al fitxer anterior mentre el focus resta al mateix camp de l'etiqueta"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "<key>Page Up</key>"
+msgstr "<key>RePàg</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "Go to next file while keeping focus on the same tag field"
+msgstr ""
+"Vés al fitxer següent mentre el focus resta al mateix camp de l'etiqueta"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66
+msgid "<key>Page Down</key>"
+msgstr "<key>AvPàg</key>"
+
+#. (itstool) path: p/link
+#: C/legal.xml:4
+msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+msgstr ""
+"Llicència no adaptada Creative Commons 3.0  Reconeixement-Compartir igual "
+"(Attribution-ShareAlike )"
+
+#. (itstool) path: license/p
+#: C/legal.xml:3
+msgid "This work is licensed under a <_:link-1/>."
+msgstr "Aquesta obra està sota una llicència <_:link-1/>."
+
+#. (itstool) path: info/desc
+#: C/playlist-generate.page:17
+msgid "Generate a playlist from the file list"
+msgstr "Genera una llista de reproducció des de la llista de fitxers"
+
+#. (itstool) path: page/title
+#: C/playlist-generate.page:20
+msgid "Create a playlist"
+msgstr "Crea una llista de reproducció"
+
+#. (itstool) path: page/p
+#: C/playlist-generate.page:22
+msgid ""
+"You can create a M3U playlist for use with a music player based on the list "
+"of files shown in <app>EasyTAG</app>:"
+msgstr ""
+"Podeu crear llistes de reproducció M3U basades en la llista de fitxers "
+"mostrats per escoltar-ho en un reproductor de música:"
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:27
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to be in "
+"the playlist in the file list."
+msgstr ""
+"<link xref=\"file-select\">Selecciona els fitxers</link> de la llista de "
+"fitxers que voleu incloure a la llista de reproducció."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:31
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">Generate Playlist…</gui></guiseq>."
+msgstr ""
+"Seleccioneu <guiseq><gui style=\"menu\">Miscel·lania</gui> <gui style="
+"\"menuitem\">Crea llista de reproducció…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:35
+msgid ""
+"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using "
+"<link xref=\"format-specifier\">format specifiers</link>, or select <gui "
+"style=\"radiobutton\">Use directory name</gui> to name the playlist after "
+"the directory which is selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Seleccioneu <gui style=\"radiobutton\">Utilitza una màscara</gui> i "
+"introduïu-ne una, utilitzant els <link xref=\"format-specifier\">codis de "
+"format</link>, o seleccionant <gui style=\"radiobutton\">Utilitza nom de "
+"carpeta</gui> per nomenar la llista de reproducció després la carpeta "
+"seleccionada en el  <gui style=\"group\">Navegador</gui>. "
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:42
+msgid ""
+"Select <gui style=\"checkbox\">Include only the selected files</gui> to use "
+"the files which are selected in the file list when generating the playlist. "
+"Deselect it to include all the displayed files in the playlist."
+msgstr ""
+"Seleccioneu <gui style=\"checkbox\">Inclou només els fitxers seleccionats</"
+"gui> per incloure a la llista de reproducció només els fitxers seleccionats "
+"en la llista de fitxers. No el seleccioneu per incloure a la llista de "
+"reproducció tots els fitxers mostrats."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:48
+msgid ""
+"Select <gui style=\"radiobutton\">Use relative path for files in playlist</"
+"gui> unless you only plan to use the playlist on the same computer and you "
+"do not plan to move the audio files, in which case you can select <gui style="
+"\"radiobutton\">Use full path for files in playlist</gui>."
+msgstr ""
+"Seleccioneu <gui style=\"radiobutton\">Utilitza ruta relativa dels fitxers "
+"de la llista</gui> a no ser que només vulgueu utilitzar la llista de "
+"reproducció en el mateix ordinador i no tingueu previst moure els fitxers, "
+"en aquest cas podeu seleccionar <gui style=\"radiobutton\">Ruta sencera dels "
+"fitxers de la llista</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:55
+msgid ""
+"Select <gui style=\"checkbox\">Create playlist in the parent directory</gui> "
+"if you want to save the playlist in the parent of the directory selected in "
+"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
+"saved in the directory selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Seleccioneu <gui style=\"checkbox\">Crea llista en la carpeta actual</gui> "
+"si voleu desar la llista de reproducció en la mateixa carpeta on són els "
+"fitxers en el <gui style=\"group\">Navegador</gui>. Si no està seleccionat, "
+"la llista de reproducció es desarà en la carpeta seleccionada en el <gui "
+"style=\"group\">Navegador</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:63
+msgid ""
+"If you are creating a playlist for use on a Windows computer, or on a "
+"<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
+"\">Use DOS directory separator</gui>."
+msgstr ""
+"Si voleu fer una llista de reproducció per utilitzar-la en un ordinador "
+"Windows, o en un sistema de fitxers <sys>NTFS</sys> o <sys>FAT</sys>, "
+"seleccioneu <gui style=\"checkbox\">Separador de directoris del DOS</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:68
+msgid ""
+"Select <gui style=\"radiobutton\">Write only list of files</gui> to create a "
+"playlist which only contains a list of files. Select <gui style=\"radiobutton"
+"\">Write info using filename</gui> to also write extended information, "
+"including the duration of the audio file, to the playlist. Select <gui style="
+"\"radiobutton\">Write info using</gui> and enter a mask, using format "
+"specifiers, to write custom extended information to the playlist."
+msgstr ""
+"Seleccioneu <gui style=\"radiobutton\">Escriu només llista de fitxers</gui> "
+"per desar una llista de reproducció que només contingui una llista de "
+"fitxers. Seleccioneu <gui style=\"radiobutton\">Escriu informació utilitzat "
+"el nom de fitxer</gui> per escriure també informació ampliada, incloent la "
+"durada del fitxer d'àudio, a la llista de reproducció. Seleccioneu <gui "
+"style=\"radiobutton\">Escriu informació usant:</gui> i introduïu una "
+"màscara, usant els codis de format, per escriure informació complementaria "
+"personalitzada a la llista de reproducció."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:77
+msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
+msgstr ""
+"Seleccioneu <gui style=\"button\">Desa</gui > per crear la llista de "
+"reproducció."
+
+#. (itstool) path: credit/name
+#: C/problems-id3.page:13 C/problems-ogg-split.page:13
+msgid "David King"
+msgstr "David King"
+
+#. (itstool) path: info/desc
+#: C/problems-id3.page:17
+msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
+msgstr ""
+"Arregla les etiquetes ID3 que en altres aplicacions poden mostrar-se buides "
+"o incorrectes"
+
+#. (itstool) path: page/title
+#: C/problems-id3.page:21
+msgid "MP3 tags not showing correctly"
+msgstr "Etiquetes MP3 no mostrades correctament"
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:23
+msgid ""
+"<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
+"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.4, which has the "
+"most features and is most efficient."
+msgstr ""
+"Existeixen diverses versions d'etiquetes <em>ID3</em> per a fitxers MP3. "
+"<app>EasyTAG</app> és compatible amb les versions  ID3v2.4, ID3v2.3 i  "
+"ID3v1.1. La versió per defecte és la ID3v2.4 perquè té més funcions i és més "
+"eficient."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:28
+msgid ""
+"Most applications support the most recent version of the ID3 standard: "
+"ID3v2.4."
+msgstr ""
+"La majoria de les aplicacions són compatibles amb la versió més recent de la "
+"norma ID3: ID3v2.4."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:31
+msgid ""
+"Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
+"a few may support only ID3v1.1 tags. If another application or a device has "
+"a problem reading tags from your files, you should try changing the ID3 tag "
+"version settings in the preferences:"
+msgstr ""
+"Algunes aplicacions i dispositius només són compatibles amb les etiquetes "
+"ID3v2.3 i ID3v1.1, i menys només amb les etiquetes ID3v1.1. Si una altra "
+"aplicació o un dispositiu té problemes per llegir les etiquetes dels "
+"fitxers, hauríeu de provar de canviar la versió d'etiqueta ID3 en les "
+"preferències:"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:38 C/problems-ogg-split.page:45
+msgid ""
+"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
+"\"menuitem\">Preferences</gui></guiseq>"
+msgstr ""
+"Seleccioneu <guiseq style=\"menuitem\"><gui style=\"menu\">Edita</gui><gui "
+"style=\"menuitem\">Preferències</gui></guiseq>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:42
+msgid "Select the <gui style=\"tab\">ID3 Tag Settings</gui> tab"
+msgstr ""
+"Seleccioneu la pestanya <gui style=\"tab\">Configuració Etiquetes ID3</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:45
+msgid ""
+"In the <gui style=\"group\">ID3v2 tags</gui> section, choose the "
+"<gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to "
+"improve compatibility with other systems capable of reading ID3v2 tags"
+msgstr ""
+"En la secció <gui style=\"group\">Etiqueta ID3v2</gui> trieu <gui>ID3v2.3</"
+"gui> en el desplegable <gui>Versió</gui> per millorar la compatibilitat amb "
+"altres sistemes capaços de llegir les etiquetes ID3v2"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:50
+msgid ""
+"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
+"the <gui style=\"group\">ID3v1 tags</gui> section"
+msgstr ""
+"Comproveu que estigui seleccionada la casella <gui style=\"check\">Escriu "
+"etiqueta  ID3v1.x</gui> de la secció <gui style=\"group\">Etiqueta ID3v1</"
+"gui> "
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:54 C/problems-ogg-split.page:56
+msgid "Click <gui style=\"button\">OK</gui> to save the settings"
+msgstr "Cliqueu <gui style=\"button\">D'acord</gui> per desar els canvis"
+
+#. (itstool) path: info/desc
+#: C/problems-ogg-split.page:21
+msgid ""
+"Split a single tag field into multiple fields when you save Ogg and FLAC "
+"files"
+msgstr ""
+"Divideix un camp d'etiqueta única en diversos camps en desar fitxers de Ogg "
+"i FLAC"
+
+#. (itstool) path: page/title
+#: C/problems-ogg-split.page:25
+msgid "Split tag fields when saving"
+msgstr "Divideix camps d'etiqueta al desar"
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:27
+msgid ""
+"In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
+"\">tag field</link> of each type. For example, if two artists performed a "
+"song, there can be two artist fields in the tag, one for each artist. "
+"<app>EasyTAG</app> automatically reads the extra fields, combining them "
+"together and showing them as if they were a single field."
+msgstr ""
+"És possible que els fitxers Ogg i FLAC tinguin més d'un <link xref=\"tag"
+"\">camp d'etiqueta</link> de cada tipus. Per exemple, una cançó interpretada "
+"per dos artistes l'etiqueta pot tenir dos camps d'Artista, un per a cada un. "
+"L'<app>EasyTAG</app> llegeix automàticament els camps extres i els combina "
+"per mostrar-los com un de sol."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:33
+msgid ""
+"Many applications do not read the multi-value field correctly, so the "
+"default configuration is to save using a single field per entry. If the "
+"application that you are using supports multiple field of one type, you can "
+"configure EasyTAG to split fields when you save the file. Fields will "
+"automatically be split whenever \" - \" occurs in the field. For example, in "
+"the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
+"\" and \"Queen\"."
+msgstr ""
+"Moltes aplicacions no poden llegir correctament els camps amb valors "
+"múltiples, per això la configuració per defecte desa cada entrada com a un "
+"únic camp. Si l'aplicació que utilitzeu pot llegir camps múltiples d'un "
+"mateix tipus, podeu configurar l'EasyTAG per què separi els camps quan desi "
+"un fitxer. Els camps es separaran automàticament allà on aparegui el "
+"caràcter \" - \". Per exemple, si el camp conté \"David Bowie - Queen\", es "
+"desaran dos camps d'artista:  \"David Bowie\" i \"Queen\"."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:41
+msgid "To split fields when you save the files:"
+msgstr "Per separar camps quan es desin els fitxers:"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:49
+msgid "Select the <gui style=\"tab\">Tag Settings</gui> tab"
+msgstr ""
+"Seleccioneu la pestanya <gui style=\"tab\">Configuració d'Etiqueta</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:52
+msgid ""
+"In <gui style=\"group\">Tag Splitting</gui> section, check the fields that "
+"you want to be split into multiple fields when saving"
+msgstr ""
+"En la secció <gui style=\"group\">Separació d'etiquetes</gui>, marqueu els "
+"camps que voleu separa en camps múltiples quan es desin els fitxers"
+
+#. (itstool) path: info/desc
+#: C/scanner.page:17
+msgid "Update tags automatically."
+msgstr "Actualitza etiquetes automàticament."
+
+#. (itstool) path: page/title
+#: C/scanner.page:21
+msgid "The <gui>Scanner</gui>"
+msgstr "L'<gui>Explorador</gui>"
+
+#. (itstool) path: page/p
+#: C/scanner.page:23
+msgid ""
+"The scanner can be used to fill in fields based on the filename, rename a "
+"file and create a new directory based on the filled fields, and process the "
+"text in fields and the filename."
+msgstr ""
+"L'Explorador d'etiquetes serveix per emplenar els camps de l'etiqueta basant-"
+"se amb el nom del fitxer; també pot reanomenar un fitxer i crear una carpeta "
+"nova basant-se amb els camps de l'etiqueta; i processar el text dels camps i "
+"el nom del fitxer."
+
+#. (itstool) path: section/title
+#: C/scanner.page:28
+msgid "Fill fields from a filename and directory structure"
+msgstr "Emplena camps partint del nom del fitxer i l'estructura de la carpeta"
+
+#. (itstool) path: section/p
+#: C/scanner.page:30
+msgid ""
+"<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
+"and its parent directories."
+msgstr ""
+"<gui>Emplena etiqueta</gui> serveix per emplenat els camps d'una etiqueta "
+"partint del nom del fitxer i de la carpeta contenidora."
+
+#. (itstool) path: section/p
+#: C/scanner.page:33
+msgid ""
+"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
+"em> to split the filename and parent directories into different tag fields. "
+"The <em>format specifiers</em>, such as <input>%t</input> for track title, "
+"which are used to indicate the different tag fields, are listed in the "
+"<gui>Legend</gui>. <em>Separators</em> can be any part of the filename or "
+"the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
+"parent directory."
+msgstr ""
+"Utilitzeu els <em xref=\"format-specifier\">Codis de format</em> i els "
+"<em>separadors</em> per dividir el nom del fitxer i el nom de la carpeta "
+"contenidora en els diferents camps d'etiqueta. Els <em>Codis de format</em>, "
+"com ara  <input>%t</input> per al Títol, serveixen per indicar els diferents "
+"camps d'etiqueta, trobareu un llistat de codis en la <gui>Llegenda</gui>. "
+"Els <em>Separadors</em> poden estar a qualsevol lloc del nom del fitxer o de "
+"la carpeta contenidora. Utilitzeu el caràcter <key>/</key> per afegir el "
+"<em>separador</em> de la carpeta contenidora."
+
+#. (itstool) path: section/p
+#: C/scanner.page:41
+#, fuzzy
+#| msgid ""
+#| "For example, if you keep your audio files using the <file>artist/"
+#| "album/01 track title.flac</file> directory structure and filenames, use "
+#| "the <input>%a/%b/%t %n</input> <em>format string</em> to extract the "
+#| "track number and title from the filename, the album title from the parent "
+#| "directory and the artist from the grandparent directory."
+msgid ""
+"For example, if you keep your audio files using the <file>artist/"
+"album/01 track title.flac</file> directory structure and filenames, use the "
+"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
+"number and title from the filename, the album title from the parent "
+"directory and the artist from the grandparent directory."
+msgstr ""
+"Per exemple, si teniu un fitxer d'àudio amb aquest nom de fitxer i "
+"estructura de carpeta <file>artista/àlbum/01 títol.flac</file> utilitzeu els "
+"<em>Codis de format</em> <input>%a/%b/%t %n</input> per extreure del nom del "
+"fitxer el Número de pista i el Títol, i l'Àlbum s'extreu del nom de la "
+"carpeta contenidora i l'Artista de la carpeta superior."
+
+#. (itstool) path: section/p
+#: C/scanner.page:47
+msgid ""
+"Fill the tag fields for the selected files using the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Per emplenar els camps d'etiqueta dels fitxers seleccionats cliqueu el botó "
+"<gui style=\"button\">Explorador d'etiquetes</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:53
+msgid "Rename files and create new directories"
+msgstr "Reanomena fitxers i crea carpetes noves"
+
+#. (itstool) path: section/p
+#: C/scanner.page:55
+msgid ""
+"<gui xref=\"file-rename\">Rename File and Directory</gui> can be used to "
+"create a directory hierarchy and update filenames using the filled tag "
+"fields. If a new directory hierarchy is specified, it will be created inside "
+"the directory where the file is currently located."
+msgstr ""
+"<gui xref=\"file-rename\">Reanomena Fitxer i Carpeta</gui> serveix per crear "
+"una jerarquia de carpetes i actualitzar noms de fitxers utilitzant el text "
+"dels camps d'etiquetes. Si especifiqueu una  jerarquia de carpeta nova, es "
+"crearà dins de la carpeta on es troba el fitxer actual."
+
+#. (itstool) path: section/p
+#: C/scanner.page:60
+#, fuzzy
+#| msgid ""
+#| "For example, if you have a tagged file inside the <file>Music</file> "
+#| "directory, you can use the <input>%a/%b/%t %n</input> <em>format string</"
+#| "em>, it will create the <file>Music/artist/album/01 track title.flac</"
+#| "file> file structure and filename. You will see a preview of the naming "
+#| "scheme below your specified format string."
+msgid ""
+"For example, if you have a tagged file inside the <file>Music</file> "
+"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
+"em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
+"file structure and filename. You will see a preview of the naming scheme "
+"below your specified format string."
+msgstr ""
+"Per exemple, si teniu un fitxer etiquetat dins la carpeta <file>Música</"
+"file> podeu utilitzar els <em>Codis de format</em> <input>%a/%b/%t %n</"
+"input> per crear la carpeta i el fitxer <file>Música/artista/àlbum/01 títol."
+"flac</file>. Veureu una previsualització de l'estructura del nom de fitxer "
+"sota la cadena de codis de format."
+
+#. (itstool) path: section/p
+#: C/scanner.page:66
+msgid ""
+"To prepare the files for moving and renaming, press the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Per preparar els fitxers que voleu moure o reanomenar, cliqueu el botó <gui "
+"style=\"button\">Explora Fitxers</gui>."
+
+#. (itstool) path: section/title
+#: C/scanner.page:72
+msgid "Bulk process tag fields and filename"
+msgstr "Procés per etiquetar camps i noms de fitxers a l'engròs"
+
+#. (itstool) path: section/p
+#: C/scanner.page:74
+msgid ""
+"<gui>Process Fields</gui> is a sophisticated find and replace feature which "
+"allows you to select which tag fields to process. It also allows for the "
+"filename to be processed as well."
+msgstr ""
+"<gui>Camps de procés</gui> és una funció sofisticada per cercar i reemplaçar "
+"que us permet triar quins camps d'etiqueta s'han de processar. També permet "
+"processar  el nom de fitxer."
+
+#. (itstool) path: section/p
+#: C/scanner.page:78
+msgid ""
+"You can <gui>Convert</gui> characters for a simple find and replace, change "
+"capitalization and add or remove spaces."
+msgstr ""
+"Podeu <gui>Convertir</gui> caràcters amb una simple 'Cerca i Reemplaça', "
+"podeu canviar majúscules i minúscules i eliminar espais."
+
+#. (itstool) path: section/p
+#: C/scanner.page:81
+msgid ""
+"Use the <gui>Select fields</gui> buttons to specify which fields to change. "
+"You can also select or deselect all fields and invert your selection."
+msgstr ""
+"Els botons <gui>Camps seleccionats</gui> serveixen per especificar quins "
+"camps voleu canviar. Podeu també seleccionar-los tots o cap, i invertir la "
+"selecció."
+
+#. (itstool) path: info/desc
+#: C/starting.page:16
+msgid "Using <app>EasyTAG</app> for the first time"
+msgstr "Treballar amb <app>EasyTAG</app> per primera vegada"
+
+#. (itstool) path: page/title
+#: C/starting.page:19
+msgid "Start using <app>EasyTAG</app>"
+msgstr "Comenceu a treballar amb <app>EasyTAG</app>"
+
+#. (itstool) path: page/p
+#: C/starting.page:21
+msgid ""
+"When you start <app>EasyTAG</app> for the first time, it will search your "
+"<file>Music</file> directory or your home directory for audio files. If you "
+"wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
+msgstr ""
+"Quan inicieu l'<app>EasyTAG</app> per primera vegada, cercarà fitxers "
+"d'àudio a la carpeta de <file>Música</file> o a la carpeta principal. Si "
+"voleu saltar la cerca, cliqueu el botó <gui style=\"button\">Atura</gui> ."
+
+#. (itstool) path: page/p
+#: C/starting.page:25
+msgid ""
+"<app>EasyTAG</app> may apply some automatic corrections to some of your "
+"music files. These files will be highlighted in bold. These are normally "
+"updates to the tag metadata containers and will not be applied until you "
+"save the changes."
+msgstr ""
+"L'<app>EasyTAG</app> pot fer correccions automàtiques en alguns fitxers "
+"d'àudio. Aquest és marquen amb negreta. Normalment són actualitzacions dels "
+"contenidors de metadades i no seran efectives fins que no es desi el fitxer."
+
+#. (itstool) path: page/p
+#: C/starting.page:30
+msgid ""
+"To save these changes, select all the files that have been affected and "
+"press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to "
+"undo the automatic changes but they will not be saved unless you select the "
+"file and save it. You can disable some of the automatic updates in the <gui "
+"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
+"\">Preferences</gui> dialog."
+msgstr ""
+"Per desar aquests canvis, seleccioneu tots els fitxers modificats i premeu "
+"<keyseq><key>Ctrl</key><key>S</key></keyseq>. No es poden desfer els canvis "
+"automàtics per això no es desen fins que no ho ordeneu. Podeu desactivar "
+"algunes de les actualitzacions automàtiques en la pestanya <gui style=\"tab"
+"\">Configuració etiquetes ID3</gui> del diàleg de <gui style=\"dialog"
+"\">Preferències</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-field.page:18
+msgid "Add text tags to a file"
+msgstr "Afegeix etiquetes de text al fitxer"
+
+#. (itstool) path: page/title
+#: C/tag-field.page:22
+msgid "Tag a file"
+msgstr "Etiqueta un fitxer"
+
+#. (itstool) path: page/p
+#: C/tag-field.page:24
+msgid ""
+"Audio files can support a number of different tag <em>fields</em> which "
+"depend on the file format."
+msgstr ""
+"Els fitxers d'àudio poden contenir diversos <em>camps</em> d'etiquetes en "
+"funció del format del fitxer."
+
+#. (itstool) path: steps/title
+#: C/tag-field.page:28
+msgid "Update a tag field in a file"
+msgstr "Actualitza un camp d'etiqueta en un fitxer"
+
+#. (itstool) path: item/p
+#: C/tag-field.page:30
+msgid "Select the file that you wish to tag."
+msgstr "Seleccioneu el fitxer que voleu etiquetar."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:33
+msgid "Update the field that you want to change in the <gui>Tag</gui> panel."
+msgstr ""
+"Actualitza el camp que voleu canviar en la pestanya <gui>etiqueta</gui>."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:37
+msgid ""
+"Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
+"files</gui></guiseq> to save your changes to the selected file."
+msgstr ""
+"Seleccioneu <guiseq><gui style=\"menu\">Fitxer</gui><gui style=\"menuitem"
+"\">Desa fitxers</gui></guiseq> per desar els canvis dels fitxers "
+"seleccionats."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:42
+msgid ""
+"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
+"\"button\">Save</gui> to save the changes."
+msgstr ""
+"Quan us demani confirmació <gui>Confirmació d'escriptura d'etiquetes</gui>, "
+"cliqueu <gui style=\"button\">Desa</gui> per desar els canvis."
+
+#. (itstool) path: page/p
+#: C/tag-field.page:47
+msgid ""
+"You can tag multiple files with the same field by selecting them in the list "
+"of files and pressing the <gui>Tag selected files with this […]</gui> icon "
+"in the field that you want to tag. You will need to save these changes to "
+"write them to the files."
+msgstr ""
+"Podeu etiquetar varis fitxers amb el mateix camp seleccionant-los en la "
+"llista de fitxers i clicant la icona <gui>Copia aquest [...] als fitxers "
+"seleccionats</gui> en el camp on hi ha el text que voleu copiar. Cal que "
+"deseu aquests canvis per escriure'ls en el fitxer."
+
+#. (itstool) path: info/desc
+#: C/tag.page:17
+msgid "What is a tag and what are fields?"
+msgstr "Què és una etiqueta i què són els camps?"
+
+#. (itstool) path: page/title
+#: C/tag.page:21
+msgid "Audio file tags"
+msgstr "Etiquetes de fitxer d'àudio"
+
+#. (itstool) path: page/p
+#: C/tag.page:23
+msgid ""
+"An audio file can contain <em>metadata</em> — information about itself — "
+"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, "
+"such as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these "
+"fields using <app>EasyTAG</app>. The editable fields depend on the format of "
+"the file that you want to tag."
+msgstr ""
+"Un fitxer d'àudio pot contenir <em>metadades</em> — informació d'ell mateix"
+"—  dins d'una <em>etiqueta</em>. Cada etiqueta pot contenir un o més "
+"<em>camps</em> com ara el <gui>Títol</gui> o bé l'<gui>Artista</gui>. Amb "
+"l'<app>EasyTAG</app> podeu editar aquests camps.  Els camps editables "
+"dependran del format del fitxer del qual voleu editar l'etiqueta."
+
+#~ msgid ""
+#~ "Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
+#~ "\">Rename Files and Directories…</gui></guiseq>."
+#~ msgstr ""
+#~ "Seleccioneu <guiseq><gui style=\"menu\">Explorador</gui> <gui style="
+#~ "\"menuitem\">Reanomena Fitxers i Carpetes…</gui></guiseq>."
+
+#~ msgid ""
+#~ "To apply the changes to all files, select <guiseq><gui style=\"menu"
+#~ "\">File</gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
+#~ msgstr ""
+#~ "Per aplicar els canvis a tots els fitxers, seleccioneu <guiseq><gui style="
+#~ "\"menu\">Fitxer</gui> <gui style=\"menuitem\">Explora Fitxers…</gui></"
+#~ "guiseq>."
