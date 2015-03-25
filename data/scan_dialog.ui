@@ -400,7 +400,7 @@
                                 <property name="entry-text-column">0</property>
                                 <property name="hexpand">True</property>
                                 <property name="tooltip-text" translatable="yes">Select or type in a mask using codes (see Legend) to parse tag fields. Used to rename the file.
-        Use ‘/’ to make directories. If the first character is ‘/’, it is an absolute path, otherwise is relative to the old path</property>
+Use ‘/’ to make directories. If the first character is ‘/’, it is an absolute path, otherwise it is relative to the old path</property>
                                 <property name="visible">True</property>
                             </object>
                         </child>
