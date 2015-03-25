@@ -246,7 +246,7 @@
                         <child>
                             <object class="GtkLabel" id="rename_entry_label">
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">Literal name:</property>
+                                <property name="label" translatable="yes" comments="Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.">Literal name:</property>
                                 <property name="margin-left">12</property>
                                 <property name="visible">True</property>
                             </object>
