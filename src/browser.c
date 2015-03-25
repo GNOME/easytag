@@ -4155,7 +4155,8 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     /* We get the full path but we musn't display the parent directories */
     directory_parent = g_strdup(priv->current_path);
-    if (!directory_parent || strlen(directory_parent) == 0)
+
+    if (et_str_empty (directory_parent))
     {
         g_free(directory_parent);
         return;

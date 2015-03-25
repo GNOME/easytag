@@ -753,7 +753,7 @@ static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, cons
     
     for (i=0;i<g_strv_length(strings);i++)
     {
-        if (strlen(strings[i])>0)
+        if (!et_str_empty (strings[i]))
         {
             Flac_Write_Tag(vc_block, tag_name, strings[i]);
         }

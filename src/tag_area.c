@@ -1164,7 +1164,7 @@ Parse_Date (EtTagArea *self)
     /* Get the info entered by user */
     year = gtk_entry_get_text (GTK_ENTRY (priv->year_entry));
 
-    if (strcmp (year,"") != 0 && strlen (year) < 4)
+    if (!et_str_empty (year) && strlen (year) < 4)
     {
         GDateTime *dt;
         gchar *tmp, *tmp1;
