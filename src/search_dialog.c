@@ -406,7 +406,7 @@ Search_File (GtkWidget *search_button, gpointer user_data)
     gtk_list_store_clear(priv->search_results_model);
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,"");
 
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    for (l = ETCore->ETFileList; l != NULL; l = g_list_next (l))
     {
         ETFile = (ET_File *)l->data;
 

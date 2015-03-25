@@ -515,7 +515,7 @@ Load_File_List (EtLoadFilesDialog *self)
 
     gtk_list_store_clear(priv->load_file_name_model);
 
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    for (l = ETCore->ETFileList; l != NULL; l = g_list_next (l))
     {
         etfile = (ET_File *)l->data;
         filename_utf8 = g_path_get_basename(((File_Name *)etfile->FileNameNew->data)->value_utf8);

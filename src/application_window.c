@@ -1444,7 +1444,7 @@ run_audio_player_using_directory (GError **error)
     GList *file_list = NULL;
     gboolean res;
 
-    for (l = g_list_first (ETCore->ETFileList); l != NULL; l = g_list_next (l))
+    for (l = ETCore->ETFileList; l != NULL; l = g_list_next (l))
     {
         ET_File *etfile = (ET_File *)l->data;
         const gchar *path = ((File_Name *)etfile->FileNameCur->data)->value;

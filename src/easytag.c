@@ -95,13 +95,9 @@ void Action_Force_Saving_Selected_Files (void)
  */
 gint Save_All_Files_With_Answer (gboolean force_saving_files)
 {
-    GList *etfilelist;
-
     g_return_val_if_fail (ETCore != NULL && ETCore->ETFileList != NULL, FALSE);
 
-    etfilelist = g_list_first (ETCore->ETFileList);
-
-    return Save_List_Of_Files (etfilelist, force_saving_files);
+    return Save_List_Of_Files (ETCore->ETFileList, force_saving_files);
 }
 
 /*

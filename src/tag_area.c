@@ -386,7 +386,7 @@ on_apply_to_selection (GObject *object,
         gint i = 0;
 
         /* FIX ME!: see to fill also the Total Track (it's a good idea?) */
-        etfilelistfull = g_list_first(ETCore->ETFileList);
+        etfilelistfull = ETCore->ETFileList;
 
         /* Sort 'etfilelistfull' and 'etfilelist' in the same order. */
         sort_mode = g_settings_get_enum (MainSettings, "sort-mode");

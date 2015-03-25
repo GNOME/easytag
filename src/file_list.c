@@ -780,7 +780,7 @@ ET_Remove_File_From_File_List (ET_File *ETFile)
 
     // Find the ETFileList containing the ETFile item
     ETFileDisplayedList = g_list_find(g_list_first(ETCore->ETFileDisplayedList),ETFile);
-    ETFileList          = g_list_find(g_list_first(ETCore->ETFileList),ETFile);
+    ETFileList = g_list_find (ETCore->ETFileList, ETFile);
 
     // Note : this ETFileList must be used only for ETCore->ETFileDisplayedList, and not ETCore->ETFileDisplayed
     if (ETCore->ETFileDisplayedList == ETFileDisplayedList)
@@ -802,8 +802,7 @@ ET_Remove_File_From_File_List (ET_File *ETFile)
     }
 
     /* Remove the file from the ETFileList list. */
-    ETCore->ETFileList = g_list_remove (g_list_first (ETCore->ETFileList),
-                                        ETFileList);
+    ETCore->ETFileList = g_list_remove (ETCore->ETFileList, ETFileList);
 
     // Remove the file from the ETArtistAlbumList list
     ET_Remove_File_From_Artist_Album_List(ETFile);

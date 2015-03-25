@@ -142,7 +142,7 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
         g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
     }else
     {
-        etfilelist = g_list_first(ETCore->ETFileList);
+        etfilelist = ETCore->ETFileList;
     }
 
     for (l = etfilelist; l != NULL; l = g_list_next (l))
