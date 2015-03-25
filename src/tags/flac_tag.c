@@ -104,6 +104,32 @@ validate_field_utf8 (const gchar *field_value,
 }
 
 /*
+ * set_or_append_field:
+ * @field: (inout): pointer to a location in which to store the field value
+ * @field_value: (transfer full): the string to store in @field
+ *
+ * Set @field to @field_value if @field is empty, otherwise append to it.
+ * Ownership of @field_value is transferred to this function.
+ */
+static void
+set_or_append_field (gchar **field,
+                     gchar *field_value)
+{
+    if (*field == NULL)
+    {
+        *field = field_value;
+    }
+    else
+    {
+        gchar *field_tmp = g_strconcat (*field, MULTIFIELD_SEPARATOR,
+                                        field_value, NULL);
+        g_free (*field);
+        *field = field_tmp;
+        g_free (field_value);
+    }
+}
+
+/*
  * Read tag data from a FLAC file using the level 2 flac interface,
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
@@ -202,11 +228,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->title==NULL)
-                                FileTag->title = g_strdup(field_value);
-                            else
-                                FileTag->title = g_strconcat(FileTag->title,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->title, field_value);
                         }
                     }
                 }
@@ -231,11 +253,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->artist==NULL)
-                                FileTag->artist = g_strdup(field_value);
-                            else
-                                FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->artist,
+                                                 field_value);
                         }
                     }
                 }
@@ -260,11 +279,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->album_artist==NULL)
-                                FileTag->album_artist = g_strdup(field_value);
-                            else
-                                FileTag->album_artist = g_strconcat(FileTag->album_artist,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->album_artist,
+                                                 field_value);
                         }
                     }
                 }
@@ -289,11 +305,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->album==NULL)
-                                FileTag->album = g_strdup(field_value);
-                            else
-                                FileTag->album = g_strconcat(FileTag->album,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->album, field_value);
                         }
                     }
                 }
@@ -450,11 +462,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->genre==NULL)
-                                FileTag->genre = g_strdup(field_value);
-                            else
-                                FileTag->genre = g_strconcat(FileTag->genre,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->genre, field_value);
                         }
                     }
                 }
@@ -499,11 +507,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->comment==NULL)
-                                FileTag->comment = g_strdup(field_value);
-                            else
-                                FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->comment,
+                                                 field_value);
                         }
                     }
                 }
@@ -528,11 +533,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->composer==NULL)
-                                FileTag->composer = g_strdup(field_value);
-                            else
-                                FileTag->composer = g_strconcat(FileTag->composer,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->composer,
+                                                 field_value);
                         }
                     }
                 }
@@ -557,11 +559,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->orig_artist==NULL)
-                                FileTag->orig_artist = g_strdup(field_value);
-                            else
-                                FileTag->orig_artist = g_strconcat(FileTag->orig_artist,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->orig_artist,
+                                                 field_value);
                         }
                     }
                 }
@@ -586,11 +585,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->copyright==NULL)
-                                FileTag->copyright = g_strdup(field_value);
-                            else
-                                FileTag->copyright = g_strconcat(FileTag->copyright,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->copyright,
+                                                 field_value);
                         }
                     }
                 }
@@ -615,11 +611,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->url==NULL)
-                                FileTag->url = g_strdup(field_value);
-                            else
-                                FileTag->url = g_strconcat(FileTag->url,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->url, field_value);
                         }
                     }
                 }
@@ -644,11 +636,8 @@ flac_tag_read_file_tag (GFile *file,
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
 
-                            if (FileTag->encoded_by==NULL)
-                                FileTag->encoded_by = g_strdup(field_value);
-                            else
-                                FileTag->encoded_by = g_strconcat(FileTag->encoded_by,MULTIFIELD_SEPARATOR,field_value,NULL);
-                            g_free (field_value);
+                            set_or_append_field (&FileTag->encoded_by,
+                                                 field_value);
                         }
                     }
                 }
