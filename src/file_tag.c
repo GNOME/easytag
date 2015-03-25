@@ -83,14 +83,15 @@ et_file_tag_copy_other_into (File_Tag *destination,
                              const File_Tag *source)
 {
     GList *l;
+    GList *new_other = NULL;
 
     for (l = source->other; l != NULL; l = g_list_next (l))
     {
-        destination->other = g_list_prepend (destination->other,
-                                             g_strdup ((gchar *)l->data));
+        new_other = g_list_prepend (new_other, g_strdup ((gchar *)l->data));
     }
 
-    destination->other = g_list_reverse (destination->other);
+    new_other = g_list_reverse (new_other);
+    destination->other = g_list_concat (destination->other, new_other);
 }
 
 
