@@ -556,7 +556,7 @@ r               <child>
                 </child>
                 <child>
                     <object class="GtkCheckButton" id="fill_track_check">
-                        <property name="label" translatable="yes">Track #</property>
+                        <property name="label" translatable="yes">Track Number</property>
                         <property name="name">track</property>
                         <property name="visible">True</property>
                     </object>
@@ -567,7 +567,7 @@ r               <child>
                 </child>
                 <child>
                     <object class="GtkCheckButton" id="track_total_check">
-                        <property name="label" translatable="yes"># Tracks</property>
+                        <property name="label" translatable="yes">Number of Tracks</property>
                         <property name="name">track-total</property>
                         <property name="visible">True</property>
                     </object>
