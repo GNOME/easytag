@@ -394,7 +394,7 @@ r               <child>
                                         <child>
                                             <object class="GtkTreeViewColumn" id="number_column">
                                                 <property name="sort-column-id">0</property>
-                                                <property name="title" translatable="yes">#</property>
+                                                <property name="title" translatable="yes" comments="Translators: column header for track number.">#</property>
                                                 <child>
                                                     <object class="GtkCellRendererText" id="number_renderer"/>
                                                     <attributes>
