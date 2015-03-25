@@ -924,7 +924,7 @@
                 <child>
                     <object class="GtkLabel" id="fill_tag_scanner_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Fill Tag Scanner</property>
+                        <property name="label" translatable="yes" comments="Translators: a section header in the Scanner section of the preferences dialog.">Fill Tag Scanner</property>
                         <property name="margin-left">12</property>
                         <property name="margin-top">12</property>
                         <property name="visible">True</property>
@@ -962,7 +962,7 @@
                 <child>
                     <object class="GtkLabel" id="rename_file_directory_scanner_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Rename File and Directory Scanner</property>
+                        <property name="label" translatable="yes" comments="Translators: a section header in the Scanner section of the preferences dialog.">Rename File and Directory Scanner</property>
                         <property name="margin-left">12</property>
                         <property name="margin-top">12</property>
                         <property name="visible">True</property>
@@ -1000,7 +1000,7 @@
                 <child>
                     <object class="GtkLabel" id="process_fields_scanner_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Process Fields Scanner</property>
+                        <property name="label" translatable="yes" comments="Translators: a section header in the Scanner section of the preferences dialog.">Process Fields Scanner</property>
                         <property name="margin-left">12</property>
                         <property name="margin-top">12</property>
                         <property name="visible">True</property>
