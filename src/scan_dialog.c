@@ -1106,8 +1106,7 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
     EtScanDialogPrivate *priv;
     gint pos;
     gchar *path_tmp;
-    const gchar *combo_text = NULL;
-    gchar *combo_tmp;
+    const gchar *combo_text;
     const ET_File *ETFile = ETCore->ETFileDisplayed;
     const gchar *filename_utf8_cur;
     gchar *path_utf8_cur;
@@ -1123,22 +1122,15 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
     // The path to prefix
     path_utf8_cur = g_path_get_dirname(filename_utf8_cur);
 
-    // The current text in the combobox
-    combo_text = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo))));
-    /*if (!g_utf8_validate(combo_text, -1, NULL))
-    {
-        combo_tmp = convert_to_utf8(combo_text);
-    }else
-    {
-        combo_tmp = g_strdup(combo_text);
-    }*/
-    combo_tmp = Try_To_Validate_Utf8_String(combo_text);
+    /* The current text in the combobox. */
+    combo_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo))));
 
     // If the path already exists we don't add it again
     // Use g_utf8_collate_key instead of strncmp
-    if (combo_tmp && path_utf8_cur && strncmp(combo_tmp,path_utf8_cur,strlen(path_utf8_cur))!=0)
+    if (combo_text && path_utf8_cur
+        && strncmp (combo_text, path_utf8_cur, strlen (path_utf8_cur)) != 0)
     {
-        if (g_path_is_absolute(combo_tmp))
+        if (g_path_is_absolute (combo_text))
         {
             path_tmp = g_strdup(path_utf8_cur);
         } else
