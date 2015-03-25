@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-03-01 16:16+0000\n"
-"PO-Revision-Date: 2015-03-01 19:30+0100\n"
+"POT-Creation-Date: 2015-03-25 17:14+0000\n"
+"PO-Revision-Date: 2015-03-26 00:47+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -125,19 +125,20 @@ msgstr ""
 msgid "Rename Directory"
 msgstr "Přejmenování složky"
 
-#: ../data/browser.ui.h:10
+#. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
+#: ../data/browser.ui.h:11
 msgid "Literal name:"
 msgstr "Přesný název:"
 
-#: ../data/browser.ui.h:11 ../data/playlist_dialog.ui.h:2
+#: ../data/browser.ui.h:12 ../data/playlist_dialog.ui.h:2
 msgid "Use mask:"
 msgstr "Použít masku:"
 
-#: ../data/browser.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:188
+#: ../data/browser.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:188
 msgid "Whether to use a mask when renaming directories"
 msgstr "Zda při přejmenování složek používat masku"
 
-#: ../data/browser.ui.h:13
+#: ../data/browser.ui.h:14
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields"
@@ -145,108 +146,108 @@ msgstr ""
 "Vyberte nebo vepište masku z kódů (viz legenda) pro přejmenování složek s "
 "použitím polí štítků"
 
-#: ../data/browser.ui.h:14
+#: ../data/browser.ui.h:15
 msgid "Rename directory preview"
 msgstr "Náhled přejmenování složky"
 
-#: ../data/browser.ui.h:15
+#: ../data/browser.ui.h:16
 msgid "_Rename"
 msgstr "_Přejmenovat"
 
-#: ../data/browser.ui.h:16
+#: ../data/browser.ui.h:17
 msgid "Choose a directory to show in the browser"
 msgstr "Zadejte název složky, kterou chcete procházet"
 
-#: ../data/browser.ui.h:17 ../src/application.c:130
+#: ../data/browser.ui.h:18 ../src/application.c:130
 msgid "Select a directory to browse"
 msgstr "Vyberte složku, kterou chcete procházet"
 
-#: ../data/browser.ui.h:18 ../src/easytag.c:1080
+#: ../data/browser.ui.h:19 ../src/easytag.c:1078
 msgid "No files"
 msgstr "žádný soubor"
 
-#: ../data/browser.ui.h:19 ../data/cddb_dialog.ui.h:10
+#: ../data/browser.ui.h:20 ../data/cddb_dialog.ui.h:11
 #: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:57
 #: ../data/search_dialog.ui.h:13
 msgid "Artist"
 msgstr "Umělec"
 
-#: ../data/browser.ui.h:20
+#: ../data/browser.ui.h:21
 msgid "# Albums"
 msgstr "Počet alb"
 
-#: ../data/browser.ui.h:21
+#: ../data/browser.ui.h:22
 msgid "# Files"
 msgstr "Počet souborů"
 
-#: ../data/browser.ui.h:22 ../data/cddb_dialog.ui.h:11
+#: ../data/browser.ui.h:23 ../data/cddb_dialog.ui.h:12
 #: ../data/preferences_dialog.ui.h:65 ../data/scan_dialog.ui.h:60
 #: ../data/search_dialog.ui.h:15
 msgid "Album"
 msgstr "Album"
 
-#: ../data/browser.ui.h:23 ../data/cddb_dialog.ui.h:35
+#: ../data/browser.ui.h:24 ../data/cddb_dialog.ui.h:37
 #: ../data/playlist_dialog.ui.h:1 ../data/scan_dialog.ui.h:53
 #: ../data/search_dialog.ui.h:11
 msgid "Filename"
 msgstr "Název souboru"
 
-#: ../data/browser.ui.h:24 ../data/cddb_dialog.ui.h:36
+#: ../data/browser.ui.h:25 ../data/cddb_dialog.ui.h:38
 #: ../data/preferences_dialog.ui.h:61 ../data/scan_dialog.ui.h:55
 #: ../data/search_dialog.ui.h:12
 msgid "Title"
 msgstr "Název"
 
-#: ../data/browser.ui.h:25 ../data/scan_dialog.ui.h:59
+#: ../data/browser.ui.h:26 ../data/scan_dialog.ui.h:59
 #: ../data/search_dialog.ui.h:14
 msgid "Album Artist"
 msgstr "Umělec alba"
 
-#: ../data/browser.ui.h:26 ../data/cddb_dialog.ui.h:37
+#: ../data/browser.ui.h:27 ../data/cddb_dialog.ui.h:39
 #: ../data/search_dialog.ui.h:17
 msgid "Year"
 msgstr "Rok"
 
-#: ../data/browser.ui.h:27
+#: ../data/browser.ui.h:28
 msgid "Disc"
 msgstr "Disk"
 
-#: ../data/browser.ui.h:28 ../data/search_dialog.ui.h:18
+#: ../data/browser.ui.h:29 ../data/search_dialog.ui.h:18
 msgid "Track"
 msgstr "Skladba"
 
-#: ../data/browser.ui.h:29 ../data/cddb_dialog.ui.h:40
+#: ../data/browser.ui.h:30 ../data/cddb_dialog.ui.h:42
 #: ../data/preferences_dialog.ui.h:67 ../data/scan_dialog.ui.h:62
 #: ../data/search_dialog.ui.h:19
 msgid "Genre"
 msgstr "Žánr"
 
-#: ../data/browser.ui.h:30 ../data/preferences_dialog.ui.h:69
+#: ../data/browser.ui.h:31 ../data/preferences_dialog.ui.h:69
 #: ../data/scan_dialog.ui.h:64 ../data/search_dialog.ui.h:20
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../data/browser.ui.h:31 ../data/preferences_dialog.ui.h:71
+#: ../data/browser.ui.h:32 ../data/preferences_dialog.ui.h:71
 #: ../data/scan_dialog.ui.h:66 ../data/search_dialog.ui.h:21
 #: ../src/picture.c:214
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../data/browser.ui.h:32 ../data/search_dialog.ui.h:22
+#: ../data/browser.ui.h:33 ../data/search_dialog.ui.h:22
 msgid "Original Artist"
 msgstr "Původní umělec"
 
-#: ../data/browser.ui.h:33 ../data/scan_dialog.ui.h:70
+#: ../data/browser.ui.h:34 ../data/scan_dialog.ui.h:70
 #: ../data/search_dialog.ui.h:23
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../data/browser.ui.h:34 ../data/scan_dialog.ui.h:72
+#: ../data/browser.ui.h:35 ../data/scan_dialog.ui.h:72
 #: ../data/search_dialog.ui.h:24
 msgid "URL"
 msgstr "Adresa URL"
 
-#: ../data/browser.ui.h:35 ../data/scan_dialog.ui.h:74
+#: ../data/browser.ui.h:36 ../data/scan_dialog.ui.h:74
 #: ../data/search_dialog.ui.h:25
 msgid "Encoded By"
 msgstr "Kódováno pomocí"
@@ -286,76 +287,77 @@ msgstr "Zastavit hledání"
 msgid "Manual Search Options"
 msgstr "Volby ručního hledání"
 
-#: ../data/cddb_dialog.ui.h:9
+#. Translators: header for CDDB fields to use when searching
+#: ../data/cddb_dialog.ui.h:10
 msgid "Search Fields"
 msgstr "Prohledávaná pole"
 
-#: ../data/cddb_dialog.ui.h:12
+#: ../data/cddb_dialog.ui.h:13
 msgid "Track Name"
 msgstr "Název skladby"
 
-#: ../data/cddb_dialog.ui.h:13 ../data/preferences_dialog.ui.h:91
+#: ../data/cddb_dialog.ui.h:14 ../data/preferences_dialog.ui.h:91
 #: ../src/picture.c:192
 msgid "Other"
 msgstr "Další"
 
-#: ../data/cddb_dialog.ui.h:14
+#: ../data/cddb_dialog.ui.h:15
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../data/cddb_dialog.ui.h:15
+#: ../data/cddb_dialog.ui.h:16
 msgid "Blues"
 msgstr "Blues"
 
-#: ../data/cddb_dialog.ui.h:16
+#: ../data/cddb_dialog.ui.h:17
 msgid "Classical"
 msgstr "Klasická hudba"
 
-#: ../data/cddb_dialog.ui.h:17
+#: ../data/cddb_dialog.ui.h:18
 msgid "Country"
 msgstr "Country"
 
-#: ../data/cddb_dialog.ui.h:18
+#: ../data/cddb_dialog.ui.h:19
 msgid "Folk"
 msgstr "Folk"
 
-#: ../data/cddb_dialog.ui.h:19
+#: ../data/cddb_dialog.ui.h:20
 msgid "Jazz"
 msgstr "Jazz"
 
-#: ../data/cddb_dialog.ui.h:20
+#: ../data/cddb_dialog.ui.h:21
 msgid "Misc."
 msgstr "Ostatní"
 
-#: ../data/cddb_dialog.ui.h:21
+#: ../data/cddb_dialog.ui.h:22
 msgid "New Age"
 msgstr "New Age"
 
-#: ../data/cddb_dialog.ui.h:22
+#: ../data/cddb_dialog.ui.h:23
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../data/cddb_dialog.ui.h:23
+#: ../data/cddb_dialog.ui.h:24
 msgid "Rock"
 msgstr "Rock"
 
-#: ../data/cddb_dialog.ui.h:24
+#: ../data/cddb_dialog.ui.h:25
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: ../data/cddb_dialog.ui.h:25
+#: ../data/cddb_dialog.ui.h:26
 msgid "Results"
 msgstr "Výsledky"
 
-#: ../data/cddb_dialog.ui.h:26
+#: ../data/cddb_dialog.ui.h:27
 msgid "Artist / Album"
 msgstr "Umělec / album"
 
-#: ../data/cddb_dialog.ui.h:27
+#: ../data/cddb_dialog.ui.h:28
 msgid "Category"
 msgstr "Kategorie"
 
-#: ../data/cddb_dialog.ui.h:28
+#: ../data/cddb_dialog.ui.h:29
 msgid ""
 "Select lines from which tags will be applied to your files list. All lines "
 "will be processed if no line is selected.\\nYou can also reorder lines in "
@@ -365,70 +367,71 @@ msgstr ""
 "nebude vybrán žádný řádek, budou zpracovány všechny řádky.\\nNež zmáčknete "
 "tlačítko „Použít“, můžete také změnit pořadí řádků v tomto seznamu."
 
-#: ../data/cddb_dialog.ui.h:29
+#. Translators: column header for track number.
+#: ../data/cddb_dialog.ui.h:31
 msgid "#"
 msgstr "Č."
 
-#: ../data/cddb_dialog.ui.h:30
+#: ../data/cddb_dialog.ui.h:32
 msgid "Duration"
 msgstr "Délka"
 
-#: ../data/cddb_dialog.ui.h:31
+#: ../data/cddb_dialog.ui.h:33
 msgid "Select all lines"
 msgstr "Vybrat všechny řádky"
 
-#: ../data/cddb_dialog.ui.h:32
+#: ../data/cddb_dialog.ui.h:34
 msgid "Invert line selection"
 msgstr "Invertovat výběr řádků"
 
-#: ../data/cddb_dialog.ui.h:33
+#: ../data/cddb_dialog.ui.h:35
 msgid "Unselect all lines"
 msgstr "Zrušit výběr všech řádků"
 
-#: ../data/cddb_dialog.ui.h:34 ../data/menus.ui.h:24
+#: ../data/cddb_dialog.ui.h:36 ../data/menus.ui.h:24
 msgid "Fill Tags"
 msgstr "Vyplnit štítky"
 
-#: ../data/cddb_dialog.ui.h:38
-msgid "Track #"
+#: ../data/cddb_dialog.ui.h:40
+msgid "Track Number"
 msgstr "Číslo skladby"
 
-#: ../data/cddb_dialog.ui.h:39
-msgid "# Tracks"
+#: ../data/cddb_dialog.ui.h:41
+msgid "Number of Tracks"
 msgstr "Počet skladeb"
 
-#: ../data/cddb_dialog.ui.h:41 ../data/load_files_dialog.ui.h:13
+#: ../data/cddb_dialog.ui.h:43 ../data/load_files_dialog.ui.h:13
 msgid "Run the current scanner for each file"
 msgstr "Spustit současného průzkumníka na každý soubor"
 
-#: ../data/cddb_dialog.ui.h:42 ../data/org.gnome.EasyTAG.gschema.xml.h:38
+#: ../data/cddb_dialog.ui.h:44 ../data/org.gnome.EasyTAG.gschema.xml.h:38
 msgid ""
 "Whether to run the tag scanner, with the current settings, on the CDDB "
 "results"
 msgstr ""
 "Zda spustit průzkumníka štítků s aktuálním nastavením vůči výsledkům CDDB"
 
-#: ../data/cddb_dialog.ui.h:43
+#: ../data/cddb_dialog.ui.h:45
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Porovnat řádky pomocí Levenshteinova algoritmu"
 
-#: ../data/cddb_dialog.ui.h:44 ../data/preferences_dialog.ui.h:148
+#: ../data/cddb_dialog.ui.h:46 ../data/preferences_dialog.ui.h:148
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
 msgstr "Zda pro srovnání výsledků CDDB vůči souborům použít algoritmus DLM"
 
-#: ../data/cddb_dialog.ui.h:45 ../data/search_dialog.ui.h:10
+#: ../data/cddb_dialog.ui.h:47 ../data/search_dialog.ui.h:10
 #: ../src/load_files_dialog.c:900 ../src/preferences_dialog.c:291
 #: ../src/scan_dialog.c:2307
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2307
+#: ../data/cddb_dialog.ui.h:48 ../src/cddb_dialog.c:2307
 #: ../src/load_files_dialog.c:901
 msgid "_Apply"
 msgstr "_Použít"
 
-#: ../data/cddb_dialog.ui.h:47
+#: ../data/cddb_dialog.ui.h:49
 msgid "Load the selected lines or all lines (if no lines are selected)"
 msgstr "Načíst vybrané řádky nebo všechny řádky (pokud nejsou žádné vybrány)"
 
@@ -530,9 +533,12 @@ msgstr "Vybraný řádek:"
 
 #: ../data/load_files_dialog.ui.h:14
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:131
-msgid "Whether to run the current scanner on files loaded from a text file"
+msgid ""
+"Whether to run the currently selected scanner on filenames loaded from a "
+"text file"
 msgstr ""
-"Zda spustit aktuálního průzkumníka vůči souborům načteným z textového souboru"
+"Zda spustit aktuálně vybraného průzkumníka vůči názvům souborů načteným z "
+"textového souboru"
 
 #: ../data/menus.ui.h:1
 msgid "_Help"
@@ -1941,8 +1947,8 @@ msgstr "Úvodní maska s aktuální složkou"
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
-"        Use ‘/’ to make directories. If the first character is ‘/’, it is an "
-"absolute path, otherwise is relative to the old path"
+"Use ‘/’ to make directories. If the first character is ‘/’, it is an "
+"absolute path, otherwise it is relative to the old path"
 msgstr ""
 "Vyberte nebo napište masku tvořenou kódy (viz legenda), podle které se budou "
 "zpracovávat pole štítku. Použije se k přejmenování souboru.\n"
@@ -3130,7 +3136,7 @@ msgstr "Webové stránky: %s"
 msgid "- Tag and rename audio files"
 msgstr "– upravovat štítky a názvy zvukových souborů"
 
-#: ../src/application.c:432 ../src/file_list.c:402
+#: ../src/application.c:432 ../src/file_list.c:403
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr "Chyba při dotazování na informace o souboru „%s“: %s"
@@ -3231,7 +3237,7 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/application_window.c:2329 ../src/easytag.c:1010
+#: ../src/application_window.c:2329 ../src/easytag.c:1011
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Soubor: „%s“"
@@ -3818,7 +3824,7 @@ msgstr "Nelze zapsat štítek do souboru „%s“"
 msgid "Tag Write Error"
 msgstr "Chyba při zápisu štítku"
 
-#: ../src/easytag.c:961 ../src/easytag.c:1192
+#: ../src/easytag.c:961 ../src/easytag.c:1188
 #, c-format
 msgid "Cannot read directory ‘%s’"
 msgstr "Nelze číst složku „%s“"
@@ -3833,7 +3839,7 @@ msgstr "Chyba při čtení složky"
 msgid "Search in progress…"
 msgstr "Probíhá hledání…"
 
-#: ../src/easytag.c:1060
+#: ../src/easytag.c:1058
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %u files in this directory and subdirectories"
@@ -3841,7 +3847,7 @@ msgstr[0] "Nalezen jeden soubor v této složce a jejích podsložkách"
 msgstr[1] "Nalezeny %u soubory v této složce a jejích podsložkách"
 msgstr[2] "Nalezeno %u souborů v této složce a jejích podsložkách"
 
-#: ../src/easytag.c:1067
+#: ../src/easytag.c:1065
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %u files in this directory"
@@ -3849,28 +3855,28 @@ msgstr[0] "Nalezen jeden soubor v této složce"
 msgstr[1] "Nalezeny %u soubory v této složce"
 msgstr[2] "Nalezeno %u souborů v této složce"
 
-#: ../src/easytag.c:1084
+#: ../src/easytag.c:1082
 msgid "No file found in this directory and subdirectories"
 msgstr "V této složce ani jejích podsložkách nebyl nalezen žádný soubor"
 
-#: ../src/easytag.c:1086
+#: ../src/easytag.c:1084
 msgid "No file found in this directory"
 msgstr "V této složce nebyl nalezen žádný soubor"
 
-#: ../src/easytag.c:1156
+#: ../src/easytag.c:1154
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
 msgstr "Chyba otevírání složky „%s“: %s"
 
-#: ../src/easytag.c:1212
+#: ../src/easytag.c:1208
 msgid "Searching for audio files…"
 msgstr "Vyhledávají se zvukové soubory…"
 
-#: ../src/easytag.c:1213
+#: ../src/easytag.c:1209
 msgid "Searching"
 msgstr "Hledání"
 
-#: ../src/easytag.c:1214
+#: ../src/easytag.c:1210
 msgid "_Stop"
 msgstr "Za_stavit"
 
@@ -3887,42 +3893,42 @@ msgstr "Nelze se dotázat na informace o souboru „%s“"
 msgid "Read-only file"
 msgstr "Soubor jen ke čtení"
 
-#: ../src/file_list.c:252
+#: ../src/file_list.c:253
 #, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ID3 ze souboru „%s“: %s"
 
-#: ../src/file_list.c:263
+#: ../src/file_list.c:264
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru ogg „%s“: %s"
 
-#: ../src/file_list.c:274
+#: ../src/file_list.c:275
 #, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru FLAC „%s“: %s"
 
-#: ../src/file_list.c:284
+#: ../src/file_list.c:285
 #, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
 msgstr "Chyba při čtení štítku APE ze souboru „%s“: %s"
 
-#: ../src/file_list.c:294
+#: ../src/file_list.c:295
 #, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru MP4 „%s“: %s"
 
-#: ../src/file_list.c:305
+#: ../src/file_list.c:306
 #, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru WavPack „%s“: %s"
 
-#: ../src/file_list.c:316
+#: ../src/file_list.c:317
 #, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
 msgstr "Chyba při čtení štítku ze souboru Opus „%s“: %s"
 
-#: ../src/file_list.c:334
+#: ../src/file_list.c:335
 #, c-format
 msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
