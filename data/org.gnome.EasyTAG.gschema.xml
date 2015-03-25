@@ -420,7 +420,7 @@
 
     <key name="load-filenames-run-scanner" type="b">
       <summary>Run the current scanner when loading filenames from a file</summary>
-      <description>Whether to run the current scanner on files loaded from a text file</description>
+      <description>Whether to run the currently selected scanner on filenames loaded from a text file</description>
       <default>false</default>
     </key>
 

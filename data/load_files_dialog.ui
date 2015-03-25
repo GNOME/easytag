@@ -266,7 +266,7 @@
         <child>
             <object class="GtkCheckButton" id="file_scanner_check">
                 <property name="label" translatable="yes">Run the current scanner for each file</property>
-                <property name="tooltip-text" translatable="yes">Whether to run the current scanner on files loaded from a text file</property>
+                <property name="tooltip-text" translatable="yes">Whether to run the currently selected scanner on filenames loaded from a text file</property>
                 <property name="visible">True</property>
             </object>
             <packing>
