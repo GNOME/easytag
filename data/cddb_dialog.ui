@@ -107,7 +107,7 @@
                 <child>
                     <object class="GtkLabel" id="search_fields_label">
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Search Fields</property>
+                        <property name="label" translatable="yes" comments="Translators: header for CDDB fields to use when searching">Search Fields</property>
                         <property name="visible">True</property>
                         <attributes>
                             <attribute name="weight" value="bold"/>
