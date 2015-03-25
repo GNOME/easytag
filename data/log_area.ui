@@ -25,6 +25,7 @@
             <object class="GtkScrolledWindow" id="log_scrolled">
                 <property name="expand">True</property>
                 <property name="margin-left">12</property>
+                <property name="min-content-height">20</property>
                 <property name="shadow-type">etched-in</property>
                 <property name="visible">True</property>
                 <child>
