@@ -1454,14 +1454,6 @@
                     </object>
                 </child>
                 <child>
-                    <object class="GtkCheckButton" id="confirm_quit_check">
-                        <property name="label" translatable="yes">Confirm before quitting the application</property>
-                        <property name="margin-left">12</property>
-                        <property name="tooltip-text" translatable="yes">Whether to ask for confirmation from the user before quitting the application</property>
-                        <property name="visible">True</property>
-                    </object>
-                </child>
-                <child>
                     <object class="GtkCheckButton" id="confirm_write_check">
                         <property name="label" translatable="yes">Confirm before writing tags</property>
                         <property name="margin-left">12</property>

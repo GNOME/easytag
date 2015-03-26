@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -3018,37 +3018,6 @@ et_application_window_quit (EtApplicationWindow *self)
                 break;
         }
 
-    }
-    else if (g_settings_get_boolean (MainSettings, "confirm-quit"))
-    {
-        msgbox = gtk_message_dialog_new (GTK_WINDOW (self),
-                                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                         GTK_MESSAGE_QUESTION,
-                                         GTK_BUTTONS_NONE,
-                                         "%s",
-                                         _("Do you really want to quit?"));
-         gtk_dialog_add_buttons (GTK_DIALOG (msgbox), _("_Cancel"),
-                                 GTK_RESPONSE_CANCEL, _("_Quit"),
-                                 GTK_RESPONSE_CLOSE, NULL);
-        gtk_dialog_set_default_response (GTK_DIALOG (msgbox),
-                                         GTK_RESPONSE_CLOSE);
-        gtk_window_set_title (GTK_WINDOW (msgbox), _("Quit"));
-        response = gtk_dialog_run (GTK_DIALOG (msgbox));
-        gtk_widget_destroy (msgbox);
-
-        switch (response)
-        {
-            case GTK_RESPONSE_CLOSE:
-                quit_confirmed (self);
-                break;
-            case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_DELETE_EVENT:
-                return;
-                break;
-            default:
-                g_assert_not_reached ();
-                break;
-        }
     }
     else
     {

@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2013-2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -269,7 +269,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *CddbProxyUserPassword;
     GtkWidget *CddbFollowFile;
     GtkWidget *CddbUseDLM;
-    GtkWidget *ConfirmBeforeExit;
     GtkWidget *ConfirmWriteTag;
     GtkWidget *ConfirmRenameFile;
     GtkWidget *ConfirmDeleteFile;
@@ -937,11 +936,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     /*
      * Confirmation
      */
-    ConfirmBeforeExit = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "confirm_quit_check"));
-    g_settings_bind (MainSettings, "confirm-quit", ConfirmBeforeExit, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-
     ConfirmWriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
                                                           "confirm_write_check"));
     g_settings_bind (MainSettings, "confirm-write-tags", ConfirmWriteTag,

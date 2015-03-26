@@ -375,12 +375,6 @@
       <default>false</default>
     </key>
 
-    <key name="confirm-quit" type="b">
-      <summary>Confirm before quitting the application</summary>
-      <description>Whether to ask for confirmation from the user before quitting the application</description>
-      <default>false</default>
-    </key>
-
     <key name="confirm-write-tags" type="b">
       <summary>Confirm before writing tags</summary>
       <description>Whether to ask for confirmation from the user before writing tags to audio files</description>
