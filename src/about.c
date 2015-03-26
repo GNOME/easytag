@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014,2015  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -30,6 +30,7 @@ et_show_about_dialog (GtkWindow *parent)
 {
     static const gchar * const artists[] =
     {
+        "Ekaterina Gerasimova <kittykat3756@gmail.com>",
         "Waqas Qamar <wakas88@gmail.com>",
         "Der Humph <humph@gmx.de>",
         NULL
