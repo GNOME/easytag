@@ -6,6 +6,7 @@
   <info>
     <link type="guide" xref="index#problems"/>
     <revision pkgversion="2.2.0" date="2014-04-11" status="candidate"/>
+    <revision pkgversion="2.3.5" date="2015-03-26" status="candidate"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -46,14 +47,11 @@
       <guiseq style="menuitem"><gui style="menu">Edit</gui><gui style="menuitem">Preferences</gui></guiseq></p>
     </item>
     <item>
-      <p>Select the <gui style="tab">Tag Settings</gui> tab</p>
+      <p>Select the <gui style="tab">Tags</gui> tab</p>
     </item>
     <item>
-      <p>In <gui style="group">Tag Splitting</gui> section, check the fields
-      that you want to be split into multiple fields when saving</p>
-    </item>
-    <item>
-      <p>Click <gui style="button">OK</gui> to save the settings</p>
+      <p>In <gui style="group">Splitting</gui> section, check the fields that
+      you want to be split into multiple fields when saving</p>
     </item>
   </steps>
 

@@ -6,6 +6,7 @@
   <info>
     <link type="guide" xref="index#problems"/>
     <revision pkgversion="2.2.0" date="2014-04-09" status="review"/>
+    <revision pkgversion="2.3.5" date="2015-03-26" status="review"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -22,10 +23,10 @@
 
   <p><em>ID3</em> tags, which are used for MP3 files, can be of one of several
   different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and ID3v1.1.
-  The default version in <app>EasyTAG</app> is ID3v2.4, which has the most
-  features and is most efficient.</p>
+  The default version in <app>EasyTAG</app> is ID3v2.3, which is the most
+  compatible.</p>
 
-  <p>Most applications support the most recent version of the ID3 standard:
+  <p>Many applications support the most recent version of the ID3 standard:
   ID3v2.4.</p>
 
   <p>Some applications and devices may support only ID3v2.3 and ID3v1.1 tags,
@@ -39,19 +40,18 @@
       <guiseq style="menuitem"><gui style="menu">Edit</gui><gui style="menuitem">Preferences</gui></guiseq></p>
     </item>
     <item>
-      <p>Select the <gui style="tab">ID3 Tag Settings</gui> tab</p>
+      <p>Select the <gui style="tab">ID3 Tags</gui> tab</p>
     </item>
     <item>
-      <p>In the <gui style="group">ID3v2 tags</gui> section, choose the
-      <gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to
-      improve compatibility with other systems capable of reading ID3v2 tags</p>
+      <p>In the <gui style="group">ID3v2</gui> section, choose the
+      <gui>ID3v2.4</gui> setting in the <gui>Version</gui> drop-down list to
+      use the most recent version if ID3v2, if your application or device
+      supports it</p>
     </item>
     <item>
       <p>Make sure that <gui style="check">Write ID3v1.x tag</gui> is checked
-      in the <gui style="group">ID3v1 tags</gui> section</p>
-    </item>
-    <item>
-      <p>Click <gui style="button">OK</gui> to save the settings</p>
+      in the <gui style="group">ID3v1 tags</gui> section, if your application
+      or device only supports ID3v1</p>
     </item>
   </steps>
 

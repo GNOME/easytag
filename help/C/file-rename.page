@@ -5,6 +5,7 @@
   <info>
     <link type="guide" xref="index#main"/>
     <revision pkgversion="2.1.9" date="2013-08-18" status="draft" />
+    <revision pkgversion="2.3.5" date="2015-03-26" status="draft" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -31,7 +32,7 @@
       <gui style="menuitem">Show Scanner</gui></guiseq>.</p>
     </item>
     <item>
-      <p>Select the <gui>Rename File and Directory</gui> scanner.</p>
+      <p>Select the <gui>Rename File</gui> scanner.</p>
     </item>
     <item>
       <p>Using the <gui xref="format-specifier">Legend</gui>, type in the

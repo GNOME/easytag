@@ -6,6 +6,7 @@
   <info>
     <link type="guide" xref="index#main" group="#first"/>
     <revision pkgversion="2.1.9" date="2013-10-06" status="review"/>
+    <revision pkgversion="2.3.5" date="2015-03-26" status="review"/>
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -52,10 +53,10 @@
 <section id="rename">
   <title>Rename files and create new directories</title>
 
-  <p><gui xref="file-rename">Rename File and Directory</gui> can be used to
-  create a directory hierarchy and update filenames using the filled tag
-  fields. If a new directory hierarchy is specified, it will be created inside
-  the directory where the file is currently located.</p>
+  <p><gui xref="file-rename">Rename File</gui> can be used to create a
+  directory hierarchy and update filenames using the filled tag fields. If a
+  new directory hierarchy is specified, it will be created inside the directory
+  where the file is currently located.</p>
 
   <p>For example, if you have a tagged file inside the <file>Music</file>
   directory, you can use the <input>%a/%b/%n %t</input> <em>format string</em>,
@@ -75,12 +76,11 @@
   which allows you to select which tag fields to process. It also allows for
   the filename to be processed as well.</p>
 
+  <p>Specify which fields to change by selecting them from the <gui>Tag
+  Fields</gui> section.</p>
+
   <p>You can <gui>Convert</gui> characters for a simple find and replace,
   change capitalization and add or remove spaces.</p>
-
-  <p>Use the <gui>Select fields</gui> buttons to specify which fields to
-  change. You can also select or deselect all fields and invert your
-  selection.</p>
 
 </section>
 

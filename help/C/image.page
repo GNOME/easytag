@@ -8,6 +8,7 @@
     <link type="guide" xref="tag"/>
     <revision pkgversion="2.1.9" date="2013-05-20" status="review"/>
     <revision pkgversion="2.2.0" date="2014-04-10" status="review"/>
+    <revision pkgversion="2.3.5" date="2015-03-26" status="review"/>
 
     <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
@@ -16,7 +17,7 @@
       <email its:translate="no">kittykat3756@googlemail.com</email>
     </credit>
 
-    <desc>Add images, such as cover art to the tag</desc>
+    <desc>Add images, such as cover art, to the tag</desc>
 
   </info>
 
@@ -34,7 +35,7 @@
   cover and the description will be the filename. To change the
   <gui>type</gui> and <gui>description</gui>, press the
   <gui style="button">Edit image properties</gui> button. Once you have made
-  the changes, press <gui style="button">OK</gui> to apply the changes.</p>
+  the changes, press <gui style="button">Accept</gui> to apply the changes.</p>
 
   <note>
     <p>Your changes will not be saved automatically.</p>

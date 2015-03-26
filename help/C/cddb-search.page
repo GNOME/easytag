@@ -6,6 +6,7 @@
   <info>
     <link type="guide" style="2column" xref="index#main"/>
     <revision pkgversion="2.1.9" date="2013-10-07" status="review" />
+    <revision pkgversion="2.3.5" date="2015-03-26" status="review" />
 
     <credit type="author">
       <name>Ekaterina Gerasimova</name>
@@ -34,28 +35,27 @@
       <gui style="menuitem">CDDB Search…</gui></guiseq>.</p>
     </item>
     <item>
-      <p>Press <gui style="button">Find</gui> and wait for the search to
-      finish.</p>
+      <p>Press <gui style="button">Search Using Selected Files</gui> and wait
+      for the search to finish.</p>
     </item>
     <item>
       <!-- TODO Split Manual search into a tip? -->
-      <!-- TODO Search within the results. -->
       <p>Select an album from the list of results, and the track information
       will be shown to the right. If the album is not the one that you wanted,
       try selecting another result in the list.</p>
       <p>If there are no results which match the tracks that you selected,
-      select <gui style="tab">Manual Search</gui> and enter the name of the
-      album in the search field. Press <gui style="button">Find</gui> and wait
-      for the search to finish, and check the results again to see if you can
-      find an album which matches the tracks that you selected.</p>
+      enter the name of the album in the search field. Press
+      <gui style="button">Search</gui> and wait for the search to finish, and
+      check the results again to see if you can find an album which matches the
+      tracks that you selected.</p>
     </item>
     <item>
-      <p>Choose the tag fields to fill in by selecting either
-      <gui style="checkbox">All</gui> or a combination of
+      <p>Choose the tag fields to fill in by selecting a combination of
       <gui style="checkbox">Filename</gui>, <gui style="checkbox">Title</gui>,
       <gui style="checkbox">Artist</gui>, <gui style="checkbox">Album</gui>,
-      <gui style="checkbox">Year</gui>, <gui style="checkbox">Track #</gui>,
-      <gui style="checkbox"># Tracks</gui> and
+      <gui style="checkbox">Year</gui>,
+      <gui style="checkbox">Track Number</gui>,
+      <gui style="checkbox">Number of Tracks</gui> and
       <gui style="checkbox">Genre</gui>.</p>
     </item>
     <!-- TODO Run the scanner for each file -->
