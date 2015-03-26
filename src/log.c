@@ -287,7 +287,6 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     va_list args;
     gchar *string;
     gchar *time;
-    guint n_items;
     GtkTreeIter iter;
     static gboolean first_time = TRUE;
     static gchar *file_path = NULL;
@@ -306,17 +305,6 @@ Log_Print (EtLogAreaKind error_type, const gchar * const format, ...)
     va_end (args);
 
     time = Log_Format_Date ();
-
-    /* Remove lines that exceed the limit. */
-    n_items = (guint)gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->log_model),
-                                                     NULL);
-
-    if (n_items > g_settings_get_uint (MainSettings, "log-lines") - 1
-        && gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->log_model),
-                                          &iter))
-    {
-        gtk_list_store_remove (GTK_LIST_STORE (priv->log_model), &iter);
-    }
 
     gtk_list_store_insert_with_values (priv->log_model, &iter, G_MAXINT,
                                        LOG_ICON_NAME,

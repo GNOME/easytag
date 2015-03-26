@@ -193,13 +193,6 @@
       <default>'ascending-track-number'</default>
     </key>
 
-    <key name="log-lines" type="u">
-      <summary>Number of log lines</summary>
-      <description>The maximum number of lines to keep in the log</description>
-      <default>50</default>
-      <range min="10" max="1500" />
-    </key>
-
     <key name="log-show" type="b">
       <summary>Show the log</summary>
       <description>Whether to show the log in the main window</description>

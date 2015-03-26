@@ -217,7 +217,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
     GtkWidget *ChangedFilesDisplayedToBold;
     GtkWidget *SortingFileCaseSensitive;
     GtkWidget *ShowLogView;
-    GtkWidget *LogMaxLinesSpinButton;
     GtkWidget *ReplaceIllegalCharactersInFilename;
     GtkWidget *PreserveModificationTime;
     GtkWidget *UpdateParentDirectoryModificationTime;
@@ -373,13 +372,7 @@ create_preferences_dialog (EtPreferencesDialog *self)
     g_settings_bind (MainSettings, "log-show", ShowLogView, "active",
                      G_SETTINGS_BIND_DEFAULT);
    
-    /* Max number of lines. */
-    LogMaxLinesSpinButton = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "log_lines_button"));
-    g_settings_bind (MainSettings, "log-lines", LogMaxLinesSpinButton,
-                     "value", G_SETTINGS_BIND_DEFAULT);
-
-    /* Show header informantion. */
+    /* Show header information. */
     ShowHeaderInfos = GTK_WIDGET (gtk_builder_get_object (builder,
                                                           "header_show_check"));
     g_settings_bind (MainSettings, "file-show-header", ShowHeaderInfos,
