@@ -65,10 +65,6 @@
  * of any language.
  */
 
-static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values);
-static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value);
-static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split);
-
 /*
  * validate_field_utf8:
  * @field_value: the string to validate
@@ -755,51 +751,92 @@ flac_tag_read_file_tag (GFile *file,
     return TRUE;
 }
 
+/*
+ * vc_block_append_single_tag:
+ * @vc_block: the Vorbis comment in which to add the tag
+ * @tag_name: the name of the tag
+ * @value: the value of the tag
+ *
+ * Save field value in a single tag.
+ */
+static void
+vc_block_append_single_tag (FLAC__StreamMetadata *vc_block,
+                            const gchar *tag_name,
+                            const gchar *value)
+{
+    FLAC__StreamMetadata_VorbisComment_Entry field;
+    char *string = g_strconcat (tag_name, value, NULL);
+    FLAC__bool result;
 
+    field.entry = (FLAC__byte *)string;
+    field.length = strlen (string);
+    result = FLAC__metadata_object_vorbiscomment_append_comment (vc_block,
+                                                                 field, true);
+    g_free (string);
+
+    if (result != true)
+    {
+        g_critical ("Invalid Vorbis comment, or memory allocation failed, when writing FLAC tag '%s' with value '%s'",
+                    tag_name, value);
+    }
+}
 
 /*
- * Save field value in separated tags if it contains multifields
+ * vc_block_append_multiple_tags:
+ * @vc_block: the Vorbis comment block to which tags should be appended
+ * @tag_name: the name of the tag
+ * @values: the values of the tag
+ *
+ * Append multiple copies of the supplied @tag_name to @vc_block, splitting
+ * @values at %MULTIFIELD_SEPARATOR.
  */
-static gboolean Flac_Write_Delimetered_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *values)
+static void
+vc_block_append_multiple_tags (FLAC__StreamMetadata *vc_block,
+                               const gchar *tag_name,
+                               const gchar *values)
 {
-    gchar **strings = g_strsplit(values,MULTIFIELD_SEPARATOR,255);
-    unsigned int i=0;
+    gchar **strings = g_strsplit (values, MULTIFIELD_SEPARATOR, 255);
+    guint i;
+    guint len;
     
-    for (i=0;i<g_strv_length(strings);i++)
+    for (i = 0, len = g_strv_length (strings); i < len; i++)
     {
         if (!et_str_empty (strings[i]))
         {
-            Flac_Write_Tag(vc_block, tag_name, strings[i]);
+            vc_block_append_single_tag (vc_block, tag_name, strings[i]);
         }
     }
-    g_strfreev(strings);
-    return TRUE;
+
+    g_strfreev (strings);
 }
 
 /*
- * Save field value in a single tag
+ * vc_block_append_tag:
+ * @vc_block: the Vorbis comment block to which a tag should be appended
+ * @tag_name: the name of the tag, including the trailing '=', or the empty
+ *            string (if @value is to be taken as the combination of the tag
+ *            name and value)
+ * @value: the value of the tag
+ * @split: %TRUE to split @value into multiple tags at %MULTIFIELD_SEPARATOR,
+ *         %FALSE to keep the tag value unchanged
+ *
+ * Append the supplied @tag_name and @value to @vc_block, optionally splitting
+ * @value if @split is %TRUE.
  */
-static gboolean Flac_Write_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value)
+static void
+vc_block_append_tag (FLAC__StreamMetadata *vc_block,
+                     const gchar *tag_name,
+                     const gchar *value,
+                     gboolean split)
 {
-    FLAC__StreamMetadata_VorbisComment_Entry field;
-    char *string = g_strconcat(tag_name,value,NULL);
-
-    field.entry = (FLAC__byte *)string;
-    field.length = strlen(string); // Warning : g_utf8_strlen doesn't count the multibyte characters. Here we need the allocated size.
-    FLAC__metadata_object_vorbiscomment_insert_comment(vc_block,vc_block->data.vorbis_comment.num_comments,field,true);
-    g_free(string);
-    return TRUE;
-}
-
-static gboolean Flac_Set_Tag (FLAC__StreamMetadata *vc_block, const gchar *tag_name, gchar *value, gboolean split)
-{
-    if ( value && split ) {
-        return Flac_Write_Delimetered_Tag(vc_block,tag_name,value);
-    } else if ( value ) {
-        return Flac_Write_Tag(vc_block,tag_name,value);
+    if (value && split)
+    {
+        vc_block_append_multiple_tags (vc_block, tag_name, value);
     }
-
-    return FALSE;
+    else if (value)
+    {
+        vc_block_append_single_tag (vc_block, tag_name, value);
+    }
 }
 
 /*
@@ -953,90 +990,95 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         /*********
          * Title *
          *********/
-        Flac_Set_Tag (vc_block, "TITLE=", FileTag->title,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-title"));
+        vc_block_append_tag (vc_block, "TITLE=", FileTag->title,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-title"));
 
         /**********
          * Artist *
          **********/
-        Flac_Set_Tag (vc_block, "ARTIST=", FileTag->artist,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-artist"));
+        vc_block_append_tag (vc_block, "ARTIST=", FileTag->artist,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-artist"));
 
         /****************
          * Album Artist *
          ****************/
-        Flac_Set_Tag (vc_block, "ALBUMARTIST=", FileTag->album_artist,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-artist"));
+        vc_block_append_tag (vc_block, "ALBUMARTIST=", FileTag->album_artist,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-artist"));
 
         /*********
          * Album *
          *********/
-        Flac_Set_Tag (vc_block, "ALBUM=", FileTag->album,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-album"));
+        vc_block_append_tag (vc_block, "ALBUM=", FileTag->album,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-album"));
 
         /******************************
          * Disc Number and Disc Total *
          ******************************/
-        Flac_Set_Tag (vc_block, "DISCNUMBER=", FileTag->disc_number, FALSE);
-        Flac_Set_Tag (vc_block, "DISCTOTAL=", FileTag->disc_total, FALSE);
+        vc_block_append_tag (vc_block, "DISCNUMBER=", FileTag->disc_number,
+                             FALSE);
+        vc_block_append_tag (vc_block, "DISCTOTAL=", FileTag->disc_total,
+                             FALSE);
 
         /********
          * Year *
          ********/
-        Flac_Set_Tag(vc_block,"DATE=",FileTag->year,FALSE);
+        vc_block_append_tag (vc_block, "DATE=", FileTag->year, FALSE);
 
         /*************************
          * Track and Total Track *
          *************************/
-        Flac_Set_Tag(vc_block,"TRACKNUMBER=",FileTag->track,FALSE);
-        Flac_Set_Tag(vc_block,"TRACKTOTAL=",FileTag->track_total,FALSE);
+        vc_block_append_tag (vc_block, "TRACKNUMBER=", FileTag->track, FALSE);
+        vc_block_append_tag (vc_block, "TRACKTOTAL=", FileTag->track_total,
+                             FALSE);
 
         /*********
          * Genre *
          *********/
-        Flac_Set_Tag (vc_block, "GENRE=", FileTag->genre,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-genre"));
+        vc_block_append_tag (vc_block, "GENRE=", FileTag->genre,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-genre"));
 
         /***********
          * Comment *
          ***********/
-        Flac_Set_Tag (vc_block, "DESCRIPTION=", FileTag->comment,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-comment"));
+        vc_block_append_tag (vc_block, "DESCRIPTION=", FileTag->comment,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-comment"));
 
         /************
          * Composer *
          ************/
-        Flac_Set_Tag (vc_block, "COMPOSER=", FileTag->composer,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-composer"));
+        vc_block_append_tag (vc_block, "COMPOSER=", FileTag->composer,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-composer"));
 
         /*******************
          * Original artist *
          *******************/
-        Flac_Set_Tag (vc_block, "PERFORMER=", FileTag->orig_artist,
-                      g_settings_get_boolean (MainSettings,
-                                              "ogg-split-original-artist"));
+        vc_block_append_tag (vc_block, "PERFORMER=", FileTag->orig_artist,
+                             g_settings_get_boolean (MainSettings,
+                                                     "ogg-split-original-artist"));
 
         /*************
          * Copyright *
          *************/
-        Flac_Set_Tag(vc_block,"COPYRIGHT=",FileTag->copyright,FALSE);
+        vc_block_append_tag (vc_block, "COPYRIGHT=", FileTag->copyright,
+                             FALSE);
 
         /*******
          * URL *
          *******/
-        Flac_Set_Tag (vc_block, "CONTACT=", FileTag->url, FALSE);
+        vc_block_append_tag (vc_block, "CONTACT=", FileTag->url, FALSE);
 
         /**************
          * Encoded by *
          **************/
-        Flac_Set_Tag(vc_block,"ENCODED-BY=",FileTag->encoded_by,FALSE);
+        vc_block_append_tag (vc_block, "ENCODED-BY=", FileTag->encoded_by,
+                             FALSE);
 
 
         /**************************
@@ -1044,7 +1086,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
          **************************/
         for (l = FileTag->other; l != NULL; l = g_list_next (l))
         {
-            Flac_Set_Tag (vc_block, "", (gchar *)l->data, FALSE);
+            vc_block_append_tag (vc_block, "", (gchar *)l->data, FALSE);
         }
 
         // Add the block to the the chain (so we don't need to free the block)
