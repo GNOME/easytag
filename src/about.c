@@ -23,8 +23,6 @@
 
 #include <glib/gi18n.h>
 
-#include "easytag.h"
-
 void
 et_show_about_dialog (GtkWindow *parent)
 {
