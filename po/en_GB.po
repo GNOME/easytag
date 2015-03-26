@@ -528,7 +528,7 @@ msgid ""
 "Whether to run the currently selected scanner on filenames loaded from a "
 "text file"
 msgstr ""
-"Whether to run the currently selected scanner on filenamess loaded from a "
+"Whether to run the currently selected scanner on filenames loaded from a "
 "text file"
 
 #: ../data/menus.ui.h:1
