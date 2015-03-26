@@ -3064,7 +3064,7 @@ msgstr "Open the selected files in EasyTAG"
 #. Translators: put your own name here to appear in the about dialog.
 #: ../src/about.c:89
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "David King <amigadave@amigadave.com>"
 
 #: ../src/about.c:99
 msgid "View and edit tags in audio files"
