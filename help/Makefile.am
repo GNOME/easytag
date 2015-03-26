@@ -19,6 +19,7 @@ HELP_FILES = \
 	problems-ogg-split.page \
 	scanner.page \
 	starting.page \
+	tag-capitalization.page \
 	tag-field.page \
 	tag.page
 

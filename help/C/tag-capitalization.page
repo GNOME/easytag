@@ -1,0 +1,56 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:its="http://www.w3.org/2005/11/its"
+      type="topic" style="task"
+      id="tag-capitalization">
+
+  <info>
+    <link type="seealso" xref="scanner"/>
+    <revision pkgversion="2.3.5" date="2015-03-26" status="candidate"/>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <credit type="author">
+      <name>Ekaterina Gerasimova</name>
+      <email its:translate="no">kittykat3756@gmail.com</email>
+    </credit>
+
+    <desc>Apply consistent capitalization to tags</desc>
+
+  </info>
+
+  <title>Capitalize tags consistently</title>
+
+  <p>Tag capitalization can be changed for one or more tag fields in one or
+  more files.</p>
+
+  <steps>
+    <title>Change tag field capitalization</title>
+    <item>
+      <p>Select the files that you wish to tag.</p>
+    </item>
+    <item>
+      <p>Select <guiseq><gui style="menu">View</gui><gui style="menuitem">Show
+      Scanner</gui></guiseq>.</p>
+    </item>
+    <item>
+      <p>Select the <gui style="tab">Process Fields</gui> tab.</p>
+    </item>
+    <item>
+      <p>Check the fields that you want to change.</p>
+    </item>
+    <item>
+      <p>There are a number of available options for changing the
+      capitalization. Chose the one that you want.</p>
+    </item>
+    <item>
+      <p>Apply the changes by pressing <gui style="button">Scan
+      Files</gui>.</p>
+    </item>
+  </steps>
+
+  <p>The <gui>Scanner</gui> dialog can also be used to process space and
+  character conversions. If you do not want to make any changes to these,
+  select the correct option before you press <gui style="button">Scan
+  Files</gui></p>
+
+</page>
