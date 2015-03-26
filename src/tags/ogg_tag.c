@@ -158,6 +158,32 @@ read_guint32_from_byte (guchar *str, gsize start)
 }
 
 /*
+ * set_or_append_field:
+ * @field: (inout): pointer to a location in which to store the field value
+ * @field_value: (transfer full): the string to store in @field
+ *
+ * Set @field to @field_value if @field is empty, otherwise append to it.
+ * Ownership of @field_value is transferred to this function.
+ */
+static void
+set_or_append_field (gchar **field,
+                     gchar *field_value)
+{
+    if (*field == NULL)
+    {
+        *field = field_value;
+    }
+    else
+    {
+        gchar *field_tmp = g_strconcat (*field, MULTIFIELD_SEPARATOR,
+                                        field_value, NULL);
+        g_free (*field);
+        *field = field_tmp;
+        g_free (field_value);
+    }
+}
+
+/*
  * et_add_file_tags_from_vorbis_comments:
  * @vc: Vorbis comment from which to fill @FileTag
  * @FileTag: tag to populate from @vc
@@ -181,18 +207,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"TITLE",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->title==NULL)
-                FileTag->title = g_strdup(string);
-            else
-                FileTag->title = g_strconcat(FileTag->title,MULTIFIELD_SEPARATOR,string,NULL);
-            // If strlen = 0, then no allocated data!
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->title, string);
         }
-
-        g_free(string);
     }
 
     /**********
@@ -201,17 +220,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"ARTIST",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->artist==NULL)
-                FileTag->artist = g_strdup(string);
-            else
-                FileTag->artist = g_strconcat(FileTag->artist,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->artist, string);
         }
-
-        g_free(string);
     }
 
     /****************
@@ -220,17 +233,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"ALBUMARTIST",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->album_artist==NULL)
-                FileTag->album_artist = g_strdup(string);
-            else
-                FileTag->album_artist = g_strconcat(FileTag->album_artist,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->album_artist, string);
         }
-
-        g_free(string);
     }
 
     /*********
@@ -239,17 +246,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"ALBUM",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->album==NULL)
-                FileTag->album = g_strdup(string);
-            else
-                FileTag->album = g_strconcat(FileTag->album,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->album, string);
         }
-
-        g_free(string);
     }
 
     /**********************************************
@@ -312,17 +313,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"GENRE",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->genre==NULL)
-                FileTag->genre = g_strdup(string);
-            else
-                FileTag->genre = g_strconcat(FileTag->genre,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->genre, string);
         }
-
-        g_free(string);
     }
 
     /***********
@@ -334,53 +329,27 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
          || ((string  = vorbis_comment_query(vc,"COMMENT",    field_num)) != NULL )   // Old : Winamp format (for EasyTAG 1.99.11 and older)
          || ((string1 = vorbis_comment_query(vc,"",           field_num)) != NULL ) ) // Old : Xmms format   (for EasyTAG 1.99.11 and older)
     {
-        string  = Try_To_Validate_Utf8_String(string);
-        string1 = Try_To_Validate_Utf8_String(string1);
-        string2 = Try_To_Validate_Utf8_String(string2);
-
         /* Contains comment in new specifications format and we prefer this
          * format (field name defined). */
         if (!et_str_empty (string2))
         {
-            if (FileTag->comment==NULL)
-                FileTag->comment = g_strdup(string2);
-            else
-                FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,string2,NULL);
-
-            /* Frees allocated data. */
-            if (!et_str_empty (string))
-                g_free(string);
-            if (!et_str_empty (string1))
-                g_free(string1);
+            string2 = Try_To_Validate_Utf8_String (string2);
+            set_or_append_field (&FileTag->comment, string2);
         }
         /* Contains comment to Winamp format and we prefer this format (field
          * name defined). */
         else if (!et_str_empty (string))
         {
-            if (FileTag->comment==NULL)
-                FileTag->comment = g_strdup(string);
-            else
-                FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,string,NULL);
-
-            /* Frees allocated data. */
-            if (!et_str_empty (string1))
-                g_free(string1);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->comment, string);
         }
         /* Contains comment in XMMS format only. */
         else if (!et_str_empty (string1))
         {
-            if (FileTag->comment==NULL)
-                FileTag->comment = g_strdup(string1);
-            else
-                FileTag->comment = g_strconcat(FileTag->comment,MULTIFIELD_SEPARATOR,string1,NULL);
+            string1 = Try_To_Validate_Utf8_String (string1);
+            set_or_append_field (&FileTag->comment, string1);
         }
 
-        g_free(string);
-        g_free(string1);
-        g_free(string2);
-
-        string  = NULL;
-        string1 = NULL;
         field_num++;
     }
 
@@ -390,17 +359,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"COMPOSER",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->composer==NULL)
-                FileTag->composer = g_strdup(string);
-            else
-                FileTag->composer = g_strconcat(FileTag->composer,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->composer, string);
         }
-
-        g_free(string);
     }
 
     /*******************
@@ -409,17 +372,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"PERFORMER",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->orig_artist==NULL)
-                FileTag->orig_artist = g_strdup(string);
-            else
-                FileTag->orig_artist = g_strconcat(FileTag->orig_artist,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->orig_artist, string);
         }
-
-        g_free(string);
     }
 
     /*************
@@ -428,17 +385,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"COPYRIGHT",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->copyright==NULL)
-                FileTag->copyright = g_strdup(string);
-            else
-                FileTag->copyright = g_strconcat(FileTag->copyright,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->copyright, string);
         }
-
-        g_free(string);
     }
 
     /*******
@@ -447,17 +398,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ((string = vorbis_comment_query (vc, "CONTACT", field_num++)) != NULL)
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->url==NULL)
-                FileTag->url = g_strdup(string);
-            else
-                FileTag->url = g_strconcat(FileTag->url,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->url, string);
         }
-
-        g_free(string);
     }
 
     /**************
@@ -466,17 +411,11 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     field_num = 0;
     while ( (string = vorbis_comment_query(vc,"ENCODED-BY",field_num++)) != NULL )
     {
-        string = Try_To_Validate_Utf8_String(string);
-
         if (!et_str_empty (string))
         {
-            if (FileTag->encoded_by==NULL)
-                FileTag->encoded_by = g_strdup(string);
-            else
-                FileTag->encoded_by = g_strconcat(FileTag->encoded_by,MULTIFIELD_SEPARATOR,string,NULL);
+            string = Try_To_Validate_Utf8_String (string);
+            set_or_append_field (&FileTag->encoded_by, string);
         }
-
-        g_free(string);
     }
 
 
