@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2015-03-26 12:14+0000\n"
-"PO-Revision-Date: 2015-03-26 16:35+0100\n"
+"POT-Creation-Date: 2015-03-26 16:26+0000\n"
+"PO-Revision-Date: 2015-03-26 18:22+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -470,13 +470,18 @@ msgstr "%y"
 msgid "Year of recording, sometimes the date of release is used instead"
 msgstr "rok nahrání, někdy je místo toho použit rok vydání"
 
+#. (itstool) path: info/desc
+#: C/image-delete.page:17
+msgid "Remove an image from a tag"
+msgstr "Jak odstranit obrázek ze štítku."
+
 #. (itstool) path: page/title
-#: C/image-delete.page:19
+#: C/image-delete.page:21
 msgid "Delete an image"
 msgstr "Odstranění obrázku"
 
 #. (itstool) path: page/p
-#: C/image-delete.page:21
+#: C/image-delete.page:23
 msgid ""
 "To delete an image from a tag, select it and press the <gui style=\"button"
 "\">Remove selected images from the tag</gui> button."
@@ -485,7 +490,7 @@ msgstr ""
 "<gui style=\"button\">Odstranit vybrané obrázky ze štítku</gui>."
 
 #. (itstool) path: page/p
-#: C/image-delete.page:24
+#: C/image-delete.page:26
 msgid ""
 "To delete more than one image, select those images before deleting them."
 msgstr ""
@@ -493,7 +498,7 @@ msgstr ""
 "odstraňte."
 
 #. (itstool) path: page/p
-#: C/image-delete.page:27
+#: C/image-delete.page:29
 msgid ""
 "It is also possible to delete all images from more than one file. To do "
 "this, select the files from which you want to delete the images, delete all "
@@ -505,13 +510,18 @@ msgstr ""
 "obrázky z karty <gui style=\"tab\">Obrázek</gui> a po té se zmáčkne tlačítko "
 "<gui style=\"button\">Nastavit vybraným souborům tyto obrázky</gui>."
 
+#. (itstool) path: info/desc
+#: C/image-export.page:17
+msgid "Export an image from the tag"
+msgstr "Jak exportovat obrázek ze štítku."
+
 #. (itstool) path: page/title
-#: C/image-export.page:19
+#: C/image-export.page:21
 msgid "Save an image"
 msgstr "Ukládání obrázku"
 
 #. (itstool) path: page/p
-#: C/image-export.page:21
+#: C/image-export.page:23
 msgid ""
 "If the file is already tagged with an image, you can export the image from "
 "the tag by selecting it and pressing <gui style=\"button\">Save the selected "
@@ -524,7 +534,7 @@ msgstr ""
 "použije popis obrázku."
 
 #. (itstool) path: page/p
-#: C/image-export.page:26
+#: C/image-export.page:28
 msgid ""
 "To export a number of images, select these images, then press the <gui style="
 "\"button\">Save the selected images to files</gui> button."
@@ -1024,8 +1034,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
-msgid "Update tags automatically."
-msgstr "Jak aktualizovat štítky automaticky"
+msgid "Update tags automatically"
+msgstr "Jak aktualizovat štítky automaticky."
 
 #. (itstool) path: page/title
 #: C/scanner.page:22
@@ -1318,15 +1328,3 @@ msgstr ""
 "<em>polí</em>, jako <gui>Název</gui> nebo <gui>Umělec</gui>. Některá z "
 "těchto polí můžete upravovat pomocí aplikace <app>EasyTAG</app>. Která pole "
 "lze upravovat, záleží na formátu souboru se štítky."
-
-#~ msgid "Click <gui style=\"button\">OK</gui> to save the settings"
-#~ msgstr "Kliknutím na <gui style=\"button\">Budiž</gui> nastavení uložte."
-
-#~ msgid ""
-#~ "Use the <gui>Select fields</gui> buttons to specify which fields to "
-#~ "change. You can also select or deselect all fields and invert your "
-#~ "selection."
-#~ msgstr ""
-#~ "K určení polí, která se mají změnit, použijte tlačítka <gui>Vybrat pole</"
-#~ "gui>. Můžete i hromadně všechna pole označit nebo zrušit jejich označení, "
-#~ "případně označení prohodit."
