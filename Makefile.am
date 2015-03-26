@@ -349,7 +349,8 @@ dist_appicon128_DATA = \
 dist_appicon256_DATA = \
 	data/icons/256x256/easytag.png
 dist_appiconscalable_DATA = \
-	data/icons/scalable/easytag.svg
+	data/icons/scalable/easytag.svg \
+	data/icons/scalable/easytag-symbolic.svg
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 
