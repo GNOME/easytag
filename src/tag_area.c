@@ -2651,6 +2651,24 @@ et_tag_area_update_controls (EtTagArea *self,
             break;
 #endif /* ENABLE_WAVPACK */
 
+#ifndef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifndef ENABLE_OPUS
+        case WAVPACK_TAG:
+#endif
         case UNKNOWN_TAG:
         default:
             gtk_widget_hide (priv->disc_number_label);
@@ -3045,6 +3063,24 @@ et_tag_area_display_et_file (EtTagArea *self,
         case OPUS_TAG:
             gtk_label_set_text (GTK_LABEL (priv->label), _("Opus Tag"));
             break;
+#endif
+#ifndef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifndef ENABLE_OPUS
+        case WAVPACK_TAG:
 #endif
         case UNKNOWN_TAG:
         default:

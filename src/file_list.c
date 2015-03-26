@@ -320,6 +320,24 @@ et_file_list_add (GList *file_list,
             }
             break;
 #endif
+#ifndef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifndef ENABLE_OPUS
+        case WAVPACK_TAG:
+#endif
         case UNKNOWN_TAG:
         default:
             /* FIXME: Translatable string. */
@@ -386,6 +404,28 @@ et_file_list_add (GList *file_list,
             break;
 #endif
         case OFR_FILE:
+#if !defined ENABLE_MP3 && defined ENABLE_ID3LIB
+        case MP3_FILE:
+        case MP2_FILE:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_FILE:
+#endif
+#ifndef ENABLE_SPEEX
+        case SPEEX_FILE:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_FILE:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_FILE:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_FILE:
+#endif
+#ifndef ENABLE_OPUS
+        case OPUS_FILE:
+#endif
         case UNKNOWN_FILE:
         default:
             /* FIXME: Translatable string. */

@@ -1353,6 +1353,24 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
             state = ogg_tag_write_file_tag (ETFile, error);
             break;
 #endif
+#ifndef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifndef ENABLE_OPUS
+        case WAVPACK_TAG:
+#endif
         case UNKNOWN_TAG:
         default:
             Log_Print (LOG_ERROR,

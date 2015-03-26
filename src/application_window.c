@@ -2107,6 +2107,24 @@ et_application_window_update_et_file_from_ui (EtApplicationWindow *self)
             FileTag = et_application_window_tag_area_create_file_tag (self);
             et_file_tag_copy_other_into (et_file->FileTag->data, FileTag);
             break;
+#ifndef ENABLE_MP3
+        case ID3_TAG:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_TAG:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_TAG:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_TAG:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_TAG:
+#endif
+#ifndef ENABLE_OPUS
+        case OPUS_TAG:
+#endif
         case UNKNOWN_TAG:
         default:
             FileTag = et_file_tag_new ();
@@ -2314,6 +2332,28 @@ et_application_window_display_et_file (EtApplicationWindow *self,
             break;
 #endif
         case OFR_FILE:
+#if !defined ENABLE_MP3 && defined ENABLE_ID3LIB
+        case MP3_FILE:
+        case MP2_FILE:
+#endif
+#ifndef ENABLE_OGG
+        case OGG_FILE:
+#endif
+#ifndef ENABLE_SPEEX
+        case SPEEX_FILE:
+#endif
+#ifndef ENABLE_FLAC
+        case FLAC_FILE:
+#endif
+#ifndef ENABLE_MP4
+        case MP4_FILE:
+#endif
+#ifndef ENABLE_WAVPACK
+        case WAVPACK_FILE:
+#endif
+#ifndef ENABLE_OPUS
+        case OPUS_FILE:
+#endif
         case UNKNOWN_FILE:
         default:
             /* Default displaying. */
