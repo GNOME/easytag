@@ -526,6 +526,9 @@ vcedit_open (EtOggState *state,
             headerpackets = 2;
 #endif
             break;
+#ifndef ENABLE_SPEEX
+        case ET_OGG_KIND_SPEEX:
+#endif
         case ET_OGG_KIND_UNKNOWN:
         default:
             g_assert_not_reached ();
