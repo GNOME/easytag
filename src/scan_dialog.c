@@ -1669,10 +1669,6 @@ Mask_Editor_List_Add (EtScanDialog *self)
     {
         while(Scan_Masks[i])
         {
-            /*if (!g_utf8_validate(Scan_Masks[i], -1, NULL))
-                temp = convert_to_utf8(Scan_Masks[i]);
-            else
-                temp = g_strdup(Scan_Masks[i]);*/
             temp = Try_To_Validate_Utf8_String(Scan_Masks[i]);
 
             gtk_list_store_insert_with_values (GTK_LIST_STORE (treemodel),
@@ -1685,10 +1681,6 @@ Mask_Editor_List_Add (EtScanDialog *self)
     {
         while(Rename_File_Masks[i])
         {
-            /*if (!g_utf8_validate(Rename_File_Masks[i], -1, NULL))
-                temp = convert_to_utf8(Rename_File_Masks[i]);
-            else
-                temp = g_strdup(Rename_File_Masks[i]);*/
             temp = Try_To_Validate_Utf8_String(Rename_File_Masks[i]);
 
             gtk_list_store_insert_with_values (GTK_LIST_STORE (treemodel),

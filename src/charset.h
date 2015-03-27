@@ -30,9 +30,6 @@ const gchar *get_locale               (void);
 gchar *convert_string   (const gchar *string, const gchar *from_codeset, const gchar *to_codeset, const gboolean display_error);
 gchar *convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset, const gchar *to_codeset, const gboolean display_error);
 
-/* Used for Ogg Vorbis and FLAC tags */
-gchar *convert_to_utf8   (const gchar *string);
-
 gchar *filename_to_display   (const gchar *string);
 gchar *filename_from_display (const gchar *string);
 

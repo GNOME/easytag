@@ -429,41 +429,6 @@ convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
     return output;
 }
 
-
-/*
- * Conversion with UTF-8 for Ogg Vorbis and FLAC tags (current_charset <===> UTF-8)
- */
-gchar *convert_to_utf8 (const gchar *string)
-{
-    gchar *output;
-    GError *error = NULL;
-
-    g_return_val_if_fail (string != NULL, NULL);
-
-    output = g_locale_to_utf8(string, -1, NULL, NULL, &error);
-
-    if (output == NULL)
-    {
-        const gchar *usercharset;
-        gchar *escaped_str = g_strescape(string, NULL);
-        g_get_charset(&usercharset);
-        Log_Print(LOG_ERROR,"convert_to_utf8(): Failed conversion from charset '%s'. "
-                  "String '%s'. Errcode %d (%s).",
-                  usercharset, escaped_str, error->code, error->message);
-        g_free(escaped_str);
-
-        if (g_utf8_validate(string, -1, NULL))
-            Log_Print(LOG_ERROR,"convert_to_utf8(): String was valid UTF-8.");
-        else
-            Log_Print(LOG_ERROR,"convert_to_utf8(): String was INVALID UTF-8.");
-
-        g_error_free(error);
-        return g_strdup(string);
-    }
-
-    return output;
-}
-
 /*
  * Convert a string from the filename system encoding to UTF-8.
  *  - conversion OK : returns the UTF-8 string (new allocated)

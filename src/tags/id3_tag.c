@@ -1047,7 +1047,25 @@ gchar *Id3tag_Get_Field (const ID3Frame *id3_frame, ID3_FieldID id3_fieldid)
             default:
                 string = g_malloc0 (4 * ID3V2_MAX_STRING_LEN + 1);
                 num_chars = ID3Field_GetASCII_1(id3_field,string,ID3V2_MAX_STRING_LEN,0);
-                string1 = convert_to_utf8(string);
+
+                if (g_utf8_validate (string, -1, NULL))
+                {
+                    string1 = g_strdup (string);
+                }
+                else
+                {
+                    GError *error = NULL;
+
+                    string1 = g_locale_to_utf8 (string, -1, NULL, NULL,
+                                                &error);
+
+                    if (string1 == NULL)
+                    {
+                        g_debug ("Error converting string from locale to UTF-8 encoding: %s",
+                                 error->message);
+                        g_error_free (error);
+                    }
+                }
                 break;
         }
     }
