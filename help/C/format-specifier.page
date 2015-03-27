@@ -38,7 +38,7 @@
     <tbody>
       <tr>
         <td>
-          <p>%a</p>
+          <p its:translate="no">%a</p>
         </td>
         <td>
           <p>Artist: this is the artist or artists who created the track, this
@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <td>
-          <p>%z</p>
+          <p its:translate="no">%z</p>
         </td>
         <td>
           <p>Album artist</p>
@@ -55,7 +55,7 @@
       </tr>
       <tr>
         <td>
-          <p>%b</p>
+          <p its:translate="no">%b</p>
         </td>
         <td>
           <p>Album title</p>
@@ -63,7 +63,7 @@
       </tr>
       <tr>
         <td>
-          <p>%c</p>
+          <p its:translate="no">%c</p>
         </td>
         <td>
           <p>Comment: this is the free-form comment field</p>
@@ -71,7 +71,7 @@
       </tr>
       <tr>
         <td>
-          <p>%p</p>
+          <p its:translate="no">%p</p>
         </td>
         <td>
           <p>Composer: this is the creator of the track</p>
@@ -79,7 +79,7 @@
       </tr>
       <tr>
         <td>
-          <p>%r</p>
+          <p its:translate="no">%r</p>
         </td>
         <td>
           <p>Copyright holder: this is usually the artist, but it can also be
@@ -88,7 +88,7 @@
       </tr>
       <tr>
         <td>
-          <p>%d</p>
+          <p its:translate="no">%d</p>
         </td>
         <td>
           <p>Disc number</p>
@@ -96,7 +96,7 @@
       </tr>
       <tr>
         <td>
-          <p>%e</p>
+          <p its:translate="no">%e</p>
         </td>
         <td>
           <p>Encoded by: this is usually the person who encoded the file, but
@@ -106,7 +106,7 @@
       </tr>
       <tr>
         <td>
-          <p>%g</p>
+          <p its:translate="no">%g</p>
         </td>
         <td>
           <p>Genre</p>
@@ -114,7 +114,7 @@
       </tr>
       <tr>
         <td>
-          <p>%i</p>
+          <p its:translate="no">%i</p>
         </td>
         <td>
           <p>Ignored: this format specifier can only be used in <gui>Fill
@@ -124,7 +124,7 @@
       </tr>
       <tr>
         <td>
-          <p>%l</p>
+          <p its:translate="no">%l</p>
         </td>
         <td>
           <p>Number of tracks: the total number of tracks on the medium</p>
@@ -132,7 +132,7 @@
       </tr>
       <tr>
         <td>
-          <p>%o</p>
+          <p its:translate="no">%o</p>
         </td>
         <td>
           <p>Original artist</p>
@@ -140,7 +140,7 @@
       </tr>
       <tr>
         <td>
-          <p>%n</p>
+          <p its:translate="no">%n</p>
         </td>
         <td>
           <p>Track number</p>
@@ -148,7 +148,7 @@
       </tr>
       <tr>
         <td>
-          <p>%t</p>
+          <p its:translate="no">%t</p>
         </td>
         <td>
           <p>Track title</p>
@@ -156,7 +156,7 @@
       </tr>
       <tr>
         <td>
-          <p>%u</p>
+          <p its:translate="no">%u</p>
         </td>
         <td>
           <p>URL</p>
@@ -164,7 +164,7 @@
       </tr>
       <tr>
         <td>
-          <p>%x</p>
+          <p its:translate="no">%x</p>
         </td>
         <td>
           <p>Number of discs</p>
@@ -172,7 +172,7 @@
       </tr>
       <tr>
         <td>
-          <p>%y</p>
+          <p its:translate="no">%y</p>
         </td>
         <td>
           <p>Year of recording, sometimes the date of release is used
