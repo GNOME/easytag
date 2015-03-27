@@ -404,7 +404,7 @@ et_file_list_add (GList *file_list,
             break;
 #endif
         case OFR_FILE:
-#if !defined ENABLE_MP3 && defined ENABLE_ID3LIB
+#if !defined ENABLE_MP3 && !defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
 #endif

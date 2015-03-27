@@ -2651,9 +2651,6 @@ et_tag_area_update_controls (EtTagArea *self,
             break;
 #endif /* ENABLE_WAVPACK */
 
-#ifndef ENABLE_MP3
-        case ID3_TAG:
-#endif
 #ifndef ENABLE_OGG
         case OGG_TAG:
 #endif

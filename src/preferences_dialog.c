@@ -125,6 +125,7 @@ on_default_path_changed (GSettings *settings,
     g_variant_unref (default_path);
 }
 
+#ifdef ENABLE_ID3LIB
 static gboolean
 et_preferences_id3v2_version_get (GValue *value,
                                   GVariant *variant,
@@ -153,6 +154,7 @@ et_preferences_id3v2_version_set (const GValue *value,
 
     return id3v24;
 }
+#endif /* ENABLE_ID3LIB */
 
 static gboolean
 et_preferences_id3v2_unicode_charset_get (GValue *value,

@@ -2332,7 +2332,7 @@ et_application_window_display_et_file (EtApplicationWindow *self,
             break;
 #endif
         case OFR_FILE:
-#if !defined ENABLE_MP3 && defined ENABLE_ID3LIB
+#if !defined ENABLE_MP3 && !defined ENABLE_ID3LIB
         case MP3_FILE:
         case MP2_FILE:
 #endif
