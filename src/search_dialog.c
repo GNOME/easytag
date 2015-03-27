@@ -256,7 +256,9 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
     {
         if (case_sensitive)
         {
-            if ( SearchResultList_Text[column] && strlen(string_to_search) && strstr(SearchResultList_Text[column],string_to_search) )
+            if (SearchResultList_Text[column]
+                && !et_str_empty (string_to_search)
+                && strstr (SearchResultList_Text[column], string_to_search))
             {
                 if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
@@ -282,7 +284,8 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
 
             list_text = g_utf8_casefold(SearchResultList_Text[column], -1);
 
-            if ( list_text && strlen(string_to_search2) && strstr(list_text,string_to_search2) )
+            if (list_text && !et_str_empty (string_to_search2)
+                && strstr (list_text, string_to_search2))
             {
                 if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
