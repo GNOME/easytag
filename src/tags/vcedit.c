@@ -529,6 +529,9 @@ vcedit_open (EtOggState *state,
 #ifndef ENABLE_SPEEX
         case ET_OGG_KIND_SPEEX:
 #endif
+#ifndef ENABLE_OPUS
+        case ET_OGG_KIND_OPUS:
+#endif
         case ET_OGG_KIND_UNKNOWN:
         default:
             g_assert_not_reached ();
@@ -632,6 +635,9 @@ vcedit_open (EtOggState *state,
                                     break;
                             }
                             break;
+#endif
+#ifndef ENABLE_OPUS
+                        case ET_OGG_KIND_OPUS:
 #endif
                         case ET_OGG_KIND_UNKNOWN:
                         default:

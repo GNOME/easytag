@@ -1369,7 +1369,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
         case WAVPACK_TAG:
 #endif
 #ifndef ENABLE_OPUS
-        case WAVPACK_TAG:
+        case OPUS_TAG:
 #endif
         case UNKNOWN_TAG:
         default:

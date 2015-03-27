@@ -2664,7 +2664,7 @@ et_tag_area_update_controls (EtTagArea *self,
         case WAVPACK_TAG:
 #endif
 #ifndef ENABLE_OPUS
-        case WAVPACK_TAG:
+        case OPUS_TAG:
 #endif
         case UNKNOWN_TAG:
         default:
@@ -3077,7 +3077,7 @@ et_tag_area_display_et_file (EtTagArea *self,
         case WAVPACK_TAG:
 #endif
 #ifndef ENABLE_OPUS
-        case WAVPACK_TAG:
+        case OPUS_TAG:
 #endif
         case UNKNOWN_TAG:
         default:

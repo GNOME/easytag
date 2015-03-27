@@ -336,7 +336,7 @@ et_file_list_add (GList *file_list,
         case WAVPACK_TAG:
 #endif
 #ifndef ENABLE_OPUS
-        case WAVPACK_TAG:
+        case OPUS_TAG:
 #endif
         case UNKNOWN_TAG:
         default:
