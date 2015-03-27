@@ -25,7 +25,7 @@
   <steps>
     <item>
       <p><link xref="file-select">Select the files</link> that you wish to be
-      in the playlist in the file list.</p>
+      in the playlist from the list of files.</p>
     </item>
     <item>
       <p>Select <guiseq><gui style="menu">Miscellaneous</gui>
