@@ -18,6 +18,8 @@
 
 #include "wavpack_private.h"
 
+#ifdef ENABLE_WAVPACK
+
 /* For EOF. */
 #include <stdio.h>
 
@@ -180,3 +182,5 @@ wavpack_write_bytes (void *id,
 
     return bytes_written;
 }
+
+#endif /* ENABLE_WAVPACK */
