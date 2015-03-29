@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2015-03-26 16:26+0000\n"
-"PO-Revision-Date: 2015-03-26 18:22+0100\n"
+"POT-Creation-Date: 2015-03-29 03:20+0000\n"
+"PO-Revision-Date: 2015-03-29 13:18+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -28,7 +28,7 @@ msgstr "Marek Černocký <marek@manet.cz>"
 #: C/image.page:16 C/index.page:14 C/introduction.page:12
 #: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
 #: C/problems-ogg-split.page:18 C/scanner.page:12 C/starting.page:10
-#: C/tag-field.page:14 C/tag.page:13
+#: C/tag-capitalization.page:13 C/tag-field.page:14 C/tag.page:13
 msgid "Ekaterina Gerasimova"
 msgstr "Ekaterina Gerasimova"
 
@@ -284,11 +284,6 @@ msgid "Corresponding tag field"
 msgstr "Příslušné pole štítku"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:41
-msgid "%a"
-msgstr "%a"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:44
 msgid ""
 "Artist: this is the artist or artists who created the track, this field may "
@@ -298,19 +293,9 @@ msgstr ""
 "může odkazovat na umělce skladby i na umělce alba"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:50
-msgid "%z"
-msgstr "%z"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:53
 msgid "Album artist"
 msgstr "umělec alba"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:58
-msgid "%b"
-msgstr "%b"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:61
@@ -318,29 +303,14 @@ msgid "Album title"
 msgstr "název alba"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:66
-msgid "%c"
-msgstr "%c"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:69
 msgid "Comment: this is the free-form comment field"
 msgstr "komentáře: jedná se o volnou formu"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:74
-msgid "%p"
-msgstr "%p"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:77
 msgid "Composer: this is the creator of the track"
 msgstr "skladatel: jedná se tvůrce skladby"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:82
-msgid "%r"
-msgstr "%r"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:85
@@ -352,19 +322,9 @@ msgstr ""
 "vydavatele"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:91
-msgid "%d"
-msgstr "%d"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:94
 msgid "Disc number"
 msgstr "číslo disku"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:99
-msgid "%e"
-msgstr "%e"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:102
@@ -376,19 +336,9 @@ msgstr ""
 "používáno i pro název aplikace, ve které bylo kódování souboru provedeno"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:109
-msgid "%g"
-msgstr "%g"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:112
 msgid "Genre"
 msgstr "žánr"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:117
-msgid "%i"
-msgstr "%i"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:120
@@ -401,19 +351,9 @@ msgstr ""
 "ignorována"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:127
-msgid "%l"
-msgstr "%l"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:130
 msgid "Number of tracks: the total number of tracks on the medium"
 msgstr "počet skladeb: celkový počet skladeb na médiu"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:135
-msgid "%o"
-msgstr "%o"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:138
@@ -421,19 +361,9 @@ msgid "Original artist"
 msgstr "původní umělec"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:143
-msgid "%n"
-msgstr "%n"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:146
 msgid "Track number"
 msgstr "číslo skladby"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:151
-msgid "%t"
-msgstr "%t"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:154
@@ -441,29 +371,14 @@ msgid "Track title"
 msgstr "název skladby"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:159
-msgid "%u"
-msgstr "%u"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:162
 msgid "URL"
 msgstr "adresa URL"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:167
-msgid "%x"
-msgstr "%x"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:170
 msgid "Number of discs"
 msgstr "počet disků"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:175
-msgid "%y"
-msgstr "%y"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:178
@@ -778,7 +693,7 @@ msgstr ""
 #: C/playlist-generate.page:27
 msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
-"the playlist in the file list."
+"the playlist from the list of files."
 msgstr ""
 "V seznamu souborů <link xref=\"file-select\">vyberte soubory</link>, které "
 "si přejete mít v seznamu k přehrání."
@@ -1236,6 +1151,81 @@ msgstr ""
 "ručně. Některé z těchto automatických aktualizací můžete zakázat na kartě "
 "<gui style=\"tab\">Nastavení štítků ID3</gui> v dialogovém okně <gui style="
 "\"dialog\">Předvolby</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-capitalization.page:17
+msgid "Apply consistent capitalization to tags"
+msgstr "Jak použít jednotnou velikost písmen ve štítcích."
+
+#. (itstool) path: page/title
+#: C/tag-capitalization.page:21
+msgid "Capitalize tags consistently"
+msgstr "Sjednocení velikosti písmen ve štítku"
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:23
+msgid ""
+"Tag capitalization can be changed for one or more tag fields in one or more "
+"files."
+msgstr ""
+"Velikost písmen je možné změnit u jednoho nebo více štítků v jednom nebo "
+"více souborech."
+
+#. (itstool) path: steps/title
+#: C/tag-capitalization.page:27
+msgid "Change tag field capitalization"
+msgstr "Změna velikosti písmen ve štítku"
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:29
+msgid "Select the files that you wish to tag."
+msgstr "Vyberte soubory, ve kterých si přejete upravit štítky."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:32
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Vyberte <guiseq><gui style=\"menu\">Zobrazit</gui> <gui style=\"menuitem"
+"\">Zobrazit průzkumníka</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:36
+msgid "Select the <gui style=\"tab\">Process Fields</gui> tab."
+msgstr "Vyberte kartu <gui style=\"tab\">Zpracovat pole</gui>."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:39
+msgid "Check the fields that you want to change."
+msgstr "Zaškrtněte pole, která chcete změnit."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:42
+msgid ""
+"There are a number of available options for changing the capitalization. "
+"Chose the one that you want."
+msgstr ""
+"K dispozici je několik voleb, jak změnit velikost písmen. Zvolte, kterou "
+"potřebujete."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:46
+msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
+msgstr ""
+"Použijte změny zmáčknutím <gui style=\"button\">Prozkoumat soubory</gui>."
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:51
+msgid ""
+"The <gui>Scanner</gui> dialog can also be used to process space and "
+"character conversions. If you do not want to make any changes to these, "
+"select the correct option before you press <gui style=\"button\">Scan Files</"
+"gui>"
+msgstr ""
+"Dialogové okno <gui>Průzkumník</gui> je možné použít i ke zpracování mezer a "
+"převodu znaků. Pokud takovéto změny provést nechcete, vyberte před "
+"zmáčknutím <gui style=\"button\">Prozkoumat soubory</gui> patřičnou volbu."
 
 #. (itstool) path: info/desc
 #: C/tag-field.page:18
