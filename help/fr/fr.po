@@ -624,7 +624,7 @@ msgstr "Appliquer l'étiquette aux fichiers sélectionnés"
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:42
 msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
-msgstr "<keyseq><key>Ctrl</key><key>Entrée<key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Entrée</key></keyseq>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:47
