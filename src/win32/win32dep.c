@@ -111,7 +111,7 @@ weasytag_locale_dir (void)
 
         if (inst_dir != NULL)
         {
-            locale_dir = g_build_filename (inst_dir, "lib", "locale", NULL);
+            locale_dir = g_build_filename (inst_dir, "share", "locale", NULL);
             initialized = TRUE;
         }
         else

@@ -293,9 +293,8 @@ SectionGroupEnd
 ;------------------------------------
 !macro Locale LOCALE
 Section "${LOCALE} Translation"
-  SetOutPath "$INSTDIR\lib\locale\${LOCALE}\LC_MESSAGES"
-  File "${DESTDIR}${PREFIX}/lib/locale/${LOCALE}/LC_MESSAGES/easytag.mo"
   SetOutPath "$INSTDIR\share\locale\${LOCALE}\LC_MESSAGES"
+  File "${DESTDIR}${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/easytag.mo"
   File "${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/atk10.mo"
   File "${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/gdk-pixbuf.mo"
   File "${PREFIX}/share/locale/${LOCALE}/LC_MESSAGES/glib20.mo"
