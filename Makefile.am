@@ -330,6 +330,7 @@ appicon64dir = $(iconthemedir)/64x64/apps
 appicon128dir = $(iconthemedir)/128x128/apps
 appicon256dir = $(iconthemedir)/256x256/apps
 appiconscalabledir = $(iconthemedir)/scalable/apps
+appiconsymbolicdir = $(iconthemedir)/symbolic/apps
 
 dist_appicon16_DATA = \
 	data/icons/16x16/easytag.png
@@ -348,8 +349,9 @@ dist_appicon128_DATA = \
 dist_appicon256_DATA = \
 	data/icons/256x256/easytag.png
 dist_appiconscalable_DATA = \
-	data/icons/scalable/easytag.svg \
-	data/icons/scalable/easytag-symbolic.svg
+	data/icons/scalable/easytag.svg
+dist_appiconsymbolic_DATA = \
+	data/icons/symbolic/easytag-symbolic.svg
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 
