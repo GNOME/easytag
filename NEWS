@@ -1,3 +1,27 @@
+2.3.6 - 2015-04-19 :
+====================
+
+    * Fix renaming files in the scanner
+    * Improve minimum size of log area
+    * Improve several UI strings
+    * Ekaterina Gerasimova’s symbolic application icon, and improvements to
+      Mallard help
+    * Add several comments for translators
+    * Add a test for the file renaming code
+    * Fix compiler warnings due to switch-enum warning when disabling tag
+      support
+    * Improvements to several internal string-handling functions
+    * Remove setting for controlling the maximum number of log lines
+    * Remove quit confirmation dialog
+    * Further refactoring of internal file list code
+    * Alexandre Franke’s French translation update
+    * Piotr Drąg’s Polish translation update
+    * Updated British English translation
+    * Marek Černocký’s Czech translation updates
+    * Jordi Mas’ Catalan help translation
+    * Jordi Mas’ Catalan translation updates
+    * Samir Ribic’s Bosnian translation
+
 2.3.5 - 2015-03-09 :
 ====================
 
