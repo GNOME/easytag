@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2007  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -122,40 +122,30 @@ on_button_press_event (GtkWidget *treeview,
 static void
 et_log_area_class_init (EtLogAreaClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/log_area.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtLogArea,
+                                                  log_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtLogArea,
+                                                  log_model);
 }
 
 static void
 et_log_area_init (EtLogArea *self)
 {
     EtLogAreaPrivate *priv;
-    GtkWidget *grid;
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
 
     priv = et_log_area_get_instance_private (self);
 
-    gtk_container_set_border_width (GTK_CONTAINER (self), 2);
-
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/log_area.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get log area from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "log_grid"));
-    gtk_container_add (GTK_CONTAINER (self), grid);
-
-    /* The list. */
-    priv->log_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                              "log_model"));
-    priv->log_view = GTK_WIDGET (gtk_builder_get_object (builder, "log_view"));
+    gtk_widget_init_template (GTK_WIDGET (self));
 
     /* Create popup menu. */
+    builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
 
