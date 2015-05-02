@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -73,76 +73,9 @@ on_file_show_header_changed (EtFileArea *self,
 }
 
 static void
-create_file_area (EtFileArea *self)
+et_file_area_init (EtFileArea *self)
 {
-    EtFileAreaPrivate *priv;
-    GtkBuilder *builder;
-    GError *error = NULL;
-    GtkWidget *grid;
-
-    priv = et_file_area_get_instance_private (self);
-
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/file_area.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get file area from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "file_grid"));
-    gtk_container_add (GTK_CONTAINER (self), grid);
-
-    priv->file_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "file_label"));
-
-    priv->index_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "index_label"));
-
-    /* Filename. */
-    priv->name_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "filename_entry"));
-
-    g_signal_connect (priv->name_entry, "populate-popup",
-                      G_CALLBACK (on_entry_populate_popup), NULL);
-
-    /* File information. */
-    priv->header_grid = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "header_grid"));
-    priv->version_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "version_label"));
-    priv->version_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "version_value_label"));
-
-    priv->bitrate_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "bitrate_label"));
-    priv->bitrate_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "bitrate_value_label"));
-
-    priv->samplerate_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "samplerate_label"));
-    priv->samplerate_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                       "samplerate_value_label"));
-
-    priv->mode_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "mode_label"));
-    priv->mode_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "mode_value_label"));
-
-    priv->size_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "size_label"));
-    priv->size_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "size_value_label"));
-
-    priv->duration_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                               "duration_label"));
-    priv->duration_value_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "duration_value_label"));
-
-    g_object_unref (builder);
+    gtk_widget_init_template (GTK_WIDGET (self));
 
     g_signal_connect_swapped (MainSettings, "changed::file-show-header",
                               G_CALLBACK (on_file_show_header_changed), self);
@@ -150,14 +83,46 @@ create_file_area (EtFileArea *self)
 }
 
 static void
-et_file_area_init (EtFileArea *self)
-{
-    create_file_area (self);
-}
-
-static void
 et_file_area_class_init (EtFileAreaClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/file_area.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  file_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  index_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  name_entry);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  header_grid);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  version_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  version_value_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  bitrate_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  bitrate_value_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  samplerate_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  samplerate_value_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  mode_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  mode_value_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  size_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  size_value_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  duration_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtFileArea,
+                                                  duration_value_label);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_entry_populate_popup);
 }
 
 /*
