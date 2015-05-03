@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013-2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013-2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -35,13 +35,19 @@
 
 typedef struct
 {
+    GtkWidget *name_mask_radio;
     GtkWidget *name_mask_entry;
+    GtkWidget *selected_files_check;
+    GtkWidget *path_relative_radio;
+    GtkWidget *playlist_parent_check;
+    GtkWidget *playlist_dos_check;
+    GtkWidget *content_filenames_radio;
+    GtkWidget *content_extended_radio;
+    GtkWidget *content_extended_mask_radio;
     GtkWidget *content_mask_entry;
 } EtPlaylistDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtPlaylistDialog, et_playlist_dialog, GTK_TYPE_DIALOG)
-
-static const guint BOX_SPACING = 6;
 
 /*
  * Function to replace UNIX ForwardSlash with a DOS BackSlash
@@ -645,98 +651,40 @@ create_playlist_dialog (EtPlaylistDialog *self)
 {
     EtPlaylistDialogPrivate *priv;
     GtkDialog *dialog;
-    GtkWidget *content_area;
-    GtkBuilder *builder;
-    GError *error = NULL;
-    GtkWidget *grid;
-    GtkWidget *playlist_use_mask_name;
-    GtkWidget *playlist_only_selected_files;
-    GtkWidget *playlist_relative_path;
-    GtkWidget *playlist_create_in_parent_dir;
-    GtkWidget *playlist_use_dos_separator;
-    GtkWidget *playlist_content_filenames;
-    GtkWidget *playlist_content_extended;
-    GtkWidget *playlist_content_mask;
 
     priv = et_playlist_dialog_get_instance_private (self);
     dialog = GTK_DIALOG (self);
 
-    gtk_window_set_title (GTK_WINDOW (self), _("Generate Playlist"));
-    gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
     gtk_dialog_add_buttons (dialog, _("_Cancel"), GTK_RESPONSE_CANCEL,
                             _("_Save"), GTK_RESPONSE_OK, NULL);
     gtk_dialog_set_default_response (dialog, GTK_RESPONSE_OK);
-    g_signal_connect (dialog, "response", G_CALLBACK (on_response), NULL);
-    g_signal_connect (dialog, "delete-event",
-                      G_CALLBACK (gtk_widget_hide_on_delete), NULL);
-
-    content_area = gtk_dialog_get_content_area (dialog);
-    gtk_box_set_spacing (GTK_BOX (content_area), BOX_SPACING);
-    gtk_container_set_border_width (GTK_CONTAINER (content_area), BOX_SPACING);
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/playlist_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get scanner page from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "playlist_grid"));
-    gtk_container_add (GTK_CONTAINER (content_area), grid);
 
     /* Playlist name */
-    playlist_use_mask_name = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "name_mask_radio"));
-    priv->name_mask_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "name_mask_entry"));
     g_settings_bind (MainSettings, "playlist-filename-mask",
                      priv->name_mask_entry, "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "playlist-use-mask", playlist_use_mask_name,
+    g_settings_bind (MainSettings, "playlist-use-mask", priv->name_mask_radio,
                      "active", G_SETTINGS_BIND_DEFAULT);
-
-    /* Mask status icon. Signal connection to check if mask is correct in the
-     * mask entry. */
-    g_signal_connect (priv->name_mask_entry, "changed",
-                      G_CALLBACK (entry_check_content_mask), NULL);
 
     /* Playlist options */
-    playlist_only_selected_files = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                       "selected_files_check"));
     g_settings_bind (MainSettings, "playlist-selected-only",
-                     playlist_only_selected_files, "active",
+                     priv->selected_files_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    playlist_relative_path = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "path_relative_radio"));
-    g_settings_bind (MainSettings, "playlist-relative", playlist_relative_path,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "playlist-relative",
+                     priv->path_relative_radio, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Create playlist in parent directory. */
-    playlist_create_in_parent_dir = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "playlist_parent_check"));
     g_settings_bind (MainSettings, "playlist-parent-directory",
-                     playlist_create_in_parent_dir, "active",
+                     priv->playlist_parent_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* DOS Separator. */
-    playlist_use_dos_separator = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "playlist_dos_check"));
     g_settings_bind (MainSettings, "playlist-dos-separator",
-                     playlist_use_dos_separator, "active",
+                     priv->playlist_dos_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Playlist content */
-    playlist_content_filenames = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "content_filenames_radio"));
-    playlist_content_extended = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "content_extended_radio"));
-    playlist_content_mask = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "content_extended_mask_radio"));
-    priv->content_mask_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "content_mask_entry"));
     g_settings_bind (MainSettings, "playlist-default-mask",
                      priv->content_mask_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
@@ -747,25 +695,23 @@ create_playlist_dialog (EtPlaylistDialog *self)
                       G_CALLBACK (entry_check_content_mask), NULL);
 
     g_settings_bind_with_mapping (MainSettings, "playlist-content",
-                                  playlist_content_filenames, "active",
+                                  priv->content_filenames_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  playlist_content_filenames, NULL);
+                                  priv->content_filenames_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "playlist-content",
-                                  playlist_content_extended, "active",
+                                  priv->content_extended_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  playlist_content_extended, NULL);
+                                  priv->content_extended_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "playlist-content",
-                                  playlist_content_mask, "active",
+                                  priv->content_extended_mask_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  playlist_content_mask, NULL);
-
-    g_object_unref (builder);
+                                  priv->content_extended_mask_radio, NULL);
 
     /* To initialize the mask status icon and visibility. */
     g_signal_emit_by_name (priv->name_mask_entry, "changed");
@@ -775,12 +721,50 @@ create_playlist_dialog (EtPlaylistDialog *self)
 static void
 et_playlist_dialog_init (EtPlaylistDialog *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_playlist_dialog (self);
 }
 
 static void
 et_playlist_dialog_class_init (EtPlaylistDialogClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/playlist_dialog.ui");
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  name_mask_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  name_mask_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  selected_files_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  path_relative_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  playlist_parent_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  playlist_dos_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  content_filenames_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  content_extended_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  content_extended_mask_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPlaylistDialog,
+                                                  content_mask_entry);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             entry_check_content_mask);
+    gtk_widget_class_bind_template_callback (widget_class, on_response);
 }
 
 /*
