@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2013-2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2013-2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -34,11 +34,12 @@
 
 typedef struct
 {
+    GtkWidget *search_find_button;
     GtkWidget *search_string_combo;
     GtkListStore *search_string_model;
-    GtkWidget *search_in_filename;
-    GtkWidget *search_in_tag;
-    GtkWidget *search_case_sensitive;
+    GtkWidget *search_filename_check;
+    GtkWidget *search_tag_check;
+    GtkWidget *search_case_check;
     GtkWidget *search_results_view;
     GtkListStore *search_results_model;
     GtkWidget *status_bar;
@@ -46,8 +47,6 @@ typedef struct
 } EtSearchDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtSearchDialog, et_search_dialog, GTK_TYPE_DIALOG)
-
-static const guint BOX_SPACING = 6;
 
 enum
 {
@@ -183,7 +182,7 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
     if (!ETFile || !string_to_search)
         return;
 
-    case_sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_sensitive));
+    case_sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check));
 
     // Filename
     SearchResultList_Text[SEARCH_RESULT_FILENAME]    = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
@@ -393,7 +392,7 @@ Search_File (GtkWidget *search_button, gpointer user_data)
     self = ET_SEARCH_DIALOG (user_data);
     priv = et_search_dialog_get_instance_private (self);
 
-    if (!priv->search_string_combo || !priv->search_in_filename || !priv->search_in_tag || !priv->search_results_view)
+    if (!priv->search_string_combo || !priv->search_filename_check || !priv->search_tag_check || !priv->search_results_view)
         return;
 
     string_to_search = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->search_string_combo))));
@@ -411,13 +410,13 @@ Search_File (GtkWidget *search_button, gpointer user_data)
         ETFile = (ET_File *)l->data;
 
         // Search in the filename
-        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_in_filename)))
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_filename_check)))
         {
             gchar *filename_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
             gchar *basename_utf8;
 
             // To search without case sensivity
-            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_sensitive)))
+            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check)))
             {
                 temp = g_path_get_basename(filename_utf8);
                 basename_utf8 = g_utf8_casefold(temp, -1);
@@ -442,12 +441,12 @@ Search_File (GtkWidget *search_button, gpointer user_data)
         }
 
         // Search in the tag
-        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_in_tag)))
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_tag_check)))
         {
             File_Tag *FileTag   = (File_Tag *)ETFile->FileTag->data;
 
             // To search with or without case sensivity
-            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_sensitive)))
+            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check)))
             {
                 // To search without case sensivity...
                 // Duplicate and convert the strings into UTF-8 in loxer case
@@ -583,42 +582,12 @@ static void
 create_search_dialog (EtSearchDialog *self)
 {
     EtSearchDialogPrivate *priv;
-    GtkWidget *content_area;
-    GtkBuilder *builder;
-    GError *error = NULL;
-    GtkWidget *grid;
-    GtkWidget *button;
 
     priv = et_search_dialog_get_instance_private (self);
-
-    gtk_window_set_title (GTK_WINDOW (self), _("Find Files"));
-    g_signal_connect (self, "delete-event", G_CALLBACK (on_delete_event),
-                      NULL);
-
-    content_area = gtk_dialog_get_content_area (GTK_DIALOG (self));
-    gtk_box_set_spacing (GTK_BOX (content_area), BOX_SPACING);
-    gtk_container_set_border_width (GTK_CONTAINER (self),
-                                    BOX_SPACING);
-
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/search_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get search dialog from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "search_grid"));
-    gtk_container_add (GTK_CONTAINER (content_area), grid);
 
     /* Words to search. */
     priv->search_string_model = gtk_list_store_new (MISC_COMBO_COUNT,
                                                     G_TYPE_STRING);
-    priv->search_string_combo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "search_combo"));
     gtk_combo_box_set_model (GTK_COMBO_BOX (priv->search_string_combo),
                              GTK_TREE_MODEL (priv->search_string_model));
     g_object_unref (priv->search_string_model);
@@ -630,54 +599,27 @@ create_search_dialog (EtSearchDialog *self)
     /* Set content of the clipboard if available. */
     gtk_editable_paste_clipboard (GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (priv->search_string_combo))));
 
-    priv->search_in_filename = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "search_filename_check"));
-    priv->search_in_tag = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "search_tag_check"));
-    g_settings_bind (MainSettings, "search-filename", priv->search_in_filename,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "search-tag", priv->search_in_tag,
+    g_settings_bind (MainSettings, "search-filename",
+                     priv->search_filename_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "search-tag", priv->search_tag_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Property of the search. */
-    priv->search_case_sensitive = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                      "search_case_check"));
     g_settings_bind (MainSettings, "search-case-sensitive",
-                     priv->search_case_sensitive, "active",
+                     priv->search_case_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    /* Results list. */
-    priv->search_results_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                         "search_model"));
-    priv->search_results_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "search_view"));
-
-    g_signal_connect (gtk_builder_get_object (builder, "search_selection"),
-                      "changed", G_CALLBACK (Search_Result_List_Row_Selected),
-                      self);
-
     /* Button to run the search. */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "search_find_button"));
-    gtk_widget_grab_default (button);
-    g_signal_connect (button, "clicked", G_CALLBACK (Search_File), self);
+    gtk_widget_grab_default (priv->search_find_button);
     g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->search_string_combo)),
                       "activate", G_CALLBACK (Search_File), self);
 
-    /* Button to cancel. */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "search_close_button"));
-    g_signal_connect (button, "clicked", G_CALLBACK (on_close_clicked), self);
-
     /* Status bar. */
-    priv->status_bar = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "search_status"));
     priv->status_bar_context = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->status_bar),
                                                              "Messages");
     gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                         priv->status_bar_context, _("Ready to search…"));
-
-    g_object_unref (builder);
 }
 
 /*
@@ -698,12 +640,38 @@ et_search_dialog_apply_changes (EtSearchDialog *self)
 static void
 et_search_dialog_init (EtSearchDialog *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_search_dialog (self);
 }
 
 static void
 et_search_dialog_class_init (EtSearchDialogClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/search_dialog.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_find_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_string_combo);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_filename_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_tag_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_case_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_results_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  search_results_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtSearchDialog,
+                                                  status_bar);
+    gtk_widget_class_bind_template_callback (widget_class, on_close_clicked);
+    gtk_widget_class_bind_template_callback (widget_class, on_delete_event);
+    gtk_widget_class_bind_template_callback (widget_class, Search_File);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Search_Result_List_Row_Selected);
 }
 
 /*
