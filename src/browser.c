@@ -1,22 +1,21 @@
-/*
- *  EasyTAG - Tag editor for MP3 and Ogg Vorbis files
- *  Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
+/* EasyTAG - tag editor for audio files
+ * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 
 /* Some parts of this browser are taken from:
  * XMMS - Cross-platform multimedia player
@@ -51,13 +50,13 @@
 
 typedef struct
 {
-    GtkWidget *label;
-    GtkWidget *button;
+    GtkWidget *files_label;
+    GtkWidget *open_button;
 
     GtkWidget *entry_combo;
     GtkListStore *entry_model;
 
-    GtkWidget *notebook;
+    GtkWidget *directory_album_artist_notebook;
 
     GtkListStore *file_model;
     GtkWidget *file_view;
@@ -65,18 +64,18 @@ typedef struct
     guint file_selected_handler;
     EtSortMode file_sort_mode;
 
-    GtkWidget *album_list;
+    GtkWidget *album_view;
     GtkWidget *album_menu;
     GtkListStore *album_model;
     guint album_selected_handler;
 
-    GtkWidget *artist_list;
+    GtkWidget *artist_view;
     GtkWidget *artist_menu;
     GtkListStore *artist_model;
     guint artist_selected_handler;
 
-    GtkWidget *tree; /* Tree of directories. */
-    GtkWidget *tree_menu;
+    GtkWidget *directory_view; /* Tree of directories. */
+    GtkWidget *directory_view_menu;
     GtkTreeStore *directory_model;
 
     GtkListStore *run_program_model;
@@ -322,9 +321,9 @@ et_browser_run_player_for_album_list (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->album_list != NULL);
+    g_return_if_fail (priv->album_view != NULL);
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_view));
 
     if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
         return;
@@ -363,9 +362,9 @@ et_browser_run_player_for_artist_list (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->artist_list != NULL);
+    g_return_if_fail (priv->artist_view != NULL);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->artist_list));
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->artist_view));
     if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
         return;
 
@@ -406,7 +405,7 @@ et_browser_run_player_for_selection (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->file_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view));
     selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     for (l = selfilelist; l != NULL; l = g_list_next (l))
@@ -444,9 +443,9 @@ Browser_Tree_Get_Path_Of_Selected_Node (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_val_if_fail (priv->tree != NULL, NULL);
+    g_return_val_if_fail (priv->directory_view != NULL, NULL);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->tree));
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->directory_view));
     if (selection
     && gtk_tree_selection_get_selected(selection, NULL, &selectedIter))
     {
@@ -485,9 +484,9 @@ et_browser_set_current_path (EtBrowser *self, const gchar *path)
 #endif /* G_OS_WIN32 */
 
     if (strcmp(G_DIR_SEPARATOR_S,priv->current_path) == 0)
-        gtk_widget_set_sensitive (priv->button, FALSE);
+        gtk_widget_set_sensitive (priv->open_button, FALSE);
     else
-        gtk_widget_set_sensitive (priv->button, TRUE);
+        gtk_widget_set_sensitive (priv->open_button, TRUE);
 }
 
 
@@ -528,10 +527,10 @@ et_browser_reload_directory (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    if (priv->tree && priv->current_path != NULL)
+    if (priv->directory_view && priv->current_path != NULL)
     {
         // Unselect files, to automatically reload the file of the directory
-        GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->tree));
+        GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view));
         if (selection)
         {
             gtk_tree_selection_unselect_all(selection);
@@ -623,7 +622,7 @@ et_browser_go_parent (EtBrowser *self)
 }
 
 /*
- * Set a text into the priv->label
+ * Set a text into the priv->files_label
  */
 void
 et_browser_label_set_text (EtBrowser *self, const gchar *text)
@@ -635,7 +634,7 @@ et_browser_label_set_text (EtBrowser *self, const gchar *text)
 
     priv = et_browser_get_instance_private (self);
 
-    gtk_label_set_text (GTK_LABEL (priv->label), text);
+    gtk_label_set_text (GTK_LABEL (priv->files_label), text);
 }
 
 /*
@@ -748,14 +747,15 @@ et_browser_collapse (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->tree != NULL);
+    g_return_if_fail (priv->directory_view != NULL);
 
-    gtk_tree_view_collapse_all(GTK_TREE_VIEW(priv->tree));
+    gtk_tree_view_collapse_all (GTK_TREE_VIEW (priv->directory_view));
 
 #ifndef G_OS_WIN32
     /* But keep the main directory opened */
     rootPath = gtk_tree_path_new_first();
-    gtk_tree_view_expand_to_path(GTK_TREE_VIEW(priv->tree), rootPath);
+    gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->directory_view),
+                                  rootPath);
     gtk_tree_path_free(rootPath);
 #endif /* !G_OS_WIN32 */
 }
@@ -821,7 +821,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     /* Open the node */
     if (g_settings_get_boolean (MainSettings, "browse-expand-children"))
     {
-        gtk_tree_view_expand_row(GTK_TREE_VIEW(priv->tree), selectedPath, FALSE);
+        gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->directory_view),
+                                  selectedPath, FALSE);
     }
     gtk_tree_path_free(selectedPath);
 
@@ -829,7 +830,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     if (ReadingDirectory == TRUE)
         return TRUE;
 
-    //Browser_Tree_Set_Node_Visible(priv->tree, selectedPath);
+    /* Browser_Tree_Set_Node_Visible (priv->directory_view, selectedPath); */
     gtk_tree_model_get(GTK_TREE_MODEL(priv->directory_model), &selectedIter,
                        TREE_COLUMN_FULL_PATH, &pathName, -1);
     if (!pathName)
@@ -924,12 +925,12 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
                                                        &selectedIter) == FALSE
                                                        && !g_file_query_exists (file, NULL))
                     {
-                        gtk_tree_view_collapse_row (GTK_TREE_VIEW (priv->tree),
+                        gtk_tree_view_collapse_row (GTK_TREE_VIEW (priv->directory_view),
                                                     selectedPath);
                         if (g_settings_get_boolean (MainSettings,
                                                     "browse-expand-children"))
                         {
-                            gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->tree),
+                            gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->directory_view),
                                                       selectedPath, FALSE);
                         }
                         gtk_tree_path_free (selectedPath);
@@ -1015,7 +1016,7 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->tree != NULL);
+    g_return_if_fail (priv->directory_view != NULL);
 
     /* Load current_path */
     if(!current_path || !*current_path)
@@ -1049,7 +1050,8 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
 #endif /* !G_OS_WIN32 */
     if (rootPath)
     {
-        gtk_tree_view_expand_to_path(GTK_TREE_VIEW(priv->tree), rootPath);
+        gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->directory_view),
+                                      rootPath);
         gtk_tree_path_free(rootPath);
     }
 
@@ -1139,7 +1141,8 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
         rootPath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->directory_model), &parentNode);
         if (rootPath)
         {
-            gtk_tree_view_expand_to_path(GTK_TREE_VIEW(priv->tree), rootPath);
+            gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->directory_view),
+                                          rootPath);
             gtk_tree_path_free(rootPath);
         }
         index++;
@@ -1148,10 +1151,12 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
     rootPath = gtk_tree_model_get_path(GTK_TREE_MODEL(priv->directory_model), &parentNode);
     if (rootPath)
     {
-        gtk_tree_view_expand_to_path(GTK_TREE_VIEW(priv->tree), rootPath);
-        // Select the node to load the corresponding directory
-        gtk_tree_selection_select_path(gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->tree)), rootPath);
-        Browser_Tree_Set_Node_Visible(priv->tree, rootPath);
+        gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->directory_view),
+                                      rootPath);
+        /* Select the node to load the corresponding directory. */
+        gtk_tree_selection_select_path (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view)),
+                                        rootPath);
+        Browser_Tree_Set_Node_Visible (priv->directory_view, rootPath);
         gtk_tree_path_free(rootPath);
     }
 
@@ -1506,7 +1511,7 @@ et_browser_refresh_file_in_list (EtBrowser *self,
     // 2/3. Try with the selected file in list (works only if we select the same file)
     if (row_found == FALSE)
     {
-        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->file_view));
+        selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view));
         selectedRow = gtk_tree_selection_get_selected_rows(selection, NULL);
         if (selectedRow && selectedRow->data != NULL)
         {
@@ -2302,7 +2307,7 @@ et_browser_clear_artist_model (EtBrowser *self)
 
     priv = et_browser_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_view));
 
     g_signal_handler_block (selection, priv->artist_selected_handler);
 
@@ -2326,13 +2331,13 @@ Browser_Artist_List_Load_Files (EtBrowser *self, ET_File *etfile_to_select)
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->artist_list != NULL);
+    g_return_if_fail (priv->artist_view != NULL);
 
     if (etfile_to_select)
         artist_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->artist;
 
     et_browser_clear_artist_model (self);
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_view));
 
     for (l = ETCore->ETArtistAlbumFileList; l != NULL; l = g_list_next (l))
     {
@@ -2375,7 +2380,7 @@ Browser_Artist_List_Load_Files (EtBrowser *self, ET_File *etfile_to_select)
             gtk_tree_selection_select_iter(selection, &iter);
             g_signal_handler_unblock (selection, priv->artist_selected_handler);
 
-            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->artist_list), path, NULL, FALSE, 0, 0);
+            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->artist_view), path, NULL, FALSE, 0, 0);
             gtk_tree_path_free(path);
 
             Browser_Album_List_Load_Files (self, AlbumList, etfile_to_select);
@@ -2424,7 +2429,7 @@ Browser_Artist_List_Row_Selected (EtBrowser *self, GtkTreeSelection* selection)
 }
 
 /*
- * Set the color of the row of priv->artist_list
+ * Set the color of the row of priv->artist_view
  */
 static void
 Browser_Artist_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
@@ -2510,7 +2515,7 @@ et_browser_clear_album_model (EtBrowser *self)
     /* Empty model, disable Browser_Album_List_Row_Selected () during clear
      * because it is called and crashed. */
 
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_view));
 
     g_signal_handler_block (selection, priv->album_selected_handler);
 
@@ -2537,13 +2542,13 @@ Browser_Album_List_Load_Files (EtBrowser *self,
 
     priv = et_browser_get_instance_private (self);
 
-    g_return_if_fail (priv->album_list != NULL);
+    g_return_if_fail (priv->album_view != NULL);
 
     if (etfile_to_select)
         album_to_select = ((File_Tag *)etfile_to_select->FileTag->data)->album;
 
     et_browser_clear_album_model (self);
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->album_list));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_view));
 
     // Create a first row to select all albums of the artist
     for (l = albumlist; l != NULL; l = g_list_next (l))
@@ -2602,7 +2607,7 @@ Browser_Album_List_Load_Files (EtBrowser *self,
             gtk_tree_selection_select_iter(selection, &iter);
             g_signal_handler_unblock (selection, priv->album_selected_handler);
 
-            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_list), path, NULL, FALSE, 0, 0);
+            gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(priv->album_view), path, NULL, FALSE, 0, 0);
             gtk_tree_path_free(path);
 
             et_displayed_file_list_set (etfilelist);
@@ -2666,7 +2671,7 @@ Browser_Album_List_Row_Selected (EtBrowser *self, GtkTreeSelection *selection)
 }
 
 /*
- * Set the color of the row of priv->album_list
+ * Set the color of the row of priv->album_view
  */
 static void
 Browser_Album_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
@@ -2730,7 +2735,8 @@ et_browser_set_display_mode (EtBrowser *self,
             et_displayed_file_list_set (ETCore->ETFileList);
 
             /* Display Tree Browser. */
-            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 0);
+            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->directory_album_artist_notebook),
+                                           0);
             et_browser_load_file_list (self, ETCore->ETFileDisplayedList,
                                        etfile);
 
@@ -2749,7 +2755,8 @@ et_browser_set_display_mode (EtBrowser *self,
             break;
         case ET_BROWSER_MODE_ARTIST:
             /* Display Artist + Album lists. */
-            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->notebook), 1);
+            gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->directory_album_artist_notebook),
+                                           1);
             if (ETCore->ETArtistAlbumFileList)
             {
                 et_artist_album_file_list_free (ETCore->ETArtistAlbumFileList);
@@ -2775,12 +2782,12 @@ et_browser_set_sensitive (EtBrowser *self, gboolean sensitive)
     priv = et_browser_get_instance_private (self);
 
     gtk_widget_set_sensitive (GTK_WIDGET (priv->entry_combo), sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->tree), sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->directory_view), sensitive);
     gtk_widget_set_sensitive (GTK_WIDGET (priv->file_view), sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->artist_list), sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->album_list), sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->button), sensitive);
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->label), sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->artist_view), sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->album_view), sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->open_button), sensitive);
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->files_label), sensitive);
 }
 
 static void
@@ -2861,7 +2868,7 @@ on_directory_tree_popup_menu (GtkWidget *treeview,
 
     priv = et_browser_get_instance_private (self);
 
-    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->tree_menu);
+    do_popup_menu (self, NULL, GTK_TREE_VIEW (treeview), priv->directory_view_menu);
 
     return GDK_EVENT_STOP;
 }
@@ -2895,7 +2902,7 @@ on_album_tree_button_press_event (GtkWidget *widget,
             select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
         }
 
-        do_popup_menu (self, event, GTK_TREE_VIEW (priv->album_list),
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->album_view),
                        priv->album_menu);
 
         return GDK_EVENT_STOP;
@@ -2920,7 +2927,7 @@ on_artist_tree_button_press_event (GtkWidget *widget,
             select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
         }
 
-        do_popup_menu (self, event, GTK_TREE_VIEW (priv->artist_list),
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->artist_view),
                        priv->artist_menu);
 
         return GDK_EVENT_STOP;
@@ -2945,8 +2952,8 @@ on_directory_tree_button_press_event (GtkWidget *widget,
             select_row_for_button_press_event (GTK_TREE_VIEW (widget), event);
         }
 
-        do_popup_menu (self, event, GTK_TREE_VIEW (priv->tree),
-                       priv->tree_menu);
+        do_popup_menu (self, event, GTK_TREE_VIEW (priv->directory_view),
+                       priv->directory_view_menu);
 
         return GDK_EVENT_STOP;
     }
@@ -3160,7 +3167,7 @@ et_browser_reload (EtBrowser *self)
     }
 
     /* Select again the memorized path without loading files */
-    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view));
 
     if (selection)
     {
@@ -3844,88 +3851,29 @@ static void
 create_browser (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    GtkWidget *grid;
     gsize i;
     GtkBuilder *builder;
     GError *error = NULL;
     GMenuModel *menu_model;
-    const gchar * const ids[] = { "filename_column", "title_column",
-                                  "artist_column", "album_artist_column",
-                                  "album_column", "year_column", "disc_column",
-                                  "track_column", "genre_column",
-                                  "comment_column", "composer_column",
-                                  "orig_artist_column", "copyright_column",
-                                  "url_column", "encoded_by_column" };
 
     priv = et_browser_get_instance_private (self);
 
-    gtk_container_set_border_width (GTK_CONTAINER (self), 2);
-
-    /* The entry box for displaying path. */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/browser.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get browser from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "browser_grid"));
-    gtk_container_add (GTK_CONTAINER (self), grid);
-
-    priv->entry_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                "directory_model"));
-
-    priv->entry_combo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "browser_combo"));
     /* History list */
     Load_Path_Entry_List (priv->entry_model, MISC_COMBO_TEXT);
 
     g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->entry_combo)),
                               "activate", G_CALLBACK (Browser_Entry_Activated),
                               self);
-
     /* The button to select a directory to browse. */
-    priv->button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                       "open_button"));
-    g_signal_connect_swapped (priv->button, "clicked",
+    g_signal_connect_swapped (priv->open_button, "clicked",
                               G_CALLBACK (File_Selection_Window_For_Directory),
                               gtk_bin_get_child (GTK_BIN (priv->entry_combo)));
 
-    /* The label for displaying number of files in path (without subdirs). */
-    /* Translators: No files, as in "0 files". */
-    priv->label = GTK_WIDGET (gtk_builder_get_object (builder, "files_label"));
-
-    /* Browser notebook: one tab for the priv->tree, one tab for the
-     * priv->artist_list and the priv->album_list. */
-    priv->notebook = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                         "directory_album_artist_notebook"));
-
-    /* The ScrollWindow and the Directory-Tree. */
-    priv->directory_model = GTK_TREE_STORE (gtk_builder_get_object (builder,
-                                                                    "tree_model"));
-
     /* The tree view */
-    priv->tree = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "directory_view"));
-
     Browser_Tree_Initialize (self);
 
-    /* Signals */
-    g_signal_connect_swapped (priv->tree, "row-expanded",
-                              G_CALLBACK (expand_cb), self);
-    g_signal_connect_swapped (priv->tree, "row-collapsed",
-                              G_CALLBACK (collapse_cb), self);
-    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree)),
-                              "changed",
-                              G_CALLBACK (Browser_Tree_Node_Selected), self);
-
-    g_signal_connect (priv->tree, "key-press-event",
-                      G_CALLBACK (Browser_Tree_Key_Press), NULL);
-
     /* Create popup menu on browser tree view. */
+    builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
                                    &error);
 
@@ -3937,22 +3885,11 @@ create_browser (EtBrowser *self)
 
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-menu"));
-    priv->tree_menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (priv->tree_menu), priv->tree, NULL);
-    g_signal_connect (priv->tree, "button-press-event",
-                      G_CALLBACK (on_directory_tree_button_press_event), self);
-    g_signal_connect (priv->tree, "popup-menu",
-                      G_CALLBACK (on_directory_tree_popup_menu), self);
+    priv->directory_view_menu = gtk_menu_new_from_model (menu_model);
+    gtk_menu_attach_to_widget (GTK_MENU (priv->directory_view_menu), priv->directory_view, NULL);
 
     /* The ScrollWindows with the Artist and Album Lists. */
-    priv->artist_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                 "artist_model"));
-
-    priv->artist_list = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "artist_view"));
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list)),
-                                                              GTK_SELECTION_SINGLE);
-    priv->artist_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_list)),
+    priv->artist_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->artist_view)),
                                                               "changed",
                                                               G_CALLBACK (Browser_Artist_List_Row_Selected),
                                                               self);
@@ -3961,24 +3898,14 @@ create_browser (EtBrowser *self)
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-artist-menu"));
     priv->artist_menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (priv->artist_menu), priv->artist_list,
+    gtk_menu_attach_to_widget (GTK_MENU (priv->artist_menu), priv->artist_view,
                                NULL);
-    g_signal_connect (priv->artist_list, "button-press-event",
-                      G_CALLBACK (on_artist_tree_button_press_event), self);
-    g_signal_connect (priv->artist_list, "popup-menu",
-                      G_CALLBACK (on_artist_tree_popup_menu), self);
 
-    priv->album_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                "album_model"));
-    priv->album_list = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "album_view"));
-    gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (priv->album_list),
+    gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (priv->album_view),
                                           album_list_separator_func, NULL,
                                           NULL);
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list)),
-                                 GTK_SELECTION_SINGLE);
 
-    priv->album_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list)),
+    priv->album_selected_handler = g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_view)),
                                                              "changed",
                                                              G_CALLBACK (Browser_Album_List_Row_Selected),
                                                              self);
@@ -3987,24 +3914,16 @@ create_browser (EtBrowser *self)
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-album-menu"));
     priv->album_menu = gtk_menu_new_from_model (menu_model);
-    gtk_menu_attach_to_widget (GTK_MENU (priv->album_menu), priv->album_list,
+    gtk_menu_attach_to_widget (GTK_MENU (priv->album_menu), priv->album_view,
                                NULL);
-    g_signal_connect (priv->album_list, "button-press-event",
-                      G_CALLBACK (on_album_tree_button_press_event), self);
-    g_signal_connect (priv->album_list, "popup-menu",
-                      G_CALLBACK (on_album_tree_popup_menu), self);
 
     /* The file list */
-    priv->file_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                               "files_model"));
-    priv->file_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "files_view"));
-
     /* Add columns to tree view. See ET_FILE_LIST_COLUMN. */
     for (i = 0; i <= LIST_FILE_ENCODED_BY; i++)
     {
         const guint ascending_sort = 2 * i;
-        GtkTreeViewColumn *column = GTK_TREE_VIEW_COLUMN (gtk_builder_get_object (builder, ids[i]));
+        GtkTreeViewColumn *column = gtk_tree_view_get_column (GTK_TREE_VIEW (priv->file_view),
+                                                              i);
 
         g_object_set_data (G_OBJECT (column), "browser", self);
         g_signal_connect (column, "clicked",
@@ -4014,8 +3933,6 @@ create_browser (EtBrowser *self)
 
     g_signal_connect_swapped (MainSettings, "changed::sort-mode",
                               G_CALLBACK (on_sort_mode_changed), self);
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view)),
-                                 GTK_SELECTION_MULTIPLE);
     // To sort list
     gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->file_model), 0,
                                       Browser_List_Sort_Func, NULL, NULL);
@@ -4027,18 +3944,12 @@ create_browser (EtBrowser *self)
                                                             "changed",
                                                             G_CALLBACK (Browser_List_Row_Selected),
                                                             self);
-    g_signal_connect (priv->file_view, "key-press-event",
-                      G_CALLBACK (Browser_List_Key_Press), NULL);
 
     /* Create popup menu on file list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "file-menu"));
     priv->file_menu = gtk_menu_new_from_model (menu_model);
     gtk_menu_attach_to_widget (GTK_MENU (priv->file_menu), priv->file_view,
                                NULL);
-    g_signal_connect (priv->file_view, "button-press-event",
-                      G_CALLBACK (on_file_tree_button_press_event), self);
-    g_signal_connect (priv->file_view, "popup-menu",
-                      G_CALLBACK (on_file_tree_popup_menu), self);
 
     g_object_unref (builder);
 
@@ -4046,7 +3957,6 @@ create_browser (EtBrowser *self)
     priv->run_program_model = gtk_list_store_new(MISC_COMBO_COUNT, G_TYPE_STRING);
 
     /* TODO: Give the browser area a sensible default size. */
-    gtk_widget_show_all (GTK_WIDGET (self));
 
     /* Set home variable as current path */
     et_browser_set_current_path (self, g_get_home_dir ());
@@ -4179,7 +4089,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser.ui",
+                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
                                    &error);
 
     if (error != NULL)
@@ -4599,7 +4509,7 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser.ui",
+                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
                                    &error);
 
     if (error != NULL)
@@ -4826,7 +4736,7 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser.ui",
+                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
                                    &error);
 
     if (error != NULL)
@@ -5078,14 +4988,72 @@ et_browser_finalize (GObject *object)
 static void
 et_browser_init (EtBrowser *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_browser (self);
 }
 
-static void
-et_browser_class_init (EtBrowserClass *klass)
+static
+void et_browser_class_init (EtBrowserClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
     G_OBJECT_CLASS (klass)->finalize = et_browser_finalize;
-    GTK_WIDGET_CLASS (klass)->destroy = et_browser_destroy;
+    widget_class->destroy = et_browser_destroy;
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/browser.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  files_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  open_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  entry_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  entry_combo);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  directory_album_artist_notebook);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  file_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  file_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  album_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  album_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  artist_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  artist_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  directory_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  directory_view);
+    gtk_widget_class_bind_template_callback (widget_class, collapse_cb);
+    gtk_widget_class_bind_template_callback (widget_class, expand_cb);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_album_tree_button_press_event);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_artist_tree_button_press_event);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_directory_tree_button_press_event);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_file_tree_button_press_event);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_album_tree_popup_menu);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_artist_tree_popup_menu);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_directory_tree_popup_menu);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_file_tree_popup_menu);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Browser_Entry_Activated);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Browser_List_Key_Press);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Browser_Tree_Key_Press);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Browser_Tree_Node_Selected);
 }
 
 /*

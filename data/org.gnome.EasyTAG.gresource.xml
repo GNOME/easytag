@@ -2,6 +2,7 @@
 <gresources>
     <gresource prefix='/org/gnome/EasyTAG'>
         <file preprocess='xml-stripblanks'>browser.ui</file>
+        <file preprocess='xml-stripblanks'>browser_dialogs.ui</file>
         <file preprocess='xml-stripblanks'>cddb_dialog.ui</file>
         <file preprocess='xml-stripblanks'>file_area.ui</file>
         <file preprocess='xml-stripblanks'>image_properties_dialog.ui</file>

@@ -1,11 +1,11 @@
 <interface domain="easytag">
-    <requires lib="gtk+" version="3.4"/>
-    <object class="GtkListStore" id="directory_model">
+    <requires lib="gtk+" version="3.10"/>
+    <object class="GtkListStore" id="entry_model">
         <columns>
             <column type="gchararray"/>
         </columns>
     </object>
-    <object class="GtkListStore" id="files_model">
+    <object class="GtkListStore" id="file_model">
         <columns>
             <column type="gchararray"/>
             <column type="gchararray"/>
@@ -30,7 +30,7 @@
             <column type="GdkRGBA"/>
         </columns>
     </object>
-    <object class="GtkTreeStore" id="tree_model">
+    <object class="GtkTreeStore" id="directory_model">
         <columns>
             <column type="gchararray"/>
             <column type="gchararray"/>
@@ -62,742 +62,501 @@
             <column type="gboolean"/>
         </columns>
     </object>
-    <object class="GtkDialog" id="open_directory_dialog">
-        <property name="border-width">12</property>
-        <property name="destroy-with-parent">True</property>
-        <property name="title" translatable="yes">Browse Directory With</property>
-        <child internal-child="vbox">
-            <object class="GtkBox" id="open_directory_vbox">
-                <child>
-                    <object class="GtkGrid" id="open_directory_grid">
-                        <property name="column-spacing">12</property>
-                        <property name="row-spacing">6</property>
-                        <property name="visible">True</property>
-                        <child>
-                            <object class="GtkLabel" id="open_directory_label">
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">Run Program</property>
-                                <property name="visible">True</property>
-                                <attributes>
-                                    <attribute name="weight" value="bold"/>
-                                </attributes>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">0</property>
-                                <property name="width">2</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkComboBox" id="open_directory_combo">
-                                <property name="has-entry">True</property>
-                                <property name="entry-text-column">0</property>
-                                <property name="margin-left">12</property>
-                                <property name="tooltip-text" translatable="yes">Enter the program to run; it will receive the current directory as a parameter</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="open_directory_button">
-                                <property name="label" translatable="yes">_Open</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                    </object>
-                </child>
-                <child internal-child="action_area">
-                    <object class="GtkButtonBox" id="open_directory_button_box">
-                        <child>
-                            <object class="GtkButton" id="open_directory_cancel_button">
-                                <property name="label" translatable="yes">_Cancel</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="open_directory_execute_button">
-                                <property name="can-default">True</property>
-                                <property name="label" translatable="yes">_Execute</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <action-widgets>
-            <action-widget response="-5">open_directory_execute_button</action-widget>
-            <action-widget response="-6">open_directory_cancel_button</action-widget>
-        </action-widgets>
-    </object>
-    <object class="GtkDialog" id="open_files_dialog">
-        <property name="border-width">12</property>
-        <property name="destroy-with-parent">True</property>
-        <property name="title" translatable="yes">Open Files With</property>
-        <child internal-child="vbox">
-            <object class="GtkBox" id="open_files_vbox">
-                <child>
-                    <object class="GtkGrid" id="open_files_grid">
-                        <property name="column-spacing">12</property>
-                        <property name="row-spacing">6</property>
-                        <property name="visible">True</property>
-                        <child>
-                            <object class="GtkLabel" id="open_files_label">
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">Run Program</property>
-                                <property name="visible">True</property>
-                                <attributes>
-                                    <attribute name="weight" value="bold"/>
-                                </attributes>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">0</property>
-                                <property name="width">2</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkComboBox" id="open_files_combo">
-                                <property name="has-entry">True</property>
-                                <property name="entry-text-column">0</property>
-                                <property name="margin-left">12</property>
-                                <property name="tooltip-text" translatable="yes">Enter the program to run; it will receive the current files as a parameter</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="open_files_button">
-                                <property name="label" translatable="yes">_Open</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                    </object>
-                </child>
-                <child internal-child="action_area">
-                    <object class="GtkButtonBox" id="open_files_button_box">
-                        <child>
-                            <object class="GtkButton" id="open_files_cancel_button">
-                                <property name="label" translatable="yes">_Cancel</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="open_files_execute_button">
-                                <property name="can-default">True</property>
-                                <property name="label" translatable="yes">_Execute</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <action-widgets>
-            <action-widget response="-5">open_files_execute_button</action-widget>
-            <action-widget response="-6">open_files_cancel_button</action-widget>
-        </action-widgets>
-    </object>
-    <object class="GtkDialog" id="rename_directory_dialog">
-        <property name="border-width">12</property>
-        <property name="destroy-with-parent">True</property>
-        <property name="title" translatable="yes">Rename Directory</property>
-        <child internal-child="vbox">
-            <object class="GtkBox" id="vbox">
-                <child>
-                    <object class="GtkGrid" id="rename_grid">
-                        <property name="column-spacing">12</property>
-                        <property name="row-spacing">6</property>
-                        <property name="visible">True</property>
-                        <child>
-                            <object class="GtkLabel" id="rename_label">
-                                <property name="halign">start</property>
-                                <property name="visible">True</property>
-                                <attributes>
-                                    <attribute name="weight" value="bold"/>
-                                </attributes>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">0</property>
-                                <property name="width">2</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkLabel" id="rename_entry_label">
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes" comments="Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.">Literal name:</property>
-                                <property name="margin-left">12</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkEntry" id="rename_entry">
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkCheckButton" id="rename_mask_check">
-                                <property name="label" translatable="yes">Use mask:</property>
-                                <property name="margin-left">12</property>
-                                <property name="tooltip-text" translatable="yes">Whether to use a mask when renaming directories</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">2</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkEntry" id="rename_mask_entry">
-                                <property name="tooltip-text" translatable="yes">Select or type in a mask using codes (see Legend in Scanner Window) to rename the directory from tag fields</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">2</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkLabel" id="rename_preview_label">
-                                <property name="label" translatable="yes">Rename directory preview</property>
-                                <property name="margin-left">12</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">3</property>
-                                <property name="width">2</property>
-                            </packing>
-                        </child>
-                    </object>
-                </child>
-                <child internal-child="action_area">
-                    <object class="GtkButtonBox" id="button_box">
-                        <child>
-                            <object class="GtkButton" id="cancel_button">
-                                <property name="label" translatable="yes">_Cancel</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="rename_button">
-                                <property name="can-default">True</property>
-                                <property name="label" translatable="yes">_Rename</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                            </object>
-                        </child>
-                    </object>
-                </child>
-            </object>
-        </child>
-        <action-widgets>
-            <action-widget response="-10">rename_button</action-widget>
-            <action-widget response="-6">cancel_button</action-widget>
-        </action-widgets>
-    </object>
-    <object class="GtkGrid" id="browser_grid">
-        <property name="column-spacing">6</property>
-        <property name="row-spacing">6</property>
+    <template class="EtBrowser" parent="GtkBin">
+        <property name="border-width">2</property>
         <property name="visible">True</property>
         <child>
-            <object class="GtkComboBox" id="browser_combo">
-                <property name="has-entry">True</property>
-                <property name="model">directory_model</property>
-                <property name="entry-text-column">0</property>
-                <property name="hexpand">True</property>
-                <property name="tooltip-text" translatable="yes">Choose a directory to show in the browser</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkButton" id="open_button">
-                <property name="label" translatable="yes">_Open</property>
-                <property name="tooltip-text" translatable="yes">Select a directory to browse</property>
-                <property name="use-underline">True</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkLabel" id="files_label">
-                <property name="label" translatable="yes">No files</property>
-                <property name="visible">True</property>
-            </object>
-            <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">0</property>
-            </packing>
-        </child>
-        <child>
-            <object class="GtkPaned" id="browser_paned">
-                <property name="orientation">horizontal</property>
+            <object class="GtkGrid" id="browser_grid">
+                <property name="column-spacing">6</property>
+                <property name="row-spacing">6</property>
                 <property name="visible">True</property>
                 <child>
-                    <object class="GtkNotebook" id="directory_album_artist_notebook">
-                        <property name="show-border">False</property>
-                        <property name="show-tabs">False</property>
+                    <object class="GtkComboBox" id="entry_combo">
+                        <property name="has-entry">True</property>
+                        <property name="model">entry_model</property>
+                        <property name="entry-text-column">0</property>
+                        <property name="hexpand">True</property>
+                        <property name="tooltip-text" translatable="yes">Choose a directory to show in the browser</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkButton" id="open_button">
+                        <property name="label" translatable="yes">_Open</property>
+                        <property name="tooltip-text" translatable="yes">Select a directory to browse</property>
+                        <property name="use-underline">True</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkLabel" id="files_label">
+                        <property name="label" translatable="yes">No files</property>
+                        <property name="visible">True</property>
+                    </object>
+                    <packing>
+                        <property name="left-attach">2</property>
+                        <property name="top-attach">0</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkPaned" id="browser_paned">
+                        <property name="orientation">horizontal</property>
                         <property name="visible">True</property>
                         <child>
-                            <object class="GtkScrolledWindow" id="directory_scrolled">
+                            <object class="GtkNotebook" id="directory_album_artist_notebook">
+                                <property name="show-border">False</property>
+                                <property name="show-tabs">False</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkScrolledWindow" id="directory_scrolled">
+                                        <property name="expand">True</property>
+                                        <property name="min-content-height">225</property>
+                                        <property name="min-content-width">225</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkTreeView" id="directory_view">
+                                                <property name="model">directory_model</property>
+                                                <property name="headers-visible">False</property>
+                                                <property name="visible">True</property>
+                                                <signal name="button-press-event" handler="on_directory_tree_button_press_event"/>
+                                                <signal name="key-press-event" handler="Browser_Tree_Node_Selected"/>
+                                                <signal name="popup-menu" handler="on_directory_tree_popup_menu"/>
+                                                <signal name="row-collapsed" handler="collapse_cb" swapped="true"/>
+                                                <signal name="row-expanded" handler="expand_cb" swapped="true"/>
+                                                <child>
+                                                    <object class="GtkTreeViewColumn" id="directory_column">
+                                                        <property name="sizing">autosize</property>
+                                                        <child>
+                                                            <object class="GtkCellRendererPixbuf" id="directory_icon_renderer"/>
+                                                            <attributes>
+                                                                <attribute name="gicon">4</attribute>
+                                                            </attributes>
+                                                        </child>
+                                                        <child>
+                                                            <object class="GtkCellRendererText" id="directory_text_renderer"/>
+                                                            <attributes>
+                                                                <attribute name="text">0</attribute>
+                                                            </attributes>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                                <child internal-child="selection">
+                                                    <object class="GtkTreeSelection" id="directory_selection">
+                                                        <signal name="changed" handler="Browser_Tree_Node_Selected" swapped="true"/>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                </child>
+                                <child>
+                                    <object class="GtkPaned" id="artist_album_paned">
+                                        <property name="orientation">vertical</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkScrolledWindow" id="artist_scrolled">
+                                                <property name="expand">True</property>
+                                                <property name="min-content-height">225</property>
+                                                <property name="min-content-width">225</property>
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <object class="GtkTreeView" id="artist_view">
+                                                        <property name="model">artist_model</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="button-press-event" handler="on_artist_tree_button_press_event"/>
+                                                        <signal name="popup-menu" handler="on_artist_tree_popup_menu"/>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="artist_view_column">
+                                                                <property name="sizing">autosize</property>
+                                                                <property name="title" translatable="yes">Artist</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererPixbuf" id="artist_icon_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="pixbuf">0</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="artist_text_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="foreground-rgba">6</attribute>
+                                                                        <attribute name="text">1</attribute>
+                                                                        <attribute name="weight">5</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="artist_n_albums_column">
+                                                                <property name="sizing">autosize</property>
+                                                                <property name="title" translatable="yes"># Albums</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="artist_n_albums_text_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="foreground-rgba">6</attribute>
+                                                                        <attribute name="text">2</attribute>
+                                                                        <attribute name="weight">5</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="artist_n_files_column">
+                                                                <property name="sizing">autosize</property>
+                                                                <property name="title" translatable="yes"># Files</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="artist_n_files_text_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="foreground-rgba">6</attribute>
+                                                                        <attribute name="text">3</attribute>
+                                                                        <attribute name="weight">5</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkScrolledWindow" id="album_scrolled">
+                                                <property name="expand">True</property>
+                                                <property name="min-content-height">225</property>
+                                                <property name="min-content-width">225</property>
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <object class="GtkTreeView" id="album_view">
+                                                        <property name="model">album_model</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="button-press-event" handler="on_album_tree_button_press_event"/>
+                                                        <signal name="popup-menu" handler="on_album_tree_popup_menu"/>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="album_view_column">
+                                                                <property name="sizing">autosize</property>
+                                                                <property name="title" translatable="yes">Album</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererPixbuf" id="album_icon_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="gicon">0</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="album_text_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="foreground-rgba">5</attribute>
+                                                                        <attribute name="text">1</attribute>
+                                                                        <attribute name="weight">4</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="album_n_files_column">
+                                                                <property name="sizing">autosize</property>
+                                                                <property name="title" translatable="yes"># Files</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="album_n_files_text_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="foreground-rgba">5</attribute>
+                                                                        <attribute name="text">2</attribute>
+                                                                        <attribute name="weight">4</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                            <packing>
+                                                <property name="resize">True</property>
+                                                <property name="shrink">False</property>
+                                            </packing>
+                                        </child>
+                                    </object>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="resize">True</property>
+                                <property name="shrink">False</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkScrolledWindow" id="files_scrolled">
                                 <property name="expand">True</property>
                                 <property name="min-content-height">225</property>
                                 <property name="min-content-width">225</property>
                                 <property name="visible">True</property>
                                 <child>
-                                    <object class="GtkTreeView" id="directory_view">
-                                        <property name="model">tree_model</property>
-                                        <property name="headers-visible">False</property>
+                                    <object class="GtkTreeView" id="file_view">
+                                        <property name="model">file_model</property>
                                         <property name="visible">True</property>
+                                        <signal name="button-press-event" handler="on_file_tree_button_press_event"/>
+                                        <signal name="key-press-event" handler="Browser_List_Key_Press"/>
+                                        <signal name="popup-menu" handler="on_file_tree_popup_menu"/>
                                         <child>
-                                            <object class="GtkTreeViewColumn" id="directory_column">
-                                                <property name="sizing">autosize</property>
+                                            <object class="GtkTreeViewColumn" id="filename_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Filename</property>
                                                 <child>
-                                                    <object class="GtkCellRendererPixbuf" id="directory_icon_renderer"/>
+                                                    <object class="GtkCellRendererText" id="filename_renderer"/>
                                                     <attributes>
-                                                        <attribute name="gicon">4</attribute>
-                                                    </attributes>
-                                                </child>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="directory_text_renderer"/>
-                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
                                                         <attribute name="text">0</attribute>
+                                                        <attribute name="weight">18</attribute>
                                                     </attributes>
                                                 </child>
                                             </object>
                                         </child>
-                                    </object>
-                                </child>
-                            </object>
-                        </child>
-                        <child>
-                            <object class="GtkPaned" id="artist_album_paned">
-                                <property name="orientation">vertical</property>
-                                <property name="visible">True</property>
-                                <child>
-                                    <object class="GtkScrolledWindow" id="artist_scrolled">
-                                        <property name="expand">True</property>
-                                        <property name="min-content-height">225</property>
-                                        <property name="min-content-width">225</property>
-                                        <property name="visible">True</property>
                                         <child>
-                                            <object class="GtkTreeView" id="artist_view">
-                                                <property name="model">artist_model</property>
-                                                <property name="visible">True</property>
+                                            <object class="GtkTreeViewColumn" id="title_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Title</property>
                                                 <child>
-                                                    <object class="GtkTreeViewColumn" id="artist_view_column">
-                                                        <property name="sizing">autosize</property>
-                                                        <property name="title" translatable="yes">Artist</property>
-                                                        <child>
-                                                            <object class="GtkCellRendererPixbuf" id="artist_icon_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="pixbuf">0</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                        <child>
-                                                            <object class="GtkCellRendererText" id="artist_text_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="foreground-rgba">6</attribute>
-                                                                <attribute name="text">1</attribute>
-                                                                <attribute name="weight">5</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                    </object>
-                                                </child>
-                                                <child>
-                                                    <object class="GtkTreeViewColumn" id="artist_n_albums_column">
-                                                        <property name="sizing">autosize</property>
-                                                        <property name="title" translatable="yes"># Albums</property>
-                                                        <child>
-                                                            <object class="GtkCellRendererText" id="artist_n_albums_text_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="foreground-rgba">6</attribute>
-                                                                <attribute name="text">2</attribute>
-                                                                <attribute name="weight">5</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                    </object>
-                                                </child>
-                                                <child>
-                                                    <object class="GtkTreeViewColumn" id="artist_n_files_column">
-                                                        <property name="sizing">autosize</property>
-                                                        <property name="title" translatable="yes"># Files</property>
-                                                        <child>
-                                                            <object class="GtkCellRendererText" id="artist_n_files_text_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="foreground-rgba">6</attribute>
-                                                                <attribute name="text">3</attribute>
-                                                                <attribute name="weight">5</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                    </object>
+                                                    <object class="GtkCellRendererText" id="title_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">1</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
                                                 </child>
                                             </object>
                                         </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkScrolledWindow" id="album_scrolled">
-                                        <property name="expand">True</property>
-                                        <property name="min-content-height">225</property>
-                                        <property name="min-content-width">225</property>
-                                        <property name="visible">True</property>
                                         <child>
-                                            <object class="GtkTreeView" id="album_view">
-                                                <property name="model">album_model</property>
-                                                <property name="visible">True</property>
+                                            <object class="GtkTreeViewColumn" id="artist_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Artist</property>
                                                 <child>
-                                                    <object class="GtkTreeViewColumn" id="album_view_column">
-                                                        <property name="sizing">autosize</property>
-                                                        <property name="title" translatable="yes">Album</property>
-                                                        <child>
-                                                            <object class="GtkCellRendererPixbuf" id="album_icon_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="gicon">0</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                        <child>
-                                                            <object class="GtkCellRendererText" id="album_text_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="foreground-rgba">5</attribute>
-                                                                <attribute name="text">1</attribute>
-                                                                <attribute name="weight">4</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                    </object>
-                                                </child>
-                                                <child>
-                                                    <object class="GtkTreeViewColumn" id="album_n_files_column">
-                                                        <property name="sizing">autosize</property>
-                                                        <property name="title" translatable="yes"># Files</property>
-                                                        <child>
-                                                            <object class="GtkCellRendererText" id="album_n_files_text_renderer"/>
-                                                            <attributes>
-                                                                <attribute name="foreground-rgba">5</attribute>
-                                                                <attribute name="text">2</attribute>
-                                                                <attribute name="weight">4</attribute>
-                                                            </attributes>
-                                                        </child>
-                                                    </object>
+                                                    <object class="GtkCellRendererText" id="artist_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">2</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
                                                 </child>
                                             </object>
                                         </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="album_artist_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Album Artist</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="album_artist_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">3</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="album_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Album</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="album_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">4</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="year_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Year</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="year_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">5</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="disc_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Disc</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="disc_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">6</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="track_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Track</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="track_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">7</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="genre_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Genre</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="genre_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">8</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="comment_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Comment</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="comment_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">9</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="composer_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Composer</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="composer_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">10</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="orig_artist_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Original Artist</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="orig_artist_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">11</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="copyright_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Copyright</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="copyright_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">12</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="url_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">URL</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="url_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">13</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkTreeViewColumn" id="encoded_by_column">
+                                                <property name="clickable">True</property>
+                                                <property name="resizable">True</property>
+                                                <property name="title" translatable="yes">Encoded By</property>
+                                                <child>
+                                                    <object class="GtkCellRendererText" id="encoded_by_renderer"/>
+                                                    <attributes>
+                                                        <attribute name="background-rgba">19</attribute>
+                                                        <attribute name="foreground-rgba">20</attribute>
+                                                        <attribute name="text">14</attribute>
+                                                        <attribute name="weight">18</attribute>
+                                                    </attributes>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child internal-child="selection">
+                                            <object class="GtkTreeSelection" id="files_selection">
+                                                <property name="mode">multiple</property>
+                                            </object>
+                                        </child>
                                     </object>
-                                    <packing>
-                                        <property name="resize">True</property>
-                                        <property name="shrink">False</property>
-                                    </packing>
                                 </child>
                             </object>
                         </child>
                     </object>
                     <packing>
-                        <property name="resize">True</property>
-                        <property name="shrink">False</property>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                        <property name="width">3</property>
                     </packing>
                 </child>
-                <child>
-                    <object class="GtkScrolledWindow" id="files_scrolled">
-                        <property name="expand">True</property>
-                        <property name="min-content-height">225</property>
-                        <property name="min-content-width">225</property>
-                        <property name="visible">True</property>
-                        <child>
-                            <object class="GtkTreeView" id="files_view">
-                                <property name="model">files_model</property>
-                                <property name="visible">True</property>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="filename_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Filename</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="filename_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">0</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="title_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Title</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="title_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">1</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="artist_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Artist</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="artist_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">2</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="album_artist_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Album Artist</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="album_artist_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">3</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="album_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Album</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="album_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">4</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="year_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Year</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="year_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">5</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="disc_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Disc</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="disc_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">6</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="track_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Track</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="track_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">7</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="genre_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Genre</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="genre_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">8</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="comment_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Comment</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="comment_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">9</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="composer_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Composer</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="composer_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">10</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="orig_artist_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Original Artist</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="orig_artist_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">11</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="copyright_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Copyright</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="copyright_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">12</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="url_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">URL</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="url_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">13</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkTreeViewColumn" id="encoded_by_column">
-                                        <property name="clickable">True</property>
-                                        <property name="resizable">True</property>
-                                        <property name="title" translatable="yes">Encoded By</property>
-                                        <child>
-                                            <object class="GtkCellRendererText" id="encoded_by_renderer"/>
-                                            <attributes>
-                                                <attribute name="background-rgba">19</attribute>
-                                                <attribute name="foreground-rgba">20</attribute>
-                                                <attribute name="text">14</attribute>
-                                                <attribute name="weight">18</attribute>
-                                            </attributes>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child internal-child="selection">
-                                    <object class="GtkTreeSelection" id="files_selection">
-                                        <property name="mode">multiple</property>
-                                    </object>
-                                </child>
-                            </object>
-                        </child>
-                    </object>
-                </child>
             </object>
-            <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
-                <property name="width">3</property>
-            </packing>
         </child>
-    </object>
+    </template>
 </interface>
