@@ -61,10 +61,11 @@ typedef struct
     GtkListStore *album_list_model;
     GtkListStore *track_list_model;
 
-    GtkWidget *search_string_entry;
+    GtkWidget *search_entry;
 
     GtkWidget *apply_button;
-    GtkWidget *search_button;
+    GtkWidget *automatic_search_button;
+    GtkWidget *manual_search_button;
     GtkWidget *stop_search_button;
 
     GtkWidget *status_bar;
@@ -72,8 +73,33 @@ typedef struct
 
     gboolean stop_searching;
 
-    GtkWidget *run_scanner_toggle;
-    GtkWidget *use_dlm2_toggle; /* '2' as also used in prefs.c */
+    GtkWidget *artist_check;
+    GtkWidget *album_check;
+    GtkWidget *track_check;
+    GtkWidget *other_check;
+
+    GtkWidget *blues_check;
+    GtkWidget *classical_check;
+    GtkWidget *country_check;
+    GtkWidget *folk_check;
+    GtkWidget *jazz_check;
+    GtkWidget *misc_check;
+    GtkWidget *newage_check;
+    GtkWidget *reggae_check;
+    GtkWidget *rock_check;
+    GtkWidget *soundtrack_check;
+
+    GtkWidget *filename_check;
+    GtkWidget *title_check;
+    GtkWidget *fill_artist_check;
+    GtkWidget *fill_album_check;
+    GtkWidget *year_check;
+    GtkWidget *fill_track_check;
+    GtkWidget *track_total_check;
+    GtkWidget *genre_check;
+
+    GtkWidget *scanner_check;
+    GtkWidget *dlm_check;
 } EtCDDBDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtCDDBDialog, et_cddb_dialog, GTK_TYPE_DIALOG)
@@ -175,7 +201,6 @@ static const gchar *cddb_genre_vs_id3_genre [][2] =
 // File for result of the Cddb/Freedb request (on remote access)
 static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
 
-static const guint BOX_SPACING = 6;
 static const guint MAX_STRING_LEN = 1024;
 
 
@@ -232,16 +257,16 @@ update_search_button_sensitivity (EtCDDBDialog *self)
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    if (priv->search_button
-        && *(gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)))
+    if (priv->manual_search_button
+        && *(gtk_entry_get_text (GTK_ENTRY (priv->search_entry)))
         && (g_settings_get_flags (MainSettings, "cddb-search-fields") != 0)
         && (g_settings_get_flags (MainSettings, "cddb-search-categories") != 0))
     {
-        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_button), TRUE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->manual_search_button), TRUE);
     }
     else
     {
-        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_button), FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->manual_search_button), FALSE);
     }
 }
 
@@ -1511,7 +1536,7 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,"");
 
     /* Get words to search... */
-    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)));
+    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_entry)));
     if (et_str_empty (string))
     {
         return FALSE;
@@ -1847,7 +1872,7 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,"");
 
     /* Get words to search... */
-    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_string_entry)));
+    string = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->search_entry)));
     if (et_str_empty (string))
     {
         return FALSE;
@@ -2470,7 +2495,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_Manage_Changes_Of_File_Data (etfile, FileName, FileTag);
 
             /* Then run current scanner if requested. */
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->scanner_check)))
             {
                 EtScanDialog *dialog;
 
@@ -2601,7 +2626,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_Manage_Changes_Of_File_Data(etfile,FileName,FileTag);
 
             /* Then run current scanner if requested. */
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->run_scanner_toggle)))
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->scanner_check)))
             {
                 EtScanDialog *dialog;
 
@@ -2736,209 +2761,79 @@ Cddb_Destroy_Window (EtCDDBDialog *self)
 }
 
 static void
+init_search_field_check (GtkWidget *widget)
+{
+    g_object_set_data (G_OBJECT (widget), "flags-type",
+                       GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_FIELD));
+    g_settings_bind_with_mapping (MainSettings, "cddb-search-fields", widget,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_flags_toggle_get,
+                                  et_settings_flags_toggle_set, widget, NULL);
+}
+static void
+init_search_category_check (GtkWidget *widget)
+{
+    g_object_set_data (G_OBJECT (widget), "flags-type",
+                       GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
+    g_settings_bind_with_mapping (MainSettings, "cddb-search-categories",
+                                  widget, "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_flags_toggle_get,
+                                  et_settings_flags_toggle_set, widget, NULL);
+}
+
+static void
+init_set_field_check (GtkWidget *widget)
+{
+    g_object_set_data (G_OBJECT (widget), "flags-type",
+                       GSIZE_TO_POINTER (ET_TYPE_CDDB_SET_FIELD));
+    g_settings_bind_with_mapping (MainSettings, "cddb-set-fields", widget,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_flags_toggle_get,
+                                  et_settings_flags_toggle_set, widget, NULL);
+}
+
+static void
 create_cddb_dialog (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    GtkWidget *vbox;
-    GtkWidget *grid;
-    GtkWidget *button;
-    GtkWidget *tool_button;
-    GtkWidget *image;
     GtkTreePath *path;
-    GtkBuilder *builder;
-    GError *error = NULL;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
-    gtk_window_set_title (GTK_WINDOW (self), _("CDDB Search"));
-
-    g_signal_connect (self, "response",
-                      G_CALLBACK (et_cddb_dialog_on_response), NULL);
-    g_signal_connect (self, "delete-event",
-                      G_CALLBACK (gtk_widget_hide_on_delete), NULL);
-
-    vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
-    gtk_container_set_border_width (GTK_CONTAINER (self), BOX_SPACING);
-
-     /* Dialog content. */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/cddb_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get CDDB dialog from resource: %s",
-                 error->message);
-    }
-
-    grid = GTK_WIDGET (gtk_builder_get_object (builder, "cddb_grid"));
-    gtk_box_pack_start (GTK_BOX (vbox), grid, TRUE, TRUE, 0);
-
     /* Button to generate CddbId and request string from the selected files. */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "automatic_search_button"));
-    gtk_widget_set_can_default (button, TRUE);
-    gtk_widget_grab_default (button);
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (et_cddb_dialog_search_from_selection),
-                              self);
-
-    /* Button to stop the search. */
-    priv->stop_search_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "stop_button"));
-    g_signal_connect_swapped (priv->stop_search_button, "clicked",
-                              G_CALLBACK (stop_search), self);
-
-    /* Button to quit. */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "close_button"));
-    gtk_widget_set_can_default (button, TRUE);
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Cddb_Destroy_Window), self);
-
-    priv->search_string_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "search_entry"));
-    g_signal_connect_swapped (priv->search_string_entry, "activate",
-                              G_CALLBACK (Cddb_Search_Album_List_From_String),
-                              self);
+    gtk_widget_grab_default (priv->automatic_search_button);
 
     /* Set content of the clipboard if available. */
-    gtk_editable_paste_clipboard (GTK_EDITABLE (priv->search_string_entry));
+    gtk_editable_paste_clipboard (GTK_EDITABLE (priv->search_entry));
 
     /* Button to run the search. */
-    priv->search_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "manual_search_button"));
-    gtk_widget_set_can_default (priv->search_button, TRUE);
-    gtk_widget_grab_default (priv->search_button);
-    g_signal_connect_swapped (priv->search_button, "clicked",
-                              G_CALLBACK (Cddb_Search_Album_List_From_String),
-                              self);
-    g_signal_connect_swapped (GTK_ENTRY (priv->search_string_entry), "changed",
-                              G_CALLBACK (update_search_button_sensitivity),
-                              self);
+    gtk_widget_grab_default (priv->manual_search_button);
 
     /* Search options. */
-    {
-        gsize i;
-        static const struct
-        {
-            const gchar *id;
-        } ids[] =
-        {
-            { "artist_check" },
-            { "album_check" },
-            { "track_check" },
-            { "other_check" }
-        };
+    init_search_field_check (priv->artist_check);
+    init_search_field_check (priv->album_check);
+    init_search_field_check (priv->track_check);
+    init_search_field_check (priv->other_check);
 
-        for (i = 0; i < G_N_ELEMENTS (ids); i++)
-        {
-            GtkWidget *widget;
-
-            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
-            g_object_set_data (G_OBJECT (widget), "flags-type",
-                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_FIELD));
-            g_settings_bind_with_mapping (MainSettings, "cddb-search-fields",
-                                          widget, "active",
-                                          G_SETTINGS_BIND_DEFAULT,
-                                          et_settings_flags_toggle_get,
-                                          et_settings_flags_toggle_set,
-                                          widget, NULL);
-            g_signal_connect_swapped (widget, "toggled",
-                                      G_CALLBACK (update_search_button_sensitivity),
-                                      self);
-        }
-    }
-
-    {
-        gsize i;
-        static const struct
-        {
-            const gchar *id;
-        } ids[] =
-        {
-            { "blues_check" },
-            { "classical_check" },
-            { "country_check" },
-            { "folk_check" },
-            { "jazz_check" },
-            { "misc_check"  },
-            { "newage_check" },
-            { "reggae_check" },
-            { "rock_check" },
-            { "soundtrack_check" }
-        };
-
-        for (i = 0; i < G_N_ELEMENTS (ids); i++)
-        {
-            GtkWidget *widget;
-
-            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
-            g_object_set_data (G_OBJECT (widget), "flags-type",
-                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
-            g_settings_bind_with_mapping (MainSettings,
-                                          "cddb-search-categories", widget,
-                                          "active", G_SETTINGS_BIND_DEFAULT,
-                                          et_settings_flags_toggle_get,
-                                          et_settings_flags_toggle_set,
-                                          widget, NULL);
-            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
-                                      G_CALLBACK (update_search_button_sensitivity),
-                                      self);
-        }
-    }
-
-    /* Results command. */
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/unselect-all.png");
-    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                      "unselect_all_button"));
-    gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (tool_button), image);
-    g_signal_connect_swapped (tool_button, "clicked",
-                              G_CALLBACK (track_list_unselect_all), self);
-
-    image = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/invert-selection.png");
-    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                      "invert_button"));
-    gtk_tool_button_set_icon_widget (GTK_TOOL_BUTTON (tool_button), image);
-    g_signal_connect_swapped (tool_button, "clicked",
-                              G_CALLBACK (Cddb_Track_List_Invert_Selection),
-                              self);
-
-    tool_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                      "select_all_button"));
-    g_signal_connect_swapped (tool_button, "clicked",
-                              G_CALLBACK (track_list_select_all), self);
+    init_search_category_check (priv->blues_check);
+    init_search_category_check (priv->classical_check);
+    init_search_category_check (priv->country_check);
+    init_search_category_check (priv->folk_check);
+    init_search_category_check (priv->jazz_check);
+    init_search_category_check (priv->misc_check);
+    init_search_category_check (priv->newage_check);
+    init_search_category_check (priv->reggae_check);
+    init_search_category_check (priv->rock_check);
+    init_search_category_check (priv->soundtrack_check);
 
     /* Result of search. */
     /* List of albums. */
-    priv->album_list_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                     "album_list_model"));
-    priv->album_list_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "album_view"));
-
     path = gtk_tree_path_new_first ();
     gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->album_list_view), path, NULL,
                               FALSE);
     gtk_tree_path_free (path);
-    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list_view)),
-                              "changed", G_CALLBACK (show_album_info), self);
-    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->album_list_view)),
-                              "changed",
-                              G_CALLBACK (Cddb_Get_Album_Tracks_List_CB),
-                              self);
 
     /* List of tracks. */
-    priv->track_list_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                     "track_list_model"));
-    priv->track_list_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "track_view"));
-    g_signal_connect_swapped (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->track_list_view)),
-                              "changed",
-                              G_CALLBACK (Cddb_Track_List_Row_Selected), self);
-    g_signal_connect_swapped (priv->track_list_view, "button-press-event",
-                              G_CALLBACK (on_track_list_button_press_event),
-                              self);
-
     gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (priv->track_list_model),
                                      SORT_LIST_NUMBER,
                                      Cddb_Track_List_Sort_Func,
@@ -2948,74 +2843,32 @@ create_cddb_dialog (EtCDDBDialog *self)
                                      GINT_TO_POINTER (SORT_LIST_NAME), NULL);
 
     /* Apply results to fields.  */
-    {
-        gsize i;
-        static const struct
-        {
-            const gchar *id;
-        } ids[] =
-        {
-            { "filename_check" },
-            { "title_check" },
-            { "fill_artist_check" },
-            { "fill_album_check" },
-            { "year_check" },
-            { "fill_track_check" },
-            { "track_total_check" },
-            { "genre_check" }
-        };
-
-        for (i = 0; i < G_N_ELEMENTS (ids); i++)
-        {
-            GtkWidget *widget;
-
-            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
-            g_object_set_data (G_OBJECT (widget), "flags-type",
-                               GSIZE_TO_POINTER (ET_TYPE_CDDB_SET_FIELD));
-            g_settings_bind_with_mapping (MainSettings, "cddb-set-fields",
-                                          widget, "active",
-                                          G_SETTINGS_BIND_DEFAULT,
-                                          et_settings_flags_toggle_get,
-                                          et_settings_flags_toggle_set,
-                                          widget, NULL);
-            g_signal_connect_swapped (G_OBJECT (widget), "toggled",
-                                      G_CALLBACK (update_apply_button_sensitivity),
-                                      self);
-        }
-    }
+    init_set_field_check (priv->filename_check);
+    init_set_field_check (priv->title_check);
+    init_set_field_check (priv->fill_artist_check);
+    init_set_field_check (priv->fill_album_check);
+    init_set_field_check (priv->year_check);
+    init_set_field_check (priv->fill_track_check);
+    init_set_field_check (priv->track_total_check);
+    init_set_field_check (priv->genre_check);
 
     /* Check box to run the scanner. */
-    priv->run_scanner_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "scanner_check"));
     g_settings_bind (MainSettings, "cddb-run-scanner",
-                     priv->run_scanner_toggle, "active",
+                     priv->scanner_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Check box to use DLM (also used in the preferences window). */
-    priv->use_dlm2_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "dlm_check"));
-    g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->use_dlm2_toggle,
+    g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->dlm_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    /* Button to apply. */
-    priv->apply_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                             "apply_button"));
-    g_signal_connect_swapped (priv->apply_button, "clicked",
-                              G_CALLBACK (Cddb_Set_Track_Infos_To_File_List),
-                              self);
-
     /* Status bar. */
-    priv->status_bar = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                           "cddb_bar"));
     priv->status_bar_context = gtk_statusbar_get_context_id (GTK_STATUSBAR (priv->status_bar),
                                                              "Messages");
     gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
                         priv->status_bar_context, _("Ready to search"));
 
-    g_signal_emit_by_name (priv->search_string_entry, "changed");
+    g_signal_emit_by_name (priv->search_entry, "changed");
     priv->stop_searching = FALSE;
-
-    g_object_unref (builder);
 }
 
 /*
@@ -3765,13 +3618,115 @@ et_cddb_dialog_finalize (GObject *object)
 static void
 et_cddb_dialog_init (EtCDDBDialog *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_cddb_dialog (self);
 }
 
 static void
 et_cddb_dialog_class_init (EtCDDBDialogClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
     G_OBJECT_CLASS (klass)->finalize = et_cddb_dialog_finalize;
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/cddb_dialog.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  album_list_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  album_list_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  track_list_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  track_list_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  search_entry);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  apply_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  automatic_search_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  manual_search_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  stop_search_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  status_bar);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  album_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  track_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  other_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  blues_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  classical_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  country_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  folk_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  jazz_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  misc_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  newage_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  reggae_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  rock_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  soundtrack_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  filename_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  title_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  fill_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  fill_album_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  year_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  fill_track_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  track_total_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  genre_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  dlm_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtCDDBDialog,
+                                                  scanner_check);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             et_cddb_dialog_on_response);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             et_cddb_dialog_search_from_selection);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             on_track_list_button_press_event);
+    gtk_widget_class_bind_template_callback (widget_class, show_album_info);
+    gtk_widget_class_bind_template_callback (widget_class, stop_search);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             track_list_select_all);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             track_list_unselect_all);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             update_apply_button_sensitivity);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             update_search_button_sensitivity);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Destroy_Window);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Get_Album_Tracks_List_CB);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Set_Track_Infos_To_File_List);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Search_Album_List_From_String);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Track_List_Invert_Selection);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Cddb_Track_List_Row_Selected);
 }
 
 /*
