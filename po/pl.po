@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-29 20:52+0200\n"
-"PO-Revision-Date: 2015-03-29 20:54+0200\n"
+"POT-Creation-Date: 2015-05-03 20:24+0200\n"
+"PO-Revision-Date: 2015-05-03 20:25+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -103,8 +103,8 @@ msgstr "_Otwórz"
 #: ../data/browser.ui.h:5 ../data/tag_area.ui.h:3
 #: ../src/application_window.c:343 ../src/application_window.c:357
 #: ../src/application_window.c:3032 ../src/browser.c:863 ../src/browser.c:3782
-#: ../src/cddb_dialog.c:2306 ../src/easytag.c:471 ../src/easytag.c:478
-#: ../src/easytag.c:603 ../src/playlist_dialog.c:669 ../src/tag_area.c:1516
+#: ../src/cddb_dialog.c:2306 ../src/easytag.c:467 ../src/easytag.c:474
+#: ../src/easytag.c:599 ../src/playlist_dialog.c:669 ../src/tag_area.c:1516
 #: ../src/tag_area.c:1868
 msgid "_Cancel"
 msgstr "_Anuluj"
@@ -124,7 +124,7 @@ msgstr ""
 "Proszę podać program do uruchomienia, otrzyma on bieżące pliki jako parametr"
 
 #. Only directories changed
-#: ../data/browser.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:569
+#: ../data/browser.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:565
 msgid "Rename Directory"
 msgstr "Zmień nazwę katalogu"
 
@@ -165,7 +165,7 @@ msgstr "Proszę wybrać katalog do wyświetlenia w przeglądarce"
 msgid "Select a directory to browse"
 msgstr "Proszę wybrać katalog do przeglądania"
 
-#: ../data/browser.ui.h:19 ../src/easytag.c:1074
+#: ../data/browser.ui.h:19 ../src/easytag.c:947
 msgid "No files"
 msgstr "Brak plików"
 
@@ -1959,9 +1959,9 @@ msgid "Rename file preview"
 msgstr "Podgląd zmiany nazwy pliku"
 
 #. Only filename changed
-#: ../data/scan_dialog.ui.h:51 ../src/easytag.c:578
+#: ../data/scan_dialog.ui.h:51 ../src/easytag.c:574
 msgid "Rename File"
-msgstr "Zmień nazwę pliku"
+msgstr "Zmiana nazwy pliku"
 
 #: ../data/scan_dialog.ui.h:52
 msgid "Tag Fields"
@@ -2196,12 +2196,12 @@ msgstr "Z_najdź"
 msgid "In:"
 msgstr "W:"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
+#. This option is for the previous
 #: ../data/search_dialog.ui.h:6
 msgid "the Filename"
 msgstr "Nazwa pliku"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
+#. This option is for the previous
 #: ../data/search_dialog.ui.h:8
 msgid "the Tag"
 msgstr "Etykieta"
@@ -3156,7 +3156,7 @@ msgstr "Nie można otworzyć ścieżki \"%s\""
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Na pewno usunąć plik \"%s\"?"
 
-#: ../src/application_window.c:340 ../src/easytag.c:466 ../src/easytag.c:599
+#: ../src/application_window.c:340 ../src/easytag.c:462 ../src/easytag.c:595
 msgid "Repeat action for the remaining files"
 msgstr "Powtórzenie działania dla pozostałych plików"
 
@@ -3243,7 +3243,7 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/application_window.c:2369 ../src/easytag.c:1007
+#: ../src/application_window.c:2369 ../src/easytag.c:880
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Plik: \"%s\""
@@ -3257,18 +3257,18 @@ msgstr "Prawidłowe zakończenie działania"
 msgid "Some files have been modified but not saved"
 msgstr "Niektóre pliki zostały zmodyfikowane, ale nie zostały zapisane"
 
-#: ../src/application_window.c:3031 ../src/browser.c:862 ../src/easytag.c:250
-#: ../src/easytag.c:470 ../src/easytag.c:602 ../src/easytag.c:610
+#: ../src/application_window.c:3031 ../src/browser.c:862 ../src/easytag.c:246
+#: ../src/easytag.c:466 ../src/easytag.c:598 ../src/easytag.c:606
 msgid "_Discard"
 msgstr "O_drzuć"
 
-#: ../src/application_window.c:3033 ../src/browser.c:864 ../src/easytag.c:251
-#: ../src/easytag.c:472 ../src/easytag.c:479 ../src/easytag.c:604
-#: ../src/easytag.c:611 ../src/playlist_dialog.c:670 ../src/tag_area.c:1870
+#: ../src/application_window.c:3033 ../src/browser.c:864 ../src/easytag.c:247
+#: ../src/easytag.c:468 ../src/easytag.c:475 ../src/easytag.c:600
+#: ../src/easytag.c:607 ../src/playlist_dialog.c:670 ../src/tag_area.c:1870
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: ../src/application_window.c:3037 ../src/easytag.c:256
+#: ../src/application_window.c:3037 ../src/easytag.c:252
 msgid "Quit"
 msgstr "Zakończ"
 
@@ -3327,7 +3327,7 @@ msgstr "Proszę użyć innej nazwy."
 msgid "The directory name ‘%s’ already exists."
 msgstr "Nazwa katalogu \"%s\" już istnieje."
 
-#: ../src/browser.c:4445 ../src/easytag.c:657
+#: ../src/browser.c:4445 ../src/easytag.c:653
 msgid "Rename File Error"
 msgstr "Błąd zmiany nazwy pliku"
 
@@ -3734,7 +3734,7 @@ msgstr ""
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
 msgstr "Ciąg \"%s\" nie może zostać przekonwertowany na UTF-8: %s"
 
-#: ../src/easytag.c:246
+#: ../src/easytag.c:242
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
@@ -3742,108 +3742,108 @@ msgstr[0] "Plik został zmieniony przez zewnętrzny program"
 msgstr[1] "%d pliki zostały zmienione przez zewnętrzny program"
 msgstr[2] "%d plików zostało zmienionych przez zewnętrzny program"
 
-#: ../src/easytag.c:255
+#: ../src/easytag.c:251
 msgid "Do you want to continue saving the file?"
 msgstr "Kontynuować zapisywanie pliku?"
 
-#: ../src/easytag.c:316 ../src/easytag.c:337
+#: ../src/easytag.c:312 ../src/easytag.c:333
 msgid "Saving files was stopped"
 msgstr "Zatrzymano zapisywanie plików"
 
-#: ../src/easytag.c:339
+#: ../src/easytag.c:335
 msgid "All files have been saved"
 msgstr "Wszystkie pliki zostały zapisane"
 
-#: ../src/easytag.c:459
+#: ../src/easytag.c:455
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
 msgstr "Zapisać etykietę pliku \"%s\"?"
 
-#: ../src/easytag.c:461
+#: ../src/easytag.c:457
 msgid "Confirm Tag Writing"
 msgstr "Potwierdzenie zapisania etykiety"
 
 #. Directories and filename changed
-#: ../src/easytag.c:562
+#: ../src/easytag.c:558
 msgid "Rename File and Directory"
 msgstr "Zmiana nazw plików i katalogów"
 
-#: ../src/easytag.c:563
+#: ../src/easytag.c:559
 msgid "File and directory rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy pliku i katalogu"
 
-#: ../src/easytag.c:564
+#: ../src/easytag.c:560
 #, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę pliku i katalogu z \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:570
+#: ../src/easytag.c:566
 msgid "Directory rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy katalogu"
 
-#: ../src/easytag.c:571
+#: ../src/easytag.c:567
 #, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę katalogu \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:579
+#: ../src/easytag.c:575
 msgid "File rename confirmation required"
 msgstr "Wymagane jest potwierdzenie zmiany nazwy pliku"
 
-#: ../src/easytag.c:580
+#: ../src/easytag.c:576
 #, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
 msgstr "Zmienić nazwę pliku \"%s\" na \"%s\"?"
 
-#: ../src/easytag.c:650
+#: ../src/easytag.c:646
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
 msgstr "Nie można zmienić nazwy pliku \"%s\" na \"%s\""
 
-#: ../src/easytag.c:664
+#: ../src/easytag.c:660
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
 msgstr "Nie można zmienić nazwy pliku \"%s\" na \"%s\": %s"
 
-#: ../src/easytag.c:669
+#: ../src/easytag.c:665
 msgid "File(s) not renamed"
 msgstr "Pliki, którym nie zmieniono nazwy"
 
-#: ../src/easytag.c:854
+#: ../src/easytag.c:727
 #, c-format
 msgid "Writing tag of ‘%s’"
 msgstr "Zapisywanie etykiety pliku \"%s\""
 
-#: ../src/easytag.c:862
+#: ../src/easytag.c:735
 #, c-format
 msgid "Wrote tag of ‘%s’"
 msgstr "Zapisano etykietę pliku \"%s\""
 
-#: ../src/easytag.c:878
+#: ../src/easytag.c:751
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
 msgstr "Nie można zapisać etykiety w pliku \"%s\""
 
-#: ../src/easytag.c:882
+#: ../src/easytag.c:755
 msgid "Tag Write Error"
 msgstr "Błąd zapisu etykiety"
 
-#: ../src/easytag.c:957 ../src/easytag.c:1184
+#: ../src/easytag.c:830 ../src/easytag.c:1057
 #, c-format
 msgid "Cannot read directory ‘%s’"
 msgstr "Nie można odczytać katalogu \"%s\""
 
-#: ../src/easytag.c:961
+#: ../src/easytag.c:834
 msgid "Directory Read Error"
 msgstr "Błąd odczytu katalogu"
 
 #. Read the directory recursively
-#: ../src/easytag.c:982
+#: ../src/easytag.c:855
 #, c-format
 msgid "Search in progress…"
 msgstr "Trwa wyszukiwanie…"
 
-#: ../src/easytag.c:1054
+#: ../src/easytag.c:927
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %u files in this directory and subdirectories"
@@ -3851,7 +3851,7 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu i jego podkatalogach"
 msgstr[1] "Odnaleziono %u pliki w tym katalogu i jego podkatalogach"
 msgstr[2] "Odnaleziono %u plików w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1061
+#: ../src/easytag.c:934
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %u files in this directory"
@@ -3859,28 +3859,28 @@ msgstr[0] "Odnaleziono jeden plik w tym katalogu"
 msgstr[1] "Odnaleziono %u pliki w tym katalogu"
 msgstr[2] "Odnaleziono %u plików w tym katalogu"
 
-#: ../src/easytag.c:1078
+#: ../src/easytag.c:951
 msgid "No file found in this directory and subdirectories"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu i jego podkatalogach"
 
-#: ../src/easytag.c:1080
+#: ../src/easytag.c:953
 msgid "No file found in this directory"
 msgstr "Nie odnaleziono żadnego pliku w tym katalogu"
 
-#: ../src/easytag.c:1150
+#: ../src/easytag.c:1023
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
 msgstr "Błąd podczas otwierania katalogu \"%s\": %s"
 
-#: ../src/easytag.c:1204
+#: ../src/easytag.c:1077
 msgid "Searching for audio files…"
 msgstr "Wyszukiwanie plików dźwiękowych…"
 
-#: ../src/easytag.c:1205
+#: ../src/easytag.c:1078
 msgid "Searching"
 msgstr "Wyszukiwanie"
 
-#: ../src/easytag.c:1206
+#: ../src/easytag.c:1079
 msgid "_Stop"
 msgstr "_Zatrzymaj"
 
@@ -3971,11 +3971,11 @@ msgstr "Przesuń ten wiersz w dół"
 msgid "Load Filenames From a Text File"
 msgstr "Wczytaj nazwy plików z pliku tekstowego"
 
-#: ../src/misc.c:179
+#: ../src/misc.c:181
 msgid "You must type a program name"
 msgstr "Należy wprowadzić nazwę programu"
 
-#: ../src/misc.c:180
+#: ../src/misc.c:182
 msgid "Program Name Error"
 msgstr "Błąd nazwy programu"
 
