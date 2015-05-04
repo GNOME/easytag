@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014,2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -43,44 +43,57 @@
 typedef struct
 {
     GtkListStore *rename_masks_model;
-    GtkListStore *scan_tag_masks_model;
+    GtkListStore *fill_masks_model;
 
-    GtkWidget *mask_editor_entry;
-    GtkWidget *mask_editor_view;
+    GtkWidget *mask_entry;
+    GtkWidget *mask_view;
 
     GtkWidget *notebook;
     GtkWidget *fill_grid;
     GtkWidget *rename_grid;
 
-    GtkWidget *scan_tag_mask_combo;
-    GtkWidget *rename_file_mask_combo;
+    GtkWidget *fill_combo;
+    GtkWidget *rename_combo;
 
-    GtkWidget *legend_frame;
-    GtkWidget *mask_editor_frame;
+    GtkWidget *legend_grid;
+    GtkWidget *editor_grid;
 
     GtkWidget *legend_toggle;
     GtkWidget *mask_editor_toggle;
 
-    GtkWidget *process_convert_to_space_toggle;
-    GtkWidget *process_convert_to_underscores_toggle;
-    GtkWidget *process_convert_toggle;
-    GtkWidget *process_convert_label;
+    GtkWidget *process_filename_check;
+    GtkWidget *process_title_check;
+    GtkWidget *process_artist_check;
+    GtkWidget *process_album_artist_check;
+    GtkWidget *process_album_check;
+    GtkWidget *process_genre_check;
+    GtkWidget *process_comment_check;
+    GtkWidget *process_composer_check;
+    GtkWidget *process_orig_artist_check;
+    GtkWidget *process_copyright_check;
+    GtkWidget *process_url_check;
+    GtkWidget *process_encoded_by_check;
 
-    GtkWidget *process_all_uppercase_toggle;
-    GtkWidget *process_all_lowercase_toggle;
-    GtkWidget *process_first_uppercase_toggle;
-    GtkWidget *process_first_style_uppercase_toggle;
-    GtkWidget *process_roman_numerals_check;
+    GtkWidget *convert_space_radio;
+    GtkWidget *convert_underscores_radio;
+    GtkWidget *convert_string_radio;
+    GtkWidget *convert_none_radio;
+    GtkWidget *convert_to_entry;
+    GtkWidget *convert_from_entry;
+    GtkWidget *convert_to_label;
 
-    GtkWidget *process_remove_space_toggle;
-    GtkWidget *process_insert_space_toggle;
-    GtkWidget *process_insert_one_space_toggle;
+    GtkWidget *capitalize_all_radio;
+    GtkWidget *capitalize_lower_radio;
+    GtkWidget *capitalize_first_radio;
+    GtkWidget *capitalize_first_style_radio;
+    GtkWidget *capitalize_roman_check;
 
-    GtkWidget *process_convert_to_entry;
-    GtkWidget *process_convert_from_entry;
+    GtkWidget *spaces_remove_radio;
+    GtkWidget *spaces_insert_radio;
+    GtkWidget *spaces_insert_one_radio;
 
-    GtkWidget *fill_tag_preview_label;
-    GtkWidget *rename_file_preview_label;
+    GtkWidget *fill_preview_label;
+    GtkWidget *rename_preview_label;
 } EtScanDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtScanDialog, et_scan_dialog, GTK_TYPE_DIALOG)
@@ -337,7 +350,7 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo)))));
+    mask = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->fill_combo)))));
     if (!mask) return;
 
     // Create a new File_Tag item
@@ -636,7 +649,7 @@ Scan_Fill_Tag_Generate_Preview (EtScanDialog *self)
         || gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) != ET_SCAN_MODE_FILL_TAG)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->scan_tag_mask_combo)))));
+    mask = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->fill_combo)))));
     if (!mask)
         return;
 
@@ -662,15 +675,16 @@ Scan_Fill_Tag_Generate_Preview (EtScanDialog *self)
 
     Scan_Free_File_Fill_Tag_List(fill_tag_list);
 
-    if (GTK_IS_LABEL(priv->fill_tag_preview_label))
+    if (GTK_IS_LABEL (priv->fill_preview_label))
     {
         if (preview_text)
         {
-            //gtk_label_set_text(GTK_LABEL(priv->fill_tag_preview_label),preview_text);
-            gtk_label_set_markup(GTK_LABEL(priv->fill_tag_preview_label),preview_text);
+            //gtk_label_set_text(GTK_LABEL(priv->fill_preview_label),preview_text);
+            gtk_label_set_markup (GTK_LABEL (priv->fill_preview_label),
+                                  preview_text);
         } else
         {
-            gtk_label_set_text(GTK_LABEL(priv->fill_tag_preview_label),"");
+            gtk_label_set_text (GTK_LABEL (priv->fill_preview_label), "");
         }
 
         /* Force the window to be redrawn. */
@@ -690,33 +704,35 @@ Scan_Rename_File_Generate_Preview (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    if (!ETCore->ETFileDisplayed
-    || !priv->rename_file_mask_combo || !priv->rename_file_preview_label)
+    if (!ETCore->ETFileDisplayed || !priv->rename_combo
+        || !priv->rename_preview_label)
+    {
         return;
+    }
 
     if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) != ET_SCAN_MODE_RENAME_FILE)
         return;
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo)))));
+    mask = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_combo)))));
     if (!mask)
         return;
 
     preview_text = et_scan_generate_new_filename_from_mask (ETCore->ETFileDisplayed,
                                                             mask, FALSE);
 
-    if (GTK_IS_LABEL(priv->rename_file_preview_label))
+    if (GTK_IS_LABEL (priv->rename_preview_label))
     {
         if (preview_text)
         {
-            //gtk_label_set_text(GTK_LABEL(priv->rename_file_preview_label),preview_text);
+            //gtk_label_set_text(GTK_LABEL(priv->rename_preview_label),preview_text);
             gchar *tmp_string = g_markup_printf_escaped("%s",preview_text); // To avoid problem with strings containing characters like '&'
             gchar *str = g_strdup_printf("<i>%s</i>",tmp_string);
-            gtk_label_set_markup(GTK_LABEL(priv->rename_file_preview_label),str);
+            gtk_label_set_markup (GTK_LABEL (priv->rename_preview_label), str);
             g_free(tmp_string);
             g_free(str);
         } else
         {
-            gtk_label_set_text(GTK_LABEL(priv->rename_file_preview_label),"");
+            gtk_label_set_text (GTK_LABEL (priv->rename_preview_label), "");
         }
 
         /* Force the window to be redrawn. */
@@ -780,7 +796,7 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    mask = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo)))));
+    mask = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_combo)))));
     if (!mask) return;
 
     // Note : if the first character is '/', we have a path with the filename,
@@ -1120,7 +1136,7 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
     path_utf8_cur = g_path_get_dirname(filename_utf8_cur);
 
     /* The current text in the combobox. */
-    combo_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo))));
+    combo_text = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_combo))));
 
     // If the path already exists we don't add it again
     // Use g_utf8_collate_key instead of strncmp
@@ -1135,7 +1151,8 @@ Scan_Rename_File_Prefix_Path (EtScanDialog *self)
             path_tmp = g_strconcat(path_utf8_cur,G_DIR_SEPARATOR_S,NULL);
         }
 	pos = 0;
-        gtk_editable_insert_text(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(priv->rename_file_mask_combo))),path_tmp, -1, &pos);
+        gtk_editable_insert_text (GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (priv->rename_combo))),
+                                  path_tmp, -1, &pos);
         g_free(path_tmp);
     }
 
@@ -1169,9 +1186,9 @@ Scan_Convert_Character (EtScanDialog *self, gchar **string)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    from = gtk_editable_get_chars (GTK_EDITABLE (priv->process_convert_from_entry), 0,
+    from = gtk_editable_get_chars (GTK_EDITABLE (priv->convert_from_entry), 0,
                                  -1);
-    to = gtk_editable_get_chars (GTK_EDITABLE (priv->process_convert_to_entry), 0, -1);
+    to = gtk_editable_get_chars (GTK_EDITABLE (priv->convert_to_entry), 0, -1);
 
     regex = g_regex_new (from, 0, 0, &regex_error);
     if (regex_error != NULL)
@@ -1236,7 +1253,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
     }
 
     /* FIXME: Use GSettings keys instead of toggle buton states. */
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_space_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_insert_radio)))
     {
         gchar *res;
         res = Scan_Process_Fields_Insert_Space (*string);
@@ -1244,10 +1261,12 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_insert_one_space_toggle)))
-        Scan_Process_Fields_Keep_One_Space(*string);
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_insert_one_radio)))
+    {
+        Scan_Process_Fields_Keep_One_Space (*string);
+    }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_all_uppercase_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_all_radio)))
     {
         gchar *res;
         res = Scan_Process_Fields_All_Uppercase (*string);
@@ -1255,7 +1274,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_all_lowercase_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_lower_radio)))
     {
         gchar *res;
         res = Scan_Process_Fields_All_Downcase (*string);
@@ -1263,7 +1282,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_first_uppercase_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_first_radio)))
     {
         gchar *res;
         res = Scan_Process_Fields_Letter_Uppercase (*string);
@@ -1271,7 +1290,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_first_style_uppercase_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_first_style_radio)))
     {
         gboolean uppercase_preps;
         gboolean handle_roman;
@@ -1284,7 +1303,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
                                                      handle_roman);
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_remove_space_toggle)))
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_remove_radio)))
         Scan_Process_Fields_Remove_Space(*string);
 
 }
@@ -1584,7 +1603,8 @@ on_scan_mode_changed (EtScanDialog *self,
         case ET_SCAN_MODE_FILL_TAG:
             gtk_widget_show(priv->mask_editor_toggle);
             gtk_widget_show(priv->legend_toggle);
-            gtk_tree_view_set_model(GTK_TREE_VIEW(priv->mask_editor_view), GTK_TREE_MODEL(priv->scan_tag_masks_model));
+            gtk_tree_view_set_model (GTK_TREE_VIEW (priv->mask_view),
+                                     GTK_TREE_MODEL (priv->fill_masks_model));
             Scan_Fill_Tag_Generate_Preview (self);
             g_signal_emit_by_name(G_OBJECT(priv->legend_toggle),"toggled");        /* To hide or show legend frame */
             g_signal_emit_by_name(G_OBJECT(priv->mask_editor_toggle),"toggled");    /* To hide or show mask editor frame */
@@ -1593,7 +1613,8 @@ on_scan_mode_changed (EtScanDialog *self,
         case ET_SCAN_MODE_RENAME_FILE:
             gtk_widget_show(priv->mask_editor_toggle);
             gtk_widget_show(priv->legend_toggle);
-            gtk_tree_view_set_model(GTK_TREE_VIEW(priv->mask_editor_view), GTK_TREE_MODEL(priv->rename_masks_model));
+            gtk_tree_view_set_model (GTK_TREE_VIEW (priv->mask_view),
+                                     GTK_TREE_MODEL (priv->rename_masks_model));
             Scan_Rename_File_Generate_Preview (self);
             g_signal_emit_by_name(G_OBJECT(priv->legend_toggle),"toggled");        /* To hide or show legend frame */
             g_signal_emit_by_name(G_OBJECT(priv->mask_editor_toggle),"toggled");    /* To hide or show mask editor frame */
@@ -1603,10 +1624,10 @@ on_scan_mode_changed (EtScanDialog *self,
             gtk_widget_hide(priv->mask_editor_toggle);
             gtk_widget_hide(priv->legend_toggle);
             // Hide directly the frames to don't change state of the buttons!
-            gtk_widget_hide(priv->legend_frame);
-            gtk_widget_hide(priv->mask_editor_frame);
+            gtk_widget_hide (priv->legend_grid);
+            gtk_widget_hide (priv->editor_grid);
 
-            gtk_tree_view_set_model(GTK_TREE_VIEW(priv->mask_editor_view), NULL);
+            gtk_tree_view_set_model (GTK_TREE_VIEW (priv->mask_view), NULL);
             break;
         default:
             g_assert_not_reached ();
@@ -1618,34 +1639,34 @@ on_scan_mode_changed (EtScanDialog *self,
     {
         GtkWidget *parent;
 
-        parent = gtk_widget_get_parent (priv->mask_editor_frame);
+        parent = gtk_widget_get_parent (priv->editor_grid);
 
         if ((mode == ET_SCAN_MODE_RENAME_FILE && parent != priv->rename_grid)
             || (mode == ET_SCAN_MODE_FILL_TAG && parent != priv->fill_grid))
         {
-            g_object_ref (priv->mask_editor_frame);
-            g_object_ref (priv->legend_frame);
+            g_object_ref (priv->editor_grid);
+            g_object_ref (priv->legend_grid);
             gtk_container_remove (GTK_CONTAINER (parent),
-                                  priv->mask_editor_frame);
-            gtk_container_remove (GTK_CONTAINER (parent), priv->legend_frame);
+                                  priv->editor_grid);
+            gtk_container_remove (GTK_CONTAINER (parent), priv->legend_grid);
 
             if (mode == ET_SCAN_MODE_RENAME_FILE)
             {
                 gtk_container_add (GTK_CONTAINER (priv->rename_grid),
-                                   priv->mask_editor_frame);
+                                   priv->editor_grid);
                 gtk_container_add (GTK_CONTAINER (priv->rename_grid),
-                                   priv->legend_frame);
+                                   priv->legend_grid);
             }
             else
             {
                 gtk_container_add (GTK_CONTAINER (priv->fill_grid),
-                                   priv->mask_editor_frame);
+                                   priv->editor_grid);
                 gtk_container_add (GTK_CONTAINER (priv->fill_grid),
-                                   priv->legend_frame);
+                                   priv->legend_grid);
             }
 
-            g_object_unref (priv->mask_editor_frame);
-            g_object_unref (priv->legend_frame);
+            g_object_unref (priv->editor_grid);
+            g_object_unref (priv->legend_grid);
         }
     }
 }
@@ -1660,7 +1681,7 @@ Mask_Editor_List_Add (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) != ET_SCAN_MODE_FILL_TAG)
     {
@@ -1704,7 +1725,7 @@ Mask_Editor_Clean_Up_Masks_List (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     /* Remove blank and duplicate items */
     if (gtk_tree_model_get_iter_first(treemodel, &currentIter))
@@ -1763,7 +1784,7 @@ Mask_Editor_Clean_Up_Masks_List (EtScanDialog *self)
  * Save the currently displayed mask list in the mask editor
  */
 static void
-Mask_Editor_List_Save_Button (EtScanDialog *self)
+Mask_Editor_List_Save (EtScanDialog *self)
 {
     EtScanDialogPrivate *priv;
 
@@ -1773,7 +1794,7 @@ Mask_Editor_List_Save_Button (EtScanDialog *self)
 
     if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) == ET_SCAN_MODE_FILL_TAG)
     {
-        Save_Scan_Tag_Masks_List(priv->scan_tag_masks_model, MASK_EDITOR_TEXT);
+        Save_Scan_Tag_Masks_List (priv->fill_masks_model, MASK_EDITOR_TEXT);
     }
     else if (gtk_notebook_get_current_page (GTK_NOTEBOOK (priv->notebook)) == ET_SCAN_MODE_RENAME_FILE)
     {
@@ -1788,8 +1809,8 @@ Process_Fields_First_Letters_Check_Button_Toggled (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    gtk_widget_set_sensitive (GTK_WIDGET (priv->process_roman_numerals_check),
-                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_first_style_uppercase_toggle)));
+    gtk_widget_set_sensitive (GTK_WIDGET (priv->capitalize_roman_check),
+                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_first_style_radio)));
 }
 
 /*
@@ -1806,40 +1827,40 @@ on_process_fields_changed (EtScanDialog *self,
 
     if (g_settings_get_flags (settings, key) != 0)
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_space_toggle),     TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_underscores_toggle),         TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_toggle),              TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_label),       TRUE);
+        gtk_widget_set_sensitive (priv->convert_space_radio, TRUE);
+        gtk_widget_set_sensitive (priv->convert_underscores_radio, TRUE);
+        gtk_widget_set_sensitive (priv->convert_string_radio, TRUE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->convert_to_label), TRUE);
         // Activate the two entries only if the check box is activated, else keep them disabled
-        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->process_convert_toggle)))
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->convert_string_radio)))
         {
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_entry),        TRUE);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_from_entry),      TRUE);
+            gtk_widget_set_sensitive (priv->convert_to_entry, TRUE);
+            gtk_widget_set_sensitive (priv->convert_from_entry, TRUE);
         }
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_all_uppercase_toggle),         TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_all_lowercase_toggle),          TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_first_uppercase_toggle), TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_first_style_uppercase_toggle),TRUE);
+        gtk_widget_set_sensitive (priv->capitalize_all_radio, TRUE);
+        gtk_widget_set_sensitive (priv->capitalize_lower_radio, TRUE);
+        gtk_widget_set_sensitive (priv->capitalize_first_radio, TRUE);
+        gtk_widget_set_sensitive (priv->capitalize_first_style_radio, TRUE);
         Process_Fields_First_Letters_Check_Button_Toggled (self);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_remove_space_toggle),          TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_insert_space_toggle),          TRUE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_insert_one_space_toggle),         TRUE);
+        gtk_widget_set_sensitive (priv->spaces_remove_radio, TRUE);
+        gtk_widget_set_sensitive (priv->spaces_insert_radio, TRUE);
+        gtk_widget_set_sensitive (priv->spaces_insert_one_radio, TRUE);
     }else
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_space_toggle),     FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_underscores_toggle),         FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_toggle),              FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_to_entry),            FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_label),       FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_convert_from_entry),          FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_all_uppercase_toggle),         FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_all_lowercase_toggle),          FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_first_uppercase_toggle), FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_first_style_uppercase_toggle),FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_roman_numerals_check),  FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_remove_space_toggle),          FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_insert_space_toggle),          FALSE);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->process_insert_one_space_toggle),         FALSE);
+        gtk_widget_set_sensitive (priv->convert_space_radio, FALSE);
+        gtk_widget_set_sensitive (priv->convert_underscores_radio, FALSE);
+        gtk_widget_set_sensitive (priv->convert_string_radio, FALSE);
+        gtk_widget_set_sensitive (priv->convert_to_entry, FALSE);
+        gtk_widget_set_sensitive (priv->convert_to_label, FALSE);
+        gtk_widget_set_sensitive (priv->convert_from_entry, FALSE);
+        gtk_widget_set_sensitive (priv->capitalize_all_radio, FALSE);
+        gtk_widget_set_sensitive (priv->capitalize_lower_radio, FALSE);
+        gtk_widget_set_sensitive (priv->capitalize_first_radio, FALSE);
+        gtk_widget_set_sensitive (priv->capitalize_first_style_radio, FALSE);
+        gtk_widget_set_sensitive (priv->capitalize_roman_check,  FALSE);
+        gtk_widget_set_sensitive (priv->spaces_remove_radio, FALSE);
+        gtk_widget_set_sensitive (priv->spaces_insert_radio, FALSE);
+        gtk_widget_set_sensitive (priv->spaces_insert_one_radio, FALSE);
     }
 }
 
@@ -1852,11 +1873,11 @@ Scan_Toggle_Legend_Button (EtScanDialog *self)
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->legend_toggle)))
     {
-        gtk_widget_show_all (priv->legend_frame);
+        gtk_widget_show_all (priv->legend_grid);
     }
     else
     {
-        gtk_widget_hide (priv->legend_frame);
+        gtk_widget_hide (priv->legend_grid);
     }
 }
 
@@ -1872,22 +1893,22 @@ Scan_Toggle_Mask_Editor_Button (EtScanDialog *self)
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->mask_editor_toggle)))
     {
-        gtk_widget_show_all(priv->mask_editor_frame);
+        gtk_widget_show_all (priv->editor_grid);
 
         // Select first row in list
-        treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+        treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
         if (gtk_tree_model_get_iter_first(treemodel, &iter))
         {
-            selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
+            selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
             gtk_tree_selection_unselect_all(selection);
             gtk_tree_selection_select_iter(selection, &iter);
         }
 
         // Update status of the icon box cause prev instruction show it for all cases
-        g_signal_emit_by_name(G_OBJECT(priv->mask_editor_entry),"changed");
+        g_signal_emit_by_name (G_OBJECT (priv->mask_entry), "changed");
     }else
     {
-        gtk_widget_hide(priv->mask_editor_frame);
+        gtk_widget_hide (priv->editor_grid);
     }
 }
 
@@ -1907,8 +1928,8 @@ Mask_Editor_Entry_Changed (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     if (!selectedRows)
@@ -1917,7 +1938,7 @@ Mask_Editor_Entry_Changed (EtScanDialog *self)
     }
 
     firstSelected = (GtkTreePath *)g_list_first(selectedRows)->data;
-    text = gtk_entry_get_text(GTK_ENTRY(priv->mask_editor_entry));
+    text = gtk_entry_get_text (GTK_ENTRY (priv->mask_entry));
 
     if (gtk_tree_model_get_iter (treemodel, &row, firstSelected))
     {
@@ -1944,11 +1965,12 @@ Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     /* We must block the function, else the previous selected row will be modified */
-    g_signal_handlers_block_by_func(G_OBJECT(priv->mask_editor_entry),
-                                    G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
+    g_signal_handlers_block_by_func (G_OBJECT (priv->mask_entry),
+                                     G_CALLBACK (Mask_Editor_Entry_Changed),
+                                     NULL);
 
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
@@ -1957,8 +1979,9 @@ Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, EtScanDialog *self)
      */
     if (!selectedRows)
     {
-        g_signal_handlers_unblock_by_func(G_OBJECT(priv->mask_editor_entry),
-                                          G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
+        g_signal_handlers_unblock_by_func (G_OBJECT (priv->mask_entry),
+                                           G_CALLBACK (Mask_Editor_Entry_Changed),
+                                           NULL);
         return;
     }
 
@@ -1972,13 +1995,14 @@ Mask_Editor_List_Row_Selected (GtkTreeSelection* selection, EtScanDialog *self)
 
         if (text)
         {
-            gtk_entry_set_text(GTK_ENTRY(priv->mask_editor_entry),text);
+            gtk_entry_set_text (GTK_ENTRY (priv->mask_entry), text);
             g_free(text);
         }
     }
 
-    g_signal_handlers_unblock_by_func(G_OBJECT(priv->mask_editor_entry),
-                                      G_CALLBACK(Mask_Editor_Entry_Changed),NULL);
+    g_signal_handlers_unblock_by_func (G_OBJECT (priv->mask_entry),
+                                       G_CALLBACK (Mask_Editor_Entry_Changed),
+                                       NULL);
 
     g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
@@ -1996,8 +2020,8 @@ Mask_Editor_List_Remove (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     if (gtk_tree_selection_count_selected_rows(selection) == 0) {
         g_critical ("%s", "Remove: No row selected");
@@ -2067,8 +2091,8 @@ Mask_Editor_List_New (EtScanDialog *self)
     priv = et_scan_dialog_get_instance_private (self);
 
     text = _("New_mask");
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     gtk_list_store_insert(GTK_LIST_STORE(treemodel), &iter, 0);
     gtk_list_store_set(GTK_LIST_STORE(treemodel), &iter, MASK_EDITOR_TEXT, text, -1);
@@ -2094,8 +2118,8 @@ Mask_Editor_List_Move_Up (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     if (!selectedRows)
@@ -2139,8 +2163,8 @@ Mask_Editor_List_Move_Down (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
-    treemodel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
+    treemodel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
 
     if (!selectedRows)
@@ -2204,9 +2228,9 @@ Mask_Editor_List_Duplicate (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->mask_editor_view));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_view));
     selectedRows = gtk_tree_selection_get_selected_rows(selection, NULL);
-    treeModel = gtk_tree_view_get_model(GTK_TREE_VIEW(priv->mask_editor_view));
+    treeModel = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->mask_view));
 
     if (!selectedRows)
     {
@@ -2237,7 +2261,7 @@ Mask_Editor_List_Duplicate (EtScanDialog *self)
     /* Set focus to the last inserted line. */
     if (toInsert)
     {
-        Mask_Editor_List_Set_Row_Visible (GTK_TREE_VIEW (priv->mask_editor_view),
+        Mask_Editor_List_Set_Row_Visible (GTK_TREE_VIEW (priv->mask_view),
                                           treeModel, &rowIter);
     }
 
@@ -2253,10 +2277,10 @@ Process_Fields_Convert_Check_Button_Toggled (EtScanDialog *self, GtkWidget *obje
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    gtk_widget_set_sensitive (priv->process_convert_to_entry,
-                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle)));
-    gtk_widget_set_sensitive (priv->process_convert_from_entry,
-                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->process_convert_toggle)));
+    gtk_widget_set_sensitive (priv->convert_to_entry,
+                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->convert_string_radio)));
+    gtk_widget_set_sensitive (priv->convert_from_entry,
+                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->convert_string_radio)));
 }
 
 /* Make sure that the Show Scanner toggle action is updated. */
@@ -2269,22 +2293,25 @@ et_scan_on_hide (GtkWidget *widget,
 }
 
 static void
+init_process_field_check (GtkWidget *widget)
+{
+    g_object_set_data (G_OBJECT (widget), "flags-type",
+                       GSIZE_TO_POINTER (ET_TYPE_PROCESS_FIELD));
+    g_settings_bind_with_mapping (MainSettings, "process-fields", widget,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_flags_toggle_get,
+                                  et_settings_flags_toggle_set, widget, NULL);
+}
+
+static void
 create_scan_dialog (EtScanDialog *self)
 {
     EtScanDialogPrivate *priv;
     GtkWidget *scan_button;
-    GtkWidget *ScanVBox;
-    GtkWidget *button;
-    GtkWidget *icon;
-    GtkWidget *process_fields_convert_none;
-    GtkBuilder *builder;
-    GError *error = NULL;
 
     priv = et_scan_dialog_get_instance_private (self);
 
     /* The window */
-    gtk_window_set_title (GTK_WINDOW (self), _("Tag and Filename Scan"));
-    gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
     gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
                             GTK_RESPONSE_CLOSE, NULL);
 
@@ -2297,35 +2324,6 @@ create_scan_dialog (EtScanDialog *self)
     gtk_widget_show (scan_button);
     gtk_widget_set_tooltip_text (scan_button, _("Scan selected files"));
 
-    /* The response signal handles close, scan and the delete event. */
-    g_signal_connect (self, "response", G_CALLBACK (et_scan_on_response),
-                      NULL);
-    g_signal_connect (self, "delete-event",
-                      G_CALLBACK (gtk_widget_hide_on_delete), NULL);
-    g_signal_connect (self, "hide", G_CALLBACK (et_scan_on_hide), NULL);
-
-    /* The main vbox */
-    ScanVBox = gtk_dialog_get_content_area (GTK_DIALOG (self));
-    gtk_container_set_border_width (GTK_CONTAINER (self), 6);
-    gtk_box_set_spacing (GTK_BOX (ScanVBox), 12);
-
-    /*
-     * The hbox for mode buttons + buttons + what to scan
-     */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/scan_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get scanner dialog from resource: %s",
-                 error->message);
-    }
-
-    priv->notebook = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                         "scan_notebook"));
-    gtk_container_add (GTK_CONTAINER (ScanVBox), priv->notebook);
     g_settings_bind_with_mapping (MainSettings, "scan-mode", priv->notebook,
                                   "page", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,
@@ -2334,89 +2332,38 @@ create_scan_dialog (EtScanDialog *self)
                               G_CALLBACK (on_scan_mode_changed),
                               self);
 
-    priv->fill_grid = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "fill_grid"));
-    priv->rename_grid = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "rename_grid"));
-
-    /* Options button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "scanner_preferences_button"));
-    g_signal_connect (button, "clicked", G_CALLBACK (Scan_Option_Button),
-                      NULL);
-
     /* Mask Editor button */
-    priv->mask_editor_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "scanner_mask_toggle"));
-    icon = gtk_image_new_from_resource ("/org/gnome/EasyTAG/images/mask.png");
-    gtk_button_set_image (GTK_BUTTON (priv->mask_editor_toggle), icon);
     g_settings_bind (MainSettings, "scan-mask-editor-show",
                      priv->mask_editor_toggle, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect_swapped (priv->mask_editor_toggle, "toggled",
-                              G_CALLBACK (Scan_Toggle_Mask_Editor_Button),
-                              self);
 
-    /* Legend button */
-    priv->legend_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "scanner_legend_toggle"));
     g_settings_bind (MainSettings, "scan-legend-show", priv->legend_toggle,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect_swapped (priv->legend_toggle, "toggled",
-                              G_CALLBACK (Scan_Toggle_Legend_Button),
-                              self);
-
-    /* Frame for Scan Tag. */
-    /* Set up list model which is used both by the combobox and the editor. */
-    priv->scan_tag_masks_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                         "fill_masks_model"));
-
-    /* The combo box to select the mask to apply. */
-    priv->scan_tag_mask_combo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "fill_combo"));
 
     /* Signal to generate preview (preview of the new tag values). */
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->fill_combo)),
                               "changed",
                               G_CALLBACK (Scan_Fill_Tag_Generate_Preview),
                               self);
 
     /* Load masks into the combobox from a file. */
-    Load_Scan_Tag_Masks_List (priv->scan_tag_masks_model, MASK_EDITOR_TEXT,
+    Load_Scan_Tag_Masks_List (priv->fill_masks_model, MASK_EDITOR_TEXT,
                               Scan_Masks);
     g_settings_bind (MainSettings, "scan-tag-default-mask",
-                     gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
+                     gtk_bin_get_child (GTK_BIN (priv->fill_combo)),
                      "text", G_SETTINGS_BIND_DEFAULT);
-    Add_String_To_Combo_List (priv->scan_tag_masks_model,
-                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)))));
+    Add_String_To_Combo_List (priv->fill_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->fill_combo)))));
 
     /* Mask status icon. Signal connection to check if mask is correct in the
      * mask entry. */
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->fill_combo)),
                       "changed", G_CALLBACK (entry_check_scan_tag_mask),
                       NULL);
 
-    /* Preview label. */
-    priv->fill_tag_preview_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                       "fill_preview_label"));
-
     /* Frame for Rename File. */
-    /* Button to prefix path. */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "rename_prefix_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Scan_Rename_File_Prefix_Path), self);
-
-    /* Set up list model which is used both by the combobox and the editor. */
-    priv->rename_masks_model = GTK_LIST_STORE (gtk_builder_get_object (builder,
-                                                                       "rename_masks_model"));
-
-    /* The combo box to select the mask to apply. */
-    priv->rename_file_mask_combo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                       "rename_combo"));
-
     /* Signal to generate preview (preview of the new filename). */
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->rename_combo)),
                               "changed",
                               G_CALLBACK (Scan_Rename_File_Generate_Preview),
                               self);
@@ -2425,245 +2372,108 @@ create_scan_dialog (EtScanDialog *self)
     Load_Rename_File_Masks_List (priv->rename_masks_model, MASK_EDITOR_TEXT,
                                  Rename_File_Masks);
     g_settings_bind (MainSettings, "rename-file-default-mask",
-                     gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
+                     gtk_bin_get_child (GTK_BIN (priv->rename_combo)),
                      "text", G_SETTINGS_BIND_DEFAULT);
     Add_String_To_Combo_List (priv->rename_masks_model,
-                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)))));
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_combo)))));
 
     /* Mask status icon. Signal connection to check if mask is correct to the
      * mask entry. */
-    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
+    g_signal_connect (gtk_bin_get_child (GTK_BIN (priv->rename_combo)),
                       "changed", G_CALLBACK (entry_check_rename_file_mask),
                       NULL);
 
-    /* Preview label */
-    priv->rename_file_preview_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                          "rename_preview_label"));
-
-    /* Frame for Processing Fields. */
     /* Group: select entry fields to process */
-    {
-        gsize i;
-        static const struct
-        {
-            const gchar *id;
-        } ids[] =
-        {
-            { "process_filename_check" },
-            { "process_title_check" },
-            { "process_artist_check" },
-            { "process_album_artist_check" },
-            { "process_album_check" },
-            { "process_genre_check" },
-            { "process_comment_check" },
-            { "process_composer_check" },
-            { "process_orig_artist_check" },
-            { "process_copyright_check" },
-            { "process_url_check" },
-            { "process_encoded_by_check" }
-        };
-
-        for (i = 0; i < G_N_ELEMENTS (ids); i++)
-        {
-            GtkWidget *widget;
-
-            widget = GTK_WIDGET (gtk_builder_get_object (builder, ids[i].id));
-            g_object_set_data (G_OBJECT (widget), "flags-type",
-                               GSIZE_TO_POINTER (ET_TYPE_PROCESS_FIELD));
-            g_settings_bind_with_mapping (MainSettings, "process-fields",
-                                          widget, "active",
-                                          G_SETTINGS_BIND_DEFAULT,
-                                          et_settings_flags_toggle_get,
-                                          et_settings_flags_toggle_set, widget,
-                                          NULL);
-        }
-    }
+    init_process_field_check (priv->process_filename_check);
+    init_process_field_check (priv->process_title_check);
+    init_process_field_check (priv->process_artist_check);
+    init_process_field_check (priv->process_album_artist_check);
+    init_process_field_check (priv->process_album_check);
+    init_process_field_check (priv->process_genre_check);
+    init_process_field_check (priv->process_comment_check);
+    init_process_field_check (priv->process_composer_check);
+    init_process_field_check (priv->process_orig_artist_check);
+    init_process_field_check (priv->process_copyright_check);
+    init_process_field_check (priv->process_url_check);
+    init_process_field_check (priv->process_encoded_by_check);
 
     g_signal_connect_swapped (MainSettings, "changed::process-fields",
                               G_CALLBACK (on_process_fields_changed), self);
 
     /* Group: character conversion */
-    priv->process_convert_to_space_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "convert_space_radio"));
-    priv->process_convert_to_underscores_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "convert_underscores_radio"));
-    priv->process_convert_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                       "convert_string_radio"));
-    priv->process_convert_from_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                           "convert_from_entry"));
-    priv->process_convert_to_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                         "convert_to_entry"));
-    priv->process_convert_label = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                      "convert_to_label"));
-    process_fields_convert_none = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                      "convert_none_radio"));
-
-    /* Toggled signals */
-    g_signal_connect_swapped (priv->process_convert_toggle, "toggled",
-                              G_CALLBACK (Process_Fields_Convert_Check_Button_Toggled),
-                              self);
-    /* Set check buttons to init value */
     g_settings_bind_with_mapping (MainSettings, "process-convert",
-                                  priv->process_convert_to_space_toggle,
-                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  priv->convert_space_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->process_convert_to_space_toggle, NULL);
+                                  priv->convert_space_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "process-convert",
-                                  priv->process_convert_to_underscores_toggle,
-                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  priv->convert_underscores_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->process_convert_to_underscores_toggle,
-                                  NULL);
+                                  priv->convert_underscores_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "process-convert",
-                                  priv->process_convert_toggle,
-                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  priv->convert_string_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->process_convert_toggle, NULL);
+                                  priv->convert_string_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "process-convert",
-                                  process_fields_convert_none,
-                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  priv->convert_none_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  process_fields_convert_none, NULL);
+                                  priv->convert_none_radio, NULL);
     g_settings_bind (MainSettings, "process-convert-characters-from",
-                     priv->process_convert_from_entry, "text",
+                     priv->convert_from_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-convert-characters-to",
-                     priv->process_convert_to_entry, "text",
-                     G_SETTINGS_BIND_DEFAULT);
+                     priv->convert_to_entry, "text", G_SETTINGS_BIND_DEFAULT);
 
     /* Group: capitalize, ... */
-    priv->process_all_uppercase_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                             "capitalize_all_radio"));
-    priv->process_all_lowercase_toggle  = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                              "capitalize_lower_radio"));
-    priv->process_first_uppercase_toggle  = GTK_WIDGET (gtk_builder_get_object (builder, "capitalize_first_radio"));
-    priv->process_first_style_uppercase_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "capitalize_first_style_radio"));
-    priv->process_roman_numerals_check = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                             "capitalize_roman_check"));
-    /* Toggled signals */
-    g_signal_connect_swapped (priv->process_first_style_uppercase_toggle,
-                              "toggled",
-                              G_CALLBACK (Process_Fields_First_Letters_Check_Button_Toggled),
-                              self);
-    /* Set check buttons to init value */
     g_settings_bind (MainSettings, "process-uppercase-all",
-                     priv->process_all_uppercase_toggle, "active",
+                     priv->capitalize_all_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-lowercase-all",
-                     priv->process_all_lowercase_toggle, "active",
+                     priv->capitalize_lower_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-uppercase-first-letters",
-                     priv->process_first_uppercase_toggle, "active",
+                     priv->capitalize_first_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-detect-roman-numerals",
-                     priv->process_roman_numerals_check, "active",
+                     priv->capitalize_roman_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Group: insert/remove spaces */
-    priv->process_remove_space_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                            "spaces_remove_radio"));
-    priv->process_insert_space_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                            "spaces_insert_radio"));
-    priv->process_insert_one_space_toggle = GTK_WIDGET (gtk_builder_get_object (builder, "spaces_insert_one_radio"));
-    /* Set check buttons to init value */
     g_settings_bind (MainSettings, "process-remove-spaces",
-                     priv->process_remove_space_toggle, "active",
+                     priv->spaces_remove_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-insert-capital-spaces",
-                     priv->process_insert_space_toggle, "active",
+                     priv->spaces_insert_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-remove-duplicate-spaces",
-                     priv->process_insert_one_space_toggle, "active",
+                     priv->spaces_insert_one_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     on_process_fields_changed (self, "process-fields", MainSettings);
 
     /*
      * Frame to display codes legend
      */
-    priv->legend_frame = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                             "legend_grid"));
-
-    /* Masks Editor. */
-    priv->mask_editor_frame = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "editor_grid"));
-
-    /* The list */
-    priv->mask_editor_view = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "mask_view"));
-
-    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_editor_view)),
-                                 GTK_SELECTION_MULTIPLE);
-    g_signal_connect_after (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->mask_editor_view)),
-                            "changed",
-                            G_CALLBACK (Mask_Editor_List_Row_Selected), self);
-    g_signal_connect (priv->mask_editor_view, "key-press-event",
-                      G_CALLBACK (Mask_Editor_List_Key_Press), self);
-    /* The entry */
-    priv->mask_editor_entry = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "mask_entry"));
-    g_signal_connect_swapped (priv->mask_editor_entry, "changed",
-                              G_CALLBACK (Mask_Editor_Entry_Changed), self);
-    /* Mask status icon. */
-    /* Signal connection to check if mask is correct into the mask entry. */
-    g_signal_connect (priv->mask_editor_entry, "changed",
-                      G_CALLBACK (entry_check_scan_tag_mask), NULL);
-
     /* The buttons part */
-    /* New mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_new_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_New), self);
-
-    /* Move up mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_up_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Move_Up), self);
-
-    /* Move down mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_down_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Move_Down), self);
-
-    /* Copy mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_copy_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Duplicate), self);
-
-    /* Add mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_add_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Add), self);
-
-    /* Remove mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "mask_remove_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Remove), self);
-
-    /* Save mask button */
-    button = GTK_WIDGET (gtk_builder_get_object (builder, "mask_save_button"));
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (Mask_Editor_List_Save_Button), self);
-
     /* To initialize the mask status icon and visibility */
-    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)),
+    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->fill_combo)),
                            "changed");
-    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)),
+    g_signal_emit_by_name (gtk_bin_get_child (GTK_BIN (priv->rename_combo)),
                            "changed");
-    g_signal_emit_by_name (priv->mask_editor_entry, "changed");
+    g_signal_emit_by_name (priv->mask_entry, "changed");
     g_signal_emit_by_name (priv->legend_toggle, "toggled"); /* To hide legend frame */
     g_signal_emit_by_name (priv->mask_editor_toggle, "toggled"); /* To hide mask editor frame */
-    g_signal_emit_by_name (priv->process_convert_toggle, "toggled"); /* To enable / disable entries */
-    g_signal_emit_by_name (priv->process_roman_numerals_check, "toggled"); /* To enable / disable entries */
-
-    gtk_widget_show_all (ScanVBox);
+    g_signal_emit_by_name (priv->convert_string_radio, "toggled"); /* To enable / disable entries */
+    g_signal_emit_by_name (priv->capitalize_roman_check, "toggled"); /* To enable / disable entries */
 
     /* Activate the current menu in the option menu. */
     on_scan_mode_changed (self, "scan-mode", MainSettings);
-
-    g_object_unref (builder);
 }
 
 /*
@@ -2710,13 +2520,13 @@ et_scan_dialog_apply_changes (EtScanDialog *self)
     priv = et_scan_dialog_get_instance_private (self);
 
     /* Save default masks. */
-    Add_String_To_Combo_List (priv->scan_tag_masks_model,
-                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->scan_tag_mask_combo)))));
-    Save_Rename_File_Masks_List(priv->scan_tag_masks_model, MASK_EDITOR_TEXT);
+    Add_String_To_Combo_List (priv->fill_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->fill_combo)))));
+    Save_Rename_File_Masks_List (priv->fill_masks_model, MASK_EDITOR_TEXT);
 
-    Add_String_To_Combo_List(priv->rename_masks_model,
-                             gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_file_mask_combo)))));
-    Save_Rename_File_Masks_List(priv->rename_masks_model, MASK_EDITOR_TEXT);
+    Add_String_To_Combo_List (priv->rename_masks_model,
+                              gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->rename_combo)))));
+    Save_Rename_File_Masks_List (priv->rename_masks_model, MASK_EDITOR_TEXT);
 }
 
 
@@ -2968,12 +2778,141 @@ et_scan_on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
 static void
 et_scan_dialog_init (EtScanDialog *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_scan_dialog (self);
 }
 
 static void
 et_scan_dialog_class_init (EtScanDialogClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/scan_dialog.ui");
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  notebook);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  fill_grid);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  fill_combo);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  rename_grid);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  rename_combo);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  mask_editor_toggle);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  fill_masks_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  rename_masks_model);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  mask_view);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  mask_entry);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  legend_grid);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  editor_grid);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  legend_toggle);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  mask_editor_toggle);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_filename_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_title_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_album_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_album_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_genre_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_comment_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_composer_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_orig_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_copyright_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_url_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  process_encoded_by_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_space_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_underscores_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_string_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_none_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_to_entry);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_from_entry);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  convert_to_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_all_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_lower_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_first_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_first_style_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_roman_check);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  spaces_remove_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  spaces_insert_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  spaces_insert_one_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  fill_preview_label);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  rename_preview_label);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             entry_check_scan_tag_mask);
+    gtk_widget_class_bind_template_callback (widget_class, et_scan_on_hide);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             et_scan_on_response);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_Entry_Changed);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Add);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Add);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Duplicate);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Key_Press);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Move_Down);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Move_Up);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_New);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Remove);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Row_Selected);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Mask_Editor_List_Save);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Process_Fields_Convert_Check_Button_Toggled);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Process_Fields_First_Letters_Check_Button_Toggled);
+    gtk_widget_class_bind_template_callback (widget_class, Scan_Option_Button);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Scan_Rename_File_Prefix_Path);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Scan_Toggle_Legend_Button);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             Scan_Toggle_Mask_Editor_Button);
 }
 
 /*
