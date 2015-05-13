@@ -581,7 +581,7 @@ on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
         case GTK_RESPONSE_OK:
             write_button_clicked (ET_PLAYLIST_DIALOG (dialog));
             break;
-        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_CLOSE:
             gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
@@ -650,14 +650,10 @@ static void
 create_playlist_dialog (EtPlaylistDialog *self)
 {
     EtPlaylistDialogPrivate *priv;
-    GtkDialog *dialog;
 
     priv = et_playlist_dialog_get_instance_private (self);
-    dialog = GTK_DIALOG (self);
 
-    gtk_dialog_add_buttons (dialog, _("_Cancel"), GTK_RESPONSE_CANCEL,
-                            _("_Save"), GTK_RESPONSE_OK, NULL);
-    gtk_dialog_set_default_response (dialog, GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
 
     /* Playlist name */
     g_settings_bind (MainSettings, "playlist-filename-mask",

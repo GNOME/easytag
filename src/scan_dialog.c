@@ -2307,22 +2307,10 @@ static void
 create_scan_dialog (EtScanDialog *self)
 {
     EtScanDialogPrivate *priv;
-    GtkWidget *scan_button;
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    /* The window */
-    gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
-                            GTK_RESPONSE_CLOSE, NULL);
-
-    /* 'Scan selected files' button */
-    scan_button = gtk_button_new_with_label (_("Scan Files"));
-    gtk_widget_set_can_default (scan_button, TRUE);
-    gtk_dialog_add_action_widget (GTK_DIALOG (self), scan_button,
-                                  GTK_RESPONSE_APPLY);
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
-    gtk_widget_show (scan_button);
-    gtk_widget_set_tooltip_text (scan_button, _("Scan selected files"));
 
     g_settings_bind_with_mapping (MainSettings, "scan-mode", priv->notebook,
                                   "page", G_SETTINGS_BIND_DEFAULT,
