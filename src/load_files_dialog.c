@@ -1130,8 +1130,19 @@ et_load_files_dialog_class_init (EtLoadFilesDialogClass *klass)
 EtLoadFilesDialog *
 et_load_files_dialog_new (GtkWindow *parent)
 {
+    GtkSettings *settings;
+    gboolean use_header_bar = FALSE;
+
     g_return_val_if_fail (GTK_WINDOW (parent), NULL);
 
+    settings = gtk_settings_get_default ();
+
+    if (settings)
+    {
+        g_object_get (settings, "gtk-dialogs-use-header", &use_header_bar,
+                      NULL);
+    }
+
     return g_object_new (ET_TYPE_LOAD_FILES_DIALOG, "transient-for", parent,
-                         NULL);
+                         "use-header-bar", use_header_bar, NULL);
 }

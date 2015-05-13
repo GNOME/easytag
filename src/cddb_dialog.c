@@ -3075,5 +3075,17 @@ et_cddb_dialog_class_init (EtCDDBDialogClass *klass)
 EtCDDBDialog *
 et_cddb_dialog_new (void)
 {
-    return g_object_new (ET_TYPE_CDDB_DIALOG, NULL);
+    GtkSettings *settings;
+    gboolean use_header_bar = FALSE;
+
+    settings = gtk_settings_get_default ();
+
+    if (settings)
+    {
+        g_object_get (settings, "gtk-dialogs-use-header", &use_header_bar,
+                      NULL);
+    }
+
+    return g_object_new (ET_TYPE_CDDB_DIALOG, "use-header-bar", use_header_bar,
+                         NULL);
 }
