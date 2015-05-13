@@ -1,5 +1,5 @@
 <interface domain="easytag">
-    <requires lib="gtk+" version="3.10"/>
+    <requires lib="gtk+" version="3.14"/>
     <object class="GtkListStore" id="file_content_model">
         <columns>
             <column type="gchararray"/>
@@ -315,6 +315,24 @@
                 </child>
             </object>
         </child>
+        <child type="action">
+            <object class="GtkButton" id="close_button">
+                <property name="label" translatable="yes">_Close</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child type="action">
+            <object class="GtkButton" id="apply_button">
+                <property name="can-default">True</property>
+                <property name="label" translatable="yes">_Apply</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <action-widgets>
+            <action-widget response="-7">close_button</action-widget>
+            <action-widget response="-10">apply_button</action-widget>
+        </action-widgets>
     </template>
 </interface>
-

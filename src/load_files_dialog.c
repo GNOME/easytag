@@ -175,7 +175,7 @@ on_response (GtkDialog *dialog, gint response_id, gpointer user_data)
         case GTK_RESPONSE_APPLY:
             Load_Filename_Set_Filenames (ET_LOAD_FILES_DIALOG (dialog));
             break;
-        case GTK_RESPONSE_CANCEL:
+        case GTK_RESPONSE_CLOSE:
             gtk_widget_hide (GTK_WIDGET (dialog));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
@@ -1002,9 +1002,6 @@ create_load_files_dialog (EtLoadFilesDialog *self)
 
     priv = et_load_files_dialog_get_instance_private (self);
 
-    gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"),
-                            GTK_RESPONSE_CANCEL, _("_Apply"),
-                            GTK_RESPONSE_APPLY, NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
 
     /* Initial value. */

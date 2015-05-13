@@ -58,7 +58,7 @@ Installation
 ### Requirements
 
 * GLib version greater than 2.38.0 (http://www.gtk.org)
-* GTK+ version greater than 3.10.0 (http://www.gtk.org)
+* GTK+ version greater than 3.14.0 (http://www.gtk.org)
 * libid3tag (http://www.underbit.com/products/mad) (if not deactivated by './configure --disable-mp3')
 * id3lib version greater than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3) (if not deactivated by './configure --disable-id3v23')
 * flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
