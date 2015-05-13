@@ -39,41 +39,106 @@
 
 typedef struct
 {
+    GtkWidget *default_path_button;
+    GtkWidget *browser_startup_check;
+    GtkWidget *browser_subdirs_check;
+    GtkWidget *browser_expand_subdirs_check;
+    GtkWidget *browser_hidden_check;
+    GtkWidget *browser_case_check;
+    GtkWidget *log_show_check;
+    GtkWidget *header_show_check;
+    GtkWidget *list_bold_radio;
+    GtkWidget *file_name_replace_check;
+    GtkWidget *name_lower_radio;
+    GtkWidget *name_upper_radio;
+    GtkWidget *name_no_change_radio;
+    GtkWidget *file_preserve_check;
+    GtkWidget *file_parent_check;
+    GtkWidget *file_encoding_try_alternative_radio;
+    GtkWidget *file_encoding_transliterate_radio;
+    GtkWidget *file_encoding_ignore_radio;
+    GtkWidget *tags_auto_date_check;
+    GtkWidget *tags_auto_image_type_check;
+    GtkWidget *tags_track_check;
+    GtkWidget *tags_track_button;
+    GtkWidget *tags_disc_check;
+    GtkWidget *tags_disc_button;
+    GtkWidget *tags_preserve_focus_check;
+    GtkWidget *split_title_check;
+    GtkWidget *split_artist_check;
+    GtkWidget *split_album_check;
+    GtkWidget *split_genre_check;
+    GtkWidget *split_comment_check;
+    GtkWidget *split_composer_check;
+    GtkWidget *split_orig_artist_check;
+    GtkWidget *id3_strip_check;
+    GtkWidget *id3_v2_convert_check;
+    GtkWidget *id3_v2_crc32_check;
+    GtkWidget *id3_v2_compression_check;
+    GtkWidget *id3_v2_genre_check;
+    GtkWidget *id3_v2_check;
+    GtkWidget *id3_v2_version_label;
+    GtkWidget *id3_v2_version_combo;
+    GtkWidget *id3_v2_encoding_label;
+    GtkWidget *id3_v2_unicode_radio;
+    GtkWidget *id3_v2_unicode_encoding_combo;
+    GtkWidget *id3_v2_other_radio;
+    GtkWidget *id3_v2_override_encoding_combo;
+    GtkWidget *id3_v2_iconv_label;
+    GtkWidget *id3_v2_none_radio;
+    GtkWidget *id3_v2_transliterate_radio;
+    GtkWidget *id3_v2_ignore_radio;
+    GtkWidget *id3_v1_check;
+    GtkWidget *id3_v1_encoding_grid;
+    GtkWidget *id3_v1_encoding_combo;
+    GtkWidget *id3_v1_none_radio;
+    GtkWidget *id3_v1_transliterate_radio;
+    GtkWidget *id3_v1_ignore_radio;
+    GtkWidget *id3_read_encoding_check;
+    GtkWidget *id3_read_encoding_combo;
+    GtkWidget *preferences_notebook;
+    GtkWidget *scanner_grid;
+    GtkWidget *fts_underscore_p20_radio;
+    GtkWidget *fts_spaces_radio;
+    GtkWidget *fts_none_radio;
+    GtkWidget *rfs_underscore_p20_radio;
+    GtkWidget *rfs_spaces_radio;
+    GtkWidget *rfs_remove_radio;
+    GtkWidget *pfs_uppercase_prep_check;
+    GtkWidget *overwrite_fields_check;
+    GtkWidget *default_comment_check;
+    GtkWidget *default_comment_entry;
+    GtkWidget *crc32_default_check;
+    GtkWidget *cddb_automatic_host1_combo;
+    GtkWidget *cddb_automatic_port1_button;
+    GtkWidget *cddb_automatic_path1_entry;
+    GtkWidget *cddb_automatic_host2_combo;
+    GtkWidget *cddb_automatic_port2_button;
+    GtkWidget *cddb_automatic_path2_entry;
+    GtkWidget *cddb_manual_host_combo;
+    GtkWidget *cddb_manual_port_button;
+    GtkWidget *cddb_manual_path_entry;
+    GtkWidget *cddb_proxy_check;
+    GtkWidget *cddb_host_entry;
+    GtkWidget *cddb_port_button;
+    GtkWidget *cddb_password_entry;
+    GtkWidget *cddb_user_entry;
+    GtkWidget *cddb_follow_check;
+    GtkWidget *cddb_dlm_check;
+    GtkWidget *confirm_write_check;
+    GtkWidget *confirm_rename_check;
+    GtkWidget *confirm_delete_check;
+    GtkWidget *confirm_write_playlist_check;
+    GtkWidget *confirm_unsaved_files_check;
+    GtkWidget *scanner_dialog_startup_check;
+
     GtkListStore *default_path_model;
     GtkListStore *file_player_model;
 
-    GtkWidget *id3_v1_encoding_grid;
-
-    GtkWidget *LabelAdditionalId3v2IconvOptions;
-    GtkWidget *LabelId3v2Charset;
-    GtkWidget *LabelId3v2Version;
-    GtkWidget *FileWritingId3v2VersionCombo;
-    GtkWidget *FileWritingId3v2UseUnicodeCharacterSet;
-    GtkWidget *FileWritingId3v2UseNoUnicodeCharacterSet;
-
-    GtkWidget *FileWritingId3v2UnicodeCharacterSetCombo;
-    GtkWidget *FileWritingId3v2NoUnicodeCharacterSetCombo;
-    GtkWidget *FileWritingId3v1CharacterSetCombo;
-    GtkWidget *FileReadingId3v1v2CharacterSetCombo;
-
-    GtkWidget *ConvertOldId3v2TagVersion;
-    GtkWidget *FileWritingId3v2UseCrc32;
-    GtkWidget *FileWritingId3v2UseCompression;
-    GtkWidget *FileWritingId3v2TextOnlyGenre;
-    GtkWidget *FileWritingId3v2IconvOptionsNo;
-    GtkWidget *FileWritingId3v2IconvOptionsTranslit;
-    GtkWidget *FileWritingId3v2IconvOptionsIgnore;
-    GtkWidget *FileWritingId3v1IconvOptionsNo;
-    GtkWidget *FileWritingId3v1IconvOptionsTranslit;
-    GtkWidget *FileWritingId3v1IconvOptionsIgnore;
-
-    GtkWidget *options_notebook;
     gint options_notebook_scanner;
 } EtPreferencesDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtPreferencesDialog, et_preferences_dialog, GTK_TYPE_DIALOG)
-
-static const guint BOX_SPACING = 6;
 
 /**************
  * Prototypes *
@@ -207,183 +272,58 @@ static void
 create_preferences_dialog (EtPreferencesDialog *self)
 {
     EtPreferencesDialogPrivate *priv;
-    GtkWidget *vbox;
-    GtkWidget *LoadOnStartup;
-    GtkWidget *BrowseSubdir;
-    GtkWidget *OpenSelectedBrowserNode;
-    GtkWidget *BrowseHiddendir;
-    GtkWidget *ShowHeaderInfos;
-    GtkWidget *ChangedFilesDisplayedToBold;
-    GtkWidget *SortingFileCaseSensitive;
-    GtkWidget *ShowLogView;
-    GtkWidget *ReplaceIllegalCharactersInFilename;
-    GtkWidget *PreserveModificationTime;
-    GtkWidget *UpdateParentDirectoryModificationTime;
-    GtkWidget *FilenameCharacterSetOther;
-    GtkWidget *FilenameCharacterSetApproximate;
-    GtkWidget *FilenameCharacterSetDiscard;
-    GtkWidget *DateAutoCompletion;
-    GtkWidget *widget;
-    GtkWidget *NumberTrackFormated;
-    GtkWidget *NumberTrackFormatedSpinButton;
-    GtkWidget *pad_disc_number;
-    GtkWidget *pad_disc_number_spinbutton;
-    GtkWidget *SetFocusToSameTagField;
-    GtkWidget *VorbisSplitFieldTitle;
-    GtkWidget *VorbisSplitFieldArtist;
-    GtkWidget *VorbisSplitFieldAlbum;
-    GtkWidget *VorbisSplitFieldGenre;
-    GtkWidget *VorbisSplitFieldComment;
-    GtkWidget *VorbisSplitFieldComposer;
-    GtkWidget *VorbisSplitFieldOrigArtist;
-    GtkWidget *StripTagWhenEmptyFields;
-    GtkWidget *FileWritingId3v2WriteTag;
-    GtkWidget *FileWritingId3v1WriteTag;
-    GtkWidget *UseNonStandardId3ReadingCharacterSet;
-    GtkWidget *FTSConvertUnderscoreAndP20IntoSpace;
-    GtkWidget *FTSConvertSpaceIntoUnderscore;
-    GtkWidget *FTSConvertSpaceNoChange;
-    GtkWidget *RFSConvertUnderscoreAndP20IntoSpace;
-    GtkWidget *RFSConvertSpaceIntoUnderscore;
-    GtkWidget *RFSRemoveSpaces;
-    GtkWidget *PFSDontUpperSomeWords;
-    GtkWidget *OpenScannerWindowOnStartup;
-    GtkWidget *OverwriteTagField;
-    GtkWidget *SetDefaultComment;
-    GtkWidget *DefaultComment;
-    GtkWidget *Crc32Comment;
-    GtkWidget *CddbServerNameAutomaticSearch;
-    GtkWidget *CddbServerPortAutomaticSearch;
-    GtkWidget *CddbServerCgiPathAutomaticSearch;
-    GtkWidget *CddbServerNameAutomaticSearch2;
-    GtkWidget *CddbServerPortAutomaticSearch2;
-    GtkWidget *CddbServerCgiPathAutomaticSearch2;
-    GtkWidget *CddbServerNameManualSearch;
-    GtkWidget *CddbServerPortManualSearch;
-    GtkWidget *CddbServerCgiPathManualSearch;
-    GtkWidget *CddbUseProxy;
-    GtkWidget *CddbProxyName;
-    GtkWidget *CddbProxyPort;
-    GtkWidget *CddbProxyUserName;
-    GtkWidget *CddbProxyUserPassword;
-    GtkWidget *CddbFollowFile;
-    GtkWidget *CddbUseDLM;
-    GtkWidget *ConfirmWriteTag;
-    GtkWidget *ConfirmRenameFile;
-    GtkWidget *ConfirmDeleteFile;
-    GtkWidget *ConfirmWritePlayList;
-    GtkWidget *ConfirmWhenUnsavedFiles;
-    GtkWidget *FilenameExtensionNoChange;
-    GtkWidget *FilenameExtensionLowerCase;
-    GtkWidget *FilenameExtensionUpperCase;
-    GtkWidget *default_path_button;
-    GtkBuilder *builder;
-    GError *error = NULL;
 
     priv = et_preferences_dialog_get_instance_private (self);
 
     /* The window */
-    gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
-    gtk_window_set_destroy_with_parent (GTK_WINDOW (self), TRUE);
     gtk_dialog_add_buttons (GTK_DIALOG (self), _("_Close"), GTK_RESPONSE_CLOSE,
                             NULL);
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_CLOSE);
-    g_signal_connect (self, "response",
-                      G_CALLBACK (et_preferences_on_response), NULL);
-    g_signal_connect (self, "delete-event",
-                      G_CALLBACK (gtk_widget_hide_on_delete), NULL);
 
-    gtk_container_set_border_width (GTK_CONTAINER (self), BOX_SPACING);
-
-     /* Options */
-     /* The vbox */
-    vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
-    gtk_box_set_spacing (GTK_BOX (vbox), BOX_SPACING);
-
-     /* Options NoteBook */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/preferences_dialog.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get scanner page from resource: %s",
-                 error->message);
-    }
-
-    priv->options_notebook = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "preferences_notebook"));
-    gtk_box_pack_start (GTK_BOX (vbox), priv->options_notebook, TRUE, TRUE, 0);
-
-    /*
-     * Browser
-     */
-    default_path_button = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "default_path_button"));
+    /* Browser. */
     on_default_path_changed (MainSettings, "default-path",
-                             GTK_FILE_CHOOSER_BUTTON (default_path_button));
-    /* Connecting to current-folder-changed does not work if the user selects
-     * a directory from the combo box list provided by the file chooser button.
-     */
-    g_signal_connect_swapped (default_path_button, "file-set",
-                              G_CALLBACK (et_prefs_current_folder_changed),
-                              self);
+                             GTK_FILE_CHOOSER_BUTTON (priv->default_path_button));
     g_signal_connect (MainSettings, "changed::default-path",
                       G_CALLBACK (on_default_path_changed),
-                      default_path_button);
+                      priv->default_path_button);
 
     /* Load directory on startup */
-    LoadOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                        "browser_startup_check"));
-    g_settings_bind (MainSettings, "load-on-startup", LoadOnStartup, "active",
+    g_settings_bind (MainSettings, "load-on-startup",
+                     priv->browser_startup_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Browse subdirectories */
-    BrowseSubdir = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                       "browser_subdirs_check"));
-    g_settings_bind (MainSettings, "browse-subdir", BrowseSubdir, "active",
+    g_settings_bind (MainSettings, "browse-subdir",
+                     priv->browser_subdirs_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Open the node to show subdirectories */
-    OpenSelectedBrowserNode = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "browser_expand_subdirs_check"));
     g_settings_bind (MainSettings, "browse-expand-children",
-                     OpenSelectedBrowserNode, "active",
+                     priv->browser_expand_subdirs_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Browse hidden directories */
-    BrowseHiddendir = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "browser_hidden_check"));
-    g_settings_bind (MainSettings, "browse-show-hidden", BrowseHiddendir,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "browse-show-hidden",
+                     priv->browser_hidden_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
-    SortingFileCaseSensitive = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "browser_case_check"));
     g_settings_bind (MainSettings, "sort-case-sensitive",
-                     SortingFileCaseSensitive, "active",
+                     priv->browser_case_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Show / hide log view. */
-    ShowLogView = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                      "log_show_check"));
-    g_settings_bind (MainSettings, "log-show", ShowLogView, "active",
+    g_settings_bind (MainSettings, "log-show", priv->log_show_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
    
     /* Show header information. */
-    ShowHeaderInfos = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "header_show_check"));
-    g_settings_bind (MainSettings, "file-show-header", ShowHeaderInfos,
+    g_settings_bind (MainSettings, "file-show-header", priv->header_show_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Display color mode for changed files in list. */
     /* Set "new" Gtk+-2.0ish black/bold style for changed items. */
-    ChangedFilesDisplayedToBold = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                      "list_bold_radio"));
-    g_settings_bind (MainSettings, "file-changed-bold",
-                     ChangedFilesDisplayedToBold, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect_swapped (ChangedFilesDisplayedToBold, "notify::active",
+    g_settings_bind (MainSettings, "file-changed-bold", priv->list_bold_radio,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_signal_connect_swapped (priv->list_bold_radio, "notify::active",
                               G_CALLBACK (et_application_window_browser_refresh_list),
                               MainWindow);
 
@@ -391,216 +331,156 @@ create_preferences_dialog (EtPreferencesDialog *self)
      * File Settings
      */
     /* File (name) Options */
-    ReplaceIllegalCharactersInFilename = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                             "file_name_replace_check"));
     g_settings_bind (MainSettings, "rename-replace-illegal-chars",
-                     ReplaceIllegalCharactersInFilename, "active",
+                     priv->file_name_replace_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Extension case (lower/upper?) */
-    FilenameExtensionLowerCase = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "name_lower_radio"));
-    FilenameExtensionUpperCase = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "name_upper_radio"));
-    FilenameExtensionNoChange = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "name_no_change_radio"));
-
     g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
-                                  FilenameExtensionLowerCase, "active",
+                                  priv->name_lower_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FilenameExtensionLowerCase, NULL);
+                                  priv->name_lower_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
-                                  FilenameExtensionUpperCase, "active",
+                                  priv->name_upper_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FilenameExtensionUpperCase, NULL);
+                                  priv->name_upper_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "rename-extension-mode",
-                                  FilenameExtensionNoChange, "active",
+                                  priv->name_no_change_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FilenameExtensionNoChange, NULL);
+                                  priv->name_no_change_radio, NULL);
 
     /* Preserve modification time */
-    PreserveModificationTime = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "file_preserve_check"));
     g_settings_bind (MainSettings, "file-preserve-modification-time",
-                     PreserveModificationTime, "active",
+                     priv->file_preserve_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Change directory modification time */
-    UpdateParentDirectoryModificationTime = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                                "file_parent_check"));
     g_settings_bind (MainSettings, "file-update-parent-modification-time",
-                     UpdateParentDirectoryModificationTime, "active",
+                     priv->file_parent_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Character Set for Filename */
-    FilenameCharacterSetOther = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                    "file_encoding_try_alternative_radio"));
-    FilenameCharacterSetApproximate = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                          "file_encoding_transliterate_radio"));
-    FilenameCharacterSetDiscard = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                      "file_encoding_ignore_radio"));
-
     g_settings_bind_with_mapping (MainSettings, "rename-encoding",
-                                  FilenameCharacterSetOther, "active",
-                                  G_SETTINGS_BIND_DEFAULT,
-                                  et_settings_enum_radio_get,
-                                  et_settings_enum_radio_set,
-                                  FilenameCharacterSetOther, NULL);
-    g_settings_bind_with_mapping (MainSettings, "rename-encoding",
-                                  FilenameCharacterSetApproximate,
+                                  priv->file_encoding_try_alternative_radio,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FilenameCharacterSetApproximate, NULL);
+                                  priv->file_encoding_try_alternative_radio,
+                                  NULL);
     g_settings_bind_with_mapping (MainSettings, "rename-encoding",
-                                  FilenameCharacterSetDiscard, "active",
+                                  priv->file_encoding_transliterate_radio,
+                                  "active", G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->file_encoding_transliterate_radio,
+                                  NULL);
+    g_settings_bind_with_mapping (MainSettings, "rename-encoding",
+                                  priv->file_encoding_ignore_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FilenameCharacterSetDiscard, NULL);
+                                  priv->file_encoding_ignore_radio, NULL);
 
     /*
      * Tag Settings
      */
     /* Tag Options */
-    DateAutoCompletion = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                             "tags_auto_date_check"));
-    g_settings_bind (MainSettings, "tag-date-autocomplete", DateAutoCompletion,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "tag-date-autocomplete",
+                     priv->tags_auto_date_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                 "tags_auto_image_type_check"));
-    g_settings_bind (MainSettings, "tag-image-type-automatic", widget,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "tag-image-type-automatic",
+                     priv->tags_auto_image_type_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Track formatting. */
-    NumberTrackFormated = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                              "tags_track_check"));
-    g_settings_bind (MainSettings, "tag-number-padded", NumberTrackFormated,
+    g_settings_bind (MainSettings, "tag-number-padded", priv->tags_track_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-
-    NumberTrackFormatedSpinButton = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "tags_track_button"));
     g_settings_bind (MainSettings, "tag-number-length",
-                     NumberTrackFormatedSpinButton, "value",
+                     priv->tags_track_button, "value",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "tag-number-padded",
-                     NumberTrackFormatedSpinButton, "sensitive",
+                     priv->tags_track_button, "sensitive",
                      G_SETTINGS_BIND_GET);
 
     /* Disc formatting. */
-    pad_disc_number = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "tags_disc_check"));
-    g_settings_bind (MainSettings, "tag-disc-padded", pad_disc_number,
+    g_settings_bind (MainSettings, "tag-disc-padded", priv->tags_disc_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
-    pad_disc_number_spinbutton = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "tags_disc_button"));
     g_settings_bind (MainSettings, "tag-disc-length",
-                     pad_disc_number_spinbutton, "value",
+                     priv->tags_disc_button, "value",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "tag-disc-padded",
-                     pad_disc_number_spinbutton, "sensitive",
+                     priv->tags_disc_button, "sensitive",
                      G_SETTINGS_BIND_GET);
-    g_signal_emit_by_name (G_OBJECT (pad_disc_number), "toggled");
+    g_signal_emit_by_name (G_OBJECT (priv->tags_disc_check), "toggled");
 
     /* Tag field focus */
-    SetFocusToSameTagField = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "tags_preserve_focus_check"));
-    g_settings_bind (MainSettings, "tag-preserve-focus", SetFocusToSameTagField,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "tag-preserve-focus",
+                     priv->tags_preserve_focus_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Tag Splitting */
-    VorbisSplitFieldTitle = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "split_title_check"));
-    VorbisSplitFieldArtist = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                 "split_artist_check"));
-    VorbisSplitFieldAlbum = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "split_album_check"));
-    VorbisSplitFieldGenre = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "split_genre_check"));
-    VorbisSplitFieldComment = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "split_comment_check"));
-    VorbisSplitFieldComposer = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "split_composer_check"));
-    VorbisSplitFieldOrigArtist = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "split_orig_artist_check"));
-
-    g_settings_bind (MainSettings, "ogg-split-title", VorbisSplitFieldTitle,
+    g_settings_bind (MainSettings, "ogg-split-title", priv->split_title_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "ogg-split-artist", VorbisSplitFieldArtist,
+    g_settings_bind (MainSettings, "ogg-split-artist", priv->split_artist_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "ogg-split-album", VorbisSplitFieldAlbum,
+    g_settings_bind (MainSettings, "ogg-split-album", priv->split_album_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "ogg-split-genre", VorbisSplitFieldGenre,
+    g_settings_bind (MainSettings, "ogg-split-genre", priv->split_genre_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "ogg-split-comment", VorbisSplitFieldComment,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "ogg-split-comment",
+                     priv->split_comment_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "ogg-split-composer",
-                     VorbisSplitFieldComposer, "active",
+                     priv->split_composer_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "ogg-split-original-artist",
-                     VorbisSplitFieldOrigArtist, "active",
+                     priv->split_orig_artist_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /*
      * ID3 Tag Settings
      */
     /* Strip tag when fields (managed by EasyTAG) are empty */
-    StripTagWhenEmptyFields = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "id3_strip_check"));
-    g_settings_bind (MainSettings, "id3-strip-empty", StripTagWhenEmptyFields,
+    g_settings_bind (MainSettings, "id3-strip-empty", priv->id3_strip_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Convert old ID3v2 tag version */
-    priv->ConvertOldId3v2TagVersion = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                          "id3_v2_convert_check"));
     g_settings_bind (MainSettings, "id3v2-convert-old",
-                     priv->ConvertOldId3v2TagVersion, "active",
+                     priv->id3_v2_convert_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Use CRC32 */
-    priv->FileWritingId3v2UseCrc32 = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                         "id3_v2_crc32_check"));
-    g_settings_bind (MainSettings, "id3v2-crc32", priv->FileWritingId3v2UseCrc32,
+    g_settings_bind (MainSettings, "id3v2-crc32", priv->id3_v2_crc32_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Use Compression */
-    priv->FileWritingId3v2UseCompression = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                               "id3_v2_compression_check"));
     g_settings_bind (MainSettings, "id3v2-compression",
-                     priv->FileWritingId3v2UseCompression, "active",
+                     priv->id3_v2_compression_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 	
     /* Write Genre in text */
-    priv->FileWritingId3v2TextOnlyGenre = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                              "id3_v2_genre_check"));
     g_settings_bind (MainSettings, "id3v2-text-only-genre",
-                     priv->FileWritingId3v2TextOnlyGenre, "active",
+                     priv->id3_v2_genre_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Write ID3v2 tag */
-    FileWritingId3v2WriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "id3_v2_check"));
-    g_settings_bind (MainSettings, "id3v2-enabled", FileWritingId3v2WriteTag,
+    g_settings_bind (MainSettings, "id3v2-enabled", priv->id3_v2_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect (FileWritingId3v2WriteTag, "notify::active",
+    g_signal_connect (priv->id3_v2_check, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
 #ifdef ENABLE_ID3LIB
     /* ID3v2 tag version */
-    priv->LabelId3v2Version = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "id3_v2_version_label"));
-    priv->FileWritingId3v2VersionCombo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                             "id3_v2_version_combo"));
     g_settings_bind_with_mapping (MainSettings, "id3v2-version-4",
-                                  priv->FileWritingId3v2VersionCombo, "active",
+                                  priv->id3_v2_version_combo, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_preferences_id3v2_version_get,
                                   et_preferences_id3v2_version_set, self,
@@ -610,131 +490,106 @@ create_preferences_dialog (EtPreferencesDialog *self)
 #endif
 
     /* Charset */
-    priv->LabelId3v2Charset = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "id3_v2_encoding_label"));
     /* Unicode. */
-    priv->FileWritingId3v2UseUnicodeCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_unicode_radio"));
     g_settings_bind (MainSettings, "id3v2-enable-unicode",
-                     priv->FileWritingId3v2UseUnicodeCharacterSet, "active",
+                     priv->id3_v2_unicode_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    priv->FileWritingId3v2UnicodeCharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_unicode_encoding_combo"));
     g_settings_bind_with_mapping (MainSettings, "id3v2-unicode-charset",
-                                  priv->FileWritingId3v2UnicodeCharacterSetCombo,
+                                  priv->id3_v2_unicode_encoding_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_preferences_id3v2_unicode_charset_get,
                                   et_preferences_id3v2_unicode_charset_set,
                                   NULL, NULL);
-    g_signal_connect (priv->FileWritingId3v2UseUnicodeCharacterSet,
+    g_signal_connect (priv->id3_v2_unicode_radio,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
     /* Non-Unicode. */
-    priv->FileWritingId3v2UseNoUnicodeCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_other_radio"));
-    priv->FileWritingId3v2NoUnicodeCharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_override_encoding_combo"));
-    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v2NoUnicodeCharacterSetCombo), 
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->id3_v2_override_encoding_combo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v2-no-unicode-charset"));
     g_settings_bind_with_mapping (MainSettings, "id3v2-no-unicode-charset",
-                                  priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
+                                  priv->id3_v2_override_encoding_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,
                                   GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
-    g_signal_connect (priv->FileWritingId3v2UseNoUnicodeCharacterSet,
+    g_signal_connect (priv->id3_v2_other_radio,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
     /* ID3v2 Additional iconv() options. */
-    priv->LabelAdditionalId3v2IconvOptions = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_iconv_label"));
-    priv->FileWritingId3v2IconvOptionsNo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                               "id3_v2_none_radio"));
-    priv->FileWritingId3v2IconvOptionsTranslit = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_transliterate_radio")),
-    priv->FileWritingId3v2IconvOptionsIgnore = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v2_ignore_radio"));
-
     g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
-                                  priv->FileWritingId3v2IconvOptionsNo, "active",
+                                  priv->id3_v2_none_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v2IconvOptionsNo, NULL);
+                                  priv->id3_v2_none_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
-                                  priv->FileWritingId3v2IconvOptionsTranslit,
+                                  priv->id3_v2_transliterate_radio,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v2IconvOptionsTranslit, NULL);
+                                  priv->id3_v2_transliterate_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "id3v2-encoding-option",
-                                  priv->FileWritingId3v2IconvOptionsIgnore, "active",
+                                  priv->id3_v2_ignore_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v2IconvOptionsIgnore, NULL);
+                                  priv->id3_v2_ignore_radio, NULL);
 
     /* Write ID3v1 tag */
-    FileWritingId3v1WriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                   "id3_v1_check"));
-    g_settings_bind (MainSettings, "id3v1-enabled", FileWritingId3v1WriteTag,
+    g_settings_bind (MainSettings, "id3v1-enabled", priv->id3_v1_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
-    g_signal_connect (FileWritingId3v1WriteTag, "notify::active",
+    g_signal_connect (priv->id3_v1_check, "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
 
-    priv->id3_v1_encoding_grid = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "id3_v1_encoding_grid"));
     /* Id3V1 writing character set */
-    priv->FileWritingId3v1CharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_encoding_combo"));
-    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileWritingId3v1CharacterSetCombo),
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->id3_v1_encoding_combo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v1-charset"));
     g_settings_bind_with_mapping (MainSettings, "id3v1-charset",
-                                  priv->FileWritingId3v1CharacterSetCombo,
+                                  priv->id3_v1_encoding_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,
                                   GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
 
     /* ID3V1 Additional iconv() options*/
-    priv->FileWritingId3v1IconvOptionsNo = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                               "id3_v1_none_radio"));
-    priv->FileWritingId3v1IconvOptionsTranslit = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_transliterate_radio"));
-    priv->FileWritingId3v1IconvOptionsIgnore = GTK_WIDGET (gtk_builder_get_object (builder, "id3_v1_ignore_radio"));
-
     g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
-                                  priv->FileWritingId3v1IconvOptionsNo, "active",
+                                  priv->id3_v1_none_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v1IconvOptionsNo, NULL);
+                                  priv->id3_v1_none_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
-                                  priv->FileWritingId3v1IconvOptionsTranslit,
+                                  priv->id3_v1_transliterate_radio,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v1IconvOptionsTranslit, NULL);
+                                  priv->id3_v1_transliterate_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "id3v1-encoding-option",
-                                  priv->FileWritingId3v1IconvOptionsIgnore, "active",
+                                  priv->id3_v1_ignore_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  priv->FileWritingId3v1IconvOptionsIgnore, NULL);
+                                  priv->id3_v1_ignore_radio, NULL);
 
     /* Character Set for reading tag */
     /* "File Reading Charset" Check Button + Combo. */
-    UseNonStandardId3ReadingCharacterSet = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                               "id3_read_encoding_check"));
     g_settings_bind (MainSettings, "id3-override-read-encoding",
-                     UseNonStandardId3ReadingCharacterSet, "active",
+                     priv->id3_read_encoding_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    priv->FileReadingId3v1v2CharacterSetCombo = GTK_WIDGET (gtk_builder_get_object (builder, "id3_read_encoding_combo"));
-    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->FileReadingId3v1v2CharacterSetCombo),
+    Charset_Populate_Combobox (GTK_COMBO_BOX (priv->id3_read_encoding_combo),
                                g_settings_get_enum (MainSettings,
                                                     "id3v1v2-charset"));
     g_settings_bind_with_mapping (MainSettings, "id3v1v2-charset",
-                                  priv->FileReadingId3v1v2CharacterSetCombo,
+                                  priv->id3_read_encoding_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,
                                   GSIZE_TO_POINTER (ET_TYPE_CHARSET), NULL);
     g_settings_bind (MainSettings, "id3-override-read-encoding",
-                     priv->FileReadingId3v1v2CharacterSetCombo, "sensitive",
+                     priv->id3_read_encoding_combo, "sensitive",
                      G_SETTINGS_BIND_GET);
     notify_id3_settings_active (NULL, NULL, self);
 
@@ -742,236 +597,168 @@ create_preferences_dialog (EtPreferencesDialog *self)
      * Scanner
      */
     /* Save the number of the page. Asked in Scanner window */
-    vbox = GTK_WIDGET (gtk_builder_get_object (builder, "scanner_grid"));
-    priv->options_notebook_scanner = gtk_notebook_page_num (GTK_NOTEBOOK (priv->options_notebook),
-                                                            vbox);
+    priv->options_notebook_scanner = gtk_notebook_page_num (GTK_NOTEBOOK (priv->preferences_notebook),
+                                                            priv->scanner_grid);
 
     /* Character conversion for the 'Fill Tag' scanner (=> FTS...) */
-    FTSConvertUnderscoreAndP20IntoSpace = GTK_WIDGET (gtk_builder_get_object (builder, "fts_underscore_p20_radio"));
-    FTSConvertSpaceIntoUnderscore = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "fts_spaces_radio"));
-    FTSConvertSpaceNoChange = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "fts_none_radio"));
     g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
-                                  FTSConvertUnderscoreAndP20IntoSpace,
+                                  priv->fts_underscore_p20_radio,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FTSConvertUnderscoreAndP20IntoSpace, NULL);
+                                  priv->fts_underscore_p20_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
-                                  FTSConvertSpaceIntoUnderscore, "active",
+                                  priv->fts_spaces_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FTSConvertSpaceIntoUnderscore, NULL);
+                                  priv->fts_spaces_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "fill-convert-spaces",
-                                  FTSConvertSpaceNoChange, "active",
+                                  priv->fts_none_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  FTSConvertSpaceNoChange, NULL);
+                                  priv->fts_none_radio, NULL);
     /* TODO: No change tooltip. */
 
     /* Character conversion for the 'Rename File' scanner (=> RFS...) */
-    RFSConvertUnderscoreAndP20IntoSpace = GTK_WIDGET (gtk_builder_get_object (builder, "rfs_underscore_p20_radio"));
-    RFSConvertSpaceIntoUnderscore = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "rfs_spaces_radio"));
-    RFSRemoveSpaces = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "rfs_remove_radio"));
     g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
-                                  RFSConvertUnderscoreAndP20IntoSpace,
+                                  priv->rfs_underscore_p20_radio,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  RFSConvertUnderscoreAndP20IntoSpace, NULL);
+                                  priv->rfs_underscore_p20_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
-                                  RFSConvertSpaceIntoUnderscore, "active",
+                                  priv->rfs_spaces_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
                                   et_settings_enum_radio_set,
-                                  RFSConvertSpaceIntoUnderscore, NULL);
+                                  priv->rfs_spaces_radio, NULL);
     g_settings_bind_with_mapping (MainSettings, "rename-convert-spaces",
-                                  RFSRemoveSpaces, "active",
+                                  priv->rfs_remove_radio, "active",
                                   G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_radio_get,
-                                  et_settings_enum_radio_set, RFSRemoveSpaces,
+                                  et_settings_enum_radio_set,
+                                  priv->rfs_remove_radio,
                                   NULL);
 
     /* Character conversion for the 'Process Fields' scanner (=> PFS...) */
-    PFSDontUpperSomeWords = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "pfs_uppercase_prep_check"));
     g_settings_bind (MainSettings, "process-uppercase-prepositions",
-                     PFSDontUpperSomeWords, "active",
+                     priv->pfs_uppercase_prep_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Other options */
-    OverwriteTagField = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "overwrite_fields_check"));
     g_settings_bind (MainSettings, "fill-overwrite-tag-fields",
-                     OverwriteTagField, "active", G_SETTINGS_BIND_DEFAULT);
-
-    /* Set a default comment text or CRC-32 checksum. */
-    SetDefaultComment = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "default_comment_check"));
-    DefaultComment = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                         "default_comment_entry"));
-    g_settings_bind (MainSettings, "fill-set-default-comment",
-                     SetDefaultComment, "active", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "fill-set-default-comment", DefaultComment,
-                     "sensitive", G_SETTINGS_BIND_GET);
-    g_settings_bind (MainSettings, "fill-default-comment", DefaultComment,
-                     "text", G_SETTINGS_BIND_DEFAULT);
-
-    /* CRC32 comment. */
-    Crc32Comment = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                       "crc32_default_check"));
-    g_settings_bind (MainSettings, "fill-crc32-comment", Crc32Comment,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
-    /*
-     * CDDB
-     */
-    /* 1st automatic search server. */
-    CddbServerNameAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "cddb_automatic_host1_combo"));
-    g_settings_bind (MainSettings, "cddb-automatic-search-hostname",
-                     gtk_bin_get_child (GTK_BIN (CddbServerNameAutomaticSearch)),
-                     "text", G_SETTINGS_BIND_DEFAULT);
-
-    CddbServerPortAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "cddb_automatic_port1_button"));
-    g_settings_bind (MainSettings, "cddb-automatic-search-port",
-                     CddbServerPortAutomaticSearch, "value",
+                     priv->overwrite_fields_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
-    CddbServerCgiPathAutomaticSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                           "cddb_automatic_path1_entry"));
+    /* Set a default comment text or CRC-32 checksum. */
+    g_settings_bind (MainSettings, "fill-set-default-comment",
+                     priv->default_comment_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "fill-set-default-comment",
+                     priv->default_comment_entry, "sensitive",
+                     G_SETTINGS_BIND_GET);
+    g_settings_bind (MainSettings, "fill-default-comment",
+                     priv->default_comment_entry, "text",
+                     G_SETTINGS_BIND_DEFAULT);
+
+    /* CRC32 comment. */
+    g_settings_bind (MainSettings, "fill-crc32-comment",
+                     priv->crc32_default_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+
+    /* CDDB */
+    /* 1st automatic search server. */
+    g_settings_bind (MainSettings, "cddb-automatic-search-hostname",
+                     gtk_bin_get_child (GTK_BIN (priv->cddb_automatic_host1_combo)),
+                     "text", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "cddb-automatic-search-port",
+                     priv->cddb_automatic_port1_button, "value",
+                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "cddb-automatic-search-path",
-                     CddbServerCgiPathAutomaticSearch, "text",
+                     priv->cddb_automatic_path1_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* 2nd automatic search server. */
-    CddbServerNameAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                         "cddb_automatic_host2_combo"));
     g_settings_bind (MainSettings, "cddb-automatic-search-hostname2",
-                     gtk_bin_get_child (GTK_BIN (CddbServerNameAutomaticSearch2)),
+                     gtk_bin_get_child (GTK_BIN (priv->cddb_automatic_host2_combo)),
                      "text", G_SETTINGS_BIND_DEFAULT);
-
-    CddbServerPortAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                         "cddb_automatic_port2_button"));
     g_settings_bind (MainSettings, "cddb-automatic-search-port2",
-                     CddbServerPortAutomaticSearch2, "value",
+                     priv->cddb_automatic_port2_button, "value",
                      G_SETTINGS_BIND_DEFAULT);
-
-    CddbServerCgiPathAutomaticSearch2 = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                            "cddb_automatic_path2_entry"));
     g_settings_bind (MainSettings, "cddb-automatic-search-path2",
-                     CddbServerCgiPathAutomaticSearch2, "text",
+                     priv->cddb_automatic_path2_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* CDDB Server Settings (Manual Search). */
-    CddbServerNameManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "cddb_manual_host_combo"));
     g_settings_bind (MainSettings, "cddb-manual-search-hostname",
-                     gtk_bin_get_child (GTK_BIN (CddbServerNameManualSearch)),
+                     gtk_bin_get_child (GTK_BIN (priv->cddb_manual_host_combo)),
                      "text", G_SETTINGS_BIND_DEFAULT);
-
-    CddbServerPortManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "cddb_manual_port_button"));
     g_settings_bind (MainSettings, "cddb-manual-search-port",
-                     CddbServerPortManualSearch, "value",
+                     priv->cddb_manual_port_button, "value",
                      G_SETTINGS_BIND_DEFAULT);
-
-    CddbServerCgiPathManualSearch = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                        "cddb_manual_path_entry"));
     g_settings_bind (MainSettings, "cddb-manual-search-path",
-                     CddbServerCgiPathManualSearch, "text",
+                     priv->cddb_manual_path_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* CDDB Proxy Settings. */
-    CddbUseProxy = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                       "cddb_proxy_check"));
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbUseProxy, "active",
+    g_settings_bind (MainSettings, "cddb-proxy-enabled",
+                     priv->cddb_proxy_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
-
-    CddbProxyName = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                        "cddb_host_entry"));
     g_settings_bind (MainSettings, "cddb-proxy-hostname",
-                     CddbProxyName, "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyName,
+                     priv->cddb_host_entry, "text", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "cddb-proxy-enabled", priv->cddb_host_entry,
                      "sensitive", G_SETTINGS_BIND_GET);
-    CddbProxyPort = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                        "cddb_port_button"));
-    g_settings_bind (MainSettings, "cddb-proxy-port", CddbProxyPort, "value",
+    g_settings_bind (MainSettings, "cddb-proxy-port", priv->cddb_port_button,
+                     "value", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "cddb-proxy-enabled",
+                     priv->cddb_port_button, "sensitive", G_SETTINGS_BIND_GET);
+    g_settings_bind (MainSettings, "cddb-proxy-username",
+                     priv->cddb_user_entry, "text", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "cddb-proxy-enabled", priv->cddb_user_entry,
+                     "sensitive", G_SETTINGS_BIND_GET);
+    g_settings_bind (MainSettings, "cddb-proxy-password",
+                     priv->cddb_password_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyPort,
-                     "sensitive", G_SETTINGS_BIND_GET);
-    CddbProxyUserName = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "cddb_user_entry"));
-    g_settings_bind (MainSettings, "cddb-proxy-username", CddbProxyUserName,
-                     "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyUserName,
-                     "sensitive", G_SETTINGS_BIND_GET);
-    CddbProxyUserPassword = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                "cddb_password_entry"));
-    g_settings_bind (MainSettings, "cddb-proxy-password", CddbProxyUserPassword,
-                     "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", CddbProxyUserPassword,
-                     "sensitive", G_SETTINGS_BIND_GET);
+    g_settings_bind (MainSettings, "cddb-proxy-enabled",
+                     priv->cddb_password_entry, "sensitive",
+                     G_SETTINGS_BIND_GET);
 
     /* Track Name list (CDDB results). */
-    CddbFollowFile = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                         "cddb_follow_check"));
-    g_settings_bind (MainSettings, "cddb-follow-file", CddbFollowFile,
+    g_settings_bind (MainSettings, "cddb-follow-file", priv->cddb_follow_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
 
     /* Check box to use DLM. */
-    CddbUseDLM = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                     "cddb_dlm_check"));
-    g_settings_bind (MainSettings, "cddb-dlm-enabled", CddbUseDLM, "active",
+    g_settings_bind (MainSettings, "cddb-dlm-enabled", priv->cddb_dlm_check,
+                     "active", G_SETTINGS_BIND_DEFAULT);
+
+    /* Confirmation */
+    g_settings_bind (MainSettings, "confirm-write-tags",
+                     priv->confirm_write_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
-
-
-    /*
-     * Confirmation
-     */
-    ConfirmWriteTag = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                          "confirm_write_check"));
-    g_settings_bind (MainSettings, "confirm-write-tags", ConfirmWriteTag,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
-    ConfirmRenameFile = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "confirm_rename_check"));
-    g_settings_bind (MainSettings, "confirm-rename-file", ConfirmRenameFile,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
-    ConfirmDeleteFile = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                            "confirm_delete_check"));
-    g_settings_bind (MainSettings, "confirm-delete-file", ConfirmDeleteFile,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
-    ConfirmWritePlayList = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                               "confirm_write_playlist_check"));
+    g_settings_bind (MainSettings, "confirm-rename-file",
+                     priv->confirm_rename_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "confirm-delete-file",
+                     priv->confirm_delete_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "confirm-write-playlist",
-                     ConfirmWritePlayList, "active", G_SETTINGS_BIND_DEFAULT);
-
-    ConfirmWhenUnsavedFiles = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                  "confirm_unsaved_files_check"));
+                     priv->confirm_write_playlist_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "confirm-when-unsaved-files",
-                     ConfirmWhenUnsavedFiles, "active",
+                     priv->confirm_unsaved_files_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
 
     /* Properties of the scanner window */
-    OpenScannerWindowOnStartup = GTK_WIDGET (gtk_builder_get_object (builder,
-                                                                     "scanner_dialog_startup_check"));
-    g_settings_bind (MainSettings, "scan-startup", OpenScannerWindowOnStartup,
-                     "active", G_SETTINGS_BIND_DEFAULT);
-
-    g_object_unref (builder);
+    g_settings_bind (MainSettings, "scan-startup",
+                     priv->scanner_dialog_startup_check, "active",
+                     G_SETTINGS_BIND_DEFAULT);
 
     /* Load the default page */
-    g_settings_bind (MainSettings, "preferences-page", priv->options_notebook,
-                     "page", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "preferences-page",
+                     priv->preferences_notebook, "page",
+                     G_SETTINGS_BIND_DEFAULT);
 }
 
 static void
@@ -988,65 +775,63 @@ notify_id3_settings_active (GObject *object,
 
     if (g_settings_get_boolean (MainSettings, "id3v2-enabled"))
     {
-        gtk_widget_set_sensitive (priv->LabelId3v2Charset, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_encoding_label, TRUE);
 
 #ifdef ENABLE_ID3LIB
-        gtk_widget_set_sensitive (priv->LabelId3v2Version, TRUE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2VersionCombo, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_version_label, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_version_combo, TRUE);
 
         if (!g_settings_get_boolean (MainSettings, "id3v2-version-4"))
         {
             /* When "ID3v2.3" is selected. */
-            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->FileWritingId3v2UnicodeCharacterSetCombo), 1);
-            gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->id3_v2_unicode_encoding_combo), 1);
+            gtk_widget_set_sensitive (priv->id3_v2_unicode_encoding_combo,
                                       FALSE);
         }
         else
         {
             /* When "ID3v2.4" is selected, set "UTF-8" as default value. */
-            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->FileWritingId3v2UnicodeCharacterSetCombo),
+            gtk_combo_box_set_active (GTK_COMBO_BOX (priv->id3_v2_unicode_encoding_combo),
                                       0);
-            gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+            gtk_widget_set_sensitive (priv->id3_v2_unicode_encoding_combo,
                                       active);
         }
 #else 
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
+        gtk_widget_set_sensitive (priv->id3_v2_unicode_encoding_combo,
                                   active);
 #endif
-        gtk_widget_set_sensitive(priv->FileWritingId3v2UseUnicodeCharacterSet, TRUE);
-        gtk_widget_set_sensitive(priv->FileWritingId3v2UseNoUnicodeCharacterSet, TRUE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
+        gtk_widget_set_sensitive(priv->id3_v2_unicode_radio, TRUE);
+        gtk_widget_set_sensitive(priv->id3_v2_other_radio, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_override_encoding_combo,
                                   !active);
-        gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, !active);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, !active);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, !active);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsIgnore, !active);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseCrc32, TRUE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseCompression, TRUE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2TextOnlyGenre, TRUE);
-        gtk_widget_set_sensitive (priv->ConvertOldId3v2TagVersion, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_iconv_label, !active);
+        gtk_widget_set_sensitive (priv->id3_v2_none_radio, !active);
+        gtk_widget_set_sensitive (priv->id3_v2_transliterate_radio, !active);
+        gtk_widget_set_sensitive (priv->id3_v2_ignore_radio, !active);
+        gtk_widget_set_sensitive (priv->id3_v2_crc32_check, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_compression_check, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_genre_check, TRUE);
+        gtk_widget_set_sensitive (priv->id3_v2_convert_check, TRUE);
 
     }else
     {
-        gtk_widget_set_sensitive (priv->LabelId3v2Charset, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_encoding_label, FALSE);
 #ifdef ENABLE_ID3LIB
-        gtk_widget_set_sensitive (priv->LabelId3v2Version, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2VersionCombo, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_version_label, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_version_combo, FALSE);
 #endif
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseUnicodeCharacterSet, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseNoUnicodeCharacterSet, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UnicodeCharacterSetCombo,
-                                  FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2NoUnicodeCharacterSetCombo,
-                                  FALSE);
-        gtk_widget_set_sensitive (priv->LabelAdditionalId3v2IconvOptions, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsNo, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsTranslit, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2IconvOptionsIgnore, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseCrc32, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2UseCompression, FALSE);
-        gtk_widget_set_sensitive (priv->FileWritingId3v2TextOnlyGenre, FALSE);
-        gtk_widget_set_sensitive (priv->ConvertOldId3v2TagVersion, 0);
+        gtk_widget_set_sensitive (priv->id3_v2_unicode_radio, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_other_radio, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_unicode_encoding_combo, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_override_encoding_combo, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_iconv_label, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_none_radio, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_transliterate_radio, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_ignore_radio, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_crc32_check, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_compression_check, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_genre_check, FALSE);
+        gtk_widget_set_sensitive (priv->id3_v2_convert_check, FALSE);
     }
 
     active = g_settings_get_boolean (MainSettings, "id3v1-enabled");
@@ -1154,7 +939,7 @@ et_preferences_dialog_show_scanner (EtPreferencesDialog *self)
 
     priv = et_preferences_dialog_get_instance_private (self);
 
-    gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->options_notebook),
+    gtk_notebook_set_current_page (GTK_NOTEBOOK (priv->preferences_notebook),
                                    priv->options_notebook_scanner);
     gtk_window_present (GTK_WINDOW (self));
 }
@@ -1187,12 +972,297 @@ et_preferences_on_response (GtkDialog *dialog, gint response_id,
 static void
 et_preferences_dialog_init (EtPreferencesDialog *self)
 {
+    gtk_widget_init_template (GTK_WIDGET (self));
     create_preferences_dialog (self);
 }
 
 static void
 et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
 {
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    gtk_widget_class_set_template_from_resource (widget_class,
+                                                 "/org/gnome/EasyTAG/preferences_dialog.ui");
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  default_path_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  browser_startup_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  browser_subdirs_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  browser_expand_subdirs_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  browser_hidden_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  browser_case_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  log_show_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  header_show_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  list_bold_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_name_replace_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  name_lower_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  name_upper_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  name_no_change_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_preserve_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_parent_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_encoding_try_alternative_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_encoding_transliterate_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  file_encoding_ignore_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_auto_date_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_auto_image_type_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_track_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_track_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_disc_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_disc_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  tags_preserve_focus_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_title_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_album_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_genre_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_comment_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_composer_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  split_orig_artist_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_strip_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_convert_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_crc32_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_compression_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_genre_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_version_label);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_version_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_encoding_label);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_unicode_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_unicode_encoding_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_other_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_override_encoding_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_iconv_label);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_none_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_transliterate_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v2_ignore_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_encoding_grid);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_encoding_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_none_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_transliterate_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_v1_ignore_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_read_encoding_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  id3_read_encoding_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  preferences_notebook);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  scanner_grid);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  fts_underscore_p20_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  fts_spaces_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  fts_none_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  rfs_underscore_p20_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  rfs_spaces_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  rfs_remove_radio);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  pfs_uppercase_prep_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  overwrite_fields_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  default_comment_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  default_comment_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  crc32_default_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_host1_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_port1_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_path1_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_host2_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_port2_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_automatic_path2_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_manual_host_combo);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_manual_port_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_manual_path_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_proxy_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_host_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_port_button);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_user_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_password_entry);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_follow_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  cddb_dlm_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  confirm_write_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  confirm_rename_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  confirm_delete_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  confirm_write_playlist_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  confirm_unsaved_files_check);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtPreferencesDialog,
+                                                  scanner_dialog_startup_check);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             et_preferences_on_response);
+    gtk_widget_class_bind_template_callback (widget_class,
+                                             et_prefs_current_folder_changed);
 }
 
 /*
