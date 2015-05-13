@@ -1,4 +1,5 @@
 <interface domain="easytag">
+    <requires lib="gtk+" version="3.12"/>
     <object class="GtkDialog" id="open_directory_dialog">
         <property name="border-width">12</property>
         <property name="destroy-with-parent">True</property>
@@ -73,7 +74,7 @@
             </object>
         </child>
         <action-widgets>
-            <action-widget response="-5">open_directory_execute_button</action-widget>
+            <action-widget response="-5" default="yes">open_directory_execute_button</action-widget>
             <action-widget response="-6">open_directory_cancel_button</action-widget>
         </action-widgets>
     </object>
@@ -151,7 +152,7 @@
             </object>
         </child>
         <action-widgets>
-            <action-widget response="-5">open_files_execute_button</action-widget>
+            <action-widget response="-5" default="yes">open_files_execute_button</action-widget>
             <action-widget response="-6">open_files_cancel_button</action-widget>
         </action-widgets>
     </object>
@@ -259,7 +260,7 @@
             </object>
         </child>
         <action-widgets>
-            <action-widget response="-10">rename_button</action-widget>
+            <action-widget response="-10" default="yes">rename_button</action-widget>
             <action-widget response="-6">cancel_button</action-widget>
         </action-widgets>
     </object>

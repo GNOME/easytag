@@ -639,8 +639,6 @@ create_playlist_dialog (EtPlaylistDialog *self)
 
     priv = et_playlist_dialog_get_instance_private (self);
 
-    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
-
     /* Playlist name */
     g_settings_bind (MainSettings, "playlist-filename-mask",
                      priv->name_mask_entry, "text", G_SETTINGS_BIND_DEFAULT);

@@ -928,7 +928,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
         </child>
         <action-widgets>
             <action-widget response="-7">close_button</action-widget>
-            <action-widget response="-10">scan_button</action-widget>
+            <action-widget response="-10" default="yes">scan_button</action-widget>
         </action-widgets>
     </template>
 </interface>

@@ -1426,7 +1426,7 @@
             </object>
         </child>
         <action-widgets>
-            <action-widget response="-7">close_button</action-widget>
+            <action-widget response="-7" default="yes">close_button</action-widget>
         </action-widgets>
     </template>
 </interface>

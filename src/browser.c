@@ -4132,8 +4132,6 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     gtk_window_set_transient_for (GTK_WINDOW (priv->rename_directory_dialog),
                                   GTK_WINDOW (MainWindow));
-    gtk_dialog_set_default_response (GTK_DIALOG (priv->rename_directory_dialog),
-                                     GTK_RESPONSE_APPLY);
 
     /* We attach useful data to the combobox */
     g_object_set_data_full (G_OBJECT (priv->rename_directory_dialog),
@@ -4539,8 +4537,6 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
 
     gtk_window_set_transient_for (GTK_WINDOW (priv->open_directory_with_dialog),
                                   GTK_WINDOW (MainWindow));
-    gtk_dialog_set_default_response (GTK_DIALOG (priv->open_directory_with_dialog),
-                                     GTK_RESPONSE_OK);
     g_signal_connect (priv->open_directory_with_dialog, "response",
                       G_CALLBACK (et_run_program_tree_on_response), self);
 
@@ -4749,8 +4745,6 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
 
     priv->open_files_with_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                        "open_files_dialog"));
-    gtk_dialog_set_default_response (GTK_DIALOG (priv->open_files_with_dialog),
-                                     GTK_RESPONSE_OK);
     gtk_window_set_transient_for (GTK_WINDOW (priv->open_files_with_dialog),
                                   GTK_WINDOW (MainWindow));
     g_signal_connect ((priv->open_files_with_dialog), "response",

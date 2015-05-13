@@ -270,8 +270,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     priv = et_preferences_dialog_get_instance_private (self);
 
-    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_CLOSE);
-
     /* Browser. */
     on_default_path_changed (MainSettings, "default-path",
                              GTK_FILE_CHOOSER_BUTTON (priv->default_path_button));

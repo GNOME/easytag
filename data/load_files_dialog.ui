@@ -332,7 +332,7 @@
         </child>
         <action-widgets>
             <action-widget response="-7">close_button</action-widget>
-            <action-widget response="-10">apply_button</action-widget>
+            <action-widget response="-10" default="yes">apply_button</action-widget>
         </action-widgets>
     </template>
 </interface>

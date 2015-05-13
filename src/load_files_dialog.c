@@ -1002,8 +1002,6 @@ create_load_files_dialog (EtLoadFilesDialog *self)
 
     priv = et_load_files_dialog_get_instance_private (self);
 
-    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
-
     /* Initial value. */
     gtk_file_chooser_set_current_folder_file (GTK_FILE_CHOOSER (priv->file_chooser),
                                               et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)),

@@ -2319,8 +2319,6 @@ create_scan_dialog (EtScanDialog *self)
 
     priv = et_scan_dialog_get_instance_private (self);
 
-    gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
-
     g_settings_bind_with_mapping (MainSettings, "scan-mode", priv->notebook,
                                   "page", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_enum_get, et_settings_enum_set,

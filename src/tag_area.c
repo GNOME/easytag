@@ -1660,9 +1660,6 @@ on_picture_properties_button_clicked (GObject *object,
         gtk_window_set_transient_for (GTK_WINDOW (PictureTypesWindow),
                                       parent_window);
 
-        gtk_dialog_set_default_response (GTK_DIALOG (PictureTypesWindow),
-                                         GTK_RESPONSE_ACCEPT);
-
         store = gtk_list_store_new (PICTURE_TYPE_COLUMN_COUNT, G_TYPE_STRING,
                                     G_TYPE_INT);
         type = GTK_WIDGET (gtk_builder_get_object (builder, "types_view"));
