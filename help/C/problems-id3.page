@@ -45,7 +45,7 @@
     <item>
       <p>In the <gui style="group">ID3v2</gui> section, choose the
       <gui>ID3v2.4</gui> setting in the <gui>Version</gui> drop-down list to
-      use the most recent version if ID3v2, if your application or device
+      use the most recent version of ID3v2, if your application or device
       supports it</p>
     </item>
     <item>
