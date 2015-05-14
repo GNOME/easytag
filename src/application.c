@@ -70,11 +70,7 @@ on_about (GSimpleAction *action,
           GVariant *parameter,
           gpointer user_data)
 {
-    GList *windows;
-
-    windows = gtk_application_get_windows (GTK_APPLICATION (user_data));
-
-    et_show_about_dialog (windows->data);
+    et_show_about_dialog (gtk_application_get_active_window (GTK_APPLICATION (user_data)));
 }
 
 static void
@@ -82,11 +78,7 @@ on_quit (GSimpleAction *action,
          GVariant *parameter,
          gpointer user_data)
 {
-    GList *windows;
-
-    windows = gtk_application_get_windows (GTK_APPLICATION (user_data));
-
-    et_application_window_quit (windows->data);
+    et_application_window_quit (ET_APPLICATION_WINDOW (gtk_application_get_active_window (GTK_APPLICATION (user_data))));
 }
 
 static const GActionEntry actions[] =
@@ -270,13 +262,13 @@ check_for_hidden_path_in_tree (GFile *arg)
 static void
 et_application_activate (GApplication *application)
 {
-    GList *windows;
+    GtkWindow *window;
 
-    windows = gtk_application_get_windows (GTK_APPLICATION (application));
+    window = gtk_application_get_active_window (GTK_APPLICATION (application));
 
-    if (windows != NULL)
+    if (window != NULL)
     {
-        gtk_window_present (windows->data);
+        gtk_window_present (window);
     }
     else
     {
@@ -397,7 +389,7 @@ et_application_open (GApplication *self,
                      const gchar *hint)
 {
     EtApplicationPrivate *priv;
-    GList *windows;
+    GtkWindow *window;
     gboolean activated;
     GFile *arg;
     GFile *parent;
@@ -409,8 +401,8 @@ et_application_open (GApplication *self,
 
     priv = et_application_get_instance_private (ET_APPLICATION (self));
 
-    windows = gtk_application_get_windows (GTK_APPLICATION (self));
-    activated = windows ? TRUE : FALSE;
+    window = gtk_application_get_active_window (GTK_APPLICATION (self));
+    activated = window ? TRUE : FALSE;
 
     /* Only take the first file; ignore the rest. */
     arg = files[0];
@@ -448,7 +440,8 @@ et_application_open (GApplication *self,
     {
         if (activated)
         {
-            et_application_window_select_dir (windows->data, path);
+            et_application_window_select_dir (ET_APPLICATION_WINDOW (window),
+                                              path);
             g_free (path);
         }
         else
@@ -474,7 +467,7 @@ et_application_open (GApplication *self,
                 gchar *parent_path;
 
                 parent_path = g_file_get_path (arg);
-                et_application_window_select_dir (windows->data,
+                et_application_window_select_dir (ET_APPLICATION_WINDOW (window),
                                                   parent_path);
 
                 g_free (parent_path);
