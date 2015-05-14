@@ -14,6 +14,7 @@ DLLs and binaries from the following Fedora binary packages are included:
 * mingw32-gtk2
 * mingw32-gtk3
 * mingw32-id3lib
+* mingw32-libepoxy
 * mingw32-libffi
 * mingw32-libid3tag
 * mingw32-libogg
