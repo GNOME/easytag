@@ -1653,19 +1653,9 @@ et_application_window_init (EtApplicationWindow *self)
     /* Menu bar and tool bar. */
     {
         GtkBuilder *builder;
-        GError *error = NULL;
         GtkWidget *toolbar;
 
-        builder = gtk_builder_new ();
-        gtk_builder_add_from_resource (builder,
-                                       "/org/gnome/EasyTAG/toolbar.ui",
-                                       &error);
-
-        if (error != NULL)
-        {
-            g_error ("Unable to get toolbar from resource: %s",
-                     error->message);
-        }
+        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/toolbar.ui");
 
         toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
         gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);

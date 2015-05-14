@@ -3853,7 +3853,6 @@ create_browser (EtBrowser *self)
     EtBrowserPrivate *priv;
     gsize i;
     GtkBuilder *builder;
-    GError *error = NULL;
     GMenuModel *menu_model;
 
     priv = et_browser_get_instance_private (self);
@@ -3873,15 +3872,7 @@ create_browser (EtBrowser *self)
     Browser_Tree_Initialize (self);
 
     /* Create popup menu on browser tree view. */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get popup menu from resource: %s",
-                 error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/menus.ui");
 
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-menu"));
@@ -4043,7 +4034,6 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
     GtkBuilder *builder;
-    GError *error = NULL;
     GtkWidget *label;
     GtkWidget *button;
     gchar *directory_parent = NULL;
@@ -4087,16 +4077,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     directory_name_utf8 = filename_to_display(directory_name);
 
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get rename directory dialog from resource: %s",
-                 error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
     priv->rename_directory_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                         "rename_directory_dialog"));
@@ -4485,7 +4466,6 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
     GtkBuilder *builder;
-    GError *error = NULL;
     GtkWidget *button;
     gchar *current_directory = NULL;
 
@@ -4507,16 +4487,7 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
 
     current_directory = g_strdup (priv->current_path);
 
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get open directory with dialog from resource: %s",
-                 error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
     priv->open_directory_with_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                            "open_directory_dialog"));
@@ -4721,7 +4692,6 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
     GtkBuilder *builder;
-    GError *error = NULL;
     GtkWidget *button;
 
     g_return_if_fail (ET_BROWSER (self));
@@ -4734,16 +4704,7 @@ et_browser_show_open_files_with_dialog (EtBrowser *self)
         return;
     }
 
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder,
-                                   "/org/gnome/EasyTAG/browser_dialogs.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get open with files dialog from resource: %s",
-                 error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
     priv->open_files_with_dialog = GTK_WIDGET (gtk_builder_get_object (builder,
                                                                        "open_files_dialog"));

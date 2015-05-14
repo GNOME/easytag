@@ -522,7 +522,6 @@ static void
 et_application_startup (GApplication *application)
 {
     GtkBuilder *builder;
-    GError *error = NULL;
     GMenuModel *appmenu;
     GMenuModel *menubar;
 
@@ -533,14 +532,7 @@ et_application_startup (GApplication *application)
 
     /* gtk_init() calls setlocale(), so gettext must be called after that. */
     g_set_application_name (_(PACKAGE_NAME));
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get app menu from resource: %s", error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/menus.ui");
 
     appmenu = G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu"));
     gtk_application_set_app_menu (GTK_APPLICATION (application), appmenu);

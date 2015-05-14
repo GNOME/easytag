@@ -1655,7 +1655,6 @@ on_picture_properties_button_clicked (GObject *object,
         GtkTreePath *rowPath;
         gboolean valid;
         GtkBuilder *builder;
-        GError *error = NULL;
 
         /* Get corresponding picture. */
         valid = gtk_tree_model_get_iter (model, &iter, path);
@@ -1670,16 +1669,7 @@ on_picture_properties_button_clicked (GObject *object,
             break;
         }
 
-        builder = gtk_builder_new ();
-        gtk_builder_add_from_resource (builder,
-                                       "/org/gnome/EasyTAG/image_properties_dialog.ui",
-                                       &error);
-
-        if (error != NULL)
-        {
-            g_error ("Unable to get image properties dialog from resource: %s",
-                     error->message);
-        }
+        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/image_properties_dialog.ui");
 
         title = g_strdup_printf (_("Image Properties %d/%d"), selection_i++,
                                  selection_nbr);

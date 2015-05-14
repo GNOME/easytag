@@ -137,7 +137,6 @@ et_log_area_init (EtLogArea *self)
 {
     EtLogAreaPrivate *priv;
     GtkBuilder *builder;
-    GError *error = NULL;
     GMenuModel *menu_model;
 
     priv = et_log_area_get_instance_private (self);
@@ -145,15 +144,7 @@ et_log_area_init (EtLogArea *self)
     gtk_widget_init_template (GTK_WIDGET (self));
 
     /* Create popup menu. */
-    builder = gtk_builder_new ();
-    gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui",
-                                   &error);
-
-    if (error != NULL)
-    {
-        g_error ("Unable to get popup menu from resource: %s",
-                 error->message);
-    }
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/menus.ui");
 
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "log-menu"));
     priv->menu = gtk_menu_new_from_model (menu_model);
