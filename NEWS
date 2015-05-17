@@ -1,3 +1,14 @@
+2.3.7 - 2015-05-17 :
+====================
+
+    * Add preliminary support for HiDPI displays
+    * Fix missing libepoxy DLL in the Windows installer
+    * Convert several widgets to use templates
+    * Use new G_DEFINE_TYPE_WITH_PRIVATE support in GObject
+    * Marek Černocký’s Czech translation update
+    * Alexandre Franke’s French translation update
+    * Piotr Drąg’s Polish translation update
+
 2.3.6 - 2015-04-19 :
 ====================
 
