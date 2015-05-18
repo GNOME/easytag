@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-17 17:01+0200\n"
-"PO-Revision-Date: 2015-05-17 17:02+0200\n"
+"POT-Creation-Date: 2015-05-18 17:20+0200\n"
+"PO-Revision-Date: 2015-05-18 17:22+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -1820,7 +1820,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:164
 msgid "Scanner Dialog"
-msgstr "Okno Skanera"
+msgstr "Okno skanera"
 
 #: ../data/preferences_dialog.ui.h:165
 msgid "Show the scanner dialog on startup"
