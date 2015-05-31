@@ -127,7 +127,7 @@
                                                 <property name="headers-visible">False</property>
                                                 <property name="visible">True</property>
                                                 <signal name="button-press-event" handler="on_directory_tree_button_press_event"/>
-                                                <signal name="key-press-event" handler="Browser_Tree_Node_Selected"/>
+                                                <signal name="key-press-event" handler="Browser_Tree_Key_Press"/>
                                                 <signal name="popup-menu" handler="on_directory_tree_popup_menu"/>
                                                 <signal name="row-collapsed" handler="collapse_cb" swapped="true"/>
                                                 <signal name="row-expanded" handler="expand_cb" swapped="true"/>
