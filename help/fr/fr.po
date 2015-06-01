@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag easytag-2-2\n"
-"POT-Creation-Date: 2015-05-13 15:21+0000\n"
-"PO-Revision-Date: 2014-05-15 03:13+0000\n"
+"POT-Creation-Date: 2015-06-01 12:50+0000\n"
+"PO-Revision-Date: 2015-06-01 14:51+0200\n"
 "Last-Translator: Alexandre Franke <alexandre.franke@gmail.com>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -82,8 +82,8 @@ msgid ""
 "Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
 "the search to finish."
 msgstr ""
-"Cliquez sur <gui style=\"button\">Rechercher en utilisant les fichiers sélectionnés</gui> et attendez la fin de la "
-"recherche."
+"Cliquez sur <gui style=\"button\">Rechercher en utilisant les fichiers "
+"sélectionnés</gui> et attendez la fin de la recherche."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:43
@@ -98,13 +98,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:46
-#, fuzzy
-#| msgid ""
-#| "If there are no results which match the tracks that you selected, select "
-#| "<gui style=\"tab\">Manual Search</gui> and enter the name of the album in "
-#| "the search field. Press <gui style=\"button\">Find</gui> and wait for the "
-#| "search to finish, and check the results again to see if you can find an "
-#| "album which matches the tracks that you selected."
 msgid ""
 "If there are no results which match the tracks that you selected, enter the "
 "name of the album in the search field. Press <gui style=\"button\">Search</"
@@ -112,22 +105,13 @@ msgid ""
 "if you can find an album which matches the tracks that you selected."
 msgstr ""
 "Si aucun résultat ne correspond aux pistes que vous avez sélectionnées, "
-"sélectionnez <gui style=\"tab\">Recherche manuelle</gui> et saisissez le nom "
-"de l'album dans le champ de recherche. Cliquez sur le bouton <gui style="
-"\"button\">Rechercher</gui>, attendez que la recherche soit terminée et "
-"examinez à nouveau les résultats pour voir si vous pouvez trouver un album "
-"correspondant aux pistes que vous avez sélectionnées."
+"saisissez le nom de l'album dans le champ de recherche. Cliquez sur le "
+"bouton <gui style=\"button\">Rechercher</gui>, attendez que la recherche "
+"soit terminée et examinez à nouveau les résultats pour voir si vous pouvez "
+"trouver un album correspondant aux pistes que vous avez sélectionnées."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:53
-#, fuzzy
-#| msgid ""
-#| "Choose the tag fields to fill in by selecting either <gui style=\"checkbox"
-#| "\">All</gui> or a combination of <gui style=\"checkbox\">Filename</gui>, "
-#| "<gui style=\"checkbox\">Title</gui>, <gui style=\"checkbox\">Artist</"
-#| "gui>, <gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Year</"
-#| "gui>, <gui style=\"checkbox\">Track #</gui>, <gui style=\"checkbox\"># "
-#| "Tracks</gui> and <gui style=\"checkbox\">Genre</gui>."
 msgid ""
 "Choose the tag fields to fill in by selecting a combination of <gui style="
 "\"checkbox\">Filename</gui>, <gui style=\"checkbox\">Title</gui>, <gui style="
@@ -136,12 +120,12 @@ msgid ""
 "style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
 "gui>."
 msgstr ""
-"Choisissez les champs d'étiquettes à remplir en sélectionnant <gui style="
-"\"checkbox\">Tous</gui> ou une combinaison de <gui style=\"checkbox\">Nom de "
-"fichier</gui>, <gui style=\"checkbox\">Titre</gui>, <gui style=\"checkbox"
-"\">Artiste</gui>, <gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox"
-"\">Année</gui>, <gui style=\"checkbox\">N° de piste</gui>, <gui style="
-"\"checkbox\">Nombre de pistes</gui> et <gui style=\"checkbox\">Genre</gui>."
+"Choisissez les champs d'étiquettes à remplir en sélectionnant une "
+"combinaison de <gui style=\"checkbox\">Nom de fichier</gui>, <gui style="
+"\"checkbox\">Titre</gui>, <gui style=\"checkbox\">Artiste</gui>, <gui style="
+"\"checkbox\">Album</gui>, <gui style=\"checkbox\">Année</gui>, <gui style="
+"\"checkbox\">N° de piste</gui>, <gui style=\"checkbox\">Nombre de pistes</"
+"gui> et <gui style=\"checkbox\">Genre</gui>."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:64
@@ -202,8 +186,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/file-rename.page:35
 msgid "Select the <gui>Rename File</gui> scanner."
-msgstr ""
-"Sélectionnez le scanner <gui>Renommer le fichier</gui>."
+msgstr "Sélectionnez le scanner <gui>Renommer le fichier</gui>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
@@ -415,7 +398,7 @@ msgstr "Année d'enregistrement ou, parfois, date de publication"
 #. (itstool) path: info/desc
 #: C/image-delete.page:17
 msgid "Remove an image from a tag"
-msgstr ""
+msgstr "Supprimer une image dans une étiquette"
 
 #. (itstool) path: page/title
 #: C/image-delete.page:21
@@ -456,7 +439,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/image-export.page:17
 msgid "Export an image from the tag"
-msgstr ""
+msgstr "Exporter une image depuis l'étiquette"
 
 #. (itstool) path: page/title
 #: C/image-export.page:21
@@ -521,13 +504,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/image.page:34
-#, fuzzy
-#| msgid ""
-#| "Once the image is uploaded, it will be automatically marked as a front "
-#| "cover and the description will be the filename. To change the <gui>type</"
-#| "gui> and <gui>description</gui>, press the <gui style=\"button\">Edit "
-#| "image properties</gui> button. Once you have made the changes, press <gui "
-#| "style=\"button\">OK</gui> to apply the changes."
 msgid ""
 "Once the image is uploaded, it will be automatically marked as a front cover "
 "and the description will be the filename. To change the <gui>type</gui> and "
@@ -539,7 +515,7 @@ msgstr ""
 "couverture d'album et la description est le nom du fichier. Pour modifier le "
 "<gui>type</gui> et la <gui>description</gui>, cliquez sur le bouton <gui "
 "style=\"button\">Modifier les propriétés de l'image</gui>. Une fois les "
-"modifications effectuées, cliquez sur le bouton <gui>Valider</gui> pour "
+"modifications effectuées, cliquez sur le bouton <gui>Accepter</gui> pour "
 "appliquer les changements."
 
 #. (itstool) path: note/p
@@ -590,9 +566,9 @@ msgid ""
 "Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
 "and WavPack audio files."
 msgstr ""
-"Apprenez à utiliser <app>EasyTAG</app>, un éditeur d'étiquettes complet pour les fichiers "
-"audio FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg "
-"Speex, Ogg Vorbis et WavPack."
+"Apprenez à utiliser <app>EasyTAG</app>, un éditeur d'étiquettes complet pour "
+"les fichiers audio FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg "
+"Opus, Ogg Speex, Ogg Vorbis et WavPack."
 
 #. (itstool) path: page/title
 #: C/index.page:29
@@ -909,8 +885,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/problems-id3.page:43
 msgid "Select the <gui style=\"tab\">ID3 Tags</gui> tab"
-msgstr ""
-"Cliquez sur l'onglet <gui style=\"tab\">Étiquettes ID3</gui>"
+msgstr "Cliquez sur l'onglet <gui style=\"tab\">Étiquettes ID3</gui>"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:46
@@ -919,9 +894,10 @@ msgid ""
 "gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
 "version of ID3v2, if your application or device supports it"
 msgstr ""
-"À la rubrique <gui style=\"group\">ID3v2</gui>, choisissez le "
-"paramètre <gui>ID3v2.4</gui> dans la liste déroulante <gui>Version</gui> "
-"pour utiliser la version la plus récente d'ID3v2, si votre application ou votre matériel le prend en charge."
+"À la rubrique <gui style=\"group\">ID3v2</gui>, choisissez le paramètre "
+"<gui>ID3v2.4</gui> dans la liste déroulante <gui>Version</gui> pour utiliser "
+"la version la plus récente d'ID3v2, si votre application ou votre matériel "
+"le prend en charge."
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:52
@@ -931,7 +907,8 @@ msgid ""
 "device only supports ID3v1"
 msgstr ""
 "Assurez-vous que l'option <gui style=\"check\">Écrire l'étiquette ID3v1.x</"
-"gui> est cochée à la rubrique <gui style=\"group\">Étiquettes ID3v1</gui> si votre équipement ne prend en charge que l'ID3v1."
+"gui> est cochée à la rubrique <gui style=\"group\">Étiquettes ID3v1</gui> si "
+"votre équipement ne prend en charge que l'ID3v1."
 
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:22
@@ -999,8 +976,8 @@ msgid ""
 "In <gui style=\"group\">Splitting</gui> section, check the fields that you "
 "want to be split into multiple fields when saving"
 msgstr ""
-"À la rubrique <gui style=\"group\">Division</gui>, cochez les "
-"champs que vous voulez diviser en plusieurs champs lors de l'enregistrement"
+"À la rubrique <gui style=\"group\">Division</gui>, cochez les champs que "
+"vous voulez diviser en plusieurs champs lors de l'enregistrement"
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
@@ -1098,11 +1075,11 @@ msgid ""
 "new directory hierarchy is specified, it will be created inside the "
 "directory where the file is currently located."
 msgstr ""
-"<gui xref=\"file-rename\">Renommer le fichier</gui> est "
-"utilisé pour créer une arborescence de répertoires et mettre à jour les noms "
-"de fichiers en se servant des champs d'étiquettes remplis. Si une nouvelle "
-"arborescence de répertoires est définie, elle sera créée à l'intérieur du "
-"répertoire où se situe actuellement le fichier."
+"<gui xref=\"file-rename\">Renommer le fichier</gui> est utilisé pour créer "
+"une arborescence de répertoires et mettre à jour les noms de fichiers en se "
+"servant des champs d'étiquettes remplis. Si une nouvelle arborescence de "
+"répertoires est définie, elle sera créée à l'intérieur du répertoire où se "
+"situe actuellement le fichier."
 
 #. (itstool) path: section/p
 #: C/scanner.page:61
@@ -1150,6 +1127,8 @@ msgid ""
 "Specify which fields to change by selecting them from the <gui>Tag Fields</"
 "gui> section."
 msgstr ""
+"Précisez quels champs modifier en les sélectionnant dans la section "
+"<gui>Champs de l'étiquette</gui>."
 
 #. (itstool) path: section/p
 #: C/scanner.page:82
@@ -1216,12 +1195,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/tag-capitalization.page:17
 msgid "Apply consistent capitalization to tags"
-msgstr ""
+msgstr "Appliquer de manière cohérente la capitalisation des étiquettes"
 
 #. (itstool) path: page/title
 #: C/tag-capitalization.page:21
 msgid "Capitalize tags consistently"
-msgstr ""
+msgstr "Capitalisation cohérente des étiquettes"
 
 #. (itstool) path: page/p
 #: C/tag-capitalization.page:23
@@ -1229,11 +1208,13 @@ msgid ""
 "Tag capitalization can be changed for one or more tag fields in one or more "
 "files."
 msgstr ""
+"Les majuscules dans les étiquettes peuvent être modifiées pour un ou "
+"plusieurs champ dans un ou plusieurs fichiers."
 
 #. (itstool) path: steps/title
 #: C/tag-capitalization.page:27
 msgid "Change tag field capitalization"
-msgstr ""
+msgstr "Changement de capitalisation dans les champs d'étiquettes"
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:29
@@ -1257,7 +1238,7 @@ msgstr "Cliquez sur l'onglet <gui style=\"tab\">Traiter les champs</gui>"
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:39
 msgid "Check the fields that you want to change."
-msgstr ""
+msgstr "Vérifiez les champs que vous voulez modifier."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:42
@@ -1265,6 +1246,8 @@ msgid ""
 "There are a number of available options for changing the capitalization. "
 "Chose the one that you want."
 msgstr ""
+"Il y a de nombreuses options disponibles pour modifier la capitalisation. "
+"Sélectionnez celle que vous voulez."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:46
@@ -1279,8 +1262,12 @@ msgid ""
 "The <gui>Scanner</gui> dialog can also be used to process space and "
 "character conversions. If you do not want to make any changes to these, "
 "select the correct option before you press <gui style=\"button\">Scan Files</"
-"gui>"
+"gui>."
 msgstr ""
+"La boîte de dialogue du <gui>Scanner</gui> peut aussi servir à traiter les "
+"espaces et à convertir les caractères. Si vous ne voulez pas faire de "
+"changement pour ceux-ci, sélectionnez l'option appropriée avant de cliquer "
+"sur <gui style=\"button\">Scanner les fichiers</gui>."
 
 #. (itstool) path: info/desc
 #: C/tag-field.page:18
