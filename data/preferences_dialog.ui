@@ -622,8 +622,8 @@
                                                     <item id="id3v2.4">ID3v2.4</item>
                                                 </items>
                                                 <property name="tooltip-text" translatable="yes">Select the ID3v2 tag version to write:
-                 • ID3v2.3 is written using id3lib,
-                 • ID3v2.4 is written using libid3tag (recommended)</property>
+• ID3v2.3 is written using id3lib,
+• ID3v2.4 is written using libid3tag (recommended)</property>
                                                 <property name="visible">True</property>
                                             </object>
                                             <packing>
