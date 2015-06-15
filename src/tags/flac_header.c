@@ -60,7 +60,7 @@ et_flac_header_read_file_info (GFile *file,
         return FALSE;
     }
 
-    istream = g_file_read (file, NULL, &state.error);
+    istream = g_file_read (file, NULL, error);
 
     if (istream == NULL)
     {
