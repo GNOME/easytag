@@ -2438,8 +2438,11 @@ create_scan_dialog (EtScanDialog *self)
     g_settings_bind (MainSettings, "process-lowercase-all",
                      priv->capitalize_lower_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "process-uppercase-first-letters",
+    g_settings_bind (MainSettings, "process-uppercase-first-letter",
                      priv->capitalize_first_radio, "active",
+                     G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "process-uppercase-first-letters",
+                     priv->capitalize_first_style_radio, "active",
                      G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-detect-roman-numerals",
                      priv->capitalize_roman_check, "active",
