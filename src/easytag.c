@@ -148,6 +148,7 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
     File_Name *FileNameNew;
     double     fraction;
     GAction *action;
+    GVariant *variant;
     GtkWidget *widget_focused;
     GtkTreePath *currentPath = NULL;
 
@@ -345,7 +346,17 @@ Save_List_Of_Files (GList *etfilelist, gboolean force_saving_files)
                                                           etfile_save_position,
                                                           TRUE);
 
-    et_application_window_browser_toggle_display_mode (window);
+    /* FIXME: Find out why this is a special case for the artist/album mode. */
+    action = g_action_map_lookup_action (G_ACTION_MAP (MainWindow),
+                                         "file-artist-view");
+    variant = g_action_get_state (action);
+
+    if (strcmp (g_variant_get_string (variant, NULL), "artist") == 0)
+    {
+        et_application_window_browser_toggle_display_mode (window);
+    }
+
+    g_variant_unref (variant);
 
     /* To update state of command buttons */
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
