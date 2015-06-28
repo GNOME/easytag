@@ -85,6 +85,7 @@ typedef struct
     gboolean is_maximized;
     gint height;
     gint width;
+    gint paned_position;
 } EtApplicationWindowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtApplicationWindow, et_application_window, GTK_TYPE_APPLICATION_WINDOW)
@@ -136,6 +137,19 @@ save_state (EtApplicationWindow *self)
     g_key_file_set_boolean (keyfile, "EtApplicationWindow", "is_maximized",
                             priv->is_maximized);
 
+    if (priv->is_maximized)
+    {
+        gint width;
+
+        /* Calculate the paned position based on the unmaximized window state,
+         * as that is the state at which the window starts. */
+        gtk_window_get_size (GTK_WINDOW (self), &width, NULL);
+        priv->paned_position -= (width - priv->width);
+    }
+
+    g_key_file_set_integer (keyfile, "EtApplicationWindow", "paned_position",
+                            priv->paned_position);
+
     /* TODO; Use g_key_file_save_to_file() in GLib 2.40. */
     buffer = g_key_file_to_data (keyfile, &length, NULL);
 
@@ -186,8 +200,15 @@ restore_state (EtApplicationWindow *self)
     priv->is_maximized = g_key_file_get_boolean (keyfile,
                                                  "EtApplicationWindow",
                                                  "is_maximized", NULL);
+    priv->paned_position = g_key_file_get_integer (keyfile,
+                                                   "EtApplicationWindow",
+                                                   "paned_position", NULL);
 
     gtk_window_set_default_size (window, priv->width, priv->height);
+
+    /* Only set the unmaximized position, as the maximized position should only
+     * be set after the window manager has maximized the window. */
+    gtk_paned_set_position (GTK_PANED (priv->hpaned), priv->paned_position);
 
     if (priv->is_maximized)
     {
@@ -238,6 +259,18 @@ on_window_state_event (GtkWidget *window,
     }
 
     return GDK_EVENT_PROPAGATE;
+}
+
+static void
+on_paned_notify_position (EtApplicationWindow *self,
+                          GParamSpec *pspec,
+                          gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    priv->paned_position = gtk_paned_get_position (GTK_PANED (priv->hpaned));
 }
 
 File_Tag *
@@ -1644,8 +1677,6 @@ et_application_window_init (EtApplicationWindow *self)
     g_signal_connect (self, "window-state-event",
                       G_CALLBACK (on_window_state_event), NULL);
 
-    restore_state (self);
-
     /* Mainvbox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (self), main_vbox);
@@ -1676,9 +1707,6 @@ et_application_window_init (EtApplicationWindow *self)
                                     GTK_ORIENTATION_VERTICAL);
     gtk_paned_pack2 (GTK_PANED (priv->hpaned), grid, FALSE, FALSE);
 
-    /* TODO: Set a sensible default size for both widgets in the paned. */
-    gtk_paned_set_position (GTK_PANED (priv->hpaned), 600);
-
     /* File */
     priv->file_area = et_file_area_new ();
     gtk_container_add (GTK_CONTAINER (grid), priv->file_area);
@@ -1686,6 +1714,12 @@ et_application_window_init (EtApplicationWindow *self)
     /* Tag */
     priv->tag_area = et_tag_area_new ();
     gtk_container_add (GTK_CONTAINER (grid), priv->tag_area);
+
+    /* Update the stored paned position whenever it is changed (after configure
+     * and windows state events have been processed). */
+    g_signal_connect_swapped (priv->hpaned, "notify::position",
+                              G_CALLBACK (on_paned_notify_position), self);
+    restore_state (self);
 
     /* Vertical pane for Browser Area + FileArea + TagArea */
     priv->vpaned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
