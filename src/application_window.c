@@ -1852,6 +1852,8 @@ et_application_window_browser_toggle_display_mode (EtApplicationWindow *self)
     {
         g_assert_not_reached ();
     }
+
+    g_variant_unref (variant);
 }
 
 void
