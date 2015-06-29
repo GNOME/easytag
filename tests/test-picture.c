@@ -86,6 +86,73 @@ picture_copy (void)
 }
 
 static void
+picture_difference (void)
+{
+    GBytes *bytes;
+    EtPicture *pic1;
+    EtPicture *pic2;
+
+    pic1 = NULL;
+    pic2 = NULL;
+
+    g_assert (!et_picture_detect_difference (pic1, pic2));
+
+    bytes = g_bytes_new_static ("foobar", 6);
+    pic1 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 640,
+                           480, bytes);
+    g_bytes_unref (bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+    g_assert (et_picture_detect_difference (pic2, pic1));
+
+    pic2 = et_picture_new (ET_PICTURE_TYPE_ILLUSTRATION, "foobar.png", 640,
+                           480, pic1->bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    pic2 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 480,
+                           640, pic1->bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    pic2 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 640,
+                           640, pic1->bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    pic2 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 480,
+                           480, pic1->bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    pic2 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "baz.gif", 640,
+                           480, pic1->bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    bytes = g_bytes_new_static ("baz", 3);
+    pic2 = et_picture_new (ET_PICTURE_TYPE_LEAFLET_PAGE, "foobar.png", 640,
+                           480, bytes);
+    g_bytes_unref (bytes);
+
+    g_assert (et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic2);
+    pic2 = et_picture_copy_single (pic1);
+    pic1->next = pic2;
+
+    /* et_picture_detect_difference() does not examine the next pointer. */
+    g_assert (!et_picture_detect_difference (pic1, pic2));
+
+    et_picture_free (pic1);
+}
+
+static void
 picture_type_from_filename (void)
 {
     gsize i;
@@ -172,6 +239,7 @@ main (int argc, char** argv)
     g_test_init (&argc, &argv, NULL);
 
     g_test_add_func ("/picture/copy", picture_copy);
+    g_test_add_func ("/picture/difference", picture_difference);
     g_test_add_func ("/picture/format-from-data", picture_format_from_data);
     g_test_add_func ("/picture/type-from-filename",
                      picture_type_from_filename);
