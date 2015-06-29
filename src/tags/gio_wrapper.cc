@@ -262,8 +262,13 @@ GIO_IOStream::insert (TagLib::ByteVector const &data,
     }
 
     GFileIOStream *tstr;
-    /* FIXME: Check for NULL. */
-    GFile *tmp = g_file_new_tmp ("easytag-XXXXXX", &tstr, NULL);
+    GFile *tmp = g_file_new_tmp ("easytag-XXXXXX", &tstr, &error);
+
+    if (tmp == NULL)
+    {
+        return;
+    }
+
     char buffer[4096];
     gsize r;
 
