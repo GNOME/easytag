@@ -34,10 +34,6 @@ main (int argc, char *argv[])
     bind_textdomain_codeset (PACKAGE_TARNAME, "UTF-8");
 #endif /* ENABLE_NLS */
 
-#if !GLIB_CHECK_VERSION (2, 35, 1)
-    g_type_init ();
-#endif /* !GLIB_CHECK_VERSION (2, 35, 1) */
-
     application = et_application_new ();
     status = g_application_run (G_APPLICATION (application), argc, argv);
     g_object_unref (application);
