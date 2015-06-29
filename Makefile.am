@@ -527,13 +527,15 @@ tests_test_misc_LDADD = \
 	$(EASYTAG_LIBS)
 
 tests_test_picture_CPPFLAGS = \
-	$(common_test_cppflags)
+	$(common_test_cppflags) \
+	-I$(top_srcdir)/src/tags
 
 tests_test_picture_CFLAGS = \
 	$(common_test_cflags)
 
 tests_test_picture_SOURCES = \
 	tests/test-picture.c \
+	src/misc.c \
 	src/picture.c
 
 tests_test_picture_LDADD = \

@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014 David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015 David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,11 @@
 
 #include "picture.h"
 
+#include <gtk/gtk.h>
 #include <string.h>
+
+GtkWidget *MainWindow;
+GSettings *MainSettings;
 
 static void
 picture_copy (void)
@@ -40,13 +44,7 @@ picture_copy (void)
 
     pic2 = et_picture_copy_all (pic1);
 
-    g_assert_cmpint (pic2->type, ==, ET_PICTURE_TYPE_LEAFLET_PAGE);
-    g_assert_cmpint (pic2->width, ==, 640);
-    g_assert_cmpint (pic2->height, ==, 480);
-    g_assert_cmpstr (pic2->description, ==, "foobar.png");
-    g_assert_cmpint (g_bytes_hash (pic2->bytes), ==,
-                     g_bytes_hash (pic1->bytes));
-    g_assert (pic2->bytes == pic1->bytes);
+    g_assert (!et_picture_detect_difference (pic1, pic2));
     g_assert (pic2->next == NULL);
 
     bytes = g_bytes_new_static ("foo", 3);
@@ -59,11 +57,7 @@ picture_copy (void)
 
     pic2_copy = et_picture_copy_single (pic2);
 
-    g_assert_cmpint (pic2_copy->type, ==, ET_PICTURE_TYPE_LEAFLET_PAGE);
-    g_assert_cmpint (pic2_copy->width, ==, 640);
-    g_assert_cmpint (pic2_copy->height, ==, 480);
-    g_assert_cmpstr (pic2_copy->description, ==, "foobar.png");
-    g_assert_cmpint (g_bytes_get_size (pic2_copy->bytes), ==, 6);
+    g_assert (!et_picture_detect_difference (pic2, pic2_copy));
     g_assert (pic2_copy->next == NULL);
 
     pic1_copy = et_picture_copy_all (pic1);
@@ -74,11 +68,7 @@ picture_copy (void)
 
     pic3_copy = pic1_copy->next->next;
 
-    g_assert_cmpint (pic3_copy->type, ==, ET_PICTURE_TYPE_ILLUSTRATION);
-    g_assert_cmpint (pic3_copy->width, ==, 320);
-    g_assert_cmpint (pic3_copy->height, ==, 240);
-    g_assert_cmpstr (pic3_copy->description, ==, "bash.jpg");
-    g_assert_cmpint (g_bytes_get_size (pic3_copy->bytes), ==, 3);
+    g_assert (!et_picture_detect_difference (pic3, pic3_copy));
 
     bytes = g_bytes_new_static ("foobarbaz", 9);
     pic4 = et_picture_new (ET_PICTURE_TYPE_MEDIA, "baz.gif", 800, 600, bytes);
@@ -86,11 +76,7 @@ picture_copy (void)
 
     pic4_copy = g_boxed_copy (ET_TYPE_PICTURE, pic4);
 
-    g_assert_cmpint (pic4_copy->type, ==, ET_PICTURE_TYPE_MEDIA);
-    g_assert_cmpint (pic4_copy->width, ==, 800);
-    g_assert_cmpint (pic4_copy->height, ==, 600);
-    g_assert_cmpstr (pic4_copy->description, ==, "baz.gif");
-    g_assert_cmpint (g_bytes_get_size (pic4_copy->bytes), ==, 9);
+    g_assert (!et_picture_detect_difference (pic4, pic4_copy));
 
     et_picture_free (pic1_copy);
     et_picture_free (pic2_copy);
