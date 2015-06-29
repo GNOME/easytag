@@ -949,7 +949,6 @@ ET_Sort_File_List (GList *ETFileList,
     /* Important to rewind before. */
     etfilelist = g_list_first (ETFileList);
 
-    /* FIXME: Port to sort-mode? */
     set_sort_order_for_column_id (column_id, column, Sorting_Type);
 
     /* Sort... */
