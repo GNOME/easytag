@@ -1224,14 +1224,11 @@ handle_error:
 }
 
 static void
-Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
+Scan_Process_Fields_Functions (EtScanDialog *self,
+                               gchar **string)
 {
-    EtScanDialogPrivate *priv;
-    EtProcessFieldsConvert process;
-
-    priv = et_scan_dialog_get_instance_private (self);
-
-    process = g_settings_get_enum (MainSettings, "process-convert");
+    const EtProcessFieldsConvert process = g_settings_get_enum (MainSettings,
+                                                                "process-convert");
 
     switch (process)
     {
@@ -1252,8 +1249,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
             break;
     }
 
-    /* FIXME: Use GSettings keys instead of toggle buton states. */
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_insert_radio)))
+    if (g_settings_get_boolean (MainSettings, "process-insert-capital-spaces"))
     {
         gchar *res;
         res = Scan_Process_Fields_Insert_Space (*string);
@@ -1261,12 +1257,13 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_insert_one_radio)))
+    if (g_settings_get_boolean (MainSettings,
+        "process-remove-duplicate-spaces"))
     {
         Scan_Process_Fields_Keep_One_Space (*string);
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_all_radio)))
+    if (g_settings_get_boolean (MainSettings, "process-uppercase-all"))
     {
         gchar *res;
         res = Scan_Process_Fields_All_Uppercase (*string);
@@ -1274,7 +1271,7 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_lower_radio)))
+    if (g_settings_get_boolean (MainSettings, "process-lowercase-all"))
     {
         gchar *res;
         res = Scan_Process_Fields_All_Downcase (*string);
@@ -1282,7 +1279,8 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_first_radio)))
+    if (g_settings_get_boolean (MainSettings,
+                                "process-uppercase-first-letter"))
     {
         gchar *res;
         res = Scan_Process_Fields_Letter_Uppercase (*string);
@@ -1290,7 +1288,8 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
         *string = res;
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->capitalize_first_style_radio)))
+    if (g_settings_get_boolean (MainSettings,
+                                "process-uppercase-first-letters"))
     {
         gboolean uppercase_preps;
         gboolean handle_roman;
@@ -1303,8 +1302,10 @@ Scan_Process_Fields_Functions (EtScanDialog *self, gchar **string)
                                                      handle_roman);
     }
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->spaces_remove_radio)))
-        Scan_Process_Fields_Remove_Space(*string);
+    if (g_settings_get_boolean (MainSettings, "process-remove-spaces"))
+    {
+        Scan_Process_Fields_Remove_Space (*string);
+    }
 
 }
 
