@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -92,6 +92,7 @@ void et_picture_free (EtPicture *pic);
 Picture_Format Picture_Format_From_Data (const EtPicture *pic);
 const gchar   *Picture_Mime_Type_String (Picture_Format format);
 const gchar * Picture_Type_String (EtPictureType type);
+gboolean et_picture_detect_difference (const EtPicture *a, const EtPicture *b);
 gchar * et_picture_format_info (const EtPicture *pic, ET_Tag_Type tag_type);
 
 GBytes * et_picture_load_file_data (GFile *file, GError **error);

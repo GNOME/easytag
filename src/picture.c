@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -235,6 +235,43 @@ Picture_Type_String (EtPictureType type)
         default:
             return _("Unknown image type");
     }
+}
+
+gboolean
+et_picture_detect_difference (const EtPicture *a,
+                              const EtPicture *b)
+{
+    if (!a && !b)
+    {
+        return FALSE;
+    }
+
+    if ((a && !b) || (!a && b))
+    {
+        return TRUE;
+    }
+
+    if (a->type != b->type)
+    {
+        return TRUE;
+    }
+
+    if ((a->width != b->width) || (a->height != b->height))
+    {
+        return TRUE;
+    }
+
+    if (et_normalized_strcmp0 (a->description, b->description) != 0)
+    {
+        return TRUE;
+    }
+
+    if (!g_bytes_equal (a->bytes, b->bytes))
+    {
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 gchar *
