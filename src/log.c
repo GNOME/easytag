@@ -169,25 +169,35 @@ et_log_area_new (void)
  * Set a row visible in the log list (by scrolling the list)
  */
 static void
-Log_List_Set_Row_Visible (EtLogArea *self, GtkTreeIter *rowIter)
+Log_List_Set_Row_Visible (EtLogArea *self,
+                          GtkTreeIter *rowIter)
 {
     EtLogAreaPrivate *priv;
-    /*
-     * TODO: Make this only scroll to the row if it is not visible
-     * (like in easytag GTK1)
-     * See function gtk_tree_view_get_visible_rect() ??
-     */
-    GtkTreePath *rowPath;
+    GtkTreePath *start;
+    GtkTreePath *end;
 
     priv = et_log_area_get_instance_private (self);
 
-    g_return_if_fail (priv->log_model != NULL);
+    if (gtk_tree_view_get_visible_range (GTK_TREE_VIEW (priv->log_view),
+                                         &start, &end))
+    {
+        GtkTreePath *rowPath;
 
-    rowPath = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->log_model),
-                                       rowIter);
-    gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->log_view), rowPath,
-                                  NULL, FALSE, 0, 0);
-    gtk_tree_path_free (rowPath);
+        rowPath = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->log_model),
+                                           rowIter);
+
+        if ((gtk_tree_path_compare (rowPath, start) < 0)
+            || (gtk_tree_path_compare (rowPath, end) > 0))
+        {
+            /* rowPath is not is the visible range. */
+            gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->log_view),
+                                          rowPath, NULL, FALSE, 0, 0);
+        }
+
+        gtk_tree_path_free (start);
+        gtk_tree_path_free (end);
+        gtk_tree_path_free (rowPath);
+    }
 }
 
 
