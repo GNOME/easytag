@@ -453,7 +453,8 @@ et_file_tag_detect_difference (const File_Tag *FileTag1,
     }
 
     /* Picture */
-    for (pic1 = FileTag1->picture, pic2 = FileTag2->picture; ;
+    for (pic1 = FileTag1->picture, pic2 = FileTag2->picture;
+         pic1 || pic2;
          pic1 = pic1->next, pic2 = pic2->next)
     {
         if (et_picture_detect_difference (pic1, pic2))
