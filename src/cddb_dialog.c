@@ -2743,7 +2743,6 @@ et_cddb_dialog_on_response (EtCDDBDialog *self,
     switch (response_id)
     {
         case GTK_RESPONSE_CLOSE:
-            priv->stop_searching = TRUE;
             gtk_widget_hide (GTK_WIDGET (self));
             break;
         case GTK_RESPONSE_DELETE_EVENT:
