@@ -2736,10 +2736,6 @@ et_cddb_dialog_on_response (EtCDDBDialog *self,
                             gint response_id,
                             gpointer user_data)
 {
-    EtCDDBDialogPrivate *priv;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
     switch (response_id)
     {
         case GTK_RESPONSE_CLOSE:
