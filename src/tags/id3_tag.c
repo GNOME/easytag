@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -190,30 +190,12 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
 
     file = g_file_new_for_path (filename);
 
-    /* FIXME: Handle this in the caller instead. */
     /* This is a protection against a bug in id3lib that enters an infinite
      * loop with corrupted MP3 files (files containing only zeroes) */
     if (!et_id3tag_check_if_file_is_valid (file, error))
     {
-        GtkWidget *msgdialog;
-        gchar *basename;
-        gchar *utf8_basename;
-
-        basename = g_file_get_basename (file);
-        utf8_basename = filename_to_display (basename);
-
-        msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
-                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_CLOSE,
-                                            _("As the following corrupted file ‘%s’ will cause an error in id3lib, it will not be processed"),
-                                            utf8_basename);
-        gtk_window_set_title (GTK_WINDOW (msgdialog), _("Corrupted file"));
-
-        gtk_dialog_run (GTK_DIALOG (msgdialog));
-        gtk_widget_destroy (msgdialog);
-        g_free (basename);
-        g_free (utf8_basename);
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                     _("Corrupted file"));
         g_object_unref (file);
         return FALSE;
     }
