@@ -20,12 +20,10 @@
 
 #ifdef ENABLE_OPUS
 
-#include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <opus/opus.h>
 #include <vorbis/codec.h>
 
-#include "easytag.h"
 #include "opus_tag.h"
 #include "opus_header.h"
 #include "ogg_tag.h"

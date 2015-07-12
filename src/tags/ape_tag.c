@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  * Copyright (C) 2002-2003  Artur Polaczyñski <artii@o2.pl>
  *
@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "easytag.h"
 #include "ape_tag.h"
 #include "et_core.h"
 #include "misc.h"

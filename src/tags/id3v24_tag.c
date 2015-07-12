@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  * Copyright (C) 2006-2007  Alexey Illarionov <littlesavage@rambler.ru>
  *
@@ -27,7 +27,6 @@
 
 #include "id3_tag.h"
 #include "picture.h"
-#include "easytag.h"
 #include "browser.h"
 #include "setting.h"
 #include "misc.h"

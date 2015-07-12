@@ -22,7 +22,6 @@
 
 #include <glib/gi18n.h>
 
-#include "easytag.h"
 #include "opus_header.h"
 #include "et_core.h"
 #include "charset.h"

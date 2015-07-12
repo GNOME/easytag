@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files.
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2007 Maarten Maathuis (madman2003@gmail.com)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,6 @@
 #include <glib/gi18n.h>
 #include <wavpack/wavpack.h>
 
-#include "easytag.h"
 #include "et_core.h"
 #include "misc.h"
 #include "wavpack_header.h"
