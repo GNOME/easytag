@@ -194,6 +194,13 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
      * loop with corrupted MP3 files (files containing only zeroes) */
     if (!et_id3tag_check_if_file_is_valid (file, error))
     {
+        if (error)
+        {
+            g_debug ("Error while checking if ID3 tag is valid: %s",
+                     (*error)->message);
+        }
+
+        g_clear_error (error);
         g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
                      _("Corrupted file"));
         g_object_unref (file);
