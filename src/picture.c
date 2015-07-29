@@ -469,6 +469,16 @@ et_picture_load_file_data (GFile *file, GError **error)
 
         g_assert (error == NULL || *error == NULL);
 
+        if (g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream))
+            == 0)
+        {
+            g_object_unref (ostream);
+            /* FIXME: Mark up the string for translation. */
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "%s",
+                         "Input truncated or empty");
+            return NULL;
+        }
+
         bytes = g_memory_output_stream_steal_as_bytes (G_MEMORY_OUTPUT_STREAM (ostream));
 
         g_object_unref (ostream);
