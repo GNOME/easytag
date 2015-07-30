@@ -1270,6 +1270,11 @@ PictureEntry_Update (EtTagArea *self,
 
     priv = et_tag_area_get_instance_private (self);
 
+    if (g_bytes_get_size (pic->bytes) == 0)
+    {
+        goto next;
+    }
+
     loader = gdk_pixbuf_loader_new ();
 
     if (loader)
@@ -1380,6 +1385,7 @@ PictureEntry_Update (EtTagArea *self,
         }
     }
 
+next:
     /* Do also for next picture. */
     if (pic->next)
     {
