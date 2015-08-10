@@ -1905,7 +1905,7 @@ msgstr "%a: sanatçı"
 
 #: ../data/scan_dialog.ui.h:16
 #, no-c-format
-msgid "%a: album artist"
+msgid "%z: album artist"
 msgstr "%a: albüm sanatçısı"
 
 #: ../data/scan_dialog.ui.h:18

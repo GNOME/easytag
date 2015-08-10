@@ -1894,7 +1894,7 @@ msgstr "%a: wykonawca"
 
 #: ../data/scan_dialog.ui.h:16
 #, no-c-format
-msgid "%a: album artist"
+msgid "%z: album artist"
 msgstr "%a: wykonawca albumu"
 
 #: ../data/scan_dialog.ui.h:18

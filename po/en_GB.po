@@ -1832,8 +1832,8 @@ msgstr "%a: artist"
 
 #: ../data/scan_dialog.ui.h:15
 #, no-c-format
-msgid "%a: album artist"
-msgstr "%a: album artist"
+msgid "%z: album artist"
+msgstr "%z: album artist"
 
 #: ../data/scan_dialog.ui.h:17
 #, no-c-format

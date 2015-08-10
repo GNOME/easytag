@@ -2083,7 +2083,7 @@ msgstr "%a: artista"
 #: ../data/scan_dialog.ui.h:15
 #, fuzzy, no-c-format
 #| msgid "%z: album artist"
-msgid "%a: album artist"
+msgid "%z: album artist"
 msgstr "%z: artista de l'àlbum"
 
 #: ../data/scan_dialog.ui.h:17

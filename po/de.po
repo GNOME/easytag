@@ -1937,7 +1937,7 @@ msgstr "%a: Künstler"
 
 #: ../data/scan_dialog.ui.h:16
 #, no-c-format
-msgid "%a: album artist"
+msgid "%z: album artist"
 msgstr "%a: Album-Künstler"
 
 #: ../data/scan_dialog.ui.h:18

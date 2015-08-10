@@ -1939,8 +1939,8 @@ msgstr "%a: előadó"
 
 #: ../data/scan_dialog.ui.h:16
 #, no-c-format
-msgid "%a: album artist"
-msgstr "%a: album előadó"
+msgid "%z: album artist"
+msgstr "%z: album előadó"
 
 #: ../data/scan_dialog.ui.h:18
 #, no-c-format

@@ -209,7 +209,7 @@
                                         <child>
                                             <object class="GtkLabel" id="album_artist_label">
                                                 <property name="halign">start</property>
-                                                <property name="label" translatable="yes">%a: album artist</property>
+                                                <property name="label" translatable="yes">%z: album artist</property>
                                                 <property name="margin-left">12</property>
                                                 <property name="visible">True</property>
                                             </object>
