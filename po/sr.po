@@ -1856,7 +1856,7 @@ msgstr "%a: извођач"
 #: ../data/scan_dialog.ui.h:15
 #, no-c-format
 msgid "%z: album artist"
-msgstr "%a: извођач албума"
+msgstr "%z: извођач албума"
 
 #: ../data/scan_dialog.ui.h:17
 #, no-c-format
