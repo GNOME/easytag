@@ -835,21 +835,17 @@ ET_Remove_File_From_File_List (ET_File *ETFile)
     }
 
     /* Remove the file from the ETFileList list. */
-    ETCore->ETFileList = g_list_remove (ETCore->ETFileList, ETFileList);
+    ETCore->ETFileList = g_list_remove (ETCore->ETFileList, ETFile);
 
     // Remove the file from the ETArtistAlbumList list
     ET_Remove_File_From_Artist_Album_List(ETFile);
 
     /* Remove the file from the ETFileDisplayedList list (if not already). */
     ETCore->ETFileDisplayedList = g_list_remove (g_list_first (ETCore->ETFileDisplayedList),
-                                                 ETFileDisplayedList);
+                                                 ETFile);
 
     // Free data of the file
     ET_Free_File_List_Item(ETFile);
-    if (ETFileList)
-        g_list_free(ETFileList);
-    if (ETFileDisplayedList)
-        g_list_free(ETFileDisplayedList);
 
     /* Recalculate length of ETFileDisplayedList list. */
     ETCore->ETFileDisplayedList_Length = et_displayed_file_list_length (ETCore->ETFileDisplayedList);
