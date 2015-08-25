@@ -780,7 +780,7 @@ et_displayed_file_list_length (GList *displayed_list)
     GList *list;
 
     list = g_list_first (displayed_list);
-    return g_list_length (list);;
+    return g_list_length (list);
 }
 
 /*

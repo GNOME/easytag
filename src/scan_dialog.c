@@ -328,7 +328,7 @@ et_scan_dialog_set_file_tag_for_mask_item (File_Tag *file_tag,
         default:
             Log_Print (LOG_ERROR, "Scanner: Invalid code '%%%c' found!",
                        item->code);
-            break;;
+            break;
     }
 }
 

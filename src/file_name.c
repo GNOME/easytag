@@ -81,7 +81,7 @@ ET_Set_Filename_File_Name_Item (File_Name *FileName,
     }
     else if (filename)
     {
-        FileName->value_utf8 = filename_to_display (filename);;
+        FileName->value_utf8 = filename_to_display (filename);
         FileName->value = g_strdup (filename);
         FileName->value_ck = g_utf8_collate_key_for_filename (FileName->value_utf8, -1);
     }
