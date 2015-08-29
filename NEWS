@@ -1,3 +1,27 @@
+2.4.0 - 2015-08-29 :
+====================
+
+    * Correct the disc number format specifier to %z
+    * Fix multiple CDDB searches during a single run
+    * Improve handling of tags with empty images
+    * Link to the online application help on Windows
+    * Remember the paned position in the main window between restarts
+    * Improve handling of file list selection
+    * Fix a crash when deleting files from within the application
+    * Fix a crash when reading FLAC files
+    * Fix a crash when navigating the directory browser with the keyboard
+    * Remove a few internal FIXMEs with some refactoring
+    * Updated British English translation
+    * Wolfgang Stöggl’s German translation update
+    * Gábor Kelemen’s Hungarian help translation
+    * Gábor Kelemen’s Hungarian translation update
+    * Alexandre Franke’s French translation updates
+    * Muhammet Kara’s Turkish translation update
+    * Daniel Mustieles’ Spanish translation updates
+    * Marek Černocký’s Czech translation updates
+    * Jordi Mas’ Catalan translation update
+    * Piotr Drąg’s Polish translation updates
+
 2.3.7 - 2015-05-17 :
 ====================
 
