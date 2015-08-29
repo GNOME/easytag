@@ -306,6 +306,7 @@ SectionEnd
 
 SectionGroup "Translations" SecTranslations
   !insertmacro Locale "bg"
+  !insertmacro Locale "bs"
   !insertmacro Locale "ca"
   !insertmacro Locale "cs"
   !insertmacro Locale "da"
@@ -321,8 +322,10 @@ SectionGroup "Translations" SecTranslations
   !insertmacro Locale "ja"
   !insertmacro Locale "ko"
   !insertmacro Locale "lt"
+  !insertmacro Locale "nb"
   !insertmacro Locale "nl"
   !insertmacro Locale "pl"
+  !insertmacro Locale "pt"
   !insertmacro Locale "pt_BR"
   !insertmacro Locale "ro"
   !insertmacro Locale "ru"
