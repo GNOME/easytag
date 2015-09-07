@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-2-2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-16 20:11+0100\n"
-"PO-Revision-Date: 2015-02-15 21:49+0100\n"
-"Last-Translator: Åka Sikrom <a4 æt hush dåt com>\n"
+"POT-Creation-Date: 2015-09-07 22:23+0200\n"
+"PO-Revision-Date: 2015-09-07 22:24+0200\n"
+"Last-Translator: Åka Sikrom <a4@hush.com>\n"
 "Language-Team: Norwegian bokmål\n"
 "Language: Norwegian bokmål\n"
 "MIME-Version: 1.0\n"
@@ -70,14 +70,117 @@ msgid "Open directories and audio files with EasyTAG using the context menu"
 msgstr "Åpne mapper og lydfiler med EasyTAG via skrivebordets lokalmenyer"
 
 #: ../data/browser.ui.h:1
+msgid "Choose a directory to show in the browser"
+msgstr "Velg en mappe som skal vises i utforskeren"
+
+#: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3786
+#: ../src/tag_area.c:1537
+msgid "_Open"
+msgstr "_Åpne"
+
+#: ../data/browser.ui.h:3 ../src/application.c:123
+msgid "Select a directory to browse"
+msgstr "Velg en mappe som skal utforskes"
+
+#: ../data/browser.ui.h:4 ../src/easytag.c:958
+msgid "No files"
+msgstr "Ingen filer"
+
+#: ../data/browser.ui.h:5 ../data/cddb_dialog.ui.h:12
+#: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:58
+#: ../data/search_dialog.ui.h:14
+msgid "Artist"
+msgstr "Artist"
+
+#: ../data/browser.ui.h:6
+msgid "# Albums"
+msgstr "# album"
+
+#: ../data/browser.ui.h:7
+msgid "# Files"
+msgstr "# filer"
+
+#: ../data/browser.ui.h:8 ../data/cddb_dialog.ui.h:13
+#: ../data/preferences_dialog.ui.h:65 ../data/scan_dialog.ui.h:62
+#: ../data/search_dialog.ui.h:16
+msgid "Album"
+msgstr "Album"
+
+#: ../data/browser.ui.h:9 ../data/cddb_dialog.ui.h:38
+#: ../data/playlist_dialog.ui.h:2 ../data/scan_dialog.ui.h:54
+#: ../data/search_dialog.ui.h:12
+msgid "Filename"
+msgstr "Filnavn"
+
+#: ../data/browser.ui.h:10 ../data/cddb_dialog.ui.h:39
+#: ../data/preferences_dialog.ui.h:61 ../data/scan_dialog.ui.h:56
+#: ../data/search_dialog.ui.h:13
+msgid "Title"
+msgstr "Tittel"
+
+#: ../data/browser.ui.h:11 ../data/scan_dialog.ui.h:60
+#: ../data/search_dialog.ui.h:15
+msgid "Album Artist"
+msgstr "Albumartist"
+
+#: ../data/browser.ui.h:12 ../data/cddb_dialog.ui.h:40
+#: ../data/search_dialog.ui.h:18
+msgid "Year"
+msgstr "År"
+
+#: ../data/browser.ui.h:13
+msgid "Disc"
+msgstr "Plate"
+
+#: ../data/browser.ui.h:14 ../data/search_dialog.ui.h:19
+msgid "Track"
+msgstr "Spor"
+
+#: ../data/browser.ui.h:15 ../data/cddb_dialog.ui.h:43
+#: ../data/preferences_dialog.ui.h:67 ../data/scan_dialog.ui.h:64
+#: ../data/search_dialog.ui.h:20
+msgid "Genre"
+msgstr "Sjanger"
+
+#: ../data/browser.ui.h:16 ../data/preferences_dialog.ui.h:69
+#: ../data/scan_dialog.ui.h:66 ../data/search_dialog.ui.h:21
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../data/browser.ui.h:17 ../data/preferences_dialog.ui.h:71
+#: ../data/scan_dialog.ui.h:68 ../data/search_dialog.ui.h:22
+#: ../src/picture.c:213
+msgid "Composer"
+msgstr "Komponist"
+
+#: ../data/browser.ui.h:18 ../data/search_dialog.ui.h:23
+msgid "Original Artist"
+msgstr "Opprinnelig artist"
+
+#: ../data/browser.ui.h:19 ../data/scan_dialog.ui.h:72
+#: ../data/search_dialog.ui.h:24
+msgid "Copyright"
+msgstr "Opphavsrett"
+
+#: ../data/browser.ui.h:20 ../data/scan_dialog.ui.h:74
+#: ../data/search_dialog.ui.h:25
+msgid "URL"
+msgstr "Nettadresse"
+
+#: ../data/browser.ui.h:21 ../data/scan_dialog.ui.h:76
+#: ../data/search_dialog.ui.h:26
+msgid "Encoded By"
+msgstr "Kodet av"
+
+#: ../data/browser_dialogs.ui.h:1
 msgid "Browse Directory With"
 msgstr "Utforsk mappe med"
 
-#: ../data/browser.ui.h:2
+#: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
 msgstr "Kjør program"
 
-#: ../data/browser.ui.h:3
+#: ../data/browser_dialogs.ui.h:3
 msgid ""
 "Enter the program to run; it will receive the current directory as a "
 "parameter"
@@ -85,28 +188,24 @@ msgstr ""
 "Skriv navnet på programmet som skal kjøres. Gjeldende mappe blir brukt som "
 "parameter."
 
-#: ../data/browser.ui.h:4 ../src/browser.c:3794 ../src/tag_area.c:1490
-msgid "_Open"
-msgstr "_Åpne"
-
-#: ../data/browser.ui.h:5 ../data/tag_area.ui.h:3
-#: ../src/application_window.c:324 ../src/application_window.c:338
-#: ../src/application_window.c:2675 ../src/application_window.c:2713
-#: ../src/browser.c:870 ../src/browser.c:3793 ../src/cddb_dialog.c:2304
-#: ../src/easytag.c:475 ../src/easytag.c:482 ../src/easytag.c:607
-#: ../src/playlist_dialog.c:668 ../src/tag_area.c:1488 ../src/tag_area.c:1838
+#: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
+#: ../src/application_window.c:373 ../src/application_window.c:387
+#: ../src/application_window.c:3035 ../src/browser.c:860 ../src/browser.c:3785
+#: ../src/cddb_dialog.c:2328 ../src/easytag.c:478 ../src/easytag.c:485
+#: ../src/easytag.c:610 ../src/playlist_dialog.c:658 ../src/tag_area.c:1535
+#: ../src/tag_area.c:1877
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: ../data/browser.ui.h:6
+#: ../data/browser_dialogs.ui.h:6
 msgid "_Execute"
 msgstr "_Kjør"
 
-#: ../data/browser.ui.h:7
+#: ../data/browser_dialogs.ui.h:7
 msgid "Open Files With"
 msgstr "Åpne filer med"
 
-#: ../data/browser.ui.h:8
+#: ../data/browser_dialogs.ui.h:8
 msgid ""
 "Enter the program to run; it will receive the current files as a parameter"
 msgstr ""
@@ -114,23 +213,24 @@ msgstr ""
 "parameter."
 
 #. Only directories changed
-#: ../data/browser.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:573
+#: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:576
 msgid "Rename Directory"
 msgstr "Gi nytt navn til mappe"
 
-#: ../data/browser.ui.h:10
+#. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
+#: ../data/browser_dialogs.ui.h:11
 msgid "Literal name:"
 msgstr "Bokstavelig navn:"
 
-#: ../data/browser.ui.h:11 ../data/playlist_dialog.ui.h:2
+#: ../data/browser_dialogs.ui.h:12 ../data/playlist_dialog.ui.h:3
 msgid "Use mask:"
 msgstr "Bruk maske:"
 
-#: ../data/browser.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:188
+#: ../data/browser_dialogs.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:184
 msgid "Whether to use a mask when renaming directories"
 msgstr "Om en maske skal brukes når mapper får nytt navn"
 
-#: ../data/browser.ui.h:13
+#: ../data/browser_dialogs.ui.h:14
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields"
@@ -138,215 +238,122 @@ msgstr ""
 "Velg eller skriv inn en maske ved å bruke koder (se Forklaring i "
 "skannervinduet) for å gi mappen nytt navn i henhold til taggfeltene."
 
-#: ../data/browser.ui.h:14
+#: ../data/browser_dialogs.ui.h:15
 msgid "Rename directory preview"
 msgstr "Forhåndsvis nytt mappenavn"
 
-#: ../data/browser.ui.h:15
+#: ../data/browser_dialogs.ui.h:16
 msgid "_Rename"
 msgstr "_Gi nytt navn"
 
-#: ../data/browser.ui.h:16
-msgid "Choose a directory to show in the browser"
-msgstr "Velg en mappe som skal vises i utforskeren"
+#: ../data/cddb_dialog.ui.h:1 ../data/toolbar.ui.h:28
+msgid "CDDB Search"
+msgstr "CDDB-søk"
 
-#: ../data/browser.ui.h:17 ../src/application.c:130
-msgid "Select a directory to browse"
-msgstr "Velg en mappe som skal utforskes"
-
-#: ../data/browser.ui.h:18 ../src/easytag.c:1080
-msgid "No files"
-msgstr "Ingen filer"
-
-#: ../data/browser.ui.h:19 ../data/cddb_dialog.ui.h:10
-#: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:57
-#: ../data/search_dialog.ui.h:13
-msgid "Artist"
-msgstr "Artist"
-
-#: ../data/browser.ui.h:20
-msgid "# Albums"
-msgstr "# album"
-
-#: ../data/browser.ui.h:21
-msgid "# Files"
-msgstr "# filer"
-
-#: ../data/browser.ui.h:22 ../data/cddb_dialog.ui.h:11
-#: ../data/preferences_dialog.ui.h:65 ../data/scan_dialog.ui.h:60
-#: ../data/search_dialog.ui.h:15
-msgid "Album"
-msgstr "Album"
-
-#: ../data/browser.ui.h:23 ../data/cddb_dialog.ui.h:35
-#: ../data/playlist_dialog.ui.h:1 ../data/scan_dialog.ui.h:53
-#: ../data/search_dialog.ui.h:11
-msgid "Filename"
-msgstr "Filnavn"
-
-#: ../data/browser.ui.h:24 ../data/cddb_dialog.ui.h:36
-#: ../data/preferences_dialog.ui.h:61 ../data/scan_dialog.ui.h:55
-#: ../data/search_dialog.ui.h:12
-msgid "Title"
-msgstr "Tittel"
-
-#: ../data/browser.ui.h:25 ../data/scan_dialog.ui.h:59
-#: ../data/search_dialog.ui.h:14
-msgid "Album Artist"
-msgstr "Albumartist"
-
-#: ../data/browser.ui.h:26 ../data/cddb_dialog.ui.h:37
-#: ../data/search_dialog.ui.h:17
-msgid "Year"
-msgstr "År"
-
-#: ../data/browser.ui.h:27
-msgid "Disc"
-msgstr "Plate"
-
-#: ../data/browser.ui.h:28 ../data/search_dialog.ui.h:18
-msgid "Track"
-msgstr "Spor"
-
-#: ../data/browser.ui.h:29 ../data/cddb_dialog.ui.h:40
-#: ../data/preferences_dialog.ui.h:67 ../data/scan_dialog.ui.h:62
-#: ../data/search_dialog.ui.h:19
-msgid "Genre"
-msgstr "Sjanger"
-
-#: ../data/browser.ui.h:30 ../data/preferences_dialog.ui.h:69
-#: ../data/scan_dialog.ui.h:64 ../data/search_dialog.ui.h:20
-msgid "Comment"
-msgstr "Kommentar"
-
-#: ../data/browser.ui.h:31 ../data/preferences_dialog.ui.h:71
-#: ../data/scan_dialog.ui.h:66 ../data/search_dialog.ui.h:21
-#: ../src/picture.c:214
-msgid "Composer"
-msgstr "Komponist"
-
-#: ../data/browser.ui.h:32 ../data/search_dialog.ui.h:22
-msgid "Original Artist"
-msgstr "Opprinnelig artist"
-
-#: ../data/browser.ui.h:33 ../data/scan_dialog.ui.h:70
-#: ../data/search_dialog.ui.h:23
-msgid "Copyright"
-msgstr "Opphavsrett"
-
-#: ../data/browser.ui.h:34 ../data/scan_dialog.ui.h:72
-#: ../data/search_dialog.ui.h:24
-msgid "URL"
-msgstr "Nettadresse"
-
-#: ../data/browser.ui.h:35 ../data/scan_dialog.ui.h:74
-#: ../data/search_dialog.ui.h:25
-msgid "Encoded By"
-msgstr "Kodet av"
-
-#: ../data/cddb_dialog.ui.h:1
+#: ../data/cddb_dialog.ui.h:2
 msgid "Search"
 msgstr "Søk"
 
-#: ../data/cddb_dialog.ui.h:2
+#: ../data/cddb_dialog.ui.h:3
 msgid "Enter the words to search (separated by a space or ‘+’)"
 msgstr "Skriv inn ordene du vil søke etter (adskilt med mellomrom eller «+»)"
 
-#: ../data/cddb_dialog.ui.h:3
+#: ../data/cddb_dialog.ui.h:4
 msgid "_Search"
 msgstr "_Søk:"
 
-#: ../data/cddb_dialog.ui.h:4
+#: ../data/cddb_dialog.ui.h:5
 msgid "Search Using Selected _Files"
 msgstr "Søk ved bruk av valgte filer"
 
-#: ../data/cddb_dialog.ui.h:5
+#: ../data/cddb_dialog.ui.h:6
 msgid ""
 "Generate the CDDB disc ID using the selected files (the order is important)"
 msgstr "Lag plate-ID for CDDB ved å bruke valgte filer (rekkefølge er viktig)"
 
-#: ../data/cddb_dialog.ui.h:6 ../data/toolbar.ui.h:31
+#: ../data/cddb_dialog.ui.h:7 ../data/toolbar.ui.h:31
 msgid "Stop"
 msgstr "Stopp"
 
-#: ../data/cddb_dialog.ui.h:7
+#: ../data/cddb_dialog.ui.h:8
 msgid "Stop the search"
 msgstr "Avbryt søket"
 
-#: ../data/cddb_dialog.ui.h:8
+#: ../data/cddb_dialog.ui.h:9
 msgid "Manual Search Options"
 msgstr "Valg for manuelt søk"
 
-#: ../data/cddb_dialog.ui.h:9
+#. Translators: header for CDDB fields to use when searching
+#: ../data/cddb_dialog.ui.h:11
 msgid "Search Fields"
 msgstr "Søk gjennom felt"
 
-#: ../data/cddb_dialog.ui.h:12
+#: ../data/cddb_dialog.ui.h:14
 msgid "Track Name"
 msgstr "Spornavn"
 
-#: ../data/cddb_dialog.ui.h:13 ../data/preferences_dialog.ui.h:91
-#: ../src/picture.c:192
+#: ../data/cddb_dialog.ui.h:15 ../data/preferences_dialog.ui.h:91
+#: ../src/picture.c:191
 msgid "Other"
 msgstr "Annet"
 
-#: ../data/cddb_dialog.ui.h:14
+#: ../data/cddb_dialog.ui.h:16
 msgid "Categories"
 msgstr "Kategorier"
 
-#: ../data/cddb_dialog.ui.h:15
+#: ../data/cddb_dialog.ui.h:17
 msgid "Blues"
 msgstr "Blues"
 
-#: ../data/cddb_dialog.ui.h:16
+#: ../data/cddb_dialog.ui.h:18
 msgid "Classical"
 msgstr "Klassisk"
 
-#: ../data/cddb_dialog.ui.h:17
+#: ../data/cddb_dialog.ui.h:19
 msgid "Country"
 msgstr "Land"
 
-#: ../data/cddb_dialog.ui.h:18
+#: ../data/cddb_dialog.ui.h:20
 msgid "Folk"
 msgstr "Folk"
 
-#: ../data/cddb_dialog.ui.h:19
+#: ../data/cddb_dialog.ui.h:21
 msgid "Jazz"
 msgstr "Jazz"
 
-#: ../data/cddb_dialog.ui.h:20
+#: ../data/cddb_dialog.ui.h:22
 msgid "Misc."
 msgstr "Div."
 
-#: ../data/cddb_dialog.ui.h:21
+#: ../data/cddb_dialog.ui.h:23
 msgid "New Age"
 msgstr "New Age"
 
-#: ../data/cddb_dialog.ui.h:22
+#: ../data/cddb_dialog.ui.h:24
 msgid "Reggae"
 msgstr "Reggae"
 
-#: ../data/cddb_dialog.ui.h:23
+#: ../data/cddb_dialog.ui.h:25
 msgid "Rock"
 msgstr "Rock"
 
-#: ../data/cddb_dialog.ui.h:24
+#: ../data/cddb_dialog.ui.h:26
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: ../data/cddb_dialog.ui.h:25
+#: ../data/cddb_dialog.ui.h:27
 msgid "Results"
 msgstr "Søkeresultater"
 
-#: ../data/cddb_dialog.ui.h:26
+#: ../data/cddb_dialog.ui.h:28
 msgid "Artist / Album"
 msgstr "Artist / album"
 
-#: ../data/cddb_dialog.ui.h:27
+#: ../data/cddb_dialog.ui.h:29
 msgid "Category"
 msgstr "Kategori"
 
-#: ../data/cddb_dialog.ui.h:28
+#: ../data/cddb_dialog.ui.h:30
 msgid ""
 "Select lines from which tags will be applied to your files list. All lines "
 "will be processed if no line is selected.\\nYou can also reorder lines in "
@@ -356,77 +363,80 @@ msgstr ""
 "hvis du ikke velger noen linjer.\n"
 "Du kan også omsortere linjer på denne lista før du trykker på «bruk»"
 
-#: ../data/cddb_dialog.ui.h:29
+#. Translators: column header for track number.
+#: ../data/cddb_dialog.ui.h:32
 msgid "#"
 msgstr "#"
 
-#: ../data/cddb_dialog.ui.h:30
+#: ../data/cddb_dialog.ui.h:33
 msgid "Duration"
 msgstr "Varighet"
 
-#: ../data/cddb_dialog.ui.h:31
+#: ../data/cddb_dialog.ui.h:34
 msgid "Select all lines"
 msgstr "Velg alle linjer"
 
-#: ../data/cddb_dialog.ui.h:32
+#: ../data/cddb_dialog.ui.h:35
 msgid "Invert line selection"
 msgstr "Inverter linjeutvalg"
 
-#: ../data/cddb_dialog.ui.h:33
+#: ../data/cddb_dialog.ui.h:36
 msgid "Unselect all lines"
 msgstr "Velg bort alle linjer"
 
-#: ../data/cddb_dialog.ui.h:34 ../data/menus.ui.h:24
+#: ../data/cddb_dialog.ui.h:37 ../data/menus.ui.h:24
 msgid "Fill Tags"
 msgstr "Fyll ut tagger"
 
-#: ../data/cddb_dialog.ui.h:38
-msgid "Track #"
-msgstr "Spor #"
+#: ../data/cddb_dialog.ui.h:41
+msgid "Track Number"
+msgstr "Spornummer"
 
-#: ../data/cddb_dialog.ui.h:39
-msgid "# Tracks"
-msgstr "# spor"
+#: ../data/cddb_dialog.ui.h:42
+msgid "Number of Tracks"
+msgstr "Antall spor"
 
-#: ../data/cddb_dialog.ui.h:41 ../data/load_files_dialog.ui.h:13
+#: ../data/cddb_dialog.ui.h:44 ../data/load_files_dialog.ui.h:14
 msgid "Run the current scanner for each file"
 msgstr "Kjør gjeldende skanner på hver fil"
 
-#: ../data/cddb_dialog.ui.h:42 ../data/org.gnome.EasyTAG.gschema.xml.h:38
+#: ../data/cddb_dialog.ui.h:45 ../data/org.gnome.EasyTAG.gschema.xml.h:38
 msgid ""
 "Whether to run the tag scanner, with the current settings, on the CDDB "
 "results"
 msgstr ""
 "Om taggskanneren skal kjøres med gjeldende oppsett på CDDB-søkeresultater"
 
-#: ../data/cddb_dialog.ui.h:43
+#: ../data/cddb_dialog.ui.h:46
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Finn linjer som passer sammen med Levenshtein-algoritmen"
 
-#: ../data/cddb_dialog.ui.h:44 ../data/preferences_dialog.ui.h:148
+#: ../data/cddb_dialog.ui.h:47 ../data/preferences_dialog.ui.h:151
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
 msgstr ""
 "Om DLM-algoritmen skal brukes for å finne CDDB-søkeresultater som passer med "
 "aktuelle filer"
 
-#: ../data/cddb_dialog.ui.h:45 ../data/search_dialog.ui.h:10
-#: ../src/load_files_dialog.c:900 ../src/preferences_dialog.c:291
-#: ../src/scan_dialog.c:2309
+#. The window
+#: ../data/cddb_dialog.ui.h:48 ../data/search_dialog.ui.h:11
+#: ../src/load_files_dialog.c:997 ../src/preferences_dialog.c:279
+#: ../src/scan_dialog.c:2316
 msgid "_Close"
 msgstr "_Lukk"
 
-#: ../data/cddb_dialog.ui.h:46 ../src/cddb_dialog.c:2305
-#: ../src/load_files_dialog.c:901
+#: ../data/cddb_dialog.ui.h:49 ../src/cddb_dialog.c:2329
+#: ../src/load_files_dialog.c:998
 msgid "_Apply"
 msgstr "_Bruk"
 
-#: ../data/cddb_dialog.ui.h:47
+#: ../data/cddb_dialog.ui.h:50
 msgid "Load the selected lines or all lines (if no lines are selected)"
 msgstr "Last inn valgte linjer, evt. alle linjer hvis ingen er valgt."
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/file_area.c:196 ../src/file.c:1247
+#: ../data/file_area.ui.h:1 ../src/application_window.c:2207
+#: ../src/file_area.c:155
 msgid "File"
 msgstr "Fil"
 
@@ -437,10 +447,10 @@ msgstr "0/0:"
 #. Nothing to display
 #. Version changed to encoder version
 #. Encoder version
-#: ../data/file_area.ui.h:3 ../src/file_area.c:197
+#: ../data/file_area.ui.h:3 ../src/file_area.c:156
 #: ../src/tags/flac_header.c:168 ../src/tags/monkeyaudio_header.c:88
 #: ../src/tags/musepack_header.c:92 ../src/tags/ogg_header.c:399
-#: ../src/tags/opus_header.c:226 ../src/tags/wavpack_header.c:141
+#: ../src/tags/opus_header.c:225 ../src/tags/wavpack_header.c:140
 msgid "Encoder:"
 msgstr "Kodeprogram:"
 
@@ -453,7 +463,7 @@ msgid "Sample rate:"
 msgstr "Samplefrekvens:"
 
 #. Mode
-#: ../data/file_area.ui.h:6 ../src/file_area.c:201
+#: ../data/file_area.ui.h:6 ../src/file_area.c:160
 #: ../src/tags/mpeg_header.c:260
 msgid "Mode:"
 msgstr "Modus:"
@@ -466,65 +476,83 @@ msgstr "Størrelse:"
 msgid "Duration:"
 msgstr "Varighet:"
 
-#: ../data/log_area.ui.h:1 ../data/preferences_dialog.ui.h:14
+#: ../data/image_properties_dialog.ui.h:1
+msgid "Image Type"
+msgstr "Bildetype"
+
+#: ../data/image_properties_dialog.ui.h:2 ../src/picture.c:305
+msgid "Description"
+msgstr "Synkende, etter beskrivelse"
+
+#: ../data/image_properties_dialog.ui.h:4
+msgid "_Accept"
+msgstr "_Godta"
+
+#: ../data/log_area.ui.h:1 ../data/preferences_dialog.ui.h:15
 msgid "Log"
 msgstr "Logg"
 
 #: ../data/load_files_dialog.ui.h:1
+msgid "Load Filenames From a Text File"
+msgstr "Last inn filnavn fra en tekstfil"
+
+#: ../data/load_files_dialog.ui.h:2
 msgid "File:"
 msgstr "Fil:"
 
-#: ../data/load_files_dialog.ui.h:2
+#: ../data/load_files_dialog.ui.h:3
 msgid "Choose a Text File"
 msgstr "Velg en tekstfil"
 
-#: ../data/load_files_dialog.ui.h:3
+#: ../data/load_files_dialog.ui.h:4
 msgid "_Load"
 msgstr "_Last inn"
 
-#: ../data/load_files_dialog.ui.h:4
+#: ../data/load_files_dialog.ui.h:5
 msgid "Content of Text File"
 msgstr "Innhold i tekstfil"
 
-#: ../data/load_files_dialog.ui.h:5
+#: ../data/load_files_dialog.ui.h:6
 msgid "Insert a blank line before the selected line"
 msgstr "Sett inn en tom linje før valgt linje"
 
-#: ../data/load_files_dialog.ui.h:6
+#: ../data/load_files_dialog.ui.h:7
 msgid "Delete the selected line"
 msgstr "Slett valgt linje"
 
-#: ../data/load_files_dialog.ui.h:7 ../src/load_files_dialog.c:641
-#: ../src/load_files_dialog.c:744
+#: ../data/load_files_dialog.ui.h:8 ../src/load_files_dialog.c:742
+#: ../src/load_files_dialog.c:845
 msgid "Delete all blank lines"
 msgstr "Slett alle tomme linjer"
 
-#: ../data/load_files_dialog.ui.h:8
+#: ../data/load_files_dialog.ui.h:9
 msgid "Move the selected line up"
 msgstr "Flytt valgt linje opp"
 
-#: ../data/load_files_dialog.ui.h:9
+#: ../data/load_files_dialog.ui.h:10
 msgid "Move the selected line down"
 msgstr "Flytt valgt linje ned"
 
-#: ../data/load_files_dialog.ui.h:10 ../src/load_files_dialog.c:659
-#: ../src/load_files_dialog.c:762
+#: ../data/load_files_dialog.ui.h:11 ../src/load_files_dialog.c:760
+#: ../src/load_files_dialog.c:863
 msgid "Reload"
 msgstr "Last inn på nytt"
 
-#: ../data/load_files_dialog.ui.h:11
+#: ../data/load_files_dialog.ui.h:12
 msgid "List of Files"
 msgstr "Liste over filer"
 
-#: ../data/load_files_dialog.ui.h:12
+#: ../data/load_files_dialog.ui.h:13
 msgid "Selected line:"
 msgstr "Valgt linje:"
 
-#: ../data/load_files_dialog.ui.h:14
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:131
-msgid "Whether to run the current scanner on files loaded from a text file"
+#: ../data/load_files_dialog.ui.h:15
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:127
+msgid ""
+"Whether to run the currently selected scanner on filenames loaded from a "
+"text file"
 msgstr ""
-"Om gjeldende skanenr skal kjøres på filer som lastes inn fra en tekstfil"
+"Om gjeldende skanner skal kjøres på filer som lastes inn fra en tekstfil"
 
 #: ../data/menus.ui.h:1
 msgid "_Help"
@@ -534,7 +562,7 @@ msgstr "_Hjelp"
 msgid "_About"
 msgstr "_Om"
 
-#: ../data/menus.ui.h:3 ../src/application_window.c:2714
+#: ../data/menus.ui.h:3
 msgid "_Quit"
 msgstr "_Avslutt"
 
@@ -622,7 +650,7 @@ msgstr "Skannermodus"
 msgid "Rename Files and Directories"
 msgstr "Endre navn på filer og mapper"
 
-#: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:107
+#: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:109
 msgid "Process Fields"
 msgstr "Behandle felt"
 
@@ -934,85 +962,93 @@ msgstr "Finn …"
 msgid "Clear Log"
 msgstr "Tøm logg"
 
-#: ../data/playlist_dialog.ui.h:3
+#: ../data/playlist_dialog.ui.h:1
+msgid "Generate Playlist"
+msgstr "Lag spilleliste"
+
+#: ../data/playlist_dialog.ui.h:4
 msgid "Use directory name"
 msgstr "Bruk mappenavn"
 
-#: ../data/playlist_dialog.ui.h:4
+#: ../data/playlist_dialog.ui.h:5
 msgid "Options"
 msgstr "Valg"
 
-#: ../data/playlist_dialog.ui.h:5
+#: ../data/playlist_dialog.ui.h:6
 msgid "Include only the selected files"
 msgstr "Bare ta med de valgte filene"
 
-#: ../data/playlist_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:164
+#: ../data/playlist_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:160
 msgid ""
 "Whether to use only the selected files or all files when creating playlists"
 msgstr "Om nye spillelister skal inneholde merkede filer eller alle filer"
 
-#: ../data/playlist_dialog.ui.h:7
+#: ../data/playlist_dialog.ui.h:8
 msgid "Use full path for files in playlist"
 msgstr "Bruk fullstendig filsti for filer i spillelista"
 
-#: ../data/playlist_dialog.ui.h:8
+#: ../data/playlist_dialog.ui.h:9
 msgid "Use relative path for files in playlist"
 msgstr "Bruk relativ filsti for filer i spillelista"
 
-#: ../data/playlist_dialog.ui.h:9
+#: ../data/playlist_dialog.ui.h:10
 msgid "Create playlist in the parent directory"
 msgstr "Lag ny spilleliste i foreldermappe"
 
-#: ../data/playlist_dialog.ui.h:10 ../data/org.gnome.EasyTAG.gschema.xml.h:168
+#: ../data/playlist_dialog.ui.h:11 ../data/org.gnome.EasyTAG.gschema.xml.h:164
 msgid "Whether to create the playlist in the parent directory"
 msgstr "Om aktuell spilleliste skal lagres i foreldermappe"
 
-#: ../data/playlist_dialog.ui.h:11
+#: ../data/playlist_dialog.ui.h:12
 msgid "Use DOS directory separator"
 msgstr "Bruk DOS-vennlig mappeskilletegn"
 
-#: ../data/playlist_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:170
+#: ../data/playlist_dialog.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:166
 msgid ""
 "Whether to use backslash as directory separator when generating playlists"
 msgstr ""
 "Om omvendt skråstrek («\\») skal brukes som mappe-skilletegn ved opprettelse "
 "av spillelister"
 
-#: ../data/playlist_dialog.ui.h:13
+#: ../data/playlist_dialog.ui.h:14
 msgid "Content"
 msgstr "Innhold"
 
-#: ../data/playlist_dialog.ui.h:14
+#: ../data/playlist_dialog.ui.h:15
 msgid "Write only list of files"
 msgstr "Bare skriv en liste over filer"
 
-#: ../data/playlist_dialog.ui.h:15
+#: ../data/playlist_dialog.ui.h:16
 msgid "Write information using filename"
 msgstr "Skriv info ved bruk av filnavn"
 
-#: ../data/playlist_dialog.ui.h:16
+#: ../data/playlist_dialog.ui.h:17
 msgid "Write information using:"
 msgstr "Skriv info ved bruk av:"
 
 #: ../data/preferences_dialog.ui.h:1
+msgid "Preferences"
+msgstr "Innstillinger"
+
+#: ../data/preferences_dialog.ui.h:2
 msgid "Browser"
 msgstr "Utforsker"
 
-#: ../data/preferences_dialog.ui.h:2
+#: ../data/preferences_dialog.ui.h:3
 msgid "Default Directory:"
 msgstr "Standardmappe:"
 
-#: ../data/preferences_dialog.ui.h:3 ../data/org.gnome.EasyTAG.gschema.xml.h:4
+#: ../data/preferences_dialog.ui.h:4 ../data/org.gnome.EasyTAG.gschema.xml.h:4
 msgid "The default path to search for music files"
 msgstr "Standard filsti å søke etter musikkfiler på"
 
-#: ../data/preferences_dialog.ui.h:4
+#: ../data/preferences_dialog.ui.h:5
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
 "Last inn standardmappe ved oppstart, eller mappen som brukes som argument"
 
-#: ../data/preferences_dialog.ui.h:5 ../data/org.gnome.EasyTAG.gschema.xml.h:2
+#: ../data/preferences_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:2
 msgid ""
 "Whether to load the default path (or the path passed as an argument) on "
 "application startup"
@@ -1020,11 +1056,11 @@ msgstr ""
 "Om standard sti (eller argumentert sti) skal lastes inn når programmet "
 "starter"
 
-#: ../data/preferences_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:5
+#: ../data/preferences_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:5
 msgid "Browse subdirectories"
 msgstr "Søk gjennom undermapper"
 
-#: ../data/preferences_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:6
+#: ../data/preferences_dialog.ui.h:8 ../data/org.gnome.EasyTAG.gschema.xml.h:6
 msgid ""
 "Whether to search subdirectories for audio files when reading a directory in "
 "the browser"
@@ -1032,11 +1068,11 @@ msgstr ""
 "Om undermapper skal gjennomsøkes for lydfiler når en mappe åpnes i "
 "utforskeren."
 
-#: ../data/preferences_dialog.ui.h:8 ../data/org.gnome.EasyTAG.gschema.xml.h:9
+#: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
 msgid "Expand the subdirectories of the selected directory"
 msgstr "Utvid undermapper av valgt mappe"
 
-#: ../data/preferences_dialog.ui.h:9
+#: ../data/preferences_dialog.ui.h:10
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:10
 msgid ""
 "Whether to expand the subdirectories of a node in the directory browser when "
@@ -1044,55 +1080,45 @@ msgid ""
 msgstr ""
 "Om filutforskeren skal vise evt. undermapper av mapper som brukeren velger"
 
-#: ../data/preferences_dialog.ui.h:10
+#: ../data/preferences_dialog.ui.h:11
 msgid "Search hidden directories"
 msgstr "Søk gjennom skjulte mapper"
 
-#: ../data/preferences_dialog.ui.h:11
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:8
+#: ../data/preferences_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:8
 msgid ""
 "Whether to show hidden directories when showing a directory in the browser"
 msgstr "Om skjulte maper skal vises når en mappe åpnes i utforskeren"
 
-#: ../data/preferences_dialog.ui.h:12
+#: ../data/preferences_dialog.ui.h:13
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:53
 msgid "Sort files case-sensitively"
 msgstr "Skill mellom store og små bokstaver ved filsortering"
 
-#: ../data/preferences_dialog.ui.h:13
+#: ../data/preferences_dialog.ui.h:14
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:54
 msgid "Whether file sorting is case-sensitive"
 msgstr "Om filsortering skal skille mellom store og småbokstaver"
 
-#: ../data/preferences_dialog.ui.h:15
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:59
+#: ../data/preferences_dialog.ui.h:16
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:57
 msgid "Show the log"
 msgstr "Vis logg"
 
-#: ../data/preferences_dialog.ui.h:16
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:60
+#: ../data/preferences_dialog.ui.h:17
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:58
 msgid "Whether to show the log in the main window"
 msgstr "Om loggen skal vises i hovedvinduet"
 
-#: ../data/preferences_dialog.ui.h:17
-msgid "Maximum number of lines:"
-msgstr "Maksimalt antall linjer:"
-
 #: ../data/preferences_dialog.ui.h:18
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:58
-msgid "The maximum number of lines to keep in the log"
-msgstr "Maksimalt antall linjer som skal beholdes i loggen"
-
-#: ../data/preferences_dialog.ui.h:19
 msgid "General"
 msgstr "Generelt"
 
-#: ../data/preferences_dialog.ui.h:20
+#: ../data/preferences_dialog.ui.h:19
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:49
 msgid "Show audio file header summary"
 msgstr "Vis oppsummering av filhoder i lydfiler"
 
-#: ../data/preferences_dialog.ui.h:21
+#: ../data/preferences_dialog.ui.h:20
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
 msgid ""
 "Whether to show header information, such as bit rate and duration, for audio "
@@ -1101,42 +1127,42 @@ msgstr ""
 "Om informasjon om filhoder - som f.eks. bitfrekvens og varighet - skal vises "
 "for lydfiler"
 
-#: ../data/preferences_dialog.ui.h:22
+#: ../data/preferences_dialog.ui.h:21
 msgid "Display changed files in list using:"
 msgstr "Vis endrede filer i lista med:"
 
-#: ../data/preferences_dialog.ui.h:23
+#: ../data/preferences_dialog.ui.h:22
 msgid "Red color"
 msgstr "Rød farge"
 
-#: ../data/preferences_dialog.ui.h:24
+#: ../data/preferences_dialog.ui.h:23
 msgid "Bold style"
 msgstr "Fet stil"
 
-#: ../data/preferences_dialog.ui.h:25
+#: ../data/preferences_dialog.ui.h:24
 msgid "Interface"
 msgstr "Grensesnitt"
 
-#: ../data/preferences_dialog.ui.h:26
+#: ../data/preferences_dialog.ui.h:25
 msgid "File Settings"
 msgstr "Filinnstillinger"
 
-#: ../data/preferences_dialog.ui.h:27
+#: ../data/preferences_dialog.ui.h:26
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:45
 msgid "Preserve modification time when writing files"
 msgstr "Behold endringstidspunkt ved lagring av filer"
 
-#: ../data/preferences_dialog.ui.h:28
+#: ../data/preferences_dialog.ui.h:27
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:46
 msgid "Whether to preserve the existing modification time when editing files"
 msgstr "Om gjeldende endringstid skal beholdes ved redigering av filer"
 
-#: ../data/preferences_dialog.ui.h:29
+#: ../data/preferences_dialog.ui.h:28
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:47
 msgid "Update parent directory modification time when writing files"
 msgstr "Oppdater endringstidspunkt på foreldermappe ved lagring av filer"
 
-#: ../data/preferences_dialog.ui.h:30
+#: ../data/preferences_dialog.ui.h:29
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:48
 msgid ""
 "Whether to update the modification time on the parent directory when editing "
@@ -1145,12 +1171,13 @@ msgstr ""
 "Om foreldermapper skal få nytt endringstidspunkt ved redigering av "
 "underliggende filer"
 
+#. Translators: a section header in the Files tab of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:31
 msgid "Filenames"
 msgstr "Filnavn"
 
 #: ../data/preferences_dialog.ui.h:32
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:195
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:191
 msgid "Replace illegal characters when renaming"
 msgstr "Erstatt ugyldige tegn når filer får nye navn"
 
@@ -1236,12 +1263,12 @@ msgid "Automatically complete date field"
 msgstr "Fullfør datofelt automatisk"
 
 #: ../data/preferences_dialog.ui.h:50
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:94
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:92
 msgid "Whether to automatically complete the date tag"
 msgstr "Om dato-taggen skal fullføres automatisk"
 
 #: ../data/preferences_dialog.ui.h:51
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:99
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:97
 msgid "Automatically select the type of the image based on its filename"
 msgstr "Velg bildetype automatisk, basert på filnavn"
 
@@ -1254,12 +1281,12 @@ msgstr ""
 "på bildenes filnavn"
 
 #: ../data/preferences_dialog.ui.h:53
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:105
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:103
 msgid "Preserve the tag field focus"
 msgstr "Behold fokus på taggfelt"
 
 #: ../data/preferences_dialog.ui.h:54
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:106
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:104
 msgid "Whether to preserve focus on the current tag field when switching file"
 msgstr ""
 "Om taggfeltet du fokuserer på fremdeles skal være i fokus når du velger en "
@@ -1270,7 +1297,7 @@ msgid "Pad the number of digits in the disc field to:"
 msgstr "Utfyll antall sifre i platenummer-feltet til:"
 
 #: ../data/preferences_dialog.ui.h:56
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:96
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:94
 msgid "Whether the disc number tag field should be padded with leading zeroes"
 msgstr "Om taggfeltet for platenummer skal fylles ut med ledende nuller"
 
@@ -1279,7 +1306,7 @@ msgid "Pad the number of digits in the track field to:"
 msgstr "Utfyll antall sifre i spornummer-feltet til:"
 
 #: ../data/preferences_dialog.ui.h:58
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:102
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:100
 msgid "Whether the track number tag field should be padded with leading zeroes"
 msgstr "Om taggfeltet for spornummer skal fylles ut med ledende nuller"
 
@@ -1296,32 +1323,32 @@ msgstr ""
 "tagger"
 
 #: ../data/preferences_dialog.ui.h:62
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:206
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:202
 msgid "Whether to split title fields at a “ - ” separator in Ogg comments"
 msgstr "Om tittelfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
 #: ../data/preferences_dialog.ui.h:64
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:208
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:204
 msgid "Whether to split artist fields at a “ - ” separator in Ogg comments"
 msgstr "Om artistfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
 #: ../data/preferences_dialog.ui.h:66
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:210
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:206
 msgid "Whether to split album fields at a “ - ” separator in Ogg comments"
 msgstr "Om albumfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
 #: ../data/preferences_dialog.ui.h:68
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:212
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:208
 msgid "Whether to split genre fields at a “ - ” separator in Ogg comments"
 msgstr "Om sjangerfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
 #: ../data/preferences_dialog.ui.h:70
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:214
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:210
 msgid "Whether to split comment fields at a “ - ” separator in Ogg comments"
 msgstr "Om kommentarfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
 #: ../data/preferences_dialog.ui.h:72
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:216
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:212
 msgid "Whether to split composer fields at a “ - ” separator in Ogg comments"
 msgstr "Om komponistfelt skal holdes adskilt med «-» i Ogg-kommentarområdet"
 
@@ -1330,7 +1357,7 @@ msgid "Original artist"
 msgstr "Opprinnelig artist"
 
 #: ../data/preferences_dialog.ui.h:74
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:218
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:214
 msgid ""
 "Whether to split original artist fields at a “ - ” separator in Ogg comments"
 msgstr ""
@@ -1342,12 +1369,12 @@ msgid "Tags"
 msgstr "Tagger"
 
 #: ../data/preferences_dialog.ui.h:76
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:63
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:61
 msgid "Strip ID3 tags if all ID3 tags are empty"
 msgstr "Tøm ID3-tagger hvis alle felter er tomme"
 
 #: ../data/preferences_dialog.ui.h:77
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:64
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:62
 msgid ""
 "Whether to remove the ID3 tag from the audio file if all the individual tag "
 "fields are empty"
@@ -1358,12 +1385,12 @@ msgid "Non-standard encoding for reading ID3 tags:"
 msgstr "Ikke-standard tegnkoding for å lese ID3-tagger:"
 
 #: ../data/preferences_dialog.ui.h:79
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:62
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:60
 msgid "Whether to use a non-standard character encoding when reading ID3 tags"
 msgstr "Om et ikke-standard-tegnsett skal brukes til lesing av ID3-tagger"
 
 #: ../data/preferences_dialog.ui.h:80
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:72
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:70
 msgid "Choose the character set to be used when reading ID3v1 and ID3v2 tags"
 msgstr "Velg tegnsettet som skal brukes til lesing av ID3v1- og ID3v2-tagger"
 
@@ -1376,7 +1403,7 @@ msgid "Write ID3v2 tag"
 msgstr "Skriv ID3v2-tagg"
 
 #: ../data/preferences_dialog.ui.h:83
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:74
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:72
 msgid "Whether to write ID3v2 tags when writing ID3 tags into audio files"
 msgstr "Om ID3v2 skal brukes til lagring av ID3-tagger"
 
@@ -1387,12 +1414,12 @@ msgstr "Versjon:"
 #: ../data/preferences_dialog.ui.h:85
 msgid ""
 "Select the ID3v2 tag version to write:\n"
-" • ID3v2.3 is written using id3lib,\n"
-" • ID3v2.4 is written using libid3tag (recommended)"
+"• ID3v2.3 is written using id3lib,\n"
+"• ID3v2.4 is written using libid3tag (recommended)"
 msgstr ""
 "Velg ID3v2-taggversjonen som skal brukes:\n"
-" - ID3v2.3 skrives med id3lib, og\n"
-" - ID3v2.4 skrives med libid3tag (anbefales)."
+"• ID3v2.3 med id3lib, eller\n"
+"• ID3v2.4 med libid3tag (anbefales)."
 
 #: ../data/preferences_dialog.ui.h:88
 msgid "Character encoding:"
@@ -1444,7 +1471,7 @@ msgid "Automatically convert old ID3v2 tag versions"
 msgstr "Konverter gamle ID3v2-tagger automatisk"
 
 #: ../data/preferences_dialog.ui.h:99
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:78
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:76
 msgid ""
 "Whether to convert ID3 tags written against old version of the "
 "specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"
@@ -1457,27 +1484,27 @@ msgid "Use CRC-32"
 msgstr "Bruk CRC-32"
 
 #: ../data/preferences_dialog.ui.h:101
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:82
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:80
 msgid "Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"
 msgstr "Om en CRC-32-kontrollsum skal innebygges i lydfiler i ID3v2-tagger"
 
 #: ../data/preferences_dialog.ui.h:102
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:79
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:77
 msgid "Compress data in ID3v2 tags"
 msgstr "Komprimer data i ID3v2-tagger"
 
 #: ../data/preferences_dialog.ui.h:103
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:80
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:78
 msgid "Whether to compress data in ID3v2 tags"
 msgstr "Om data i ID3v2-tagger skal komprimeres"
 
 #: ../data/preferences_dialog.ui.h:104
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:83
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:81
 msgid "Use text-only genre in ID3v2 tags"
 msgstr "Bruk ren tekst for sjanger i ID3v2-tagger"
 
 #: ../data/preferences_dialog.ui.h:105
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:84
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:82
 msgid ""
 "Whether to use only a string, and not the integer-base ID3v1 genre field, "
 "when writing a genre field to ID3v2 tags"
@@ -1494,7 +1521,7 @@ msgid "Write ID3v1 tag"
 msgstr "Skriv ID3v1-tagg"
 
 #: ../data/preferences_dialog.ui.h:108
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:66
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:64
 msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
 msgstr "Om ID3v1-tagger skal brukes til lagring av ID3-tagger i lydfiler"
 
@@ -1510,38 +1537,41 @@ msgstr "ID3-tagger"
 msgid "Character Conversion"
 msgstr "Tegnkonvertering"
 
-#: ../data/preferences_dialog.ui.h:112
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:113
 msgid "Fill Tag Scanner"
 msgstr "Skann og fyll ut tagg"
 
-#: ../data/preferences_dialog.ui.h:114
+#: ../data/preferences_dialog.ui.h:115
 #, no-c-format
 msgid "Convert underscores and ‘%20’ to spaces"
 msgstr "Bytt ut understrek og «%20» med mellomrom"
 
-#: ../data/preferences_dialog.ui.h:116
+#: ../data/preferences_dialog.ui.h:117
 #, no-c-format
 msgid "Convert spaces and ‘%20’ to underscores"
 msgstr "Bytt ut mellomrom og «%20» med understrek"
 
-#: ../data/preferences_dialog.ui.h:117
+#: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
 msgstr "Ingen konvertering"
 
-#: ../data/preferences_dialog.ui.h:118
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:120
 msgid "Rename File and Directory Scanner"
 msgstr "Skann og gi filer og mapper nytt navn"
 
-#: ../data/preferences_dialog.ui.h:119
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:122
 msgid "Process Fields Scanner"
 msgstr "Skann og behandle felt"
 
-#: ../data/preferences_dialog.ui.h:120
+#: ../data/preferences_dialog.ui.h:123
 msgid "Upper-case the first letters of all words"
 msgstr "Gjør første bokstav i hvert ord til stor bokstav"
 
-#: ../data/preferences_dialog.ui.h:121
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:150
+#: ../data/preferences_dialog.ui.h:124
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:146
 msgid ""
 "Whether to upper-case the first letter of all words, including prepositions "
 "and other short words such as “feat.”, when processing tag fields"
@@ -1549,16 +1579,16 @@ msgstr ""
 "Om første bokstav i alle ord, inkl. preposisjoner og andre korte ord som "
 "«feat. », skal gjøre om til stor bokstav ved behandling av taggfelt"
 
-#: ../data/preferences_dialog.ui.h:122
+#: ../data/preferences_dialog.ui.h:125
 msgid "Fields"
 msgstr "Felt"
 
-#: ../data/preferences_dialog.ui.h:123
+#: ../data/preferences_dialog.ui.h:126
 msgid "Overwrite fields when scanning tags"
 msgstr "Overskriv felter når tagger gjennomsøkes"
 
-#: ../data/preferences_dialog.ui.h:124
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:111
+#: ../data/preferences_dialog.ui.h:127
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:109
 msgid ""
 "Whether to overwrite the tag field values when filling tags. Otherwise, only "
 "blank tag fields will be filled"
@@ -1566,23 +1596,23 @@ msgstr ""
 "Om taggfelt-verdier skal overskrives når tagger fylles ut. Hvis ikke dette "
 "er valgt, blir bare tomme taggfelt endret"
 
-#: ../data/preferences_dialog.ui.h:125
+#: ../data/preferences_dialog.ui.h:128
 msgid "Set this text as default comment:"
 msgstr "Bruk denne teksten som standardkommentar:"
 
-#: ../data/preferences_dialog.ui.h:126
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:113
+#: ../data/preferences_dialog.ui.h:129
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:111
 msgid ""
 "Whether to set the comment tag field to the provided default value when "
 "filling tags"
 msgstr "Om kommentar-taggfeltet skal få standardverdi når tagger fylles ut"
 
-#: ../data/preferences_dialog.ui.h:127
+#: ../data/preferences_dialog.ui.h:130
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
 msgstr "Bruk CRC-32 som standardkommentar (bare på filer med ID3-tagger)."
 
-#: ../data/preferences_dialog.ui.h:128
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:117
+#: ../data/preferences_dialog.ui.h:131
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:115
 msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
 "files with ID3 tags only"
@@ -1590,83 +1620,83 @@ msgstr ""
 "Om CRC-32-kontrollsum av data i lydfiler skal brukes som standardkommentar. "
 "Dette fungerer bare med ID3-tagger"
 
-#: ../data/preferences_dialog.ui.h:129
+#: ../data/preferences_dialog.ui.h:132
 msgid "Scanner"
 msgstr "Skanner"
 
-#: ../data/preferences_dialog.ui.h:130
+#: ../data/preferences_dialog.ui.h:133
 msgid "Automatic Search Servers"
 msgstr "Automatisk tjenersøk"
 
-#: ../data/preferences_dialog.ui.h:131
+#: ../data/preferences_dialog.ui.h:134
 msgid "Host:"
 msgstr "Vertsnavn:"
 
-#: ../data/preferences_dialog.ui.h:132
+#: ../data/preferences_dialog.ui.h:135
 msgid "Port:"
 msgstr "Port:"
 
-#: ../data/preferences_dialog.ui.h:133
+#: ../data/preferences_dialog.ui.h:136
 msgid "CGI Path:"
 msgstr "CGI-sti:"
 
-#: ../data/preferences_dialog.ui.h:134
+#: ../data/preferences_dialog.ui.h:137
 msgid "Manual Search Server"
 msgstr "Tjener for manuelt søk"
 
-#: ../data/preferences_dialog.ui.h:135
+#: ../data/preferences_dialog.ui.h:138
 msgid "Proxy"
 msgstr "Mellomtjener"
 
-#: ../data/preferences_dialog.ui.h:136
+#: ../data/preferences_dialog.ui.h:139
 msgid "Use a proxy server"
 msgstr "Bruk mellomtjener"
 
-#: ../data/preferences_dialog.ui.h:137
+#: ../data/preferences_dialog.ui.h:140
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:28
 msgid "Whether to access remote CDDB through a proxy"
 msgstr "Om ekstern CDDB skal kontaktes via en mellomtjener"
 
-#: ../data/preferences_dialog.ui.h:138
+#: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
 msgid "Hostname for a proxy to access remote CDDB"
 msgstr "Vertsnavn på en mellomtjener som skal kontakte CDDB"
 
-#: ../data/preferences_dialog.ui.h:139
+#: ../data/preferences_dialog.ui.h:142
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:32
 msgid "Port for a proxy to access remote CDDB"
 msgstr "Port på en mellomtjener som skal kontakte CDDB"
 
-#: ../data/preferences_dialog.ui.h:140
+#: ../data/preferences_dialog.ui.h:143
 msgid "User:"
 msgstr "Brukernavn:"
 
-#: ../data/preferences_dialog.ui.h:141
+#: ../data/preferences_dialog.ui.h:144
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:34
 msgid "Username for a proxy to access remote CDDB"
 msgstr "Brukernavn på en mellomtjener som skal kontakte CDDB"
 
-#: ../data/preferences_dialog.ui.h:142
+#: ../data/preferences_dialog.ui.h:145
 msgid "Password:"
 msgstr "Passord:"
 
-#: ../data/preferences_dialog.ui.h:143
+#: ../data/preferences_dialog.ui.h:146
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
 msgid "Password for a proxy to access remote CDDB"
 msgstr "Passord på en mellomtjener som skal kontakte CDDB"
 
-#: ../data/preferences_dialog.ui.h:144
+#: ../data/preferences_dialog.ui.h:147
 msgid "Results List"
 msgstr "Liste over søkeresultater"
 
-#: ../data/preferences_dialog.ui.h:145
+#: ../data/preferences_dialog.ui.h:148
 msgid ""
 "Select corresponding file (according to position or DLM if activated below)"
 msgstr ""
 "Velg tilhørende fil (samsvarende posisjon, eller DLM hvis det er slått på "
 "nedenfor)"
 
-#: ../data/preferences_dialog.ui.h:146
+#: ../data/preferences_dialog.ui.h:149
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:26
 msgid ""
 "Whether to select the file in the file list which matches the position in "
@@ -1675,7 +1705,7 @@ msgstr ""
 "Om filen i fillista som samsvarer med posisjonen i CDDB-søkeresulatene skal "
 "velges"
 
-#: ../data/preferences_dialog.ui.h:147
+#: ../data/preferences_dialog.ui.h:150
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
@@ -1683,74 +1713,63 @@ msgstr ""
 "Bruk Levenshtein-algoritmen (DLM) til å koble linjer (ved å bruke tittel) "
 "med lydfiler (ved å bruke filnavnet)"
 
-#: ../data/preferences_dialog.ui.h:149
+#: ../data/preferences_dialog.ui.h:152
 msgid "CDDB"
 msgstr "CDDB"
 
-#: ../data/preferences_dialog.ui.h:150
+#: ../data/preferences_dialog.ui.h:153
 msgid "Confirmation"
 msgstr "Bekreftelse"
 
-#: ../data/preferences_dialog.ui.h:151
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:118
-msgid "Confirm before quitting the application"
-msgstr "Bekreft avslutning av program"
-
-#: ../data/preferences_dialog.ui.h:152
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:119
-msgid ""
-"Whether to ask for confirmation from the user before quitting the application"
-msgstr "Om brukeren skal bes om bekreftelse før programmet avsluttes"
-
-#: ../data/preferences_dialog.ui.h:153
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:120
+#: ../data/preferences_dialog.ui.h:154
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Confirm before writing tags"
 msgstr "Bekreft lagring av tagger"
 
-#: ../data/preferences_dialog.ui.h:154
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:121
+#: ../data/preferences_dialog.ui.h:155
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:117
 msgid ""
 "Whether to ask for confirmation from the user before writing tags to audio "
 "files"
 msgstr "Om brukeren skal bes om bekreftelse før tagger lagres i lydfiler"
 
-#: ../data/preferences_dialog.ui.h:155
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:122
+#: ../data/preferences_dialog.ui.h:156
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:118
 msgid "Confirm before renaming a file"
 msgstr "Bekreft endring av filnavn"
 
-#: ../data/preferences_dialog.ui.h:156
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:123
+#: ../data/preferences_dialog.ui.h:157
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:119
 msgid "Whether to ask for confirmation from the user before renaming a file"
 msgstr "Om brukeren skal bes om bekreftelse før filer får nye navn"
 
-#: ../data/preferences_dialog.ui.h:157
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:126
+#: ../data/preferences_dialog.ui.h:158
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:122
 msgid "Confirm before deleting a file"
 msgstr "Bekreft sletting av filer"
 
-#: ../data/preferences_dialog.ui.h:158
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:127
+#: ../data/preferences_dialog.ui.h:159
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:123
 msgid "Whether to ask for confirmation from the user before deleting a file"
 msgstr "Om brukeren skal bes om bekreftelse før filer slettes"
 
-#: ../data/preferences_dialog.ui.h:159
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:124
+#: ../data/preferences_dialog.ui.h:160
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:120
 msgid "Confirm before writing a playlist"
 msgstr "Bekreft lagring av spilleliste"
 
-#: ../data/preferences_dialog.ui.h:160
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:125
+#: ../data/preferences_dialog.ui.h:161
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:121
 msgid "Whether to ask for confirmation from the user before writing a playlist"
 msgstr "Om brukeren skal bes om bekreftelse før spillelister lagres"
 
-#: ../data/preferences_dialog.ui.h:161
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:128
+#: ../data/preferences_dialog.ui.h:162
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:124
 msgid "Confirm before losing unsaved changes to files"
 msgstr "Bekreft forkasting av ulagrede filendringer"
 
-#: ../data/preferences_dialog.ui.h:162
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:129
+#: ../data/preferences_dialog.ui.h:163
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:125
 msgid ""
 "Whether to ask for confirmation from the user before performing an operation "
 "that would lose unsaved changes on files"
@@ -1758,24 +1777,28 @@ msgstr ""
 "Om brukeren bes om å bekrefte handlinger som fører til at endringer som ikke "
 "er lagret går tapt"
 
-#: ../data/preferences_dialog.ui.h:163
+#: ../data/preferences_dialog.ui.h:164
 msgid "Scanner Dialog"
 msgstr "Skanner-dialogvindu"
 
-#: ../data/preferences_dialog.ui.h:164
+#: ../data/preferences_dialog.ui.h:165
 msgid "Show the scanner dialog on startup"
 msgstr "Åpne skanner-dialogvindu når programmet starter"
 
-#: ../data/preferences_dialog.ui.h:165
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:202
+#: ../data/preferences_dialog.ui.h:166
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:198
 msgid "Whether to show the scanner window on application startup"
 msgstr "Om  skanner-dialogvinduet skal vises når programmet starter"
 
-#: ../data/preferences_dialog.ui.h:166
+#: ../data/preferences_dialog.ui.h:167
 msgid "Application"
 msgstr "Program"
 
 #: ../data/scan_dialog.ui.h:1
+msgid "Tag and Filename Scan"
+msgstr "Tagg- og filnavnsskanning"
+
+#: ../data/scan_dialog.ui.h:2
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "directory. Used to fill in tag fields"
@@ -1783,259 +1806,263 @@ msgstr ""
 "Velg eller skriv inn en maske ved å bruke koder (se Forklaring) for tolkning "
 "av fil- og mappenavn. Brukes til å fylle ut taggfelter"
 
-#: ../data/scan_dialog.ui.h:2
+#: ../data/scan_dialog.ui.h:3
 msgid "Fill tag preview"
 msgstr "Forhåndsvis utfylling av tagg"
 
-#: ../data/scan_dialog.ui.h:3
+#: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
 msgstr "Maskebehandler"
 
-#: ../data/scan_dialog.ui.h:4
+#: ../data/scan_dialog.ui.h:5
 msgid "Create a new mask"
 msgstr "Lag ny maske"
 
-#: ../data/scan_dialog.ui.h:5
+#: ../data/scan_dialog.ui.h:6
 msgid "Move the selected mask up"
 msgstr "Flytt valgt maske opp"
 
-#: ../data/scan_dialog.ui.h:6
+#: ../data/scan_dialog.ui.h:7
 msgid "Move the selected mask down"
 msgstr "Flytt valgt maske ned"
 
-#: ../data/scan_dialog.ui.h:7
+#: ../data/scan_dialog.ui.h:8
 msgid "Duplicate the selected mask"
 msgstr "Lag en kopi av valgt maske"
 
-#: ../data/scan_dialog.ui.h:8
+#: ../data/scan_dialog.ui.h:9
 msgid "Add default masks"
 msgstr "Legg til standardmasker"
 
-#: ../data/scan_dialog.ui.h:9
+#: ../data/scan_dialog.ui.h:10
 msgid "Remove the selected mask"
 msgstr "Fjern valgt maske"
 
-#: ../data/scan_dialog.ui.h:10
+#: ../data/scan_dialog.ui.h:11
 msgid "Save masks"
 msgstr "Lagre masker"
 
-#: ../data/scan_dialog.ui.h:11
+#: ../data/scan_dialog.ui.h:12
 msgid "Legend"
 msgstr "Forklaring"
 
-#: ../data/scan_dialog.ui.h:13
+#: ../data/scan_dialog.ui.h:14
 #, no-c-format
 msgid "%a: artist"
 msgstr "%a: artist"
 
-#: ../data/scan_dialog.ui.h:15
+#: ../data/scan_dialog.ui.h:16
 #, no-c-format
 msgid "%z: album artist"
 msgstr "%z: albumartist"
 
-#: ../data/scan_dialog.ui.h:17
+#: ../data/scan_dialog.ui.h:18
 #, no-c-format
 msgid "%b: album"
 msgstr "%b: album"
 
-#: ../data/scan_dialog.ui.h:19
+#: ../data/scan_dialog.ui.h:20
 #, no-c-format
 msgid "%c: comment"
 msgstr "%c: kommentar"
 
-#: ../data/scan_dialog.ui.h:21
+#: ../data/scan_dialog.ui.h:22
 #, no-c-format
 msgid "%p: composer"
 msgstr "%p: komponist"
 
-#: ../data/scan_dialog.ui.h:23
+#: ../data/scan_dialog.ui.h:24
 #, no-c-format
 msgid "%r: copyright"
 msgstr "%r: opphavsrett"
 
-#: ../data/scan_dialog.ui.h:25
+#: ../data/scan_dialog.ui.h:26
 #, no-c-format
 msgid "%d: disc number"
 msgstr "%d: platenummer"
 
-#: ../data/scan_dialog.ui.h:27
+#: ../data/scan_dialog.ui.h:28
 #, no-c-format
 msgid "%e: encoded by"
 msgstr "%e: kodet av"
 
-#: ../data/scan_dialog.ui.h:29
+#: ../data/scan_dialog.ui.h:30
 #, no-c-format
 msgid "%g: genre"
 msgstr "%g: sjanger"
 
-#: ../data/scan_dialog.ui.h:31
+#: ../data/scan_dialog.ui.h:32
 #, no-c-format
 msgid "%i: ignored"
 msgstr "%i: ignorert"
 
-#: ../data/scan_dialog.ui.h:33
+#: ../data/scan_dialog.ui.h:34
 #, no-c-format
 msgid "%l: number of tracks"
 msgstr "%l: antall spor"
 
-#: ../data/scan_dialog.ui.h:35
+#: ../data/scan_dialog.ui.h:36
 #, no-c-format
 msgid "%o: original artist"
 msgstr "%o: oppr. artist"
 
-#: ../data/scan_dialog.ui.h:37
+#: ../data/scan_dialog.ui.h:38
 #, no-c-format
-msgid "%n: track"
+msgid "%n: track number"
 msgstr "%n: spornummer"
 
-#: ../data/scan_dialog.ui.h:39
+#: ../data/scan_dialog.ui.h:40
 #, no-c-format
 msgid "%t: title"
 msgstr "%t: tittel"
 
-#: ../data/scan_dialog.ui.h:41
+#: ../data/scan_dialog.ui.h:42
 #, no-c-format
 msgid "%u: URL"
 msgstr "%u: nettadresse"
 
-#: ../data/scan_dialog.ui.h:43
+#: ../data/scan_dialog.ui.h:44
 #, no-c-format
 msgid "%x: number of discs"
 msgstr "%x: antall plater"
 
-#: ../data/scan_dialog.ui.h:45
+#: ../data/scan_dialog.ui.h:46
 #, no-c-format
 msgid "%y: year"
 msgstr "%y: år"
 
-#: ../data/scan_dialog.ui.h:46
+#: ../data/scan_dialog.ui.h:47
 msgid "Fill Tag"
 msgstr "Fyll ut tagg"
 
-#: ../data/scan_dialog.ui.h:47
+#: ../data/scan_dialog.ui.h:48
 msgid "Prefix mask with current directory"
 msgstr "Bruk gjeldende mappe som prefiks i maska"
 
-#: ../data/scan_dialog.ui.h:48
+#: ../data/scan_dialog.ui.h:49
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
-"        Use ‘/’ to make directories. If the first character is ‘/’, it is an "
-"absolute path, otherwise is relative to the old path"
+"Use ‘/’ to make directories. If the first character is ‘/’, it is an "
+"absolute path, otherwise it is relative to the old path"
 msgstr ""
 "Velg eller skriv inn en maske ved å bruke koder (se forklaring) som tolker "
 "taggfelt. Dette brukes til å gi filer nytt navn.\n"
-"Bruk «/» for å lage mapper. Hvis første tegn i stien er «/», regnes stien "
-"som en absolutt sti. Ellers er stien relativ til opprinnelig mappe"
+"Bruk «/» for å lage mapper. Hvis første tegn i stien er «/», er stien "
+"absolutt. Hvis ikke, er stien relativ til filens opprinnelig mappe"
 
-#: ../data/scan_dialog.ui.h:50
+#: ../data/scan_dialog.ui.h:51
 msgid "Rename file preview"
 msgstr "Forhåndsvisning av nytt filnavn"
 
 #. Only filename changed
-#: ../data/scan_dialog.ui.h:51 ../src/easytag.c:582
+#: ../data/scan_dialog.ui.h:52 ../src/easytag.c:585
 msgid "Rename File"
 msgstr "Gi nytt navn til fil"
 
-#: ../data/scan_dialog.ui.h:52
+#: ../data/scan_dialog.ui.h:53
 msgid "Tag Fields"
 msgstr "Taggfelt"
 
-#: ../data/scan_dialog.ui.h:54
+#: ../data/scan_dialog.ui.h:55
 msgid "Process filename"
 msgstr "Behandle filnavn"
 
-#: ../data/scan_dialog.ui.h:56
+#: ../data/scan_dialog.ui.h:57
 msgid "Process title field"
 msgstr "Behandle tittelfelt"
 
-#: ../data/scan_dialog.ui.h:58
+#: ../data/scan_dialog.ui.h:59
 msgid "Process artist field"
 msgstr "Behandle artist-felt"
 
 #: ../data/scan_dialog.ui.h:61
+msgid "Process album artist field"
+msgstr "Behandle albumartist-felt"
+
+#: ../data/scan_dialog.ui.h:63
 msgid "Process album field"
 msgstr "Behandle album-felt"
 
-#: ../data/scan_dialog.ui.h:63
+#: ../data/scan_dialog.ui.h:65
 msgid "Process genre field"
 msgstr "Behandle sjanger-felt"
 
-#: ../data/scan_dialog.ui.h:65
+#: ../data/scan_dialog.ui.h:67
 msgid "Process comment field"
 msgstr "Behandle kommentarfelt"
 
-#: ../data/scan_dialog.ui.h:67
+#: ../data/scan_dialog.ui.h:69
 msgid "Process composer field"
 msgstr "Behandle komponist-felt"
 
-#: ../data/scan_dialog.ui.h:68
+#: ../data/scan_dialog.ui.h:70
 msgid "Orig. Artist"
 msgstr "Oppr. artist:"
 
-#: ../data/scan_dialog.ui.h:69
+#: ../data/scan_dialog.ui.h:71
 msgid "Process original artist field"
 msgstr "Behandle opprinnelig artist-felt"
 
-#: ../data/scan_dialog.ui.h:71
+#: ../data/scan_dialog.ui.h:73
 msgid "Process copyright field"
 msgstr "Behandle opphavsrett-felt"
 
-#: ../data/scan_dialog.ui.h:73
+#: ../data/scan_dialog.ui.h:75
 msgid "Process URL field"
 msgstr "Behandle nettadresse-felt"
 
-#: ../data/scan_dialog.ui.h:75
+#: ../data/scan_dialog.ui.h:77
 msgid "Process encoded-by field"
 msgstr "Behandle kodeprogram-felt"
 
-#: ../data/scan_dialog.ui.h:76
+#: ../data/scan_dialog.ui.h:78
 msgid "Capitalization"
 msgstr "Store bokstaver"
 
-#: ../data/scan_dialog.ui.h:77
+#: ../data/scan_dialog.ui.h:79
 msgid "Capitalize all"
 msgstr "Bare store bokstaver"
 
-#: ../data/scan_dialog.ui.h:78 ../data/org.gnome.EasyTAG.gschema.xml.h:144
+#: ../data/scan_dialog.ui.h:80 ../data/org.gnome.EasyTAG.gschema.xml.h:140
 msgid ""
 "Whether to upper-case all characters of the tag when processing tag fields"
 msgstr "Om alle bokstaver i tagger skal bli store ved behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:79
+#: ../data/scan_dialog.ui.h:81
 msgid "Lowercase all"
 msgstr "Gjør alle bokstaver små"
 
-#: ../data/scan_dialog.ui.h:80 ../data/org.gnome.EasyTAG.gschema.xml.h:142
+#: ../data/scan_dialog.ui.h:82 ../data/org.gnome.EasyTAG.gschema.xml.h:138
 msgid ""
 "Whether to lower-case all characters of the tag when processing tag fields"
 msgstr "Om alle bokstaver i tagger skal bli små ved behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:81
+#: ../data/scan_dialog.ui.h:83
 msgid "Capitalize first letter"
 msgstr "Gjør første bokstav til stor bokstav"
 
-#: ../data/scan_dialog.ui.h:82 ../data/org.gnome.EasyTAG.gschema.xml.h:146
+#: ../data/scan_dialog.ui.h:84 ../data/org.gnome.EasyTAG.gschema.xml.h:142
 msgid ""
 "Whether to upper-case the first letter of the tag when processing tag fields"
 msgstr "Om første bokstav i tagger skal bli små ved behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:83
+#: ../data/scan_dialog.ui.h:85
 msgid "Capitalize the first letter of each word"
 msgstr "Gjør første bokstav i hvert ord til stor bokstav"
 
-#: ../data/scan_dialog.ui.h:84 ../data/org.gnome.EasyTAG.gschema.xml.h:148
+#: ../data/scan_dialog.ui.h:86 ../data/org.gnome.EasyTAG.gschema.xml.h:144
 msgid ""
 "Whether to upper-case the first letter of each word when processing tag "
 "fields"
 msgstr ""
 "Om første bokstav i hvert ord skal gjøres stor ved behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:85
+#: ../data/scan_dialog.ui.h:87
 msgid "Detect Roman numerals"
 msgstr "Oppdag romerske numre"
 
-#: ../data/scan_dialog.ui.h:86 ../data/org.gnome.EasyTAG.gschema.xml.h:152
+#: ../data/scan_dialog.ui.h:88 ../data/org.gnome.EasyTAG.gschema.xml.h:148
 msgid ""
 "Whether to detect Roman numerals when applying upper-case conversions while "
 "processing tag fields"
@@ -2043,59 +2070,59 @@ msgstr ""
 "Om romerske tall skal oppdages og evt. gjøres om til store bokstaver ved "
 "behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:87
+#: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
 msgstr "Ikke endre små og store bokstaver"
 
-#: ../data/scan_dialog.ui.h:88
+#: ../data/scan_dialog.ui.h:90
 msgid "Spaces Conversions"
 msgstr "Mellomrom-konverteringer"
 
-#: ../data/scan_dialog.ui.h:89 ../data/org.gnome.EasyTAG.gschema.xml.h:153
-#: ../src/tag_area.c:878
+#: ../data/scan_dialog.ui.h:91 ../data/org.gnome.EasyTAG.gschema.xml.h:149
+#: ../src/tag_area.c:910
 msgid "Remove spaces"
 msgstr "Fjern mellomrom"
 
-#: ../data/scan_dialog.ui.h:90 ../data/org.gnome.EasyTAG.gschema.xml.h:154
+#: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:150
 msgid "Whether to remove all spaces when processing tag fields"
 msgstr "Om alle mellomrom skal fjernes ved behandling av taggfelt"
 
-#: ../data/scan_dialog.ui.h:91
+#: ../data/scan_dialog.ui.h:93
 msgid "Insert a space before uppercase letters"
 msgstr "Sett inn mellomrom før store bokstaver"
 
-#: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:156
+#: ../data/scan_dialog.ui.h:94 ../data/org.gnome.EasyTAG.gschema.xml.h:152
 msgid ""
 "Whether to insert spaces before capital letters when processing tag fields"
 msgstr ""
 "Om det skal settes inn mellomrom før store bokstaver ved behandling av "
 "taggfelt"
 
-#: ../data/scan_dialog.ui.h:93
+#: ../data/scan_dialog.ui.h:95
 msgid "Remove duplicate spaces and underscores"
 msgstr "Fjern doble mellomrom og understreker"
 
-#: ../data/scan_dialog.ui.h:94 ../data/org.gnome.EasyTAG.gschema.xml.h:158
+#: ../data/scan_dialog.ui.h:96 ../data/org.gnome.EasyTAG.gschema.xml.h:154
 msgid ""
 "Whether to remove duplicate spaces and underscores when processing tag fields"
 msgstr ""
 "Om doble forekomster av mellomrom og understrek skal fjernes ved behandling "
 "av taggfelt"
 
-#: ../data/scan_dialog.ui.h:95
+#: ../data/scan_dialog.ui.h:97
 msgid "Do not change word separators"
 msgstr "Ikke endre orddelere"
 
-#: ../data/scan_dialog.ui.h:96
+#: ../data/scan_dialog.ui.h:98
 msgid "Character Conversions"
 msgstr "Tegnkonvertering"
 
-#: ../data/scan_dialog.ui.h:98 ../src/tag_area.c:834
+#: ../data/scan_dialog.ui.h:100 ../src/tag_area.c:866
 #, no-c-format
 msgid "Convert ‘_’ and ‘%20’ to spaces"
 msgstr "Bytt ut «_» og «%20» med mellomrom"
 
-#: ../data/scan_dialog.ui.h:100
+#: ../data/scan_dialog.ui.h:102
 #, no-c-format
 msgid ""
 "The underscore character or the string ‘%20’ is replaced by one space. "
@@ -2104,11 +2131,11 @@ msgstr ""
 "Understrek-tegnet eller strengen «%20» erstattes med enkelt mellomrom. For "
 "eksempel blir «Tekst%20i%20en_oppføring» endret til «Tekst i en oppføring»."
 
-#: ../data/scan_dialog.ui.h:101 ../src/tag_area.c:840
+#: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:872
 msgid "Convert spaces to underscores"
 msgstr "Erstatt mellomrom med understrek"
 
-#: ../data/scan_dialog.ui.h:102
+#: ../data/scan_dialog.ui.h:104
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
@@ -2116,41 +2143,45 @@ msgstr ""
 "Mellomrom-tegn erstattes av understrek-tegn. For eksempel endres «Tekst i en "
 "oppføring» til «Tekst_i_en_oppføring»."
 
-#: ../data/scan_dialog.ui.h:103
+#: ../data/scan_dialog.ui.h:105
 msgid "Convert:"
 msgstr "Konverter:"
 
-#: ../data/scan_dialog.ui.h:104
+#: ../data/scan_dialog.ui.h:106
 msgid "Replace a string by another one. Note that the search is case sensitive"
 msgstr ""
 "Erstatt en streng med en annen. Merk at søket skiller mellom små og store "
 "bokstaver."
 
-#: ../data/scan_dialog.ui.h:105
+#: ../data/scan_dialog.ui.h:107
 msgid "to: "
 msgstr "til:"
 
-#: ../data/scan_dialog.ui.h:106
+#: ../data/scan_dialog.ui.h:108
 msgid "Do not convert"
 msgstr "Ikke konverter"
 
-#: ../data/scan_dialog.ui.h:108
+#: ../data/scan_dialog.ui.h:110
 msgid "Show / Hide Masks Editor"
 msgstr "Vis/skjul maskebehandler"
 
-#: ../data/scan_dialog.ui.h:109
+#: ../data/scan_dialog.ui.h:111
 msgid "Show / Hide Legend"
 msgstr "Vis/skjul forklaring"
 
-#: ../data/scan_dialog.ui.h:110
+#: ../data/scan_dialog.ui.h:112
 msgid "Scanner Preferences"
 msgstr "Skannerinnstillinger"
 
 #: ../data/search_dialog.ui.h:1
+msgid "Find Files"
+msgstr "Finn filer"
+
+#: ../data/search_dialog.ui.h:2
 msgid "Search:"
 msgstr "Søk:"
 
-#: ../data/search_dialog.ui.h:2
+#: ../data/search_dialog.ui.h:3
 msgid ""
 "Type the text to search for in the file list, or leave the field empty to "
 "display all files"
@@ -2158,196 +2189,184 @@ msgstr ""
 "Skriv inn ordet du vil søke etter, eller la feltet stå tomt for å vise alle "
 "filer."
 
-#: ../data/search_dialog.ui.h:3
+#: ../data/search_dialog.ui.h:4
 msgid "_Find"
 msgstr "_Finn"
 
-#: ../data/search_dialog.ui.h:4
+#: ../data/search_dialog.ui.h:5
 msgid "In:"
 msgstr "I:"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
-#: ../data/search_dialog.ui.h:6
+#. This option is for the previous
+#: ../data/search_dialog.ui.h:7
 msgid "the Filename"
 msgstr "filnavnet"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
-#: ../data/search_dialog.ui.h:8
+#. This option is for the previous
+#: ../data/search_dialog.ui.h:9
 msgid "the Tag"
 msgstr "taggen"
 
-#: ../data/search_dialog.ui.h:9
+#: ../data/search_dialog.ui.h:10
 msgid "Case sensitive"
 msgstr "Skill mellom små og store bokstaver"
 
-#: ../data/search_dialog.ui.h:16
+#: ../data/search_dialog.ui.h:17
 msgid "CD"
 msgstr "CD"
 
-#: ../data/tag_area.ui.h:1
-msgid "Image Type"
-msgstr "Bildetype"
-
-#: ../data/tag_area.ui.h:2 ../src/picture.c:269
-msgid "Description"
-msgstr "Synkende, etter beskrivelse"
-
-#: ../data/tag_area.ui.h:4
-msgid "_Accept"
-msgstr "_Godta"
-
-#: ../data/tag_area.ui.h:5 ../src/tag_area.c:3019
+#: ../data/tag_area.ui.h:1 ../src/tag_area.c:3020
 msgid "Tag"
 msgstr "Tagg"
 
-#: ../data/tag_area.ui.h:6
+#: ../data/tag_area.ui.h:2
 msgid "Title:"
 msgstr "Tittel:"
 
-#: ../data/tag_area.ui.h:7
+#: ../data/tag_area.ui.h:3
 msgid "Tag selected files with this title"
 msgstr "Tagg valgte filer med denne tittelen"
 
-#: ../data/tag_area.ui.h:8
+#: ../data/tag_area.ui.h:4
 msgid "Artist:"
 msgstr "Artist:"
 
-#: ../data/tag_area.ui.h:9
+#: ../data/tag_area.ui.h:5
 msgid "Tag selected files with this artist"
 msgstr "Tagg valgte filer med denne artisten"
 
-#: ../data/tag_area.ui.h:10
+#: ../data/tag_area.ui.h:6
 msgid "Album artist:"
 msgstr "Albumartist:"
 
-#: ../data/tag_area.ui.h:11
+#: ../data/tag_area.ui.h:7
 msgid "Tag selected files with this album artist"
 msgstr "Tagg valgte filer med denne albumartisten"
 
-#: ../data/tag_area.ui.h:12
+#: ../data/tag_area.ui.h:8
 msgid "Album:"
 msgstr "Album"
 
-#: ../data/tag_area.ui.h:13
+#: ../data/tag_area.ui.h:9
 msgid "Tag selected files with this album name"
 msgstr "Tagg valgte filer med dette albumnavnet"
 
-#: ../data/tag_area.ui.h:14
+#: ../data/tag_area.ui.h:10
 msgid "CD:"
 msgstr "CD:"
 
-#: ../data/tag_area.ui.h:15
+#: ../data/tag_area.ui.h:11
 msgid "Tag selected files with this disc number"
 msgstr "Tagg valgte filer med dette platenummeret"
 
-#: ../data/tag_area.ui.h:16
+#: ../data/tag_area.ui.h:12
 msgid "Year:"
 msgstr "År:"
 
-#: ../data/tag_area.ui.h:17
+#: ../data/tag_area.ui.h:13
 msgid "Tag selected files with this year"
 msgstr "Tagg valgte filer med dette året"
 
-#: ../data/tag_area.ui.h:18
+#: ../data/tag_area.ui.h:14
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory"
 msgstr ""
 "Nummerer valgte spor i rekkefølge. Tallet begynner på 01 i hver undermappe"
 
-#: ../data/tag_area.ui.h:19
+#: ../data/tag_area.ui.h:15
 msgid "Track #:"
 msgstr "Spornummer:"
 
-#: ../data/tag_area.ui.h:20
+#: ../data/tag_area.ui.h:16
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks"
 msgstr "Bruk antall filer i tilhørende mappe som antall spor-tagg."
 
-#: ../data/tag_area.ui.h:21
+#: ../data/tag_area.ui.h:17
 msgid "Tag selected files with this number of tracks"
 msgstr "Tagg valgte filer med dette antallet spor"
 
-#: ../data/tag_area.ui.h:22
+#: ../data/tag_area.ui.h:18
 msgid "Genre:"
 msgstr "Sjanger:"
 
-#: ../data/tag_area.ui.h:23
+#: ../data/tag_area.ui.h:19
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: ../data/tag_area.ui.h:24
+#: ../data/tag_area.ui.h:20
 msgid "Tag selected files with this comment"
 msgstr "Tagg valgte filer med denne kommentaren"
 
-#: ../data/tag_area.ui.h:25
+#: ../data/tag_area.ui.h:21
 msgid "Composer:"
 msgstr "Komponist:"
 
-#: ../data/tag_area.ui.h:26
+#: ../data/tag_area.ui.h:22
 msgid "Tag selected files with this composer"
 msgstr "Tagg valgte filer med denne komponisten"
 
-#: ../data/tag_area.ui.h:27
+#: ../data/tag_area.ui.h:23
 msgid "Orig. artist:"
 msgstr "Oppr. artist:"
 
-#: ../data/tag_area.ui.h:28
+#: ../data/tag_area.ui.h:24
 msgid "Tag selected files with this original artist"
 msgstr "Tagg valgte filer med denne opprinnelige artisten"
 
-#: ../data/tag_area.ui.h:29
+#: ../data/tag_area.ui.h:25
 msgid "Copyright:"
 msgstr "Opphavsrett:"
 
-#: ../data/tag_area.ui.h:30
+#: ../data/tag_area.ui.h:26
 msgid "Tag selected files with this copyright"
 msgstr "Tagg valgte filer med denne opphavsrettsmerknaden"
 
-#: ../data/tag_area.ui.h:31
+#: ../data/tag_area.ui.h:27
 msgid "URL:"
 msgstr "Nettadresse:"
 
-#: ../data/tag_area.ui.h:32
+#: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
 msgstr "Tagg valgte filer med denne nettadressen"
 
-#: ../data/tag_area.ui.h:33
+#: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
 msgstr "Kodet av:"
 
-#: ../data/tag_area.ui.h:34
+#: ../data/tag_area.ui.h:30
 msgid "Tag selected files with this encoder name"
 msgstr "Tagg valgte filer med dette kodeprogram-navnet"
 
-#: ../data/tag_area.ui.h:35
+#: ../data/tag_area.ui.h:31
 msgid "Common"
 msgstr "Vanlig"
 
-#: ../data/tag_area.ui.h:36
+#: ../data/tag_area.ui.h:32
 msgid "You can use drag and drop to add an image"
 msgstr "Du kan dra og slippe for å legge til et bilde"
 
-#: ../data/tag_area.ui.h:37
+#: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
 msgstr "Legg til bilder i taggen"
 
-#: ../data/tag_area.ui.h:38
+#: ../data/tag_area.ui.h:34
 msgid "Remove selected images from the tag"
 msgstr "Fjern valgte bilder fra taggen"
 
-#: ../data/tag_area.ui.h:39
+#: ../data/tag_area.ui.h:35
 msgid "Save the selected images to files"
 msgstr "Lagre valgte bilder til filer"
 
-#: ../data/tag_area.ui.h:40
+#: ../data/tag_area.ui.h:36
 msgid "Edit image properties"
 msgstr "Rediger bildeegenskaper"
 
-#: ../data/tag_area.ui.h:41
+#: ../data/tag_area.ui.h:37
 msgid "Tag selected files with these images"
 msgstr "Tagg valgte filer med disse bildene"
 
-#: ../data/tag_area.ui.h:42 ../src/tag_area.c:3272 ../src/tag_area.c:3275
+#: ../data/tag_area.ui.h:38 ../src/tag_area.c:3274 ../src/tag_area.c:3277
 msgid "Images"
 msgstr "Bilder"
 
@@ -2422,10 +2441,6 @@ msgstr "Søk i filnavn og tagger"
 #: ../data/toolbar.ui.h:27
 msgid "CDDB Search…"
 msgstr "CDDB-søk …"
-
-#: ../data/toolbar.ui.h:28 ../src/cddb_dialog.c:2755
-msgid "CDDB Search"
-msgstr "CDDB-søk"
 
 #: ../data/toolbar.ui.h:30
 msgid "Generate a playlist"
@@ -2577,31 +2592,27 @@ msgstr "Hvordan lydfiler skal sorteres i fillista"
 msgid "Sort files in ascending or descending order for the selected type"
 msgstr "Sorter valgt filtype i stigende eller synkende rekkefølge "
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:57
-msgid "Number of log lines"
-msgstr "Antall logglinjer"
-
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:61
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:59
 msgid "Use a non-standard character encoding when reading ID3 tags"
 msgstr "Bruk selvvalgt tegnkoding til å lese ID3-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:65
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:63
 msgid "Write ID3v1 tags"
 msgstr "Skriv ID3v1-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:67
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:65
 msgid "The character set for writing ID3v1 tags"
 msgstr "Tegnsett som skal brukes til å skrive ID3v1-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:68
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:66
 msgid "Choose the character set to be used when writing ID3v1 tags"
 msgstr "Velg tegnsett som skal brukes til å skrive ID3v1-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:69
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:67
 msgid "Encoding options when writing ID3v1 tags"
 msgstr "Kodevalg ved skriving av ID3v1-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:70
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:68
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v1 tags"
@@ -2609,61 +2620,61 @@ msgstr ""
 "Flere programvalg som skal sendes til iconv() ved konvertering mellom ulike "
 "tegnkodinger i ID3v1-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:71
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:69
 msgid "The character set for reading ID3v1 and ID3v2 tags"
 msgstr "Tegnsett som skal brukes til å lese ID3v1- og ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:73
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:71
 msgid "Write ID3v2 tags"
 msgstr "Skriv ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:75
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:73
 msgid "Enable ID3v2.4 support"
 msgstr "Slå på ID3v2.4-støtte"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:76
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:74
 msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
 msgstr "Om ID3v2.4-tagger skal brukes når ID3v2-støtte er slått på"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:77
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "Convert old ID3 tag versions to new ones"
 msgstr "Konverter gamle ID3-tagger til nytt format"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:81
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:79
 msgid "Use CRC-32 in ID3v2 tags"
 msgstr "Ta med CRC-32 i ID3v2-taggene"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:85
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:83
 msgid "Use Unicode character encoding in ID3v2 tags"
 msgstr "Bruk Unicode-tegnkoding i ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:86
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:84
 msgid "Whether to use a Unicode character set when writing ID3v2 tags"
 msgstr "Om det skal brukes et Unicode-tegnsett til skriving av ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:87
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:85
 msgid "The Unicode character set for writing ID3v2 tags"
 msgstr "Unicode-tegnsett som brukes til å skrive ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:88
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:86
 msgid "Choose the Unicode character set to be used when writing ID3v2 tags"
 msgstr "Velg Unicode-tegnsett som skal brukes til å skrive ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:89
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:87
 msgid "The character set for writing ID3v2 tags"
 msgstr "Tegnsett som brukes til å skrive ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:90
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:88
 msgid ""
 "Override the typical Unicode character set to be used when writing ID3v2 tags"
 msgstr ""
 "Overstyr standard Unicode-tegnsett som brukes ved skriving av ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:91
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Encoding options when writing ID3v2 tags"
 msgstr "Valg for tegnsettkoding ved skriving av ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:92
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:90
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v2 tags"
@@ -2671,19 +2682,19 @@ msgstr ""
 "Flere programvalg som skal sendes til iconv() ved konvertering mellom ulike "
 "tegnkodinger i ID3v2-tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:93
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:91
 msgid "Automatically complete the date"
 msgstr "Fullfør dato automatisk"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:95
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:93
 msgid "Pad the disc number tag field"
 msgstr "Fyll ut platenummer-felt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:97
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "The length of the disc number field"
 msgstr "Lengde på platenummer-felt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:98
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:96
 msgid ""
 "The length of the disc number field, which controls if the field is padded "
 "with leading zeroes"
@@ -2691,7 +2702,7 @@ msgstr ""
 "Ønsket antall sifre i platenummer-felt. Dette styrer hvorvidt feltet "
 "utfylles med ledende nuller"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:100
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:98
 msgid ""
 "Whether to, when adding cover art, automatically select the type for an "
 "image based on its filename"
@@ -2699,15 +2710,15 @@ msgstr ""
 "Om bildetype skal velges automatisk når cover-bilder legges til, basert på "
 "bildenes filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:101
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:99
 msgid "Pad the track number tag field"
 msgstr "Fyll ut spornummer-felt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:103
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:101
 msgid "The length of the track number field"
 msgstr "Lengde på spornummer-felt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:104
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:102
 msgid ""
 "The length of the track number field, which controls if the field is padded "
 "with leading zeroes"
@@ -2715,11 +2726,11 @@ msgstr ""
 "Ønsket antall sifre i spornummer-felt. Dette styrer hvorvidt feltet utfylles "
 "med ledende nuller"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:107
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:105
 msgid "Convert spaces and underscores when filling tag fields"
 msgstr "Konverter mellomrom og understreker ved utfylling av taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:109
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:107
 #, no-c-format
 msgid ""
 "Whether to convert to spaces (and %20) or underscores when filling tag "
@@ -2728,43 +2739,43 @@ msgstr ""
 "Om det skal konverteres til mellomrom (og «%20») eller understreker når "
 "filnavn brukes til å fylle ut taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:110
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:108
 msgid "Overwrite tag field"
 msgstr "Overskriv taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:112
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:110
 msgid "Set the default comment"
 msgstr "Velg standardkommentar"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:114
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:112
 msgid "Default comment for filling tags"
 msgstr "Standardkommentar ved utfylling av tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:115
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:113
 msgid "The default comment to use when filling tags"
 msgstr "Standard kommentartekst som skal brukes ved utfylling av tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:116
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:114
 msgid "Use the CRC-32 as the default comment"
 msgstr "Bruk CRC-32 som standardkommentar"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:130
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:126
 msgid "Run the current scanner when loading filenames from a file"
 msgstr "Kjør gjeldende skanner når filnavn hentes fra en fil"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:132
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:128
 msgid "Process these tag fields"
 msgstr "Behandle disse taggfeltene"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:133
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:129
 msgid "The tag fields to process when using the scanner"
 msgstr "Taggfeltene som skal behandles ved bruk av skanneren"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:134
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:130
 msgid "Convert tag fields when processing"
 msgstr "Konverter taggfelt under behandlingsprosessen"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:136
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:132
 #, no-c-format
 msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
@@ -2773,11 +2784,11 @@ msgstr ""
 "Om det skal konverteres til mellomrom (og «%20») understreker eller andre "
 "tegn når taggfelt behandles"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:137
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:133
 msgid "Convert characters in tags"
 msgstr "Konverter tegn i tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:138
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:134
 msgid ""
 "Whether to convert characters of the tag from one value to another when "
 "processing tag fields"
@@ -2785,11 +2796,11 @@ msgstr ""
 "Om tegn i taggen skal konverteres fra en verdi til en annen ved behandling "
 "av taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:139
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:135
 msgid "Convert the following characters when processing tag fields"
 msgstr "Konverter følgende tegn ved behandling av taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:140
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:136
 msgid ""
 "Replace any matched sequence of characters with this string when processing "
 "tag fields"
@@ -2797,79 +2808,79 @@ msgstr ""
 "Erstatt samsvarende rekker av tegn med denne strengen ved behandling av "
 "taggfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:141
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:137
 msgid "Lower-case all characters"
 msgstr "Gjør alle tegn små"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:143
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:139
 msgid "Upper-case all characters"
 msgstr "Gjør alle bokstaver store"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:145
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:141
 msgid "Upper-case the first letter of the tag"
 msgstr "Gjør om første bokstav i tagg til stor bokstav"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:147
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:143
 msgid "Upper-case the first letter of each word"
 msgstr "Gjør første bokstav i hvert ord til stor bokstav"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:149
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:145
 msgid "Upper-case prepositions"
 msgstr "Gi preposisjoner store bokstaver"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:151
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:147
 msgid "Detect roman numerals"
 msgstr "Oppdag romerske numre"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:155
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:151
 msgid "Insert spaces before capital letters"
 msgstr "Sett inn mellomrom før store bokstaver"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:157
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:153
 msgid "Remove duplicate spaces"
 msgstr "Fjern doble mellomrom"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:159
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:155
 msgid "Playlist filename mask"
 msgstr "Maske for spilleliste-filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:160
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:156
 msgid "The default filename mask to use for a new playlist"
 msgstr "Standard maske som skal brukes for filnavn på nye spillelister"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:161
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:157
 msgid "Use a filename mask when generating a playlist"
 msgstr "Bruk en filnavn-maske når spillelister opprettes"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:162
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:158
 msgid "Whether to use a filename mask when creating playlists"
 msgstr "Om det skal brukes en maske for filnavn på nye spillelister"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:163
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:159
 msgid "Create playlists with only the selected files"
 msgstr "Bare lag spillelister med valgte filer"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:165
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:161
 msgid "Use relative paths when creating playlists"
 msgstr "Bruk relative stier når spillelister lages"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:166
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:162
 msgid "Whether to use relative paths for files when creating playlists"
 msgstr "Om relative stier til filer skal brukes når spillelister lages"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:167
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:163
 msgid "Create the playlist in the parent directory"
 msgstr "Lag ny spilleliste i foreldermappe"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:169
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:165
 msgid "Use DOS separators for playlists"
 msgstr "Bruk DOS-skilletegn for spillelister"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:171
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:167
 msgid "Content of generated playlists"
 msgstr "Innhold i genererte spillelister"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:172
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:168
 msgid ""
 "Write a plain list of files, include extended information from the filename "
 "or extended information using a supplied mask"
@@ -2877,44 +2888,44 @@ msgstr ""
 "Skriv en ren liste over filer, og ta med utvidet info fra filnavn eller via "
 "en angitt maske"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:173
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:169
 msgid "Playlist default mask"
 msgstr "Standard spilleliste-maske"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:174
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:170
 msgid "The default mask to use for files in a playlist"
 msgstr "Standardmaske som skal brukes på filer i en spilleliste"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:175
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:171
 msgid "Search for files case-sensitively"
 msgstr "Skill mellom små og store bokstaver ved søk etter filer"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:176
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:172
 msgid "Whether matches when searching for files are case-sensitive"
 msgstr ""
 "Om søkeresultater ved søk etter filer skiller mellom små og store bokstaver"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:177
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:173
 msgid "Search in filenames"
 msgstr "Søk blant filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:178
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:174
 msgid "Perform the search on filenames"
 msgstr "Utfør søk blant filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:179
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:175
 msgid "Search in tags"
 msgstr "Søk i tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:180
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:176
 msgid "Perform the search on tags"
 msgstr "Utfør søk i tagger"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:181
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:177
 msgid "Mask for filling tags from filenames"
 msgstr "Maske for utfylling av tagg basert på filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:182
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:178
 msgid ""
 "The default mask to use when automatically filling tags with information "
 "from filenames"
@@ -2922,51 +2933,51 @@ msgstr ""
 "Standard maske som skal brukes når tagger fylles ut automatisk med "
 "informasjon fra filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:183
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:179
 msgid "Mask for renaming files"
 msgstr "Maske for endring av filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:184
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:180
 msgid "The default mask to use when renaming files"
 msgstr "Standardmaske som skal brukes når filer får nye navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:185
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:181
 msgid "Mask for renaming directories"
 msgstr "Maske for endring av mappenavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:186
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:182
 msgid "The default mask to use when renaming directories"
 msgstr "Standard maske som skal brukes når mapper får nye navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:187
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:183
 msgid "Use a mask when renaming directories"
 msgstr "Bruk en maske når mapper får nye navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:189
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:185
 msgid "Convert spaces and underscores when renaming files"
 msgstr "Konverter mellomrom og understrek når filer får nye navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:190
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:186
 msgid "Whether to convert to spaces or underscores when renaming files"
 msgstr ""
 "Om det skal konverteres til mellomrom eller understreker når filer får nye "
 "navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:191
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:187
 msgid "How to modify filename extensions when renaming"
 msgstr "Hvordan filetternavn skal endres ved endring av navn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:192
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:188
 msgid ""
 "Change the file extension to all lower-case, all upper-case or do not change "
 "it"
 msgstr "Endre bokstaver i filetternavn til små, store eller la dem være"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:193
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:189
 msgid "Encoding options when renaming files"
 msgstr "Kodevalg ved endring av filnavn"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:194
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:190
 msgid ""
 "If the encoding of the filename does not match the filesystem encoding, "
 "choose whether to try another encoding, approximate the filesystem encoding "
@@ -2976,7 +2987,7 @@ msgstr ""
 "filsystem-koding eller om ustøttede tegn skal fjernes hvis koding i filnavn "
 "ikke samsvarer med filsystemets koding"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:196
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:192
 msgid ""
 "Whether to replace illegal characters in a filename when using the rename "
 "function"
@@ -2984,67 +2995,67 @@ msgstr ""
 "Om ugyldige tegn i filnavn skal erstattes med gyldige tegn når "
 "funksjonalitet for navneendring brukes"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:197
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:193
 msgid "Show the scanner mask editor"
 msgstr "Vis maskebehandler"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:198
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:194
 msgid "Whether to show the scanner mask editor in the tag scanner"
 msgstr "Om tagg-skannerens maskebehandler skal vises"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:199
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:195
 msgid "Show the scanner legend"
 msgstr "Vis skannerforklaring"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:200
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:196
 msgid "Whether to show the scanner legend in the tag scanner"
 msgstr "Om forklaringstekst skal vises i taggskanneren"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:201
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:197
 msgid "Show the scanner window on startup"
 msgstr "Vis skannervindu ved oppstart"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:203
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:199
 msgid "The scan mode"
 msgstr "Skannemodus"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:204
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:200
 msgid "Which type of scan to show in the scanner"
 msgstr "Hvilken type skanning som skal vises i skanneren"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:205
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:201
 msgid "Split Ogg title fields"
 msgstr "Del opp Ogg-tittelfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:207
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:203
 msgid "Split Ogg artist fields"
 msgstr "Del opp Ogg-artistfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:209
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:205
 msgid "Split Ogg album fields"
 msgstr "Del opp Ogg-albumfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:211
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:207
 msgid "Split Ogg genre fields"
 msgstr "Del opp Ogg-sjangerfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:213
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:209
 msgid "Split Ogg comment fields"
 msgstr "Del opp Ogg-kommentarfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:215
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:211
 msgid "Split Ogg composer fields"
 msgstr "Del opp Ogg-komponistfelt"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:217
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:213
 msgid "Split Ogg original artist fields"
 msgstr "Del opp Ogg-felt for opprinnelig artist"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:219
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:215
 msgid "Page to show in the preferences dialog"
 msgstr "Side som skal vises i oppsettsdialog"
 
-#: ../data/org.gnome.EasyTAG.gschema.xml.h:220
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:216
 msgid "The page in the notebook of the preferences dialog"
 msgstr "Hvilken side i oppsettsdialogens notisbok som skal vises"
 
@@ -3061,214 +3072,256 @@ msgid "Open the selected files in EasyTAG"
 msgstr "Åpne valgte filer i EasyTAG"
 
 #. Translators: put your own name here to appear in the about dialog.
-#: ../src/about.c:89
+#: ../src/about.c:88
 msgid "translator-credits"
 msgstr "Åka Sikrom"
 
-#: ../src/about.c:99
+#: ../src/about.c:98
 msgid "View and edit tags in audio files"
 msgstr "Vis og rediger tagger i lydfiler"
 
-#: ../src/application.c:47
+#: ../src/application.c:44
 msgid "Print the version and exit"
 msgstr "Skriv ut versjonsnummer og avslutt"
 
 #. Starting messages
-#: ../src/application.c:177
+#: ../src/application.c:170
 #, c-format
 msgid "Starting EasyTAG version %s…"
 msgstr "Starter EasyTAG versjon %s …"
 
-#: ../src/application.c:182
+#: ../src/application.c:175
 #, c-format
 msgid "Variable EASYTAGLANG defined, setting locale ‘%s’"
 msgstr "Variabelen «EASYTAGLANG» er definert. Velger «%s» som region"
 
-#: ../src/application.c:187
+#: ../src/application.c:180
 #, c-format
 msgid "Setting locale: ‘%s’"
 msgstr "Velger region «%s»"
 
-#: ../src/application.c:193
+#: ../src/application.c:186
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
 msgstr "Gjeldende region er «%s». Bruker «%s»"
 
-#: ../src/application.c:198
+#: ../src/application.c:191
 msgid "Unable to create setting directories"
 msgstr "Klarte ikke å opprette oppsettsmapper"
 
-#: ../src/application.c:339
+#: ../src/application.c:332
 #, c-format
 msgid "Website: %s"
 msgstr "Nettside: %s"
 
-#: ../src/application.c:348
+#: ../src/application.c:341
 msgid "- Tag and rename audio files"
 msgstr "- Gi tagger og nytt navn til lydfiler"
 
-#: ../src/application.c:432 ../src/file_list.c:400
+#: ../src/application.c:425 ../src/file_list.c:443
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr ""
 "Det oppstod en feil under etterspørsel av informasjon om filen «%s». %s"
 
-#: ../src/application.c:495 ../src/application.c:503
+#: ../src/application.c:489 ../src/application.c:497
 #, c-format
 msgid "Cannot open path ‘%s’"
 msgstr "Klarte ikke å åpne stien «%s»"
 
-#: ../src/application_window.c:318 ../src/application_window.c:335
+#: ../src/application_window.c:367 ../src/application_window.c:384
 #, c-format
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Er du sikker på at du vil slette filen «%s»?"
 
-#: ../src/application_window.c:321 ../src/easytag.c:470 ../src/easytag.c:603
+#: ../src/application_window.c:370 ../src/easytag.c:473 ../src/easytag.c:606
 msgid "Repeat action for the remaining files"
 msgstr "Gjenta handling for filene som gjenstår"
 
-#: ../src/application_window.c:323
+#: ../src/application_window.c:372
 msgid "_Skip"
 msgstr "_Hopp over"
 
-#: ../src/application_window.c:325 ../src/application_window.c:339
+#: ../src/application_window.c:374 ../src/application_window.c:388
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../src/application_window.c:327 ../src/application_window.c:337
+#: ../src/application_window.c:376 ../src/application_window.c:386
 msgid "Delete File"
 msgstr "Slett fil"
 
-#: ../src/application_window.c:364
+#: ../src/application_window.c:413
 #, c-format
 msgid "File ‘%s’ deleted"
 msgstr "filen «%s» er slettet"
 
-#: ../src/application_window.c:541
+#: ../src/application_window.c:588
 #, c-format
 msgid "Cannot delete file ‘%s’"
 msgstr "Klarte ikke å slette filen «%s»"
 
-#: ../src/application_window.c:565
+#: ../src/application_window.c:612
 msgid "Some files were not deleted"
 msgstr "Enkelte filer ble ikke slettet"
 
-#: ../src/application_window.c:567
+#: ../src/application_window.c:614
 msgid "All files have been deleted"
 msgstr "Alle filer er slettet"
 
-#: ../src/application_window.c:901
+#: ../src/application_window.c:943
 msgid "All tags have been removed"
 msgstr "Alle tagger er fjernet"
 
-#: ../src/application_window.c:1505 ../src/browser.c:356 ../src/browser.c:399
-#: ../src/browser.c:433 ../src/browser.c:4732 ../src/browser.c:4807
+#: ../src/application_window.c:1502 ../src/browser.c:344 ../src/browser.c:387
+#: ../src/browser.c:421 ../src/browser.c:4602 ../src/browser.c:4677
 #, c-format
 msgid "Failed to launch program ‘%s’"
 msgstr "Klarte ikke å starte programmet «%s»"
 
+#: ../src/application_window.c:2015
+#, c-format
+msgid "Could not convert filename ‘%s’ to system filename encoding"
+msgstr ""
+"Klarte ikke å konvertere filnavnet «%s» til systemets filnavn-tegnkoding"
+
+#: ../src/application_window.c:2018
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
+msgstr "Prøv å definere miljøvariabelen G_FILENAME_ENCODING."
+
+#: ../src/application_window.c:2020 ../src/scan_dialog.c:826
+msgid "Filename translation"
+msgstr "Filnavn-oversettelse"
+
+#. And refresh the number of files in this directory
+#: ../src/application_window.c:2181
+#, c-format
+msgid "One file"
+msgid_plural "%u files"
+msgstr[0] "Én fil"
+msgstr[1] "%u filer"
+
+#. Bitrate
+#: ../src/application_window.c:2214 ../src/tags/flac_header.c:172
+#: ../src/tags/monkeyaudio_header.c:82 ../src/tags/mp4_header.cc:144
+#: ../src/tags/mpeg_header.c:252 ../src/tags/musepack_header.c:86
+#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:229
+#: ../src/tags/wavpack_header.c:144
+#, c-format
+msgid "%d kb/s"
+msgstr "%d kb/s"
+
+#. Samplerate
+#: ../src/application_window.c:2217 ../src/tags/flac_header.c:175
+#: ../src/tags/monkeyaudio_header.c:85 ../src/tags/mp4_header.cc:148
+#: ../src/tags/mpeg_header.c:257 ../src/tags/musepack_header.c:89
+#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:232
+#: ../src/tags/wavpack_header.c:147
+#, c-format
+msgid "%d Hz"
+msgstr "%d Hz"
+
+#: ../src/application_window.c:2372 ../src/easytag.c:891
+#, c-format
+msgid "File: ‘%s’"
+msgstr "Fil: «%s»"
+
 #. Quit EasyTAG.
-#: ../src/application_window.c:2636
+#: ../src/application_window.c:2999
 msgid "Normal exit"
 msgstr "Normal avslutning"
 
-#: ../src/application_window.c:2673 ../src/browser.c:865
+#: ../src/application_window.c:3033 ../src/browser.c:855
 msgid "Some files have been modified but not saved"
 msgstr "Noen filer er markert for endringer, men endringene er ikke lagret"
 
-#: ../src/application_window.c:2674 ../src/browser.c:869 ../src/easytag.c:255
-#: ../src/easytag.c:474 ../src/easytag.c:606 ../src/easytag.c:614
+#: ../src/application_window.c:3034 ../src/browser.c:859 ../src/easytag.c:247
+#: ../src/easytag.c:477 ../src/easytag.c:609 ../src/easytag.c:617
 msgid "_Discard"
 msgstr "_Forkast"
 
-#: ../src/application_window.c:2676 ../src/browser.c:871 ../src/easytag.c:256
-#: ../src/easytag.c:476 ../src/easytag.c:483 ../src/easytag.c:608
-#: ../src/easytag.c:615 ../src/playlist_dialog.c:669 ../src/tag_area.c:1840
+#: ../src/application_window.c:3036 ../src/browser.c:861 ../src/easytag.c:248
+#: ../src/easytag.c:479 ../src/easytag.c:486 ../src/easytag.c:611
+#: ../src/easytag.c:618 ../src/playlist_dialog.c:659 ../src/tag_area.c:1879
 msgid "_Save"
 msgstr "_Lagre"
 
-#: ../src/application_window.c:2680 ../src/application_window.c:2718
-#: ../src/easytag.c:261
+#: ../src/application_window.c:3040 ../src/easytag.c:253
 msgid "Quit"
 msgstr "Avslutt"
 
-#: ../src/application_window.c:2683
+#: ../src/application_window.c:3043
 msgid "Do you want to save them before quitting?"
 msgstr "Vil du lagre dem før du avslutter?"
 
-#: ../src/application_window.c:2712
-msgid "Do you really want to quit?"
-msgstr "Er du sikker på at du vil avslutte?"
-
-#: ../src/browser.c:569
+#: ../src/browser.c:557
 msgid "New default directory selected for browser"
 msgstr "Ny standardmappe for filutforsker er valgt"
 
-#: ../src/browser.c:868
+#: ../src/browser.c:858
 msgid "Do you want to save them before changing directory?"
 msgstr "VIl du lagre dem før du bytter mappe?"
 
-#: ../src/browser.c:875
+#: ../src/browser.c:865
 msgid "Confirm Directory Change"
 msgstr "Bekreft hopp til annen mappe"
 
-#: ../src/browser.c:2572
+#: ../src/browser.c:2564
 msgid "All albums"
 msgstr "Alle album"
 
-#: ../src/browser.c:3830
+#: ../src/browser.c:3822
 msgid "Select File"
 msgstr "Velg fil"
 
-#: ../src/browser.c:3837
+#: ../src/browser.c:3829
 msgid "Select Directory"
 msgstr "Velg mappe"
 
-#: ../src/browser.c:4220
+#: ../src/browser.c:4097
 #, c-format
 msgid "Rename the directory ‘%s’ to:"
 msgstr "Endre navn på mappen «%s» til:"
 
-#: ../src/browser.c:4360
+#: ../src/browser.c:4237
 msgid "You must type a directory name"
 msgstr "Du må skrive inn et mappenavn"
 
-#: ../src/browser.c:4361 ../src/browser.c:4383
+#: ../src/browser.c:4238 ../src/browser.c:4260
 msgid "Directory Name Error"
 msgstr "Feil i mappenavn"
 
-#: ../src/browser.c:4379
+#: ../src/browser.c:4256
 #, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
 msgstr "Klarte ikke å konvertere «%s» til filnavn-koding"
 
-#: ../src/browser.c:4382
+#: ../src/browser.c:4259
 msgid "Please use another name."
 msgstr "Bruk et annet navn."
 
-#: ../src/browser.c:4454
+#: ../src/browser.c:4331
 #, c-format
 msgid "The directory name ‘%s’ already exists."
 msgstr "Mappenavnet «%s» finnes allerede."
 
-#: ../src/browser.c:4455 ../src/easytag.c:661
+#: ../src/browser.c:4332 ../src/easytag.c:664
 msgid "Rename File Error"
 msgstr "Feil ved navneendring av fil"
 
-#: ../src/browser.c:4493 ../src/browser.c:4522
+#: ../src/browser.c:4370 ../src/browser.c:4399
 msgid "Rename Directory Error"
 msgstr "Feil ved navneendring av mappe"
 
-#: ../src/browser.c:4562
+#: ../src/browser.c:4440
 msgid "Directory renamed"
 msgstr "Mappe har fått nytt navn"
 
-#: ../src/browser.c:4724 ../src/browser.c:4799
+#: ../src/browser.c:4594 ../src/browser.c:4669
 #, c-format
 msgid "Executed command ‘%s’"
 msgstr "Kjørt kommando «%s»"
 
-#: ../src/cddb_dialog.c:270
+#: ../src/cddb_dialog.c:293
 #, c-format
 msgid ""
 "Album: ‘%s’, artist: ‘%s’, length: ‘%s’, year: ‘%s’, genre: ‘%s’, disc ID: "
@@ -3276,57 +3329,57 @@ msgid ""
 msgstr ""
 "Album: «%s», artist: «%s», varighet: «%s», år: «%s», sjanger: «%s», ID: «%s»"
 
-#: ../src/cddb_dialog.c:586
+#: ../src/cddb_dialog.c:609
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Slår opp vertsnavnet «%s» …"
 
-#: ../src/cddb_dialog.c:628
+#: ../src/cddb_dialog.c:651
 #, c-format
 msgid "Cannot create a new socket ‘%s’"
 msgstr "Klarte ikke å lage sokkel «%s»"
 
-#: ../src/cddb_dialog.c:642
+#: ../src/cddb_dialog.c:665
 msgid "Cannot set options on the newly-created socket"
 msgstr "Klarte ikke å foreta valg på sokkelen som nettopp ble satt opp"
 
 #. Open connection to the server.
-#: ../src/cddb_dialog.c:646
+#: ../src/cddb_dialog.c:669
 #, c-format
 msgid "Connecting to host ‘%s’, port ‘%d’…"
 msgstr "Kobler til vert «%s», port %d …"
 
-#: ../src/cddb_dialog.c:659
+#: ../src/cddb_dialog.c:682
 #, c-format
 msgid "Cannot connect to host ‘%s’: %s"
 msgstr "Klarte ikke å koble til vert «%s». %s"
 
-#: ../src/cddb_dialog.c:683
+#: ../src/cddb_dialog.c:706
 #, c-format
 msgid "Cannot resolve host ‘%s’: %s"
 msgstr "Klarte ikke å slå opp vertsnavn «%s». %s"
 
-#: ../src/cddb_dialog.c:696
+#: ../src/cddb_dialog.c:719
 #, c-format
 msgid "Connected to host ‘%s’"
 msgstr "Koblet til vert «%s»"
 
-#: ../src/cddb_dialog.c:783
+#: ../src/cddb_dialog.c:806
 #, c-format
 msgid "Error while writing CDDB results to file ‘%s’"
 msgstr "Det oppstod en feil under lagring av resultater fra CDDB i filen «%s»"
 
-#: ../src/cddb_dialog.c:794
+#: ../src/cddb_dialog.c:817
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Mottar data (%s) …"
 
-#: ../src/cddb_dialog.c:807
+#: ../src/cddb_dialog.c:830
 #, c-format
 msgid "Error when reading CDDB response ‘%s’"
 msgstr "Det oppstod en feil under lesing av CDDB-respons «%s»"
 
-#: ../src/cddb_dialog.c:814
+#: ../src/cddb_dialog.c:837
 #, c-format
 msgid "Cannot create file ‘%s’: %s"
 msgstr "Klarte ikke å opprette filen «%s». %s"
@@ -3337,13 +3390,12 @@ msgstr "Klarte ikke å opprette filen «%s». %s"
 #. Send the request
 #. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb_dialog.c:947 ../src/cddb_dialog.c:1590
-#: ../src/cddb_dialog.c:1934
+#: ../src/cddb_dialog.c:970 ../src/cddb_dialog.c:1615 ../src/cddb_dialog.c:1961
 msgid "Sending request…"
 msgstr "Sender forespørsel …"
 
-#: ../src/cddb_dialog.c:951 ../src/cddb_dialog.c:1594
-#: ../src/cddb_dialog.c:1938 ../src/cddb_dialog.c:3505
+#: ../src/cddb_dialog.c:974 ../src/cddb_dialog.c:1619 ../src/cddb_dialog.c:1965
+#: ../src/cddb_dialog.c:3350
 #, c-format
 msgid "Cannot send the request ‘%s’"
 msgstr "Klarte ikke å sende forespørsel «%s»"
@@ -3352,86 +3404,85 @@ msgstr "Klarte ikke å sende forespørsel «%s»"
 #.
 #. * Read the answer
 #.
-#: ../src/cddb_dialog.c:963 ../src/cddb_dialog.c:1621
-#: ../src/cddb_dialog.c:3523
+#: ../src/cddb_dialog.c:986 ../src/cddb_dialog.c:1646 ../src/cddb_dialog.c:3368
 msgid "Receiving data…"
 msgstr "Mottar data …"
 
-#: ../src/cddb_dialog.c:970 ../src/cddb_dialog.c:1628
-#: ../src/cddb_dialog.c:1969 ../src/cddb_dialog.c:3530
+#: ../src/cddb_dialog.c:993 ../src/cddb_dialog.c:1653 ../src/cddb_dialog.c:1996
+#: ../src/cddb_dialog.c:3375
 msgid "The server returned a bad response"
 msgstr "Tjeneren sendte en negativ responskode"
 
-#: ../src/cddb_dialog.c:986 ../src/cddb_dialog.c:1001
-#: ../src/cddb_dialog.c:1022 ../src/cddb_dialog.c:1641
-#: ../src/cddb_dialog.c:1985 ../src/cddb_dialog.c:3547
+#: ../src/cddb_dialog.c:1009 ../src/cddb_dialog.c:1024
+#: ../src/cddb_dialog.c:1045 ../src/cddb_dialog.c:1666
+#: ../src/cddb_dialog.c:2012 ../src/cddb_dialog.c:3392
 #, c-format
 msgid "The server returned a bad response ‘%s’"
 msgstr "Tjeneren sendte en negativ responskode «%s»"
 
 #. Load the track list of the album
-#: ../src/cddb_dialog.c:1234
+#: ../src/cddb_dialog.c:1257
 msgid "Loading album track list…"
 msgstr "Laster inn albumets sporliste …"
 
-#: ../src/cddb_dialog.c:1788
+#: ../src/cddb_dialog.c:1813
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Nettbasert søk er ikke tilgjengelig for øyeblikket"
 
-#: ../src/cddb_dialog.c:1791 ../src/cddb_dialog.c:2156
+#: ../src/cddb_dialog.c:1816 ../src/cddb_dialog.c:2183
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
 msgstr[0] "Fant ett album som samsvarer"
 msgstr[1] "Fant %u album som samsvarer"
 
-#: ../src/cddb_dialog.c:1957
+#: ../src/cddb_dialog.c:1984
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Mottar data om side %d (album %d/%d) …"
 
-#: ../src/cddb_dialog.c:1959
+#: ../src/cddb_dialog.c:1986
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Mottar data om side %d …"
 
-#: ../src/cddb_dialog.c:2123
+#: ../src/cddb_dialog.c:2150
 #, c-format
 msgid "More results to load…"
 msgstr "Flere resultater å laste inn …"
 
-#: ../src/cddb_dialog.c:2303
+#: ../src/cddb_dialog.c:2327
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "Antallet i CDDB-resultatene samsvarer ikke med antall valgte filer"
 
-#: ../src/cddb_dialog.c:2309
+#: ../src/cddb_dialog.c:2333
 msgid "Write Tag from CDDB"
 msgstr "Skriv tagg fra CDDB"
 
-#: ../src/cddb_dialog.c:3015
+#: ../src/cddb_dialog.c:2863
 msgid "Ready to search"
 msgstr "Klar til å søke"
 
-#: ../src/cddb_dialog.c:3106 ../src/load_files_dialog.c:263
+#: ../src/cddb_dialog.c:2952 ../src/load_files_dialog.c:264
 #: ../src/setting.c:327
 #, c-format
 msgid "Cannot open file ‘%s’: %s"
 msgstr "Klarte ikke å åpne «%s». %s"
 
-#: ../src/cddb_dialog.c:3333
+#: ../src/cddb_dialog.c:3178
 #, c-format
 msgid "No file selected"
 msgstr "Ingen fil er valgt"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb_dialog.c:3341
+#: ../src/cddb_dialog.c:3186
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Du har valgt flere enn 99 filer. Forespørselen kan ikke sendes"
 
-#: ../src/cddb_dialog.c:3347
+#: ../src/cddb_dialog.c:3192
 #, c-format
 msgid "One file selected"
 msgid_plural "%u files selected"
@@ -3439,12 +3490,12 @@ msgstr[0] "Én fil valgt"
 msgstr[1] "%u filer valgt"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb_dialog.c:3495
+#: ../src/cddb_dialog.c:3340
 #, c-format
 msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
 msgstr "Sender forespørsel (plate-id: %s, #spor: %u, platelengde: %u) …"
 
-#: ../src/cddb_dialog.c:3663
+#: ../src/cddb_dialog.c:3508
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
@@ -3632,226 +3683,221 @@ msgstr "Vestlig (ISO-8859-15)"
 msgid "Western (Windows-1252)"
 msgstr "Vestlig (Windows-1252)"
 
-#: ../src/charset.c:508
+#: ../src/charset.c:473
 #, c-format
 msgid "The filename ‘%s’ could not be converted into UTF-8: %s"
 msgstr "Klarte ikke å konvertere filnavnet «%s» til UTF-8. %s"
 
-#: ../src/charset.c:510 ../src/charset.c:623 ../src/charset.c:688
+#: ../src/charset.c:475 ../src/charset.c:588 ../src/charset.c:653
 msgid "Invalid UTF-8"
 msgstr "Ugyldig UTF-8"
 
-#: ../src/charset.c:621
+#: ../src/charset.c:586
 #, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
 msgstr "Klarte ikke å konvertere UTF-8-strengen «%s» til filnavn-koding. %s"
 
-#: ../src/charset.c:686
+#: ../src/charset.c:651
 #, c-format
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
 msgstr "Klarte ikke å konverter strengen «%s» til UTF-8. %s"
 
-#: ../src/easytag.c:251
+#: ../src/easytag.c:243
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
 msgstr[0] "En fil er endret av et eksternt program"
 msgstr[1] "%d filer er endret av et eksternt program"
 
-#: ../src/easytag.c:260
+#: ../src/easytag.c:252
 msgid "Do you want to continue saving the file?"
 msgstr "Er du sikker på at du vil lagre filen?"
 
-#: ../src/easytag.c:321 ../src/easytag.c:342
+#: ../src/easytag.c:313 ../src/easytag.c:334
 msgid "Saving files was stopped"
 msgstr "Fillagring ble stoppet"
 
-#: ../src/easytag.c:344
+#: ../src/easytag.c:336
 msgid "All files have been saved"
 msgstr "Alle filer er lagret"
 
-#: ../src/easytag.c:463
+#: ../src/easytag.c:466
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
 msgstr "Er du sikker på at du vil lagre tagg for filen «%s»?"
 
-#: ../src/easytag.c:465
+#: ../src/easytag.c:468
 msgid "Confirm Tag Writing"
 msgstr "Bekreft taggskriving"
 
 #. Directories and filename changed
-#: ../src/easytag.c:566
+#: ../src/easytag.c:569
 msgid "Rename File and Directory"
 msgstr "Gi nytt navn til fil og mappe"
 
-#: ../src/easytag.c:567
+#: ../src/easytag.c:570
 msgid "File and directory rename confirmation required"
 msgstr "Navneendring av fil- og mappenavn må bekreftes"
 
-#: ../src/easytag.c:568
+#: ../src/easytag.c:571
 #, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
 msgstr "Er du sikker på at du vil endre navn på filen og mappen «%s» til «%s»?"
 
-#: ../src/easytag.c:574
+#: ../src/easytag.c:577
 msgid "Directory rename confirmation required"
 msgstr "Navneendring av mappe må bekreftes"
 
-#: ../src/easytag.c:575
+#: ../src/easytag.c:578
 #, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
 msgstr "Er du sikker på at du vil gi mappen «%s» det nye navnet «%s»?"
 
-#: ../src/easytag.c:583
+#: ../src/easytag.c:586
 msgid "File rename confirmation required"
 msgstr "Navneendring av fil må bekreftes"
 
-#: ../src/easytag.c:584
+#: ../src/easytag.c:587
 #, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
 msgstr "Er du sikker på at du vil endre navnet på filen «%s» til «%s»?"
 
-#: ../src/easytag.c:654
+#: ../src/easytag.c:657
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
 msgstr "Klarte ikke å gi filen «%s» det nye navnet «%s»"
 
-#: ../src/easytag.c:668
+#: ../src/easytag.c:671
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
 msgstr "Klarte ikke å gi filen «%s» det nye navnet «%s». %s"
 
-#: ../src/easytag.c:673
+#: ../src/easytag.c:676
 msgid "File(s) not renamed"
 msgstr "Filnavn(et/ene) ble ikke endret"
 
-#: ../src/easytag.c:858
+#: ../src/easytag.c:738
 #, c-format
 msgid "Writing tag of ‘%s’"
 msgstr "Lagrer tagg i «%s»"
 
-#: ../src/easytag.c:866
+#: ../src/easytag.c:746
 #, c-format
 msgid "Wrote tag of ‘%s’"
 msgstr "Tagg er lagret for «%s»"
 
-#: ../src/easytag.c:882
+#: ../src/easytag.c:762
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
 msgstr "Klarte ikke å skrive tagg til filen «%s»"
 
-#: ../src/easytag.c:886
+#: ../src/easytag.c:766
 msgid "Tag Write Error"
 msgstr "Feil ved skriving av tagg"
 
-#: ../src/easytag.c:961 ../src/easytag.c:1192
+#: ../src/easytag.c:841 ../src/easytag.c:1068
 #, c-format
 msgid "Cannot read directory ‘%s’"
 msgstr "Klarte ikke å lese mappen «%s»"
 
-#: ../src/easytag.c:965
+#: ../src/easytag.c:845
 msgid "Directory Read Error"
 msgstr "Feil ved lesing av mappe"
 
 #. Read the directory recursively
-#: ../src/easytag.c:986
+#: ../src/easytag.c:866
 #, c-format
 msgid "Search in progress…"
 msgstr "Søker …"
 
-#: ../src/easytag.c:1010 ../src/file.c:1195
-#, c-format
-msgid "File: ‘%s’"
-msgstr "Fil: «%s»"
-
-#: ../src/easytag.c:1060
+#: ../src/easytag.c:938
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %u files in this directory and subdirectories"
 msgstr[0] "Fant én fil i denne mappen inkl. undermapper"
 msgstr[1] "Fant %u filer i denne mappen inkl. undermapper"
 
-#: ../src/easytag.c:1067
+#: ../src/easytag.c:945
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %u files in this directory"
 msgstr[0] "Fant én fil i denne mappen"
 msgstr[1] "Fant %u filer i denne mappen"
 
-#: ../src/easytag.c:1084
+#: ../src/easytag.c:962
 msgid "No file found in this directory and subdirectories"
 msgstr "Fant ingen filer i denne mappen, og heller ikke i undermapper"
 
-#: ../src/easytag.c:1086
+#: ../src/easytag.c:964
 msgid "No file found in this directory"
 msgstr "Fant ingen filer i denne mappen"
 
-#: ../src/easytag.c:1156
+#: ../src/easytag.c:1034
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
 msgstr "Det oppstod en feil under åpning av «%s». %s"
 
-#: ../src/easytag.c:1212
+#: ../src/easytag.c:1088
 msgid "Searching for audio files…"
 msgstr "Søker etter lydfiler …"
 
-#: ../src/easytag.c:1213
+#: ../src/easytag.c:1089
 msgid "Searching"
 msgstr "Søker"
 
-#: ../src/easytag.c:1214
+#: ../src/easytag.c:1090
 msgid "_Stop"
 msgstr "_Stopp"
 
-#: ../src/file_area.c:285 ../src/file_area.c:340
+#: ../src/file_area.c:244 ../src/file_area.c:299
 msgid "File not found"
 msgstr "Fant ikke filen"
 
-#: ../src/file_area.c:290 ../src/load_files_dialog.c:223
+#: ../src/file_area.c:249 ../src/load_files_dialog.c:224
 #, c-format
 msgid "Cannot query file information ‘%s’"
 msgstr "Klarte ikke å spørre etter filinformasjon «%s»"
 
-#: ../src/file_area.c:324
+#: ../src/file_area.c:283
 msgid "Read-only file"
 msgstr "Skrivebeskyttet fil"
 
-#: ../src/file_list.c:250
+#: ../src/file_list.c:253
 #, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av ID3-tagg fra filen «%s». %s"
 
-#: ../src/file_list.c:261
+#: ../src/file_list.c:264
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra ogg-filen «%s». %s"
 
-#: ../src/file_list.c:272
+#: ../src/file_list.c:275
 #, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra FLAC-filen «%s». %s"
 
-#: ../src/file_list.c:282
+#: ../src/file_list.c:285
 #, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra APE-filen «%s». %s"
 
-#: ../src/file_list.c:292
+#: ../src/file_list.c:295
 #, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra MP4-filen «%s». %s"
 
-#: ../src/file_list.c:303
+#: ../src/file_list.c:306
 #, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra WavPack-filen «%s». %s"
 
-#: ../src/file_list.c:314
+#: ../src/file_list.c:317
 #, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
 msgstr "Det oppstod en feil under lesing av tagg fra Opus-filen «%s». %s"
 
-#: ../src/file_list.c:332
+#: ../src/file_list.c:353
 #, c-format
 msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
@@ -3860,223 +3906,168 @@ msgstr ""
 "År-verdien «%s» i filen «%s» ser ut til å være ugyldig. Denne informasjonen "
 "går tapt når du lagrer"
 
-#: ../src/file_list.c:470
+#: ../src/file_list.c:512
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
 msgstr "filen «%s» ble automatisk korrigert."
 
-#. And refresh the number of files in this directory
-#: ../src/file.c:1219
-#, c-format
-msgid "One file"
-msgid_plural "%u files"
-msgstr[0] "Én fil"
-msgstr[1] "%u filer"
-
-#. Bitrate
-#: ../src/file.c:1254 ../src/tags/flac_header.c:172
-#: ../src/tags/monkeyaudio_header.c:82 ../src/tags/mp4_header.cc:144
-#: ../src/tags/mpeg_header.c:252 ../src/tags/musepack_header.c:86
-#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:230
-#: ../src/tags/wavpack_header.c:145
-#, c-format
-msgid "%d kb/s"
-msgstr "%d kb/s"
-
-#. Samplerate
-#: ../src/file.c:1257 ../src/tags/flac_header.c:175
-#: ../src/tags/monkeyaudio_header.c:85 ../src/tags/mp4_header.cc:148
-#: ../src/tags/mpeg_header.c:257 ../src/tags/musepack_header.c:89
-#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:233
-#: ../src/tags/wavpack_header.c:148
-#, c-format
-msgid "%d Hz"
-msgstr "%d Hz"
-
-#: ../src/file.c:1382
-#, c-format
-msgid "Could not convert filename ‘%s’ to system filename encoding"
-msgstr ""
-"Klarte ikke å konvertere filnavnet «%s» til systemets filnavn-tegnkoding"
-
-#: ../src/file.c:1384
-msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr "Prøv å definere miljøvariabelen G_FILENAME_ENCODING."
-
-#: ../src/file.c:1385 ../src/scan_dialog.c:817
-msgid "Filename translation"
-msgstr "Filnavn-oversettelse"
-
-#: ../src/load_files_dialog.c:293
+#: ../src/load_files_dialog.c:294
 #, c-format
 msgid "Error reading file ‘%s’"
 msgstr "Det oppstod en feil under lesing av «%s»"
 
-#: ../src/load_files_dialog.c:633 ../src/load_files_dialog.c:736
+#: ../src/load_files_dialog.c:734 ../src/load_files_dialog.c:837
 msgid "Insert a blank line"
 msgstr "Sett inn en tom linje"
 
-#: ../src/load_files_dialog.c:637 ../src/load_files_dialog.c:740
+#: ../src/load_files_dialog.c:738 ../src/load_files_dialog.c:841
 msgid "Delete this line"
 msgstr "Slett denne linja"
 
-#: ../src/load_files_dialog.c:648 ../src/load_files_dialog.c:751
+#: ../src/load_files_dialog.c:749 ../src/load_files_dialog.c:852
 msgid "Move this line up"
 msgstr "Flytt denne linja opp"
 
-#: ../src/load_files_dialog.c:652 ../src/load_files_dialog.c:755
+#: ../src/load_files_dialog.c:753 ../src/load_files_dialog.c:856
 msgid "Move this line down"
 msgstr "Flytt denne linja opp"
 
-#: ../src/load_files_dialog.c:898
-msgid "Load Filenames From a Text File"
-msgstr "Last inn filnavn fra en tekstfil"
-
-#: ../src/misc.c:184
+#: ../src/misc.c:181
 msgid "You must type a program name"
 msgstr "Du må skrive inn et programnavn"
 
-#: ../src/misc.c:185
+#: ../src/misc.c:182
 msgid "Program Name Error"
 msgstr "Feil i programnavn"
 
-#: ../src/picture.c:175
+#: ../src/picture.c:174
 msgid "JPEG image"
 msgstr "JPEG-bilde"
 
-#: ../src/picture.c:177
+#: ../src/picture.c:176
 msgid "PNG image"
 msgstr "PNG-bilde"
 
-#: ../src/picture.c:179
+#: ../src/picture.c:178
 msgid "GIF image"
 msgstr "GIF-bilde"
 
-#: ../src/picture.c:182
+#: ../src/picture.c:181
 msgid "Unknown image"
 msgstr "Ukjent bilde"
 
-#: ../src/picture.c:194
+#: ../src/picture.c:193
 msgid "32×32 pixel PNG file icon"
 msgstr "PNG-filikon av 32x32 piksler"
 
-#: ../src/picture.c:196
+#: ../src/picture.c:195
 msgid "Other file icon"
 msgstr "Annet filikon"
 
-#: ../src/picture.c:198
+#: ../src/picture.c:197
 msgid "Cover (front)"
 msgstr "Omslag (framside)"
 
-#: ../src/picture.c:200
+#: ../src/picture.c:199
 msgid "Cover (back)"
 msgstr "Omslag (bakside)"
 
-#: ../src/picture.c:202
+#: ../src/picture.c:201
 msgid "Leaflet page"
 msgstr "Leaflet-side"
 
-#: ../src/picture.c:204
+#: ../src/picture.c:203
 msgid "Media (such as label side of CD)"
 msgstr "Medium (f.eks. etikettsiden av en CD)"
 
-#: ../src/picture.c:206
+#: ../src/picture.c:205
 msgid "Lead artist/lead performer/soloist"
 msgstr "Hovedartist/hovedutøver/solist"
 
-#: ../src/picture.c:208
+#: ../src/picture.c:207
 msgid "Artist/performer"
 msgstr "Artist/utøver"
 
-#: ../src/picture.c:210
+#: ../src/picture.c:209
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: ../src/picture.c:212
+#: ../src/picture.c:211
 msgid "Band/Orchestra"
 msgstr "Band/Orkester"
 
-#: ../src/picture.c:216
+#: ../src/picture.c:215
 msgid "Lyricist/text writer"
 msgstr "Lyriker/tekstforfatter"
 
-#: ../src/picture.c:218
+#: ../src/picture.c:217
 msgid "Recording location"
 msgstr "Opptakssted"
 
-#: ../src/picture.c:220
+#: ../src/picture.c:219
 msgid "During recording"
 msgstr "Under opptak"
 
-#: ../src/picture.c:222
+#: ../src/picture.c:221
 msgid "During performance"
 msgstr "Under fremføring"
 
-#: ../src/picture.c:224
+#: ../src/picture.c:223
 msgid "Movie/video screen capture"
 msgstr "Film/video med skjermopptak"
 
-#: ../src/picture.c:226
+#: ../src/picture.c:225
 msgid "A bright colored fish"
 msgstr "En lysfarget fisk"
 
-#: ../src/picture.c:228
+#: ../src/picture.c:227
 msgid "Illustration"
 msgstr "Illustrasjon"
 
-#: ../src/picture.c:230
+#: ../src/picture.c:229
 msgid "Band/Artist logotype"
 msgstr "Band-/artist-logotype"
 
-#: ../src/picture.c:232
+#: ../src/picture.c:231
 msgid "Publisher/studio logotype"
 msgstr "Utgiver/studio-logotype"
 
-#: ../src/picture.c:236
+#: ../src/picture.c:235
 msgid "Unknown image type"
 msgstr "Ukjent bildetype"
 
-#: ../src/picture.c:262 ../src/picture.c:268
+#: ../src/picture.c:298 ../src/picture.c:304
 msgid "pixels"
 msgstr "piksler"
 
-#: ../src/picture.c:262 ../src/picture.c:268
+#: ../src/picture.c:298 ../src/picture.c:304
 msgid "Type"
 msgstr "Type"
 
-#: ../src/playlist_dialog.c:541
+#: ../src/playlist_dialog.c:544
 #, c-format
 msgid "Cannot write playlist file ‘%s’"
 msgstr "Klarte ikke å lagre spilleliste-filen «%s»"
 
-#: ../src/playlist_dialog.c:545
+#: ../src/playlist_dialog.c:548
 msgid "Playlist File Error"
 msgstr "Feil med spillelistefil"
 
-#: ../src/playlist_dialog.c:553
+#: ../src/playlist_dialog.c:556
 #, c-format
 msgid "Wrote playlist file ‘%s’"
 msgstr "Spillelistefil «%s» er lagret"
 
-#: ../src/playlist_dialog.c:635 ../src/scan_dialog.c:2820
-#: ../src/scan_dialog.c:2882
+#: ../src/playlist_dialog.c:639 ../src/scan_dialog.c:2614
+#: ../src/scan_dialog.c:2677
 msgid "Invalid scanner mask"
 msgstr "Ugyldig skannermaske"
 
-#: ../src/playlist_dialog.c:666
-msgid "Generate Playlist"
-msgstr "Lag spilleliste"
-
-#. The window
-#: ../src/preferences_dialog.c:289
-msgid "Preferences"
-msgstr "Innstillinger"
-
-#: ../src/preferences_dialog.c:1126
+#: ../src/preferences_dialog.c:897
 msgid "The selected default path is invalid"
 msgstr "Valgt standardsti er ugyldig"
 
-#: ../src/preferences_dialog.c:1128
+#: ../src/preferences_dialog.c:899
 #, c-format
 msgid ""
 "Path: ‘%s’\n"
@@ -4085,88 +4076,79 @@ msgstr ""
 "Sti: «%s»\n"
 "Feil: %s"
 
-#: ../src/preferences_dialog.c:1132
+#: ../src/preferences_dialog.c:903
 msgid "Invalid Path Error"
 msgstr "Ugyldig sti-feil"
 
-#: ../src/scan_dialog.c:404
+#: ../src/scan_dialog.c:412
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
 msgstr "Klarte ikke å regne ut CRC-verdi av «%s»"
 
-#: ../src/scan_dialog.c:419
+#: ../src/scan_dialog.c:427
 msgid "Tag successfully scanned"
 msgstr "Taggen ble skannet"
 
-#: ../src/scan_dialog.c:422
+#: ../src/scan_dialog.c:430
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
 msgstr "Taggen «%s» ble skannet"
 
-#: ../src/scan_dialog.c:465
+#: ../src/scan_dialog.c:473
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
 msgstr "Fant ikke utvidelsen «%s» i filnavnet «%s»"
 
-#: ../src/scan_dialog.c:557 ../src/scan_dialog.c:588
+#: ../src/scan_dialog.c:565 ../src/scan_dialog.c:596
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
 msgstr "Fant ikke skilletegnet «%s» i «%s»"
 
-#: ../src/scan_dialog.c:815
+#: ../src/scan_dialog.c:824
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
 msgstr ""
 "Klarte ikke å konvertere filnavnet «%s» til systemets filnavn-tegnkoding"
 
-#: ../src/scan_dialog.c:840
+#: ../src/scan_dialog.c:849
 msgid "New filename successfully scanned"
 msgstr "Det nye filnavnet er skannet"
 
-#: ../src/scan_dialog.c:844
+#: ../src/scan_dialog.c:853
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
 msgstr "Det nye filnavnet «%s» er skannet"
 
-#: ../src/scan_dialog.c:1214
+#: ../src/scan_dialog.c:1218
 #, c-format
 msgid "Error while processing fields ‘%s’"
 msgstr "Det oppstod en feil under behandling av felt «%s»"
 
-#: ../src/scan_dialog.c:2090
+#: ../src/scan_dialog.c:2094
 msgid "New_mask"
 msgstr "New_mask"
 
-#. The window
-#: ../src/scan_dialog.c:2307
-msgid "Tag and Filename Scan"
-msgstr "Tagg- og filnavnsskanning"
-
 #. 'Scan selected files' button
-#: ../src/scan_dialog.c:2313
+#: ../src/scan_dialog.c:2320
 msgid "Scan Files"
 msgstr "Skann filer"
 
-#: ../src/scan_dialog.c:2319
+#: ../src/scan_dialog.c:2326
 msgid "Scan selected files"
 msgstr "Søk gjennom valgte filer"
 
-#: ../src/scan_dialog.c:2957
+#: ../src/scan_dialog.c:2751
 msgid "All tags have been scanned"
 msgstr "Alle tagger er blitt gjennomsøkt"
 
-#: ../src/search_dialog.c:545
+#: ../src/search_dialog.c:544
 #, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
 msgstr[0] "Fant én fil"
 msgstr[1] "Fant %d filer"
 
-#: ../src/search_dialog.c:594
-msgid "Find Files"
-msgstr "Finn filer"
-
-#: ../src/search_dialog.c:678
+#: ../src/search_dialog.c:622
 msgid "Ready to search…"
 msgstr "Klar til å søke …"
 
@@ -4185,16 +4167,16 @@ msgstr "Laster inn standard «Fyll ut tagg»-masker …"
 msgid "Loading default ‘Rename File’ masks…"
 msgstr "Laster inn standard «Gi nytt navn til fil»-masker …"
 
-#: ../src/status_bar.c:146
+#: ../src/status_bar.c:143
 msgid "Ready to start"
 msgstr "Klar til å begynne"
 
-#: ../src/tag_area.c:186
+#: ../src/tag_area.c:185
 #, c-format
 msgid "Selected files tagged with title ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som tittel"
 
-#: ../src/tag_area.c:191
+#: ../src/tag_area.c:190
 msgid "Removed title from selected files"
 msgstr "Fjernet tittel fra valgte filer"
 
@@ -4207,177 +4189,177 @@ msgstr "Valgte filer er tagget med «%s» som artist"
 msgid "Removed artist from selected files"
 msgstr "Fjernet artist fra valgte filer"
 
-#: ../src/tag_area.c:229
+#: ../src/tag_area.c:231
 #, c-format
 msgid "Selected files tagged with album artist ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som albumartist"
 
-#: ../src/tag_area.c:234
+#: ../src/tag_area.c:236
 msgid "Removed album artist from selected files"
 msgstr "Fjernet albumartist fra valgte filer"
 
-#: ../src/tag_area.c:251
+#: ../src/tag_area.c:254
 #, c-format
 msgid "Selected files tagged with album ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som album"
 
-#: ../src/tag_area.c:256
+#: ../src/tag_area.c:259
 msgid "Removed album name from selected files"
 msgstr "Fjernet albumnavn fra valgte filer"
 
-#: ../src/tag_area.c:294
+#: ../src/tag_area.c:297
 #, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
 msgstr "Valgte filer er tagget med «%s/%s» som platenummer"
 
-#: ../src/tag_area.c:299
+#: ../src/tag_area.c:304
 #, c-format
 msgid "Selected files tagged with disc number like ‘xx’"
 msgstr "Valgte filer er tagget med platenummer som «xx»"
 
-#: ../src/tag_area.c:304
+#: ../src/tag_area.c:309
 msgid "Removed disc number from selected files"
 msgstr "Fjernet platenummer fra valgte filer"
 
-#: ../src/tag_area.c:321
+#: ../src/tag_area.c:329
 #, c-format
 msgid "Selected files tagged with year ‘%s’"
 msgstr "Valgte filer er tagget med år «%s»"
 
-#: ../src/tag_area.c:326
+#: ../src/tag_area.c:334
 msgid "Removed year from selected files"
 msgstr "Fjernet år fra valgte filer"
 
-#: ../src/tag_area.c:356 ../src/tag_area.c:450
+#: ../src/tag_area.c:364 ../src/tag_area.c:469
 #, c-format
 msgid "Selected files tagged with track like ‘xx/%s’"
 msgstr "Valgte filer er tagget med spornummer i form av «xx/%s»"
 
-#: ../src/tag_area.c:360
+#: ../src/tag_area.c:368
 #, c-format
 msgid "Selected files tagged with track like ‘xx’"
 msgstr "Valgte filer er tagget med spornummer som «xx»"
 
-#: ../src/tag_area.c:365 ../src/tag_area.c:455
+#: ../src/tag_area.c:373 ../src/tag_area.c:474
 msgid "Removed track number from selected files"
 msgstr "Fjernet spornummer fra valgte filer"
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/tag_area.c:423
+#: ../src/tag_area.c:432
 #, c-format
 msgid "Selected tracks numbered sequentially"
 msgstr "Valgte spor er nummerert i rekkefølge"
 
-#: ../src/tag_area.c:472
+#: ../src/tag_area.c:494
 #, c-format
 msgid "Selected files tagged with genre ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som sjanger"
 
-#: ../src/tag_area.c:477
+#: ../src/tag_area.c:499
 msgid "Removed genre from selected files"
 msgstr "Fjernet sjanger fra valgte filer"
 
-#: ../src/tag_area.c:501
+#: ../src/tag_area.c:524
 #, c-format
 msgid "Selected files tagged with comment ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som kommentar"
 
-#: ../src/tag_area.c:506
+#: ../src/tag_area.c:529
 msgid "Removed comment from selected files"
 msgstr "Fjernet kommentarer fra valgte filer"
 
-#: ../src/tag_area.c:522
+#: ../src/tag_area.c:547
 #, c-format
 msgid "Selected files tagged with composer ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som komponist"
 
-#: ../src/tag_area.c:527
+#: ../src/tag_area.c:552
 msgid "Removed composer from selected files"
 msgstr "Fjernet komponist fra valgte filer"
 
-#: ../src/tag_area.c:544
+#: ../src/tag_area.c:570
 #, c-format
 msgid "Selected files tagged with original artist ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som opprinnelig artist"
 
-#: ../src/tag_area.c:549
+#: ../src/tag_area.c:575
 msgid "Removed original artist from selected files"
 msgstr "Fjernet opprinnelig artist fra valgte filer"
 
-#: ../src/tag_area.c:566
+#: ../src/tag_area.c:593
 #, c-format
 msgid "Selected files tagged with copyright ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som opphavsrettsmerknad"
 
-#: ../src/tag_area.c:571
+#: ../src/tag_area.c:598
 msgid "Removed copyright from selected files"
 msgstr "Fjernet opphavsrettsinfo fra valgte filer"
 
-#: ../src/tag_area.c:588
+#: ../src/tag_area.c:616
 #, c-format
 msgid "Selected files tagged with URL ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som nettadresse"
 
-#: ../src/tag_area.c:593
+#: ../src/tag_area.c:621
 msgid "Removed URL from selected files"
 msgstr "Fjernet nettadresse fra valgte filer"
 
-#: ../src/tag_area.c:610
+#: ../src/tag_area.c:639
 #, c-format
 msgid "Selected files tagged with encoder name ‘%s’"
 msgstr "Valgte filer er tagget med «%s» som kodeprogram"
 
-#: ../src/tag_area.c:615
+#: ../src/tag_area.c:644
 msgid "Removed encoder name from selected files"
 msgstr "Fjernet kodeprogram-felt fra valgte filer"
 
-#: ../src/tag_area.c:650
+#: ../src/tag_area.c:680
 msgid "Selected files tagged with images"
 msgstr "Valgte filer er tagget med bilder"
 
-#: ../src/tag_area.c:654
+#: ../src/tag_area.c:684
 msgid "Removed images from selected files"
 msgstr "Fjernet bilder fra valgte filer"
 
 #. Menu items
-#: ../src/tag_area.c:823
+#: ../src/tag_area.c:852
 msgid "Tag selected files with this field"
 msgstr "Tagg valgte filer med dette feltet"
 
-#: ../src/tag_area.c:850
+#: ../src/tag_area.c:882
 msgid "All uppercase"
 msgstr "Bare store bokstaver"
 
-#: ../src/tag_area.c:856
+#: ../src/tag_area.c:888
 msgid "All lowercase"
 msgstr "Bare små bokstaver"
 
-#: ../src/tag_area.c:862
+#: ../src/tag_area.c:894
 msgid "First letter uppercase"
 msgstr "Stor forbokstav"
 
-#: ../src/tag_area.c:868
+#: ../src/tag_area.c:900
 msgid "First letter uppercase of each word"
 msgstr "Stor forbokstav i hvert ord"
 
-#: ../src/tag_area.c:884
+#: ../src/tag_area.c:916
 msgid "Insert space before uppercase letter"
 msgstr "Sett inn mellomrom før stor bokstav"
 
-#: ../src/tag_area.c:890
+#: ../src/tag_area.c:922
 msgid "Remove duplicate spaces or underscores"
 msgstr "Fjern doble mellomrom eller understreker"
 
-#: ../src/tag_area.c:896
+#: ../src/tag_area.c:928
 msgid "Remove all text"
 msgstr "Fjern all tekst"
 
-#: ../src/tag_area.c:1258 ../src/tag_area.c:1336
+#: ../src/tag_area.c:1289 ../src/tag_area.c:1382
 #, c-format
 msgid "Error parsing image data ‘%s’"
 msgstr "Feil ved tolkning av bildedata «%s»"
 
-#: ../src/tag_area.c:1318
+#: ../src/tag_area.c:1364
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer"
@@ -4385,104 +4367,104 @@ msgstr ""
 "Klarte ikke å vise bildet. Programmet må lese ytterligere data for å vite "
 "hvordan bilde-mellomlager skal opprettes"
 
-#: ../src/tag_area.c:1325
+#: ../src/tag_area.c:1371
 msgid "Cannot display the image"
 msgstr "Klarte ikke å vise bildet"
 
-#: ../src/tag_area.c:1327
+#: ../src/tag_area.c:1373
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
 "Det har ikke blitt lest nok data til å kunne avgjøre hvordan bilde-"
 "mellomlageret skal opprettes."
 
-#: ../src/tag_area.c:1329
+#: ../src/tag_area.c:1375
 msgid "Load Image File"
 msgstr "Last inn bildefil"
 
-#: ../src/tag_area.c:1373 ../src/tag_area.c:1398
+#: ../src/tag_area.c:1420 ../src/tag_area.c:1445
 #, c-format
 msgid "Image file not loaded ‘%s’"
 msgstr "Bildefila «%s» ble ikke lastet inn"
 
-#: ../src/tag_area.c:1390
+#: ../src/tag_area.c:1437
 #, c-format
 msgid "Cannot open file ‘%s’"
 msgstr "Klarte ikke å åpne filen «%s»"
 
-#: ../src/tag_area.c:1394
+#: ../src/tag_area.c:1441
 msgid "Image File Error"
 msgstr "Feil med bildefil"
 
-#: ../src/tag_area.c:1405
+#: ../src/tag_area.c:1452
 msgid "Image file loaded"
 msgstr "Bildefil er lastet inn"
 
-#: ../src/tag_area.c:1485
+#: ../src/tag_area.c:1532
 msgid "Add Images"
 msgstr "Legg til bilder"
 
-#: ../src/tag_area.c:1495 ../src/tag_area.c:1847
+#: ../src/tag_area.c:1542 ../src/tag_area.c:1886
 msgid "All Files"
 msgstr "Alle filer"
 
-#: ../src/tag_area.c:1502 ../src/tag_area.c:1854
+#: ../src/tag_area.c:1549 ../src/tag_area.c:1893
 msgid "PNG and JPEG"
 msgstr "PNG og JPEG"
 
-#: ../src/tag_area.c:1641
+#: ../src/tag_area.c:1680
 #, c-format
 msgid "Image Properties %d/%d"
 msgstr "Bildeegenskaper %d/%d"
 
-#: ../src/tag_area.c:1833
+#: ../src/tag_area.c:1872
 #, c-format
 msgid "Save Image %d/%d"
 msgstr "Lagre bilde %d/%d"
 
-#: ../src/tag_area.c:1913
+#: ../src/tag_area.c:1952
 #, c-format
 msgid "Image file not saved ‘%s’"
 msgstr "Bildefila «%s» ble ikke lagret"
 
-#: ../src/tag_area.c:2259
+#: ../src/tag_area.c:2196
 msgid "Tag selected files with this genre"
 msgstr "Tagg valgte filer med denne sjangeren"
 
-#: ../src/tag_area.c:2986
+#: ../src/tag_area.c:2969
 msgid "ID3 Tag"
 msgstr "ID3-tagg"
 
-#: ../src/tag_area.c:2991
+#: ../src/tag_area.c:2974
 msgid "Ogg Vorbis Tag"
 msgstr "Ogg Vorbis-tagg"
 
-#: ../src/tag_area.c:2996
+#: ../src/tag_area.c:2979
 msgid "FLAC Vorbis Tag"
 msgstr "FLAC Vorbis-tagg"
 
-#: ../src/tag_area.c:3000
+#: ../src/tag_area.c:2983
 msgid "APE Tag"
 msgstr "APE-tagg"
 
-#: ../src/tag_area.c:3004
+#: ../src/tag_area.c:2987
 msgid "MP4/M4A/AAC Tag"
 msgstr "MP4-/M4A-/AAC-tagg"
 
-#: ../src/tag_area.c:3009
+#: ../src/tag_area.c:2992
 msgid "Wavpack Tag"
 msgstr "Wavpack-tagg"
 
-#: ../src/tag_area.c:3014
+#: ../src/tag_area.c:2997
 msgid "Opus Tag"
 msgstr "Opus-tagg"
 
-#: ../src/tag_area.c:3254
+#: ../src/tag_area.c:3255
 #, c-format
 msgid "Images (%u)"
 msgstr "Bilder (%u)"
 
-#: ../src/tags/ape_tag.c:63 ../src/tags/mp4_header.cc:58
+#: ../src/tags/ape_tag.c:62 ../src/tags/mp4_header.cc:58
 #: ../src/tags/mp4_header.cc:67 ../src/tags/mp4_tag.cc:72
 #: ../src/tags/mp4_tag.cc:85 ../src/tags/mp4_tag.cc:91
 #: ../src/tags/ogg_header.c:227
@@ -4490,11 +4472,11 @@ msgstr "Bilder (%u)"
 msgid "Error while opening file: %s"
 msgstr "Det oppstod en feil under åpning av «%s»"
 
-#: ../src/tags/ape_tag.c:385
+#: ../src/tags/ape_tag.c:384
 msgid "Failed to write APE tag"
 msgstr "Klarte ikke å lagre APE-tagg"
 
-#: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:116
+#: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:171
 msgid "Error opening FLAC file"
 msgstr "Det oppstod en feil under åpning av FLAC-fil"
 
@@ -4507,57 +4489,48 @@ msgstr "FLAC-fil"
 #. mpeg4ip library seems to always return -1
 #. Mode
 #: ../src/tags/flac_header.c:178 ../src/tags/mp4_header.cc:152
-#: ../src/tags/ogg_header.c:417 ../src/tags/opus_header.c:236
-#: ../src/tags/wavpack_header.c:151
+#: ../src/tags/ogg_header.c:417 ../src/tags/opus_header.c:235
+#: ../src/tags/wavpack_header.c:150
 msgid "Channels:"
 msgstr "Kanaler:"
 
-#: ../src/tags/flac_tag.c:815 ../src/tags/flac_tag.c:848
-#: ../src/tags/flac_tag.c:862
+#: ../src/tags/flac_tag.c:881 ../src/tags/flac_tag.c:914
+#: ../src/tags/flac_tag.c:928
 #, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
 msgstr "Det oppstod en feil under åpning av «%s» som FLAC. %s"
 
-#: ../src/tags/flac_tag.c:1144 ../src/tags/flac_tag.c:1156
-#: ../src/tags/flac_tag.c:1176
+#: ../src/tags/flac_tag.c:1215 ../src/tags/flac_tag.c:1227
+#: ../src/tags/flac_tag.c:1247
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
 msgstr "Klarte ikke å lagre kommentarer i «%s». %s"
 
-#: ../src/tags/id3_tag.c:209
-#, c-format
-msgid ""
-"As the following corrupted file ‘%s’ will cause an error in id3lib, it will "
-"not be processed"
-msgstr ""
-"filen «%s» er korrupt, og ville ha forårsaket en feil i id3lib. Den blir "
-"derfor ikke behandlet"
-
-#: ../src/tags/id3_tag.c:211
+#: ../src/tags/id3_tag.c:205
 msgid "Corrupted file"
 msgstr "Korrupt fil"
 
-#: ../src/tags/id3_tag.c:600
+#: ../src/tags/id3_tag.c:602
 #, c-format
 msgid "Removed tag of ‘%s’"
 msgstr "Fjernet tagg fra «%s»"
 
-#: ../src/tags/id3_tag.c:607 ../src/tags/id3_tag.c:737
+#: ../src/tags/id3_tag.c:609 ../src/tags/id3_tag.c:739
 #, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
 msgstr "Det oppstod en feil under fjerning av ID3v1-tagg fra «%s». %s"
 
-#: ../src/tags/id3_tag.c:616 ../src/tags/id3_tag.c:700
+#: ../src/tags/id3_tag.c:618 ../src/tags/id3_tag.c:702
 #, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
 msgstr "Det oppstod en feil under fjerning av ID3v2-tagg fra «%s». %s"
 
-#: ../src/tags/id3_tag.c:642
+#: ../src/tags/id3_tag.c:644
 #, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
 msgstr "Det oppstod en feil under oppdatering av ID3v2-tagg for «%s». %s"
 
-#: ../src/tags/id3_tag.c:674
+#: ../src/tags/id3_tag.c:676
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
@@ -4565,7 +4538,7 @@ msgstr ""
 "Du har prøvd å lagre denne taggen i Unicode-format, men versjonen du bruker "
 "av id3lib inneholder feil"
 
-#: ../src/tags/id3_tag.c:676
+#: ../src/tags/id3_tag.c:678
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -4584,83 +4557,83 @@ msgstr ""
 "\n"
 "Fil: %s"
 
-#: ../src/tags/id3_tag.c:683
+#: ../src/tags/id3_tag.c:685
 msgid "Buggy id3lib"
 msgstr "id3lib inneholder feil"
 
-#: ../src/tags/id3_tag.c:725
+#: ../src/tags/id3_tag.c:727
 #, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
 msgstr "Det oppstod en feil under oppdatering av ID3v1-tagg for «%s». %s"
 
-#: ../src/tags/id3_tag.c:759
+#: ../src/tags/id3_tag.c:761
 msgid "No error reported"
 msgstr "Ingen feil er rapportert"
 
-#: ../src/tags/id3_tag.c:761
+#: ../src/tags/id3_tag.c:763
 msgid "No available memory"
 msgstr "Intet minne tilgjengelig"
 
-#: ../src/tags/id3_tag.c:763
+#: ../src/tags/id3_tag.c:765
 msgid "No data to parse"
 msgstr "Ingen data å lese"
 
-#: ../src/tags/id3_tag.c:765
+#: ../src/tags/id3_tag.c:767
 msgid "Improperly formatted data"
 msgstr "Feilformaterte data"
 
-#: ../src/tags/id3_tag.c:767
+#: ../src/tags/id3_tag.c:769
 msgid "No buffer to write to"
 msgstr "Intet mellomlager å skrive til"
 
-#: ../src/tags/id3_tag.c:769
+#: ../src/tags/id3_tag.c:771
 msgid "Buffer is too small"
 msgstr "Mellomlageret er for lite"
 
-#: ../src/tags/id3_tag.c:771
+#: ../src/tags/id3_tag.c:773
 msgid "Invalid frame ID"
 msgstr "Ugyldig ramme-ID"
 
-#: ../src/tags/id3_tag.c:773
+#: ../src/tags/id3_tag.c:775
 msgid "Requested field not found"
 msgstr "Fant ikke etterspurt felt"
 
-#: ../src/tags/id3_tag.c:775
+#: ../src/tags/id3_tag.c:777
 msgid "Unknown field type"
 msgstr "Ukjent felttype"
 
-#: ../src/tags/id3_tag.c:777
+#: ../src/tags/id3_tag.c:779
 msgid "Tag is already attached to a file"
 msgstr "Taggen er allerede festet til en fil"
 
-#: ../src/tags/id3_tag.c:779
+#: ../src/tags/id3_tag.c:781
 msgid "Invalid tag version"
 msgstr "Ugyldig taggversjon"
 
-#: ../src/tags/id3_tag.c:781
+#: ../src/tags/id3_tag.c:783
 msgid "No file to parse"
 msgstr "Ingen fil å lese"
 
-#: ../src/tags/id3_tag.c:783
+#: ../src/tags/id3_tag.c:785
 msgid "Attempting to write to a read-only file"
 msgstr "Prøver å skrive til en skrivebeskyttet fil"
 
-#: ../src/tags/id3_tag.c:785
+#: ../src/tags/id3_tag.c:787
 msgid "Error in compression/uncompression"
 msgstr "Feil under komprimering/utpakking"
 
-#: ../src/tags/id3_tag.c:787
+#: ../src/tags/id3_tag.c:789
 msgid "Unknown error message"
 msgstr "Ukjent feilmelding"
 
-#: ../src/tags/id3_tag.c:1474
+#: ../src/tags/id3_tag.c:1494
 msgid "Error while creating temporary file"
 msgstr "Det oppstod en feil under opprettelse av midlertidig fil"
 
-#: ../src/tags/id3v24_tag.c:132 ../src/tags/id3v24_tag.c:187
-#: ../src/tags/id3v24_tag.c:225 ../src/tags/id3v24_tag.c:236
-#: ../src/tags/id3v24_tag.c:952 ../src/tags/id3v24_tag.c:959
-#: ../src/tags/id3v24_tag.c:985 ../src/tags/id3v24_tag.c:1025
+#: ../src/tags/id3v24_tag.c:131 ../src/tags/id3v24_tag.c:186
+#: ../src/tags/id3v24_tag.c:224 ../src/tags/id3v24_tag.c:235
+#: ../src/tags/id3v24_tag.c:951 ../src/tags/id3v24_tag.c:958
+#: ../src/tags/id3v24_tag.c:984 ../src/tags/id3v24_tag.c:1024
 #: ../src/tags/mp4_tag.cc:101 ../src/tags/ogg_header.c:277
 msgid "Error reading tags from file"
 msgstr "Det oppstod en feil under lesing av tagger fra fil"
@@ -4781,10 +4754,10 @@ msgstr "Ogg Vorbis-fil"
 msgid "Speex File"
 msgstr "Speex-fil"
 
-#: ../src/tags/opus_header.c:223
+#: ../src/tags/opus_header.c:222
 msgid "Opus File"
 msgstr "Opus-fil"
 
-#: ../src/tags/wavpack_header.c:138
+#: ../src/tags/wavpack_header.c:137
 msgid "Wavpack File"
 msgstr "Wavpack-fil"
