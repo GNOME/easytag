@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag-2-2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 00:02+0200\n"
-"PO-Revision-Date: 2014-05-26 10:17+0100\n"
+"POT-Creation-Date: 2015-09-07 22:08+0200\n"
+"PO-Revision-Date: 2014-11-23 09:48+0100\n"
 "Last-Translator: Åka Sikrom <a4@hush.com>\n"
 "Language-Team: Norwegian bokmål\n"
 "Language: Norwegian bokmål\n"
@@ -18,7 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: ../data/easytag.appdata.xml.in.h:1
+#: ../data/easytag.appdata.xml.in.h:1 ../data/easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr "Rediger metadata i lydfiler"
+
+#: ../data/easytag.appdata.xml.in.h:2
 msgid ""
 "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
@@ -26,7 +30,7 @@ msgstr ""
 "Vis og rediger tagger for MP3-, MP2-, MP4/AAC-, FLAC., Ogg Opus-, Ogg "
 "Speex-, Ogg Vorbis-, MusePack-, Monkey's Audio- og WavPack-filer."
 
-#: ../data/easytag.appdata.xml.in.h:2
+#: ../data/easytag.appdata.xml.in.h:3
 msgid ""
 "Look up albums in online databases, bulk edit tags, create playlists and "
 "rename a collection of files."
@@ -34,7 +38,7 @@ msgstr ""
 "Finn album i databaser på nett, rediger tagger buntvis, lag spillelister og "
 "gi nytt navn til flere filer."
 
-#: ../data/easytag.appdata.xml.in.h:3
+#: ../data/easytag.appdata.xml.in.h:4
 msgid ""
 "A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
 "Windows."
@@ -46,16 +50,12 @@ msgstr ""
 msgid "Sound File Metadata Editor"
 msgstr "Metadata-behandler for lydfiler"
 
-#: ../data/easytag.desktop.in.h:2
-msgid "Edit sound file metadata"
-msgstr "Rediger metadata i lydfiler"
-
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:4
 msgid "mp3;tag;audio;"
 msgstr "mp3;tagg;lyd;"
 
-#: ../src/about.c:89
+#: ../src/about.c:88
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -85,18 +85,18 @@ msgstr ""
 "org/licenses/>."
 
 #. Translators: put your own name here to appear in the about dialog.
-#: ../src/about.c:106
+#: ../src/about.c:105
 msgid "translator-credits"
 msgstr "Samm Rokki"
 
-#: ../src/about.c:116
+#: ../src/about.c:115
 msgid "View and edit tags in audio files"
 msgstr "Vis og rediger tagger i lydfiler"
 
 #: ../src/ape_tag.c:61 ../src/id3v24_tag.c:113 ../src/mp4_header.cc:46
 #: ../src/mp4_header.cc:59 ../src/mp4_tag.cc:69 ../src/mp4_tag.cc:85
-#: ../src/mp4_tag.cc:90 ../src/mp4_tag.cc:262 ../src/mp4_tag.cc:278
-#: ../src/mp4_tag.cc:283
+#: ../src/mp4_tag.cc:90 ../src/mp4_tag.cc:263 ../src/mp4_tag.cc:279
+#: ../src/mp4_tag.cc:284
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
 msgstr "Feil ved åpning av fila «%s» (%s)."
@@ -429,8 +429,8 @@ msgstr "Gjør om siste endringer"
 msgid "_Quit"
 msgstr "_Avslutt"
 
-#: ../src/bar.c:242 ../src/easytag.c:2428 ../src/easytag.c:4617
-#: ../src/easytag.c:4649
+#: ../src/bar.c:242 ../src/easytag.c:2428 ../src/easytag.c:4631
+#: ../src/easytag.c:4663
 msgid "Quit"
 msgstr "Avslutt"
 
@@ -737,117 +737,117 @@ msgstr "Klarte ikke å slå sammen UI. Feilen var: %s\n"
 msgid "Ready to start"
 msgstr "Klar til å begynne"
 
-#: ../src/browser.c:376
+#: ../src/browser.c:373
 msgid "New default path for files selected"
 msgstr "Ny standardfilsti for filer er valgt"
 
-#: ../src/browser.c:678 ../src/easytag.c:4613
+#: ../src/browser.c:692 ../src/easytag.c:4627
 msgid "Some files have been modified but not saved"
 msgstr "Noen filer er markert for endringer, men endringene er ikke lagret"
 
-#: ../src/browser.c:679
+#: ../src/browser.c:693
 msgid "Do you want to save them before changing the directory?"
 msgstr "Vil du lagre dem før du bytter mappe?"
 
-#: ../src/browser.c:683
+#: ../src/browser.c:697
 msgid "Confirm Directory Change"
 msgstr "Bekreft hopp til annen mappe"
 
-#: ../src/browser.c:2244
+#: ../src/browser.c:2267
 msgid "<All albums>"
 msgstr "<Alle album>"
 
-#: ../src/browser.c:2707
+#: ../src/browser.c:2730
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
 msgstr "Feil: Ved søk etter «%s» ble ikke noden «%s» funnet i treet."
 
-#: ../src/browser.c:3201 ../src/browser.c:3279
+#: ../src/browser.c:3193 ../src/browser.c:3271
 msgid "Tree"
 msgstr "Trevisning"
 
-#: ../src/browser.c:3202 ../src/cddb.c:803 ../src/misc.c:1903
+#: ../src/browser.c:3194 ../src/cddb.c:803 ../src/misc.c:1903
 msgid "Filename"
 msgstr "Filnavn"
 
-#: ../src/browser.c:3202 ../src/cddb.c:804 ../src/misc.c:1904
+#: ../src/browser.c:3194 ../src/cddb.c:804 ../src/misc.c:1904
 #: ../src/prefs.c:643
 msgid "Title"
 msgstr "Tittel"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3203 ../src/browser.c:3210 ../src/cddb.c:483
+#: ../src/browser.c:3195 ../src/browser.c:3202 ../src/cddb.c:483
 #: ../src/cddb.c:805 ../src/misc.c:1905 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Artist"
 
-#: ../src/browser.c:3203 ../src/misc.c:1906
+#: ../src/browser.c:3195 ../src/misc.c:1906
 msgid "Album Artist"
 msgstr "Albumartist"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3204 ../src/browser.c:3212 ../src/cddb.c:486
+#: ../src/browser.c:3196 ../src/browser.c:3204 ../src/cddb.c:486
 #: ../src/cddb.c:806 ../src/misc.c:1907 ../src/prefs.c:645
 msgid "Album"
 msgstr "Album"
 
-#: ../src/browser.c:3204 ../src/cddb.c:807 ../src/misc.c:1909
+#: ../src/browser.c:3196 ../src/cddb.c:807 ../src/misc.c:1909
 msgid "Year"
 msgstr "År"
 
-#: ../src/browser.c:3204
+#: ../src/browser.c:3196
 msgid "Disc"
 msgstr "Plate"
 
-#: ../src/browser.c:3205 ../src/misc.c:1910
+#: ../src/browser.c:3197 ../src/misc.c:1910
 msgid "Track"
 msgstr "Spor"
 
-#: ../src/browser.c:3205 ../src/cddb.c:810 ../src/misc.c:1911
+#: ../src/browser.c:3197 ../src/cddb.c:810 ../src/misc.c:1911
 #: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Sjanger"
 
-#: ../src/browser.c:3206 ../src/misc.c:1912 ../src/prefs.c:647
+#: ../src/browser.c:3198 ../src/misc.c:1912 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ../src/browser.c:3206 ../src/misc.c:1913 ../src/picture.c:884
+#: ../src/browser.c:3198 ../src/misc.c:1913 ../src/picture.c:884
 #: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Komponist"
 
-#: ../src/browser.c:3207 ../src/misc.c:1914
+#: ../src/browser.c:3199 ../src/misc.c:1914
 msgid "Original Artist"
 msgstr "Opprinnelig artist"
 
-#: ../src/browser.c:3208 ../src/misc.c:1915
+#: ../src/browser.c:3200 ../src/misc.c:1915
 msgid "Copyright"
 msgstr "Opphavsrett"
 
-#: ../src/browser.c:3208 ../src/misc.c:1916
+#: ../src/browser.c:3200 ../src/misc.c:1916
 msgid "URL"
 msgstr "Nettadresse"
 
-#: ../src/browser.c:3209 ../src/misc.c:1917
+#: ../src/browser.c:3201 ../src/misc.c:1917
 msgid "Encoded By"
 msgstr "Kodet av"
 
-#: ../src/browser.c:3210
+#: ../src/browser.c:3202
 msgid "# Albums"
 msgstr "# album"
 
-#: ../src/browser.c:3211 ../src/browser.c:3212
+#: ../src/browser.c:3203 ../src/browser.c:3204
 msgid "# Files"
 msgstr "# filer"
 
-#: ../src/browser.c:3237
+#: ../src/browser.c:3229
 msgid "Enter a directory to browse."
 msgstr "Skriv inn en mappe som skal utforskes."
 
-#: ../src/browser.c:3246
+#: ../src/browser.c:3238
 msgid "Select a directory to browse."
 msgstr "Velg en mappe som skal utforskes."
 
@@ -855,33 +855,33 @@ msgstr "Velg en mappe som skal utforskes."
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3253 ../src/easytag.c:3521
+#: ../src/browser.c:3245 ../src/easytag.c:3534
 msgid "No files"
 msgstr "Ingen filer"
 
-#: ../src/browser.c:3331
+#: ../src/browser.c:3323
 msgid "Artist & Album"
 msgstr "Artist & album"
 
 #. Only directories changed
-#: ../src/browser.c:3696 ../src/easytag.c:2879
+#: ../src/browser.c:3686 ../src/easytag.c:2887
 msgid "Rename Directory"
 msgstr "Gi nytt navn til mappa"
 
-#: ../src/browser.c:3718
+#: ../src/browser.c:3708
 #, c-format
 msgid "Rename the directory '%s' to:"
 msgstr "Endre navnet på mappa «%s» til:"
 
-#: ../src/browser.c:3737 ../src/misc.c:1172
+#: ../src/browser.c:3727 ../src/misc.c:1172
 msgid "Use mask:"
 msgstr "Bruk maske:"
 
-#: ../src/browser.c:3740
+#: ../src/browser.c:3730
 msgid "If activated, it will use masks to rename directory."
 msgstr "Hvis dette er aktivert, får mappa nytt navn i henhold til en maske."
 
-#: ../src/browser.c:3758
+#: ../src/browser.c:3748
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
@@ -890,64 +890,64 @@ msgstr ""
 "skannervinduet) for å gi mappa nytt navn i henhold til taggefeltene."
 
 #. Preview label
-#: ../src/browser.c:3782
+#: ../src/browser.c:3772
 msgid "Rename directory preview"
 msgstr "Forhåndsvis nytt mappenavn"
 
-#: ../src/browser.c:3874
+#: ../src/browser.c:3864
 msgid "You must type a directory name"
 msgstr "Du må skrive inn et mappenavn"
 
-#: ../src/browser.c:3875 ../src/browser.c:3896
+#: ../src/browser.c:3865 ../src/browser.c:3886
 msgid "Directory Name Error"
 msgstr "Feil i mappenavn"
 
-#: ../src/browser.c:3893
+#: ../src/browser.c:3883
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
 msgstr "Klarte ikke å konvertere «%s» til noe som kan brukes i filnavn."
 
-#: ../src/browser.c:3895
+#: ../src/browser.c:3885
 msgid "Please use another name"
 msgstr "Bruk et annet navn"
 
-#: ../src/browser.c:3965
+#: ../src/browser.c:3955
 #, c-format
 msgid "The directory name '%s' already exists"
 msgstr "Mappenavnet «%s» finnes allerede"
 
-#: ../src/browser.c:3966 ../src/easytag.c:2962
+#: ../src/browser.c:3956 ../src/easytag.c:2970
 msgid "Rename File Error"
 msgstr "Feil ved navneendring av fil"
 
-#: ../src/browser.c:4004 ../src/browser.c:4033
+#: ../src/browser.c:3994 ../src/browser.c:4023
 msgid "Rename Directory Error"
 msgstr "Feil ved navneendring av mappe"
 
-#: ../src/browser.c:4071
+#: ../src/browser.c:4061
 msgid "Directory renamed"
 msgstr "Mappe har fått nytt navn"
 
-#: ../src/browser.c:4107
+#: ../src/browser.c:4097
 msgid "Browse Directory With"
 msgstr "Utforsk mappe med"
 
-#: ../src/browser.c:4123 ../src/browser.c:4249
+#: ../src/browser.c:4113 ../src/browser.c:4239
 msgid "Program to run:"
 msgstr "Program som skal kjøres:"
 
-#: ../src/browser.c:4135
+#: ../src/browser.c:4125
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
 msgstr ""
 "Skriv navnet på programmet som skal kjøres. Gjeldende mappe blir brukt som "
 "parameter."
 
-#: ../src/browser.c:4229
+#: ../src/browser.c:4219
 msgid "Open Files With"
 msgstr "Åpne filer med"
 
-#: ../src/browser.c:4261
+#: ../src/browser.c:4251
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
 msgstr ""
@@ -1241,62 +1241,62 @@ msgid ""
 msgstr ""
 "Album: «%s», artist: «%s», varighet: «%s», år: «%s», sjanger: «%s», ID: «%s»"
 
-#: ../src/cddb.c:1588
+#: ../src/cddb.c:1603
 #, c-format
 msgid "Resolving host '%s'…"
 msgstr "Slår opp vertsnavnet «%s» …"
 
-#: ../src/cddb.c:1629
+#: ../src/cddb.c:1644
 #, c-format
 msgid "Cannot create a new socket (%s)"
 msgstr "Klarte ikke å lage en ny nokkel (%s)"
 
-#: ../src/cddb.c:1643
+#: ../src/cddb.c:1658
 msgid "Cannot set options on the newly-created socket"
 msgstr "Klarte ikke å foreta valg på sokkelen som nettopp ble satt opp"
 
 #. Open connection to the server.
-#: ../src/cddb.c:1647
+#: ../src/cddb.c:1662
 #, c-format
 msgid "Connecting to host '%s', port '%d'…"
 msgstr "Kobler til verten «%s», port %d …"
 
-#: ../src/cddb.c:1660
+#: ../src/cddb.c:1675
 #, c-format
 msgid "Cannot connect to host '%s' (%s)"
 msgstr "Klarte ikke å koble til verten «%s» (%s)"
 
-#: ../src/cddb.c:1684
+#: ../src/cddb.c:1699
 #, c-format
 msgid "Cannot resolve host '%s' (%s)"
 msgstr "Klarte ikke å gjøre oppslag på vertsnavnet «%s» (%s)"
 
-#: ../src/cddb.c:1697
+#: ../src/cddb.c:1712
 #, c-format
 msgid "Connected to host '%s'"
 msgstr "Koblet til vert «%s»"
 
-#: ../src/cddb.c:1778
+#: ../src/cddb.c:1793
 #, c-format
 msgid "Error while writing CDDB results to file '%s'"
 msgstr "Det oppstod en feil ved skriving av resultater fra CDDB til fila «%s»"
 
-#: ../src/cddb.c:1789
+#: ../src/cddb.c:1804
 #, c-format
 msgid "Receiving data (%s)…"
 msgstr "Mottar data (%s) …"
 
-#: ../src/cddb.c:1801
+#: ../src/cddb.c:1816
 #, c-format
 msgid "Error when reading CDDB response (%s)"
 msgstr "Det oppstod en feil ved lesing av svar fra CDDB (%s)"
 
-#: ../src/cddb.c:1808
+#: ../src/cddb.c:1823
 #, c-format
 msgid "Cannot create file '%s' (%s)"
 msgstr "Klarte ikke å lage fila «%s» (%s)"
 
-#: ../src/cddb.c:1849 ../src/setting.c:1256
+#: ../src/cddb.c:1864 ../src/setting.c:1256
 #, c-format
 msgid "Cannot open file '%s' (%s)"
 msgstr "Klarte ikke å åpne fila «%s» (%s)"
@@ -1307,11 +1307,11 @@ msgstr "Klarte ikke å åpne fila «%s» (%s)"
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2362 ../src/cddb.c:2693 ../src/cddb.c:3568
+#: ../src/cddb.c:2380 ../src/cddb.c:2711 ../src/cddb.c:3602
 msgid "Sending request…"
 msgstr "Sender forespørsel …"
 
-#: ../src/cddb.c:2366 ../src/cddb.c:2697 ../src/cddb.c:3267 ../src/cddb.c:3572
+#: ../src/cddb.c:2384 ../src/cddb.c:2715 ../src/cddb.c:3293 ../src/cddb.c:3606
 #, c-format
 msgid "Cannot send the request (%s)"
 msgstr "Klarte ikke å sende forespørselen (%s)"
@@ -1320,108 +1320,108 @@ msgstr "Klarte ikke å sende forespørselen (%s)"
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2393 ../src/cddb.c:3281 ../src/cddb.c:3581
+#: ../src/cddb.c:2411 ../src/cddb.c:3309 ../src/cddb.c:3615
 msgid "Receiving data…"
 msgstr "Mottar data …"
 
-#: ../src/cddb.c:2400 ../src/cddb.c:2726 ../src/cddb.c:3288 ../src/cddb.c:3588
+#: ../src/cddb.c:2418 ../src/cddb.c:2744 ../src/cddb.c:3316 ../src/cddb.c:3622
 msgid "The server returned a bad response"
 msgstr "Tjeneren sendte en negativ responskode"
 
-#: ../src/cddb.c:2414 ../src/cddb.c:2742 ../src/cddb.c:3303 ../src/cddb.c:3605
-#: ../src/cddb.c:3620
+#: ../src/cddb.c:2432 ../src/cddb.c:2760 ../src/cddb.c:3333 ../src/cddb.c:3639
+#: ../src/cddb.c:3653 ../src/cddb.c:3674
 #, c-format
 msgid "The server returned a bad response: %s"
 msgstr "Tjeneren sendte en negativ responskode: %s"
 
-#: ../src/cddb.c:2561
+#: ../src/cddb.c:2579
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Nettbasert søk er ikke tilgjengelig for øyeblikket"
 
-#: ../src/cddb.c:2563 ../src/cddb.c:2913
+#: ../src/cddb.c:2581 ../src/cddb.c:2931
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
 msgstr[0] "Fant ett album som samsvarer"
 msgstr[1] "Fant %d album som samsvarer"
 
-#: ../src/cddb.c:2714
+#: ../src/cddb.c:2732
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Mottar data om side %d (album %d/%d) …"
 
-#: ../src/cddb.c:2716
+#: ../src/cddb.c:2734
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Mottar data om side %d …"
 
-#: ../src/cddb.c:2880
+#: ../src/cddb.c:2898
 #, c-format
 msgid "More results to load…"
 msgstr "Flere resultater å laste inn …"
 
-#: ../src/cddb.c:3009
+#: ../src/cddb.c:3027
 #, c-format
 msgid "No file selected"
 msgstr "Ingen fil er valgt"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb.c:3017
+#: ../src/cddb.c:3035
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Du har valgt flere enn 99 filer. Forespørselen kan ikke sendes"
 
-#: ../src/cddb.c:3023
+#: ../src/cddb.c:3041
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
 msgstr[0] "Én fil valgt"
 msgstr[1] "%d filer valgt"
 
-#: ../src/cddb.c:3107
+#: ../src/cddb.c:3129
 msgid "The path for 'Local CD Database' was not defined"
 msgstr "Stien til «Lokal CD-database» var ikke angitt"
 
 #. Translators: 'it' in this sentence refers to the local CD
 #. * database path.
-#: ../src/cddb.c:3110
+#: ../src/cddb.c:3132
 msgid "Enter it in the preferences window before using this search."
 msgstr "Skriv det inn i oppsettsvinduet før du bruker denne søkefunksjonen."
 
-#: ../src/cddb.c:3112
+#: ../src/cddb.c:3134
 msgid "Local CD search"
 msgstr "Lokalt CD-søk"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb.c:3257
+#: ../src/cddb.c:3283
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr "Sender forespørsel (CddbId: %s, #spor: %d, platelengde: %d) …"
 
-#: ../src/cddb.c:3414
+#: ../src/cddb.c:3448
 #, c-format
 msgid "DiscID '%s' gave one matching album"
 msgid_plural "DiscID '%s' gave %d matching albums"
 msgstr[0] "Plate-ID «%s» samsvarte med ett album"
 msgstr[1] "Plate-ID «%s» samsvarte med %d album"
 
-#: ../src/cddb.c:3512
+#: ../src/cddb.c:3546
 #, c-format
 msgid "Can't load file: '%s' (%s)."
 msgstr "Klarte ikke å laste inn fila «%s» (%s)."
 
 #. Load the track list of the album
-#: ../src/cddb.c:3811
+#: ../src/cddb.c:3891
 msgid "Loading album track list…"
 msgstr "Laster inn albumets sporliste …"
 
-#: ../src/cddb.c:4010
+#: ../src/cddb.c:4087
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "Antallet i CDDB-resultatene samsvarer ikke med antall valgte filer"
 
-#: ../src/cddb.c:4014
+#: ../src/cddb.c:4091
 msgid "Write Tag from CDDB"
 msgstr "Skriv tagg fra CDDB"
 
@@ -1658,9 +1658,8 @@ msgid "Currently using locale '%s' (and eventually '%s')"
 msgstr "Du bruker nå regioninnstillinga «%s» (og eventuelt «%s»)"
 
 #: ../src/easytag.c:210
-#, fuzzy
 msgid "Unable to create setting directories"
-msgstr "Klarte ikke å lage målmapper"
+msgstr "Klarte ikke å lage oppsettsmapper"
 
 #: ../src/easytag.c:427 ../src/et_core.c:638 ../src/et_core.c:650
 #, c-format
@@ -1689,7 +1688,7 @@ msgstr "Fil"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:636 ../src/easytag.c:4284 ../src/flac_header.c:201
+#: ../src/easytag.c:636 ../src/easytag.c:4297 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
 #: ../src/ogg_header.c:389 ../src/opus_header.c:221 ../src/wavpack_header.c:72
 #, c-format
@@ -1707,7 +1706,7 @@ msgid "Frequency:"
 msgstr "Frekvens:"
 
 #. Mode
-#: ../src/easytag.c:665 ../src/easytag.c:4288 ../src/mpeg_header.c:216
+#: ../src/easytag.c:665 ../src/easytag.c:4301 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Modus:"
 
@@ -2107,211 +2106,211 @@ msgstr "Er du sikker på at du vil skrive taggen til fila «%s»?"
 msgid "Confirm Tag Writing"
 msgstr "Bekreft taggskriving"
 
-#: ../src/easytag.c:2788 ../src/easytag.c:2908 ../src/easytag.c:3225
+#: ../src/easytag.c:2788 ../src/easytag.c:2916 ../src/easytag.c:3238
 msgid "Repeat action for the remaining files"
 msgstr "Gjenta handling for filene som gjenstår"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2872 ../src/scan_dialog.c:183
+#: ../src/easytag.c:2880 ../src/scan_dialog.c:183
 msgid "Rename File and Directory"
 msgstr "Gi nytt navn til fil og mappe"
 
-#: ../src/easytag.c:2873
+#: ../src/easytag.c:2881
 msgid "File and directory rename confirmation required"
 msgstr "Navneendring av fil- og mappenavn må bekreftes"
 
-#: ../src/easytag.c:2874
+#: ../src/easytag.c:2882
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
 msgstr "Er du sikker på at du vil endre navnet på fila og mappa «%s» til «%s»?"
 
-#: ../src/easytag.c:2880
+#: ../src/easytag.c:2888
 msgid "Directory rename confirmation required"
 msgstr "Navneendring av mappe må bekreftes"
 
-#: ../src/easytag.c:2881
+#: ../src/easytag.c:2889
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
 msgstr "Er du sikker på at du vil gi mappa «%s» det nye navnet «%s»?"
 
 #. Only filename changed
-#: ../src/easytag.c:2887
+#: ../src/easytag.c:2895
 msgid "Rename File"
 msgstr "Gi nytt navn til fil"
 
-#: ../src/easytag.c:2888
+#: ../src/easytag.c:2896
 msgid "File rename confirmation required"
 msgstr "Navneendring av fil må bekreftes"
 
-#: ../src/easytag.c:2889
+#: ../src/easytag.c:2897
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
 msgstr "Er du sikker på at du vil endre navnet på fila «%s» til «%s»?"
 
-#: ../src/easytag.c:2955
+#: ../src/easytag.c:2963
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
 msgstr "Klarte ikke å gi fila «%s» det nye navnet «%s»"
 
-#: ../src/easytag.c:2969
+#: ../src/easytag.c:2977
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
 msgstr "Klarte ikke å gi fila «%s» det nye navnet «%s». %s"
 
-#: ../src/easytag.c:2973
+#: ../src/easytag.c:2981
 msgid "File(s) not renamed"
 msgstr "Filnavn(et/ene) ble ikke endret"
 
-#: ../src/easytag.c:3152
+#: ../src/easytag.c:3165
 #, c-format
 msgid "Writing tag of '%s'"
 msgstr "Skriver tagg til «%s»"
 
-#: ../src/easytag.c:3159
+#: ../src/easytag.c:3172
 msgid "Tag(s) written"
 msgstr "Tagg(er) ble skrevet"
 
-#: ../src/easytag.c:3172
+#: ../src/easytag.c:3185
 #, c-format
 msgid "Cannot write tag in file '%s'"
 msgstr "Klarte ikke å skrive tagg til fila «%s»"
 
-#: ../src/easytag.c:3176
+#: ../src/easytag.c:3189
 msgid "Tag Write Error"
 msgstr "Feil ved skriving av tagg"
 
-#: ../src/easytag.c:3222 ../src/easytag.c:3236
+#: ../src/easytag.c:3235 ../src/easytag.c:3249
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
 msgstr "Er du sikker på at du vil slette fila «%s»?"
 
-#: ../src/easytag.c:3228 ../src/easytag.c:3238
+#: ../src/easytag.c:3241 ../src/easytag.c:3251
 msgid "Delete File"
 msgstr "Slett fil"
 
-#: ../src/easytag.c:3263
+#: ../src/easytag.c:3276
 #, c-format
 msgid "File '%s' deleted"
 msgstr "Fila «%s» er slettet"
 
-#: ../src/easytag.c:3398
+#: ../src/easytag.c:3411
 #, c-format
 msgid "Cannot read directory '%s'"
 msgstr "Klarte ikke å lese mappa «%s»"
 
-#: ../src/easytag.c:3402
+#: ../src/easytag.c:3415
 msgid "Directory Read Error"
 msgstr "Feil ved lesing av mappe"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3423
+#: ../src/easytag.c:3436
 #, c-format
 msgid "Search in progress…"
 msgstr "Søker …"
 
-#: ../src/easytag.c:3446 ../src/et_core.c:2876
+#: ../src/easytag.c:3459 ../src/et_core.c:2876
 #, c-format
 msgid "File: '%s'"
 msgstr "Fil: «%s»"
 
-#: ../src/easytag.c:3496
+#: ../src/easytag.c:3509
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %d files in this directory and subdirectories"
 msgstr[0] "Fant én fil i denne mappa og dens undermapper"
 msgstr[1] "Fant %d filer i denne mappa og dens undermapper"
 
-#: ../src/easytag.c:3503
+#: ../src/easytag.c:3516
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %d files in this directory"
 msgstr[0] "Fant én fil i denne mappa"
 msgstr[1] "Fant %d filer i denne mappa"
 
-#: ../src/easytag.c:3525
+#: ../src/easytag.c:3538
 msgid "No file found in this directory and subdirectories"
 msgstr "Fant ingen filer i denne mappa, og heller ikke i undermappene"
 
-#: ../src/easytag.c:3527
+#: ../src/easytag.c:3540
 msgid "No file found in this directory"
 msgstr "Fant ingen filer i denne mappa"
 
-#: ../src/easytag.c:3595
+#: ../src/easytag.c:3608
 #, c-format
 msgid "Error opening directory '%s' (%s)"
 msgstr "Det oppstod en feil ved åpning av mappa «%s» (%s)"
 
-#: ../src/easytag.c:3631
+#: ../src/easytag.c:3644
 #, c-format
 msgid "Cannot read directory (%s)"
 msgstr "Klarte ikke å lese mappa (%s)"
 
-#: ../src/easytag.c:3651
+#: ../src/easytag.c:3664
 msgid "Searching for audio files…"
 msgstr "Søker etter lydfiler …"
 
-#: ../src/easytag.c:3652
+#: ../src/easytag.c:3665
 msgid "Searching"
 msgstr "Søker"
 
-#: ../src/easytag.c:4318
+#: ../src/easytag.c:4331
 msgid "Select a directory to browse"
 msgstr "Velg en mappe som skal utforskes"
 
 #. Menu items
-#: ../src/easytag.c:4464
+#: ../src/easytag.c:4478
 msgid "Tag selected files with this field"
 msgstr "Tagg valgte filer med dette feltet"
 
-#: ../src/easytag.c:4476 ../src/scan_dialog.c:2128
+#: ../src/easytag.c:4490 ../src/scan_dialog.c:2128
 msgid "Convert '_' and '%20' to spaces"
 msgstr "Bytt ut «_» og «%20» med mellomrom"
 
-#: ../src/easytag.c:4483 ../src/scan_dialog.c:2130
+#: ../src/easytag.c:4497 ../src/scan_dialog.c:2130
 msgid "Convert ' ' to '_'"
 msgstr "Bytt ut mellomrom med «_»"
 
-#: ../src/easytag.c:4494
+#: ../src/easytag.c:4508
 msgid "All uppercase"
 msgstr "Bare store bokstaver"
 
-#: ../src/easytag.c:4501
+#: ../src/easytag.c:4515
 msgid "All lowercase"
 msgstr "Bare små bokstaver"
 
-#: ../src/easytag.c:4508
+#: ../src/easytag.c:4522
 msgid "First letter uppercase"
 msgstr "Stor forbokstav"
 
-#: ../src/easytag.c:4515
+#: ../src/easytag.c:4529
 msgid "First letter uppercase of each word"
 msgstr "Stor forbokstav i hvert ord"
 
-#: ../src/easytag.c:4526 ../src/prefs.c:1023 ../src/scan_dialog.c:2254
+#: ../src/easytag.c:4540 ../src/prefs.c:1023 ../src/scan_dialog.c:2254
 msgid "Remove spaces"
 msgstr "Fjern mellomrom"
 
-#: ../src/easytag.c:4533
+#: ../src/easytag.c:4547
 msgid "Insert space before uppercase letter"
 msgstr "Sett inn mellomrom før stor bokstav"
 
-#: ../src/easytag.c:4540
+#: ../src/easytag.c:4554
 msgid "Remove duplicate spaces or underscores"
 msgstr "Fjern doble mellomrom eller understreker"
 
-#: ../src/easytag.c:4547
+#: ../src/easytag.c:4561
 msgid "Remove all text"
 msgstr "Fjern all tekst"
 
-#: ../src/easytag.c:4566
+#: ../src/easytag.c:4580
 msgid "EasyTAG: Normal exit."
 msgstr "EasyTAG: Normal avslutning."
 
-#: ../src/easytag.c:4618
+#: ../src/easytag.c:4632
 msgid "Do you want to save them before quitting?"
 msgstr "Vil du lagre dem før du avslutter?"
 
-#: ../src/easytag.c:4645
+#: ../src/easytag.c:4659
 msgid "Do you really want to quit?"
 msgstr "Er du sikker på at du vil avslutte?"
 
@@ -2427,8 +2426,8 @@ msgstr "Bilder (%d)"
 #. Bitrate
 #: ../src/et_core.c:3269 ../src/flac_header.c:205
 #: ../src/monkeyaudio_header.c:86 ../src/mp4_header.cc:142
-#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:401 ../src/opus_header.c:227 ../src/wavpack_header.c:78
+#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88 ../src/ogg_header.c:401
+#: ../src/opus_header.c:227 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
 msgstr "%d kb/s"
@@ -2436,8 +2435,8 @@ msgstr "%d kb/s"
 #. Samplerate
 #: ../src/et_core.c:3274 ../src/flac_header.c:210
 #: ../src/monkeyaudio_header.c:91 ../src/mp4_header.cc:147
-#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:406 ../src/opus_header.c:232 ../src/wavpack_header.c:83
+#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93 ../src/ogg_header.c:406
+#: ../src/opus_header.c:232 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
 msgstr "%d Hz"
@@ -2494,17 +2493,17 @@ msgstr "Bildeblokka «%s» er ugyldig"
 msgid "Error: Failed to write comments to file '%s' (%s)."
 msgstr "Feil: klarte ikke å skrive kommentarer til fila «%s» (%s)."
 
-#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1161
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1124
 #, c-format
 msgid "Written tag of '%s'"
 msgstr "Tagg er skrevet til «%s»"
 
-#: ../src/id3_tag.c:205
+#: ../src/id3_tag.c:211
 #, c-format
 msgid "Error while reading file: '%s' (%s)"
 msgstr "Det oppstod en feil ved lesing av fila «%s» (%s)"
 
-#: ../src/id3_tag.c:217
+#: ../src/id3_tag.c:223
 #, c-format
 msgid ""
 "As the following corrupted file '%s' will cause an error in id3lib, it will "
@@ -2513,31 +2512,31 @@ msgstr ""
 "Fila «%s» er korrupt, og ville ha forårsaket en feil i id3lib. Den blir "
 "derfor ikke behandlet"
 
-#: ../src/id3_tag.c:219
+#: ../src/id3_tag.c:225
 msgid "Corrupted file"
 msgstr "Korrupt fil"
 
-#: ../src/id3_tag.c:592
+#: ../src/id3_tag.c:598
 #, c-format
 msgid "Removed tag of '%s'"
 msgstr "Fjernet tagg fra «%s»"
 
-#: ../src/id3_tag.c:596 ../src/id3_tag.c:696
+#: ../src/id3_tag.c:602 ../src/id3_tag.c:702
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
 msgstr "Det oppstod en feil ved fjerning av ID3v1-tagg fra «%s» (%s)"
 
-#: ../src/id3_tag.c:598 ../src/id3_tag.c:668
+#: ../src/id3_tag.c:604 ../src/id3_tag.c:674
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
 msgstr "Det oppstod en feil ved fjerning av ID3v1-tagg fra «%s» (%s)"
 
-#: ../src/id3_tag.c:617
+#: ../src/id3_tag.c:623
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
 msgstr "Det oppstod en feil ved oppdatering av ID3v2-tagg for «%s» (%s)"
 
-#: ../src/id3_tag.c:645
+#: ../src/id3_tag.c:651
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
@@ -2545,7 +2544,7 @@ msgstr ""
 "Du har prøvd å lagre denne taggen i Unicode-format, men versjonen du bruker "
 "av id3lib inneholder feil"
 
-#: ../src/id3_tag.c:647
+#: ../src/id3_tag.c:653
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -2564,90 +2563,90 @@ msgstr ""
 "\n"
 "Fil: %s"
 
-#: ../src/id3_tag.c:654
+#: ../src/id3_tag.c:660
 msgid "Buggy id3lib"
 msgstr "id3lib inneholder feil"
 
-#: ../src/id3_tag.c:688
+#: ../src/id3_tag.c:694
 #, c-format
 msgid "Error while updating ID3v1 tag of '%s' (%s)"
 msgstr "Det oppstod en feil ved oppdatering av ID3v1-tagg for «%s» (%s)"
 
-#: ../src/id3_tag.c:702 ../src/id3v24_tag.c:1108
+#: ../src/id3_tag.c:708 ../src/id3v24_tag.c:1105
 #, c-format
 msgid "Updated tag of '%s'"
 msgstr "Oppdatert tag for «%s»"
 
-#: ../src/id3_tag.c:721
+#: ../src/id3_tag.c:727
 msgid "No error reported"
 msgstr "Ingen feil er rapportert"
 
-#: ../src/id3_tag.c:723
+#: ../src/id3_tag.c:729
 msgid "No available memory"
 msgstr "Intet minne tilgjengelig"
 
-#: ../src/id3_tag.c:725
+#: ../src/id3_tag.c:731
 msgid "No data to parse"
 msgstr "Ingen data å lese"
 
-#: ../src/id3_tag.c:727
+#: ../src/id3_tag.c:733
 msgid "Improperly formatted data"
 msgstr "Feilformaterte data"
 
-#: ../src/id3_tag.c:729
+#: ../src/id3_tag.c:735
 msgid "No buffer to write to"
 msgstr "Intet mellomlager å skrive til"
 
-#: ../src/id3_tag.c:731
+#: ../src/id3_tag.c:737
 msgid "Buffer is too small"
 msgstr "Mellomlageret er for lite"
 
-#: ../src/id3_tag.c:733
+#: ../src/id3_tag.c:739
 msgid "Invalid frame ID"
 msgstr "Ugyldig ramme-ID"
 
-#: ../src/id3_tag.c:735
+#: ../src/id3_tag.c:741
 msgid "Requested field not found"
 msgstr "Fant ikke etterspurt felt"
 
-#: ../src/id3_tag.c:737
+#: ../src/id3_tag.c:743
 msgid "Unknown field type"
 msgstr "Ukjent felttype"
 
-#: ../src/id3_tag.c:739
+#: ../src/id3_tag.c:745
 msgid "Tag is already attached to a file"
 msgstr "Taggen er allerede festet til en fil"
 
-#: ../src/id3_tag.c:741
+#: ../src/id3_tag.c:747
 msgid "Invalid tag version"
 msgstr "Ugyldig taggversjon"
 
-#: ../src/id3_tag.c:743
+#: ../src/id3_tag.c:749
 msgid "No file to parse"
 msgstr "Ingen fil å lese"
 
-#: ../src/id3_tag.c:745
+#: ../src/id3_tag.c:751
 msgid "Attempting to write to a read-only file"
 msgstr "Prøver å skrive til en skrivebeskyttet fil"
 
-#: ../src/id3_tag.c:747
+#: ../src/id3_tag.c:753
 msgid "Error in compression/uncompression"
 msgstr "Feil under komprimering/utpakking"
 
-#: ../src/id3_tag.c:749
+#: ../src/id3_tag.c:755
 msgid "Unknown error message"
 msgstr "Ukjent feilmelding"
 
-#: ../src/id3_tag.c:1357
+#: ../src/id3_tag.c:1363
 #, c-format
 msgid "Error while creating temporary file: '%s'"
 msgstr "Det oppstod en feil ved opprettelse av den midlertidige fila «%s»"
 
-#: ../src/id3_tag.c:1364
+#: ../src/id3_tag.c:1370
 msgid "Error while creating temporary file"
 msgstr "Det oppstod en feil ved opprettelse av midlertidig fil"
 
-#: ../src/id3_tag.c:1384
+#: ../src/id3_tag.c:1390
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
 msgstr "Det oppstod en feil ved skriving til fila «%s» (%s)"
@@ -2657,19 +2656,19 @@ msgstr "Det oppstod en feil ved skriving til fila «%s» (%s)"
 #. * missing (not read for some reason) while reading from
 #. * the file.
 #.
-#: ../src/id3v24_tag.c:1563
+#: ../src/id3v24_tag.c:1560
 #, c-format
 msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
 msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
 msgstr[0] "Klarte ikke å skrive tagg til fila «%s» (den mangler en byte)"
 msgstr[1] "Klarte ikke å skrive tagg til fila «%s» (den mangler %s byte)"
 
-#: ../src/id3v24_tag.c:1584
+#: ../src/id3v24_tag.c:1581
 #, c-format
 msgid "Cannot save tag of file '%s'"
 msgstr "Klarte ikke å lagre tagg i fila «%s»"
 
-#: ../src/id3v24_tag.c:1595
+#: ../src/id3v24_tag.c:1592
 #, c-format
 msgid "Size error while saving tag of '%s'"
 msgstr "Det oppstod en størrelsesfeil da taggen for «%s» ble lagret"
@@ -2948,7 +2947,7 @@ msgstr "Flytt denne linja ned"
 msgid "Profile:"
 msgstr "Profil:"
 
-#: ../src/mp4_header.cc:60 ../src/mp4_tag.cc:91 ../src/mp4_tag.cc:284
+#: ../src/mp4_header.cc:60 ../src/mp4_tag.cc:91 ../src/mp4_tag.cc:285
 msgid "MP4 format invalid"
 msgstr "Ugyldig MP4-format"
 
@@ -2967,7 +2966,7 @@ msgstr "Det oppstod en feil ved lesing av egenskaper for fila «%s»"
 msgid "~%d kb/s"
 msgstr "~%d kb/s"
 
-#: ../src/mp4_tag.cc:101 ../src/mp4_tag.cc:293
+#: ../src/mp4_tag.cc:101 ../src/mp4_tag.cc:294
 #, c-format
 msgid "Error reading tags from file: '%s'"
 msgstr "Det oppstod en feil ved lesing av tagger fra fila «%s»"
@@ -3041,21 +3040,6 @@ msgstr ""
 #, c-format
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
 msgstr "Feil: klarte ikke å åpne fila «%s» som Vorbis (%s)."
-
-#: ../src/ogg_tag.c:706 ../src/ogg_tag.c:881
-#, c-format
-msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
-msgstr "Advarsel: Ogg Vorbis-fila «%s» inneholder en ID3v2-tagg."
-
-#: ../src/ogg_tag.c:1030 ../src/picture.c:1082
-#, c-format
-msgid "Error with 'loader_write': %s"
-msgstr "Det oppstod en feil med «loader_write». %s"
-
-#: ../src/ogg_tag.c:1045 ../src/picture.c:1005
-#, c-format
-msgid "Error with 'loader_close': %s"
-msgstr "Det oppstod en feil med «loader_close». %s"
 
 #: ../src/picture.c:244 ../src/picture.c:269
 #, c-format
@@ -3219,6 +3203,11 @@ msgstr "Type"
 msgid "Description"
 msgstr "Synkende, etter beskrivelse"
 
+#: ../src/picture.c:1005
+#, c-format
+msgid "Error with 'loader_close': %s"
+msgstr "Det oppstod en feil med «loader_close». %s"
+
 #: ../src/picture.c:1065
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
@@ -3241,6 +3230,11 @@ msgstr ""
 #: ../src/picture.c:1076
 msgid "Load Image File"
 msgstr "Last inn bildefil"
+
+#: ../src/picture.c:1082
+#, c-format
+msgid "Error with 'loader_write': %s"
+msgstr "Det oppstod en feil med «loader_write». %s"
 
 #. Label
 #: ../src/prefs.c:152
@@ -4884,6 +4878,9 @@ msgstr "Klarte ikke å flytte oppsettsfila «%s»"
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
 msgstr "Feil: klarte ikke å lage mappa «%s» (%s)"
+
+#~ msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
+#~ msgstr "Advarsel: Ogg Vorbis-fila «%s» inneholder en ID3v2-tagg."
 
 #~ msgid "Cannot write tag in file '%s' (%s)"
 #~ msgstr "Klarte ikke å skrive tagg til fila «%s» (%s)"
