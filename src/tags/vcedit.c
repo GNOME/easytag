@@ -610,6 +610,9 @@ vcedit_open (EtOggState *state,
                                                      header->packet,
                                                      header->bytes))
                             {
+                                case 0:
+                                    break;
+
                                 case OP_ENOTFORMAT:
                                     g_set_error (error, ET_OGG_ERROR,
                                                  ET_OGG_ERROR_HEADER,
