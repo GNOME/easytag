@@ -461,8 +461,8 @@ write_button_clicked (EtPlaylistDialog *self)
         g_free (temp);
 
         /* Replace Characters (with scanner). */
-        convert_mode = g_settings_get_flags (MainSettings,
-                                             "rename-convert-spaces");
+        convert_mode = g_settings_get_enum (MainSettings,
+                                            "rename-convert-spaces");
 
         switch (convert_mode)
         {
