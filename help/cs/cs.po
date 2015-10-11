@@ -1,13 +1,14 @@
 # Czech translation for easytag.
 # Copyright (C) 2014 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
+#
 # Marek Černocký <marek@manet.cz>, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2015-06-01 12:50+0000\n"
-"PO-Revision-Date: 2015-06-01 15:40+0200\n"
+"POT-Creation-Date: 2015-10-11 15:27+0000\n"
+"PO-Revision-Date: 2015-10-12 00:04+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1204,7 +1205,7 @@ msgstr "Zaškrtněte pole, která chcete změnit."
 #: C/tag-capitalization.page:42
 msgid ""
 "There are a number of available options for changing the capitalization. "
-"Chose the one that you want."
+"Choose the one that you want."
 msgstr ""
 "K dispozici je několik voleb, jak změnit velikost písmen. Zvolte, kterou "
 "potřebujete."
