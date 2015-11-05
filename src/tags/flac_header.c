@@ -108,11 +108,28 @@ et_flac_header_read_file_info (GFile *file,
 
         metadata_len += block->length;
 
-        if (block->type == FLAC__METADATA_TYPE_STREAMINFO)
+        if (FLAC__metadata_iterator_get_block_type (iter)
+            == FLAC__METADATA_TYPE_STREAMINFO)
         {
             const FLAC__StreamMetadata_StreamInfo *stream_info = &block->data.stream_info;
-            ETFileInfo->duration = stream_info->total_samples
-                                   / stream_info->sample_rate;
+            if (stream_info->sample_rate == 0)
+            {
+                gchar *filename;
+
+                /* This is invalid according to the FLAC specification, but
+                 * such files have been observed in the wild. */
+                ETFileInfo->duration = 0;
+
+                filename = g_file_get_path (file);
+                g_debug ("Invalid FLAC sample rate of 0: %s", filename);
+                g_free (filename);
+            }
+            else
+            {
+                ETFileInfo->duration = stream_info->total_samples
+                                       / stream_info->sample_rate;
+            }
+
             ETFileInfo->mode = stream_info->channels;
             ETFileInfo->samplerate = stream_info->sample_rate;
             ETFileInfo->version = 0; /* Not defined in FLAC file. */
