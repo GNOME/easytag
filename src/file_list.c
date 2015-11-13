@@ -1186,6 +1186,10 @@ et_displayed_file_list_set (GList *ETFileList)
                        g_settings_get_enum (MainSettings,
                                             "sort-mode"));
 
+    /* Synchronize, so that the core file list pointer always points to the
+     * head of the list. */
+    ETCore->ETFileList = g_list_first (ETCore->ETFileList);
+
     /* Should renums ETCore->ETFileDisplayedList only! */
     et_displayed_file_list_renumber (ETCore->ETFileDisplayedList);
 }
