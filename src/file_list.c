@@ -1206,8 +1206,8 @@ et_file_list_update_directory_name (GList *file_list,
     gchar *old_path_tmp;
 
     g_return_if_fail (file_list != NULL);
-    g_return_if_fail (old_path != NULL && *old_path != '\0');
-    g_return_if_fail (new_path != NULL && *new_path != '\0');
+    g_return_if_fail (!et_str_empty (old_path));
+    g_return_if_fail (!et_str_empty (new_path));
 
     /* Add '/' to end of path to avoid ambiguity between a directory and a
      * filename... */
