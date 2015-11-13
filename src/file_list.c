@@ -1146,12 +1146,8 @@ ET_Displayed_File_List_By_Etfile (const ET_File *ETFile)
 {
     GList *etfilelist;
 
-    for (etfilelist = ET_Displayed_File_List_First (); etfilelist != NULL;
-         etfilelist = ET_Displayed_File_List_Next ())
-    {
-        if (ETFile == (ET_File *)etfilelist->data)
-            break;
-    }
+    etfilelist = g_list_find (g_list_first (ETCore->ETFileDisplayedList),
+                              ETFile);
 
     if (etfilelist)
     {
@@ -1159,6 +1155,7 @@ ET_Displayed_File_List_By_Etfile (const ET_File *ETFile)
          * FIXME) */
         ETCore->ETFileDisplayedList = etfilelist;
     }
+
     return etfilelist;
 }
 
