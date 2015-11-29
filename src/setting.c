@@ -760,7 +760,8 @@ et_settings_flags_toggle_set (const GValue *value,
     GFlagsValue *flags_value;
     guint mask;
     GVariantBuilder builder;
-    guint flags = g_settings_get_flags (MainSettings, "process-fields");
+    const gchar *flags_key;
+    guint flags;
 
     g_return_val_if_fail (user_data != NULL, NULL);
 
@@ -778,6 +779,9 @@ et_settings_flags_toggle_set (const GValue *value,
         g_type_class_unref (flags_class);
         return NULL;
     }
+
+    flags_key = g_object_get_data (G_OBJECT (user_data), "flags-key");
+    flags = g_settings_get_flags (MainSettings, flags_key);
 
     if (g_value_get_boolean (value))
     {

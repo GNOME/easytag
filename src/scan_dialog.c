@@ -2298,6 +2298,8 @@ init_process_field_check (GtkWidget *widget)
 {
     g_object_set_data (G_OBJECT (widget), "flags-type",
                        GSIZE_TO_POINTER (ET_TYPE_PROCESS_FIELD));
+    g_object_set_data (G_OBJECT (widget), "flags-key",
+                       (gpointer) "process-fields");
     g_settings_bind_with_mapping (MainSettings, "process-fields", widget,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_flags_toggle_get,

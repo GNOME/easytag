@@ -2781,6 +2781,8 @@ init_set_field_check (GtkWidget *widget)
 {
     g_object_set_data (G_OBJECT (widget), "flags-type",
                        GSIZE_TO_POINTER (ET_TYPE_CDDB_SET_FIELD));
+    g_object_set_data (G_OBJECT (widget), "flags-key",
+                       (gpointer) "cddb-set-fields");
     g_settings_bind_with_mapping (MainSettings, "cddb-set-fields", widget,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_flags_toggle_get,
