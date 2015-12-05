@@ -1,38 +1,64 @@
 # Catalan translation of easytag.
 # Copyright © 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the easytag package.
+#
 # Jordi Mas i Hernàndez <jmas@softcatala.org>, 2013.
 # Gil Forcada <gilforcada@guifi.net>, 2013.
-#
+# Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-19 14:00+0000\n"
-"PO-Revision-Date: 2013-04-19 21:36+0200\n"
-"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
-"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=easytag&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-12-05 04:27+0000\n"
+"PO-Revision-Date: 2015-12-05 12:51+0100\n"
+"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
+"Language-Team: Catalan <Catalan <info@softcatala.org>>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: ../data/easytag.appdata.xml.in.h:1 ../data/easytag.desktop.in.h:2
+msgid "Edit sound file metadata"
+msgstr "Edita les metadades del fitxer de so"
+
+#: ../data/easytag.appdata.xml.in.h:2
+msgid ""
+"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis, MusePack, Monkey's Audio and WavPack files."
+msgstr ""
+"Mostra i edita les copies per MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, "
+"Ogg Vorbis, MusePack, audio Monkey i fitxers WavPack."
+
+#: ../data/easytag.appdata.xml.in.h:3
+msgid ""
+"Look up albums in online databases, bulk edit tags, create playlists and "
+"rename a collection of files."
+msgstr ""
+"Cerca albums en base de dades en línia, edita copies, crea llistes de "
+"reproducció i reanomena col·leccions de fitxers."
+
+#: ../data/easytag.appdata.xml.in.h:4
+msgid ""
+"A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
+"Windows."
+msgstr ""
+"Una simple i agradable interfície GTK+ que fa fàcil etiquetar sota GNU/Linux "
+"i Windows."
 
 #: ../data/easytag.desktop.in.h:1
 msgid "Sound File Metadata Editor"
-msgstr ""
-
-#: ../data/easytag.desktop.in.h:2
-msgid "Edit sound file metadata"
-msgstr ""
+msgstr "Editor de metadades de fitxers de so"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:4
 msgid "mp3;tag;audio;"
 msgstr "mp3;etiqueta;àudio;"
 
-#: ../src/about.c:91
+#: ../src/about.c:88
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -47,1135 +73,1149 @@ msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program. If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
+"Aquest programa és programari lliure; podeu distribuir-lo o modificar-lo en "
+"els termes de la Llicència Pública General GNU publicada per la Free "
+"Software Foundation; en la versió 2 de la Llicència, o (a opció vostra) "
+"qualsevol versió posterior.\n"
+"\n"
+"Aquest programa es distribueix amb l'expectativa que serà útil, però SENSE "
+"CAP GARANTIA; fins i tot sense la garantia implícita de COMERCIALITZACIÓ o "
+"ADEQUACIÓ PER A CAP PROPÒSIT EN PARTICULAR. Vegeu la Llicència Pública "
+"General GNU per obtenir-ne més detalls.\n"
+"\n"
+"Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU "
+"juntament amb aquest programa; en cas contrari, consulteu la pàgina <http://"
+"www.gnu.org/licenses/>."
 
 #. Translators: put your own name here to appear in the about dialog.
-#: ../src/about.c:108
+#: ../src/about.c:105
 msgid "translator-credits"
-msgstr "Jordi Mas i Hernàndez <jmas@softcatala.org>"
-
-#: ../src/about.c:118
-msgid "View and edit tags in audio files"
 msgstr ""
+"Jordi Mas i Hernàndez <jmas@softcatala.org>Carles Ferrando Garcia <carles."
+"ferrando@gmail.com>"
 
-#. g_print(_("Error while opening file: '%s' (%s)."),filename_utf8,g_strerror(errno));
-#: ../src/ape_tag.c:62 ../src/et_core.c:4570 ../src/flac_header.c:108
-#: ../src/id3_tag.c:150 ../src/id3_tag.c:1210 ../src/id3v24_tag.c:114
-#: ../src/misc.c:1783 ../src/mp4_header.c:64 ../src/mp4_tag.c:72
-#: ../src/mp4_tag.c:83 ../src/mp4_tag.c:204 ../src/mp4_tag.c:213
-#: ../src/ogg_header.c:70 ../src/ogg_header.c:171 ../src/ogg_tag.c:145
-#: ../src/ogg_tag.c:650
+#: ../src/about.c:115
+msgid "View and edit tags in audio files"
+msgstr "Mostra i edita copies als fitxers d'àudio"
+
+#: ../src/ape_tag.c:61 ../src/id3v24_tag.c:113 ../src/mp4_header.cc:46
+#: ../src/mp4_header.cc:59 ../src/mp4_tag.cc:69 ../src/mp4_tag.cc:85
+#: ../src/mp4_tag.cc:90 ../src/mp4_tag.cc:263 ../src/mp4_tag.cc:279
+#: ../src/mp4_tag.cc:284
 #, c-format
 msgid "Error while opening file: '%s' (%s)."
-msgstr ""
+msgstr "Error mentre s'està obrint el fitxer: «%s» (%s)."
 
-#. FIXME: Translators should not have to deal with this!
-#: ../src/application.c:54
-#, c-format
-msgid ""
-"\n"
-"Usage: easytag [option] \n"
-"   or: easytag [directory]\n"
-"\n"
-"Option:\n"
-"-------\n"
-"-h, --help        Display this text and exit.\n"
-"-v, --version     Print basic information and exit.\n"
-"\n"
-"Directory:\n"
-"----------\n"
-"%s/path_to/files  Use an absolute path to load,\n"
-"path_to/files     Use a relative path.\n"
-"\n"
-msgstr ""
+#: ../src/application.c:37
+msgid "Print the version and exit"
+msgstr "Imprimeix la versió i surt"
 
-#: ../src/application.c:119
+#: ../src/application.c:89
 #, c-format
 msgid "Website: %s"
-msgstr ""
+msgstr "Lloc web: %s"
+
+#: ../src/application.c:98
+msgid "- Tag and rename audio files"
+msgstr "- Etiqueta i reanomena els fitxers d'àudio"
 
 #.
 #. * Main Menu Actions
 #.
-#: ../src/bar.c:138
+#: ../src/bar.c:155
 msgid "_File"
 msgstr "_Fitxer"
 
-#: ../src/bar.c:139
-msgid "Sort list by tag"
-msgstr ""
-
-#: ../src/bar.c:140
-msgid "Sort list by property"
-msgstr ""
-
-#: ../src/bar.c:141
-msgid "Ascending by filename"
-msgstr ""
-
-#: ../src/bar.c:142
-msgid "Descending by filename"
-msgstr ""
-
-#: ../src/bar.c:143
-msgid "Ascending by creation date"
-msgstr ""
-
-#: ../src/bar.c:144
-msgid "Descending by creation date"
-msgstr ""
-
-#: ../src/bar.c:145
-msgid "Ascending by track number"
-msgstr ""
-
-#: ../src/bar.c:146
-msgid "Descending by track number"
-msgstr ""
-
-#: ../src/bar.c:147
-msgid "Ascending by title"
-msgstr ""
-
-#: ../src/bar.c:148
-msgid "Descending by title"
-msgstr ""
-
-#: ../src/bar.c:149
-msgid "Ascending by artist"
-msgstr ""
-
-#: ../src/bar.c:150
-msgid "Descending by artist"
-msgstr ""
-
-#: ../src/bar.c:151
-msgid "Ascending by album artist"
-msgstr ""
-
-#: ../src/bar.c:152
-msgid "Descending by album artist"
-msgstr ""
-
-#: ../src/bar.c:153
-msgid "Ascending by album"
-msgstr ""
-
-#: ../src/bar.c:154
-msgid "Descending by album"
-msgstr ""
-
-#: ../src/bar.c:155
-msgid "Ascending by year"
-msgstr ""
-
 #: ../src/bar.c:156
-msgid "Descending by year"
-msgstr ""
-
-#: ../src/bar.c:157
-msgid "Ascending by genre"
-msgstr ""
-
-#: ../src/bar.c:158
-msgid "Descending by genre"
-msgstr ""
+msgid "Sort List by Tag"
+msgstr "Ordena per etiqueta"
 
 #: ../src/bar.c:159
-msgid "Ascending by comment"
-msgstr ""
+msgid "Sort List by Property"
+msgstr "Ordena per propietats"
 
 #: ../src/bar.c:160
-msgid "Descending by comment"
-msgstr ""
+msgid "Ascending by filename"
+msgstr "Nom del fitxer ascendent"
 
 #: ../src/bar.c:161
-msgid "Ascending by composer"
-msgstr ""
+msgid "Descending by filename"
+msgstr "Nom del fitxer descendent"
 
 #: ../src/bar.c:162
-msgid "Descending by composer"
-msgstr ""
+msgid "Ascending by creation date"
+msgstr "Data creació ascendent"
 
 #: ../src/bar.c:163
-msgid "Ascending by original artist"
-msgstr ""
+msgid "Descending by creation date"
+msgstr "Data de creació descendent"
 
 #: ../src/bar.c:164
-msgid "Descending by original artist"
-msgstr ""
+msgid "Ascending by track number"
+msgstr "Núm. pista ascendent"
 
 #: ../src/bar.c:165
-msgid "Ascending by copyright"
-msgstr ""
+msgid "Descending by track number"
+msgstr "Núm. pista descendent"
 
 #: ../src/bar.c:166
-msgid "Descending by copyright"
-msgstr ""
+msgid "Ascending by title"
+msgstr "Títol ascendent"
 
 #: ../src/bar.c:167
-msgid "Ascending by URL"
-msgstr ""
+msgid "Descending by title"
+msgstr "Títol descendent"
 
 #: ../src/bar.c:168
-msgid "Descending by URL"
-msgstr ""
+msgid "Ascending by artist"
+msgstr "Artista ascendent"
 
-#. Translators: the encoder name is supposed to be the name of a person
-#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:169
+msgid "Descending by artist"
+msgstr "Artista descendent"
+
+#: ../src/bar.c:170
+msgid "Ascending by album artist"
+msgstr "Artista d'àlbum ascendent"
+
 #: ../src/bar.c:171
-msgid "Ascending by encoder name"
-msgstr ""
+msgid "Descending by album artist"
+msgstr "Artista d'àlbum descendent"
 
-#. Translators: the encoder name is supposed to be the name of a person
-#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:172
+msgid "Ascending by album"
+msgstr "Àlbum ascendent"
+
+#: ../src/bar.c:173
+msgid "Descending by album"
+msgstr "Àlbum descendent"
+
 #: ../src/bar.c:174
-msgid "Descending by encoder name"
-msgstr ""
+msgid "Ascending by year"
+msgstr "Any ascendent"
 
 #: ../src/bar.c:175
-msgid "Ascending by file type"
-msgstr ""
+msgid "Descending by year"
+msgstr "Any descendent"
 
 #: ../src/bar.c:176
-msgid "Descending by file type"
-msgstr ""
+msgid "Ascending by genre"
+msgstr "Gènere ascendent"
 
 #: ../src/bar.c:177
-msgid "Ascending by file size"
-msgstr ""
+msgid "Descending by genre"
+msgstr "Gènere descendent"
 
 #: ../src/bar.c:178
-msgid "Descending by file size"
-msgstr ""
+msgid "Ascending by comment"
+msgstr "Comentari ascendent"
 
 #: ../src/bar.c:179
-msgid "Ascending by duration"
-msgstr ""
+msgid "Descending by comment"
+msgstr "Comentari descendent"
 
 #: ../src/bar.c:180
-msgid "Descending by duration"
-msgstr ""
+msgid "Ascending by composer"
+msgstr "Compositor ascendent"
 
 #: ../src/bar.c:181
-msgid "Ascending by bitrate"
-msgstr ""
+msgid "Descending by composer"
+msgstr "Compositor descendent"
 
 #: ../src/bar.c:182
-msgid "Descending by bitrate"
-msgstr ""
+msgid "Ascending by original artist"
+msgstr "Artista original ascendent"
 
 #: ../src/bar.c:183
-msgid "Ascending by samplerate"
-msgstr ""
+msgid "Descending by original artist"
+msgstr "Artista original descendent"
 
 #: ../src/bar.c:184
+msgid "Ascending by copyright"
+msgstr "Copyright ascendent"
+
+#: ../src/bar.c:185
+msgid "Descending by copyright"
+msgstr "Copyright descendent"
+
+#: ../src/bar.c:186
+msgid "Ascending by URL"
+msgstr "URL ascendent"
+
+#: ../src/bar.c:187
+msgid "Descending by URL"
+msgstr "URL descendent"
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:190
+msgid "Ascending by encoder name"
+msgstr "Nom codificador ascendent"
+
+#. Translators: the encoder name is supposed to be the name of a person
+#. * or organisation, but can sometimes be the name of an application.
+#: ../src/bar.c:193
+msgid "Descending by encoder name"
+msgstr "Nom codificador descendent"
+
+#: ../src/bar.c:194
+msgid "Ascending by file type"
+msgstr "Tipus de fitxer ascendent"
+
+#: ../src/bar.c:195
+msgid "Descending by file type"
+msgstr "Tipus de fitxer descendent"
+
+#: ../src/bar.c:196
+msgid "Ascending by file size"
+msgstr "Mida de fitxer ascendent"
+
+#: ../src/bar.c:197
+msgid "Descending by file size"
+msgstr "Mida de fitxer descendent"
+
+#: ../src/bar.c:198
+msgid "Ascending by duration"
+msgstr "Duració ascendent"
+
+#: ../src/bar.c:199
+msgid "Descending by duration"
+msgstr "Duració ascendent"
+
+#: ../src/bar.c:200
+msgid "Ascending by bitrate"
+msgstr "Taxa de bits ascendent"
+
+#: ../src/bar.c:201
+msgid "Descending by bitrate"
+msgstr "Taxa de bits descendent"
+
+#: ../src/bar.c:202
+msgid "Ascending by samplerate"
+msgstr "Freqüència de mostreig ascendent"
+
+#: ../src/bar.c:203
 msgid "Descending by samplerate"
-msgstr ""
+msgstr "Freqüència de mostreig descendent"
 
-#: ../src/bar.c:186
+#: ../src/bar.c:205
 msgid "Open Files With…"
-msgstr ""
+msgstr "Obre fitxers amb..."
 
-#: ../src/bar.c:186
-msgid "Open files with…"
-msgstr ""
+#: ../src/bar.c:206
+msgid "Run a command on the selected files"
+msgstr "Executa una ordre als fitxers seleccionats"
 
-#: ../src/bar.c:188
+#: ../src/bar.c:209
 msgid "Select all"
 msgstr "Selecciona-ho tot"
 
-#: ../src/bar.c:189
-msgid "Unselect All Files"
-msgstr ""
+#: ../src/bar.c:210
+msgid "Unselect All"
+msgstr "Treu la selecció a tot"
 
-#: ../src/bar.c:189
-msgid "Unselect all files"
-msgstr ""
+#: ../src/bar.c:211
+msgid "Clear the current selection"
+msgstr "Neteja la selecció actual"
 
-#: ../src/bar.c:190
-msgid "Invert Files Selection"
-msgstr ""
+#: ../src/bar.c:214
+msgid "Invert File Selection"
+msgstr "Inverteix la selecció de fitxer"
 
-#: ../src/bar.c:190
-msgid "Invert files selection"
-msgstr ""
+#: ../src/bar.c:215
+msgid "Invert file selection"
+msgstr "Inverteix la selecció de fitxer"
 
-#: ../src/bar.c:191
+#: ../src/bar.c:217
 msgid "Delete Files"
 msgstr "Suprimeix els fitxers"
 
-#: ../src/bar.c:191
+#: ../src/bar.c:217
 msgid "Delete files"
-msgstr ""
+msgstr "Suprimeix els fitxers"
 
-#: ../src/bar.c:192
+#: ../src/bar.c:218
 msgid "_First File"
-msgstr ""
+msgstr "_Primer fitxer"
 
-#: ../src/bar.c:192
+#: ../src/bar.c:219
 msgid "First file"
-msgstr ""
+msgstr "Primer fitxer"
 
-#: ../src/bar.c:193
+#: ../src/bar.c:220
 msgid "_Previous File"
-msgstr ""
+msgstr "_Fitxer previ"
 
-#: ../src/bar.c:193
+#: ../src/bar.c:220
 msgid "Previous file"
-msgstr ""
+msgstr "Fitxer previ"
 
-#: ../src/bar.c:194
+#: ../src/bar.c:221
 msgid "_Next File"
-msgstr ""
+msgstr "_Fitxer següent"
 
-#: ../src/bar.c:194
+#: ../src/bar.c:221
 msgid "Next file"
-msgstr ""
+msgstr "Fitxer següent"
 
-#: ../src/bar.c:195
+#: ../src/bar.c:222
 msgid "_Last File"
-msgstr ""
+msgstr "_Últim fitxer"
 
-#: ../src/bar.c:195
+#: ../src/bar.c:223
 msgid "Last file"
-msgstr ""
+msgstr "Últim fitxer"
 
-#. XXX GTK1 version uses Ctrl+C for scanner, this doesnt work in GTK1 as its copy! in gtk2, behaviour is different
-#. and binding Ctrl+C effectively stops the user copying text..
-#: ../src/bar.c:198
-msgid "S_can Files…"
-msgstr ""
+#: ../src/bar.c:224
+msgid "S_can Files"
+msgstr "_Explora fitxers"
 
-#: ../src/bar.c:198
-msgid "Scan files"
-msgstr ""
+#: ../src/bar.c:225 ../src/scan_dialog.c:1818
+msgid "Scan selected files"
+msgstr "Explora els fitxers seleccionats"
 
-#: ../src/bar.c:199
+#: ../src/bar.c:226
 msgid "_Remove Tags"
-msgstr ""
+msgstr "_Suprimeix etiquetes"
 
-#: ../src/bar.c:199
+#: ../src/bar.c:227
 msgid "Remove tags"
-msgstr ""
+msgstr "Suprimeix etiquetes"
 
-#: ../src/bar.c:200
+#: ../src/bar.c:228
 msgid "_Undo Last Files Changes"
-msgstr ""
+msgstr "_Desfés els canvis dels darrers fitxers"
 
-#: ../src/bar.c:200
-msgid "Undo last Files changes"
-msgstr ""
+#: ../src/bar.c:229
+msgid "Undo last files changes"
+msgstr "Desfés els canvis dels darrers fitxers"
 
-#: ../src/bar.c:201
+#: ../src/bar.c:231
 msgid "R_edo Last Files Changes"
-msgstr ""
+msgstr "_Refés els canvis dels darrers fitxers"
 
-#: ../src/bar.c:201
+#: ../src/bar.c:232
 msgid "Redo last files changes"
-msgstr ""
+msgstr "Refés els canvis dels darrers fitxers"
 
-#: ../src/bar.c:202
+#: ../src/bar.c:234
 msgid "_Save Files"
-msgstr ""
+msgstr "De_sa fitxers"
 
-#: ../src/bar.c:202
-msgid "Save files"
-msgstr ""
+#: ../src/bar.c:235
+msgid "Save changes to selected files"
+msgstr "Desa els canvis als fitxers seleccionats"
 
-#: ../src/bar.c:203
-msgid "_Force Saving Files"
-msgstr ""
+#: ../src/bar.c:237
+msgid "_Force Save Files"
+msgstr "_Força desa els fitxers"
 
-#: ../src/bar.c:203
+#: ../src/bar.c:238
 msgid "Force saving files"
-msgstr ""
+msgstr "Força el desat dels fitxers"
 
-#: ../src/bar.c:204
+#: ../src/bar.c:240
 msgid "Undo Last Changes"
-msgstr ""
+msgstr "Desfés els darrers canvis"
 
-#: ../src/bar.c:204
+#: ../src/bar.c:240
 msgid "Undo last changes"
-msgstr ""
+msgstr "Desfés els darrers canvis"
 
-#: ../src/bar.c:205
+#: ../src/bar.c:241
 msgid "Redo Last Changes"
-msgstr ""
+msgstr "Refés els darrers canvis"
 
-#: ../src/bar.c:205
+#: ../src/bar.c:241
 msgid "Redo last changes"
-msgstr ""
+msgstr "Refés els darrers canvis"
 
-#: ../src/bar.c:206
+#: ../src/bar.c:242
 msgid "_Quit"
 msgstr "_Surt"
 
-#: ../src/bar.c:206 ../src/easytag.c:2338 ../src/easytag.c:4924
-#: ../src/easytag.c:4950
+#: ../src/bar.c:242 ../src/easytag.c:2428 ../src/easytag.c:4631
+#: ../src/easytag.c:4663
 msgid "Quit"
 msgstr "Surt"
 
-#: ../src/bar.c:208
+#: ../src/bar.c:245
 msgid "_Browser"
 msgstr "_Navega"
 
-#: ../src/bar.c:209
-msgid "Go to _Home Directory"
-msgstr ""
+#: ../src/bar.c:246
+msgid "_Home Directory"
+msgstr "_Directori d'inici"
 
-#: ../src/bar.c:209
+#: ../src/bar.c:247
 msgid "Go to home directory"
-msgstr ""
+msgstr "Ves al directori d'inici"
 
-#: ../src/bar.c:210
-msgid "Go to Desktop Directory"
-msgstr ""
+#: ../src/bar.c:249
+msgid "Desktop Directory"
+msgstr "Directori escriptori"
 
-#: ../src/bar.c:210
+#: ../src/bar.c:250
 msgid "Go to desktop directory"
-msgstr ""
+msgstr "Ves al directori escriptori"
 
-#: ../src/bar.c:211
-msgid "Go to Documents Directory"
-msgstr ""
+#: ../src/bar.c:252
+msgid "Documents Directory"
+msgstr "Directori documents"
 
-#: ../src/bar.c:211
+#: ../src/bar.c:253
 msgid "Go to documents directory"
-msgstr ""
+msgstr "Ves al directori documents"
 
-#: ../src/bar.c:212
-msgid "Go to Downloads Directory"
-msgstr ""
+#: ../src/bar.c:255
+msgid "Downloads Directory"
+msgstr "Directori baixades"
 
-#: ../src/bar.c:212
+#: ../src/bar.c:256
 msgid "Go to downloads directory"
-msgstr ""
+msgstr "Ves al directori baixades"
 
-#: ../src/bar.c:213
-msgid "Go to Music Directory"
-msgstr ""
+#: ../src/bar.c:258
+msgid "Music Directory"
+msgstr "Directori música"
 
-#: ../src/bar.c:213
+#: ../src/bar.c:259
 msgid "Go to music directory"
-msgstr ""
+msgstr "Ves al directori música"
 
-#: ../src/bar.c:214
-msgid "Go to _Default Directory"
-msgstr ""
+#: ../src/bar.c:261
+msgid "_Parent Directory"
+msgstr "Directori _pare"
 
-#: ../src/bar.c:214
+#: ../src/bar.c:262
+msgid "Go to parent directory"
+msgstr "Ves al directori pare"
+
+#: ../src/bar.c:264
+msgid "_Default Directory"
+msgstr "Directori per _defecte"
+
+#: ../src/bar.c:265
 msgid "Go to default directory"
-msgstr ""
+msgstr "Ves al directori per defecte"
 
-#: ../src/bar.c:215
+#: ../src/bar.c:267
 msgid "Set _Current Path as Default"
-msgstr ""
+msgstr "Configura el _camí actual per defecte"
 
-#: ../src/bar.c:215
+#: ../src/bar.c:267
 msgid "Set current path as default"
-msgstr ""
+msgstr "Configura el camí actual per defecte"
 
-#: ../src/bar.c:216
+#: ../src/bar.c:268
 msgid "Rename Directory…"
-msgstr ""
+msgstr "Canvia el nom al directori..."
 
-#: ../src/bar.c:216
+#: ../src/bar.c:268
 msgid "Rename directory"
-msgstr ""
+msgstr "Canvia el nom al directori"
 
-#: ../src/bar.c:217
+#: ../src/bar.c:269
 msgid "Reload Directory"
-msgstr ""
+msgstr "Torna a carregar el directori"
 
-#: ../src/bar.c:217
+#: ../src/bar.c:270
 msgid "Reload directory"
-msgstr ""
+msgstr "Torna a carregar el directori"
 
-#: ../src/bar.c:218 ../src/browser.c:3948
-msgid "Browse Directory with…"
-msgstr ""
+#: ../src/bar.c:273
+msgid "Browse Directory With…"
+msgstr "Navega el directori amb..."
 
-#: ../src/bar.c:218
-msgid "Browse directory with…"
-msgstr ""
+#: ../src/bar.c:274
+msgid "Run a command on the directory"
+msgstr "Executa una ordre al directori"
 
-#: ../src/bar.c:219
+#: ../src/bar.c:276
 msgid "_Collapse Tree"
-msgstr ""
+msgstr "_Col·lapsa l'arbre"
 
-#: ../src/bar.c:219
-msgid "_Collapse tree"
-msgstr ""
+#: ../src/bar.c:277
+msgid "Collapse directory tree"
+msgstr "Col·lapsa l'arbre de directoris"
 
-#: ../src/bar.c:220
-msgid "_Refresh Tree"
-msgstr ""
+#: ../src/bar.c:278
+msgid "_Reload Tree"
+msgstr "_Torna a carregar l'arbre"
 
-#: ../src/bar.c:220
-msgid "_Refresh tree"
-msgstr ""
+#: ../src/bar.c:279
+msgid "Reload directory tree"
+msgstr "Recarrega l'arbre de directoris"
 
-#: ../src/bar.c:222 ../src/bar.c:251
-msgid "S_canner"
-msgstr ""
+#: ../src/bar.c:282
+msgid "S_canner Mode"
+msgstr "Mode _explora"
 
-#: ../src/bar.c:223
-msgid "_Fill Tags…"
-msgstr ""
-
-#: ../src/bar.c:223
-msgid "Fill tags"
-msgstr ""
-
-#: ../src/bar.c:224
-msgid "_Rename Files and Directories…"
-msgstr ""
-
-#: ../src/bar.c:224
-msgid "Rename files and directories"
-msgstr ""
-
-#: ../src/bar.c:225
-msgid "_Process Fields…"
-msgstr ""
-
-#: ../src/bar.c:225 ../src/scan.c:181
-msgid "Process Fields"
-msgstr ""
-
-#: ../src/bar.c:227
+#: ../src/bar.c:284
 msgid "_Miscellaneous"
-msgstr ""
+msgstr "_Miscel·lània"
 
-#: ../src/bar.c:228
-msgid "Find _Files…"
-msgstr ""
+#: ../src/bar.c:285
+msgid "_Find…"
+msgstr "_Cerca..."
 
-#: ../src/bar.c:228
-msgid "Find files"
-msgstr "Cercar fitxers"
+#: ../src/bar.c:286
+msgid "Search filenames and tags"
+msgstr "Cerca noms de fitxers i copies"
 
-#: ../src/bar.c:229
-msgid "CD Data_base Search…"
-msgstr ""
+#: ../src/bar.c:288
+msgid "CDD_B Search…"
+msgstr "Cerca CDD_B..."
 
-#: ../src/bar.c:229
+#: ../src/bar.c:289
 msgid "CDDB search"
-msgstr ""
+msgstr "Cerca CDDB"
 
-#: ../src/bar.c:230
-msgid "Load Filenames From Text File…"
-msgstr ""
+#: ../src/bar.c:291
+msgid "Load Filenames From a Text File…"
+msgstr "Carrega els noms dels fitxers des d'un fitxer de text..."
 
-#: ../src/bar.c:230
-msgid "Load filenames from text file"
-msgstr ""
+#: ../src/bar.c:292
+msgid "Load filenames from a text file"
+msgstr "Carrega els noms dels fitxers des d'un fitxer de text"
 
-#: ../src/bar.c:231
-msgid "Write Playlist…"
-msgstr ""
+#: ../src/bar.c:294
+msgid "Generate Playlist…"
+msgstr "Genera llista de reproducció..."
 
-#: ../src/bar.c:231
-msgid "Write playlist"
-msgstr ""
+#: ../src/bar.c:295
+msgid "Generate a playlist"
+msgstr "Genera una llista de reproducció"
 
-#: ../src/bar.c:232 ../src/bar.c:252 ../src/bar.c:253 ../src/bar.c:254
+#: ../src/bar.c:297 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
 msgid "Run Audio Player"
-msgstr ""
+msgstr "Executa Reproductor d'àudio"
 
-#: ../src/bar.c:232 ../src/bar.c:252 ../src/bar.c:253 ../src/bar.c:254
+#: ../src/bar.c:298 ../src/bar.c:328 ../src/bar.c:329 ../src/bar.c:330
 msgid "Run audio player"
-msgstr ""
+msgstr "Executa Reproductor d'àudio"
 
-#: ../src/bar.c:234
-msgid "_Settings"
-msgstr "_Paràmetres"
+#: ../src/bar.c:301
+msgid "_Edit"
+msgstr "_Edita"
 
-#: ../src/bar.c:235
+#: ../src/bar.c:302
 msgid "_Preferences"
 msgstr "_Preferències"
 
-#. Title
-#: ../src/bar.c:235 ../src/prefs.c:114
+#. The window
+#: ../src/bar.c:303 ../src/prefs.c:110
 msgid "Preferences"
 msgstr "Preferències"
 
-#: ../src/bar.c:237
+#: ../src/bar.c:305
+msgid "_View"
+msgstr "_Visualitza"
+
+#: ../src/bar.c:306
+msgid "_Go"
+msgstr "_Vés"
+
+#: ../src/bar.c:308
 msgid "_Help"
 msgstr "A_juda"
 
-#: ../src/bar.c:238
+#: ../src/bar.c:311
+msgid "_Contents"
+msgstr "_Continguts"
+
+#: ../src/bar.c:312
+msgid "Show help"
+msgstr "Mostra l'ajuda"
+
+#: ../src/bar.c:314
 msgid "_About"
 msgstr "_Quant a"
 
-#: ../src/bar.c:238
+#: ../src/bar.c:314
 msgid "About"
 msgstr "Quant a"
 
 #.
 #. * Following items are on toolbar but not on menu
 #.
-#: ../src/bar.c:244
+#: ../src/bar.c:320
 msgid "Stop the current action"
 msgstr "Atura l'acció actual"
 
 #.
 #. * Popup menu's Actions
 #.
-#: ../src/bar.c:250
+#: ../src/bar.c:326
 msgid "_File Operations"
-msgstr ""
+msgstr "_Operacions de fitxer"
 
-#: ../src/bar.c:255
+#: ../src/bar.c:327
+msgid "S_canner"
+msgstr "_Explora"
+
+#: ../src/bar.c:331
 msgid "CDDB Search Files…"
-msgstr ""
+msgstr "Cerca fitxers a la CDDB..."
 
-#: ../src/bar.c:255
+#: ../src/bar.c:331
 msgid "CDDB search files…"
-msgstr ""
+msgstr "Cerca fitxers a la CDDB..."
 
 #. { AM_ARTIST_OPEN_FILE_WITH,     GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
 #. { AM_ALBUM_OPEN_FILE_WITH,      GTK_STOCK_OPEN,    _("Open File(s) with…"),     NULL, _("Open File(s) with…"),     G_CALLBACK(Browser_Open_Run_Program_List_Window??? Browser_Open_Run_Program_Tree_Window???) },
-#: ../src/bar.c:259
+#: ../src/bar.c:335
 msgid "Clear log"
-msgstr ""
+msgstr "Neteja el registre"
 
 #. { AM_BROWSE_SUBDIR,      GTK_STOCK_INDEX,        _("Browse _Subdirectories"),                         NULL, _("Browse _Sub-directories"),                         NULL,                                    FALSE },
-#: ../src/bar.c:266
+#: ../src/bar.c:342
 msgid "Browse _Subdirectories"
-msgstr ""
+msgstr "Navega _subdirectoris"
 
-#: ../src/bar.c:266
+#: ../src/bar.c:342
 msgid "Browse subdirectories"
-msgstr ""
+msgstr "Navega subdirectoris"
 
-#: ../src/bar.c:270
+#: ../src/bar.c:346
 msgid "Show Hidden Directories"
-msgstr ""
+msgstr "Mostra els directoris ocults"
 
-#: ../src/bar.c:270
+#: ../src/bar.c:346
 msgid "Show hidden directories"
-msgstr ""
+msgstr "Mostra els directoris ocults"
 
-#: ../src/bar.c:276
-msgid "Tree Browser View"
-msgstr ""
+#: ../src/bar.c:348
+msgid "_Show Scanner"
+msgstr "_Mostra l'escàner"
 
-#: ../src/bar.c:277
+#: ../src/bar.c:349
+msgid "Show scanner"
+msgstr "Mostra l'escàner"
+
+#: ../src/bar.c:355
+msgid "Tree Browser"
+msgstr "Navega per l'arbre"
+
+#: ../src/bar.c:356
 msgid "View by directory tree"
-msgstr ""
+msgstr "Mostra per arbre de directoris"
 
-#: ../src/bar.c:279
-msgid "Artist and Album View"
-msgstr ""
+#: ../src/bar.c:358
+msgid "Artist and Album"
+msgstr "Artista i àlbum"
 
-#: ../src/bar.c:280
+#: ../src/bar.c:359
 msgid "View by artist and album"
-msgstr ""
+msgstr "Mostra per artista i àlbum"
 
-#: ../src/bar.c:322
+#: ../src/bar.c:364
+msgid "_Fill Tags…"
+msgstr "_Emplena etiquetes..."
+
+#: ../src/bar.c:365
+msgid "Fill tags"
+msgstr "Emplena etiquetes"
+
+#: ../src/bar.c:367
+msgid "_Rename Files and Directories…"
+msgstr "_Canvia el nom a fitxers i directoris..."
+
+#: ../src/bar.c:368
+msgid "Rename files and directories"
+msgstr "Canvia el nom a fitxers i directoris"
+
+#: ../src/bar.c:370
+msgid "_Process Fields…"
+msgstr "_Processa els camps..."
+
+#: ../src/bar.c:370 ../src/scan_dialog.c:184
+msgid "Process Fields"
+msgstr "Processa el camps"
+
+#: ../src/bar.c:428
 #, c-format
 msgid "Could not merge UI, error was: %s\n"
-msgstr ""
+msgstr "No s'ha pogut fusionar UI, l'error era: %s\n"
 
-#: ../src/bar.c:423
+#: ../src/bar.c:533
 msgid "Ready to start"
-msgstr ""
+msgstr "Preparat per començar"
 
-#: ../src/browser.c:353
+#: ../src/browser.c:373
 msgid "New default path for files selected"
-msgstr ""
+msgstr "Camí nou per defecte per a fitxers seleccionats"
 
-#: ../src/browser.c:753 ../src/easytag.c:4922
+#: ../src/browser.c:692 ../src/easytag.c:4627
 msgid "Some files have been modified but not saved"
-msgstr ""
+msgstr "Alguns fitxers han estat modificats però no desats"
 
-#: ../src/browser.c:754
+#: ../src/browser.c:693
 msgid "Do you want to save them before changing the directory?"
-msgstr ""
+msgstr "Voleu desar-los abans de canviar de directori?"
 
-#: ../src/browser.c:756
+#: ../src/browser.c:697
 msgid "Confirm Directory Change"
-msgstr ""
+msgstr "Confirma el canvi de directori"
 
-#: ../src/browser.c:2141
+#: ../src/browser.c:2267
 msgid "<All albums>"
-msgstr ""
+msgstr "<Tots els àlbums>"
 
-#: ../src/browser.c:2582
+#: ../src/browser.c:2730
 #, c-format
 msgid "Error: Searching for %s, could not find node %s in tree."
-msgstr ""
+msgstr "Error: S'està cercant %s, no es pot trobar el node %s a l'arbre."
 
-#: ../src/browser.c:3030 ../src/browser.c:3124
+#: ../src/browser.c:3193 ../src/browser.c:3271
 msgid "Tree"
 msgstr "Arbre"
 
-#: ../src/browser.c:3031 ../src/cddb.c:732 ../src/misc.c:1931
+#: ../src/browser.c:3194 ../src/cddb.c:803 ../src/misc.c:1903
 msgid "Filename"
 msgstr "Nom del fitxer"
 
-#: ../src/browser.c:3031 ../src/cddb.c:733 ../src/misc.c:1932
-#: ../src/prefs.c:647
+#: ../src/browser.c:3194 ../src/cddb.c:804 ../src/misc.c:1904
+#: ../src/prefs.c:643
 msgid "Title"
 msgstr "Títol"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Artist".
-#: ../src/browser.c:3032 ../src/browser.c:3039 ../src/cddb.c:415
-#: ../src/cddb.c:734 ../src/misc.c:1933 ../src/prefs.c:648
+#: ../src/browser.c:3195 ../src/browser.c:3202 ../src/cddb.c:483
+#: ../src/cddb.c:805 ../src/misc.c:1905 ../src/prefs.c:644
 msgid "Artist"
 msgstr "Artista"
 
-#: ../src/browser.c:3032 ../src/misc.c:1934
+#: ../src/browser.c:3195 ../src/misc.c:1906
 msgid "Album Artist"
 msgstr "Artista de l'àlbum"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Album".
-#: ../src/browser.c:3033 ../src/browser.c:3041 ../src/cddb.c:418
-#: ../src/cddb.c:735 ../src/misc.c:1935 ../src/prefs.c:649
+#: ../src/browser.c:3196 ../src/browser.c:3204 ../src/cddb.c:486
+#: ../src/cddb.c:806 ../src/misc.c:1907 ../src/prefs.c:645
 msgid "Album"
 msgstr "Àlbum"
 
-#: ../src/browser.c:3033 ../src/cddb.c:736 ../src/misc.c:1937
+#: ../src/browser.c:3196 ../src/cddb.c:807 ../src/misc.c:1909
 msgid "Year"
 msgstr "Any"
 
-#: ../src/browser.c:3033
+#: ../src/browser.c:3196
 msgid "Disc"
 msgstr "Disc"
 
-#: ../src/browser.c:3034 ../src/misc.c:1938
+#: ../src/browser.c:3197 ../src/misc.c:1910
 msgid "Track"
 msgstr "Pista"
 
-#: ../src/browser.c:3034 ../src/cddb.c:739 ../src/misc.c:1939
-#: ../src/prefs.c:650
+#: ../src/browser.c:3197 ../src/cddb.c:810 ../src/misc.c:1911
+#: ../src/prefs.c:646
 msgid "Genre"
 msgstr "Gènere"
 
-#: ../src/browser.c:3035 ../src/misc.c:1940 ../src/prefs.c:651
+#: ../src/browser.c:3198 ../src/misc.c:1912 ../src/prefs.c:647
 msgid "Comment"
 msgstr "Comentari"
 
-#: ../src/browser.c:3035 ../src/misc.c:1941 ../src/picture.c:819
-#: ../src/prefs.c:652
+#: ../src/browser.c:3198 ../src/misc.c:1913 ../src/picture.c:884
+#: ../src/prefs.c:648
 msgid "Composer"
 msgstr "Redactor"
 
-#: ../src/browser.c:3036 ../src/misc.c:1942
+#: ../src/browser.c:3199 ../src/misc.c:1914
 msgid "Original Artist"
 msgstr "Artista original"
 
-#: ../src/browser.c:3037 ../src/misc.c:1943
+#: ../src/browser.c:3200 ../src/misc.c:1915
 msgid "Copyright"
 msgstr "Copyright"
 
-#: ../src/browser.c:3037 ../src/misc.c:1944
+#: ../src/browser.c:3200 ../src/misc.c:1916
 msgid "URL"
 msgstr "URL"
 
-#: ../src/browser.c:3038 ../src/misc.c:1945
+#: ../src/browser.c:3201 ../src/misc.c:1917
 msgid "Encoded By"
-msgstr ""
+msgstr "Codificat per"
 
-#: ../src/browser.c:3039
+#: ../src/browser.c:3202
 msgid "# Albums"
-msgstr ""
+msgstr "# Àlbums"
 
-#: ../src/browser.c:3040 ../src/browser.c:3041
+#: ../src/browser.c:3203 ../src/browser.c:3204
 msgid "# Files"
-msgstr ""
+msgstr "# Fitxers"
 
-#: ../src/browser.c:3064
-msgid "Go to parent directory"
-msgstr ""
-
-#: ../src/browser.c:3082
+#: ../src/browser.c:3229
 msgid "Enter a directory to browse."
-msgstr ""
+msgstr "Entra un directori per navegar"
 
-#: ../src/browser.c:3091
+#: ../src/browser.c:3238
 msgid "Select a directory to browse."
-msgstr ""
+msgstr "Selecciona un directori per navegar."
 
 #.
 #. * The label for displaying number of files in path (without subdirs)
 #.
 #. Translators: No files, as in "0 files".
-#: ../src/browser.c:3098 ../src/easytag.c:3705
+#: ../src/browser.c:3245 ../src/easytag.c:3534
 msgid "No files"
 msgstr "Cap fitxer"
 
-#: ../src/browser.c:3175
+#: ../src/browser.c:3323
 msgid "Artist & Album"
 msgstr "Artista i àlbum"
 
-#: ../src/browser.c:3482
-msgid "Rename the directory"
-msgstr ""
+#. Only directories changed
+#: ../src/browser.c:3686 ../src/easytag.c:2887
+msgid "Rename Directory"
+msgstr "Canvia el nom al directori"
 
-#: ../src/browser.c:3498
+#: ../src/browser.c:3708
 #, c-format
 msgid "Rename the directory '%s' to:"
-msgstr ""
+msgstr "Canvia el nom al directori «%s» a:"
 
-#: ../src/browser.c:3517 ../src/misc.c:1276
+#: ../src/browser.c:3727 ../src/misc.c:1172
 msgid "Use mask:"
-msgstr ""
+msgstr "Usa mascara:"
 
-#: ../src/browser.c:3520
+#: ../src/browser.c:3730
 msgid "If activated, it will use masks to rename directory."
-msgstr ""
+msgstr "Si està activat, s'usaran mascares per canviar el nom al directori."
 
-#: ../src/browser.c:3538
+#: ../src/browser.c:3748
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields."
 msgstr ""
-
-#: ../src/browser.c:3558 ../src/misc.c:1297 ../src/misc.c:1396
-#: ../src/scan.c:2485 ../src/scan.c:2555 ../src/scan.c:2916
-msgid "Invalid Scanner Mask"
-msgstr ""
+"Selecciona o escriu en la mascara usant codis (mireu la llegenda en la "
+"finestra de l'escàner) per canviar el nom del directori des dels camps "
+"d'etiquetes."
 
 #. Preview label
-#: ../src/browser.c:3564
+#: ../src/browser.c:3772
 msgid "Rename directory preview"
-msgstr ""
+msgstr "Canvia el nom de la previsualització del directori"
 
-#: ../src/browser.c:3687
+#: ../src/browser.c:3864
 msgid "You must type a directory name"
-msgstr ""
+msgstr "Cal que escriviu un nom de directori"
 
-#: ../src/browser.c:3688 ../src/browser.c:3709
+#: ../src/browser.c:3865 ../src/browser.c:3886
 msgid "Directory Name Error"
-msgstr ""
+msgstr "Error de nom de directori"
 
-#: ../src/browser.c:3706
+#: ../src/browser.c:3883
 #, c-format
 msgid "Could not convert '%s' into filename encoding."
-msgstr ""
+msgstr "No es pot convertir «%s» en un nom de fitxer codificat."
 
-#: ../src/browser.c:3708
+#: ../src/browser.c:3885
 msgid "Please use another name"
-msgstr ""
+msgstr "Usa un altre nom"
 
-#: ../src/browser.c:3778
+#: ../src/browser.c:3955
 #, c-format
 msgid "The directory name '%s' already exists"
-msgstr ""
+msgstr "El nom del directori «%s» ja existeix realment"
 
-#: ../src/browser.c:3779 ../src/easytag.c:3077 ../src/easytag.c:3118
-#: ../src/easytag.c:3145 ../src/easytag.c:3188 ../src/easytag.c:3367
+#: ../src/browser.c:3956 ../src/easytag.c:2970
 msgid "Rename File Error"
-msgstr ""
+msgstr "Error al canviar nom de fitxer"
 
-#: ../src/browser.c:3818 ../src/browser.c:3848
+#: ../src/browser.c:3994 ../src/browser.c:4023
 msgid "Rename Directory Error"
-msgstr ""
+msgstr "Error al canviar nom de directori"
 
-#: ../src/browser.c:3888
+#: ../src/browser.c:4061
 msgid "Directory renamed"
-msgstr ""
+msgstr "S'ha canviat el nom al directori"
 
-#: ../src/browser.c:3965 ../src/browser.c:4125
+#: ../src/browser.c:4097
+msgid "Browse Directory With"
+msgstr "Navega pel directori"
+
+#: ../src/browser.c:4113 ../src/browser.c:4239
 msgid "Program to run:"
-msgstr ""
+msgstr "Programa a executar:"
 
-#: ../src/browser.c:3978
+#: ../src/browser.c:4125
 msgid ""
 "Enter the program to run. It will receive the current directory as parameter."
-msgstr ""
+msgstr "Entra el programa a executar. Rebrà el directori actual com paràmetre."
 
-#: ../src/browser.c:4108
-msgid "Open File with…"
-msgstr ""
+#: ../src/browser.c:4219
+msgid "Open Files With"
+msgstr "Obre fitxers amb"
 
-#: ../src/browser.c:4138
+#: ../src/browser.c:4251
 msgid ""
 "Enter the program to run. It will receive the current file as parameter."
-msgstr ""
+msgstr "Entra el programa a executar. Rebrà el fitxer actual com paràmetre."
 
-#: ../src/browser.c:4299
-msgid "You must type a program name"
-msgstr ""
-
-#: ../src/browser.c:4300 ../src/browser.c:4317
-msgid "Program Name Error"
-msgstr ""
-
-#: ../src/browser.c:4315 ../src/misc.c:876
-#, c-format
-msgid "The program '%s' cannot be found"
-msgstr ""
-
-#: ../src/browser.c:4363 ../src/misc.c:921
-#, c-format
-msgid "Cannot execute %s (error %d)\n"
-msgstr ""
-
-#: ../src/browser.c:4382
-msgid "Cannot fork another process\n"
-msgstr ""
-
-#: ../src/browser.c:4417
-#, c-format
-msgid "Executed command: %s"
-msgstr ""
-
-#: ../src/cddb.c:229
+#: ../src/cddb.c:313
 msgid "Artist / Album"
-msgstr ""
+msgstr "Artista / Àlbum"
 
-#: ../src/cddb.c:229
+#: ../src/cddb.c:313
 msgid "Category"
 msgstr "Categoria"
 
 #. Note: don't set "" instead of NULL else this will cause problem with translation language
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Track Name".
-#: ../src/cddb.c:230 ../src/cddb.c:421
+#: ../src/cddb.c:314 ../src/cddb.c:489
 msgid "Track Name"
-msgstr ""
+msgstr "Nom de la pista"
 
-#: ../src/cddb.c:230
+#: ../src/cddb.c:314
 msgid "Duration"
 msgstr "Durada"
 
-#: ../src/cddb.c:241
-msgid "CD Database Search"
-msgstr ""
+#: ../src/cddb.c:326
+msgid "CDDB Search"
+msgstr "Cerca CDDB"
 
 #.
 #. * 1 - Page for automatic search (generate the CDDBId from files)
 #.
-#: ../src/cddb.c:273
+#: ../src/cddb.c:346
 msgid "Automatic Search"
-msgstr ""
+msgstr "Cerca automàtica"
 
-#: ../src/cddb.c:285
-msgid "Request CD database:"
-msgstr ""
+#: ../src/cddb.c:356
+msgid "Request CDDB"
+msgstr "Petició CDDB"
 
-#: ../src/cddb.c:295
+#: ../src/cddb.c:366
 msgid ""
-"Request automatically the CDDB database using the selected files (the order "
-"is important) to generate the CddbID"
+"Request automatically the CDDB using the selected files (the order is "
+"important) to generate the CddbID"
 msgstr ""
+"Sol·licita de forma automàtica la CDDB usant els fitxers seleccionats "
+"(l'ordre és important) per generar la CddbID"
 
-#: ../src/cddb.c:306 ../src/cddb.c:389
+#: ../src/cddb.c:377 ../src/cddb.c:457
 msgid "Stop the search"
 msgstr "Atura la cerca"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:313
+#: ../src/cddb.c:384
 msgid "Use local CDDB"
-msgstr ""
+msgstr "Usa CDDB local"
 
-#: ../src/cddb.c:316 ../src/cddb.c:779
+#: ../src/cddb.c:387 ../src/cddb.c:850
 msgid ""
 "When activating this option, after loading the fields, the current selected "
 "scanner will be ran (the scanner window must be opened)."
 msgstr ""
+"Quan s'activa aquesta opció, després de carregar els camps, l'escàner "
+"seleccionat actual es posarà en marxa (la finestra de l'escàner s'obrirà)."
 
 #.
 #. * 2 - Page for manual search
 #.
-#: ../src/cddb.c:333
+#: ../src/cddb.c:404
 msgid "Manual Search"
-msgstr ""
+msgstr "Cerca manual"
 
-#: ../src/cddb.c:348
+#: ../src/cddb.c:416
 msgid "Words:"
 msgstr "Paraules:"
 
-#: ../src/cddb.c:361
+#: ../src/cddb.c:429
 msgid "Enter the words to search (separated by a space or '+')"
-msgstr ""
+msgstr "Entreu les paraules a cercar (separades per un espai o «+»)"
 
 #.
 #. * Search options
 #.
-#: ../src/cddb.c:401
+#: ../src/cddb.c:469
 msgid "Search In:"
-msgstr ""
+msgstr "Cerca en:"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All fields".
-#: ../src/cddb.c:411
+#: ../src/cddb.c:479
 msgid "All Fields"
-msgstr ""
+msgstr "Tots els camps"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Other".
-#: ../src/cddb.c:424 ../src/picture.c:797 ../src/prefs.c:826
+#: ../src/cddb.c:492 ../src/picture.c:862 ../src/prefs.c:807
 msgid "Other"
 msgstr "Altres"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "All Categories".
-#: ../src/cddb.c:448
+#: ../src/cddb.c:516
 msgid "All Categories"
-msgstr ""
+msgstr "Totes les categories"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Blues".
-#: ../src/cddb.c:452
+#: ../src/cddb.c:520
 msgid "Blues"
 msgstr "Blues"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Classical".
-#: ../src/cddb.c:455
+#: ../src/cddb.c:523
 msgid "Classical"
 msgstr "Clàssica"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Country".
-#: ../src/cddb.c:458
+#: ../src/cddb.c:526
 msgid "Country"
 msgstr "Country"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Folk".
-#: ../src/cddb.c:461
+#: ../src/cddb.c:529
 msgid "Folk"
 msgstr "Folk"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Jazz".
-#: ../src/cddb.c:464
+#: ../src/cddb.c:532
 msgid "Jazz"
 msgstr "Jazz"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Misc".
-#: ../src/cddb.c:467
+#: ../src/cddb.c:535
 msgid "Misc."
-msgstr ""
+msgstr "Miscel·lània"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "New age".
-#: ../src/cddb.c:470
+#: ../src/cddb.c:538
 msgid "New Age"
 msgstr "New Age"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Reggae".
-#: ../src/cddb.c:473
+#: ../src/cddb.c:541
 msgid "Reggae"
 msgstr "Reggae"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Rock".
-#: ../src/cddb.c:476
+#: ../src/cddb.c:544
 msgid "Rock"
 msgstr "Rock"
 
 #. Translators: This option is for the previous 'search in' option. For
 #. * instance, translate this as "Search in:" "Soundtrack".
-#: ../src/cddb.c:479
+#: ../src/cddb.c:547
 msgid "Soundtrack"
 msgstr "Banda sonora"
 
-#: ../src/cddb.c:519
+#: ../src/cddb.c:587
 msgid "included: funk, soul, rap, pop, industrial, metal, etc."
-msgstr ""
+msgstr "incloses: funk, soul, rap, pop, industrial, metal, etc."
 
-#: ../src/cddb.c:520
+#: ../src/cddb.c:588
 msgid "movies, shows"
-msgstr ""
+msgstr "Films, espectacles"
 
-#: ../src/cddb.c:521
+#: ../src/cddb.c:589
 msgid "others that do not fit in the above categories"
-msgstr ""
+msgstr "altres no trobades a les categories superiors"
 
 #. Button to display/hide the categories
-#: ../src/cddb.c:524
+#: ../src/cddb.c:592
 msgid "Categories"
 msgstr "Categories"
 
 #.
 #. * Results command
 #.
-#: ../src/cddb.c:532
+#: ../src/cddb.c:600
 msgid "Results:"
-msgstr ""
+msgstr "Resultats:"
 
-#: ../src/cddb.c:539 ../src/misc.c:1983
+#: ../src/cddb.c:606 ../src/misc.c:1951
 msgid "Search:"
 msgstr "Cerca:"
 
-#: ../src/cddb.c:553
+#: ../src/cddb.c:620
 msgid "Enter the words to search in the list below"
-msgstr ""
+msgstr "Entra les paraules a cercar a la llista de sota"
 
-#: ../src/cddb.c:565
+#: ../src/cddb.c:632
 msgid "Search Next"
-msgstr ""
+msgstr "Cerca següent"
 
-#: ../src/cddb.c:571
+#: ../src/cddb.c:638
 msgid "Search Previous"
-msgstr ""
+msgstr "Cerca prèvia"
 
-#: ../src/cddb.c:582
+#: ../src/cddb.c:649
 msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
 msgstr ""
+"Mostra sols les línies vermelles (o mostra totes les línies) a la llista "
+"«Artista / Àlbum»"
 
-#: ../src/cddb.c:588
+#: ../src/cddb.c:655
 msgid "Unselect all lines"
-msgstr ""
+msgstr "Desselecciona totes les línies"
 
-#: ../src/cddb.c:594
+#: ../src/cddb.c:661
 msgid "Invert lines selection"
-msgstr ""
+msgstr "Inverteix la selecció de línies"
 
-#: ../src/cddb.c:603
+#: ../src/cddb.c:670
 msgid "Select all lines"
-msgstr ""
+msgstr "Selecciona totes les línies"
 
-#: ../src/cddb.c:716
+#: ../src/cddb.c:788
 msgid ""
 "Select lines to 'apply' to your files list. All lines will be processed if "
 "no line is selected.\n"
 "You can also reorder lines in this list before using 'apply' button."
 msgstr ""
+"Selecciona línies per «Aplica» al vostre llistat de línies. Totes les línies "
+"seran processades si no es selecciona cap línia. \n"
+"També podeu reordenar línies en aquesta llista abans d'usar el botó «Aplica»"
 
 #.
 #. * Apply results to fields...
 #.
-#: ../src/cddb.c:723
+#: ../src/cddb.c:795
 msgid "Set Into:"
-msgstr ""
+msgstr "Estableix en:"
 
-#: ../src/cddb.c:730
+#: ../src/cddb.c:801
 msgid "All"
 msgstr "Tot"
 
-#: ../src/cddb.c:737
+#: ../src/cddb.c:808
 msgid "Track #"
 msgstr "Núm. cançó"
 
-#: ../src/cddb.c:738
+#: ../src/cddb.c:809
 msgid "# Tracks"
-msgstr ""
+msgstr "Nombre de cançons"
 
 #. Check box to run the scanner
-#: ../src/cddb.c:776 ../src/misc.c:3029
+#: ../src/cddb.c:847 ../src/misc.c:2992
 msgid "Run the current scanner for each file"
-msgstr ""
+msgstr "Executa l'escànner actual per cada fitxer"
 
 #. Check box to use DLM (also used in the preferences window)
-#: ../src/cddb.c:783
+#: ../src/cddb.c:854
 msgid "Match lines with the Levenshtein algorithm"
-msgstr ""
+msgstr "Línies coincidents amb l'algoritme Levenshtein"
 
 #. Doesn't activate it by default because if the new user don't pay attention to it,
 #. it will not understand why the cddb results aren't loaded correctly...
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(CddbUseDLM2),CDDB_USE_DLM);
-#: ../src/cddb.c:788 ../src/prefs.c:1396
+#: ../src/cddb.c:859 ../src/prefs.c:1363
 msgid ""
 "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
 "Levenshtein Metric) will be used to match the CDDB title against every "
@@ -1183,71 +1223,88 @@ msgid ""
 "used when selecting the corresponding audio file, or applying CDDB results, "
 "instead of using directly the position order."
 msgstr ""
+"Quan s'activi aquesta opció, l'algoritme Levenshtein (DLM: Damerau-"
+"Levenshtein Metric) s'usarà per cercar el títol CDDB per a cada nom de "
+"fitxer al directori actual, i seleccionarà la millor coincidència. Això "
+"s'usarà quan es seleccioni el fitxer d'àudio corresponent, o s'apliquin els "
+"resultats CDDB, en lloc d'utilitzar directament l'ordre de posició."
 
-#: ../src/cddb.c:800
+#: ../src/cddb.c:871
 msgid "Load the selected lines or all lines (if no line selected)."
 msgstr ""
+"Carrega les línies seleccionades o totes les línies ( si no se'n selecciona "
+"cap)."
 
-#: ../src/cddb.c:810
+#: ../src/cddb.c:881
 msgid "Ready to search"
-msgstr ""
+msgstr "A punt per cercar"
 
-#: ../src/cddb.c:1337
+#: ../src/cddb.c:1352
 #, c-format
 msgid ""
 "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
 msgstr ""
+"Àlbum: «%s», artista: «%s», longitud: «%s», any: «%s», gènere: «%s», ID: «%s»"
 
-#: ../src/cddb.c:1575
+#: ../src/cddb.c:1603
 #, c-format
 msgid "Resolving host '%s'…"
-msgstr ""
+msgstr "S'està resolent l'amfitrió «%s»..."
 
-#: ../src/cddb.c:1583
-#, c-format
-msgid "Can't resolve host '%s' (%s)."
-msgstr ""
-
-#: ../src/cddb.c:1598
+#: ../src/cddb.c:1644
 #, c-format
 msgid "Cannot create a new socket (%s)"
-msgstr ""
+msgstr "No es pot creat un sòcol nou (%s)"
 
-#. Open connection to the server
-#: ../src/cddb.c:1612
+#: ../src/cddb.c:1658
+msgid "Cannot set options on the newly-created socket"
+msgstr "No es poden configurar les opcions al sòcol creat recentment"
+
+#. Open connection to the server.
+#: ../src/cddb.c:1662
 #, c-format
 msgid "Connecting to host '%s', port '%d'…"
-msgstr ""
+msgstr "S'està connectant amb el amfitrió «%s», port «%d»…"
 
-#: ../src/cddb.c:1619
+#: ../src/cddb.c:1675
 #, c-format
 msgid "Cannot connect to host '%s' (%s)"
-msgstr ""
+msgstr "No es pot connectar amb l'amfitrió  «%s» (%s)"
 
-#: ../src/cddb.c:1625
+#: ../src/cddb.c:1699
+#, c-format
+msgid "Cannot resolve host '%s' (%s)"
+msgstr "No es pot resoldre l'amfitrió «%s» (%s)"
+
+#: ../src/cddb.c:1712
 #, c-format
 msgid "Connected to host '%s'"
-msgstr ""
+msgstr "Connectat a l'amfitrió «%s»"
 
-#: ../src/cddb.c:1702
+#: ../src/cddb.c:1793
+#, c-format
+msgid "Error while writing CDDB results to file '%s'"
+msgstr "Error mentre s'escriuen els resultats CDDB al fitxer «%s»"
+
+#: ../src/cddb.c:1804
 #, c-format
 msgid "Receiving data (%s)…"
-msgstr ""
+msgstr "S'estan rebent dades (%s)…"
 
-#: ../src/cddb.c:1714
+#: ../src/cddb.c:1816
 #, c-format
 msgid "Error when reading CDDB response (%s)"
-msgstr ""
+msgstr "Error mentre s'està llegint la resposta CDDB (%s)"
 
-#: ../src/cddb.c:1721
+#: ../src/cddb.c:1823
 #, c-format
 msgid "Cannot create file '%s' (%s)"
-msgstr ""
+msgstr "No es pot crear el fitxer  «%s» (%s)"
 
-#: ../src/cddb.c:1762 ../src/setting.c:1202
+#: ../src/cddb.c:1864 ../src/setting.c:1256
 #, c-format
 msgid "Cannot open file '%s' (%s)"
-msgstr ""
+msgstr "No es pot obrir el fitxer «%s» (%s)"
 
 #. g_print("Request Cddb_Search_Album_List_From_String_Freedb : '%s'\n", cddb_in);
 #. Send the request
@@ -1255,270 +1312,274 @@ msgstr ""
 #. Send the request
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
-#: ../src/cddb.c:2221 ../src/cddb.c:2550 ../src/cddb.c:3424
+#: ../src/cddb.c:2380 ../src/cddb.c:2711 ../src/cddb.c:3602
 msgid "Sending request…"
-msgstr ""
+msgstr "S'està enviant la petició..."
 
-#: ../src/cddb.c:2225 ../src/cddb.c:2554 ../src/cddb.c:3124 ../src/cddb.c:3428
+#: ../src/cddb.c:2384 ../src/cddb.c:2715 ../src/cddb.c:3293 ../src/cddb.c:3606
 #, c-format
 msgid "Cannot send the request (%s)"
-msgstr ""
+msgstr "No es pot enviar la petició (%s)"
 
 #.
 #. * Read the answer
 #.
 #. Read the answer
-#: ../src/cddb.c:2251 ../src/cddb.c:3137 ../src/cddb.c:3437
+#: ../src/cddb.c:2411 ../src/cddb.c:3309 ../src/cddb.c:3615
 msgid "Receiving data…"
-msgstr ""
+msgstr "S'estan rebent dades..."
 
-#: ../src/cddb.c:2258 ../src/cddb.c:2583 ../src/cddb.c:3144 ../src/cddb.c:3444
+#: ../src/cddb.c:2418 ../src/cddb.c:2744 ../src/cddb.c:3316 ../src/cddb.c:3622
 msgid "The server returned a bad response"
-msgstr ""
+msgstr "El servidor ha rebut una resposta incorrecta"
 
-#: ../src/cddb.c:2272 ../src/cddb.c:2599 ../src/cddb.c:3159 ../src/cddb.c:3461
-#: ../src/cddb.c:3476
+#: ../src/cddb.c:2432 ../src/cddb.c:2760 ../src/cddb.c:3333 ../src/cddb.c:3639
+#: ../src/cddb.c:3653 ../src/cddb.c:3674
 #, c-format
 msgid "The server returned a bad response: %s"
-msgstr ""
+msgstr "El servidor ha rebut una resposta incorrecta: %s"
 
-#: ../src/cddb.c:2419
+#: ../src/cddb.c:2579
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
-msgstr ""
+msgstr "Disculpeu, la cerca web no està disponible ara"
 
-#: ../src/cddb.c:2421 ../src/cddb.c:2770
+#: ../src/cddb.c:2581 ../src/cddb.c:2931
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %d matching albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trobat un àlbum coincident"
+msgstr[1] "Trobats %d àlbums coincidents"
 
-#: ../src/cddb.c:2571
+#: ../src/cddb.c:2732
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr ""
+msgstr "S'estan rebent dades de la pàgina %d (àlbum %d/%d)…"
 
-#: ../src/cddb.c:2573
+#: ../src/cddb.c:2734
 #, c-format
 msgid "Receiving data of page %d…"
-msgstr ""
+msgstr "S'estan rebent dades de la pàgina %d..."
 
-#: ../src/cddb.c:2737
+#: ../src/cddb.c:2898
 #, c-format
 msgid "More results to load…"
-msgstr ""
+msgstr "Més resultats per carregar..."
 
-#: ../src/cddb.c:2866
+#: ../src/cddb.c:3027
 #, c-format
 msgid "No file selected"
 msgstr "No s'ha seleccionat cap fitxer"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb.c:2874
+#: ../src/cddb.c:3035
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
-msgstr ""
+msgstr "Més de 99 fitxers seleccionats. No es pot enviar la petició"
 
-#: ../src/cddb.c:2880
+#: ../src/cddb.c:3041
 #, c-format
 msgid "One file selected"
 msgid_plural "%d files selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un fitxer seleccionat"
+msgstr[1] "%d fitxers seleccionats"
 
-#: ../src/cddb.c:2964
+#: ../src/cddb.c:3129
 msgid "The path for 'Local CD Database' was not defined"
-msgstr ""
+msgstr "El camí per la «Base de dades de CDs locals» no està definit"
 
 #. Translators: 'it' in this sentence refers to the local CD
 #. * database path.
-#: ../src/cddb.c:2967
+#: ../src/cddb.c:3132
 msgid "Enter it in the preferences window before using this search."
-msgstr ""
+msgstr "Entreu-lo a la finestra de preferències abans d'usar aquesta cerca."
 
-#: ../src/cddb.c:2969
+#: ../src/cddb.c:3134
 msgid "Local CD search"
-msgstr ""
+msgstr "Cerca de CD local"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
-#: ../src/cddb.c:3114
+#: ../src/cddb.c:3283
 #, c-format
 msgid "Sending request (CddbId: %s, #tracks: %d, Disc length: %d)…"
 msgstr ""
+"S'està enviant la petició (CddbId: %s, Nombre de cançons: %d, Longitud del "
+"disc: %d)…"
 
-#: ../src/cddb.c:3270
+#: ../src/cddb.c:3448
 #, c-format
 msgid "DiscID '%s' gave one matching album"
 msgid_plural "DiscID '%s' gave %d matching albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "El disc «%s» ha donat un àlbum coincident"
+msgstr[1] "El disc «%s» ha donat %d àlbums coincidents"
 
-#: ../src/cddb.c:3368
+#: ../src/cddb.c:3546
 #, c-format
 msgid "Can't load file: '%s' (%s)."
-msgstr ""
+msgstr "No es pot carregar el fitxer:  «%s» (%s)."
 
 #. Load the track list of the album
-#: ../src/cddb.c:3667
+#: ../src/cddb.c:3891
 msgid "Loading album track list…"
-msgstr ""
+msgstr "S'està carregant la llista de cançons de l'àlbum..."
 
-#: ../src/cddb.c:3870
+#: ../src/cddb.c:4087
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr ""
+"El nombre de resultats CDDB no coincideix amb el nombre de fitxers "
+"seleccionats"
 
-#: ../src/cddb.c:3874
+#: ../src/cddb.c:4091
 msgid "Write Tag from CDDB"
-msgstr ""
+msgstr "Escriu l'etiqueta des de CDDB"
 
-#: ../src/charset.c:49
+#: ../src/charset.c:47
 msgid "Arabic (IBM-864)"
 msgstr "Àrab (IBM-864)"
 
-#: ../src/charset.c:50
+#: ../src/charset.c:48
 msgid "Arabic (ISO-8859-6)"
 msgstr "Àrab (ISO-8859-6)"
 
-#: ../src/charset.c:51
+#: ../src/charset.c:49
 msgid "Arabic (Windows-1256)"
 msgstr "Àrab (Windows-1256)"
 
-#: ../src/charset.c:52
+#: ../src/charset.c:50
 msgid "Baltic (ISO-8859-13)"
 msgstr "Bàltic (ISO-8859-13)"
 
-#: ../src/charset.c:53
+#: ../src/charset.c:51
 msgid "Baltic (ISO-8859-4)"
 msgstr "Bàltic (ISO-8859-4)"
 
-#: ../src/charset.c:54
+#: ../src/charset.c:52
 msgid "Baltic (Windows-1257)"
 msgstr "Bàltic (Windows-1257)"
 
-#: ../src/charset.c:55
+#: ../src/charset.c:53
 msgid "Celtic (ISO-8859-14)"
 msgstr "Cèltic (ISO-8859-14)"
 
-#: ../src/charset.c:56
+#: ../src/charset.c:54
 msgid "Central European (IBM-852)"
 msgstr "Europeu central (IBM-852)"
 
-#: ../src/charset.c:57
+#: ../src/charset.c:55
 msgid "Central European (ISO-8859-2)"
 msgstr "Centreeuropeu (ISO-8859-2)"
 
-#: ../src/charset.c:58
+#: ../src/charset.c:56
 msgid "Central European (Windows-1250)"
 msgstr "Centreeuropeu (Windows-1250)"
 
-#: ../src/charset.c:59
+#: ../src/charset.c:57
 msgid "Chinese Simplified (GB18030)"
 msgstr "Xinès simplificat (GB18030)"
 
-#: ../src/charset.c:60
+#: ../src/charset.c:58
 msgid "Chinese Simplified (GB2312)"
 msgstr "Xinès simplificat (GB2312)"
 
-#: ../src/charset.c:61
+#: ../src/charset.c:59
 msgid "Chinese Traditional (Big5)"
 msgstr "Xinès tradicional (Big5)"
 
-#: ../src/charset.c:62
+#: ../src/charset.c:60
 msgid "Chinese Traditional (Big5-HKSCS)"
 msgstr "Xinès tradicional (Big5-HKSCS)"
 
-#: ../src/charset.c:63
+#: ../src/charset.c:61
 msgid "Cyrillic (IBM-855)"
 msgstr "Ciríl·lic (IBM-855)"
 
-#: ../src/charset.c:64
+#: ../src/charset.c:62
 msgid "Cyrillic (ISO-8859-5)"
 msgstr "Ciríl·lic (ISO-8859-5)"
 
-#: ../src/charset.c:65
+#: ../src/charset.c:63
 msgid "Cyrillic (ISO-IR-111)"
 msgstr "Ciríl·lic (ISO-IR-111)"
 
-#: ../src/charset.c:66
+#: ../src/charset.c:64
 msgid "Cyrillic (KOI8-R)"
 msgstr "Ciríl·lic (KOI8-R)"
 
-#: ../src/charset.c:67
+#: ../src/charset.c:65
 msgid "Cyrillic (Windows-1251)"
 msgstr "Ciríl·lic (Windows-1251)"
 
-#: ../src/charset.c:68
+#: ../src/charset.c:66
 msgid "Cyrillic/Russian (CP-866)"
 msgstr "Ciríl·lic/Rus (CP-866)"
 
-#: ../src/charset.c:69
+#: ../src/charset.c:67
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Ciríl·lic/Ucraïnès (KOI8-U)"
 
-#: ../src/charset.c:70
+#: ../src/charset.c:68
 msgid "English (US-ASCII)"
 msgstr "Anglès (US-ASCII)"
 
-#: ../src/charset.c:71
+#: ../src/charset.c:69
 msgid "Greek (ISO-8859-7)"
 msgstr "Grec (ISO-8859-7)"
 
-#: ../src/charset.c:72
+#: ../src/charset.c:70
 msgid "Greek (Windows-1253)"
 msgstr "Grec (Windows-1253)"
 
-#: ../src/charset.c:73
+#: ../src/charset.c:71
 msgid "Hebrew (IBM-862)"
 msgstr "Hebreu (IBM-862)"
 
-#: ../src/charset.c:74
+#: ../src/charset.c:72
 msgid "Hebrew (Windows-1255)"
 msgstr "Hebreu (Windows-1255)"
 
-#: ../src/charset.c:75
+#: ../src/charset.c:73
 msgid "Japanese (EUC-JP)"
 msgstr "Japonès (EUC-JP)"
 
-#: ../src/charset.c:76
+#: ../src/charset.c:74
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonès (ISO-2022-JP)"
 
-#: ../src/charset.c:77
+#: ../src/charset.c:75
 msgid "Japanese (Shift_JIS)"
 msgstr "Japonès (Shift_JIS)"
 
-#: ../src/charset.c:78
+#: ../src/charset.c:76
 msgid "Korean (EUC-KR)"
 msgstr "Coreà (EUC-KR)"
 
-#: ../src/charset.c:79
+#: ../src/charset.c:77
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nòrdic (ISO-8859-10)"
 
-#: ../src/charset.c:80
+#: ../src/charset.c:78
 msgid "South European (ISO-8859-3)"
-msgstr "Europeu meridional (ISO-8859-3) "
+msgstr "Europeu meridional (ISO-8859-3)"
 
-#: ../src/charset.c:81
+#: ../src/charset.c:79
 msgid "Thai (TIS-620)"
 msgstr "Tai (TIS-620)"
 
-#: ../src/charset.c:82
+#: ../src/charset.c:80
 msgid "Turkish (IBM-857)"
 msgstr "Turc (IBM-857)"
 
-#: ../src/charset.c:83
+#: ../src/charset.c:81
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turc (ISO-8859-9)"
 
-#: ../src/charset.c:84
+#: ../src/charset.c:82
 msgid "Turkish (Windows-1254)"
 msgstr "Turc (Windows-1254)"
 
 #. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
-#: ../src/charset.c:86
+#: ../src/charset.c:84
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
@@ -1526,102 +1587,108 @@ msgstr "Unicode (UTF-8)"
 #. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
 #. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
 #. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
-#: ../src/charset.c:93
+#: ../src/charset.c:91
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamita (VISCII)"
 
-#: ../src/charset.c:94
+#: ../src/charset.c:92
 msgid "Vietnamese (Windows-1258)"
 msgstr "Vietnamita (Windows-1258)"
 
-#: ../src/charset.c:95
+#: ../src/charset.c:93
 msgid "Visual Hebrew (ISO-8859-8)"
 msgstr "Hebreu visual (ISO-8859-8)"
 
-#: ../src/charset.c:96
+#: ../src/charset.c:94
 msgid "Western (IBM-850)"
 msgstr "Occidental (IBM-850)"
 
-#: ../src/charset.c:97
+#: ../src/charset.c:95
 msgid "Western (ISO-8859-1)"
 msgstr "Occidental (ISO-8859-1)"
 
-#: ../src/charset.c:98
+#: ../src/charset.c:96
 msgid "Western (ISO-8859-15)"
 msgstr "Occidental (ISO-8859-15)"
 
-#: ../src/charset.c:99
+#: ../src/charset.c:97
 msgid "Western (Windows-1252)"
 msgstr "Occidental (Windows-1252)"
 
-#: ../src/charset.c:515
+#: ../src/charset.c:511
 #, c-format
 msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
-msgstr ""
+msgstr "El nom del fitxer «%s» no es pot convertir a UTF-8 (%s)."
 
-#: ../src/charset.c:516 ../src/charset.c:615 ../src/charset.c:679
+#: ../src/charset.c:512 ../src/charset.c:611 ../src/charset.c:674
 msgid "Invalid UTF-8"
 msgstr "Missatge de text UTF-8 no vàlid"
 
-#: ../src/charset.c:614
+#: ../src/charset.c:610
 #, c-format
 msgid ""
 "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
 msgstr ""
+"La cadena «%s» de UTF-8 no es pot convertir al nom del fitxer codificat (%s)."
 
-#: ../src/charset.c:678
+#: ../src/charset.c:673
 #, c-format
 msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
-msgstr ""
-
-#: ../src/easytag.c:269
-#, c-format
-msgid "Unknown parameter or path '%s'\n"
-msgstr ""
+msgstr "La cadena «%s» no es pot convertir a UTF-8 (%s)."
 
 #. Starting messages
-#: ../src/easytag.c:308
+#: ../src/easytag.c:185
 #, c-format
 msgid "Starting EasyTAG version %s (PID: %d)…"
-msgstr ""
+msgstr "S'està iniciant EasyTAG amb versió %s (PID: %d)…"
 
-#: ../src/easytag.c:310
+#: ../src/easytag.c:187
 #, c-format
 msgid "Using libid3tag version %s"
-msgstr ""
+msgstr "S'està usant libid3tag versió %s"
 
-#: ../src/easytag.c:313
+#: ../src/easytag.c:190
 #, c-format
 msgid "Using id3lib version %d.%d.%d"
-msgstr ""
+msgstr "S'està usant id3lib versió %d.%d.%d"
 
-#: ../src/easytag.c:319
+#: ../src/easytag.c:196
 #, c-format
 msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
-msgstr ""
+msgstr "Variable EASYTAGLANG definida. Configurant la localització: «%s»"
 
-#: ../src/easytag.c:321
+#: ../src/easytag.c:198
 #, c-format
 msgid "Setting locale: '%s'"
-msgstr ""
+msgstr "S'està configurant la localització: «%s»"
 
-#: ../src/easytag.c:326
+#: ../src/easytag.c:203
 #, c-format
 msgid "Currently using locale '%s' (and eventually '%s')"
-msgstr ""
+msgstr "S'està usant actualment la localització «%s» ( i eventualment «%s»)"
 
-#: ../src/easytag.c:333
+#: ../src/easytag.c:210
 msgid "Unable to create setting directories"
-msgstr ""
+msgstr "No es poden crear directoris de configuració"
+
+#: ../src/easytag.c:427 ../src/et_core.c:638 ../src/et_core.c:650
+#, c-format
+msgid "Error while querying information for file: '%s' (%s)"
+msgstr "Error mentre s'està consultant informació sobre el fitxer: «%s» (%s)"
+
+#: ../src/easytag.c:490
+#, c-format
+msgid "Cannot open path '%s'"
+msgstr "No es pot obrir el camí «%s»"
 
 #.
 #. * Browser
 #.
-#: ../src/easytag.c:483 ../src/prefs.c:139 ../src/prefs.c:140
+#: ../src/easytag.c:582 ../src/prefs.c:142
 msgid "Browser"
 msgstr "Navegador"
 
-#: ../src/easytag.c:505 ../src/et_core.c:2728
+#: ../src/easytag.c:604 ../src/et_core.c:2869
 msgid "File"
 msgstr "Fitxer"
 
@@ -1631,926 +1698,867 @@ msgstr "Fitxer"
 #. gtk_label_set_text(GTK_LABEL(VersionValueLabel),"");
 #. Version changed to encoder version
 #. Encoder version
-#: ../src/easytag.c:537 ../src/easytag.c:4433 ../src/flac_header.c:236
+#: ../src/easytag.c:636 ../src/easytag.c:4297 ../src/flac_header.c:201
 #: ../src/monkeyaudio_header.c:96 ../src/musepack_header.c:98
-#: ../src/ogg_header.c:230 ../src/wavpack_header.c:72
+#: ../src/ogg_header.c:389 ../src/opus_header.c:221 ../src/wavpack_header.c:72
 #, c-format
 msgid "Encoder:"
 msgstr "Codificador:"
 
-#: ../src/easytag.c:545
+#: ../src/easytag.c:644
 msgid "Bitrate:"
 msgstr "Taxa de bits:"
 
 #. Translators: Please try to keep this string as short as possible as it
 #. * is shown in a narrow column.
-#: ../src/easytag.c:555
-msgid "Freq.:"
-msgstr ""
+#: ../src/easytag.c:654
+msgid "Frequency:"
+msgstr "Freqüència"
 
 #. Mode
-#: ../src/easytag.c:566 ../src/easytag.c:4437 ../src/mpeg_header.c:216
+#: ../src/easytag.c:665 ../src/easytag.c:4301 ../src/mpeg_header.c:216
 msgid "Mode:"
 msgstr "Mode:"
 
-#: ../src/easytag.c:573
+#: ../src/easytag.c:672
 msgid "Size:"
 msgstr "Mida:"
 
-#: ../src/easytag.c:580
+#: ../src/easytag.c:679
 msgid "Duration:"
 msgstr "Durada:"
 
 #. Main Frame
-#: ../src/easytag.c:626 ../src/et_core.c:2666
+#: ../src/easytag.c:726 ../src/et_core.c:2799
 msgid "Tag"
 msgstr "Etiqueta"
 
 #.
 #. * 1 - Page for common tag fields
 #.
-#: ../src/easytag.c:648
+#: ../src/easytag.c:748
 msgid "Common"
 msgstr "Comú"
 
 #. Title
-#: ../src/easytag.c:655
+#: ../src/easytag.c:755
 msgid "Title:"
 msgstr "Títol:"
 
-#: ../src/easytag.c:670
+#: ../src/easytag.c:769
 msgid "Tag selected files with this title"
-msgstr ""
+msgstr "Copia aquest títol als fitxers seleccionats"
 
 #. Artist
-#: ../src/easytag.c:675
+#: ../src/easytag.c:774
 msgid "Artist:"
 msgstr "Artista:"
 
-#: ../src/easytag.c:690
+#: ../src/easytag.c:788
 msgid "Tag selected files with this artist"
-msgstr ""
+msgstr "Copia aquest artista als fitxers seleccionats"
 
 #. Album Artist
-#: ../src/easytag.c:695
+#: ../src/easytag.c:793
 msgid "Album artist:"
-msgstr ""
+msgstr "Artista d'àlbum:"
 
-#: ../src/easytag.c:710
+#: ../src/easytag.c:807
 msgid "Tag selected files with this album artist"
-msgstr ""
+msgstr "Copia aquest artista d'àlbum als fitxers seleccionats"
 
 #. Album
-#: ../src/easytag.c:715
+#: ../src/easytag.c:812
 msgid "Album:"
 msgstr "Àlbum:"
 
-#: ../src/easytag.c:730
+#: ../src/easytag.c:826
 msgid "Tag selected files with this album name"
-msgstr ""
+msgstr "Copia aquest nom d'àlbum als fitxers seleccionats"
 
 #. Disc Number
-#: ../src/easytag.c:735
+#: ../src/easytag.c:831
 msgid "CD:"
-msgstr ""
+msgstr "CD:"
 
-#: ../src/easytag.c:753
+#: ../src/easytag.c:848
 msgid "Tag selected files with this disc number"
-msgstr ""
+msgstr "Copia aquest nombre de disc als fitxers seleccionats"
 
 #. Year
-#: ../src/easytag.c:758
+#: ../src/easytag.c:853
 msgid "Year:"
 msgstr "Any:"
 
-#: ../src/easytag.c:779
+#: ../src/easytag.c:873
 msgid "Tag selected files with this year"
-msgstr ""
+msgstr "Copia aquest any als fitxers seleccionats"
 
-#: ../src/easytag.c:793
+#: ../src/easytag.c:887
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgstr ""
+"Nombre de pistes seleccionades seqüencialment. Comença al 01 en cada "
+"subdirectori."
 
 #. To have enough space to display the icon
 #. To have enough space to display the icon
-#: ../src/easytag.c:802
+#: ../src/easytag.c:896
 msgid "Track #:"
-msgstr ""
+msgstr "Pista número:"
 
-#: ../src/easytag.c:833
+#: ../src/easytag.c:927
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks."
 msgstr ""
+"Configura el nombre de fitxers, al mateix directori del fitxer mostrat, a "
+"les pistes seleccionades."
 
-#: ../src/easytag.c:854
+#: ../src/easytag.c:947
 msgid "Tag selected files with this number of tracks"
-msgstr ""
+msgstr "Copia aquest nombre de pistes als fitxers seleccionats"
 
 #. Genre
-#: ../src/easytag.c:858
+#: ../src/easytag.c:951
 msgid "Genre:"
 msgstr "Gènere:"
 
-#: ../src/easytag.c:887
+#: ../src/easytag.c:979
 msgid "Tag selected files with this genre"
-msgstr ""
+msgstr "Copia aquest gènere als fitxers seleccionats"
 
 #. Comment
-#: ../src/easytag.c:892
+#: ../src/easytag.c:984
 msgid "Comment:"
 msgstr "Comentari:"
 
-#: ../src/easytag.c:920
+#: ../src/easytag.c:1011
 msgid "Tag selected files with this comment"
-msgstr ""
+msgstr "Copia aquest comentari als fitxers seleccionats"
 
 #. Attach_Popup_Menu_To_Tag_Entries(GTK_ENTRY(CommentView));
 #. Composer (name of the composers)
-#: ../src/easytag.c:927
+#: ../src/easytag.c:1018
 msgid "Composer:"
 msgstr "Compositor:"
 
-#: ../src/easytag.c:942
+#: ../src/easytag.c:1032
 msgid "Tag selected files with this composer"
-msgstr ""
+msgstr "Copia aquest compositor als fitxers seleccionats"
 
 #. Translators: Original Artist / Performer. Please try to keep this string
 #. * as short as possible, as it must fit into a narrow column.
-#: ../src/easytag.c:949
+#: ../src/easytag.c:1039
 msgid "Orig. artist:"
-msgstr ""
+msgstr "Artista original:"
 
-#: ../src/easytag.c:964
+#: ../src/easytag.c:1053
 msgid "Tag selected files with this original artist"
-msgstr ""
+msgstr "Copia aquest artista original als fitxers seleccionats"
 
 #. Copyright
-#: ../src/easytag.c:970
+#: ../src/easytag.c:1059
 msgid "Copyright:"
 msgstr "Copyright:"
 
-#: ../src/easytag.c:985
+#: ../src/easytag.c:1073
 msgid "Tag selected files with this copyright"
-msgstr ""
+msgstr "Copia aquest copyright als fitxers seleccionats"
 
 #. URL
-#: ../src/easytag.c:991
+#: ../src/easytag.c:1079
 msgid "URL:"
 msgstr "URL:"
 
-#: ../src/easytag.c:1006
+#: ../src/easytag.c:1093
 msgid "Tag selected files with this URL"
-msgstr ""
+msgstr "Copia aquesta URL als fitxers seleccionats"
 
 #. Encoded by
-#: ../src/easytag.c:1012
+#: ../src/easytag.c:1099
 msgid "Encoded by:"
-msgstr ""
+msgstr "Codificat per:"
 
-#: ../src/easytag.c:1027
+#: ../src/easytag.c:1113
 msgid "Tag selected files with this encoder name"
-msgstr ""
+msgstr "Copia aquest codificador als fitxers seleccionats"
 
 #.
 #. * 2 - Page for extra tag fields
 #.
-#: ../src/easytag.c:1078
+#: ../src/easytag.c:1146 ../src/et_core.c:3241 ../src/et_core.c:3244
 msgid "Images"
-msgstr ""
+msgstr "Imatges"
 
-#: ../src/easytag.c:1101
+#: ../src/easytag.c:1170
 msgid "You can use drag and drop to add an image"
-msgstr ""
+msgstr "Podeu usar arrossega i solta per afegir una imatge"
 
-#: ../src/easytag.c:1148
+#: ../src/easytag.c:1217
 msgid "Add images to the tag"
-msgstr ""
+msgstr "Afegeix imatge a l'etiqueta"
 
-#: ../src/easytag.c:1166
+#: ../src/easytag.c:1235
 msgid "Remove selected images from the tag"
-msgstr ""
+msgstr "Suprimeix les imatges seleccionades de l'etiqueta"
 
-#: ../src/easytag.c:1180
+#: ../src/easytag.c:1249
 msgid "Save the selected images to files"
-msgstr ""
+msgstr "Desa les imatges seleccionades als fitxers"
 
-#: ../src/easytag.c:1191
+#: ../src/easytag.c:1260
 msgid "Edit image properties"
-msgstr ""
+msgstr "Edita les propietats de la imatge"
 
-#: ../src/easytag.c:1205
+#: ../src/easytag.c:1274
 msgid "Tag selected files with these images"
-msgstr ""
+msgstr "Copia aquestes imatges als fitxers seleccionats"
 
-#: ../src/easytag.c:1265
+#: ../src/easytag.c:1332
 #, c-format
 msgid "Selected files tagged with title '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el títol «%s»."
 
-#: ../src/easytag.c:1267
+#: ../src/easytag.c:1334
 msgid "Removed title from selected files."
-msgstr ""
+msgstr "S'ha suprimit el títol dels fitxers seleccionats."
 
-#: ../src/easytag.c:1284
+#: ../src/easytag.c:1349
 #, c-format
 msgid "Selected files tagged with artist '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'artista «%s»."
 
-#: ../src/easytag.c:1286
+#: ../src/easytag.c:1351
 msgid "Removed artist from selected files."
-msgstr ""
+msgstr "S'ha suprimit l'artista dels fitxers seleccionats."
 
-#: ../src/easytag.c:1303
+#: ../src/easytag.c:1365
 #, c-format
 msgid "Selected files tagged with album artist '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'artista d'àlbum «%s»."
 
-#: ../src/easytag.c:1305
+#: ../src/easytag.c:1367
 msgid "Removed album artist from selected files."
-msgstr ""
+msgstr "S'ha suprimit l'artista de l'àlbum dels fitxers seleccionats."
 
-#: ../src/easytag.c:1322
+#: ../src/easytag.c:1382
 #, c-format
 msgid "Selected files tagged with album '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'àlbum «%s»."
 
-#: ../src/easytag.c:1324
+#: ../src/easytag.c:1384
 msgid "Removed album name from selected files."
-msgstr ""
+msgstr "S'ha suprimit el nom de l'àlbum dels fitxers seleccionats."
 
-#: ../src/easytag.c:1341
+#: ../src/easytag.c:1421
 #, c-format
-msgid "Selected files tagged with disc number '%s'."
+msgid "Selected files tagged with disc number '%s/%s'."
 msgstr ""
+"Els fitxers seleccionats s'han etiquetat amb el nombre de disc  «%s/%s»."
 
-#: ../src/easytag.c:1343
+#: ../src/easytag.c:1426
+#, c-format
+msgid "Selected files tagged with disc number like 'xx'."
+msgstr ""
+"Els fitxers seleccionats s'han etiquetat amb el nombre de disc com «xx»."
+
+#: ../src/easytag.c:1431
 msgid "Removed disc number from selected files."
-msgstr ""
+msgstr "S'ha suprimit el nombre de disc dels fitxers seleccionats."
 
-#: ../src/easytag.c:1360
+#: ../src/easytag.c:1447
 #, c-format
 msgid "Selected files tagged with year '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'any «%s»."
 
-#: ../src/easytag.c:1362
+#: ../src/easytag.c:1449
 msgid "Removed year from selected files."
-msgstr ""
+msgstr "S'ha suprimit l'any dels fitxers seleccionats."
 
-#: ../src/easytag.c:1390 ../src/easytag.c:1486
+#: ../src/easytag.c:1475 ../src/easytag.c:1565
 #, c-format
 msgid "Selected files tagged with track like 'xx/%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats  s'han etiquetat amb la pista com «xx/%s»."
 
-#: ../src/easytag.c:1393
+#: ../src/easytag.c:1478
 #, c-format
 msgid "Selected files tagged with track like 'xx'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb la pista com «xx»."
 
-#: ../src/easytag.c:1397 ../src/easytag.c:1489
+#: ../src/easytag.c:1482 ../src/easytag.c:1568
 msgid "Removed track number from selected files."
-msgstr ""
+msgstr "S'ha suprimit el nombre de pista dels fitxers seleccionats."
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
-#: ../src/easytag.c:1455
+#: ../src/easytag.c:1538
 #, c-format
 msgid "Selected tracks numbered sequentially."
-msgstr ""
+msgstr "Les pistes seleccionades s'han numerat de forma seqüencial."
 
-#: ../src/easytag.c:1507
+#: ../src/easytag.c:1584
 #, c-format
 msgid "Selected files tagged with genre '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el gènere «%s»."
 
-#: ../src/easytag.c:1509
+#: ../src/easytag.c:1586
 msgid "Removed genre from selected files."
-msgstr ""
+msgstr "S'ha suprimit el gènere dels fitxers seleccionats."
 
-#: ../src/easytag.c:1533
+#: ../src/easytag.c:1608
 #, c-format
 msgid "Selected files tagged with comment '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el comentari «%s»."
 
-#: ../src/easytag.c:1535
+#: ../src/easytag.c:1610
 msgid "Removed comment from selected files."
-msgstr ""
+msgstr "S'ha suprimit el comentari dels fitxers seleccionats."
 
-#: ../src/easytag.c:1552
+#: ../src/easytag.c:1624
 #, c-format
 msgid "Selected files tagged with composer '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el compositor «%s»."
 
-#: ../src/easytag.c:1554
+#: ../src/easytag.c:1626
 msgid "Removed composer from selected files."
-msgstr ""
+msgstr "S'ha suprimit el compositor dels fitxers seleccionats."
 
-#: ../src/easytag.c:1571
+#: ../src/easytag.c:1641
 #, c-format
 msgid "Selected files tagged with original artist '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'artista original «%s»."
 
-#: ../src/easytag.c:1573
+#: ../src/easytag.c:1643
 msgid "Removed original artist from selected files."
-msgstr ""
+msgstr "S'ha suprimit l'artista original dels fitxers seleccionats."
 
-#: ../src/easytag.c:1590
+#: ../src/easytag.c:1658
 #, c-format
 msgid "Selected files tagged with copyright '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el copyright «%s»."
 
-#: ../src/easytag.c:1592
+#: ../src/easytag.c:1660
 msgid "Removed copyright from selected files."
-msgstr ""
+msgstr "S'ha suprimit el copyright dels fitxers seleccionats."
 
-#: ../src/easytag.c:1609
+#: ../src/easytag.c:1675
 #, c-format
 msgid "Selected files tagged with URL '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'URL «%s»."
 
-#: ../src/easytag.c:1611
+#: ../src/easytag.c:1677
 msgid "Removed URL from selected files."
-msgstr ""
+msgstr "S'ha suprimit l'URL dels fitxers seleccionats."
 
-#: ../src/easytag.c:1628
+#: ../src/easytag.c:1692
 #, c-format
 msgid "Selected files tagged with encoder name '%s'."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb el nom codificat «%s»."
 
-#: ../src/easytag.c:1630
+#: ../src/easytag.c:1694
 msgid "Removed encoder name from selected files."
-msgstr ""
+msgstr "S'ha suprimit el nom codificat dels fitxers seleccionats."
 
-#: ../src/easytag.c:1665
+#: ../src/easytag.c:1726
 msgid "Selected files tagged with images."
-msgstr ""
+msgstr "Els fitxers seleccionats s'han etiquetat amb imatges."
 
-#: ../src/easytag.c:1667
+#: ../src/easytag.c:1728
 msgid "Removed images from selected files."
-msgstr ""
+msgstr "S'han suprimit les imatges dels fitxers seleccionats"
 
-#: ../src/easytag.c:1925
+#: ../src/easytag.c:2009
 msgid "Select Mode and Mask, and redo the same action"
-msgstr ""
+msgstr "Selecciona mode i màscara, i torna a fer la mateixa acció."
 
-#: ../src/easytag.c:1980
+#: ../src/easytag.c:2061
 msgid "All tags have been scanned"
-msgstr ""
+msgstr "Totes les etiquetes han estat escanejades."
 
-#: ../src/easytag.c:2038
+#: ../src/easytag.c:2117
 msgid "All tags have been removed"
-msgstr ""
+msgstr "S'han suprimit totes les etiquetes"
 
-#: ../src/easytag.c:2334
+#: ../src/easytag.c:2422
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un fitxer ha estat modificat per un programa extern"
+msgstr[1] "%d fitxers han estat modificats per un programa extern"
 
-#: ../src/easytag.c:2337
+#: ../src/easytag.c:2427
 msgid "Do you want to continue saving the file?"
-msgstr ""
+msgstr "Voleu continuar desant el el fitxer?"
 
-#: ../src/easytag.c:2388 ../src/easytag.c:2409
+#: ../src/easytag.c:2485 ../src/easytag.c:2505
 msgid "Saving files was stopped"
-msgstr ""
+msgstr "El desat de fitxers s'aturat"
 
-#: ../src/easytag.c:2411
+#: ../src/easytag.c:2507
 msgid "All files have been saved"
-msgstr ""
+msgstr "Tots els fitxers s'han desat"
 
-#: ../src/easytag.c:2562
+#: ../src/easytag.c:2642
+#, c-format
+msgid "Cannot delete file (%s)"
+msgstr "No es pot suprimir el fitxer (%s)"
+
+#: ../src/easytag.c:2663
 msgid "Files have been partially deleted"
-msgstr ""
+msgstr "Els fitxers s'han suprimit de forma parcial"
 
-#: ../src/easytag.c:2564
+#: ../src/easytag.c:2665
 msgid "All files have been deleted"
-msgstr ""
+msgstr "S'han suprimit tots els fitxers"
 
-#: ../src/easytag.c:2680
+#: ../src/easytag.c:2781
 #, c-format
 msgid "Do you want to write the tag of file '%s'?"
-msgstr ""
+msgstr "Voleu escriure l'etiqueta del fitxer «%s» ?"
 
-#: ../src/easytag.c:2682
+#: ../src/easytag.c:2783
 msgid "Confirm Tag Writing"
-msgstr ""
+msgstr "Confirma l'escriptura de l'etiqueta"
 
-#: ../src/easytag.c:2687 ../src/easytag.c:2799 ../src/easytag.c:3426
+#: ../src/easytag.c:2788 ../src/easytag.c:2916 ../src/easytag.c:3238
 msgid "Repeat action for the remaining files"
-msgstr ""
+msgstr "Repeteix l'acció per al fitxers restants"
 
 #. Directories and filename changed
-#: ../src/easytag.c:2763 ../src/scan.c:180
+#: ../src/easytag.c:2880 ../src/scan_dialog.c:183
 msgid "Rename File and Directory"
-msgstr ""
+msgstr "Canvi de nom del fitxer i del directori"
 
-#: ../src/easytag.c:2764
+#: ../src/easytag.c:2881
 msgid "File and directory rename confirmation required"
-msgstr ""
+msgstr "Canvi de nom del fitxer i del directori requerides"
 
-#: ../src/easytag.c:2765
+#: ../src/easytag.c:2882
 #, c-format
 msgid "Do you want to rename the file and directory '%s' to '%s'?"
-msgstr ""
+msgstr "Voleu canviar el nom del fitxer i del directori «%s» a «%s»?"
 
-#. Only directories changed
-#: ../src/easytag.c:2770
-msgid "Rename Directory"
-msgstr ""
-
-#: ../src/easytag.c:2771
+#: ../src/easytag.c:2888
 msgid "Directory rename confirmation required"
-msgstr ""
+msgstr "Canvi de nom del directori requerida"
 
-#: ../src/easytag.c:2772
+#: ../src/easytag.c:2889
 #, c-format
 msgid "Do you want to rename the directory '%s' to '%s'?"
-msgstr ""
+msgstr "Voleu canviar el nom al directori «%s» per «%s»?"
 
 #. Only filename changed
-#: ../src/easytag.c:2778
-#, fuzzy
-#| msgid "Delete File"
+#: ../src/easytag.c:2895
 msgid "Rename File"
-msgstr "Suprimeix el fitxer"
+msgstr "Canvia el nom del fitxer"
 
-#: ../src/easytag.c:2779
+#: ../src/easytag.c:2896
 msgid "File rename confirmation required"
-msgstr ""
+msgstr "Confirmació requerida pel canvi de nom del fitxer"
 
-#: ../src/easytag.c:2780
+#: ../src/easytag.c:2897
 #, c-format
 msgid "Do you want to rename the file '%s' to '%s'?"
-msgstr ""
+msgstr "Voleu canviar el nom del fitxer «%s» per «%s»?"
 
-#: ../src/easytag.c:2874
-#, c-format
-msgid "Writing tag of '%s'"
-msgstr ""
-
-#: ../src/easytag.c:2880
-msgid "Tag(s) written"
-msgstr ""
-
-#: ../src/easytag.c:2891 ../src/easytag.c:2897
-#, c-format
-msgid "Cannot write tag in file '%s' (%s)"
-msgstr ""
-
-#: ../src/easytag.c:2910
-#, c-format
-msgid "Cannot write tag in file '%s'"
-msgstr ""
-
-#: ../src/easytag.c:2913
-msgid "Tag Write Error"
-msgstr ""
-
-#: ../src/easytag.c:3045
-#, c-format
-msgid "Renaming file '%s'"
-msgstr ""
-
-#. Renaming file to the temporary filename has failed
-#: ../src/easytag.c:3065
-#, c-format
-msgid "Cannot rename file '%s' to '%s' (%s)"
-msgstr ""
-
-#: ../src/easytag.c:3073 ../src/easytag.c:3114 ../src/easytag.c:3142
-#: ../src/easytag.c:3363
+#: ../src/easytag.c:2963
 #, c-format
 msgid "Cannot rename file '%s' to '%s'"
-msgstr ""
+msgstr "No es pot canviar el nom del fitxer «%s» per «%s»"
 
-#: ../src/easytag.c:3085 ../src/easytag.c:3129 ../src/easytag.c:3155
-#: ../src/easytag.c:3377
-msgid "File(s) not renamed"
-msgstr ""
-
-#: ../src/easytag.c:3124 ../src/easytag.c:3373
+#: ../src/easytag.c:2977
 #, c-format
 msgid "Cannot rename file '%s' to '%s': %s"
-msgstr ""
+msgstr "No es pot canviar el nom del fitxer «%s» per «%s»: %s"
 
-#: ../src/easytag.c:3150
+#: ../src/easytag.c:2981
+msgid "File(s) not renamed"
+msgstr "Fitxer(s) sense canviar el nom"
+
+#: ../src/easytag.c:3165
 #, c-format
-msgid "Cannot rename file '%s' because the following file already exists: '%s'"
-msgstr ""
+msgid "Writing tag of '%s'"
+msgstr "S'està escrivint l'etiqueta de «%s»"
+
+#: ../src/easytag.c:3172
+msgid "Tag(s) written"
+msgstr "Etiqueta(es) escrites"
 
 #: ../src/easytag.c:3185
 #, c-format
-msgid "Cannot create target directory '%s'"
-msgstr ""
+msgid "Cannot write tag in file '%s'"
+msgstr "No es pot escriure l'etiqueta al fitxer «%s»"
 
-#: ../src/easytag.c:3193
-#, c-format
-msgid "Cannot create target directory '%s': %s"
-msgstr ""
+#: ../src/easytag.c:3189
+msgid "Tag Write Error"
+msgstr "Error d'escriptura de l'etiqueta"
 
-#. Renaming file has succeeded
-#: ../src/easytag.c:3212
-#, c-format
-msgid "Renamed file '%s' to '%s'"
-msgstr ""
-
-#: ../src/easytag.c:3218
-#, fuzzy
-#| msgid "File Name"
-msgid "File(s) renamed"
-msgstr "Nom del fitxer"
-
-#: ../src/easytag.c:3234 ../src/easytag.c:3292
-#, c-format
-msgid "Cannot remove old directory '%s'"
-msgstr ""
-
-#: ../src/easytag.c:3237 ../src/easytag.c:3295
-msgid "Remove Directory Error"
-msgstr ""
-
-#: ../src/easytag.c:3242
-#, c-format
-msgid "Cannot remove old directory '%s': %s"
-msgstr ""
-
-#. Renaming file has succeeded
-#: ../src/easytag.c:3270
-#, c-format
-msgid "Moved file '%s' to '%s'"
-msgstr ""
-
-#: ../src/easytag.c:3276
-#, fuzzy
-#| msgid "File Name"
-msgid "File(s) moved"
-msgstr "Nom del fitxer"
-
-#: ../src/easytag.c:3300
-#, c-format
-msgid "Cannot remove old directory '%s': (%s)"
-msgstr ""
-
-#: ../src/easytag.c:3326
-#, c-format
-msgid "Cannot move file '%s' to '%s'"
-msgstr ""
-
-#: ../src/easytag.c:3330
-msgid "File Move Error"
-msgstr ""
-
-#: ../src/easytag.c:3336
-#, c-format
-msgid "Cannot move file '%s' to '%s': (%s)"
-msgstr ""
-
-#: ../src/easytag.c:3341
-msgid "File(s) not moved"
-msgstr ""
-
-#: ../src/easytag.c:3423 ../src/easytag.c:3437
+#: ../src/easytag.c:3235 ../src/easytag.c:3249
 #, c-format
 msgid "Do you really want to delete the file '%s'?"
-msgstr ""
+msgstr "De veritat voleu suprimir el fitxer «%s»?"
 
-#: ../src/easytag.c:3429 ../src/easytag.c:3439
+#: ../src/easytag.c:3241 ../src/easytag.c:3251
 msgid "Delete File"
 msgstr "Suprimeix el fitxer"
 
-#: ../src/easytag.c:3459
+#: ../src/easytag.c:3276
 #, c-format
 msgid "File '%s' deleted"
-msgstr ""
+msgstr "El fitxer «%s» ha estat suprimit"
 
-#: ../src/easytag.c:3598
+#: ../src/easytag.c:3411
 #, c-format
 msgid "Cannot read directory '%s'"
-msgstr ""
+msgstr "No es pot llegir el directori «%s»"
 
-#: ../src/easytag.c:3601
+#: ../src/easytag.c:3415
 msgid "Directory Read Error"
-msgstr ""
+msgstr "Error de lectura de directori"
 
 #. Read the directory recursively
-#: ../src/easytag.c:3621
+#: ../src/easytag.c:3436
 #, c-format
 msgid "Search in progress…"
-msgstr ""
+msgstr "Cerca en procés..."
 
-#: ../src/easytag.c:3638 ../src/et_core.c:2735
+#: ../src/easytag.c:3459 ../src/et_core.c:2876
 #, c-format
 msgid "File: '%s'"
-msgstr ""
+msgstr "Fitxer: «%s»"
 
-#: ../src/easytag.c:3688
+#: ../src/easytag.c:3509
 #, c-format
-msgid "Found %d file(s) in this directory and subdirectories."
-msgstr ""
+msgid "Found one file in this directory and subdirectories"
+msgid_plural "Found %d files in this directory and subdirectories"
+msgstr[0] "S'ha trobat un fitxer en aquest directori i els seus subdirectoris"
+msgstr[1] ""
+"S'han trobat %d fitxers en aquest directori i els seus subdirectoris"
 
-#: ../src/easytag.c:3690
+#: ../src/easytag.c:3516
 #, c-format
-msgid "Found %d file(s) in this directory."
-msgstr ""
+msgid "Found one file in this directory"
+msgid_plural "Found %d files in this directory"
+msgstr[0] "S'ha trobat fitxer en aquest directori"
+msgstr[1] "S'han %d fitxers en aquest directori"
 
-#: ../src/easytag.c:3709
+#: ../src/easytag.c:3538
 msgid "No file found in this directory and subdirectories"
-msgstr ""
+msgstr "No s'ha trobat cap fitxer en aquest directori i els seus subdirectoris"
 
-#: ../src/easytag.c:3711
+#: ../src/easytag.c:3540
 msgid "No file found in this directory"
-msgstr ""
+msgstr "No s'ha trobat cap fitxer en aquest directori"
 
-#: ../src/easytag.c:3802
-msgid "Searching…"
-msgstr "S'està cercant…"
+#: ../src/easytag.c:3608
+#, c-format
+msgid "Error opening directory '%s' (%s)"
+msgstr "Error en obrir el directori «%s» (%s)"
 
-#. Button to stop...
-#: ../src/easytag.c:3822
-msgid "  STOP the search...  "
-msgstr ""
+#: ../src/easytag.c:3644
+#, c-format
+msgid "Cannot read directory (%s)"
+msgstr "No es pot llegir el directori  (%s)"
 
-#: ../src/easytag.c:4467
+#: ../src/easytag.c:3664
+msgid "Searching for audio files…"
+msgstr "S'estan cercant fitxers d'àudio..."
+
+#: ../src/easytag.c:3665
+msgid "Searching"
+msgstr "S'està cercant"
+
+#: ../src/easytag.c:4331
 msgid "Select a directory to browse"
-msgstr ""
+msgstr "Selecciona un directori per navegar"
 
 #. Menu items
-#: ../src/easytag.c:4614
+#: ../src/easytag.c:4478
 msgid "Tag selected files with this field"
-msgstr ""
+msgstr "Copia amb aquest camp els fitxers seleccionats"
 
-#. Group: character conversion
-#: ../src/easytag.c:4626 ../src/scan.c:2680
+#: ../src/easytag.c:4490 ../src/scan_dialog.c:2128
 msgid "Convert '_' and '%20' to spaces"
-msgstr ""
+msgstr "Converteix «_» i «%20» en espais"
 
-#: ../src/easytag.c:4633 ../src/scan.c:2681
+#: ../src/easytag.c:4497 ../src/scan_dialog.c:2130
 msgid "Convert ' ' to '_'"
-msgstr ""
+msgstr "Converteix « » en «_»"
 
-#. Group: capitalize, ...
-#: ../src/easytag.c:4644 ../src/scan.c:2732
+#: ../src/easytag.c:4508
 msgid "All uppercase"
-msgstr ""
+msgstr "Tot en majúscules"
 
-#: ../src/easytag.c:4651 ../src/scan.c:2733
-#, fuzzy
-#| msgid "All Files"
+#: ../src/easytag.c:4515
 msgid "All lowercase"
-msgstr "Tots els fitxers"
+msgstr "Tot en minúscules"
 
-#: ../src/easytag.c:4658 ../src/scan.c:2734
+#: ../src/easytag.c:4522
 msgid "First letter uppercase"
-msgstr ""
+msgstr "La primera lletra en majúscules"
 
-#: ../src/easytag.c:4665 ../src/scan.c:2735
+#: ../src/easytag.c:4529
 msgid "First letter uppercase of each word"
-msgstr ""
+msgstr "La primera lletra de cada paraula en majúscules"
 
-#. Group: insert/remove spaces
-#: ../src/easytag.c:4676 ../src/prefs.c:1048 ../src/scan.c:2783
+#: ../src/easytag.c:4540 ../src/prefs.c:1023 ../src/scan_dialog.c:2254
 msgid "Remove spaces"
-msgstr ""
+msgstr "Treu els espais"
 
-#: ../src/easytag.c:4683
+#: ../src/easytag.c:4547
 msgid "Insert space before uppercase letter"
-msgstr ""
+msgstr "Insereix un espai abans de cada lletra majúscula"
 
-#: ../src/easytag.c:4690
+#: ../src/easytag.c:4554
 msgid "Remove duplicate spaces or underscores"
-msgstr ""
+msgstr "Treu els espais duplicats o els subratllats"
 
-#: ../src/easytag.c:4697
+#: ../src/easytag.c:4561
 msgid "Remove all text"
-msgstr ""
+msgstr "Treu tot el text"
 
-#. gchar commmand[256];
-#: ../src/easytag.c:4720
-#, c-format
-msgid "EasyTAG version %s: Abnormal exit (PID: %d)"
-msgstr ""
-
-#: ../src/easytag.c:4721
-#, c-format
-msgid "Received signal %s (%d)"
-msgstr ""
-
-#: ../src/easytag.c:4723 ../src/easytag.c:4733
-#, c-format
-msgid ""
-"You have probably found a bug in EasyTAG. Please, file a bug report with a "
-"GDB backtrace ('gdb easytag core' then 'bt' and 'l') and information to "
-"reproduce it at: %s"
-msgstr ""
-
-#. To send messages to the console...
-#: ../src/easytag.c:4729
-#, c-format
-msgid "EasyTAG version %s: Abnormal exit (PID: %d)."
-msgstr ""
-
-#: ../src/easytag.c:4731
-#, c-format
-msgid "Received signal %s (%d)\a"
-msgstr ""
-
-#: ../src/easytag.c:4861
-msgid "Unknown signal"
-msgstr ""
-
-#: ../src/easytag.c:4874
+#: ../src/easytag.c:4580
 msgid "EasyTAG: Normal exit."
-msgstr ""
+msgstr "EasyTAG: sortida normal."
 
-#: ../src/easytag.c:4925
+#: ../src/easytag.c:4632
 msgid "Do you want to save them before quitting?"
-msgstr ""
+msgstr "Voleu desar-ho abans de sortir?"
 
-#: ../src/easytag.c:4948
+#: ../src/easytag.c:4659
 msgid "Do you really want to quit?"
 msgstr "Segur que voleu sortir?"
 
-#: ../src/et_core.c:621
+#: ../src/et_core.c:551
+#, c-format
+msgid "Error reading tag from ogg file (%s)"
+msgstr "Error en llegir l'etiqueta del fitxer ogg (%s)"
+
+#: ../src/et_core.c:580
+#, c-format
+msgid "Error reading tag from Opus file (%s)"
+msgstr "Error en llegir l'etiqueta del fitxer Opus (%s)"
+
+#: ../src/et_core.c:723
 #, c-format
 msgid "Automatic corrections applied for file '%s'."
-msgstr ""
+msgstr "S'han aplicat les correccions automàtiques per al fitxer «%s»."
 
-#: ../src/et_core.c:2632
+#: ../src/et_core.c:2759
 msgid "ID3 Tag"
-msgstr ""
+msgstr "Etiqueta ID3"
 
-#: ../src/et_core.c:2638
+#: ../src/et_core.c:2765
 msgid "Ogg Vorbis Tag"
-msgstr ""
+msgstr "Etiqueta Ogg Vorbis"
 
-#: ../src/et_core.c:2644
+#: ../src/et_core.c:2771
 msgid "FLAC Vorbis Tag"
-msgstr ""
+msgstr "Etiqueta FLAC Vorbis"
 
-#: ../src/et_core.c:2649
+#: ../src/et_core.c:2776
 msgid "APE Tag"
-msgstr ""
+msgstr "Etiqueta APE"
 
-#: ../src/et_core.c:2654
+#: ../src/et_core.c:2781
 msgid "MP4/M4A/AAC Tag"
-msgstr ""
+msgstr "Etiqueta MP4/M4A/AAC"
 
-#: ../src/et_core.c:2660
+#: ../src/et_core.c:2787
 msgid "Wavpack Tag"
-msgstr ""
+msgstr "Etiqueta Wavpack"
 
-#: ../src/et_core.c:2680
+#: ../src/et_core.c:2793
+msgid "Opus Tag"
+msgstr "Etiqueta Opus"
+
+#: ../src/et_core.c:2813
 msgid "MP3 File"
-msgstr ""
+msgstr "Etiqueta MP3"
 
-#: ../src/et_core.c:2684
+#: ../src/et_core.c:2817
 msgid "MP2 File"
-msgstr ""
+msgstr "Etiqueta MP2"
 
-#: ../src/et_core.c:2690
+#: ../src/et_core.c:2823
 msgid "Ogg Vorbis File"
-msgstr ""
+msgstr "Etiqueta Vorbis Ogg"
 
-#: ../src/et_core.c:2696
+#: ../src/et_core.c:2829
 msgid "Speex File"
-msgstr ""
+msgstr "Fitxer Speex"
 
-#: ../src/et_core.c:2702
+#: ../src/et_core.c:2835
 msgid "FLAC File"
-msgstr ""
+msgstr "Fitxer FLAC"
 
-#: ../src/et_core.c:2707
+#: ../src/et_core.c:2840
 msgid "MusePack File"
-msgstr ""
+msgstr "Fitxer MusePack"
 
-#: ../src/et_core.c:2711
+#: ../src/et_core.c:2844
 msgid "Monkey's Audio File"
-msgstr ""
+msgstr "Fitxer d'àudio Monkey"
 
-#: ../src/et_core.c:2716
+#: ../src/et_core.c:2849
 msgid "MP4/AAC File"
-msgstr ""
+msgstr "Fitxer MP4/AAC"
 
-#: ../src/et_core.c:2722
+#: ../src/et_core.c:2855
 msgid "Wavpack File"
-msgstr ""
+msgstr "Fitxer Wavpack"
 
-#: ../src/et_core.c:2774
-msgid "Read-only file"
-msgstr ""
+#: ../src/et_core.c:2861
+msgid "Opus File"
+msgstr "Fitxer Opus"
 
-#: ../src/et_core.c:2780
+#: ../src/et_core.c:2920 ../src/et_core.c:2975
 msgid "File not found"
-msgstr ""
+msgstr "Fitxer no trobat"
+
+#: ../src/et_core.c:2925
+#, c-format
+msgid "Cannot query file information (%s)"
+msgstr "No es pot consultar la informació del fitxer (%s)"
+
+#: ../src/et_core.c:2959
+msgid "Read-only file"
+msgstr "Fitxer de sols lectura"
 
 #. And refresh the number of files in this directory
-#: ../src/et_core.c:2833
+#: ../src/et_core.c:3023
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un fitxer"
+msgstr[1] "%u fitxers"
 
-#: ../src/et_core.c:3020
+#: ../src/et_core.c:3227
 #, c-format
 msgid "Images (%d)"
-msgstr ""
+msgstr "Imatges (%d)"
 
 #. Bitrate
-#: ../src/et_core.c:3060 ../src/flac_header.c:240
-#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.c:135
-#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88
-#: ../src/ogg_header.c:242 ../src/wavpack_header.c:78
+#: ../src/et_core.c:3269 ../src/flac_header.c:205
+#: ../src/monkeyaudio_header.c:86 ../src/mp4_header.cc:142
+#: ../src/mpeg_header.c:206 ../src/musepack_header.c:88 ../src/ogg_header.c:401
+#: ../src/opus_header.c:227 ../src/wavpack_header.c:78
 #, c-format
 msgid "%d kb/s"
-msgstr ""
+msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/et_core.c:3065 ../src/flac_header.c:245
-#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.c:140
-#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93
-#: ../src/ogg_header.c:247 ../src/wavpack_header.c:83
+#: ../src/et_core.c:3274 ../src/flac_header.c:210
+#: ../src/monkeyaudio_header.c:91 ../src/mp4_header.cc:147
+#: ../src/mpeg_header.c:211 ../src/musepack_header.c:93 ../src/ogg_header.c:406
+#: ../src/opus_header.c:232 ../src/wavpack_header.c:83
 #, c-format
 msgid "%d Hz"
-msgstr ""
+msgstr "%d Hz"
 
-#: ../src/et_core.c:3209 ../src/scan.c:686
+#: ../src/et_core.c:3420 ../src/scan_dialog.c:688
 #, c-format
 msgid "Could not convert filename '%s' into system filename encoding"
 msgstr ""
+"No es pot convertir el nom del fitxer «%s» al sistema de noms de fitxers "
+"codificats"
 
-#: ../src/et_core.c:3211
+#: ../src/et_core.c:3422
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr ""
+msgstr "Intenta configurar la variable d'entorn G_FILENAME_ENCODING."
 
-#: ../src/et_core.c:3212 ../src/scan.c:688
+#: ../src/et_core.c:3423 ../src/scan_dialog.c:690
 msgid "Filename translation"
-msgstr ""
+msgstr "Traducció del nom de fitxer"
+
+#: ../src/et_core.c:4129
+#, c-format
+msgid "Error writing tag type %d to file %s (%s)"
+msgstr "Error en escriure el tipus d'etiqueta %d al fitxer %s (%s)"
 
 #. Mode
 #. Mode
 #. mpeg4ip library seems to always return -1
 #. Mode
-#: ../src/flac_header.c:250 ../src/mp4_header.c:146 ../src/ogg_header.c:252
-#: ../src/wavpack_header.c:88
+#: ../src/flac_header.c:215 ../src/mp4_header.cc:153 ../src/ogg_header.c:411
+#: ../src/opus_header.c:237 ../src/wavpack_header.c:88
 msgid "Channels:"
 msgstr "Canals:"
 
-#: ../src/flac_tag.c:133 ../src/flac_tag.c:852 ../src/flac_tag.c:862
+#: ../src/flac_tag.c:131 ../src/flac_tag.c:850 ../src/flac_tag.c:860
 #, c-format
 msgid "Error while opening file: '%s' as FLAC (%s)."
-msgstr ""
+msgstr "Error mentre s'obria el fitxer: «%s» com FLAC (%s)."
 
-#: ../src/flac_tag.c:320 ../src/ogg_tag.c:297
+#: ../src/flac_tag.c:352 ../src/ogg_tag.c:304
 #, c-format
 msgid ""
 "The year value '%s' seems to be invalid in file '%s'. The information will "
 "be lost while saving tag."
 msgstr ""
+"El valor de l'any «%s» sembla ser invàlid al fitxer «%s». La informació es "
+"perdrà mentre es desi l'etiqueta."
 
-#: ../src/flac_tag.c:1064
+#: ../src/flac_tag.c:1061
 #, c-format
 msgid "Picture block isn't valid: '%s'"
-msgstr ""
+msgstr "El bloc imatge no és vàlid: «%s»"
 
-#: ../src/flac_tag.c:1097 ../src/ogg_tag.c:830
+#: ../src/flac_tag.c:1094
 #, c-format
 msgid "Error: Failed to write comments to file '%s' (%s)."
-msgstr ""
+msgstr "Error: Fallada en escriure comentaris al fitxer «%s» (%s)."
 
-#: ../src/flac_tag.c:1102 ../src/ogg_tag.c:837
+#: ../src/flac_tag.c:1099 ../src/ogg_tag.c:1124
 #, c-format
 msgid "Written tag of '%s'"
-msgstr ""
+msgstr "S'ha escrit l'etiqueta de «%s» "
 
-#: ../src/id3_tag.c:505
+#: ../src/id3_tag.c:211
+#, c-format
+msgid "Error while reading file: '%s' (%s)"
+msgstr "Error mentre es llegia el fitxer: «%s» (%s)"
+
+#: ../src/id3_tag.c:223
+#, c-format
+msgid ""
+"As the following corrupted file '%s' will cause an error in id3lib, it will "
+"not be processed"
+msgstr ""
+"Com el fitxer corrupte «%s» provocarà en error en id3lib, no es processarà."
+
+#: ../src/id3_tag.c:225
+msgid "Corrupted file"
+msgstr "Fitxer corrupte"
+
+#: ../src/id3_tag.c:598
 #, c-format
 msgid "Removed tag of '%s'"
-msgstr ""
+msgstr "S'està traient l'etiqueta de «%s»"
 
-#: ../src/id3_tag.c:509 ../src/id3_tag.c:609
+#: ../src/id3_tag.c:602 ../src/id3_tag.c:702
 #, c-format
 msgid "Error while removing ID3v1 tag of '%s' (%s)"
-msgstr ""
+msgstr "Error mentre es treu l'etiqueta ID3v1 de «%s» (%s)"
 
-#: ../src/id3_tag.c:511 ../src/id3_tag.c:581
+#: ../src/id3_tag.c:604 ../src/id3_tag.c:674
 #, c-format
 msgid "Error while removing ID3v2 tag of '%s' (%s)"
-msgstr ""
+msgstr "Error mentre es treu l'etiqueta ID3v2 de «%s» (%s)"
 
-#: ../src/id3_tag.c:530
+#: ../src/id3_tag.c:623
 #, c-format
 msgid "Error while updating ID3v2 tag of '%s' (%s)"
-msgstr ""
+msgstr "Error mentre es treu l'etiqueta ID3v2 de «%s» (%s)"
 
-#: ../src/id3_tag.c:558
+#: ../src/id3_tag.c:651
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
 msgstr ""
+"Heu escollit desar aquesta etiqueta en format Unicode però s'ha detectat que "
+"la versió de id3lib té errors"
 
-#: ../src/id3_tag.c:560
+#: ../src/id3_tag.c:653
 #, c-format
 msgid ""
 "If you reload this file, some characters in the tag may not be displayed "
@@ -2561,399 +2569,397 @@ msgid ""
 "\n"
 "File: %s"
 msgstr ""
-
-#: ../src/id3_tag.c:567
-msgid "Buggy id3lib"
-msgstr ""
-
-#: ../src/id3_tag.c:601
-#, c-format
-msgid "Error while updating ID3v1 tag of '%s' (%s)"
-msgstr ""
-
-#: ../src/id3_tag.c:615 ../src/id3v24_tag.c:1034
-#, c-format
-msgid "Updated tag of '%s'"
-msgstr ""
-
-#: ../src/id3_tag.c:634
-msgid "No error reported"
-msgstr ""
-
-#: ../src/id3_tag.c:636
-msgid "No available memory"
-msgstr ""
-
-#: ../src/id3_tag.c:638
-msgid "No data to parse"
-msgstr ""
-
-#: ../src/id3_tag.c:640
-msgid "Improperly formatted data"
-msgstr ""
-
-#: ../src/id3_tag.c:642
-msgid "No buffer to write to"
-msgstr ""
-
-#: ../src/id3_tag.c:644
-msgid "Buffer is too small"
-msgstr ""
-
-#: ../src/id3_tag.c:646
-msgid "Invalid frame ID"
-msgstr ""
-
-#: ../src/id3_tag.c:648
-msgid "Requested field not found"
-msgstr ""
-
-#: ../src/id3_tag.c:650
-msgid "Unknown field type"
-msgstr ""
-
-#: ../src/id3_tag.c:652
-msgid "Tag is already attached to a file"
-msgstr ""
-
-#: ../src/id3_tag.c:654
-msgid "Invalid tag version"
-msgstr ""
-
-#: ../src/id3_tag.c:656
-msgid "No file to parse"
-msgstr ""
-
-#: ../src/id3_tag.c:658
-msgid "Attempting to write to a read-only file"
-msgstr ""
+"Si torneu a carregar aquest fitxer, alguns caràcters en l'etiqueta no es "
+"mostraran de forma correcta. Apliqueu el pegat  src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff a id3lib, el qual està  disponible "
+"a les fonts del paquet EasyTAG.\n"
+"Nota per avisar que aquest missatge apareixerà sols una vegada.\n"
+"\n"
+"Fitxer: %s"
 
 #: ../src/id3_tag.c:660
-msgid "Error in compression/uncompression"
-msgstr ""
+msgid "Buggy id3lib"
+msgstr "id3lib erroni"
 
-#: ../src/id3_tag.c:662
-msgid "Unknown error message"
-msgstr ""
-
-#: ../src/id3_tag.c:1240
+#: ../src/id3_tag.c:694
 #, c-format
-msgid ""
-"As the following corrupted file '%s' will cause an error in id3lib, it will "
-"not be processed"
-msgstr ""
+msgid "Error while updating ID3v1 tag of '%s' (%s)"
+msgstr "Error mentre s'actualitzava l'etiqueta ID3v1 de «%s» (%s)"
 
-#: ../src/id3_tag.c:1242
-msgid "Corrupted file"
-msgstr ""
+#: ../src/id3_tag.c:708 ../src/id3v24_tag.c:1105
+#, c-format
+msgid "Updated tag of '%s'"
+msgstr "S'ha actualitzat l'etiqueta de «%s»"
 
-#: ../src/id3_tag.c:1281
+#: ../src/id3_tag.c:727
+msgid "No error reported"
+msgstr "Cap informe d'errors"
+
+#: ../src/id3_tag.c:729
+msgid "No available memory"
+msgstr "Sense memòria disponible"
+
+#: ../src/id3_tag.c:731
+msgid "No data to parse"
+msgstr "Sense dates per analitzar"
+
+#: ../src/id3_tag.c:733
+msgid "Improperly formatted data"
+msgstr "Dades amb format incorrecte"
+
+#: ../src/id3_tag.c:735
+msgid "No buffer to write to"
+msgstr "No hi ha memòria intermèdia per escriure en"
+
+#: ../src/id3_tag.c:737
+msgid "Buffer is too small"
+msgstr "La memòria intermèdia és massa petita"
+
+#: ../src/id3_tag.c:739
+msgid "Invalid frame ID"
+msgstr "ID de marc invàlid"
+
+#: ../src/id3_tag.c:741
+msgid "Requested field not found"
+msgstr "No s'ha trobat el camp sol·licitat"
+
+#: ../src/id3_tag.c:743
+msgid "Unknown field type"
+msgstr "Tipus de camp desconegut"
+
+#: ../src/id3_tag.c:745
+msgid "Tag is already attached to a file"
+msgstr "La etiqueta està incrustada a un fitxer"
+
+#: ../src/id3_tag.c:747
+msgid "Invalid tag version"
+msgstr "Versió d'etiqueta invàlida"
+
+#: ../src/id3_tag.c:749
+msgid "No file to parse"
+msgstr "Sense fitxer per analitzar"
+
+#: ../src/id3_tag.c:751
+msgid "Attempting to write to a read-only file"
+msgstr "S'està intentant escriure en un fitxer de sols lectura"
+
+#: ../src/id3_tag.c:753
+msgid "Error in compression/uncompression"
+msgstr "Error en la compressió / descompressió"
+
+#: ../src/id3_tag.c:755
+msgid "Unknown error message"
+msgstr "Missatge d'error desconegut"
+
+#: ../src/id3_tag.c:1363
 #, c-format
 msgid "Error while creating temporary file: '%s'"
-msgstr ""
+msgstr "Error mentre es creava el fitxer temporal: «%s»"
 
-#: ../src/id3_tag.c:1288
+#: ../src/id3_tag.c:1370
 msgid "Error while creating temporary file"
-msgstr ""
+msgstr "Error mentre es creava el fitxer temporal"
 
-#: ../src/id3_tag.c:1305
+#: ../src/id3_tag.c:1390
 #, c-format
 msgid "Error while writing to file: '%s' (%s)"
-msgstr ""
+msgstr "Error mentre s'escrivia al fitxer: «%s» (%s)"
 
-#: ../src/id3v24_tag.c:1477
+#. Translators: The first string is a filename, the
+#. * second string is the number of bytes that were
+#. * missing (not read for some reason) while reading from
+#. * the file.
+#.
+#: ../src/id3v24_tag.c:1560
 #, c-format
-msgid ""
-"Cannot write tag of file '%s' (%d bytes were read but %d bytes were expected)"
-msgstr ""
+msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
+msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
+msgstr[0] ""
+"No es pot escriure l'etiqueta del fitxer «%s» ( un byte s'ha perdut)"
+msgstr[1] ""
+"No es pot escriure l'etiqueta del fitxer «%s» ( %s bytes s'han perdut)"
 
-#: ../src/id3v24_tag.c:1496
+#: ../src/id3v24_tag.c:1581
+#, c-format
+msgid "Cannot save tag of file '%s'"
+msgstr "No es pot desar l'etiqueta del fitxer «%s»"
+
+#: ../src/id3v24_tag.c:1592
 #, c-format
 msgid "Size error while saving tag of '%s'"
-msgstr ""
+msgstr "Error de mida mentre es desava l'etiqueta de «%s»"
 
-#: ../src/log.c:103
+#: ../src/log.c:100
 msgid "Log"
 msgstr "Registre"
 
-#: ../src/misc.c:778
+#: ../src/misc.c:720
+msgid "You must type a program name"
+msgstr "Us cal escriure el nom del programa"
+
+#: ../src/misc.c:721
+msgid "Program Name Error"
+msgstr "Error al nom del programa"
+
+#: ../src/misc.c:800
+#, c-format
+msgid "Executed command: %s"
+msgstr "S'ha executat l'ordre: %s"
+
+#: ../src/misc.c:807
+#, c-format
+msgid "Failed to launch program: %s"
+msgstr "Fallada en llançar el programa: %s"
+
+#: ../src/misc.c:824
 msgid "Select File"
 msgstr "Seleccioneu un fitxer"
 
-#: ../src/misc.c:784
+#: ../src/misc.c:830
 msgid "Select Directory"
-msgstr "Seleccioneu una carpeta"
+msgstr "Seleccioneu un directori"
 
-#: ../src/misc.c:865
-msgid "No audio player defined"
-msgstr ""
+#: ../src/misc.c:1142
+msgid "Generate Playlist"
+msgstr "Crea llista de reproducció"
 
-#: ../src/misc.c:866
-msgid "Audio Player Warning"
-msgstr ""
-
-#: ../src/misc.c:959
-msgid "Cannot fork another process"
-msgstr ""
-
-#: ../src/misc.c:965
-#, c-format
-msgid "Cannot execute %s (%s)"
-msgstr ""
-
-#. Translators: file size (bytes, kilobytes, megabytes, gigabytes,
-#. * terabytes).
-#: ../src/misc.c:1130 ../src/misc.c:1150
-msgid "B"
-msgstr "B"
-
-#: ../src/misc.c:1130 ../src/misc.c:1150
-msgid "kB"
-msgstr "kB"
-
-#: ../src/misc.c:1130 ../src/misc.c:1150
-msgid "MB"
-msgstr "MB"
-
-#: ../src/misc.c:1130 ../src/misc.c:1150
-msgid "GB"
-msgstr "GB"
-
-#: ../src/misc.c:1130 ../src/misc.c:1150
-msgid "TB"
-msgstr "TB"
-
-#: ../src/misc.c:1246
-msgid "Generate a playlist"
-msgstr ""
-
-#: ../src/misc.c:1270
+#: ../src/misc.c:1166
 msgid "M3U Playlist Name"
-msgstr ""
+msgstr "Nom de la llista de reproducció M3U"
 
-#: ../src/misc.c:1284
+#: ../src/misc.c:1181
 msgid "Use directory name"
-msgstr ""
-
-#: ../src/misc.c:1308 ../src/misc.c:1407
-msgid "Edit Masks"
-msgstr ""
+msgstr "Usa el nom del directori"
 
 #. Playlist options
-#: ../src/misc.c:1316
+#: ../src/misc.c:1198
 msgid "Playlist Options"
-msgstr ""
+msgstr "Opcions de la llista de reproducció"
 
-#: ../src/misc.c:1322
+#: ../src/misc.c:1204
 msgid "Include only the selected files"
-msgstr ""
+msgstr "Inclou sols el fitxers seleccionats"
 
-#: ../src/misc.c:1325
+#: ../src/misc.c:1207
 msgid ""
 "If activated, only the selected files will be written in the playlist file. "
 "Else, all the files will be written."
 msgstr ""
+"Si s'habilita, sols els fitxers seleccionats s'escriuran a la llista de "
+"reproducció. En cas contrari, tots els fitxers s'escriuran."
 
-#: ../src/misc.c:1332
+#: ../src/misc.c:1210
 msgid "Use full path for files in playlist"
-msgstr ""
+msgstr "Usa el camí complet per als fitxers de la llista de reproducció"
 
-#: ../src/misc.c:1335
+#: ../src/misc.c:1213
 msgid "Use relative path for files in playlist"
-msgstr ""
+msgstr "Usa el camí relatiu per als fitxers de la llista de reproducció"
 
 #. Create playlist in parent directory
-#: ../src/misc.c:1345
+#: ../src/misc.c:1219
 msgid "Create playlist in the parent directory"
-msgstr ""
+msgstr "Crea la llista de reproducció al directori pare"
 
-#: ../src/misc.c:1348
+#: ../src/misc.c:1222
 msgid "If activated, the playlist will be created in the parent directory."
-msgstr ""
+msgstr "Si s'habilita, la llista de reproducció es crearà al directori pare."
 
 #. DOS Separator
-#: ../src/misc.c:1352
+#: ../src/misc.c:1226
 msgid "Use DOS directory separator"
-msgstr ""
+msgstr "Usa separador de directori DOS"
 
-#: ../src/misc.c:1358
+#: ../src/misc.c:1232
 msgid ""
 "This option replaces the UNIX directory separator '/' into DOS separator "
 "'\\'."
 msgstr ""
+"Aquesta opció reemplaça el separador de directori UNIX «/» al separador DOS "
+"«\\»"
 
-#: ../src/misc.c:1367
+#: ../src/misc.c:1241
 msgid "Playlist Content"
-msgstr ""
+msgstr "Contingut de la llista de reproducció"
 
-#: ../src/misc.c:1373
+#: ../src/misc.c:1247
 msgid "Write only list of files"
-msgstr ""
+msgstr "Escriu sols la llista de fitxers"
 
-#: ../src/misc.c:1377
+#: ../src/misc.c:1251
 msgid "Write info using filename"
-msgstr ""
+msgstr "Escriu informació en usar el nom del fitxer"
 
-#: ../src/misc.c:1380
+#: ../src/misc.c:1254
 msgid "Write info using:"
-msgstr ""
+msgstr "Escriu informació en usar:"
 
-#: ../src/misc.c:1654
-#, c-format
-msgid "Playlist file '%s' already exists"
-msgstr ""
-
-#: ../src/misc.c:1656
-msgid "Do you want to save the playlist, overwriting the existing file?"
-msgstr ""
-
-#: ../src/misc.c:1658
-msgid "Write Playlist"
-msgstr ""
-
-#: ../src/misc.c:1676
+#: ../src/misc.c:1468
 #, c-format
 msgid "Cannot write playlist file '%s'"
-msgstr ""
+msgstr "No es pot escriure el fitxer llista de reproducció «%s»"
 
-#: ../src/misc.c:1679
+#: ../src/misc.c:1472
 msgid "Playlist File Error"
-msgstr ""
+msgstr "Error del fitxer llista de reproducció"
 
-#: ../src/misc.c:1686
+#: ../src/misc.c:1480
 #, c-format
 msgid "Written playlist file '%s'"
-msgstr ""
+msgstr "S'ha escrit el fitxer llista de reproducció «%s»"
 
-#: ../src/misc.c:1936
+#: ../src/misc.c:1544 ../src/scan_dialog.c:2747 ../src/scan_dialog.c:2809
+msgid "Invalid scanner mask"
+msgstr "Mascara d'escàner invàlida"
+
+#: ../src/misc.c:1908
 msgid "CD"
 msgstr "CD"
 
-#: ../src/misc.c:1956
+#: ../src/misc.c:1930
 msgid "Find Files"
 msgstr "Cerca fitxers"
 
-#: ../src/misc.c:1994
+#: ../src/misc.c:1962
 msgid ""
 "Type the word to search into files. Or type nothing to display all files."
 msgstr ""
+"Escriu el mot a cercar als fitxers, o no escriguis res per mostrar tots els "
+"fitxers."
 
 #. Where...
-#: ../src/misc.c:2000
+#: ../src/misc.c:1968
 msgid "In:"
-msgstr ""
+msgstr "A:"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Filename".
-#: ../src/misc.c:2005
+#: ../src/misc.c:1973
 msgid "the Filename"
-msgstr ""
+msgstr "el nom del fitxer"
 
 #. Translators: This option is for the previous 'in' option. For instance,
 #. * translate this as "Search" "In:" "the Tag".
 #. * Note: label changed to "the Tag" (to be the only one) to fix a Hungarian
 #. * grammatical problem (which uses one word to say "in the tag" like here)
 #.
-#: ../src/misc.c:2011
+#: ../src/misc.c:1979
 msgid "the Tag"
-msgstr ""
+msgstr "l'etiqueta"
 
 #. Property of the search
-#: ../src/misc.c:2022 ../src/prefs.c:351
+#: ../src/misc.c:1990 ../src/prefs.c:335
 msgid "Case sensitive"
 msgstr "Distingeix entre majúscules i minúscules"
 
-#: ../src/misc.c:2248
+#: ../src/misc.c:2217
 msgid "Ready to search…"
-msgstr ""
+msgstr "A punt per cercar..."
 
-#: ../src/misc.c:2479
+#: ../src/misc.c:2437
 #, c-format
-msgid "Found: %d file(s)"
-msgstr "S'ha trobat: %d fitxers"
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "S'ha trobat un fitxer"
+msgstr[1] "S'ha trobat %d fitxers"
 
-#: ../src/misc.c:2756
-msgid "Load the filenames from a TXT file"
-msgstr ""
+#: ../src/misc.c:2722
+msgid "Load Filenames From a Text File"
+msgstr "Carrega noms de fitxers des d'un fitxer de text"
 
-#: ../src/misc.c:2784
+#: ../src/misc.c:2751
 msgid "File:"
 msgstr "Fitxer:"
 
 #. Button 'load'
 #. the signal attached to this button, to load the file, is placed after the LoadFileContentList definition
-#: ../src/misc.c:2803
+#: ../src/misc.c:2770
+#, fuzzy
+#| msgid " Load"
 msgid " Load "
-msgstr ""
+msgstr " Carrega"
 
-#: ../src/misc.c:2826
-msgid "Content of TXT file"
-msgstr ""
+#: ../src/misc.c:2788
+msgid "Content of Text File"
+msgstr "Contingut del fitxer de text"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2847 ../src/misc.c:2941
+#: ../src/misc.c:2809 ../src/misc.c:2904
 msgid "Insert a blank line before the selected line"
-msgstr ""
+msgstr "Inseriu una línia blanca abans de la línia seleccionada"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2856 ../src/misc.c:2950
+#: ../src/misc.c:2818 ../src/misc.c:2913
 msgid "Delete the selected line"
-msgstr ""
+msgstr "Suprimeix la línia seleccionada"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2865 ../src/misc.c:2959 ../src/misc.c:3448
+#: ../src/misc.c:2827 ../src/misc.c:2922 ../src/misc.c:3403
 msgid "Delete all blank lines"
-msgstr ""
+msgstr "Suprimeix totes les línies en blanc"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2877 ../src/misc.c:2971
+#: ../src/misc.c:2839 ../src/misc.c:2934
 msgid "Move up the selected line"
-msgstr ""
+msgstr "Mou amunt la línia seleccionada"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2886 ../src/misc.c:2980
+#: ../src/misc.c:2848 ../src/misc.c:2943
 msgid "Move down the selected line"
-msgstr ""
+msgstr "Mou avall la línia seleccionada"
 
 #. gtk_button_set_relief(GTK_BUTTON(Button),GTK_RELIEF_NONE);
-#: ../src/misc.c:2898 ../src/misc.c:2992 ../src/misc.c:3472
+#: ../src/misc.c:2860 ../src/misc.c:2955 ../src/misc.c:3427
 msgid "Reload"
-msgstr "Actualitza"
+msgstr "Torna a carregar"
 
-#: ../src/misc.c:2919
-msgid "List of files"
-msgstr ""
+#: ../src/misc.c:2882
+msgid "List of Files"
+msgstr "Llista de fitxers"
 
-#: ../src/misc.c:3014
+#: ../src/misc.c:2977
 msgid "Selected line:"
-msgstr ""
+msgstr "Línia seleccionada:"
 
-#: ../src/misc.c:3032
+#: ../src/misc.c:2995
 msgid ""
 "When activating this option, after loading the filenames, the current "
 "selected scanner will be ran (the scanner window must be opened)."
 msgstr ""
+"Quan s'activi aquesta opció, després de carregar els noms dels fitxers, "
+"l'escàner seleccionat actual es posarà en marxa ( la finestra d'escàner "
+"s'obrirà)."
 
-#: ../src/misc.c:3192
+#: ../src/misc.c:3082
+#, c-format
+msgid "Cannot retrieve file info (%s)"
+msgstr "No es pot recuperar la informació del fitxer (%s)"
+
+#: ../src/misc.c:3145
 #, c-format
 msgid "Can't open file '%s' (%s)"
-msgstr ""
+msgstr "No es pot obrir el fitxer «%s» (%s)"
 
-#: ../src/misc.c:3436
+#: ../src/misc.c:3174
+#, c-format
+msgid "Error reading file (%s)"
+msgstr "Error en llegir el fitxer (%s)"
+
+#: ../src/misc.c:3391
 msgid "Insert a blank line"
-msgstr ""
+msgstr "Insereix una línia en blanc"
 
-#: ../src/misc.c:3442
+#: ../src/misc.c:3397
 msgid "Delete this line"
-msgstr ""
+msgstr "Suprimeix aquesta línia"
 
-#: ../src/misc.c:3457
+#: ../src/misc.c:3412
 msgid "Move up this line"
-msgstr ""
+msgstr "Mou amunt aquesta línia"
 
-#: ../src/misc.c:3463
+#: ../src/misc.c:3418
 msgid "Move down this line"
-msgstr ""
+msgstr "Mou avall aquesta línia"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
@@ -2961,29 +2967,29 @@ msgstr ""
 msgid "Profile:"
 msgstr "Perfil:"
 
-#: ../src/mp4_header.c:64 ../src/mp4_tag.c:83 ../src/mp4_tag.c:213
+#: ../src/mp4_header.cc:60 ../src/mp4_tag.cc:91 ../src/mp4_tag.cc:285
 msgid "MP4 format invalid"
-msgstr ""
+msgstr "Format MP4 invàlid"
 
-#: ../src/mp4_header.c:73 ../src/mp4_tag.c:92
+#: ../src/mp4_header.cc:68
 #, c-format
 msgid "File contains no audio track: '%s'"
-msgstr ""
+msgstr "El fitxer no conté cap pista d'àudio: «%s»"
 
-#: ../src/mp4_header.c:83
+#: ../src/mp4_header.cc:79
 #, c-format
 msgid "Error reading properties from file: '%s'"
-msgstr ""
+msgstr "Error en llegir les propietats del fitxer: «%s»"
 
-#: ../src/mp4_header.c:133 ../src/mpeg_header.c:204
+#: ../src/mp4_header.cc:140 ../src/mpeg_header.c:204
 #, c-format
 msgid "~%d kb/s"
-msgstr ""
+msgstr "~%d kb/s"
 
-#: ../src/mp4_tag.c:103 ../src/mp4_tag.c:221
+#: ../src/mp4_tag.cc:101 ../src/mp4_tag.cc:294
 #, c-format
 msgid "Error reading tags from file: '%s'"
-msgstr ""
+msgstr "Error en llegir etiquetes del fitxer: «%s»"
 
 #: ../src/mpeg_header.c:64
 msgid "Stereo"
@@ -3004,525 +3010,536 @@ msgstr "Un sol canal"
 #. MPEG, Layer versions
 #: ../src/mpeg_header.c:194
 msgid "MPEG"
-msgstr ""
+msgstr "MPEG"
 
-#: ../src/ogg_header.c:85
+#. FIXME: Pass error back to calling function.
+#: ../src/ogg_header.c:227
+#, c-format
+msgid "Error while opening file: '%s' (%s)"
+msgstr "Error mentre s'obre el fitxer: «%s» (%s)"
+
+#: ../src/ogg_header.c:243
 #, c-format
 msgid ""
 "Ogg Vorbis: The specified bitstream does not exist or the file has been "
 "initialized improperly (file: '%s')."
 msgstr ""
+"Vorbis Ogg: el flux de bits especificat no existeix o el fitxer s'ha "
+"inicialitzat de forma indeguda (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:116
+#: ../src/ogg_header.c:279
 #, c-format
 msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
-msgstr ""
+msgstr "Vorbis Ogg: la lectura del suport ha donat un error (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:119
+#: ../src/ogg_header.c:282
 #, c-format
 msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
-msgstr ""
+msgstr "Vorbis Ogg: el flux de bits no són dades Vorbis (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:122
+#: ../src/ogg_header.c:285
 #, c-format
 msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
-msgstr ""
+msgstr "Vorbis Ogg: la versió Vorbis no coincideix (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:125
+#: ../src/ogg_header.c:288
 #, c-format
 msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
-msgstr ""
+msgstr "Vorbis Ogg: capçalera de flux de bits Vorbis invàlida (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:128
+#: ../src/ogg_header.c:291
 #, c-format
 msgid ""
 "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack corruption "
 "(file: '%s')."
 msgstr ""
+"Vorbis Ogg: fallada lògica interna, indica un error o corrupció a la memòria/"
+"pila (fitxer: «%s»)."
 
-#: ../src/ogg_header.c:180 ../src/ogg_tag.c:187 ../src/ogg_tag.c:690
+#: ../src/ogg_header.c:337
 #, c-format
 msgid "Error: Failed to open file: '%s' as Vorbis (%s)."
-msgstr ""
+msgstr "Error: Fallada en obrir el fitxer: «%s» com Vorbis (%s)."
 
-#: ../src/ogg_tag.c:169
+#: ../src/picture.c:244 ../src/picture.c:269
 #, c-format
-msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
-msgstr ""
+msgid "Image file not loaded: %s"
+msgstr "Fitxer d'imatge no carregada: %s"
 
-#: ../src/picture.c:301
-msgid "Add images"
+#: ../src/picture.c:261
+#, c-format
+msgid "Cannot open file: '%s'"
+msgstr "No es pot obrir el fitxer: «%s»"
+
+#: ../src/picture.c:265
+msgid "Image File Error"
+msgstr "Error al fitxer imatge"
+
+#: ../src/picture.c:276
+msgid "Image file loaded"
+msgstr "S'ha carregat el fitxer d'imatge"
+
+#: ../src/picture.c:334
+msgid "Add Images"
 msgstr "Afegeix imatges"
 
-#: ../src/picture.c:311 ../src/picture.c:636
+#: ../src/picture.c:344 ../src/picture.c:701
 msgid "All Files"
 msgstr "Tots els fitxers"
 
-#: ../src/picture.c:317 ../src/picture.c:642
+#: ../src/picture.c:350 ../src/picture.c:707
 msgid "PNG and JPEG"
 msgstr "PNG i JPEG"
 
-#: ../src/picture.c:425
+#: ../src/picture.c:477
 #, c-format
 msgid "Image Properties %d/%d"
-msgstr ""
+msgstr "Propietats d'imatge %d/%d"
 
-#: ../src/picture.c:448
+#: ../src/picture.c:503
 msgid "Image Type"
-msgstr ""
+msgstr "Tipus d'imatge"
 
 #. Description of the picture
-#: ../src/picture.c:505
+#: ../src/picture.c:561
 msgid "Image Description:"
 msgstr "Descripció de la imatge:"
 
-#: ../src/picture.c:623
+#: ../src/picture.c:688
 #, c-format
-msgid "Save image %d/%d"
-msgstr ""
+msgid "Save Image %d/%d"
+msgstr "Desa la imatge %d/%d"
 
-#: ../src/picture.c:702
+#: ../src/picture.c:763
 #, c-format
-msgid "The following file already exists: '%s'"
-msgstr ""
+msgid "Image file not saved: %s"
+msgstr "Fitxer d'imatge no desat: %s"
 
-#: ../src/picture.c:704
-msgid "Do you want to save anyway, overwriting the file?"
-msgstr ""
-
-#: ../src/picture.c:706
-msgid "Save"
-msgstr "Desa"
-
-#: ../src/picture.c:783
+#: ../src/picture.c:846
 msgid "JPEG image"
 msgstr "Imatge JPEG"
 
-#: ../src/picture.c:785
+#: ../src/picture.c:848
 msgid "PNG image"
 msgstr "Imatge PNG"
 
-#: ../src/picture.c:787
+#: ../src/picture.c:850
+msgid "GIF image"
+msgstr "Imatge GIF"
+
+#: ../src/picture.c:852
 msgid "Unknown image"
-msgstr ""
+msgstr "Imatge desconeguda"
 
-#: ../src/picture.c:799
+#: ../src/picture.c:864
 msgid "32x32 pixel PNG file icon"
-msgstr ""
+msgstr "Icona de fitxer PNG de 32x32 píxels"
 
-#: ../src/picture.c:801
+#: ../src/picture.c:866
 msgid "Other file icon"
-msgstr ""
+msgstr "Altre fitxer icona"
 
-#: ../src/picture.c:803
+#: ../src/picture.c:868
 msgid "Cover (front)"
-msgstr ""
+msgstr "Cobertura (frontal)"
 
-#: ../src/picture.c:805
+#: ../src/picture.c:870
 msgid "Cover (back)"
-msgstr ""
+msgstr "Cobertura (darrera)"
 
-#: ../src/picture.c:807
+#: ../src/picture.c:872
 msgid "Leaflet page"
-msgstr ""
+msgstr "Pàgina del llibret"
 
-#: ../src/picture.c:809
+#: ../src/picture.c:874
 msgid "Media (e.g. label side of CD)"
-msgstr ""
+msgstr "Suport (ex. etiqueta de cara de CD)"
 
-#: ../src/picture.c:811
+#: ../src/picture.c:876
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Artista líder/intèrpret líder/solista"
 
-#: ../src/picture.c:813
+#: ../src/picture.c:878
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista / Interpret"
 
-#: ../src/picture.c:815
+#: ../src/picture.c:880
 msgid "Conductor"
 msgstr "Conductor"
 
-#: ../src/picture.c:817
+#: ../src/picture.c:882
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda / Orquesta"
 
-#: ../src/picture.c:821
+#: ../src/picture.c:886
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Lletrista"
 
-#: ../src/picture.c:823
+#: ../src/picture.c:888
 msgid "Recording location"
-msgstr ""
+msgstr "Lloc d'enregistrament"
 
-#: ../src/picture.c:825
+#: ../src/picture.c:890
 msgid "During recording"
-msgstr ""
+msgstr "Durada de l'enregistrament"
 
-#: ../src/picture.c:827
+#: ../src/picture.c:892
 msgid "During performance"
-msgstr ""
+msgstr "Mentre s'executa"
 
-#: ../src/picture.c:829
+#: ../src/picture.c:894
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Captura de pantalla del vídeo/film"
 
-#: ../src/picture.c:831
+#: ../src/picture.c:896
 msgid "A bright colored fish"
-msgstr ""
+msgstr "Un peix brillant acolorit"
 
-#: ../src/picture.c:833
+#: ../src/picture.c:898
 msgid "Illustration"
 msgstr "Il·lustració"
 
-#: ../src/picture.c:835
+#: ../src/picture.c:900
 msgid "Band/Artist logotype"
-msgstr ""
+msgstr "Logotip de la banda / artista"
 
-#: ../src/picture.c:837
+#: ../src/picture.c:902
 msgid "Publisher/studio logotype"
-msgstr ""
+msgstr "Logotip de l'estudi / editor"
 
-#: ../src/picture.c:841
+#: ../src/picture.c:906
 msgid "Unknown image type"
-msgstr ""
+msgstr "Tipus d'imatge desconeguda"
 
-#: ../src/picture.c:871 ../src/picture.c:882
+#: ../src/picture.c:936 ../src/picture.c:947
 msgid "pixels"
 msgstr "píxels"
 
-#: ../src/picture.c:872 ../src/picture.c:883
+#: ../src/picture.c:937 ../src/picture.c:948
 msgid "Type"
 msgstr "Tipus"
 
-#: ../src/picture.c:884
+#: ../src/picture.c:949
 msgid "Description"
 msgstr "Descripció"
 
-#: ../src/picture.c:940
+#: ../src/picture.c:1005
 #, c-format
 msgid "Error with 'loader_close': %s"
-msgstr ""
+msgstr "Error amb «loader_close»: %s"
 
-#: ../src/picture.c:998
+#: ../src/picture.c:1065
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer."
 msgstr ""
+"No es mostrarà la imatge ja que no s'han llegit prou dades per determinar "
+"com crear la imatge de la memòria intermèdia."
 
-#: ../src/picture.c:1005
+#: ../src/picture.c:1072
 msgid "Cannot display the image"
-msgstr ""
+msgstr "No es mostrarà la imatge"
 
-#: ../src/picture.c:1007
+#: ../src/picture.c:1074
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
+"No s'han llegit prou dades per determinar com crear la imatge de la memòria "
+"intermèdia."
 
-#: ../src/picture.c:1009
+#: ../src/picture.c:1076
 msgid "Load Image File"
-msgstr ""
+msgstr "Carrega el fitxer imatge"
 
-#: ../src/picture.c:1015
+#: ../src/picture.c:1082
 #, c-format
 msgid "Error with 'loader_write': %s"
-msgstr ""
-
-#: ../src/picture.c:1107 ../src/picture.c:1137 ../src/picture.c:1158
-#, c-format
-msgid "Image file not loaded: %s"
-msgstr ""
-
-#: ../src/picture.c:1130
-#, c-format
-msgid "Cannot open file: '%s'"
-msgstr ""
-
-#: ../src/picture.c:1133
-msgid "Image File Error"
-msgstr ""
-
-#: ../src/picture.c:1171
-msgid "Image file loaded"
-msgstr ""
-
-#: ../src/picture.c:1188 ../src/picture.c:1196
-#, c-format
-msgid "Image file cannot be saved: %s"
-msgstr ""
-
-#. File Browser frame
-#: ../src/prefs.c:150
-msgid "File Browser"
-msgstr ""
+msgstr "Error amb «loader_write»: %s"
 
 #. Label
-#: ../src/prefs.c:161
+#: ../src/prefs.c:152
 msgid "Default directory:"
-msgstr ""
+msgstr "Directori per defecte:"
 
-#: ../src/prefs.c:174
+#: ../src/prefs.c:165
 msgid ""
 "Specify the directory where your files are located. This path will be loaded "
 "when EasyTAG starts without parameter."
 msgstr ""
+"Especifiqueu el directori on voleu posar els fitxers. Aquest camí es "
+"carregarà quan EasyTAG s'inicie sense cap paràmetre."
 
 #. Load directory on startup
-#: ../src/prefs.c:195
+#: ../src/prefs.c:186
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
+"Carrega a l'inici el directori per defecte o el directori passat com argument"
 
-#: ../src/prefs.c:198
+#: ../src/prefs.c:189
 msgid ""
 "Automatically search files, when EasyTAG starts, into the default directory. "
 "Note that this path may be overridden by the parameter passed to easytag "
 "(easytag /path_to/mp3_files)."
 msgstr ""
+"Quan EasyTAG s'inicia cerca fitxers de forma automàtica al directori per "
+"defecte. Nota per avisar que aquest camí pot ser sobreescrit pel paràmetre "
+"passat a easytag (easytag /camí a/fitxers_mp3)."
 
 #. Browse subdirectories
-#: ../src/prefs.c:203
+#: ../src/prefs.c:194
 msgid "Search subdirectories"
-msgstr ""
+msgstr "Cerca subdirectoris"
 
-#: ../src/prefs.c:206
+#: ../src/prefs.c:197
 msgid "Search subdirectories for files when reading a directory into the tree."
 msgstr ""
+"Cerca subdirectoris per als fitxers quan es llegeix un directori dins d'un "
+"arbre de fitxers."
 
 #. Open the node to show subdirectories
-#: ../src/prefs.c:210
+#: ../src/prefs.c:201
 msgid "Show subdirectories when selecting a directory"
-msgstr ""
+msgstr "Mostra subdirectoris quan es seleccioni un directori"
 
-#: ../src/prefs.c:214
+#: ../src/prefs.c:205
 msgid ""
 "This expands the selected node into the file browser to display the sub-"
 "directories."
 msgstr ""
+"Això expandeix el node seleccionat dins del navegador de fitxers per mostrar "
+"els subdirectoris."
 
 #. Browse hidden directories
-#: ../src/prefs.c:218
+#: ../src/prefs.c:209
 msgid "Search hidden directories"
-msgstr ""
+msgstr "Cerca directoris amagats"
 
-#: ../src/prefs.c:223
+#: ../src/prefs.c:214
 msgid "Search hidden directories for files (directories starting by a '.')."
 msgstr ""
+"Cerca directoris amagats per als fitxers (directoris que comencin per «.»)"
 
 #.
 #. * Misc
 #.
-#: ../src/prefs.c:231 ../src/prefs.c:232
+#: ../src/prefs.c:222
 msgid "Misc"
 msgstr "Miscel·lània"
 
 #. User interface
-#: ../src/prefs.c:242
+#: ../src/prefs.c:228
 msgid "User Interface"
 msgstr "Interfície d'usuari"
 
 #. Show header infos
-#: ../src/prefs.c:249
+#: ../src/prefs.c:235
 msgid "Show header information of file"
-msgstr ""
+msgstr "Mostra la capçalera d'informació del fitxer"
 
-#: ../src/prefs.c:252
+#: ../src/prefs.c:238
 msgid ""
 "If activated, information about the file as the bitrate, the time, the size, "
 "will be displayed under the filename entry."
 msgstr ""
+"Si s'habilita, la informació sobre el fitxer com la taxa de bits, la data, "
+"la mida es mostrarà sota l'entrada del nom."
 
-#: ../src/prefs.c:259
+#: ../src/prefs.c:244
 msgid "Display changed files in list using:"
-msgstr ""
+msgstr "Mostra els fitxers canviats a la llista emprant:"
 
-#: ../src/prefs.c:262
+#: ../src/prefs.c:247
 msgid "Red color"
-msgstr ""
+msgstr "Color vermell"
 
-#: ../src/prefs.c:268
+#: ../src/prefs.c:253
 msgid "Bold style"
-msgstr ""
+msgstr "Estil en negreta"
 
 #. Sorting List Options
-#: ../src/prefs.c:274
+#: ../src/prefs.c:259
 msgid "Sorting List Options"
-msgstr ""
+msgstr "Llista d'opcions en ordenació"
 
 #. Sorting method
-#: ../src/prefs.c:284
+#: ../src/prefs.c:268
 msgid "Sort the file list by:"
-msgstr ""
+msgstr "Ordena la llista per:"
+
+#: ../src/prefs.c:278
+msgid "Ascending filename"
+msgstr "Nom de fitxer ascendent"
+
+#: ../src/prefs.c:280
+msgid "Descending filename"
+msgstr "Nom de fitxer descendent"
+
+#: ../src/prefs.c:281
+msgid "Ascending title"
+msgstr "Títol ascendent"
+
+#: ../src/prefs.c:282
+msgid "Descending title"
+msgstr "Títol descendent"
+
+#: ../src/prefs.c:283
+msgid "Ascending artist"
+msgstr "Artista ascendent"
+
+#: ../src/prefs.c:284
+msgid "Descending artist"
+msgstr "Artista descendent"
+
+#: ../src/prefs.c:286
+msgid "Ascending album artist"
+msgstr "Artista de l'àlbum ascendent"
+
+#: ../src/prefs.c:288
+msgid "Descending album artist"
+msgstr "Artista de l'àlbum descendent"
+
+#: ../src/prefs.c:289
+msgid "Ascending album"
+msgstr "Àlbum ascendent"
+
+#: ../src/prefs.c:290
+msgid "Descending album"
+msgstr "Àlbum descendent"
+
+#: ../src/prefs.c:291
+msgid "Ascending year"
+msgstr "Any ascendent"
+
+#: ../src/prefs.c:292
+msgid "Descending year"
+msgstr "Any descendent"
 
 #: ../src/prefs.c:294
-msgid "Ascending filename"
-msgstr ""
+msgid "Ascending disc number"
+msgstr "Nombre de disc ascendent"
 
 #: ../src/prefs.c:296
-msgid "Descending filename"
-msgstr ""
-
-#: ../src/prefs.c:297
-msgid "Ascending title"
-msgstr ""
+msgid "Descending disc number"
+msgstr "Nombre de disc descendent"
 
 #: ../src/prefs.c:298
-msgid "Descending title"
-msgstr ""
-
-#: ../src/prefs.c:299
-msgid "Ascending artist"
-msgstr ""
+msgid "Ascending track number"
+msgstr "Nombre de pista ascendent"
 
 #: ../src/prefs.c:300
-msgid "Descending artist"
-msgstr ""
+msgid "Descending track number"
+msgstr "Nombre de pista descendent"
+
+#: ../src/prefs.c:301
+msgid "Ascending genre"
+msgstr "Genere ascendent"
 
 #: ../src/prefs.c:302
-#, fuzzy
-#| msgid "Album Artist"
-msgid "Ascending album artist"
-msgstr "Artista de l'àlbum"
+msgid "Descending genre"
+msgstr "Genere descendent"
+
+#: ../src/prefs.c:303
+msgid "Ascending comment"
+msgstr "Comentari ascendent"
 
 #: ../src/prefs.c:304
-msgid "Descending album artist"
-msgstr ""
-
-#: ../src/prefs.c:305
-msgid "Ascending album"
-msgstr ""
+msgid "Descending comment"
+msgstr "Comentari descendent"
 
 #: ../src/prefs.c:306
-msgid "Descending album"
-msgstr ""
-
-#: ../src/prefs.c:307
-msgid "Ascending year"
-msgstr ""
+msgid "Ascending composer"
+msgstr "Compositor ascendent"
 
 #: ../src/prefs.c:308
-msgid "Descending year"
-msgstr ""
+msgid "Descending composer"
+msgstr "Compositor descendent"
 
 #: ../src/prefs.c:310
-msgid "Ascending disc number"
-msgstr ""
+msgid "Ascending original artist"
+msgstr "Artista original ascendent"
 
 #: ../src/prefs.c:312
-msgid "Descending disc number"
-msgstr ""
+msgid "Descending original artist"
+msgstr "Artista original descendent"
 
 #: ../src/prefs.c:314
-msgid "Ascending track number"
-msgstr ""
+msgid "Ascending copyright"
+msgstr "Copyright ascendent"
 
 #: ../src/prefs.c:316
-msgid "Descending track number"
-msgstr ""
-
-#: ../src/prefs.c:317
-msgid "Ascending genre"
-msgstr ""
+msgid "Descending copyright"
+msgstr "Copyright descendent"
 
 #: ../src/prefs.c:318
-msgid "Descending genre"
-msgstr ""
-
-#: ../src/prefs.c:319
-msgid "Ascending comment"
-msgstr ""
+msgid "Ascending URL"
+msgstr "URL ascendent"
 
 #: ../src/prefs.c:320
-msgid "Descending comment"
-msgstr ""
+msgid "Descending URL"
+msgstr "URL descendent"
 
 #: ../src/prefs.c:322
-msgid "Ascending composer"
-msgstr ""
+msgid "Ascending encoded by"
+msgstr "Codificat per ascendent"
 
 #: ../src/prefs.c:324
-msgid "Descending composer"
-msgstr ""
+msgid "Descending encoded by"
+msgstr "Codificat per descendent"
 
 #: ../src/prefs.c:326
-msgid "Ascending original artist"
-msgstr ""
+msgid "Ascending creation date"
+msgstr "Creació de data ascendent"
 
 #: ../src/prefs.c:328
-msgid "Descending original artist"
-msgstr ""
-
-#: ../src/prefs.c:330
-msgid "Ascending copyright"
-msgstr ""
+msgid "Descending creation date"
+msgstr "Creació de data descendent"
 
 #: ../src/prefs.c:332
-msgid "Descending copyright"
-msgstr ""
-
-#: ../src/prefs.c:334
-msgid "Ascending URL"
-msgstr ""
-
-#: ../src/prefs.c:336
-msgid "Descending URL"
-msgstr ""
-
-#: ../src/prefs.c:338
-msgid "Ascending encoded by"
-msgstr ""
-
-#: ../src/prefs.c:340
-msgid "Descending encoded by"
-msgstr ""
-
-#: ../src/prefs.c:342
-msgid "Ascending creation date"
-msgstr ""
-
-#: ../src/prefs.c:344
-msgid "Descending creation date"
-msgstr ""
-
-#: ../src/prefs.c:348
 msgid "Select the type of file sorting when loading a directory."
 msgstr ""
+"Selecciona el tipus d'ordenació del fitxer quan es carregui un directori"
 
-#: ../src/prefs.c:360
+#: ../src/prefs.c:344
 msgid "If activated, the sorting of the list will be dependent on the case."
-msgstr ""
+msgstr "Si s'habilita, l'ordenació de la llista dependrà de la caixa."
 
 #. File Player
-#: ../src/prefs.c:364
+#: ../src/prefs.c:348
 msgid "File Audio Player"
-msgstr ""
+msgstr "Reproductor d'àudio fitxers"
 
-#: ../src/prefs.c:376
+#: ../src/prefs.c:360
 msgid "Player to run:"
-msgstr ""
+msgstr "Reproductor a executar:"
 
-#: ../src/prefs.c:382
+#: ../src/prefs.c:366
 msgid ""
 "Enter the program used to play the files. Some arguments can be passed for "
 "the program (as 'xmms -p') before to receive files as other arguments."
 msgstr ""
+"Entreu el programa usat per reproduir fitxers. Alguns arguments poden ser "
+"passats al programa (com «xmms -p») abans de rebre els fitxers amb altres "
+"arguments."
 
 #. Log options
-#: ../src/prefs.c:400
+#: ../src/prefs.c:384
 msgid "Log Options"
-msgstr ""
+msgstr "Opcions de registre"
 
 #. Show / hide log view
-#: ../src/prefs.c:407
+#: ../src/prefs.c:391
 msgid "Show log view in main window"
-msgstr ""
+msgstr "Mostra la visualització del registre a la finestra principal"
 
-#: ../src/prefs.c:410
+#: ../src/prefs.c:394
 msgid "If activated, the log view would be visible in the main window."
 msgstr ""
+"Si s'habilita, el registre mostrat serà visible a la finestra principal."
 
-#: ../src/prefs.c:417
+#: ../src/prefs.c:400
 msgid "Max number of lines:"
-msgstr ""
+msgstr "Màxim nombre de línies:"
 
 #. g_signal_connect(G_OBJECT(NumberTrackFormated),"toggled",G_CALLBACK(Number_Track_Formatted_Toggled),NULL);
 #. * g_signal_emit_by_name(G_OBJECT(NumberTrackFormated),"toggled");
@@ -3533,74 +3550,83 @@ msgstr ""
 #.
 #. * File Settings
 #.
-#: ../src/prefs.c:435 ../src/prefs.c:436
+#: ../src/prefs.c:418
 msgid "File Settings"
-msgstr ""
+msgstr "Configuració del fitxer"
 
 #. File (name) Options
-#: ../src/prefs.c:446
+#: ../src/prefs.c:424
 msgid "File Options"
-msgstr ""
+msgstr "Opcions del fitxer"
 
-#: ../src/prefs.c:452
+#: ../src/prefs.c:430
 msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgstr ""
+"Substitueix caràcters il·legals al nom del fitxer (per Windows i CD-Rom)"
 
-#: ../src/prefs.c:455
+#: ../src/prefs.c:433
 msgid ""
 "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
 "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
 "problem when renaming the file. This is useful when renaming the file from "
 "the tag with the scanner."
 msgstr ""
+"Converteix caràcters il·legals per a FAT32/16 i ISO9660 + Sistemes de "
+"fitxers Windows ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') del nom del "
+"fitxer per evitar problemes quan es canvii el nom del fitxer. Això és útil "
+"quan es canvia el nom de l'etiqueta amb l'escàner."
 
 #. Extension case (lower/upper?)
-#: ../src/prefs.c:464
+#: ../src/prefs.c:441
 msgid "Convert filename extension to:"
-msgstr ""
+msgstr "Converteix l'extensió nom del fitxer a:"
 
-#: ../src/prefs.c:467
+#: ../src/prefs.c:444
 msgid "Lower Case"
-msgstr ""
+msgstr "Minúscules"
 
-#: ../src/prefs.c:470
+#: ../src/prefs.c:447
 msgid "For example, the extension will be converted to '.mp3'"
-msgstr ""
+msgstr "Per exemple, l'extensió es convertirà a «.mp3»"
 
-#: ../src/prefs.c:473
+#: ../src/prefs.c:450
 msgid "Upper Case"
-msgstr ""
+msgstr "Majúscules"
 
-#: ../src/prefs.c:476
+#: ../src/prefs.c:453
 msgid "For example, the extension will be converted to '.MP3'"
-msgstr ""
+msgstr "Per exemple, l'extensió es convertirà a «.MP3»"
 
-#: ../src/prefs.c:479
+#: ../src/prefs.c:456
 msgid "No Change"
-msgstr ""
+msgstr "Sense canvis"
 
-#: ../src/prefs.c:482
+#: ../src/prefs.c:459
 msgid "The extension will not be converted"
-msgstr ""
+msgstr "L'extensió no es canviarà"
 
 #. Preserve modification time
-#: ../src/prefs.c:485
+#: ../src/prefs.c:462
 msgid "Preserve modification time of the file"
-msgstr ""
+msgstr "Preserva la data de modificació del fitxer"
 
-#: ../src/prefs.c:488
+#: ../src/prefs.c:465
 msgid ""
 "Preserve the modification time (in file properties) when saving the file."
 msgstr ""
+"Preserva la data de modificació (a les propietats del fitxer) quan es desi "
+"el fitxer."
 
 #. Change directory modification time
-#: ../src/prefs.c:492
+#: ../src/prefs.c:469
 msgid ""
 "Update modification time of the parent directory of the file (recommended "
 "when using Amarok)"
 msgstr ""
+"Actualitza la data de modificació del directori pare del fitxer (recomanat "
+"quan s'està usant Amarok)"
 
-#: ../src/prefs.c:496
+#: ../src/prefs.c:473
 msgid ""
 "The modification time of the parent directory of the file will be updated "
 "when saving tag the file. At the present time it is automatically done only "
@@ -3609,301 +3635,351 @@ msgid ""
 "performance reasons, they refresh file information by detecting changes of "
 "the parent directory."
 msgstr ""
+"La modificació de la data del directori pare del fitxer s'actualitzarà quan "
+"es desi l'etiqueta del fitxer. Actualment això es fa de forma automàtica "
+"quan es canvia el nom al fitxer.\n"
+"Aquesta característica  es interessant quan s'usen aplicacions com Amarok. "
+"Per motius de rendiment, es refresca la informació del fitxer per detectar "
+"canvis al directori pare."
 
 #. Character Set for Filename
-#: ../src/prefs.c:504
+#: ../src/prefs.c:481
 msgid "Character Set for Filename"
-msgstr ""
+msgstr "Joc de caràcters per al nom del fitxer"
 
 #. Rules for character set
-#: ../src/prefs.c:520
+#: ../src/prefs.c:493
 msgid ""
 "Rules to apply if some characters can't be converted to the system character "
 "encoding when writing filename:"
 msgstr ""
+"Regles a aplicar quan alguns caràcters no es puguin convertir a la "
+"codificació de caràcters del sistema quan s'escrigui el nom del fitxer:"
 
-#: ../src/prefs.c:528
+#: ../src/prefs.c:499
 msgid "Try another character encoding"
-msgstr ""
+msgstr "Prova una altra codificació de caràcters"
 
-#: ../src/prefs.c:532
+#: ../src/prefs.c:503
 msgid ""
 "With this option, it will try the conversion to the encoding associated to "
 "your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', ISO-8859-2 "
 "for 'ro'). If it fails, it will try the character encoding ISO-8859-1."
 msgstr ""
+"Amb aquesta opció, s'intentarà la conversió a la codificació associada a la "
+"vostra configuració local (per exemple:  ISO-8859-1 per «fr», KOI8-R per "
+"«ru», ISO-8859-2 per «ro»). Si això falla, s'intentarà usar la codificació "
+"ISO-8859-1."
 
-#: ../src/prefs.c:539
+#: ../src/prefs.c:510
 msgid ""
 "Force using the system character encoding and activate the transliteration"
 msgstr ""
+"Força l'ús de la codificació de caràcters del sistema i activa la "
+"transliteració"
 
-#: ../src/prefs.c:543 ../src/prefs.c:863 ../src/prefs.c:935
+#: ../src/prefs.c:514 ../src/prefs.c:844 ../src/prefs.c:913
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it can be approximated through one or several similarly "
 "looking characters."
 msgstr ""
+"Amb aquesta acció, quan no es pot representar per un element del conjunt de "
+"caràcters, aquest pot ser aproximat per un o més semblants."
 
-#: ../src/prefs.c:549
+#: ../src/prefs.c:520
 msgid ""
 "Force using the system character encoding and silently discard some "
 "characters"
 msgstr ""
+"Força l'ús de la codificació de caràcters del sistema i de forma silenciosa "
+"descarta alguns caràcters."
 
-#: ../src/prefs.c:553 ../src/prefs.c:873 ../src/prefs.c:945
+#: ../src/prefs.c:524 ../src/prefs.c:854 ../src/prefs.c:923
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it will be silently discarded."
 msgstr ""
+"Amb aquest opció, quan un caràcter no es pugui trobar representat amb el "
+"conjunt de caràcters, serà descartat de forma silenciosa."
 
 #.
 #. * Tag Settings
 #.
-#: ../src/prefs.c:562 ../src/prefs.c:563
+#: ../src/prefs.c:533
 msgid "Tag Settings"
-msgstr ""
+msgstr "Configuracions de l'etiqueta"
 
 #. Tag Options
-#: ../src/prefs.c:572
+#: ../src/prefs.c:539
 msgid "Tag Options"
-msgstr ""
+msgstr "Opcions de l'etiqueta"
 
-#: ../src/prefs.c:578
+#: ../src/prefs.c:545
 msgid "Auto completion of date if not complete"
-msgstr ""
+msgstr "Auto compleció de la data si no està completa"
 
-#: ../src/prefs.c:581
+#: ../src/prefs.c:548
 msgid ""
 "Try to complete the year field if you enter only the last numerals of the "
 "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 => "
 "1996, 95 => 1995…)."
 msgstr ""
+"Intentarà completar el camp any si entreu sols el darreres números de la "
+"data (per exemple, si l'any és  2005: 5 => 2005, 4 => 2004, 6 => 1996, 95 => "
+"1995…)."
 
-#: ../src/prefs.c:588
+#: ../src/prefs.c:556
 msgid "Write the track field with the following number of digits:"
-msgstr ""
+msgstr "Escriu el camp de la pista amb el següent nombre de dígits:"
 
-#: ../src/prefs.c:591
+#: ../src/prefs.c:559
 msgid ""
 "If activated, the track field is written using the number '0' as padding to "
 "obtain a number with 'n' digits (for example, with two digits: '05', '09', "
 "'10'…). Else it keeps the 'raw' track value."
 msgstr ""
+"Si s'habilita, el camp de la pista s'escriu usant el número «0» com "
+"farciment per obtenir un nombre amb «n» digits ( per exemple, amb dos "
+"digits:  «05», «09», «10»…). En cas contrari manté el valor de la pista en "
+"brut."
 
-#: ../src/prefs.c:616
+#: ../src/prefs.c:578
+msgid "Write the disc field with the following number of digits:"
+msgstr "Escriu el camp disc amb els següents digits:"
+
+#: ../src/prefs.c:583
+msgid "Whether to pad the disc field with leading zeroes"
+msgstr "Si s'omple el camp del disc amb zeros inicials."
+
+#: ../src/prefs.c:613
 msgid ""
 "Tag field focus when switching files in list with shortcuts Page Up/Page "
 "Down:"
 msgstr ""
+"Posa el focus al camp etiqueta quan es canvien els fitxers a la llista amb "
+"el accessos directes Pàgina amunt / Pàgina avall"
+
+#: ../src/prefs.c:619
+msgid "Keep focus to the same tag field"
+msgstr "Manté el focus al mateix camp etiqueta"
 
 #: ../src/prefs.c:625
-msgid "Keep focus to the same tag field"
-msgstr ""
-
-#: ../src/prefs.c:631
 msgid "Return focus to the first tag field (i.e. 'Title' field)"
 msgstr ""
+"Torna el focus al primer camp de la primera etiqueta (ex. camp «Títol»)"
 
 #. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(SetFocusToFirstTagField),SET_FOCUS_TO_FIRST_TAG_FIELD);
 #. Tag Splitting
-#: ../src/prefs.c:636
+#: ../src/prefs.c:630
 msgid "Tag Splitting"
-msgstr ""
+msgstr "Divisió d'etiquetes"
 
-#: ../src/prefs.c:643
+#: ../src/prefs.c:639
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
 msgstr ""
+"Per a etiquetes de fitxers Vorbis, els camps seleccionats es dividiran on hi "
+"hagi un guió i es desaran en etiquetes separades"
 
-#: ../src/prefs.c:653
+#: ../src/prefs.c:649
 msgid "Original artist"
-msgstr ""
+msgstr "Artista original"
 
 #.
 #. * ID3 Tag Settings
 #.
-#: ../src/prefs.c:674 ../src/prefs.c:675
+#: ../src/prefs.c:670
 msgid "ID3 Tag Settings"
-msgstr ""
+msgstr "Paràmetres de l'etiqueta ID3"
 
 #. Tag Rules frame
-#: ../src/prefs.c:687
+#: ../src/prefs.c:679
 msgid "ID3 Tag Rules"
-msgstr ""
-
-#. Write ID3 tags in FLAC files
-#: ../src/prefs.c:699
-msgid "Write ID3 tags in FLAC files (in addition to FLAC tag)"
-msgstr ""
-
-#: ../src/prefs.c:702
-msgid ""
-"If activated, ID3 tags will be also added in the FLAC file (according the "
-"two rules above, plus the FLAC tag). Else ID3 tags will be stripped."
-msgstr ""
+msgstr "Regles de l'etiqueta ID3"
 
 #. Strip tag when fields (managed by EasyTAG) are empty
-#: ../src/prefs.c:707
+#: ../src/prefs.c:691
 msgid "Strip tags if all fields are set to blank"
-msgstr ""
+msgstr "Elimina les etiquetes si els camps estan configurats com buits"
 
-#: ../src/prefs.c:710
+#: ../src/prefs.c:694
 msgid ""
 "As ID3v2 tags may contain other data than Title, Artist, Album, Year, Track, "
 "Genre or Comment (as an attached image, lyrics…), this option allows you to "
 "strip the whole tag when these seven standard data fields have been set to "
 "blank."
 msgstr ""
+"Com les etiquetes ID3v2 poden contindre altres dades com Títol, Artista, "
+"Àlbum, Any, Pista, Gènere o Comentari ( com una imatge adjunta, "
+"lletres ...), aquesta opció us permet eliminar l'etiqueta sencera quan "
+"aquests set camps de dades s'han deixat buits."
 
 #. Convert old ID3v2 tag version
-#: ../src/prefs.c:716
+#: ../src/prefs.c:700
 msgid "Automatically convert old ID3v2 tag versions"
-msgstr ""
+msgstr "Converteix de forma automàtica velles versions d'etiquetes ID3v2"
 
-#: ../src/prefs.c:719
+#: ../src/prefs.c:703
 msgid ""
 "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to the "
 "ID3v2.3 version."
 msgstr ""
+"Si s'habilita, les etiquetes antigues ID3v2 s'actualitzaran a la nova versió "
+"ID3v2.3."
 
 #. Use CRC32
-#: ../src/prefs.c:723
+#: ../src/prefs.c:707
 msgid "Use CRC32"
-msgstr ""
+msgstr "Usa CRC32"
 
-#: ../src/prefs.c:726
+#: ../src/prefs.c:710
 msgid "Set CRC32 in the ID3v2 tags"
-msgstr ""
+msgstr "Configura CRC32 a les etiquetes ID3v2"
 
 #. Use Compression
-#: ../src/prefs.c:729
+#: ../src/prefs.c:713
 msgid "Use Compression"
-msgstr ""
+msgstr "Usa compressió"
 
-#: ../src/prefs.c:733
+#: ../src/prefs.c:717
 msgid "Set Compression in the ID3v2 tags"
-msgstr ""
+msgstr "Configura la compressió a les etiquetes ID3v2"
 
 #. Write Genre in text
-#: ../src/prefs.c:736
+#: ../src/prefs.c:720
 msgid "Write Genre in text only"
-msgstr ""
+msgstr "Escriu gènere sols en text"
 
-#: ../src/prefs.c:740
+#: ../src/prefs.c:724
 msgid ""
 "Don't use ID3v1 number references in genre tag. Enable this if you see "
 "numbers as genre in your music player."
 msgstr ""
+"No useu les referencies de nombre ID3v1 a l'etiqueta gènere. Habilita "
+"aquesta opció si veieu nombre com gènere al reproductor de música."
 
 #. Character Set for writing ID3 tag
-#: ../src/prefs.c:743
+#: ../src/prefs.c:727
 msgid "Character Set for writing ID3 tags"
-msgstr ""
+msgstr "Configura el caràcters per escriure etiquetes ID3"
 
 #. ID3v2 tags
-#: ../src/prefs.c:750
+#: ../src/prefs.c:734
 msgid "ID3v2 tags"
-msgstr ""
+msgstr "Etiquetes ID3v2"
 
 #. Write ID3v2 tag
-#: ../src/prefs.c:763
+#: ../src/prefs.c:747
 msgid "Write ID3v2 tag"
-msgstr ""
+msgstr "Escriu l'etiqueta ID3v2"
 
-#: ../src/prefs.c:766
+#: ../src/prefs.c:750
 msgid ""
 "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
 "the MP3 files. Else it will be stripped."
 msgstr ""
+"Si s'habilita, una etiqueta ID3v2.4 s'afegirà o s'actualitzarà al "
+"començament dels fitxers MP3. En cas contrari s'eliminarà."
 
 #. ID3v2 tag version
-#: ../src/prefs.c:773
+#: ../src/prefs.c:757
 msgid "Version:"
 msgstr "Versió:"
 
-#: ../src/prefs.c:779
+#: ../src/prefs.c:763
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 " - ID3v2.3 is written using id3lib,\n"
 " - ID3v2.4 is written using libid3tag (recommended)."
 msgstr ""
+"Selecciona la versió de l'etiqueta ID3v2 per escriure:\n"
+" - S'escriu ID3v2.3 en usar id3lib,\n"
+" - S'escriu ID3v2.4 en usar libid3tag (recomanat)."
 
 #. Charset
 #. Id3V1 writing character set
-#: ../src/prefs.c:794 ../src/prefs.c:901
+#: ../src/prefs.c:778 ../src/prefs.c:882
 msgid "Charset:"
-msgstr ""
+msgstr "Joc de caràcters:"
 
 #. Unicode
-#: ../src/prefs.c:802
+#: ../src/prefs.c:783
+#, fuzzy
+#| msgid "Unicode"
 msgid "Unicode "
-msgstr ""
+msgstr "Unicode"
 
-#: ../src/prefs.c:810
+#: ../src/prefs.c:791
 msgid "Unicode type to use"
-msgstr ""
+msgstr "Tipus Unicode a usar"
 
-#: ../src/prefs.c:834
+#: ../src/prefs.c:815
 msgid "Character set used to write the tag data in the file."
-msgstr ""
+msgstr "Joc de caràcters usat per escriure les dades de l'etiqueta al fitxer."
 
 #. ID3v2 Additional iconv() options
 #. ID3V1 Additional iconv() options
-#: ../src/prefs.c:844 ../src/prefs.c:916
+#: ../src/prefs.c:825 ../src/prefs.c:894
 msgid "Additional settings for iconv():"
-msgstr ""
+msgstr "Paràmetres addicionals per iconv():"
 
-#: ../src/prefs.c:850 ../src/prefs.c:922
+#: ../src/prefs.c:831 ../src/prefs.c:900
 msgid "No"
 msgstr "No"
 
-#: ../src/prefs.c:854 ../src/prefs.c:926
+#: ../src/prefs.c:835 ../src/prefs.c:904
 msgid ""
 "With this option, when a character cannot be represented in the target "
 "character set, it isn't changed. But note that an error message will be "
 "displayed for information."
 msgstr ""
+"Amb aquesta opció, quan un caràcter no es pot representar amb el conjunt de "
+"caràcters, no es canvia. Però fixeu-vos que es mostrarà un missatge d'error "
+"amb informació."
 
-#: ../src/prefs.c:859 ../src/prefs.c:931
+#: ../src/prefs.c:840 ../src/prefs.c:909
 msgid "//TRANSLIT"
-msgstr ""
+msgstr "//TRANSLITERA"
 
-#: ../src/prefs.c:869 ../src/prefs.c:941
+#: ../src/prefs.c:850 ../src/prefs.c:919
 msgid "//IGNORE"
-msgstr ""
+msgstr "//IGNORA"
 
 #. ID3v1 tags
-#: ../src/prefs.c:878
+#: ../src/prefs.c:859
 msgid "ID3v1 tags"
-msgstr ""
+msgstr "Etiquetes ID3v1"
 
 #. Write ID3v1 tag
-#: ../src/prefs.c:892
+#: ../src/prefs.c:873
 msgid "Write ID3v1.x tag"
-msgstr ""
+msgstr "Escriu l'etiqueta ID3v1.x"
 
-#: ../src/prefs.c:895
+#: ../src/prefs.c:876
 msgid ""
 "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
 "files. Else it will be stripped."
 msgstr ""
+"Si s'habilita, s'afegirà una etiqueta ID3v1 o s'actualitzarà al final dels "
+"fitxers MP3. En cas contrari s'eliminarà."
 
-#: ../src/prefs.c:912
+#: ../src/prefs.c:890
 msgid "Character set used to write ID3v1 tag data in the file."
 msgstr ""
+"Joc de caràcters usats per escriure les dades de l'etiqueta ID3v1 al fitxer."
 
 #. Character Set for reading tag
-#: ../src/prefs.c:950
+#: ../src/prefs.c:928
 msgid "Character Set for reading ID3 tags"
-msgstr ""
+msgstr "Joc de caràcters per llegir etiquetes ID3"
 
-#: ../src/prefs.c:964
+#: ../src/prefs.c:942
 msgid "Non-standard:"
-msgstr ""
+msgstr "No estàndard:"
 
-#: ../src/prefs.c:970
+#: ../src/prefs.c:948
 msgid ""
 "This character set will be used when reading the tag data, to convert each "
 "string found in an ISO-8859-1 field in the tag (for ID3v2 or/and ID3v1 "
@@ -3919,914 +3995,972 @@ msgid ""
 "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load tags "
 "written under Unix systems."
 msgstr ""
+"Aquest caràcter s'usarà quan es llegeixin dades de les etiquetes, es "
+"converteixi cada cadena trobada en un camp ISO-8859-1 d'etiqueta (per "
+"etiquetes D3v2 o/i ID3v1).\n"
+"\n"
+"Per exemple:\n"
+" - En versions anteriors de  EasyTAG, podíeu desar cadenes UTF-8 en un camp "
+"ISO-8859-1. Això  no és correcte. Per convertir aquestes etiquetes a "
+"Unicode: activa aquesta opció i selecciona UTF-8. Us caldrà activar l'opció "
+"«Intenta desar les etiquetes en ISO-8859-1. Si això no es possible llavors "
+"usa UNICODE (recomanat)» o «Desa sempre les etiquetes en jocs de caràcters "
+"UNICODE».\n"
+" - Si Unicode no s'usa la gent de Rússia pot seleccionar el joc de caràcters "
+"«Windows-1251» per carregar etiquetes escrites sota Windows. I «KOI8-R» per "
+"carregar etiquetes escrites sota sistemes Unix."
 
-#: ../src/prefs.c:988
+#: ../src/prefs.c:966
 msgid "Character set used to read tag data in the file."
-msgstr ""
+msgstr "Joc de caràcters usats per llegir dades d'etiquetes al fitxer."
 
 #.
 #. * Scanner
 #.
-#: ../src/prefs.c:1002 ../src/prefs.c:1003
+#: ../src/prefs.c:980
 msgid "Scanner"
 msgstr "Escàner"
 
 #. Character conversion for the 'Fill Tag' scanner (=> FTS...)
-#: ../src/prefs.c:1015
+#: ../src/prefs.c:990
 msgid "Fill Tag Scanner - Character Conversion"
-msgstr ""
+msgstr "Emplena etiquetes des de l'escànner  - Conversió de caràcters"
 
-#: ../src/prefs.c:1021 ../src/prefs.c:1046
+#: ../src/prefs.c:996 ../src/prefs.c:1021
 msgid "Convert underscore character '_' and string '%20' to space ' '"
-msgstr ""
+msgstr "Converteix el caràcter subratllat «_» i la cadena «%20» a l'espai « »"
 
-#: ../src/prefs.c:1023 ../src/prefs.c:1047
+#: ../src/prefs.c:998 ../src/prefs.c:1022
 msgid "Convert space ' ' to underscore '_'"
-msgstr ""
+msgstr "Converteix l'espai « » al subratllat «_»"
 
-#: ../src/prefs.c:1035 ../src/prefs.c:1037
+#: ../src/prefs.c:1010 ../src/prefs.c:1012
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for tags."
 msgstr ""
+"Si s'habilita, aquesta conversió s'usarà quan s'apliqui una màscara de "
+"l'escànner d'etiquetes."
 
 #. Character conversion for the 'Rename File' scanner (=> RFS...)
-#: ../src/prefs.c:1041
+#: ../src/prefs.c:1016
 msgid "Rename File Scanner - Character Conversion"
-msgstr ""
+msgstr "Canvia el nom al fitxer escanejat  - Conversió de caràcters"
 
-#: ../src/prefs.c:1058 ../src/prefs.c:1060 ../src/prefs.c:1062
+#: ../src/prefs.c:1033 ../src/prefs.c:1035 ../src/prefs.c:1037
 msgid ""
 "If activated, this conversion will be used when applying a mask from the "
 "scanner for filenames."
 msgstr ""
+"Si s'habilita, aquesta conversió s'usarà quan s'apliqui la mascarà a un nom "
+"de fitxer provenint de l'escànner."
 
 #. Character conversion for the 'Process Fields' scanner (=> PFS...)
-#: ../src/prefs.c:1065
+#: ../src/prefs.c:1040
 msgid "Process Fields Scanner - Character Conversion"
-msgstr ""
+msgstr "Processa camps escanejats - Conversió de caràcters"
 
 #. Don't convert some words like to, feat. first letter uppercase.
-#: ../src/prefs.c:1072
+#: ../src/prefs.c:1047
 msgid ""
 "Don't uppercase first letter of words for some prepositions and articles."
 msgstr ""
+"No posis en majúscules la primera lletra dels mots d'algunes preposicions i "
+"articles. "
 
-#: ../src/prefs.c:1076
+#: ../src/prefs.c:1051
 msgid ""
 "Don't convert first letter of words like prepositions, articles and words "
 "like feat., when using the scanner 'First letter uppercase of each "
 "word' (for example, you will obtain 'Text in an Entry' instead of 'Text In "
 "An Entry')."
 msgstr ""
+"No converteixi la primera lletra de les paraules com preposicions, articles "
+"i paraules en escanejar «Primera lletra majúscula de cada paraula» (per "
+"exemple, obtindrà «Text en una entrada» en comptes de « Text En Una entrada "
+"»)."
 
 #. Properties of the scanner window
-#: ../src/prefs.c:1082
+#: ../src/prefs.c:1057
 msgid "Scanner Window"
-msgstr ""
+msgstr "Finestra de l'escànner"
 
-#: ../src/prefs.c:1088
+#: ../src/prefs.c:1063
 msgid "Open the Scanner Window on startup"
-msgstr ""
+msgstr "Obre la finestra de l'escànner en iniciar"
 
-#: ../src/prefs.c:1091
+#: ../src/prefs.c:1066
 msgid ""
 "Activate this option to open automatically the scanner window when EasyTAG "
 "starts."
 msgstr ""
+"Activa aquesta opció per obrir de forma automàtica la finestra de l'escànner "
+"quan EasyTAG  s'inicie."
 
 #. Other options
-#: ../src/prefs.c:1096
+#: ../src/prefs.c:1071
 msgid "Fields"
-msgstr ""
+msgstr "Camps"
 
 #. Overwrite text into tag fields
-#: ../src/prefs.c:1103
+#: ../src/prefs.c:1078
 msgid "Overwrite fields when scanning tags"
-msgstr ""
+msgstr "Sobreescriu els camps quan s'escanegin etiquetes"
 
-#: ../src/prefs.c:1106
+#: ../src/prefs.c:1081
 msgid ""
 "If activated, the scanner will replace existing text in fields by the new "
 "one. If deactivated, only blank fields of the tag will be filled."
 msgstr ""
+"Si s'habilita, l'escànner reemplaçarà el camp existent a les etiquetes per "
+"un nou. Si es deshabilita, sols els camps en blanc s'ompliran."
 
-#: ../src/prefs.c:1117
+#: ../src/prefs.c:1092
 msgid "Set this text as default comment:"
-msgstr ""
+msgstr "Estableix aquest text com comentari per defecte:"
 
-#: ../src/prefs.c:1120
+#: ../src/prefs.c:1095
 msgid ""
 "Activate this option if you want to put the following string into the "
 "comment field when using the 'Fill Tag' scanner."
 msgstr ""
+"Habiliteu aquesta opció si voleu posar la següent cadena dins del camp del "
+"comentari quan s'usi «Emplena etiquetes» des de l'escànner."
 
 #. CRC32 comment
-#: ../src/prefs.c:1138
+#: ../src/prefs.c:1113
 msgid "Use CRC32 as the default comment (for files with ID3 tags only)."
 msgstr ""
+"Usa CRC32 com comentari per defecte (sols per als fitxers amb etiquetes ID3)."
 
-#: ../src/prefs.c:1142
+#: ../src/prefs.c:1117
 msgid ""
 "Calculates the CRC-32 value of the file and writes it into the comment field "
 "when using the 'Fill Tag' scanner."
 msgstr ""
+"Calcula el valor CRC-32 de la fila i ho escriu dins del camp del comentari "
+"quan s'usi el «Emplena etiquetes» des de l'escànner."
 
 #.
 #. * CDDB
 #.
-#: ../src/prefs.c:1153 ../src/prefs.c:1154
-msgid "CD Data Base"
-msgstr ""
+#: ../src/prefs.c:1128
+msgid "CDDB"
+msgstr "CDDB"
 
 #. CDDB Server Settings (Automatic Search)
-#: ../src/prefs.c:1163
+#: ../src/prefs.c:1134
 msgid "Server Settings for Automatic Search"
-msgstr ""
+msgstr "Paràmetres del servidor per a la cerca automàtica"
 
-#: ../src/prefs.c:1172 ../src/prefs.c:1211 ../src/prefs.c:1245
+#: ../src/prefs.c:1143 ../src/prefs.c:1182 ../src/prefs.c:1216
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
-#: ../src/prefs.c:1191 ../src/prefs.c:1219 ../src/prefs.c:1254
-#: ../src/prefs.c:1343
+#: ../src/prefs.c:1162 ../src/prefs.c:1190 ../src/prefs.c:1225
+#: ../src/prefs.c:1310
 msgid "Port:"
-msgstr ""
+msgstr "Port:"
 
-#: ../src/prefs.c:1201 ../src/prefs.c:1229 ../src/prefs.c:1264
+#: ../src/prefs.c:1172 ../src/prefs.c:1200 ../src/prefs.c:1234
 msgid "CGI Path:"
-msgstr ""
+msgstr "Camí CGI:"
 
 #. CDDB Server Settings (Manual Search)
-#: ../src/prefs.c:1237
+#: ../src/prefs.c:1208
 msgid "Server Settings for Manual Search"
-msgstr ""
+msgstr "Paràmetres del servidor per a la cerca manual"
 
 #. Local access for CDDB (Automatic Search)
-#: ../src/prefs.c:1272
-msgid "Local CD Data Base"
-msgstr ""
+#: ../src/prefs.c:1242
+msgid "Local CDDB"
+msgstr "CDDB local"
 
-#: ../src/prefs.c:1280
+#: ../src/prefs.c:1250
 msgid "Path:"
-msgstr ""
+msgstr "Camí:"
 
-#: ../src/prefs.c:1292
+#: ../src/prefs.c:1262
 msgid ""
 "Specify the directory where the local CD database is located. The local CD "
-"data base contains the eleven following directories 'blues', 'classical', "
+"database contains the eleven following directories 'blues', 'classical', "
 "'country', 'data', 'folk', 'jazz', 'newage', 'reggae', 'rock', 'soundtrack' "
 "and 'misc'."
 msgstr ""
+"Especifiqueu el directori on la base de dades local de CD's està situada. La "
+"base de de dades local de CD's conté els onze directoris següents  «blues», "
+"«clàssica», «country», «dades», «folk», «jazz», «newage», «reggae», «rock», "
+"«banda sonora» i «misc»."
 
 #. CDDB Proxy Settings
-#: ../src/prefs.c:1318
+#: ../src/prefs.c:1288
 msgid "Proxy Settings"
 msgstr "Paràmetres del servidor intermediari"
 
-#: ../src/prefs.c:1327
+#: ../src/prefs.c:1297
 msgid "Use a proxy"
-msgstr ""
+msgstr "Usa un proxy"
 
-#: ../src/prefs.c:1330
+#: ../src/prefs.c:1300
 msgid "Set active the settings of the proxy server."
-msgstr ""
+msgstr "Estableix a actius el paràmetres del servidor proxy."
 
-#: ../src/prefs.c:1335
+#: ../src/prefs.c:1302
 msgid "Host Name:"
-msgstr ""
+msgstr "Nom del servidor amfitrió:"
 
-#: ../src/prefs.c:1342
+#: ../src/prefs.c:1309
 msgid "Name of the proxy server."
-msgstr ""
+msgstr "Nom del servidor proxy."
 
-#: ../src/prefs.c:1350
+#: ../src/prefs.c:1317
 msgid "Port of the proxy server."
-msgstr ""
+msgstr "Port del servidor proxy."
 
-#: ../src/prefs.c:1355
+#: ../src/prefs.c:1321
 msgid "User Name:"
 msgstr "Nom d'usuari:"
 
-#: ../src/prefs.c:1362
+#: ../src/prefs.c:1328
 msgid "Name of user for the the proxy server."
-msgstr ""
+msgstr "Nom de l'usuari al servidor proxy."
 
-#: ../src/prefs.c:1363
+#: ../src/prefs.c:1329
 msgid "User Password:"
-msgstr ""
+msgstr "Contrasenya de l'usuari:"
 
-#: ../src/prefs.c:1371
-msgid "Password of user for the the proxy server."
-msgstr ""
+#: ../src/prefs.c:1338
+msgid "Password of user for the proxy server."
+msgstr "Contrasenya de l'usuari al servidor proxy."
 
 #. Track Name list (CDDB results)
-#: ../src/prefs.c:1376
+#: ../src/prefs.c:1343
 msgid "Track Name List"
-msgstr ""
+msgstr "Llista de noms de les pistes"
 
-#: ../src/prefs.c:1383
+#: ../src/prefs.c:1350
 msgid ""
 "Select corresponding audio file (according position or DLM if activated "
 "below)"
 msgstr ""
+"Selecciona el fitxer d'àudio corresponent ( d'acord a la posició o DLM si "
+"s'habilita a sota)"
 
-#: ../src/prefs.c:1387
+#: ../src/prefs.c:1354
 msgid ""
 "If activated, when selecting a line in the list of tracks name, the "
 "corresponding audio file in the main list will be also selected."
 msgstr ""
+"Si s'habilita, quan es seleccioni una línia a la llista de noms de pistes, "
+"es seleccionarà el fitxer d'àudio corresponent a la llista de pistes."
 
 #. Check box to use DLM (also used in the cddb window)
-#: ../src/prefs.c:1392
+#: ../src/prefs.c:1359
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match lines (using title) with audio "
 "files (using filename)"
 msgstr ""
+"Usa l'algoritme  Levenshtein (DLM) per concordar (usant el el títol) línies "
+"amb el fitxer d'àudio (usant els noms dels fitxers)"
 
 #.
 #. * Confirmation
 #.
-#: ../src/prefs.c:1407 ../src/prefs.c:1408
+#: ../src/prefs.c:1374
 msgid "Confirmation"
 msgstr "Confirmació"
 
-#: ../src/prefs.c:1416
+#: ../src/prefs.c:1379
 msgid "Confirm exit from program"
-msgstr ""
+msgstr "Confirma la sortida del programa"
 
-#: ../src/prefs.c:1419
+#: ../src/prefs.c:1382
 msgid ""
 "If activated, opens a dialog box to ask confirmation before exiting the "
 "program."
 msgstr ""
+"Si s'habilita, obre un quadre de diàleg per preguntar abans de sortir del "
+"programa."
 
-#: ../src/prefs.c:1422
+#: ../src/prefs.c:1385
 msgid "Confirm writing of file tag"
-msgstr ""
+msgstr "Confirma l'escriptura de l'etiqueta"
 
-#: ../src/prefs.c:1426
+#: ../src/prefs.c:1389
 msgid "Confirm renaming of file"
-msgstr ""
+msgstr "Confirma el canvi de nom del fitxer"
 
-#: ../src/prefs.c:1430
+#: ../src/prefs.c:1393
 msgid "Confirm deleting of file"
-msgstr ""
+msgstr "Confirma la supressió del fitxer"
 
-#: ../src/prefs.c:1434
+#: ../src/prefs.c:1397
 msgid "Confirm writing of playlist"
-msgstr ""
+msgstr "Confirma l'escriptura de la llista de reproducció"
 
-#: ../src/prefs.c:1438
+#: ../src/prefs.c:1401
 msgid "Confirm changing directory when there are unsaved changes"
-msgstr ""
-
-#: ../src/prefs.c:1455
-msgid "Apply changes (but don't save) and close this window"
-msgstr ""
-
-#: ../src/prefs.c:1464
-msgid "Close this window without saving"
-msgstr ""
-
-#: ../src/prefs.c:1472
-msgid "Save changes and close this window"
-msgstr ""
+msgstr "Confirma el canvi del directori quan hi hagi canvis no desats"
 
 #. For translators : be aware to NOT translate '%.*d' in this string
-#: ../src/prefs.c:1507
+#: ../src/prefs.c:1439
 #, c-format
 msgid "(Example: %.*d_-_Track_name_1.mp3)"
-msgstr ""
+msgstr "(Exemple: %.*d_-_Track_name_1.mp3)"
 
-#: ../src/prefs.c:1669 ../src/setting.c:894
+#. Translators: please do NOT translate '%.*d' in this string.
+#: ../src/prefs.c:1472
+#, c-format
+msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
+msgstr "(Exemple: disc_%.*d_of_10/Track_name_1.mp3)"
+
+#: ../src/prefs.c:1614 ../src/setting.c:904
 msgid "Configuration saved"
-msgstr ""
+msgstr "Configuració desada"
 
-#: ../src/prefs.c:1677
+#: ../src/prefs.c:1622
 msgid "Configuration unchanged"
-msgstr ""
+msgstr "Configuració sense canviar"
 
-#: ../src/prefs.c:1781
+#: ../src/prefs.c:1713
 msgid "The selected path for 'Default path to files' is invalid"
 msgstr ""
+"La camí seleccionat per al «Camí per defecte per als fitxers» no és vàlid"
 
-#: ../src/prefs.c:1782
+#: ../src/prefs.c:1715
 #, c-format
 msgid ""
 "Path: '%s'\n"
 "Error: %s"
 msgstr ""
+"Camí: '%s'\n"
+"Error: %s"
 
-#: ../src/prefs.c:1783
+#: ../src/prefs.c:1717
 msgid "Invalid Path Error"
-msgstr ""
+msgstr "Error de camí no vàlid"
 
-#: ../src/prefs.c:1897
+#: ../src/prefs.c:1831
 #, c-format
 msgid "The audio file player '%s' cannot be found"
-msgstr ""
+msgstr "El reproductor de fitxers d'àudio «%s» no es pot trobar"
 
-#: ../src/prefs.c:1899
+#: ../src/prefs.c:1833
 msgid "Audio Player Error"
-msgstr ""
+msgstr "Error de reproductor d'àudio"
 
-#: ../src/scan.c:179
+#: ../src/scan_dialog.c:182
 msgid "Fill Tag"
-msgstr ""
+msgstr "Emplena l'etiqueta"
 
-#: ../src/scan.c:368
+#: ../src/scan_dialog.c:356
+#, c-format
+msgid "Cannot calculate CRC value of file (%s)"
+msgstr "No es pot calcular el valor CRC del fitxer (%s)"
+
+#: ../src/scan_dialog.c:371
 msgid "Tag successfully scanned"
-msgstr ""
+msgstr "Etiqueta escanejada amb èxit"
 
-#: ../src/scan.c:370
+#: ../src/scan_dialog.c:373
 #, c-format
 msgid "Tag successfully scanned: %s"
-msgstr ""
+msgstr "Etiqueta escanejada amb èxit: %s"
 
-#: ../src/scan.c:411
+#: ../src/scan_dialog.c:414
 #, c-format
 msgid "Tag scanner: strange… the extension '%s' was not found in filename '%s'"
 msgstr ""
+"Escànner d'etiquetes: estrany ... l'extensió «%s» no s'ha trobat al nom del "
+"fitxer «%s»"
 
-#: ../src/scan.c:493 ../src/scan.c:522
+#: ../src/scan_dialog.c:496 ../src/scan_dialog.c:525
 #, c-format
 msgid "Scan Error: can't find separator '%s' within '%s'"
-msgstr ""
+msgstr "Error d'escaneig: no es pot trobar el separador «%s» dins de «%s»"
 
-#: ../src/scan.c:710
+#: ../src/scan_dialog.c:712
 msgid "New filename successfully scanned"
-msgstr ""
+msgstr "El nom del fitxer nou s'ha escanejat amb èxit"
 
-#: ../src/scan.c:713
+#: ../src/scan_dialog.c:715
 #, c-format
 msgid "New filename successfully scanned: %s"
-msgstr ""
+msgstr "El nom del fitxer nou s'ha escanejat amb èxit: %s"
 
-#: ../src/scan.c:1815
+#: ../src/scan_dialog.c:1632
 #, c-format
 msgid "Error while processing fields: %s"
-msgstr ""
+msgstr "Error mentre es processaven els camps: %s"
 
-#: ../src/scan.c:2346
+#. The window
+#: ../src/scan_dialog.c:1802
 msgid "Tag and Filename Scan"
-msgstr ""
+msgstr "Etiqueta i nom de fitxer escanejats"
+
+#. TODO: Set related action to match AM_SCAN_FILES.
+#: ../src/scan_dialog.c:1811
+msgid "Scan Files"
+msgstr "Escaneja fitxers"
 
 #. Option Menu
-#: ../src/scan.c:2365
+#: ../src/scan_dialog.c:1839
 msgid "Scanner:"
-msgstr ""
+msgstr "Escànner:"
 
-#: ../src/scan.c:2386
+#: ../src/scan_dialog.c:1860
 msgid "Select the type of scanner to use"
-msgstr ""
+msgstr "Selecciona el tipus d'escànner a usar"
 
-#: ../src/scan.c:2395
-msgid "Open scanner window / Scan selected files"
-msgstr ""
-
-#: ../src/scan.c:2408
-#, fuzzy
-#| msgid "Preferences"
+#: ../src/scan_dialog.c:1869
 msgid "Scanner Preferences"
-msgstr "Preferències"
+msgstr "Preferències de l'escàner"
 
-#: ../src/scan.c:2417
+#: ../src/scan_dialog.c:1878
 msgid "Show / Hide Masks Editor"
-msgstr ""
+msgstr "Mostra / Amaga l'editor de mascares"
 
-#: ../src/scan.c:2427
+#: ../src/scan_dialog.c:1888
 msgid "Show / Hide Legend"
-msgstr ""
+msgstr "Mostra / Amaga la llegenda"
 
-#: ../src/scan.c:2437
-msgid "Close this window"
-msgstr "Tanca aquesta finestra"
-
-#: ../src/scan.c:2465
+#: ../src/scan_dialog.c:1918
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "path. Used to fill in tag fields"
 msgstr ""
+"Selecciona o escriu en una mascara usant codis (mira la llegenda) per "
+"analitzar el nom del fitxer i el camí. S'usa per omplir en camps d'etiquetes."
 
 #. Preview label
-#: ../src/scan.c:2491
+#: ../src/scan_dialog.c:1942
 msgid "Fill tag preview"
-msgstr ""
+msgstr "Previsualització Emplenat d'etiqueta"
 
-#: ../src/scan.c:2521
+#: ../src/scan_dialog.c:1972
 msgid "Prefix mask with current path"
-msgstr ""
+msgstr "Prefixa la mascara amb el camí actual"
 
-#: ../src/scan.c:2534
+#: ../src/scan_dialog.c:1986
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
 "Use / to make directories. If the first character is /, it's a absolute "
 "path, otherwise is relative to the old path."
 msgstr ""
+"Selecciona o escriu en una mascara usant codis (mira la llegenda) per "
+"analitzar els camps d'etiquetes. Usat per canviar el nom a un fitxer.\n"
+"Usa / per crear directoris. Si el primer caràcter és /, és un camí absolut, "
+"d'altra forma és relatiu a l'antic camí."
 
 #. Preview label
-#: ../src/scan.c:2561
+#: ../src/scan_dialog.c:2011
 msgid "Rename file preview"
-msgstr ""
+msgstr "Previsualització canvia el nom al fitxer"
 
-#: ../src/scan.c:2580
+#: ../src/scan_dialog.c:2030
 msgid "Select fields:"
-msgstr ""
+msgstr "Selecciona camps:"
 
-#: ../src/scan.c:2583
+#: ../src/scan_dialog.c:2033
 msgid ""
 "The buttons on the right represent the fields which can be processed. Select "
 "those which interest you"
 msgstr ""
+"Els botons a la dreta representen els camps que poden ser processats. "
+"Seleccioneu aquells que us interessen"
 
 #. Advice for Translators: set the first letter of filename translated
-#: ../src/scan.c:2587
+#: ../src/scan_dialog.c:2037
 msgid "F"
 msgstr "F"
 
-#: ../src/scan.c:2589
+#: ../src/scan_dialog.c:2039
 msgid "Process filename field"
-msgstr ""
+msgstr "Processa el camp nom del fitxer"
 
 #. Advice for Translators: set the first letter of title translated
-#: ../src/scan.c:2591
+#: ../src/scan_dialog.c:2041
 msgid "T"
 msgstr "T"
 
-#: ../src/scan.c:2592
+#: ../src/scan_dialog.c:2042
 msgid "Process title field"
-msgstr ""
+msgstr "Processa el camp títol"
 
 #. Advice for Translators: set the first letter of artist translated
-#: ../src/scan.c:2594
+#: ../src/scan_dialog.c:2044
 msgid "Ar"
-msgstr ""
+msgstr "Ar"
 
-#: ../src/scan.c:2595
+#: ../src/scan_dialog.c:2045
 msgid "Process file artist field"
-msgstr ""
+msgstr "Processa el fitxer amb el camp artista"
 
 #. Advice for Translators: set the first letter of album artist translated
-#: ../src/scan.c:2597
+#: ../src/scan_dialog.c:2047
 msgid "AA"
-msgstr ""
+msgstr "AA"
 
-#: ../src/scan.c:2598
+#: ../src/scan_dialog.c:2048
 msgid "Process album artist field"
-msgstr ""
+msgstr "Processa el camp àlbum d'artista"
 
 #. Advice for Translators: set the first letter of album translated
-#: ../src/scan.c:2600
+#: ../src/scan_dialog.c:2050
 msgid "Al"
-msgstr ""
+msgstr "AI"
 
-#: ../src/scan.c:2601
+#: ../src/scan_dialog.c:2051
 msgid "Process album field"
-msgstr ""
+msgstr "Processa el camp àlbum"
 
 #. Advice for Translators: set the first letter of genre translated
-#: ../src/scan.c:2603
+#: ../src/scan_dialog.c:2053
 msgid "G"
 msgstr "G"
 
-#: ../src/scan.c:2604
+#: ../src/scan_dialog.c:2054
 msgid "Process genre field"
-msgstr ""
+msgstr "Processa el camp genere"
 
 #. Advice for Translators: set the first letter of comment translated
-#: ../src/scan.c:2606
+#: ../src/scan_dialog.c:2056
 msgid "Cm"
-msgstr ""
+msgstr "Cm"
 
-#: ../src/scan.c:2607
+#: ../src/scan_dialog.c:2057
 msgid "Process comment field"
-msgstr ""
+msgstr "Processa el camp comentari"
 
 #. Advice for Translators: set the first letter of composer translated
-#: ../src/scan.c:2609
+#: ../src/scan_dialog.c:2059
 msgid "Cp"
-msgstr ""
+msgstr "Cp"
 
-#: ../src/scan.c:2610
+#: ../src/scan_dialog.c:2060
 msgid "Process composer field"
-msgstr ""
+msgstr "Processa el camp compositor"
 
 #. Advice for Translators: set the first letter of orig artist translated
-#: ../src/scan.c:2612
+#: ../src/scan_dialog.c:2062
 msgid "O"
 msgstr "O"
 
-#: ../src/scan.c:2613
+#: ../src/scan_dialog.c:2063
 msgid "Process original artist field"
-msgstr ""
+msgstr "Processa el camp artista original"
 
 #. Advice for Translators: set the first letter of copyright translated
-#: ../src/scan.c:2615
+#: ../src/scan_dialog.c:2065
 msgid "Cr"
-msgstr ""
+msgstr "Cr"
 
-#: ../src/scan.c:2616
+#: ../src/scan_dialog.c:2066
 msgid "Process copyright field"
-msgstr ""
+msgstr "Processa el camp copyright"
 
 #. Advice for Translators: set the first letter of URL translated
-#: ../src/scan.c:2618
+#: ../src/scan_dialog.c:2068
 msgid "U"
 msgstr "U"
 
-#: ../src/scan.c:2619
+#: ../src/scan_dialog.c:2069
 msgid "Process URL field"
-msgstr ""
+msgstr "Processa el camp URL"
 
 #. Advice for Translators: set the first letter of encoder name translated
-#: ../src/scan.c:2621
+#: ../src/scan_dialog.c:2071
 msgid "E"
 msgstr "E"
 
-#: ../src/scan.c:2622
+#: ../src/scan_dialog.c:2072
 msgid "Process encoder name field"
-msgstr ""
+msgstr "Processa el camp nom codificador"
 
-#: ../src/scan.c:2666
+#: ../src/scan_dialog.c:2116
 msgid "Invert selection"
-msgstr ""
+msgstr "Inverteix la selecció"
 
-#: ../src/scan.c:2673
+#: ../src/scan_dialog.c:2123
 msgid "Select/Unselect all"
-msgstr ""
+msgstr "Selecciona / Deselecciona-ho tot"
 
-#: ../src/scan.c:2686
+#: ../src/scan_dialog.c:2138
 msgid "Convert:"
-msgstr ""
+msgstr "Converteix:"
 
-#: ../src/scan.c:2688
+#: ../src/scan_dialog.c:2140
 msgid "to: "
-msgstr ""
+msgstr "a:"
 
-#: ../src/scan.c:2717
+#: ../src/scan_dialog.c:2147
+msgid "Do not convert"
+msgstr "No converteixis"
+
+#: ../src/scan_dialog.c:2177
 msgid ""
 "The underscore character or the string '%20' are replaced by one space. "
 "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
 msgstr ""
+"El caràcter subratllat o la cadena «%20» ha estat reemplaçades per un espai. "
+"Exemple, abans: «Text%20en%20una_entrada» després: «Text en una entrada»."
 
-#: ../src/scan.c:2720
+#: ../src/scan_dialog.c:2180
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgstr ""
+"El caràcter espai ha estat reemplaçat per un caràcter subratllat. Exemple, "
+"abans: «Text en una entrada»  després: «Text%20en%20una_entrada»."
 
-#: ../src/scan.c:2723
+#: ../src/scan_dialog.c:2183
 msgid ""
 "Replace a string by another one. Note that the search is case sensitive."
 msgstr ""
+"Reemplaça una cadena per una altra. Noteu que la cerca detecta les "
+"majúscules."
 
-#: ../src/scan.c:2736
+#: ../src/scan_dialog.c:2190
+msgid "Capitalize all"
+msgstr "Tot amb majúscules"
+
+#: ../src/scan_dialog.c:2192
+msgid "Lowercase all"
+msgstr "Tot en minúscules"
+
+#: ../src/scan_dialog.c:2194
+msgid "Capitalize first letter"
+msgstr "En majúscules la primera lletra"
+
+#: ../src/scan_dialog.c:2196
+msgid "Capitalize the first letter of each word"
+msgstr "En majúscules la primera lletra de cada paraula"
+
+#: ../src/scan_dialog.c:2197
 msgid "Detect Roman numerals"
-msgstr ""
+msgstr "Detecta numeració romana"
 
-#: ../src/scan.c:2763
+#: ../src/scan_dialog.c:2199
+msgid "Do not change capitalization"
+msgstr "No canvies les majúscules"
+
+#: ../src/scan_dialog.c:2236
 msgid ""
 "Convert all words in all fields to upper case. Example, before: 'Text IN AN "
 "entry', after: 'TEXT IN AN ENTRY'."
 msgstr ""
+"Converteix totes les paraules de tots els camps en majúscules. Exemple, "
+"abans: «Text EN UNA entrada» després: «TEXT EN UNA ENTRADA»"
 
-#: ../src/scan.c:2766
+#: ../src/scan_dialog.c:2239
 msgid ""
 "Convert all words in all fields to lower case. Example, before: 'TEXT IN an "
 "entry', after: 'text in an entry'."
 msgstr ""
+"Converteix totes les paraules de tots els camps en minúscules. Exemple, "
+"abans: «Text EN UNA entrada» després: «text en una entrada»"
 
-#: ../src/scan.c:2769
+#: ../src/scan_dialog.c:2242
 msgid ""
 "Convert the initial of the first word in all fields to upper case. Example, "
 "before: 'text IN An ENTRY', after: 'Text in an entry'."
 msgstr ""
+"Converteix la lletra inicial de la primera paraula de tots els camps a "
+"majúscula. Exemple, «Text EN UNA entrada» després: «Text en una entrada»"
 
-#: ../src/scan.c:2772
+#: ../src/scan_dialog.c:2245
 msgid ""
 "Convert the initial of each word in all fields to upper case. Example, "
 "before: 'Text in an ENTRY', after: 'Text In An Entry'."
 msgstr ""
+"Converteix la lletra inicial de cada paraula de tots els camps a majúscules. "
+"Exemple, «Text EN UNA entrada» després: «Text En Una Entrada»"
 
-#: ../src/scan.c:2775
+#: ../src/scan_dialog.c:2248
 msgid ""
 "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
 "text in an entry', after: 'IX. Text In An Entry'."
 msgstr ""
+"Força la conversió a majúscules de la numeració romana. Exemple, abans: «ix."
+"text en una entrada» després: «IX. Text En Una Entrada»."
 
-#: ../src/scan.c:2784
-msgid "Insert a space before an uppercase letter"
-msgstr ""
+#: ../src/scan_dialog.c:2256
+msgid "Insert a space before uppercase letters"
+msgstr "Insereix un espai abans de les lletres majúscules"
 
-#: ../src/scan.c:2785
-msgid "Remove duplicates of space or underscore"
-msgstr ""
+#: ../src/scan_dialog.c:2258
+msgid "Remove duplicate spaces and underscores"
+msgstr "Suprimeix els espais duplicats i els subratllats"
 
-#: ../src/scan.c:2803
+#: ../src/scan_dialog.c:2260
+msgid "Do not change word separators"
+msgstr "No canviïs els separadors de paraules"
+
+#: ../src/scan_dialog.c:2282
 msgid ""
 "All spaces between words are removed. Example, before: 'Text In An Entry', "
 "after: 'TextInAnEntry'."
 msgstr ""
+"Suprimeix tots els espais entre paraules. Exemple, abans:«Text una una "
+"entrada» després:«Textenunaparaula»."
 
-#: ../src/scan.c:2806
+#: ../src/scan_dialog.c:2285
 msgid ""
 "A space is inserted before each upper case letter. Example, before: "
 "'TextInAnEntry', after: 'Text In An Entry'."
 msgstr ""
+"S'insereix un espai abans de cada lletra majúscula. Exemple, "
+"abans:«TextEnUnaEntrada» després: «Text En Una Entrada»"
 
-#: ../src/scan.c:2809
+#: ../src/scan_dialog.c:2288
 msgid ""
-"Duplicated spaces or underscores are removed. Example, before: "
+"Duplicate spaces and underscores are removed. Example, before: "
 "'Text__In__An   Entry', after: 'Text_In_An Entry'."
 msgstr ""
+"Es suprimeixen els espais duplicats i els subratllats. Exemple, "
+"abans:«Text__En__Una  Entrada» després: «Text_En_Una Entrada»."
 
 #.
 #. * Frame to display codes legend
 #.
-#: ../src/scan.c:2816
+#: ../src/scan_dialog.c:2295
 msgid "Legend"
 msgstr "Llegenda"
 
-#: ../src/scan.c:2822
+#: ../src/scan_dialog.c:2301
 #, c-format
 msgid "%a: artist"
 msgstr "%a: artista"
 
-#: ../src/scan.c:2825
+#: ../src/scan_dialog.c:2304
 msgid "%z: album artist"
-msgstr "%z: artista de l'àlbum"
+msgstr "%z: àlbum de l'artista"
 
-#: ../src/scan.c:2828
+#: ../src/scan_dialog.c:2307
 msgid "%b: album"
-msgstr ""
+msgstr "%b: àlbum"
 
-#: ../src/scan.c:2831
+#: ../src/scan_dialog.c:2310
 #, c-format
 msgid "%c: comment"
 msgstr "%c: comentari"
 
-#: ../src/scan.c:2834
+#: ../src/scan_dialog.c:2313
 #, c-format
 msgid "%p: composer"
-msgstr "%p: redactor"
+msgstr "%p: compositor"
 
-#: ../src/scan.c:2837
+#: ../src/scan_dialog.c:2316
 msgid "%r: copyright"
 msgstr "%r: copyright"
 
-#: ../src/scan.c:2840
+#: ../src/scan_dialog.c:2319
 #, c-format
 msgid "%d: disc number"
-msgstr ""
+msgstr "%d: nombre de disc"
 
-#: ../src/scan.c:2843
+#: ../src/scan_dialog.c:2322
 #, c-format
 msgid "%e: encoded by"
-msgstr ""
+msgstr "%e: codificat per"
 
-#: ../src/scan.c:2846
+#: ../src/scan_dialog.c:2325
 #, c-format
 msgid "%g: genre"
-msgstr ""
+msgstr "%g: genere"
 
-#: ../src/scan.c:2849
+#: ../src/scan_dialog.c:2328
 #, c-format
 msgid "%i: ignored"
-msgstr ""
+msgstr "%i: ignorat"
 
-#: ../src/scan.c:2852
+#: ../src/scan_dialog.c:2331
 msgid "%l: number of tracks"
-msgstr ""
+msgstr "%l: nombre de pistes"
 
-#: ../src/scan.c:2855
+#: ../src/scan_dialog.c:2334
 #, c-format
 msgid "%o: orig. artist"
-msgstr ""
+msgstr "%o: artista original"
 
-#: ../src/scan.c:2858
+#: ../src/scan_dialog.c:2337
 #, c-format
 msgid "%n: track"
 msgstr "%n: pista"
 
-#: ../src/scan.c:2861
+#: ../src/scan_dialog.c:2340
 msgid "%t: title"
 msgstr "%t: títol"
 
-#: ../src/scan.c:2864
+#: ../src/scan_dialog.c:2343
 #, c-format
 msgid "%u: URL"
 msgstr "%u: URL"
 
-#: ../src/scan.c:2867
+#: ../src/scan_dialog.c:2346
+#, c-format
+msgid "%x: number of discs"
+msgstr "%x: nombre de discs"
+
+#: ../src/scan_dialog.c:2349
 msgid "%y: year"
 msgstr "%y: any"
 
 #.
 #. * Masks Editor
 #.
-#: ../src/scan.c:2874
+#: ../src/scan_dialog.c:2356
 msgid "Mask Editor"
-msgstr ""
+msgstr "Editor de mascares"
 
-#: ../src/scan.c:2931
+#: ../src/scan_dialog.c:2410
 msgid "Create New Mask"
-msgstr ""
+msgstr "Crea una mascara nova"
 
-#: ../src/scan.c:2941
+#: ../src/scan_dialog.c:2420
 msgid "Move Up this Mask"
-msgstr ""
+msgstr "Puja amunt aquesta mascara"
 
-#: ../src/scan.c:2951
+#: ../src/scan_dialog.c:2430
 msgid "Move Down this Mask"
-msgstr ""
+msgstr "Baixa avall aquesta mascara"
 
-#: ../src/scan.c:2961
+#: ../src/scan_dialog.c:2440
 msgid "Duplicate Mask"
-msgstr ""
+msgstr "Duplica la mascara"
 
-#: ../src/scan.c:2971
+#: ../src/scan_dialog.c:2450
 msgid "Add Default Masks"
-msgstr ""
+msgstr "Afegeix una mascara per defecte"
 
-#: ../src/scan.c:2981
+#: ../src/scan_dialog.c:2460
 msgid "Remove Mask"
-msgstr ""
+msgstr "Suprimeix la mascara"
 
-#: ../src/scan.c:2991
+#: ../src/scan_dialog.c:2470
 msgid "Save Masks"
-msgstr ""
+msgstr "Desa la mascara"
 
-#: ../src/scan.c:3601
+#: ../src/scan_dialog.c:3050
 msgid "New_mask"
-msgstr ""
+msgstr "Mascara nova"
 
-#: ../src/scan.c:3640
+#: ../src/scan_dialog.c:3089
 msgid "Copy: No row selected"
-msgstr ""
+msgstr "Copia: cap fila seleccionada"
 
-#: ../src/scan.c:3748
+#: ../src/scan_dialog.c:3182
 msgid "Remove: No row selected"
-msgstr ""
+msgstr "Suprimeix: cap fila seleccionada"
 
-#: ../src/scan.c:3796
+#: ../src/scan_dialog.c:3229
 msgid "Move Up: No row selected"
-msgstr ""
+msgstr "Puja: Cap fila seleccionada"
 
-#: ../src/scan.c:3850
+#: ../src/scan_dialog.c:3273
 msgid "Move Down: No row selected"
-msgstr ""
+msgstr "Baixa: Cap fila seleccionada"
 
-#: ../src/setting.c:914
+#: ../src/setting.c:924
 #, c-format
 msgid "Error: Cannot write configuration file: %s (%s)"
-msgstr ""
+msgstr "Error: No es pot escriure el fitxer de configuració: %s (%s)"
 
-#: ../src/setting.c:1056
+#: ../src/setting.c:944 ../src/setting.c:961 ../src/setting.c:981
+#, c-format
+msgid "Error while writing configuration file: %s"
+msgstr "Error mentre s'estava escrivint el fitxer de configuració: %s"
+
+#: ../src/setting.c:1100
 #, c-format
 msgid "Cannot open configuration file '%s' (%s)"
-msgstr ""
+msgstr "No es pot obrir el fitxer de configuració «%s» (%s)"
 
-#: ../src/setting.c:1058
+#: ../src/setting.c:1102
 msgid "Loading default configuration"
-msgstr ""
+msgstr "S'està carregant la configuració per defecte"
 
-#: ../src/setting.c:1099
+#: ../src/setting.c:1143
 #, c-format
 msgid "Cannot create or open file '%s' (%s)"
-msgstr ""
+msgstr "No es pot crear o obrir el fitxer «%s» (%s)"
 
-#: ../src/setting.c:1160
+#: ../src/setting.c:1203
 #, c-format
 msgid "Error: Cannot write list to file: %s (%s)"
-msgstr ""
+msgstr "Error: No es pot escriure la llista al fitxer: %s (%s)"
+
+#: ../src/setting.c:1221
+#, c-format
+msgid "Error while writing list file: %s"
+msgstr "Error mentre s'estava escrivint el fitxer llista: %s"
 
 #. Fall back to defaults
-#: ../src/setting.c:1245
+#: ../src/setting.c:1301
 msgid "Loading default 'Fill Tag' masks…"
-msgstr ""
+msgstr "S'estan carregant les mascares per defecte «Emplena etiqueta»..."
 
 #. Fall back to defaults
-#: ../src/setting.c:1273
+#: ../src/setting.c:1331
 msgid "Loading default 'Rename File' masks…"
 msgstr ""
+"S'estan carregant les mascares per defecte «Canvia el nom al fitxer»..."
 
 #. Fall back to defaults
-#: ../src/setting.c:1300
+#: ../src/setting.c:1357
 msgid "Loading default 'Rename Directory' masks…"
 msgstr ""
+"S'estan carregant les mascares per defecte «Canvia el nom al directori»..."
 
-#: ../src/setting.c:1511
+#: ../src/setting.c:1568
 #, c-format
 msgid "Migrating configuration from directory '%s' to '%s'"
-msgstr ""
+msgstr "S'està migrant la configuració del directori «%s» a «%s»"
 
-#: ../src/setting.c:1535
+#: ../src/setting.c:1592
 #, c-format
 msgid "Failed to migrate configuration file '%s'"
-msgstr ""
+msgstr "Ha fallat la migració de la configuració  del fitxer «%s»"
 
-#: ../src/setting.c:1572
+#: ../src/setting.c:1629
 #, c-format
 msgid "Error: Cannot create directory '%s' (%s)"
-msgstr ""
+msgstr "Error: No es pot crear el directori «%s» (%s)"
 
-#: ../src/vcedit.c:295
-msgid "Input truncated or empty."
-msgstr ""
+#~ msgid "Find files"
+#~ msgstr "Cercar fitxers"
 
-#: ../src/vcedit.c:297
-msgid "Input is not an Ogg bitstream."
-msgstr ""
+#~ msgid "_Settings"
+#~ msgstr "_Paràmetres"
 
-#: ../src/vcedit.c:315
-msgid "Error reading first page of Ogg bitstream."
-msgstr ""
+#, fuzzy
+#~| msgid "File Name"
+#~ msgid "File(s) renamed"
+#~ msgstr "Nom del fitxer"
 
-#: ../src/vcedit.c:321
-msgid "Error reading initial header packet."
-msgstr ""
+#, fuzzy
+#~| msgid "File Name"
+#~ msgid "File(s) moved"
+#~ msgstr "Nom del fitxer"
 
-#: ../src/vcedit.c:348
-msgid "Ogg bitstream contains neither Speex or Vorbis data."
-msgstr ""
+#~ msgid "B"
+#~ msgstr "B"
 
-#: ../src/vcedit.c:381
-msgid "Corrupt secondary header."
-msgstr ""
+#~ msgid "kB"
+#~ msgstr "kB"
 
-#: ../src/vcedit.c:411
-msgid "Need to save extra headers"
-msgstr ""
+#~ msgid "MB"
+#~ msgstr "MB"
 
-#: ../src/vcedit.c:425
-msgid "EOF before end of Vorbis headers."
-msgstr ""
+#~ msgid "GB"
+#~ msgstr "GB"
 
-#: ../src/vcedit.c:590
-msgid "Corrupt or missing data, continuing…"
-msgstr ""
+#~ msgid "TB"
+#~ msgstr "TB"
 
-#: ../src/vcedit.c:627
-msgid ""
-"Error writing stream to output. Output stream may be corrupted or truncated."
-msgstr ""
+#~ msgid "Save"
+#~ msgstr "Desa"
 
-#. Log_Print(_("DLL '%s' not already loaded. Try loading it..."), dllname);
-#: ../src/win32/win32dep.c:121
-#, c-format
-msgid "DLL '%s' not already loaded. Try loading it..."
-msgstr ""
-
-#. Log_Print(_("DLL '%s' could not be loaded"), dllname);
-#: ../src/win32/win32dep.c:125
-#, c-format
-msgid "DLL '%s' could not be loaded"
-msgstr ""
-
-#. Log_Print(_("This version of '%s' contains '%s'"), dllname, procedure);
-#: ../src/win32/win32dep.c:135
-#, c-format
-msgid "This version of '%s' contains '%s'"
-msgstr ""
-
-#. Log_Print(_("Function '%s' not found in dll '%s'"), procedure, dllname);
-#: ../src/win32/win32dep.c:141
-#, c-format
-msgid "Function '%s' not found in DLL '%s'"
-msgstr ""
-
-#. ET_Win32_Path_Replace_Backslashes(app_data_dir);
-#. Log_Print(_("EasyTAG settings directory: '%s'"), app_data_dir);
-#: ../src/win32/win32dep.c:277
-#, c-format
-msgid "EasyTAG settings directory: '%s'"
-msgstr ""
-
-#. Log_Print(_("weasytag_init start..."));
-#: ../src/win32/win32dep.c:467
-#, c-format
-msgid "weasytag_init start..."
-msgstr ""
-
-#. Log_Print(_("EasyTAG version: %s"),VERSION);
-#. g_print(_("EasyTAG version: %s"),VERSION);
-#. g_print("\n");
-#: ../src/win32/win32dep.c:473
-#, c-format
-msgid "GLib version: %u.%u.%u\n"
-msgstr ""
-
-#. Set Environmental Variables
-#. Log_Print(_("weasytag_init end..."));
-#: ../src/win32/win32dep.c:491
-#, c-format
-msgid "weasytag_init end..."
-msgstr ""
-
-#. Log_Print(_("Audio player: '%s'"), player);
-#: ../src/win32/win32dep.c:615
-#, c-format
-msgid "Audio player: '%s'"
-msgstr ""
+#~ msgid "Close this window"
+#~ msgstr "Tanca aquesta finestra"
