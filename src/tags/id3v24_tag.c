@@ -1299,7 +1299,7 @@ id3taglib_set_field(struct id3_frame *frame,
     if (str)
     {
         /* Prepare str for writing according to easytag charset coversion settings */
-        if ((g_settings_get_boolean (MainSettings, "id3v2-enable-unicode"))
+        if ((!g_settings_get_boolean (MainSettings, "id3v2-enable-unicode"))
             || (type == ID3_FIELD_TYPE_LATIN1)
             || (type == ID3_FIELD_TYPE_LATIN1FULL)
             || id3v1)
