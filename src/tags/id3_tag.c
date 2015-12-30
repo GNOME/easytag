@@ -75,6 +75,18 @@ static gboolean id3tag_check_if_id3lib_is_buggy (GError **error);
  * Functions *
  *************/
 
+/* et_id3_error_quark:
+ *
+ * Quark for EtID3Error domain.
+ *
+ * Returns: a GQuark for the EtID3Error domain
+ */
+GQuark
+et_id3_error_quark (void)
+{
+    return g_quark_from_static_string ("et-id3-error-quark");
+}
+
 /**
  * et_id3tag_get_tpos_from_file_tag:
  * @FileTag: File_Tag to get disc_number and disc_total from
@@ -646,52 +658,6 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                              Id3tag_Get_Error_Message (error_update_id3v2));
                 success = FALSE;
             }
-            else
-            {
-                /* See known problem on the top : [ 1016290 ] Unicode16 writing bug.
-                 * When we write the tag in Unicode, we try to check if it was correctly
-                 * written. So to test it : we read again the tag, and then compare
-                 * with the previous one. We check up to find an error (as only some
-                 * characters are affected).
-                 * If the patch to id3lib was applied to fix the problem (tested
-                 * by id3tag_check_if_id3lib_is_buggy) we didn't make the following
-                 * test => OK */
-                if (flag_id3lib_bugged
-                    && g_settings_get_boolean (MainSettings,
-                                               "id3v2-enable-unicode"))
-                {
-                    File_Tag  *FileTag_tmp = et_file_tag_new ();
-
-                    if (id3tag_read_file_tag (file, FileTag_tmp, NULL) == TRUE
-                        && et_file_tag_detect_difference (FileTag,
-                                                          FileTag_tmp) == TRUE)
-                    {
-                        GtkWidget *msgdialog;
-
-                        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                                                           GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                           GTK_MESSAGE_ERROR,
-                                                           GTK_BUTTONS_CLOSE,
-                                                           "%s",
-                                                           _("You have tried to save this tag to Unicode but it was detected that your version of id3lib is buggy"));
-                        gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(msgdialog),
-                                                                 _("If you reload this file, some characters in the tag may not be displayed "
-                                                                 "correctly. Please, apply the patch "
-                                                                 "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is "
-                                                                 "available in the EasyTAG package sources.\nNote that this message will "
-                                                                 "appear only once.\n\nFile: %s"),
-                                                                  filename_utf8);
-
-                        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Buggy id3lib"));
-                        gtk_dialog_run(GTK_DIALOG(msgdialog));
-                        gtk_widget_destroy(msgdialog);
-                        flag_id3lib_bugged = FALSE; // To display the message only one time
-                    }
-
-                    et_file_tag_free (FileTag_tmp);
-                }
-
-            }
         }
         else
         {
@@ -741,6 +707,39 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
                              Id3tag_Get_Error_Message (error_strip_id3v1));
                 success = FALSE;
             }
+        }
+    }
+
+    /* Do a one-time check that the id3lib version is not buggy. */
+    if (g_settings_get_boolean (MainSettings, "id3v2-enabled")
+        && number_of_frames != 0 && success)
+    {
+        /* See known problem on the top : [ 1016290 ] Unicode16 writing bug.
+         * When we write the tag in Unicode, we try to check if it was
+         * correctly written. So to test it : we read again the tag, and then
+         * compare with the previous one. We check up to find an error (as only
+         * some characters are affected).
+         * If the patch to id3lib was applied to fix the problem (tested
+         * by id3tag_check_if_id3lib_is_buggy) we didn't make the following
+         * test => OK */
+        if (flag_id3lib_bugged
+            && g_settings_get_boolean (MainSettings,
+                                       "id3v2-enable-unicode"))
+        {
+            File_Tag  *FileTag_tmp = et_file_tag_new ();
+
+            if (id3tag_read_file_tag (file, FileTag_tmp, NULL) == TRUE
+                && et_file_tag_detect_difference (FileTag,
+                                                  FileTag_tmp) == TRUE)
+            {
+                flag_id3lib_bugged = FALSE; /* Report the error only once. */
+                success = FALSE;
+                g_set_error (error, ET_ID3_ERROR,
+                             ET_ID3_ERROR_BUGGY_ID3LIB, "%s",
+                             _("Buggy id3lib"));
+            }
+
+            et_file_tag_free (FileTag_tmp);
         }
     }
 

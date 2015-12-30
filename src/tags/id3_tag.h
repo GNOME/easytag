@@ -27,6 +27,24 @@ G_BEGIN_DECLS
 
 #define ID3_INVALID_GENRE 255
 
+/*
+ * Error domain and codes for errors while reading/writing ID3 tags.
+ */
+GQuark et_id3_error_quark (void);
+
+#define ET_ID3_ERROR et_id3_error_quark ()
+
+/*
+ * EtID3Error:
+ * @ET_ID3_ERROR_BUGGY_ID3LIB: Buggy id3lib implementation found
+ *
+ * Errors that can occur when dealing with ID3 tags.
+ */
+typedef enum
+{
+    ET_ID3_ERROR_BUGGY_ID3LIB
+} EtID3Error;
+
 gboolean id3tag_read_file_tag (GFile *file, File_Tag *FileTag, GError **error);
 gboolean id3tag_write_file_v24tag (const ET_File *ETFile, GError **error);
 gboolean id3tag_write_file_tag (const ET_File *ETFile, GError **error);

@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  * Copyright (C) 2000-2003  Jerome Couderc <easytag@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include "browser.h"
 #include "file_description.h"
 #include "file_list.h"
+#include "id3_tag.h"
 #include "log.h"
 #include "misc.h"
 #include "cddb_dialog.h"
@@ -755,15 +756,47 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 
     if (!hide_msgbox)
     {
-        msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
-                             GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                             GTK_MESSAGE_ERROR,
-                             GTK_BUTTONS_CLOSE,
-                             _("Cannot write tag in file ‘%s’"),
-                             basename_utf8);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
-                                                  "%s", error->message);
-        gtk_window_set_title(GTK_WINDOW(msgdialog),_("Tag Write Error"));
+        if (g_error_matches (error, ET_ID3_ERROR, ET_ID3_ERROR_BUGGY_ID3LIB))
+        {
+            msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
+                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE,
+                                                "%s",
+                                                _("You have tried to save "
+                                                "this tag to Unicode but it "
+                                                "was detected that your "
+                                                "version of id3lib is buggy"));
+            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                      _("If you reload this "
+                                                      "file, some characters "
+                                                      "in the tag may not be "
+                                                      "displayed correctly. "
+                                                      "Please, apply the "
+                                                      "patch "
+                                                      "src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff "
+                                                      "to id3lib, which is "
+                                                      "available in the "
+                                                      "EasyTAG package "
+                                                      "sources.\nNote that "
+                                                      "this message will "
+                                                      "appear only "
+                                                      "once.\n\nFile: %s"),
+                                                      basename_utf8);
+        }
+        else
+        {
+            msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
+                                                GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE,
+                                                _("Cannot write tag in file ‘%s’"),
+                                                basename_utf8);
+            gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
+                                                      "%s", error->message);
+            gtk_window_set_title (GTK_WINDOW (msgdialog),
+                                  _("Tag Write Error"));
+        }
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
