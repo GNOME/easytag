@@ -1018,7 +1018,7 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
     g_return_if_fail (priv->directory_view != NULL);
 
     /* Load current_path */
-    if(!current_path || !*current_path)
+    if (et_str_empty (current_path))
     {
         return;
     }
