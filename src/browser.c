@@ -242,7 +242,11 @@ static void et_browser_on_column_clicked (GtkTreeViewColumn *column,
 void
 et_browser_go_home (EtBrowser *self)
 {
-    et_browser_select_dir (self, g_get_home_dir ());
+    GFile *file;
+
+    file = g_file_new_for_path (g_get_home_dir ());
+    et_browser_select_dir (self, file);
+    g_object_unref (file);
 }
 
 /*
@@ -251,8 +255,11 @@ et_browser_go_home (EtBrowser *self)
 void
 et_browser_go_desktop (EtBrowser *self)
 {
-    et_browser_select_dir (self,
-                           g_get_user_special_dir (G_USER_DIRECTORY_DESKTOP));
+    GFile *file;
+
+    file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_DESKTOP));
+    et_browser_select_dir (self, file);
+    g_object_unref (file);
 }
 
 /*
@@ -261,8 +268,11 @@ et_browser_go_desktop (EtBrowser *self)
 void
 et_browser_go_documents (EtBrowser *self)
 {
-    et_browser_select_dir (self,
-                           g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
+    GFile *file;
+
+    file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
+    et_browser_select_dir (self, file);
+    g_object_unref (file);
 }
 
 /*
@@ -271,8 +281,11 @@ et_browser_go_documents (EtBrowser *self)
 void
 et_browser_go_downloads (EtBrowser *self)
 {
-    et_browser_select_dir (self,
-                           g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD));
+    GFile *file;
+
+    file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_DOWNLOAD));
+    et_browser_select_dir (self, file);
+    g_object_unref (file);
 }
 
 /*
@@ -281,8 +294,11 @@ et_browser_go_downloads (EtBrowser *self)
 void
 et_browser_go_music (EtBrowser *self)
 {
-    et_browser_select_dir (self,
-                           g_get_user_special_dir (G_USER_DIRECTORY_MUSIC));
+    GFile *file;
+
+    file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_MUSIC));
+    et_browser_select_dir (self, file);
+    g_object_unref (file);
 }
 
 
@@ -528,13 +544,18 @@ et_browser_reload_directory (EtBrowser *self)
 
     if (priv->directory_view && priv->current_path != NULL)
     {
-        // Unselect files, to automatically reload the file of the directory
+        /* Unselect files, to automatically reload the file of the directory. */
+        GFile *file;
         GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view));
+
         if (selection)
         {
             gtk_tree_selection_unselect_all(selection);
         }
-        et_browser_select_dir (self, priv->current_path);
+
+        file = g_file_new_for_path (priv->current_path);
+        et_browser_select_dir (self, file);
+        g_object_unref (file);
     }
 }
 
@@ -568,7 +589,6 @@ Browser_Entry_Activated (EtBrowser *self,
     EtBrowserPrivate *priv;
     const gchar *parse_name;
     GFile *file;
-    gchar *path;
 
     priv = et_browser_get_instance_private (self);
 
@@ -576,11 +596,10 @@ Browser_Entry_Activated (EtBrowser *self,
     Add_String_To_Combo_List (GTK_LIST_STORE (priv->entry_model), parse_name);
 
     file = g_file_parse_name (parse_name);
-    path = g_file_get_path (file);
 
-    et_browser_select_dir (self, path);
+    et_browser_select_dir (self, file);
+
     g_object_unref (file);
-    g_free (path);
 }
 
 /*
@@ -606,22 +625,23 @@ et_browser_entry_set_text (EtBrowser *self, const gchar *text)
 void
 et_browser_go_parent (EtBrowser *self)
 {
-    gchar *parent_dir, *path;
+    GFile *file;
+    GFile *parent;
 
-    /* TODO: Replace this with g_file_get_parent(). */
-    parent_dir = g_strdup (et_browser_get_current_path (self));
+    file = g_file_new_for_path (et_browser_get_current_path (self));
+    parent = g_file_get_parent (file);
 
-    if (strlen(parent_dir)>1)
+    if (parent)
     {
-        if ( parent_dir[strlen(parent_dir)-1]==G_DIR_SEPARATOR )
-            parent_dir[strlen(parent_dir)-1] = '\0';
-        path = g_path_get_dirname(parent_dir);
-
-        et_browser_select_dir (self, path);
-        g_free(path);
+        et_browser_select_dir (self, parent);
+        g_object_unref (parent);
+    }
+    else
+    {
+        g_debug ("%s", "No parent found for current browser path");
     }
 
-    g_free (parent_dir);
+    g_object_unref (file);
 }
 
 /*
@@ -1002,16 +1022,17 @@ et_browser_win32_get_drive_root (EtBrowser *self,
 
 
 /*
- * et_browser_select_dir: Select the directory corresponding to the 'path' in
- * the tree browser, but it doesn't read it!
- * Check if path is correct before selecting it.
+ * et_browser_select_dir:
  *
- * - "current_path" is in file system encoding (not UTF-8)
+ * Select the directory corresponding to the 'path' in the tree browser, but it
+ * doesn't read it! Check if path is correct before selecting it.
  */
 void
-et_browser_select_dir (EtBrowser *self, const gchar *current_path)
+et_browser_select_dir (EtBrowser *self,
+                       GFile *file)
 {
     EtBrowserPrivate *priv;
+    gchar *current_path;
     GtkTreePath *rootPath = NULL;
     GtkTreeIter parentNode, currentNode;
     gint index = 1; // Skip the first token as it is NULL due to leading /
@@ -1023,18 +1044,14 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
 
     g_return_if_fail (priv->directory_view != NULL);
 
-    /* Load current_path */
-    if (et_str_empty (current_path))
-    {
-        return;
-    }
-
     /* Don't check here if the path is valid. It will be done later when
      * selecting a node in the tree */
 
+    current_path = g_file_get_path (file);
     et_browser_set_current_path (self, current_path);
 
     parts = g_strsplit(current_path, G_DIR_SEPARATOR_S, 0);
+    g_free (current_path);
 
     // Expand root node (fill parentNode and rootPath)
 #ifdef G_OS_WIN32
@@ -1071,7 +1088,7 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
         if (!gtk_tree_model_iter_children(GTK_TREE_MODEL(priv->directory_model), &currentNode, &parentNode))
         {
             gchar *path, *parent_path;
-            GFile *file;
+            GFile *directory;
 
             gtk_tree_model_get (GTK_TREE_MODEL (priv->directory_model),
                                 &parentNode, TREE_COLUMN_FULL_PATH,
@@ -1079,11 +1096,11 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
             path = g_build_filename (parent_path, parts[index], NULL);
             g_free (parent_path);
 
-            file = g_file_new_for_path (path);
+            directory = g_file_new_for_path (path);
 
             /* As dir name was not found in any node, check whether it exists
              * or not. */
-            if (g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL)
+            if (g_file_query_file_type (directory, G_FILE_QUERY_INFO_NONE, NULL)
                 == G_FILE_TYPE_DIRECTORY)
             {
                 /* It exists and is readable permission of parent directory is executable */
@@ -1106,12 +1123,12 @@ et_browser_select_dir (EtBrowser *self, const gchar *current_path)
             }
             else
             {
-                g_object_unref (file);
+                g_object_unref (directory);
                 g_free (path);
                 break;
             }
 
-            g_object_unref (file);
+            g_object_unref (directory);
             g_free (path);
         }
 
@@ -3182,11 +3199,15 @@ et_browser_reload (EtBrowser *self)
 
     if (selection)
     {
+        GFile *file;
+
         g_signal_handlers_block_by_func (selection,
                                          G_CALLBACK (Browser_Tree_Node_Selected),
                                          self);
         Browser_Tree_Initialize (self);
-        et_browser_select_dir (self, current_path);
+        file = g_file_new_for_path (current_path);
+        et_browser_select_dir (self, file);
+        g_object_unref (file);
         g_signal_handlers_unblock_by_func (selection,
                                            G_CALLBACK (Browser_Tree_Node_Selected),
                                            self);

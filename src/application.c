@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -33,7 +33,7 @@
 typedef struct
 {
     guint idle_handler;
-    gchar *init_directory;
+    GFile *init_directory;
 } EtApplicationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtApplication, et_application, GTK_TYPE_APPLICATION)
@@ -409,6 +409,8 @@ et_application_open (GApplication *self,
     info = g_file_query_info (arg, G_FILE_ATTRIBUTE_STANDARD_TYPE,
                               G_FILE_QUERY_INFO_NONE, NULL, &err);
 
+    g_free (path);
+
     if (info == NULL)
     {
         if (activated)
@@ -423,29 +425,25 @@ et_application_open (GApplication *self,
                        display_path, err->message);
         }
 
-        g_free (path);
         g_free (display_path);
         g_error_free (err);
         return;
     }
 
     type = g_file_info_get_file_type (info);
+    g_object_unref (info);
 
     if (type == G_FILE_TYPE_DIRECTORY)
     {
         if (activated)
         {
             et_application_window_select_dir (ET_APPLICATION_WINDOW (window),
-                                              path);
-            g_free (path);
+                                              arg);
         }
         else
         {
-            priv->init_directory = path;
+            priv->init_directory = g_object_ref (arg);
         }
-
-        g_free (display_path);
-        g_object_unref (info);
     }
     else if (type == G_FILE_TYPE_REGULAR)
     {
@@ -454,31 +452,19 @@ et_application_open (GApplication *self,
 
         if (parent)
         {
-            g_free (display_path);
-            g_free (path);
-
             if (activated)
             {
-                gchar *parent_path;
-
-                parent_path = g_file_get_path (arg);
                 et_application_window_select_dir (ET_APPLICATION_WINDOW (window),
-                                                  parent_path);
-
-                g_free (parent_path);
+                                                  parent);
             }
             else
             {
-                priv->init_directory = g_file_get_path (parent);
+                priv->init_directory = parent;
             }
-
-            g_object_unref (parent);
-            g_object_unref (info);
         }
         else
         {
             Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), display_path);
-            g_free (path);
             g_free (display_path);
             return;
         }
@@ -486,10 +472,11 @@ et_application_open (GApplication *self,
     else
     {
         Log_Print (LOG_WARNING, _("Cannot open path ‘%s’"), display_path);
-        g_free (path);
         g_free (display_path);
         return;
     }
+
+    g_free (display_path);
 
     if (!activated)
     {
@@ -565,7 +552,11 @@ et_application_finalize (GObject *object)
     self = ET_APPLICATION (object);
     priv = et_application_get_instance_private (self);
 
-    g_free (priv->init_directory);
+    if (priv->init_directory)
+    {
+        g_object_unref (priv->init_directory);
+        priv->init_directory = NULL;
+    }
 
     G_OBJECT_CLASS (et_application_parent_class)->finalize (object);
 }

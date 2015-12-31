@@ -1948,13 +1948,14 @@ et_application_window_browser_clear_artist_model (EtApplicationWindow *self)
 }
 
 void
-et_application_window_select_dir (EtApplicationWindow *self, const gchar *path)
+et_application_window_select_dir (EtApplicationWindow *self,
+                                  GFile *file)
 {
     EtApplicationWindowPrivate *priv;
 
     priv = et_application_window_get_instance_private (self);
 
-    et_browser_select_dir (ET_BROWSER (priv->browser), path);
+    et_browser_select_dir (ET_BROWSER (priv->browser), file);
 }
 
 /*
