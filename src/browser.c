@@ -562,21 +562,25 @@ et_browser_set_current_path_default (EtBrowser *self)
  * When you press the key 'enter' in the BrowserEntry to validate the text (browse the directory)
  */
 static void
-Browser_Entry_Activated (EtBrowser *self, GtkEntry *entry)
+Browser_Entry_Activated (EtBrowser *self,
+                         GtkEntry *entry)
 {
     EtBrowserPrivate *priv;
-    const gchar *path_utf8;
+    const gchar *parse_name;
+    GFile *file;
     gchar *path;
 
     priv = et_browser_get_instance_private (self);
 
-    path_utf8 = gtk_entry_get_text (entry);
-    Add_String_To_Combo_List (GTK_LIST_STORE (priv->entry_model), path_utf8);
+    parse_name = gtk_entry_get_text (entry);
+    Add_String_To_Combo_List (GTK_LIST_STORE (priv->entry_model), parse_name);
 
-    path = filename_from_display(path_utf8);
+    file = g_file_parse_name (parse_name);
+    path = g_file_get_path (file);
 
     et_browser_select_dir (self, path);
-    g_free(path);
+    g_object_unref (file);
+    g_free (path);
 }
 
 /*
@@ -806,7 +810,9 @@ static gboolean
 Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
 {
     EtBrowserPrivate *priv;
-    gchar *pathName, *pathName_utf8;
+    gchar *pathName;
+    GFile *file;
+    gchar *parse_name;
     static int counter = 0;
     GtkTreeIter selectedIter;
     GtkTreePath *selectedPath;
@@ -892,8 +898,11 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     et_browser_set_current_path (self, pathName);
 
     /* Display the selected path into the BrowserEntry */
-    pathName_utf8 = g_filename_display_name (pathName);
-    gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo))), pathName_utf8);
+    file = g_file_new_for_path (pathName);
+    parse_name = g_file_get_parse_name (file);
+    gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo))),
+                        parse_name);
+    g_free (parse_name);
 
     /* Start to read the directory */
     /* The first time, 'counter' is equal to zero. And if we don't want to load
@@ -911,8 +920,6 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
         {
             if (gtk_tree_selection_get_selected(selection, NULL, &selectedIter))
             {
-                GFile *file = g_file_new_for_path (pathName);
-
                 /* If the path could not be read, then it is possible that it
                  * has a subdirectory with readable permissions. In that case
                  * do not refresh the children. */
@@ -935,7 +942,6 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
                         gtk_tree_path_free (selectedPath);
                     }
                 }
-                g_object_unref (file);
             }
         }
 
@@ -946,8 +952,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     }
     counter++;
 
+    g_object_unref (file);
     g_free(pathName);
-    g_free(pathName_utf8);
     return FALSE;
 }
 
@@ -3155,7 +3161,13 @@ et_browser_reload (EtBrowser *self)
         if (priv->current_path != NULL)
             current_path = g_strdup(priv->current_path);
         else if (*(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo))))))
-            current_path = filename_from_display(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo)))));
+        {
+            GFile *file;
+
+            file = g_file_parse_name (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo)))));
+            current_path = g_file_get_path (file);
+            g_object_unref (file);
+        }
         else
         {
             GVariant *path = g_settings_get_value (MainSettings,
