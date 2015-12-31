@@ -183,6 +183,7 @@ Save_List_Store_To_File (const gchar *filename,
                          gint colnum)
 {
     gchar *file_path;
+    gchar *display_path;
     GFile *file;
     GFileOutputStream *ostream;
     GtkTreeIter iter;
@@ -240,12 +241,13 @@ Save_List_Store_To_File (const gchar *filename,
     return;
 
 err:
-    /* FIXME: Format filename encoding for display. */
     file_path = g_file_get_path (file);
+    display_path = g_filename_display_name (file_path);
     Log_Print (LOG_ERROR, _("Cannot write list to file ‘%s’: %s"),
-               file_path, error->message);
+               display_path, error->message);
 
     g_error_free (error);
+    g_free (display_path);
     g_free (file_path);
     g_object_unref (file);
     return;
