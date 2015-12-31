@@ -439,7 +439,9 @@ write_button_clicked (EtPlaylistDialog *self)
     }
 
     // Path of the playlist file (may be truncated later if PLAYLIST_CREATE_IN_PARENT_DIR is TRUE)
-    playlist_path_utf8 = g_filename_display_name (et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)));
+    temp = g_file_get_path (et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)));
+    playlist_path_utf8 = g_filename_display_name (temp);
+    g_free (temp);
 
     /* Build the playlist filename. */
     if (g_settings_get_boolean (MainSettings, "playlist-use-mask"))

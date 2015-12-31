@@ -68,7 +68,7 @@ void et_application_window_browser_clear_album_model (EtApplicationWindow *self)
 void et_application_window_browser_clear_artist_model (EtApplicationWindow *self);
 void et_application_window_select_dir (EtApplicationWindow *self, GFile *file);
 void et_application_window_select_file_by_et_file (EtApplicationWindow *self, ET_File *ETFile);
-const gchar * et_application_window_get_current_path (EtApplicationWindow *self);
+GFile * et_application_window_get_current_path (EtApplicationWindow *self);
 GtkWidget * et_application_window_get_scan_dialog (EtApplicationWindow *self);
 void et_application_window_apply_changes (EtApplicationWindow *self);
 void et_application_window_browser_entry_set_text (EtApplicationWindow *self, const gchar *text);

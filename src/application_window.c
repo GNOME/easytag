@@ -2375,7 +2375,7 @@ et_application_window_display_et_file (EtApplicationWindow *self,
     g_free (msg);
 }
 
-const gchar *
+GFile *
 et_application_window_get_current_path (EtApplicationWindow *self)
 {
     EtApplicationWindowPrivate *priv;

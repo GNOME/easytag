@@ -108,7 +108,7 @@ void et_browser_run_player_for_selection (EtBrowser *self);
 void et_browser_load_default_dir (EtBrowser *self);
 void et_browser_reload_directory (EtBrowser *self);
 void et_browser_set_current_path_default (EtBrowser *self);
-const gchar * et_browser_get_current_path (EtBrowser *self);
+GFile * et_browser_get_current_path (EtBrowser *self);
 
 GtkTreeSelection * et_browser_get_selection (EtBrowser *self);
 

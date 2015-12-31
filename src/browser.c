@@ -92,7 +92,7 @@ typedef struct
     GtkWidget *rename_directory_mask_entry;
     GtkWidget *rename_directory_preview_label;
 
-    gchar *current_path;
+    GFile *current_path;
 } EtBrowserPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtBrowser, et_browser, GTK_TYPE_BIN)
@@ -475,40 +475,34 @@ Browser_Tree_Get_Path_Of_Selected_Node (EtBrowser *self)
 
 
 /*
- * Set the 'path' within the variable priv->current_path.
+ * Set the current path to be shown in the browser.
  */
 static void
-et_browser_set_current_path (EtBrowser *self, const gchar *path)
+et_browser_set_current_path (EtBrowser *self,
+                             GFile *file)
 {
     EtBrowserPrivate *priv;
 
-    g_return_if_fail (path != NULL);
+    g_return_if_fail (file != NULL);
 
     priv = et_browser_get_instance_private (self);
 
-    /* Be sure that we aren't passing 'priv->current_path' as parameter of the
-     * function to avoid an invalid read. */
-    if (path == priv->current_path) return;
+    /* Ref the new file first, in case the current file is passed in. */
+    g_object_ref (file);
 
-    g_free (priv->current_path);
-    priv->current_path = g_strdup (path);
+    if (priv->current_path)
+    {
+        g_object_unref (priv->current_path);
+    }
 
-#ifdef G_OS_WIN32
-    /* On win32 : "c:\path\to\dir" succeed with stat() for example, while "c:\path\to\dir\" fails */
-    ET_Win32_Path_Remove_Trailing_Backslash(priv->current_path);
-#endif /* G_OS_WIN32 */
-
-    if (strcmp(G_DIR_SEPARATOR_S,priv->current_path) == 0)
-        gtk_widget_set_sensitive (priv->open_button, FALSE);
-    else
-        gtk_widget_set_sensitive (priv->open_button, TRUE);
+    priv->current_path = file;
 }
 
 
 /*
  * Return the current path
  */
-const gchar *
+GFile *
 et_browser_get_current_path (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
@@ -545,7 +539,6 @@ et_browser_reload_directory (EtBrowser *self)
     if (priv->directory_view && priv->current_path != NULL)
     {
         /* Unselect files, to automatically reload the file of the directory. */
-        GFile *file;
         GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view));
 
         if (selection)
@@ -553,9 +546,7 @@ et_browser_reload_directory (EtBrowser *self)
             gtk_tree_selection_unselect_all(selection);
         }
 
-        file = g_file_new_for_path (priv->current_path);
-        et_browser_select_dir (self, file);
-        g_object_unref (file);
+        et_browser_select_dir (self, priv->current_path);
     }
 }
 
@@ -566,13 +557,16 @@ void
 et_browser_set_current_path_default (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
+    gchar *path;
 
     g_return_if_fail (ET_BROWSER (self));
 
     priv = et_browser_get_instance_private (self);
 
+    path = g_file_get_path (priv->current_path);
     g_settings_set_value (MainSettings, "default-path",
-                          g_variant_new_bytestring (priv->current_path));
+                          g_variant_new_bytestring (path));
+    g_free (path);
 
     et_application_window_status_bar_message (ET_APPLICATION_WINDOW (MainWindow),
                                               _("New default directory selected for browser"),
@@ -625,11 +619,9 @@ et_browser_entry_set_text (EtBrowser *self, const gchar *text)
 void
 et_browser_go_parent (EtBrowser *self)
 {
-    GFile *file;
     GFile *parent;
 
-    file = g_file_new_for_path (et_browser_get_current_path (self));
-    parent = g_file_get_parent (file);
+    parent = g_file_get_parent (et_browser_get_current_path (self));
 
     if (parent)
     {
@@ -640,8 +632,6 @@ et_browser_go_parent (EtBrowser *self)
     {
         g_debug ("%s", "No parent found for current browser path");
     }
-
-    g_object_unref (file);
 }
 
 /*
@@ -915,10 +905,10 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     }
 
     /* Memorize the current path */
-    et_browser_set_current_path (self, pathName);
+    file = g_file_new_for_path (pathName);
+    et_browser_set_current_path (self, file);
 
     /* Display the selected path into the BrowserEntry */
-    file = g_file_new_for_path (pathName);
     parse_name = g_file_get_parse_name (file);
     gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo))),
                         parse_name);
@@ -1047,8 +1037,8 @@ et_browser_select_dir (EtBrowser *self,
     /* Don't check here if the path is valid. It will be done later when
      * selecting a node in the tree */
 
+    et_browser_set_current_path (self, file);
     current_path = g_file_get_path (file);
-    et_browser_set_current_path (self, current_path);
 
     parts = g_strsplit(current_path, G_DIR_SEPARATOR_S, 0);
     g_free (current_path);
@@ -3172,28 +3162,6 @@ et_browser_reload (EtBrowser *self)
     /* Memorize the current path to load it again at the end */
     current_path = Browser_Tree_Get_Path_Of_Selected_Node (self);
 
-    if (current_path==NULL && priv->entry_combo)
-    {
-        /* If no node selected, get path from BrowserEntry or default path */
-        if (priv->current_path != NULL)
-            current_path = g_strdup(priv->current_path);
-        else if (*(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->entry_combo))))))
-        {
-            GFile *file;
-
-            file = g_file_parse_name (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->entry_combo)))));
-            current_path = g_file_get_path (file);
-            g_object_unref (file);
-        }
-        else
-        {
-            GVariant *path = g_settings_get_value (MainSettings,
-                                                   "default-path");
-            current_path = g_variant_dup_bytestring (path, NULL);
-            g_variant_unref (path);
-        }
-    }
-
     /* Select again the memorized path without loading files */
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view));
 
@@ -3236,6 +3204,7 @@ Browser_Tree_Rename_Directory (EtBrowser *self,
     GtkTreePath *parentpath;
     gchar *new_basename_utf8;
     gchar *path;
+    GFile *file;
 
     if (!last_path || !new_path)
         return;
@@ -3299,7 +3268,9 @@ Browser_Tree_Rename_Directory (EtBrowser *self,
 
     /* Update the variable of the current path */
     path = Browser_Tree_Get_Path_Of_Selected_Node (self);
-    et_browser_set_current_path (self, path);
+    file = g_file_new_for_path (path);
+    et_browser_set_current_path (self, file);
+    g_object_unref (file);
     g_free(path);
 
     g_strfreev(textsplit);
@@ -3881,6 +3852,7 @@ create_browser (EtBrowser *self)
     gsize i;
     GtkBuilder *builder;
     GMenuModel *menu_model;
+    GFile *file;
 
     priv = et_browser_get_instance_private (self);
 
@@ -3977,7 +3949,9 @@ create_browser (EtBrowser *self)
     /* TODO: Give the browser area a sensible default size. */
 
     /* Set home variable as current path */
-    et_browser_set_current_path (self, g_get_home_dir ());
+    file = g_file_new_for_path (g_get_home_dir ());
+    et_browser_set_current_path (self, file);
+    g_object_unref (file);
 }
 
 /*
@@ -4077,7 +4051,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     }
 
     /* We get the full path but we musn't display the parent directories */
-    directory_parent = g_strdup(priv->current_path);
+    directory_parent = g_file_get_path (priv->current_path);
 
     if (et_str_empty (directory_parent))
     {
@@ -4434,7 +4408,7 @@ Rename_Directory (EtBrowser *self)
                                                ETCore->ETFileDisplayed);
     }else
     {
-        gchar *tmp = g_filename_display_name (et_browser_get_current_path (self));
+        gchar *tmp = g_file_get_parse_name (et_browser_get_current_path (self));
         et_browser_entry_set_text (self, tmp);
         g_free (tmp);
     }
@@ -4490,12 +4464,12 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
     }
 
     /* Current directory. */
-    if (et_str_empty (priv->current_path))
+    if (!priv->current_path)
     {
         return;
     }
 
-    current_directory = g_strdup (priv->current_path);
+    current_directory = g_file_get_path (priv->current_path);
 
     builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
@@ -4949,8 +4923,7 @@ et_browser_finalize (GObject *object)
 
     priv = et_browser_get_instance_private (ET_BROWSER (object));
 
-    g_free (priv->current_path);
-    priv->current_path = NULL;
+    g_clear_object (&priv->current_path);
     g_clear_object (&priv->run_program_model);
 
     G_OBJECT_CLASS (et_browser_parent_class)->finalize (object);

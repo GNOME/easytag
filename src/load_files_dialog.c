@@ -990,7 +990,6 @@ static void
 create_load_files_dialog (EtLoadFilesDialog *self)
 {
     EtLoadFilesDialogPrivate *priv;
-    const gchar *path;
 
     priv = et_load_files_dialog_get_instance_private (self);
 
@@ -1000,11 +999,9 @@ create_load_files_dialog (EtLoadFilesDialog *self)
     gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_APPLY);
 
     /* Initial value. */
-    if ((path = et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow))) != NULL)
-    {
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (priv->file_chooser),
-                                             path);
-    }
+    gtk_file_chooser_set_current_folder_file (GTK_FILE_CHOOSER (priv->file_chooser),
+                                              et_application_window_get_current_path (ET_APPLICATION_WINDOW (MainWindow)),
+                                              NULL);
     
     /* Signals to 'select' the same row into the other list (to show the
      * corresponding filenames). */
