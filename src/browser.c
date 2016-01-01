@@ -4087,10 +4087,10 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
                                      GTK_RESPONSE_APPLY);
 
     /* We attach useful data to the combobox */
-    g_object_set_data (G_OBJECT (priv->rename_directory_dialog),
-                       "Parent_Directory", directory_parent);
-    g_object_set_data (G_OBJECT (priv->rename_directory_dialog),
-                       "Current_Directory", directory_name);
+    g_object_set_data_full (G_OBJECT (priv->rename_directory_dialog),
+                            "Parent_Directory", directory_parent, g_free);
+    g_object_set_data_full (G_OBJECT (priv->rename_directory_dialog),
+                            "Current_Directory", directory_name, g_free);
     g_signal_connect (priv->rename_directory_dialog, "response",
                       G_CALLBACK (et_rename_directory_on_response), self);
 
@@ -4172,9 +4172,6 @@ Destroy_Rename_Directory_Window (EtBrowser *self)
 
     if (priv->rename_directory_dialog)
     {
-        g_free(g_object_get_data(G_OBJECT(priv->rename_directory_dialog),"Parent_Directory"));
-        g_free(g_object_get_data(G_OBJECT(priv->rename_directory_dialog),"Current_Directory"));
-
         gtk_widget_destroy(priv->rename_directory_dialog);
         priv->rename_directory_preview_label = NULL;
         priv->rename_directory_dialog = NULL;
