@@ -4033,7 +4033,6 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     gchar *directory_parent = NULL;
     gchar *directory_name = NULL;
     gchar *directory_name_utf8 = NULL;
-    gchar *address = NULL;
     gchar *string;
 
     priv = et_browser_get_instance_private (self);
@@ -4049,28 +4048,12 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     if (et_str_empty (directory_parent))
     {
-        g_free(directory_parent);
+        g_free (directory_parent);
         return;
     }
 
-    // Remove the last '/' in the path if it exists
-    if (strlen(directory_parent)>1 && directory_parent[strlen(directory_parent)-1]==G_DIR_SEPARATOR)
-        directory_parent[strlen(directory_parent)-1]=0;
-    // Get name of the directory to rename (without path)
-    address = strrchr(directory_parent,G_DIR_SEPARATOR);
-    if (!address) return;
-    directory_name = g_strdup(address+1);
-    *(address+1) = 0;
-
-    if (et_str_empty (directory_name))
-    {
-        g_free(directory_name);
-        g_free(directory_parent);
-        return;
-    }
-
-    /* FIXME: Use g_filename_display_basename() to simplify the code above? */
-    directory_name_utf8 = g_filename_display_name (directory_name);
+    directory_name = g_path_get_basename (directory_parent);
+    directory_name_utf8 = g_filename_display_basename (directory_parent);
 
     builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
