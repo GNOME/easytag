@@ -4518,8 +4518,8 @@ et_browser_show_open_directory_with_dialog (EtBrowser *self)
                               G_OBJECT (gtk_bin_get_child (GTK_BIN (priv->open_directory_with_combobox))));
 
     /* We attach useful data to the combobox (into Run_Program_With_Directory) */
-    g_object_set_data (G_OBJECT (priv->open_directory_with_combobox),
-                       "Current_Directory", current_directory);
+    g_object_set_data_full (G_OBJECT (priv->open_directory_with_combobox),
+                            "Current_Directory", current_directory, g_free);
 
     /* Button to execute */
     button = gtk_dialog_get_widget_for_response (GTK_DIALOG (priv->open_directory_with_dialog),
