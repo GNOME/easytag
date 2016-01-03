@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: EasyTAG 2.4.0\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-29 18:34+0000\n"
+"POT-Creation-Date: 2015-12-27 16:26+0000\n"
 "PO-Revision-Date: 2015-12-02 12:37+0100\n"
 "Last-Translator: Marcus Gisslén <marcus.gisslen@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1982,7 +1982,7 @@ msgstr "Förhandsgranskning av förändring"
 #. Only filename changed
 #: ../data/scan_dialog.ui.h:52 ../src/easytag.c:585
 msgid "Rename File"
-msgstr "Ändra endast filnamn"
+msgstr "Byt namn på fil"
 
 #: ../data/scan_dialog.ui.h:53
 msgid "Tag Fields"
@@ -2014,7 +2014,7 @@ msgstr "Bearbeta genrefält"
 
 #: ../data/scan_dialog.ui.h:67
 msgid "Process comment field"
-msgstr "Bearbeta kommentarfält"
+msgstr "Bearbeta kommentarsfält"
 
 #: ../data/scan_dialog.ui.h:69
 msgid "Process composer field"
@@ -6094,7 +6094,7 @@ msgstr "Wavpack-fil"
 #~ "Calculates the CRC-32 value of the file and writes it into the comment "
 #~ "field when using the 'Fill Tag' scanner."
 #~ msgstr ""
-#~ "Beräkna värdet av CRC-32 i filen och skriv in detta i kommentarfältet när "
+#~ "Beräkna värdet av CRC-32 i filen och skriv in detta i kommentarsfältet när "
 #~ "”fyll tagg”-scannern används."
 
 #~ msgid "CD Data Base"
