@@ -940,9 +940,6 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
             {
                 EtConvertSpaces convert_mode;
 
-                et_filename_prepare (mask_item->string,
-                                     g_settings_get_boolean (MainSettings,
-                                                             "rename-replace-illegal-chars"));
                 convert_mode = g_settings_get_enum (MainSettings,
                                                     "rename-convert-spaces");
 
@@ -963,6 +960,13 @@ et_scan_generate_new_filename_from_mask (const ET_File *ETFile,
                     default:
                         g_assert_not_reached ();
                 }
+
+                /* This must occur after the space processing, to ensure that a
+                 * trailing space cannot be present (if illegal characters are to be
+                 * replaced). */
+                et_filename_prepare (mask_item->string,
+                                     g_settings_get_boolean (MainSettings,
+                                                             "rename-replace-illegal-chars"));
             }
         }else
         {
