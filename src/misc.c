@@ -527,6 +527,8 @@ et_filename_prepare (gchar *filename_utf8,
      * Joliet (CD-ROM filesystems). */
     if (replace_illegal)
     {
+        size_t last;
+
         // Commented as we display unicode values as "\351" for "é"
         //while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
         //    *character = ',';
@@ -546,6 +548,15 @@ et_filename_prepare (gchar *filename_utf8,
             *character = ')';
         while ( (character=g_utf8_strchr(filename_utf8, -1, '|'))!=NULL )
             *character = '-';
+
+        /* FAT has additional restrictions on the last character of a filename.
+         * https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247%28v=vs.85%29.aspx#naming_conventions */
+        last = strlen (filename_utf8) - 1;
+
+        if (filename_utf8[last] == ' ' || filename_utf8[last] == '.')
+        {
+            filename_utf8[last] = '_';
+        }
     }
 }
 

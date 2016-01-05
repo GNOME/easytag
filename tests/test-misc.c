@@ -73,7 +73,9 @@ misc_filename_prepare (void)
         { "foo<bar", "foo(bar", "foo<bar" },
         { "foo>bar", "foo)bar", "foo>bar" },
         { "foo|bar", "foo-bar", "foo|bar" },
-        { "foo|bar*baz", "foo-bar+baz", "foo|bar*baz" }
+        { "foo|bar*baz", "foo-bar+baz", "foo|bar*baz" },
+        { "foo.", "foo_", "foo." },
+        { "foo ", "foo_", "foo " }
         /* TODO: Add more tests. */
     };
 
