@@ -1,0 +1,1300 @@
+# Swedish translation for easytag.
+# Copyright © 2015 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Marcus Gisslén <marcus.gisslen@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag master\n"
+"POT-Creation-Date: 2016-01-03 16:10+0000\n"
+"PO-Revision-Date: 2016-01-03 17:21+0100\n"
+"Last-Translator: Marcus Gisslén <marcus.gisslen@gmail.com>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.6\n"
+
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
+msgstr "Marcus Gisslén <marcus.gisslen@gmail.com>, 2015"
+
+#. (itstool) path: credit/name
+#: C/cddb-search.page:12 C/file-rename.page:11 C/file-select.page:11
+#: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
+#: C/image.page:16 C/index.page:14 C/introduction.page:12
+#: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
+#: C/problems-ogg-split.page:18 C/scanner.page:12 C/starting.page:10
+#: C/tag-capitalization.page:13 C/tag-field.page:14 C/tag.page:13
+msgid "Ekaterina Gerasimova"
+msgstr "Ekaterina Gerasimova"
+
+#. (itstool) path: info/desc
+#: C/cddb-search.page:18
+msgid "Fill tags using information from a CD database"
+msgstr "Fyll taggar med information hämtad från en CD-databas"
+
+#. (itstool) path: page/title
+#: C/cddb-search.page:21
+msgid "Search CDDB"
+msgstr "Sök CDDB"
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:23
+msgid ""
+"If your music is organized by album, <app>EasyTAG</app> can search online "
+"databases using the <sys>CDDB</sys> protocol and automatically fill in "
+"several tag fields."
+msgstr ""
+"Om din musik är organiserad via album, kan <app>EasyTAG</app> söka "
+"internetanslutna databaser genom att använda <sys>CDDB</sys>-protokollet och "
+"automatiskt fylla i flertalet taggfält."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:29
+msgid ""
+"<link xref=\"file-select\">Select all the files</link> in the album that you "
+"want to search for. The ordering of the files must match the track order on "
+"the album."
+msgstr ""
+"<link xref=\"file-select\">Markera alla filer</link> i albumet som du vill "
+"söka på. Filordningen måste matcha spårordningen på albumet."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:34
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">CDDB Search…</gui></guiseq>."
+msgstr ""
+"Välj <guiseq><gui style=\"menu\">Diverse</gui> <gui style=\"menuitem\">CDDB-"
+"sökning…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:38
+msgid ""
+"Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
+"the search to finish."
+msgstr ""
+"Tryck <gui style=\"button\">Sök med hjälp av valda filer</gui> och vänta "
+"tills sökningen är avslutad."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:43
+msgid ""
+"Select an album from the list of results, and the track information will be "
+"shown to the right. If the album is not the one that you wanted, try "
+"selecting another result in the list."
+msgstr ""
+"Välj ett album från resultatlistan och spårinformationen kommer att visas "
+"till höger. Om albumet inte är det du söker, försök med ett av de andra "
+"resultaten på listan."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:46
+msgid ""
+"If there are no results which match the tracks that you selected, enter the "
+"name of the album in the search field. Press <gui style=\"button\">Search</"
+"gui> and wait for the search to finish, and check the results again to see "
+"if you can find an album which matches the tracks that you selected."
+msgstr ""
+"Om det inte finns några resultat som matchar spåren du valde, skriv namnet "
+"på albumet i sökfältet. Tryck <gui style=\"button\">Sök</gui> och vänta på "
+"att sökningen ska avslutas, och kolla sedan av resultaten igen för att se om "
+"du kan finna ett album som matchar spåren du valde."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:53
+msgid ""
+"Choose the tag fields to fill in by selecting a combination of <gui style="
+"\"checkbox\">Filename</gui>, <gui style=\"checkbox\">Title</gui>, <gui style="
+"\"checkbox\">Artist</gui>, <gui style=\"checkbox\">Album</gui>, <gui style="
+"\"checkbox\">Year</gui>, <gui style=\"checkbox\">Track Number</gui>, <gui "
+"style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
+"gui>."
+msgstr ""
+"Välj vilka taggfält som ska fyllas genom att välja en kombination av <gui "
+"style=\"checkbox\">Filnamn</gui>, <gui style=\"checkbox\">Titel</gui>, <gui "
+"style=\"checkbox\">Artist</gui>, <gui style=\"checkbox\">Album</gui>, <gui "
+"style=\"checkbox\">År</gui>, <gui style=\"checkbox\">Spårnummer</gui>, <gui "
+"style=\"checkbox\">Antal spår</gui> och <gui style=\"checkbox\">Genre</gui>."
+
+#. (itstool) path: item/p
+#: C/cddb-search.page:64
+msgid ""
+"To fill in the tags of the selected files using the details in the search "
+"result, press <gui style=\"button\">Apply</gui>."
+msgstr ""
+"För att fylla taggarna på de valda filerna genom att använda detaljerna från "
+"sökningen, tryck <gui style=\"button\">Verkställ</gui>."
+
+#. (itstool) path: page/p
+#: C/cddb-search.page:69
+msgid ""
+"If you wish to tag only specific files, you can change your selection after "
+"the search is complete."
+msgstr ""
+"Om du vill tagga vissa specifika filer kan du ändra dina val efter det att "
+"sökningen är färdig."
+
+#. (itstool) path: info/desc
+#: C/file-rename.page:17
+msgid "Change the file names using tags"
+msgstr "Ändra filnamn genom att använda taggar"
+
+#. (itstool) path: page/title
+#: C/file-rename.page:20
+msgid "Rename files"
+msgstr "Byt namn på filer"
+
+#. (itstool) path: page/p
+#: C/file-rename.page:22
+msgid ""
+"You can rename your music files using the tags from within <app>EasyTAG</"
+"app>:"
+msgstr ""
+"Du kan byta namn på dina musikfiler genom att använda taggarna i "
+"<app>EasyTAG</app>:"
+
+#. (itstool) path: item/p
+#: C/file-rename.page:27
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to rename "
+"in the file view."
+msgstr ""
+"<link xref=\"file-select\">Välj filerna</link> som du vill byta namn på i "
+"filvisningsläget."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:31
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Välj <guiseq><gui style=\"menu\">Visa</gui> <gui style=\"menuitem\">Visa "
+"avsökare</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:35
+msgid "Select the <gui>Rename File</gui> scanner."
+msgstr "Välj <gui>Byt namn på fil</gui>-avsökaren."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:38
+msgid ""
+"Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
+"that you would like to use for the file naming. For example, if you wish "
+"your files to be named <file>[artist] - [title].[extension]</file>, "
+"enter <input>%a - %t</input> into the renaming field."
+msgstr ""
+"Använd <gui xref=\"format-specifier\">Avsökningssymboler</gui>, skriv in "
+"strukturen som du vill använda vid namngivning av filer. T.ex. om du vill "
+"att dina filer ska namnges <file>[artist] - [titel].[ändelse]</file>, "
+"skriv <input>%a - %t</input> i namngivningsfältet."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:45
+msgid ""
+"To apply the changes to the selected files, click <gui style=\"button\">Scan "
+"Files</gui>."
+msgstr ""
+"För att utföra ändringarna på de valda filerna, klicka <gui style=\"button"
+"\">Sök av filer</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:49
+msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
+msgstr ""
+"Stäng <gui style=\"dialog\">Tagg- och filnamnssökning</gui>-dialogrutan."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:52
+msgid ""
+"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
+"<gui style=\"menuitem\">Save Files</gui></guiseq>."
+msgstr ""
+"För att spara de utförda ändringarna, välj <guiseq><gui style=\"menu"
+"\">Arkiv</gui> <gui style=\"menuitem\">Spara filer</gui></guiseq>."
+
+#. (itstool) path: note/p
+#: C/file-rename.page:59
+msgid "If you close the application without saving, your changes will be lost."
+msgstr ""
+"Om du stänger programmet utan att spara kommer du att förlora din ändringar."
+
+#. (itstool) path: info/desc
+#: C/file-select.page:17
+msgid "Choose files in the file list"
+msgstr "Välj filer i fillistan"
+
+#. (itstool) path: page/title
+#: C/file-select.page:20
+msgid "Select files"
+msgstr "Välj filer"
+
+#. (itstool) path: page/p
+#: C/file-select.page:22
+msgid ""
+"<app>EasyTAG</app> has several features which operate on the files that are "
+"currently selected in the file list. To select multiple files, you can "
+"either hold down <key>Ctrl</key> while you click on the files that you wish "
+"to select or you can select a file then hold down <key>Shift</key> and click "
+"another file to select all the files between the two, including the first "
+"and last file."
+msgstr ""
+"<app>EasyTAG</app> har ett flertal verktyg som arbetar på filerna som är "
+"valda i fillistan. För att välja flera filer kan du antingen hålla nere "
+"<key>Ctrl</key> under tiden du klickar på de filer du vill välja eller "
+"klicka på en fil och sedan hålla nere <key>Skift</key> och under tiden "
+"klicka på en andra fil för att välja alla filer emellan de två, inklusive "
+"den första och sista filen."
+
+#. (itstool) path: info/desc
+#: C/format-specifier.page:17
+msgid "What is a format-specifier and which ones can I use?"
+msgstr "Vad är formatbeskrivare och vilka kan jag använda?"
+
+#. (itstool) path: page/title
+#: C/format-specifier.page:21
+msgid "Format specifiers"
+msgstr "Formatbeskrivare"
+
+#. (itstool) path: page/p
+#: C/format-specifier.page:23
+msgid ""
+"<em>Format specifiers</em> can be used to split a file name into tags and to "
+"name a file or playlist based on existing tags using <link xref=\"scanner"
+"\">the scanner</link>."
+msgstr ""
+"<em>Formatbeskrivare</em> kan användas för att dela upp filnamnet till "
+"taggar och för att namnge en fil eller spellista baserat på befintliga "
+"taggar genom att använda <link xref=\"scanner\">avsökaren</link>."
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:31
+msgid "Format specifier"
+msgstr "Formatbeskrivare"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:34
+msgid "Corresponding tag field"
+msgstr "Motsvarande taggfält"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:44
+msgid ""
+"Artist: this is the artist or artists who created the track, this field may "
+"contact a featured artist as well as the album artist"
+msgstr ""
+"Artist: detta är artisten eller artisterna som skapade spåret, fältet kan "
+"hänvisa till den spelande artisten likaväl som albumartisten"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:53
+msgid "Album artist"
+msgstr "Albumartist"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:61
+msgid "Album title"
+msgstr "Album"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:69
+msgid "Comment: this is the free-form comment field"
+msgstr "Kommentar: Detta är ett fritt kommentarsfält"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:77
+msgid "Composer: this is the creator of the track"
+msgstr "Kompositör: detta är spårets skapare"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:85
+msgid ""
+"Copyright holder: this is usually the artist, but it can also be the record "
+"label"
+msgstr "Copyright: detta är vanligtvis artisten men kan även vara skivbolaget"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:94
+msgid "Disc number"
+msgstr "Skivnummer"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:102
+msgid ""
+"Encoded by: this is usually the person who encoded the file, but the field "
+"is also used for the application that was used to encode the file"
+msgstr ""
+"Kodad av: vanligtvis personen som kodade filen men fältet används även för "
+"programmet som användes för att koda filen"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:112
+msgid "Genre"
+msgstr "Genre"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:120
+msgid ""
+"Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
+"specify parts of the file name which should be ignored"
+msgstr ""
+"Ignorerad: denna formatbeskrivare kan endast användas med <gui>Fyll tagg</"
+"gui> för att specificera delar av filnamnet som ska ignoreras"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:130
+msgid "Number of tracks: the total number of tracks on the medium"
+msgstr "Antal spår: det totala antalet spår på mediet"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:138
+msgid "Original artist"
+msgstr "Originalartist"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:146
+msgid "Track number"
+msgstr "Spårnummer"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:154
+msgid "Track title"
+msgstr "Spårtitel"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:162
+msgid "URL"
+msgstr "Webbadress"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:170
+msgid "Number of discs"
+msgstr "Antal skivor"
+
+#. (itstool) path: td/p
+#: C/format-specifier.page:178
+msgid "Year of recording, sometimes the date of release is used instead"
+msgstr "Inspelningsår, ibland används releasedatumet istället"
+
+#. (itstool) path: info/desc
+#: C/image-delete.page:17
+msgid "Remove an image from a tag"
+msgstr "Ta bort en bild från en tagg"
+
+#. (itstool) path: page/title
+#: C/image-delete.page:21
+msgid "Delete an image"
+msgstr "Ta bort en bild"
+
+#. (itstool) path: page/p
+#: C/image-delete.page:23
+msgid ""
+"To delete an image from a tag, select it and press the <gui style=\"button"
+"\">Remove selected images from the tag</gui> button."
+msgstr ""
+"För att ta bort en bild från en tagg, markera den och tryck <gui style="
+"\"button\">Ta bort valda bilder från taggen</gui>-knappen."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:26
+msgid ""
+"To delete more than one image, select those images before deleting them."
+msgstr "För att ta bort mer än en bild, markera bilderna innan borttagning."
+
+#. (itstool) path: page/p
+#: C/image-delete.page:29
+msgid ""
+"It is also possible to delete all images from more than one file. To do "
+"this, select the files from which you want to delete the images, delete all "
+"images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
+"style=\"button\">Tag selected files with these images</gui> button."
+msgstr ""
+"Det är också möjligt att ta bort alla bilder från fler än en fil. För att "
+"göra detta, välj filerna vars bilder du vill ta bort, ta bort alla bilder "
+"från <gui style=\"tab\">Bild</gui>-fliken, tryck sedan <gui style=\"button"
+"\">Tagga valda filer med dessa bilder</gui>-knappen."
+
+#. (itstool) path: info/desc
+#: C/image-export.page:17
+msgid "Export an image from the tag"
+msgstr "Exportera en bild från taggen"
+
+#. (itstool) path: page/title
+#: C/image-export.page:21
+msgid "Save an image"
+msgstr "Spara en bild"
+
+#. (itstool) path: page/p
+#: C/image-export.page:23
+msgid ""
+"If the file is already tagged with an image, you can export the image from "
+"the tag by selecting it and pressing <gui style=\"button\">Save the selected "
+"images to files</gui> button. The default filename will be the image "
+"description."
+msgstr ""
+"Om filen redan är taggad med en bild kan du exportera bilden från taggen "
+"genom att markera den och trycka <gui style=\"button\">Spara de valda "
+"bilderna till filer</gui>-knappen. Standardfilnamnet kommer bli bildens "
+"beskrivning."
+
+#. (itstool) path: page/p
+#: C/image-export.page:28
+msgid ""
+"To export a number of images, select these images, then press the <gui style="
+"\"button\">Save the selected images to files</gui> button."
+msgstr ""
+"För att exportera ett antal bilder, markera dessa bilder och tryck <gui "
+"style=\"button\">Spara de valda bilderna till filer</gui>-knappen."
+
+#. (itstool) path: info/desc
+#: C/image.page:20
+msgid "Add images, such as cover art, to the tag"
+msgstr "Lägg till bilder, som t.ex. omslag, till taggen"
+
+#. (itstool) path: page/title
+#: C/image.page:24
+msgid "Add an image to a file"
+msgstr "Lägg till en bild till en fil"
+
+#. (itstool) path: page/p
+#: C/image.page:26
+msgid ""
+"Most audio file formats support an <sys>image</sys> tag field which can be "
+"used to add cover art and other related images to the audio file."
+msgstr ""
+"De flesta filformaten stödjer ett <sys>bild</sys>-taggfält som kan användas "
+"för att lägga till omslag och andra relaterade bilder till ljudfilen."
+
+#. (itstool) path: page/p
+#: C/image.page:29
+msgid ""
+"To add an image to the file, select the file, open the <gui style=\"tab"
+"\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
+"tag</gui> button. Select the image and confirm your selection."
+msgstr ""
+"För att lägga till en bild till en fil, markera filen, öppna <gui style=\"tab"
+"\">Bilder</gui>-fliken och klicka på <gui style=\"button\">Lägg till bilder "
+"till taggen</gui>-knappen."
+
+#. (itstool) path: page/p
+#: C/image.page:34
+msgid ""
+"Once the image is uploaded, it will be automatically marked as a front cover "
+"and the description will be the filename. To change the <gui>type</gui> and "
+"<gui>description</gui>, press the <gui style=\"button\">Edit image "
+"properties</gui> button. Once you have made the changes, press <gui style="
+"\"button\">Accept</gui> to apply the changes."
+msgstr ""
+"När bilden är importerad i filen kommer den automatiskt markeras som "
+"frontalbum och beskrivningen kommer att bli filnamnet. För att ändra "
+"<gui>typ</gui> och <gui>beskrivning</gui>, tryck på <gui style=\"button"
+"\">Redigera bildegenskaper</gui>-knappen. När du är klar med ändringarna, "
+"tryck på <gui style=\"button\">Acceptera</gui> för att utföra ändringarna."
+
+#. (itstool) path: note/p
+#: C/image.page:41
+msgid "Your changes will not be saved automatically."
+msgstr "Din ändringar sparas inte automatiskt."
+
+#. (itstool) path: page/p
+#: C/image.page:44
+msgid ""
+"You can tag multiple files with the same image by selecting them in the list "
+"of files, then selecting the image and pressing the <gui style=\"button"
+"\">Tag selected files with these images</gui> button. You will need to save "
+"these changes to write them to the files."
+msgstr ""
+"Du kan tagga flera filer samtidigt genom att markera dem i fillistan, sedan "
+"välja bilden och trycka på <gui style=\"button\">Tagga valda filer med dessa "
+"bilder</gui>-knappen. Du kommer att behöva spara ändringarna för att skriva "
+"dem till filerna."
+
+#. (itstool) path: page/p
+#: C/image.page:49
+msgid ""
+"You can work with more than one image at a time by selecting those images "
+"before you edit, apply, save to file or delete them."
+msgstr ""
+"Du kan arbeta med fler än en bild samtidigt genom att välja dessa bilder "
+"innan du redigerar, använder, sparar till fil eller tar bort dem."
+
+#. (itstool) path: info/title
+#: C/index.page:11 C/index.page:21
+msgctxt "text"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/title
+#: C/index.page:20
+msgctxt "link"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/desc
+#: C/index.page:23
+msgid ""
+"Learn how to use <app>EasyTAG</app>, a comprehensive tag editor for FLAC, "
+"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
+"and WavPack audio files."
+msgstr ""
+"Lär dig hur du kan använda <app>EasyTAG</app>, en mångsidig taggredigerare "
+"för FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, "
+"Ogg Vorbis och WavPack-ljudfiler."
+
+#. (itstool) path: page/title
+#: C/index.page:29
+msgid "<_:media-1/> EasyTAG"
+msgstr "<_:media-1/> EasyTAG"
+
+#. (itstool) path: section/title
+#: C/index.page:35
+msgid "Features"
+msgstr "Verktyg"
+
+#. (itstool) path: section/title
+#: C/index.page:39
+msgid "Tags"
+msgstr "Taggar"
+
+#. (itstool) path: section/title
+#: C/index.page:43
+msgid "The image tag field"
+msgstr "Bildtaggfältet"
+
+#. (itstool) path: section/title
+#: C/index.page:51
+msgid "Common problems and questions"
+msgstr "Vanliga problem och frågor"
+
+#. (itstool) path: page/title
+#: C/introduction.page:21
+msgid "Introduction"
+msgstr "Introduktion"
+
+#. (itstool) path: page/p
+#: C/introduction.page:23
+msgid ""
+"<app>EasyTAG</app> is a comprehensive tag editor for FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
+"audio files."
+msgstr ""
+"<app>EasyTAG</app> är en mångsidig taggredigerare för FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis och WavPack-"
+"ljudfiler."
+
+#. (itstool) path: page/title
+#: C/keyboard-shortcuts.page:20
+msgid "Keyboard shortcuts"
+msgstr "Tangentbordsgenvägar"
+
+#. (itstool) path: page/p
+#: C/keyboard-shortcuts.page:22
+msgid ""
+"<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
+"listed in the menus. Here are some which are especially useful:"
+msgstr ""
+"<app>EasyTAG</app> har ett antal tangentbordsgenvägar av vilka de flesta "
+"listas i menyerna. Här är några som är speciellt användbara:"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:29
+msgid "Action"
+msgstr "Åtgärd"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:32
+msgid "Shortcut"
+msgstr "Genväg"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:39
+msgid "Apply tag to selected files"
+msgstr "Använd tagg på valda filer"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:42
+msgid "<keyseq><key>Ctrl</key><key>Return</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>Retur</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:47
+msgid "Search all files, including filenames and tags"
+msgstr "Sök alla filer, även filnamn och taggar"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:50
+msgid "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:55
+msgid "Go to previous file while keeping focus on the same tag field"
+msgstr "Gå till föregående fil medan fokus stannar på samma taggfält"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:58
+msgid "<key>Page Up</key>"
+msgstr "<key>Page Up</key>"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:63
+msgid "Go to next file while keeping focus on the same tag field"
+msgstr "Gå till nästa fil medan fokus stannar på samma taggfält"
+
+#. (itstool) path: td/p
+#: C/keyboard-shortcuts.page:66
+msgid "<key>Page Down</key>"
+msgstr "<key>Page Down</key>"
+
+#. (itstool) path: p/link
+#: C/legal.xml:4
+msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+msgstr "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+
+#. (itstool) path: license/p
+#: C/legal.xml:3
+msgid "This work is licensed under a <_:link-1/>."
+msgstr "Detta verk är licenserat under <_:link-1/>."
+
+#. (itstool) path: info/desc
+#: C/playlist-generate.page:17
+msgid "Generate a playlist from the file list"
+msgstr "Skapa en spellista från fillistan"
+
+#. (itstool) path: page/title
+#: C/playlist-generate.page:20
+msgid "Create a playlist"
+msgstr "Skapa en spellista"
+
+#. (itstool) path: page/p
+#: C/playlist-generate.page:22
+msgid ""
+"You can create a M3U playlist for use with a music player based on the list "
+"of files shown in <app>EasyTAG</app>:"
+msgstr ""
+"Du kan skapa en M3U-spellista för att använda i en musikspelare, baserat på "
+"filerna som visas i <app>EasyTAG</app>:"
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:27
+msgid ""
+"<link xref=\"file-select\">Select the files</link> that you wish to be in "
+"the playlist from the list of files."
+msgstr ""
+"<link xref=\"file-select\">Välj filerna</link> som du vill ska finnas i "
+"spellistan, från fillistan."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:31
+msgid ""
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">Generate Playlist…</gui></guiseq>."
+msgstr ""
+"Select <guiseq><gui style=\"menu\">Diverse</gui> <gui style=\"menuitem"
+"\">Skapa spellista…</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:35
+msgid ""
+"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using "
+"<link xref=\"format-specifier\">format specifiers</link>, or select <gui "
+"style=\"radiobutton\">Use directory name</gui> to name the playlist after "
+"the directory which is selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Välj <gui style=\"radiobutton\">Använd mask</gui> och ange en mask, via "
+"<link xref=\"format-specifier\">formatbeskrivare</link>, eller välj <gui "
+"style=\"radiobutton\">Använd mappnamn</gui> för att namnge spellistan efter "
+"mappen som innehåller de valda filerna i <gui style=\"group\">Filbläddraren</"
+"gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:42
+msgid ""
+"Select <gui style=\"checkbox\">Include only the selected files</gui> to use "
+"the files which are selected in the file list when generating the playlist. "
+"Deselect it to include all the displayed files in the playlist."
+msgstr ""
+"Markera <gui style=\"checkbox\">Inkludera bara de valda filerna</gui> för "
+"att använda de filer som är markerade i fillistan när du skapar spellistan. "
+"Avmarkera den för att inkludera alla visade filer i spellistan."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:48
+msgid ""
+"Select <gui style=\"radiobutton\">Use relative path for files in playlist</"
+"gui> unless you only plan to use the playlist on the same computer and you "
+"do not plan to move the audio files, in which case you can select <gui style="
+"\"radiobutton\">Use full path for files in playlist</gui>."
+msgstr ""
+"Välj <gui style=\"radiobutton\">Använd relativ sökväg för filer i spellista</"
+"gui> såvida du inte bara ska spellistan på den här datorn och inte tänker "
+"flytta ljudfilerna, för då kan du använda <gui style=\"radiobutton\">Använd "
+"fullständig sökväg för filer i spellista</gui> i stället."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:55
+msgid ""
+"Select <gui style=\"checkbox\">Create playlist in the parent directory</gui> "
+"if you want to save the playlist in the parent of the directory selected in "
+"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
+"saved in the directory selected in the <gui style=\"group\">Browser</gui>."
+msgstr ""
+"Välj <gui style=\"checkbox\">Skapa en spellista i den överordnade mappen</"
+"gui> om du vill spara spellistan i den överordnade mappen till den som är "
+"vald i <gui style=\"group\">Bläddraren</gui>. I annat fall kommer spellistan "
+"att sparas i mappen som är vald i <gui style=\"group\">Bläddraren</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:63
+msgid ""
+"If you are creating a playlist for use on a Windows computer, or on a "
+"<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
+"\">Use DOS directory separator</gui>."
+msgstr ""
+"Om du skapar en spellista i syfte att använda den på en Windowsdator, på ett "
+"<sys>NTFS</sys>- eller <sys>FAT</sys>-filsystem, välj <gui style=\"checkbox"
+"\">Använd DOS-mappavskiljare</gui>."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:68
+msgid ""
+"Select <gui style=\"radiobutton\">Write only list of files</gui> to create a "
+"playlist which only contains a list of files. Select <gui style=\"radiobutton"
+"\">Write info using filename</gui> to also write extended information, "
+"including the duration of the audio file, to the playlist. Select <gui style="
+"\"radiobutton\">Write info using</gui> and enter a mask, using format "
+"specifiers, to write custom extended information to the playlist."
+msgstr ""
+"Välj <gui style=\"radiobutton\">Skriv enbart fillista</gui> för att skapa en "
+"spellista som bara innehåller en lista med filer. Välj <gui style="
+"\"radiobutton\">Använd filnamn för att skriva information</gui> för att "
+"skriva utökad information, såsom längden på ljudfilen. Välj <gui style="
+"\"radiobutton\">Skriv information med</gui> och för in en mask, via "
+"formatbeskrivare, för att skriva en skräddarsydd information till spellistan."
+
+#. (itstool) path: item/p
+#: C/playlist-generate.page:77
+msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
+msgstr "För att skapa spellistan, välj <gui style=\"button\">Spara</gui>."
+
+#. (itstool) path: credit/name
+#: C/problems-id3.page:14 C/problems-ogg-split.page:14
+msgid "David King"
+msgstr "David King"
+
+#. (itstool) path: info/desc
+#: C/problems-id3.page:18
+msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
+msgstr ""
+"Laga ID3-taggar som visas blanka eller som felande tagg i andra program"
+
+#. (itstool) path: page/title
+#: C/problems-id3.page:22
+msgid "MP3 tags not showing correctly"
+msgstr "MP3-taggar visas inte korrekt"
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:24
+msgid ""
+"<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
+"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.3, which is the "
+"most compatible."
+msgstr ""
+"<em>ID3</em>-taggar, som används i MP3-filer, kan vara en av flera "
+"versioner. <app>EasyTAG</app> stödjer ID3v2.4, ID3v2.3 och ID3v1.1. "
+"Standardversionen i <app>EasyTAG</app> är ID3v2.3, som även är den mest "
+"kompatibla."
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:29
+msgid ""
+"Many applications support the most recent version of the ID3 standard: "
+"ID3v2.4."
+msgstr "Många program stödjer den senaste versionen av ID3: ID3v2.4"
+
+#. (itstool) path: page/p
+#: C/problems-id3.page:32
+msgid ""
+"Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
+"a few may support only ID3v1.1 tags. If another application or a device has "
+"a problem reading tags from your files, you should try changing the ID3 tag "
+"version settings in the preferences:"
+msgstr ""
+"Några program och enheter kanske stödjer endast ID3v2.3- och ID3v1.1-taggar "
+"och ett fåtal stödjer endast ID3v1.1-taggar. Om något program eller enhet "
+"har problem med att läsa taggarna från dina filer, borde du prova att ändra "
+"ID3-taggens version i inställningarna:"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:39 C/problems-ogg-split.page:46
+msgid ""
+"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
+"\"menuitem\">Preferences</gui></guiseq>"
+msgstr ""
+"Välj <guiseq style=\"menuitem\"><gui style=\"menu\">Redigera</gui><gui style="
+"\"menuitem\">Inställningar</gui></guiseq>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:43
+msgid "Select the <gui style=\"tab\">ID3 Tags</gui> tab"
+msgstr "Välj fliken <gui style=\"tab\">ID3-taggar</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:46
+msgid ""
+"In the <gui style=\"group\">ID3v2</gui> section, choose the <gui>ID3v2.4</"
+"gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
+"version of ID3v2, if your application or device supports it"
+msgstr ""
+"I <gui style=\"group\">ID3v2</gui>-sektionen, välj <gui>ID3v2.4</gui>-"
+"inställningen i <gui>Version</gui>-rullgardinsmenyn för att använda den "
+"senaste versionen av ID3v2, om dina program eller enheter stödjer det"
+
+#. (itstool) path: item/p
+#: C/problems-id3.page:52
+msgid ""
+"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
+"the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
+"device only supports ID3v1"
+msgstr ""
+"Se till att <gui style=\"check\">Skriv ID3v1.x-tagg</gui> är markerad i <gui "
+"style=\"group\">ID3v1-taggar</gui>-sektionen, om dina program eller enheter "
+"endast stödjer ID3v1"
+
+#. (itstool) path: info/desc
+#: C/problems-ogg-split.page:22
+msgid ""
+"Split a single tag field into multiple fields when you save Ogg and FLAC "
+"files"
+msgstr "Dela upp ett taggfält i flera fält när du sparar Ogg och FLAC-filer"
+
+#. (itstool) path: page/title
+#: C/problems-ogg-split.page:26
+msgid "Split tag fields when saving"
+msgstr "Dela taggfält vid sparning"
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:28
+msgid ""
+"In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
+"\">tag field</link> of each type. For example, if two artists performed a "
+"song, there can be two artist fields in the tag, one for each artist. "
+"<app>EasyTAG</app> automatically reads the extra fields, combining them "
+"together and showing them as if they were a single field."
+msgstr ""
+"I Ogg och FLAC-filer är det möjligt att ha fler än ett <link xref=\"tag"
+"\">taggfält</link> för varje typ. T.ex. om två artister framför en sång kan "
+"det finnas två artistfält i en tagg, en för varje artist. <app>EasyTAG</app> "
+"läser automatiskt de extra fälten, lägger ihop dem och visar dem som om de "
+"vore endast ett fält."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:34
+msgid ""
+"Many applications do not read the multi-value field correctly, so the "
+"default configuration is to save using a single field per entry. If the "
+"application that you are using supports multiple field of one type, you can "
+"configure EasyTAG to split fields when you save the file. Fields will "
+"automatically be split whenever \" - \" occurs in the field. For example, in "
+"the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
+"\" and \"Queen\"."
+msgstr ""
+"Många program läser inte fält med flera värden rätt, så "
+"standardinställningen är att spara med att använda ett fält per post. Om "
+"programmet du använder stödjer flera fält av en typ, kan du konfigurera "
+"EasyTAG att dela fälten när du sparar filen. Fält delas automatiskt när \"-"
+"\" förekommer i fältet. T.ex. i fältet \"David Bowie - Queen\" skulle två "
+"fält sparas: \"David Bowie\" och \"Queen\"."
+
+#. (itstool) path: page/p
+#: C/problems-ogg-split.page:42
+msgid "To split fields when you save the files:"
+msgstr "För att dela fält när du sparar filerna:"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:50
+msgid "Select the <gui style=\"tab\">Tags</gui> tab"
+msgstr "Välj fliken <gui style=\"tab\">Taggar</gui>"
+
+#. (itstool) path: item/p
+#: C/problems-ogg-split.page:53
+msgid ""
+"In <gui style=\"group\">Splitting</gui> section, check the fields that you "
+"want to be split into multiple fields when saving"
+msgstr ""
+"I <gui style=\"group\">Taggdelning</gui>-sektionen, markera fälten du vill "
+"ha delade till flera fält vid sparning"
+
+#. (itstool) path: info/desc
+#: C/scanner.page:18
+msgid "Update tags automatically"
+msgstr "Uppdatera taggar automatiskt"
+
+#. (itstool) path: page/title
+#: C/scanner.page:22
+msgid "The <gui>Scanner</gui>"
+msgstr "<gui>Avsökare</gui>"
+
+#. (itstool) path: page/p
+#: C/scanner.page:24
+msgid ""
+"The scanner can be used to fill in fields based on the filename, rename a "
+"file and create a new directory based on the filled fields, and process the "
+"text in fields and the filename."
+msgstr ""
+"Avsökaren kan användas för att fylla fält baserat på filnamnet, byta namn på "
+"en fil och skapa en ny mapp baserat på de fyllda fälten, samt bearbeta "
+"texten i fält och filnamnet."
+
+#. (itstool) path: section/title
+#: C/scanner.page:29
+msgid "Fill fields from a filename and directory structure"
+msgstr "Fyll fält genom ett filnamn och mappstruktur"
+
+#. (itstool) path: section/p
+#: C/scanner.page:31
+msgid ""
+"<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
+"and its parent directories."
+msgstr ""
+"<gui>Fyll tagg</gui> kan användas för att fylla i taggar baserat på "
+"filnamnet och dess överordnade mappar."
+
+#. (itstool) path: section/p
+#: C/scanner.page:34
+msgid ""
+"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
+"em> to split the filename and parent directories into different tag fields. "
+"The <em>format specifiers</em>, such as <input>%t</input> for track title, "
+"which are used to indicate the different tag fields, are listed in the "
+"<gui>Legend</gui>. <em>Separators</em> can be any part of the filename or "
+"the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
+"parent directory."
+msgstr ""
+"Använd <em xref=\"format-specifier\">formatbeskrivare</em> och "
+"<em>avskiljare</em> för att dela in filnamnet och överordnade mappar till "
+"olika taggfält. <em>Formatbeskrivare</em>, som t.ex. <input>%t</input> för "
+"spårtitel, vilka används för att ange de olika taggfälten, är listade i "
+"<gui>Symbolförklaring</gui>. <em>Avskiljare</em> kan vara vilken del som "
+"helst av filnamnet eller de överordnade mapparna. Använd <key>/</key> för "
+"att lägga till <em>avskiljare</em> för en överordnad mapp."
+
+#. (itstool) path: section/p
+#: C/scanner.page:42
+msgid ""
+"For example, if you keep your audio files using the <file>artist/"
+"album/01 track title.flac</file> directory structure and filenames, use the "
+"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
+"number and title from the filename, the album title from the parent "
+"directory and the artist from the grandparent directory."
+msgstr ""
+"T.ex. om du förvarar dina ljudfiler med filstrukturen <file>artist/album/01 "
+"spårtitel.flac</file>, använd <em>formatsträng</em> <input>%a/%b/%n %t</"
+"input> för att plocka ut spårnumret och titeln från filnamnet, albumtiteln "
+"från den överordnade mappen och artisten från den ”över”överordnade mappen."
+
+#. (itstool) path: section/p
+#: C/scanner.page:48
+msgid ""
+"Fill the tag fields for the selected files using the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"Fyll taggfälten från valda filer genom att använda <gui style=\"button\">Sök "
+"av filer</gui>-knappen."
+
+#. (itstool) path: section/title
+#: C/scanner.page:54
+msgid "Rename files and create new directories"
+msgstr "Byt namn på filer och skapa nya mappar"
+
+#. (itstool) path: section/p
+#: C/scanner.page:56
+msgid ""
+"<gui xref=\"file-rename\">Rename File</gui> can be used to create a "
+"directory hierarchy and update filenames using the filled tag fields. If a "
+"new directory hierarchy is specified, it will be created inside the "
+"directory where the file is currently located."
+msgstr ""
+"<gui xref=\"file-rename\">Byt namn på fil</gui> kan användas för att skapa "
+"en mapphierarki och uppdatera filnamn genom att använda de fyllda "
+"taggfälten. Om en ny mapphierarki är specificerad, kommer den att skapas "
+"inuti mappen där filen för närvarande finns."
+
+#. (itstool) path: section/p
+#: C/scanner.page:61
+msgid ""
+"For example, if you have a tagged file inside the <file>Music</file> "
+"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
+"em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
+"file structure and filename. You will see a preview of the naming scheme "
+"below your specified format string."
+msgstr ""
+"T.ex. om du har en taggad fil i mappen <file>Musik</file>, kan du använda "
+"<em>formatsträngen</em> <input>%a/%b/%n %t</input>. Det kommer att skapa "
+"filstrukturen och filnamnet <file>Musik/artist/album/01 spårtitel.flac</"
+"file>. Du kommer att se en förhandsvisning på ändring under din angivna "
+"formatsträng."
+
+#. (itstool) path: section/p
+#: C/scanner.page:67
+msgid ""
+"To prepare the files for moving and renaming, press the <gui style=\"button"
+"\">Scan Files</gui> button."
+msgstr ""
+"För att färdigställa filerna för flytt och namnbyte, tryck <gui style="
+"\"button\">Sök av</gui>-knappen."
+
+#. (itstool) path: section/title
+#: C/scanner.page:73
+msgid "Bulk process tag fields and filename"
+msgstr "Massbearbeta taggfält och filnamn"
+
+#. (itstool) path: section/p
+#: C/scanner.page:75
+msgid ""
+"<gui>Process Fields</gui> is a sophisticated find and replace feature which "
+"allows you to select which tag fields to process. It also allows for the "
+"filename to be processed as well."
+msgstr ""
+"<gui>Bearbeta fält</gui> är ett avancerat hitta och ersätt-verktyg som låter "
+"dig välja vilka taggfält som ska bearbetas. Det tillåter även att filnamnen "
+"bearbetas likväl."
+
+#. (itstool) path: section/p
+#: C/scanner.page:79
+msgid ""
+"Specify which fields to change by selecting them from the <gui>Tag Fields</"
+"gui> section."
+msgstr ""
+"Ange vilka fält som ska ändras genom att välja dem från <gui>Taggfält</gui>-"
+"sektionen."
+
+#. (itstool) path: section/p
+#: C/scanner.page:82
+msgid ""
+"You can <gui>Convert</gui> characters for a simple find and replace, change "
+"capitalization and add or remove spaces."
+msgstr ""
+"Du kan <gui>Konvertera</gui> tecken för att enkelt hitta och ersätta, ändra "
+"skiftläge och lägga till eller ta bort mellanslag."
+
+#. (itstool) path: info/desc
+#: C/starting.page:16
+msgid "Using <app>EasyTAG</app> for the first time"
+msgstr "Använda <app>EasyTAG</app> för första gången"
+
+#. (itstool) path: page/title
+#: C/starting.page:19
+msgid "Start using <app>EasyTAG</app>"
+msgstr "Börja använda <app>EasyTAG</app>"
+
+#. (itstool) path: page/p
+#: C/starting.page:21
+msgid ""
+"When you start <app>EasyTAG</app> for the first time, it will search your "
+"<file>Music</file> directory or your home directory for audio files. If you "
+"wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
+msgstr ""
+"När du använder <app>EasyTAG</app> för första gången, kommer den att söka "
+"igenom din <file>Musik</file>-mapp eller din hemmapp efter ljudfiler. Om du "
+"vill hoppa över sökningen, tryck <gui style=\"button\">Stopp</gui>-knappen."
+
+#. (itstool) path: page/p
+#: C/starting.page:25
+msgid ""
+"<app>EasyTAG</app> may apply some automatic corrections to some of your "
+"music files. These files will be highlighted in bold. These are normally "
+"updates to the tag metadata containers and will not be applied until you "
+"save the changes."
+msgstr ""
+"<app>EasyTAG</app> kan utföra en del automatiska rättelser till en del av "
+"dina musikfiler. Dessa filer kommer att bli markerade med fetstil. Dessa är "
+"normalt uppdateringar till taggens metadatabehållare och kommer inte att "
+"utföras förrän du sparar ändringarna."
+
+#. (itstool) path: page/p
+#: C/starting.page:30
+msgid ""
+"To save these changes, select all the files that have been affected and "
+"press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to "
+"undo the automatic changes but they will not be saved unless you select the "
+"file and save it. You can disable some of the automatic updates in the <gui "
+"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
+"\">Preferences</gui> dialog."
+msgstr ""
+"För att spara dessa ändringar, markera de berörda filerna och tryck "
+"<keyseq><key>Ctrl</key><key>S</key></keyseq>. Det är inte möjligt att "
+"upphäva de automatiska ändringarna men de sparas inte såvida du inte väljer "
+"filen och sparar den. Du kan inaktivera delar av de automatiska "
+"uppdateringarna i fliken <gui style=\"tab\">Inställningar för ID3-taggar</"
+"gui> i <gui style=\"dialog\">Inställningar</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-capitalization.page:17
+msgid "Apply consistent capitalization to tags"
+msgstr "Tillämpa konsekvent skiftlägeskonvertering på taggar"
+
+#. (itstool) path: page/title
+#: C/tag-capitalization.page:21
+msgid "Capitalize tags consistently"
+msgstr "Konsekvent skiftläge"
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:23
+msgid ""
+"Tag capitalization can be changed for one or more tag fields in one or more "
+"files."
+msgstr ""
+"Taggars skiftläge kan ändras för ett eller fler fält i en eller fler filer."
+
+#. (itstool) path: steps/title
+#: C/tag-capitalization.page:27
+msgid "Change tag field capitalization"
+msgstr "Ändra taggfälts skiftlägen"
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:29
+msgid "Select the files that you wish to tag."
+msgstr "Välj filerna du vill tagga."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:32
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Välj <guiseq><gui style=\"menu\">Visa</gui><gui style=\"menuitem\">Visa "
+"avsökare</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:36
+msgid "Select the <gui style=\"tab\">Process Fields</gui> tab."
+msgstr "Välj fliken <gui style=\"tab\">Bearbeta fält</gui>."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:39
+msgid "Check the fields that you want to change."
+msgstr "Markera de fält du vill ändra."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:42
+msgid ""
+"There are a number of available options for changing the capitalization. "
+"Choose the one that you want."
+msgstr ""
+"Det finns ett antal tillgängliga inställningar för att ändra skiftlägen. "
+"Välj den som du vill använda."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:46
+msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
+msgstr ""
+"Verkställ ändringarna genom att trycka <gui style=\"button\">Sök av filer</"
+"gui>."
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:51
+msgid ""
+"The <gui>Scanner</gui> dialog can also be used to process space and "
+"character conversions. If you do not want to make any changes to these, "
+"select the correct option before you press <gui style=\"button\">Scan Files</"
+"gui>."
+msgstr ""
+"<gui>Avsökare</gui>-fönstret kan även användas för att bearbeta mellanslag "
+"och teckenkonverteringar. Om du inte vill göra några ändringar i dessa, välj "
+"rätt inställning innan du trycker <gui style=\"button\">Sök av filer</gui>."
+
+#. (itstool) path: info/desc
+#: C/tag-field.page:18
+msgid "Add text tags to a file"
+msgstr "Lägg till texttaggar till en fil"
+
+#. (itstool) path: page/title
+#: C/tag-field.page:22
+msgid "Tag a file"
+msgstr "Tagga en fil"
+
+#. (itstool) path: page/p
+#: C/tag-field.page:24
+msgid ""
+"Audio files can support a number of different tag <em>fields</em> which "
+"depend on the file format."
+msgstr ""
+"Ljudfiler kan stödja olika tagg<em>fält</em> beroende på dess filformat."
+
+#. (itstool) path: steps/title
+#: C/tag-field.page:28
+msgid "Update a tag field in a file"
+msgstr "Uppdatera ett taggfält i en fil"
+
+#. (itstool) path: item/p
+#: C/tag-field.page:30
+msgid "Select the file that you wish to tag."
+msgstr "Välj filen som du vill tagga."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:33
+msgid "Update the field that you want to change in the <gui>Tag</gui> panel."
+msgstr "Uppdatera fältet som du vill ändra i <gui>Tagg</gui>-panelen."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:37
+msgid ""
+"Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
+"files</gui></guiseq> to save your changes to the selected file."
+msgstr ""
+"Välj <guiseq><gui style=\"menu\">Fil</gui><gui style=\"menuitem\">Spara "
+"filer</gui></guiseq> för att spara ändringarna i den valda filen."
+
+#. (itstool) path: item/p
+#: C/tag-field.page:42
+msgid ""
+"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
+"\"button\">Save</gui> to save the changes."
+msgstr ""
+"När du tillfrågas att <gui>Bekräfta taggskrivning</gui>, tryck <gui style="
+"\"button\">Spara</gui> för att spara ändringarna."
+
+#. (itstool) path: page/p
+#: C/tag-field.page:47
+msgid ""
+"You can tag multiple files with the same field by selecting them in the list "
+"of files and pressing the <gui>Tag selected files with this […]</gui> icon "
+"in the field that you want to tag. You will need to save these changes to "
+"write them to the files."
+msgstr ""
+"Du kan tagga flera filer med samma taggfält genom att markera dem i "
+"fillistan och trycka på <gui>Tagga valda filer med detta […]</gui>-ikonen i "
+"fältet som du vill tagga. Du kommer behöva spara dessa ändringar för att de "
+"ska skrivas till filerna."
+
+#. (itstool) path: info/desc
+#: C/tag.page:17
+msgid "What is a tag and what are fields?"
+msgstr "Vad är en tagg och vad är fält?"
+
+#. (itstool) path: page/title
+#: C/tag.page:21
+msgid "Audio file tags"
+msgstr "Ljudfils-taggar"
+
+#. (itstool) path: page/p
+#: C/tag.page:23
+msgid ""
+"An audio file can contain <em>metadata</em> — information about itself — "
+"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, "
+"such as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these "
+"fields using <app>EasyTAG</app>. The editable fields depend on the format of "
+"the file that you want to tag."
+msgstr ""
+"En ljudfil kan innehålla <em>metadata</em> — information om sig själv — "
+"inuti en <em>tagg</em>. Varje tagg kan innehålla en eller flera <em>fält</"
+"em>, som t.ex. <gui>Titel</gui> eller <gui>Artist</gui>. Den kan ändra vissa "
+"av dessa fält med <app>EasyTAG</app>. Vilka fält du kan ändra beror på "
+"formatet på ljudfilen som du vill tagga."
