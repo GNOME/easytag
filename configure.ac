@@ -318,7 +318,7 @@ AS_IF([test "x$have_wavpack" != "xno"],
 dnl ################################################
 dnl # Nautilus
 dnl ################################################
-NAUTILUS_DEPS="libnautilus-extension gio-unix-2.0"
+NAUTILUS_DEPS="libnautilus-extension >= 3.0 gio-unix-2.0"
 AS_IF([test "x$enable_nautilus_actions" != "xno"],
       [PKG_CHECK_EXISTS([$NAUTILUS_DEPS], [have_libnautilus_extension=yes], [have_libnautilus_extension=no])],
       [have_libnautilus_extension=no])
