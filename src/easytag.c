@@ -857,6 +857,7 @@ Read_Directory (const gchar *path_real)
     dir = g_file_new_for_path (path_real);
     dir_enumerator = g_file_enumerate_children (dir,
                                                 G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
                                                 G_FILE_ATTRIBUTE_STANDARD_TYPE ","
                                                 G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                                 G_FILE_QUERY_INFO_NONE,
@@ -1057,6 +1058,7 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                     GError *child_error = NULL;
                     childdir_enumerator = g_file_enumerate_children (child_dir,
                                                                      G_FILE_ATTRIBUTE_STANDARD_NAME ","
+                                                                     G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
                                                                      G_FILE_ATTRIBUTE_STANDARD_TYPE ","
                                                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                                                      G_FILE_QUERY_INFO_NONE,
@@ -1065,7 +1067,8 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                     {
                         Log_Print (LOG_ERROR,
                                    _("Error opening directory ‘%s’: %s"),
-                                   file_name, child_error->message);
+                                   g_file_info_get_display_name (info),
+                                   child_error->message);
                         g_error_free (child_error);
                         g_object_unref (child_dir);
                         g_object_unref (info);
