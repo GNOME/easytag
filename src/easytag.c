@@ -1051,8 +1051,8 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                 if (recurse)
                 {
                     /* Searching for files recursively. */
-                    GFile *child_dir = g_file_get_child (g_file_enumerator_get_container (dir_enumerator),
-                                                         file_name);
+                    GFile *child_dir = g_file_enumerator_get_child (dir_enumerator,
+                                                                    info);
                     GFileEnumerator *childdir_enumerator;
                     GError *child_error = NULL;
                     childdir_enumerator = g_file_enumerate_children (child_dir,
@@ -1083,9 +1083,7 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
             else if (type == G_FILE_TYPE_REGULAR &&
                      et_file_is_supported (file_name))
             {
-                /* TODO: Use g_file_enumerator_get_child(). */
-                GFile *file = g_file_get_child (g_file_enumerator_get_container (dir_enumerator),
-                                                file_name);
+                GFile *file = g_file_enumerator_get_child (dir_enumerator, info);
                 file_list = g_list_append (file_list, file);
             }
 
