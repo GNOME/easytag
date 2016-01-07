@@ -40,23 +40,11 @@
 #include <fcntl.h>
 #include <sys/timeb.h>
 
-#include <gtk/gtk.h>
-#include <glib.h>
-#include <glib/gstdio.h>
-
-#include <gdk/gdkwin32.h>
-
 #include "resource.h"
-//#include "../log.h"
-
-#include <libintl.h>
 
 #include "win32dep.h"
 
-/*
- *  DEFINES & MACROS
- */
-#define _(x) gettext(x)
+const gchar * weasytag_install_dir (void);
 
 /*
  * LOCALS
@@ -174,21 +162,9 @@ void ET_Win32_Path_Remove_Trailing_Backslash (gchar *path)
     }
 }
 
-void ET_Win32_Path_Replace_Backslashes (gchar *path)
-{
-    str_replace_char(path, '\\', '/');
-}
-
 void ET_Win32_Path_Replace_Slashes (gchar *path)
 {
     str_replace_char(path, '/', '\\');
-}
-
-/* find a default player executable */
-gchar *
-ET_Win32_Get_Audio_File_Player (void)
-{
-    return g_strdup("");
 }
 
 #ifndef HAVE_TRUNCATE

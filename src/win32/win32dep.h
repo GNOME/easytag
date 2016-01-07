@@ -36,12 +36,6 @@ G_BEGIN_DECLS
 
 #include "config.h"
 
-#define lstat stat
-#define mkdir(a,b) mkdir(a)
-#define chown(a,b,c) 0
-#define chmod(a,b)
-
-
 /*
  *  PROTOS
  */
@@ -52,15 +46,11 @@ G_BEGIN_DECLS
 /* Windows helper functions */
 
 /* Determine EasyTAG paths */
-const gchar * weasytag_install_dir (void);
 const gchar * weasytag_locale_dir (void);
 
 /* Misc */
-extern char *ET_Win32_Get_Audio_File_Player (void);
-
 extern void  ET_Win32_Path_Remove_Trailing_Slash     (gchar *path);
 extern void  ET_Win32_Path_Remove_Trailing_Backslash (gchar *path);
-extern void  ET_Win32_Path_Replace_Backslashes       (gchar *path);
 extern void  ET_Win32_Path_Replace_Slashes           (gchar *path);
 
 #ifndef HAVE_MKSTEMP
@@ -80,9 +70,7 @@ extern gint et_w32_truncate (const gchar *path, off_t length);
 /*
  *  EasyTAG specific
  */
-#undef DATADIR
 #undef LOCALEDIR
-#define DATADIR weasytag_install_dir()
 #define LOCALEDIR weasytag_locale_dir()
 
 G_END_DECLS
