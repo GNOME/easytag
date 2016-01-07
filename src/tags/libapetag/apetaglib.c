@@ -29,6 +29,7 @@
 #ifndef __BORLANDC__
 #    include <unistd.h>
 #endif
+#include <glib/gstdio.h>
 #include "apetaglib.h"
 #include "../genres.h"
 #include "../win32/win32dep.h"
@@ -816,7 +817,7 @@ apetag_read (apetag *mem_cnt, const char *filename, int flag)
         return ATL_NOINIT;
     }
     
-    fp = fopen (filename, "rb");
+    fp = g_fopen (filename, "rb");
     if (fp == NULL)
         return ATL_FOPEN;
 
@@ -902,7 +903,7 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
         return ATL_NOINIT;
     }
 
-    fp = fopen (filename, "rb+");
+    fp = g_fopen (filename, "rb+");
     if (fp == NULL) {
         PRINT_ERR ( "ERROR->apetaglib->apetag_save::fopen (r+)\n");
         return ATL_FOPEN;

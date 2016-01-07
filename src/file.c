@@ -21,9 +21,9 @@
 #include "file.h"
 
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/stat.h>
 #include <unistd.h>
 #include <utime.h>
 
@@ -1421,7 +1421,7 @@ ET_Save_File_Tag_To_HD (ET_File *ETFile, GError **error)
                                     "file-update-parent-modification-time"))
         {
             gchar *path = g_path_get_dirname (cur_filename);
-            utime (path, NULL);
+            g_utime (path, NULL);
             g_free (path);
         }
 

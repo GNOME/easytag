@@ -33,14 +33,6 @@
 #define index(a,b) strchr(a,b)
 #endif
 
-#ifdef __WIN32__
-#define USE_CHSIZE
-#define strcasecmp(a,b) stricmp(a,b)
-#define index(a,b) strchr(a,b)
-#define S_IRGRP S_IRUSR
-#define S_IWGRP S_IWUSR
-#endif
-
 /**\{*/
 #ifdef APE_TAG_DEBUG
 #define PRINT_D(x) fprintf( stdout, x )

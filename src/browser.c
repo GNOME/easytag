@@ -29,8 +29,8 @@
 
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <stdlib.h>
-#include <dirent.h>
 #include <string.h>
 #include <errno.h>
 
@@ -4182,7 +4182,7 @@ static void
 Rename_Directory (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    DIR   *dir;
+    GDir *dir;
     gchar *directory_parent;
     gchar *directory_last_name;
     gchar *directory_new_name;
@@ -4278,15 +4278,17 @@ Rename_Directory (EtBrowser *self)
     new_path = g_strconcat(directory_parent, directory_new_name_file, NULL);
     new_path_utf8 = filename_to_display(new_path);
 
-    /* TODO: Replace with g_open_dir() (or more likely g_file_move()). */
+    /* TODO: Replace with g_file_move(). */
     /* Check if the new directory name doesn't already exists, and detect if
      * it's only a case change (needed for vfat) */
-    if ( (dir=opendir(new_path))!=NULL )
+    /* TODO: Handle the GError, such as by checking for G_FILE_ERROR_NOENT. */
+    if ((dir = g_dir_open (new_path, 0, NULL)) != NULL)
     {
         GtkWidget *msgdialog;
         //gint response;
 
-        closedir(dir);
+        g_dir_close (dir);
+
         if (strcasecmp(last_path,new_path) != 0)
         {
     // TODO
@@ -4348,11 +4350,11 @@ Rename_Directory (EtBrowser *self)
     if ( (fd_tmp = mkstemp(tmp_path)) >= 0 )
     {
         close(fd_tmp);
-        unlink(tmp_path);
+        g_unlink (tmp_path);
     }
 
     /* Rename the directory from 'last name' to 'tmp name' */
-    if ( rename(last_path,tmp_path)!=0 )
+    if (g_rename (last_path, tmp_path) != 0)
     {
         GtkWidget *msgdialog;
 
@@ -4381,7 +4383,7 @@ Rename_Directory (EtBrowser *self)
     }
 
     /* Rename the directory from 'tmp name' to 'new name' (final name) */
-    if ( rename(tmp_path,new_path)!=0 )
+    if (g_rename (tmp_path, new_path) != 0)
     {
         GtkWidget *msgdialog;
 

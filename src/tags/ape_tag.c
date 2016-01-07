@@ -21,6 +21,7 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -56,7 +57,7 @@ ape_tag_read_file_tag (GFile *file,
 
     filename = g_file_get_path (file);
 
-    if ((fp = fopen (filename, "rb")) == NULL)
+    if ((fp = g_fopen (filename, "rb")) == NULL)
     {
         g_set_error (error, G_FILE_ERROR, g_file_error_from_errno (errno),
                      _("Error while opening file: %s"),

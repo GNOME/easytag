@@ -22,6 +22,7 @@
 #include "cddb_dialog.h"
 
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
@@ -785,7 +786,7 @@ Cddb_Write_Result_To_File (EtCDDBDialog *self,
     file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
                                   CDDB_RESULT_FILE, NULL);
 
-    if ((file = fopen (file_path, "w+")) != NULL)
+    if ((file = g_fopen (file_path, "w+")) != NULL)
     {
         gchar cddb_out[MAX_STRING_LEN+1];
         gint  bytes_read = 0;
@@ -2949,7 +2950,7 @@ Cddb_Read_Line (FILE **file, gchar **cddb_out)
         file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
                                       CDDB_RESULT_FILE, NULL);
 
-        if ((*file = fopen (file_path, "r")) == 0)
+        if ((*file = g_fopen (file_path, "r")) == 0)
         {
             Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
                        g_strerror (errno));

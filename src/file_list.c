@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <utime.h>
 
 #include "application_window.h"
 #include "charset.h"
