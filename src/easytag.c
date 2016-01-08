@@ -857,7 +857,6 @@ Read_Directory (const gchar *path_real)
     dir = g_file_new_for_path (path_real);
     dir_enumerator = g_file_enumerate_children (dir,
                                                 G_FILE_ATTRIBUTE_STANDARD_NAME ","
-                                                G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
                                                 G_FILE_ATTRIBUTE_STANDARD_TYPE ","
                                                 G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                                 G_FILE_QUERY_INFO_NONE,
@@ -866,21 +865,21 @@ Read_Directory (const gchar *path_real)
     {
         // Message if the directory doesn't exist...
         GtkWidget *msgdialog;
-        gchar *path_utf8 = filename_to_display(path_real);
+        gchar *display_path = g_filename_display_name (path_real);
 
         msgdialog = gtk_message_dialog_new(GTK_WINDOW(MainWindow),
                                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_ERROR,
                                            GTK_BUTTONS_CLOSE,
                                            _("Cannot read directory ‘%s’"),
-                                           path_utf8);
+                                           display_path);
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (msgdialog),
                                                   "%s", error->message);
         gtk_window_set_title(GTK_WINDOW(msgdialog),_("Directory Read Error"));
 
         gtk_dialog_run(GTK_DIALOG(msgdialog));
         gtk_widget_destroy(msgdialog);
-        g_free(path_utf8);
+        g_free (display_path);
 
         ReadingDirectory = FALSE; //Allow a new reading
         et_application_window_browser_set_sensitive (window, TRUE);
@@ -1058,17 +1057,24 @@ read_directory_recursively (GList *file_list, GFileEnumerator *dir_enumerator,
                     GError *child_error = NULL;
                     childdir_enumerator = g_file_enumerate_children (child_dir,
                                                                      G_FILE_ATTRIBUTE_STANDARD_NAME ","
-                                                                     G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME ","
                                                                      G_FILE_ATTRIBUTE_STANDARD_TYPE ","
                                                                      G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
                                                                      G_FILE_QUERY_INFO_NONE,
                                                                      NULL, &child_error);
                     if (!childdir_enumerator)
                     {
+                        gchar *child_path;
+                        gchar *display_path;
+
+                        child_path = g_file_get_path (child_dir);
+                        display_path = g_filename_display_name (child_path);
+
                         Log_Print (LOG_ERROR,
                                    _("Error opening directory ‘%s’: %s"),
-                                   g_file_info_get_display_name (info),
-                                   child_error->message);
+                                   display_path, child_error->message);
+
+                        g_free (display_path);
+                        g_free (child_path);
                         g_error_free (child_error);
                         g_object_unref (child_dir);
                         g_object_unref (info);
