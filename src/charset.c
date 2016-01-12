@@ -241,37 +241,67 @@ Charset_Insert_Locales_Destroy (void)
     g_hash_table_destroy (encodings);
 }
 
-/* stolen from gnome-desktop-item.c */
+/*
+ * get_encoding_from_locale:
+ * @locale: a locale string, of the form
+ *          language[_territory][.codeset][@modifer]
+ *
+ * Get the legacy (pre-Unicode) character encoding for the @locale, falling
+ * back to a hardcoded table if is not part of @locale, and as a last resort
+ * falling back to UTF-8.
+ *
+ * Returns: the legacy character encoding of @locale, or "UTF-8" on failure
+ */
 const char *
 get_encoding_from_locale (const char *locale)
 {
-    char lang[3];
     const char *encoding;
+    GStrv variants;
+    gsize i;
 
     g_return_val_if_fail (locale != NULL, NULL);
 
-    /* if locale includes encoding, use it *//*
+    /* Return early if the encoding is part of the locale. */
     encoding = strchr (locale, '.');
-    if (encoding != NULL) {
-        return encoding+1;
-    }*/
-    /* if locale includes encoding (that isn't UTF-8), use it */
-    encoding = strchr (locale, '.');
-    if (encoding != NULL && strncmp (encoding, ".UTF-8", 6)) {
-        return encoding+1;
+
+    if (encoding != NULL)
+    {
+        /* Ignore UTF-8 (and utf8). */
+        if ((strncmp (encoding, ".UTF-8", 6) != 0)
+            && (strncmp (encoding, ".utf8", 5) != 0))
+        {
+            const gchar *modifier;
+
+            modifier = strchr (encoding ? encoding : locale, '@');
+
+            if (modifier != NULL)
+            {
+                g_warning ("%s",
+                           "Returning modifier in addition to character set");
+            }
+
+            return encoding;
+        }
     }
 
-    /* first try the entire locale (at this point ll_CC) */
-    encoding = g_hash_table_lookup (encodings, locale);
-    if (encoding != NULL)
-        return encoding;
+    /* Loop over variants of the locale, returning the first match. */
+    variants = g_get_locale_variants (locale);
 
-    /* Try just the language */
-    strncpy (lang, locale, 2);
-    lang[2] = '\0';
-    return g_hash_table_lookup (encodings, lang);
+    for (i = 0; variants[i]; i++)
+    {
+        encoding = g_hash_table_lookup (encodings, variants[i]);
+
+        if (encoding != NULL)
+        {
+            g_strfreev (variants);
+            return encoding;
+        }
+    }
+
+    g_strfreev (variants);
+
+    return "UTF-8";
 }
-
 
 /*
  * Return the locale from LANG if exists, else from LC_ALL
