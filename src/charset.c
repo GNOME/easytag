@@ -430,36 +430,47 @@ convert_string_1 (const gchar *string, gssize length, const gchar *from_codeset,
 }
 
 /*
- * Convert a string from UTF-8 to the filename system encoding.
- *  - conversion OK : returns the string in filename system encoding (new allocated)
- *  - conversion KO : display error message + returns nothing!
+ * filename_from_display:
+ * @string: a UTF-8 string
+ *
+ * Convert a string from UTF-8 to the filesystem encoding.
+ *
+ * Returns: a newly-allocated filename in the GLib filename encoding on
+ *          success, or an escaped ASCII string on error
  */
-gchar *filename_from_display (const gchar *string)
+gchar *
+filename_from_display (const gchar *string)
 {
     GError *error = NULL;
     gchar *ret = NULL;
-    const gchar *char_encoding = NULL;
-    //const gchar *filename_encoding = NULL;
+    const gchar **filename_encodings;
 
     g_return_val_if_fail (string != NULL, NULL);
+    g_return_val_if_fail (g_utf8_validate (string, -1, NULL), NULL);
 
-    // Get system encoding from LANG if found (ex : fr_FR.UTF-8 => UTF-8)
-    if (get_locale())
-        char_encoding = strchr(get_locale(), '.');
+    ret = g_filename_from_utf8 (string, -1, NULL, NULL, &error);
 
-    if (char_encoding)
-        char_encoding = char_encoding+1; // Skip the '.'
-    if (char_encoding)
+    if (!ret)
+    {
+        g_debug ("Error while converting filename from display to GLib encoding: %s",
+                 error->message);
+        g_clear_error (&error);
+    }
+    else
+    {
+        return ret;
+    }
+
+    /* If the target encoding is not UTF-8, try the user-chosen alternative. */
+    if (!g_get_filename_charsets (&filename_encodings))
     {
         EtRenameEncoding enc_option = g_settings_get_enum (MainSettings,
                                                            "rename-encoding");
-        error = NULL;
 
         switch (enc_option)
         {
             case ET_RENAME_ENCODING_TRY_ALTERNATIVE:
-                ret = g_convert (string, -1, char_encoding, "UTF-8", NULL,
-                                 NULL, &error);
+                /* Already called g_filename_from_utf8(). */
                 break;
             case ET_RENAME_ENCODING_TRANSLITERATE:
             {
@@ -470,8 +481,17 @@ gchar *filename_from_display (const gchar *string)
                  * it can be approximated through one or several similarly
                  * looking characters.
                  */
-                gchar *enc = g_strconcat (char_encoding, "//TRANSLIT", NULL);
+                /* TODO: Use g_str_to_ascii() in GLib 2.40. */
+                gchar *enc = g_strconcat (*filename_encodings, "//TRANSLIT", NULL);
                 ret = g_convert (string, -1, enc, "UTF-8", NULL, NULL, &error);
+
+                if (!ret)
+                {
+                    g_debug ("Error while converting filename from display to transliterated encoding '%s': %s",
+                             enc, error->message);
+                    g_clear_error (&error);
+                }
+
                 g_free (enc);
                 break;
             }
@@ -482,8 +502,16 @@ gchar *filename_from_display (const gchar *string)
                  * that cannot be represented in the target character set will
                  * be silently discarded.
                  */
-                gchar *enc = g_strconcat (char_encoding, "//IGNORE", NULL);
+                gchar *enc = g_strconcat (*filename_encodings, "//IGNORE", NULL);
                 ret = g_convert (string, -1, enc, "UTF-8", NULL, NULL, &error);
+
+                if (!ret)
+                {
+                    g_debug ("Error while converting filename from display to encoding with ignored failures '%s': %s",
+                             enc, error->message);
+                    g_clear_error (&error);
+                }
+
                 g_free (enc);
                 break;
             }
@@ -492,52 +520,54 @@ gchar *filename_from_display (const gchar *string)
         }
     }
 
+    /* Try alternative encodings. */
     if (!ret)
     {
-        // Get system encoding from locale in LANG if found (ex : fr_FR.UTF-8 => fr_FR => ISO-8859-1)
-        char_encoding = get_encoding_from_locale(get_locale());
-        if (char_encoding)
+        const gchar *legacy_encoding;
+
+        /* Guess the legacy (pre-Unicode) filesystem encoding from the locale.
+         * For example, fr_FR.UTF-8 => fr_FR => ISO-8859-1. */
+        legacy_encoding = get_encoding_from_locale (get_locale ());
+        ret = g_convert (string, -1, legacy_encoding, "UTF-8", NULL, NULL,
+                         &error);
+
+        if (!ret)
         {
-            //g_print("> char_encoding: %s\n",char_encoding);
-            error = NULL;
-            ret = g_convert(string, -1, char_encoding, "UTF-8", NULL, NULL, &error);
+            g_debug ("Error while converting filename from display to legacy encoding '%s': %s",
+                     legacy_encoding, error->message);
+            g_clear_error (&error);
         }
     }
 
     if (!ret)
     {
-        // Failing that, try ISO-8859-1
-        error = NULL;
-        ret = g_convert(string, -1, "ISO-8859-1", "UTF-8", NULL, NULL, &error);
-    }
+        /* Failing that, try ISO-8859-1. */
+        ret = g_convert (string, -1, "ISO-8859-1", "UTF-8", NULL, NULL,
+                         &error);
 
-    if (!ret)
-    {
-        if (g_utf8_validate(string, -1, NULL))
+        if (!ret)
         {
-            // String already in UTF-8
-            ret = g_strdup(string);
+            g_debug ("Error while converting filename from display to ISO-8859-1: %s",
+                     error->message);
+            g_clear_error (&error);
         }
     }
 
+    /* If all conversions fail, return an escaped version of the supplied UTF-8
+     * string. */
     if (!ret)
     {
-        // Conversion KO!
-        gchar *escaped_str = g_strescape(string, NULL);
+        gchar *escaped_str = g_strescape (string, NULL);
+
+        /* TODO: Improve error string. */
         Log_Print (LOG_ERROR,
                    _("The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"),
-                    escaped_str,
-                    error && error->message ? error->message : _("Invalid UTF-8"));
-        g_clear_error(&error);
+                   string, _("Invalid UTF-8"));
 
         ret = escaped_str;
     }
 
-#ifdef G_OS_WIN32
-    //ET_Win32_Path_Replace_Backslashes (ret);
-#endif /* G_OS_WIN32 */
-
-    return ret; // We need to catch errors (e.g. temp=NULL) in the real code
+    return ret;
 }
 
 
