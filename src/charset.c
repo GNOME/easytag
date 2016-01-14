@@ -600,60 +600,58 @@ filename_from_display (const gchar *string)
     return ret;
 }
 
-
-
 /*
- * Function used when reading tags : we check if the string is valid UTF-8 (else
- *   it may cause problem in EasyTAG)
+ * Try_To_Validate_Utf8_String:
+ * @string: a string in unknown encoding
  *
- * Examples :
- *   - some Ogg Vorbis tags contain ISO-8859-1 characters instead of UTF-8).
- *   - some Flac tags may be probably encoded to ISO-8859-15 (by using for example
- *     "metaflac --no-utf8-convert …") so we convert it from ISO-8859-1 to UTF-8.
+ * Validate that @string is in UTF-8 encoding, or try to convert it to be so.
+ * Several alternative encodings are attempted, based on the current locale and
+ * some hardcoded fallbacks, before falling back to escaping the string.
  *
- * If not valid UTF-8, we try some conversion to try to get the correct string
- *  - conversion OK : returns the UTF-8 string (new allocated)
- *  - conversion KO : tries others encodings else returns an 'escaped' string
+ * Returns: a newly-allocated UTF-8 encoded string
  */
-gchar *Try_To_Validate_Utf8_String (const gchar *string)
+gchar *
+Try_To_Validate_Utf8_String (const gchar *string)
 {
     gchar *ret = NULL;
     GError *error = NULL;
 
     g_return_val_if_fail (string != NULL, NULL);
 
-    if (g_utf8_validate(string, -1, NULL))
+    if (g_utf8_validate (string, -1, NULL))
     {
-        // String already in UTF-8
-        ret = g_strdup(string);
-    }else
+        /* String already in UTF-8. */
+        ret = g_strdup (string);
+    }
+    else
     {
-        const gchar *char_encoding;
+        const gchar *legacy_encoding;
 
-        // Get encoding associated to the locale without using UTF-8 (ex , if LANG=fr_FR.UTF-8 it will return ISO-8859-1)
-        char_encoding = get_encoding_from_locale(get_locale());
-        if (char_encoding)
+        /* Guess the legacy (pre-Unicode) encoding associated with the locale.
+         * For example, fr_FR.UTF-8 => fr_FR => ISO-8859-1. */
+        legacy_encoding = get_encoding_from_locale (get_locale ());
+        ret = g_convert (string, -1, "UTF-8", legacy_encoding, NULL, NULL,
+                         &error);
+
+        if (!ret)
         {
-            //g_print("> char_encoding: %s\n",char_encoding);
-            error = NULL;
-            ret = g_convert(string, -1, "UTF-8", char_encoding, NULL, NULL, &error);
+            /* Failing that, try ISO-8859-1. */
+            g_debug ("Error converting string to legacy encoding '%s': %s",
+                     legacy_encoding, error->message);
+            g_clear_error (&error);
+            ret = g_convert (string, -1, "UTF-8", "ISO-8859-1", NULL, NULL,
+                             &error);
         }
 
         if (!ret)
         {
-            // Failing that, try ISO-8859-1
-            error = NULL;
-            ret = g_convert(string, -1, "UTF-8", "ISO-8859-1", NULL, NULL, &error);
-        }
+            gchar *escaped_str = g_strescape (string, NULL);
 
-        if (!ret)
-        {
-            gchar *escaped_str = g_strescape(string, NULL);
+            /* TODO: Improve error string. */
             Log_Print (LOG_ERROR,
                        _("The string ‘%s’ could not be converted into UTF-8: %s"),
-                        escaped_str,
-                        error && error->message ? error->message : _("Invalid UTF-8"));
-            g_clear_error(&error);
+                       escaped_str, error->message);
+            g_clear_error (&error);
 
             ret = escaped_str;
         }
@@ -661,8 +659,6 @@ gchar *Try_To_Validate_Utf8_String (const gchar *string)
 
     return ret;
 }
-
-
 
 void
 Charset_Populate_Combobox (GtkComboBox *combo, gint select_charset)
