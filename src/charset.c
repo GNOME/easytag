@@ -272,7 +272,7 @@ get_encoding_from_locale (const char *locale)
         {
             const gchar *modifier;
 
-            modifier = strchr (encoding ? encoding : locale, '@');
+            modifier = strchr (encoding, '@');
 
             if (modifier != NULL)
             {
