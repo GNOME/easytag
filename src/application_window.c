@@ -2035,7 +2035,7 @@ et_application_window_update_file_name_from_ui (EtApplicationWindow *self,
     //ET_File_Name_Check_Length(ETFile,filename);
 
     /* Filename (in file system encoding!). */
-    if (filename && *filename)
+    if (!et_str_empty (filename))
     {
         /* Regenerate the new filename (without path). */
         filename_new = g_strconcat (filename, extension, NULL);
