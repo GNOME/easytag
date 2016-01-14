@@ -169,16 +169,7 @@ common_init (EtApplication *self)
     /* Starting messages */
     Log_Print (LOG_OK, _("Starting EasyTAG version %s…"), PACKAGE_VERSION);
 #ifdef G_OS_WIN32
-    if (g_getenv("EASYTAGLANG"))
-    {
-        Log_Print (LOG_OK,
-                   _("Variable EASYTAGLANG defined, setting locale ‘%s’"),
-                   g_getenv ("EASYTAGLANG"));
-    }
-    else
-    {
-        Log_Print (LOG_OK, _("Setting locale: ‘%s’"), g_getenv ("LANG"));
-    }
+    Log_Print (LOG_OK, _("Setting locale: ‘%s’"), g_getenv ("LANG"));
 #endif /* G_OS_WIN32 */
 
     if (get_locale ())
