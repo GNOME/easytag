@@ -223,7 +223,8 @@ et_file_area_set_file_fields (EtFileArea *self,
     file = g_file_new_for_path (cur_filename);
 
     info = g_file_query_info (file, G_FILE_ATTRIBUTE_ACCESS_CAN_READ ","
-                              G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+                              G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE ","
+                              G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME,
                               G_FILE_QUERY_INFO_NONE, NULL, &error);
 
     /* Show/hide 'AccessStatusIcon' */
@@ -299,11 +300,12 @@ et_file_area_set_file_fields (EtFileArea *self,
                                              _("File not found"));
             g_object_unref (emblem_icon);
         }
-        g_object_unref (info);
     }
 
+
     /* Set filename into name_entry. */
-    basename_utf8 = g_path_get_basename (((File_Name *)((GList *)ETFile->FileNameNew)->data)->value_utf8);
+    basename_utf8 = g_strdup (g_file_info_get_edit_name (info));
+    g_object_unref (info);
 
     /* Remove the extension. */
     if ((pos = g_utf8_strrchr (basename_utf8, -1, '.')) != NULL)
