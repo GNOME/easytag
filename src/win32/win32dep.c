@@ -125,17 +125,6 @@ et_w32_mkstemp (gchar *template)
 }
 #endif /* !HAVE_MKSTEMP */
 
-/* Remove trailing '\' if any, but not when 'C:\' */
-void ET_Win32_Path_Remove_Trailing_Backslash (gchar *path)
-{
-    int path_len = strlen(path);
-  
-    if(path_len > 3 && path[path_len - 1] == '\\')
-    {
-        path[path_len - 1] = '\0';
-    }
-}
-
 #ifndef HAVE_TRUNCATE
 gint
 et_w32_truncate (const gchar *path, off_t length)

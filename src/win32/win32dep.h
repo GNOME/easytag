@@ -48,9 +48,6 @@ G_BEGIN_DECLS
 /* Determine EasyTAG paths */
 const gchar * weasytag_locale_dir (void);
 
-/* Misc */
-extern void  ET_Win32_Path_Remove_Trailing_Backslash (gchar *path);
-
 #ifndef HAVE_MKSTEMP
 #define et_w32_mkstemp mkstemp
 extern gint et_w32_mkstemp (char *template);

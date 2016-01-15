@@ -4553,10 +4553,6 @@ Run_Program_With_Directory (EtBrowser *self)
     program_name = g_strdup (gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->open_directory_with_combobox)))));
     current_directory = g_object_get_data (G_OBJECT (priv->open_directory_with_combobox),
                                            "Current_Directory");
-#ifdef G_OS_WIN32
-    /* On win32 : 'winamp.exe "c:\path\to\dir"' succeed, while 'winamp.exe "c:\path\to\dir\"' fails */
-    ET_Win32_Path_Remove_Trailing_Backslash(current_directory);
-#endif /* G_OS_WIN32 */
 
     // List of parameters (here only one! : the current directory)
     args_list = g_list_append(args_list,current_directory);
