@@ -504,25 +504,7 @@ filename_from_display (const gchar *string)
                 break;
             case ET_RENAME_ENCODING_TRANSLITERATE:
             {
-                /* iconv_open (3):
-                 * When the string "//TRANSLIT" is appended to tocode,
-                 * transliteration is activated. This means that when a
-                 * character cannot be represented in the target character set,
-                 * it can be approximated through one or several similarly
-                 * looking characters.
-                 */
-                /* TODO: Use g_str_to_ascii() in GLib 2.40. */
-                gchar *enc = g_strconcat (*filename_encodings, "//TRANSLIT", NULL);
-                ret = g_convert (string, -1, enc, "UTF-8", NULL, NULL, &error);
-
-                if (!ret)
-                {
-                    g_debug ("Error while converting filename from display to transliterated encoding '%s': %s",
-                             enc, error->message);
-                    g_clear_error (&error);
-                }
-
-                g_free (enc);
+                ret = g_str_to_ascii (string, NULL);
                 break;
             }
             case ET_RENAME_ENCODING_IGNORE:
