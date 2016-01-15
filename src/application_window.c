@@ -112,8 +112,6 @@ save_state (EtApplicationWindow *self)
     EtApplicationWindowPrivate *priv;
     gchar *path;
     GKeyFile *keyfile;
-    gchar *buffer;
-    gsize length;
     GError *error = NULL;
 
     priv = et_application_window_get_instance_private (self);
@@ -150,16 +148,12 @@ save_state (EtApplicationWindow *self)
     g_key_file_set_integer (keyfile, "EtApplicationWindow", "paned_position",
                             priv->paned_position);
 
-    /* TODO; Use g_key_file_save_to_file() in GLib 2.40. */
-    buffer = g_key_file_to_data (keyfile, &length, NULL);
-
-    if (!g_file_set_contents (path, buffer, length, &error))
+    if (!g_key_file_save_to_file (keyfile, path, &error))
     {
         g_warning ("Error saving window state: %s", error->message);
         g_error_free (error);
     }
 
-    g_free (buffer);
     g_free (path);
     g_key_file_free (keyfile);
 }
