@@ -1856,11 +1856,10 @@ ET_File_Format_File_Extension (const ET_File *ETFile)
 
     switch (mode)
     {
-        /* FIXME: Should use filename encoding, not UTF-8! */
         case ET_FILENAME_EXTENSION_LOWER_CASE:
-            return g_utf8_strdown (ETFile->ETFileDescription->Extension, -1);
+            return g_ascii_strdown (ETFile->ETFileDescription->Extension, -1);
         case ET_FILENAME_EXTENSION_UPPER_CASE:
-            return g_utf8_strup (ETFile->ETFileDescription->Extension, -1);
+            return g_ascii_strup (ETFile->ETFileDescription->Extension, -1);
         case ET_FILENAME_EXTENSION_NO_CHANGE:
         default:
             return g_strdup (ETFile->ETFileExtension);
