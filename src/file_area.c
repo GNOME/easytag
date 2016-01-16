@@ -308,7 +308,7 @@ et_file_area_set_file_fields (EtFileArea *self,
     g_object_unref (info);
 
     /* Remove the extension. */
-    if ((pos = g_utf8_strrchr (basename_utf8, -1, '.')) != NULL)
+    if ((pos = strrchr (basename_utf8, '.')) != NULL)
     {
         *pos = 0;
     }

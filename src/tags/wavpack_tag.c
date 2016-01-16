@@ -157,7 +157,7 @@ wavpack_tag_read_file_tag (GFile *file,
      * Discnumber + Disctotal.
      */
     length = WavpackGetTagItem (wpc, "part", field, MAXLEN);
-    field2 = g_utf8_strchr (field, -1, '/');
+    field2 = strchr (field, '/');
 
     /* Need to cut off the total tracks if present */
     if (field2)
@@ -201,7 +201,7 @@ wavpack_tag_read_file_tag (GFile *file,
      * Tracknumber + tracktotal
      */
     length = WavpackGetTagItem(wpc, "track", field, MAXLEN);
-    field2 = g_utf8_strchr(field, -1, '/');
+    field2 = strchr (field, '/');
 
     /* Need to cut off the total tracks if present */
     if (field2) {

@@ -270,7 +270,7 @@ id3tag_read_file_tag (GFile *gfile,
 
         if (string1)
         {
-            string2 = g_utf8_strchr (string1, -1, '/');
+            string2 = strchr (string1, '/');
 
             if (string2)
             {
@@ -305,7 +305,7 @@ id3tag_read_file_tag (GFile *gfile,
         update |= libid3tag_Get_Frame_Str(frame, ~0, &string1);
         if ( string1 )
         {
-            string2 = g_utf8_strchr(string1,-1,'/');
+            string2 = strchr (string1, '/');
 
             if (string2)
             {

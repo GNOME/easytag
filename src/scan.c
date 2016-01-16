@@ -394,8 +394,8 @@ Scan_Process_Fields_First_Letters_Uppercase (gchar **str,
     while ( temp )
     {
         word = temp; // Needed if there is only one word
-        word1 = g_utf8_strchr(temp,-1,' ');
-        word2 = g_utf8_strchr(temp,-1,'_');
+        word1 = strchr (temp, ' ');
+        word2 = strchr (temp, '_');
 
         // Take the first string found (near beginning of string)
         if (word1 && word2)

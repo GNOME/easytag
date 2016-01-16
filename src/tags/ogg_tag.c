@@ -264,7 +264,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         {
             FileTag->disc_total = et_disc_number_to_string (atoi (string1));
         }
-        else if ((string1 = g_utf8_strchr (string, -1, '/')))
+        else if ((string1 = strchr (string, '/')))
         {
             FileTag->disc_total = et_disc_number_to_string (atoi (string1
                                                                   + 1));
@@ -297,7 +297,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         {
             FileTag->track_total = et_track_number_to_string (atoi (string1));
         }
-        else if ((string1 = g_utf8_strchr (string, -1, '/')))
+        else if ((string1 = strchr (string, '/')))
         {
             FileTag->track_total = et_track_number_to_string (atoi (string1
                                                                     + 1));

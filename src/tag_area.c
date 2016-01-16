@@ -265,9 +265,9 @@ on_apply_to_selection (GObject *object,
         gchar *disc_number = NULL;
 
         string_to_set = gtk_entry_get_text (GTK_ENTRY (priv->disc_number_entry));
-        /* g_utf8_strchr() does not allocate a new string, and should probably
-         * return a const gchar *. */
-        separator = g_utf8_strchr (string_to_set, -1, '/');
+        /* strchr() does not allocate a new string, and should probably return
+         * a const gchar *. */
+        separator = strchr (string_to_set, '/');
 
         if (separator)
         {
@@ -2745,7 +2745,7 @@ et_tag_area_create_file_tag (EtTagArea *self)
     {
         gchar *separator;
 
-        separator = g_utf8_strchr (buffer, -1, '/');
+        separator = strchr (buffer, '/');
 
         if (separator && *(separator + 1))
         {

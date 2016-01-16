@@ -109,8 +109,7 @@ ape_tag_read_file_tag (GFile *file,
     {
         string = Try_To_Validate_Utf8_String (string);
 
-        /* strchr does not like NULL string. */
-        string1 = g_utf8_strchr (string, -1, '/');
+        string1 = strchr (string, '/');
 
         if (string1)
         {
@@ -142,7 +141,7 @@ ape_tag_read_file_tag (GFile *file,
     {
         string = Try_To_Validate_Utf8_String(string);
 
-        string1 = g_utf8_strchr(string, -1, '/');    // strchr don't like NULL string
+        string1 = strchr (string, '/');
 
         if (string1)
         {

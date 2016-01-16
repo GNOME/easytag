@@ -511,16 +511,17 @@ et_filename_prepare (gchar *filename_utf8,
     g_return_if_fail (filename_utf8 != NULL);
 
     // Convert automatically the directory separator ('/' on LINUX and '\' on WIN32) to '-'.
-    while ( (character=g_utf8_strchr(filename_utf8, -1, G_DIR_SEPARATOR))!=NULL )
+    while ((character = strchr (filename_utf8, G_DIR_SEPARATOR)) != NULL)
+    {
         *character = '-';
+    }
 
 #ifdef G_OS_WIN32
-    /* Convert character '\' on WIN32 to '-'. */
-    while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
-        *character = '-';
     /* Convert character '/' on WIN32 to '-'. May be converted to '\' after. */
-    while ( (character=g_utf8_strchr(filename_utf8, -1, '/'))!=NULL )
+    while ((character = strchr (filename_utf8, '/')) != NULL)
+    {
         *character = '-';
+    }
 #endif /* G_OS_WIN32 */
 
     /* Convert other illegal characters on FAT32/16 filesystems and ISO9660 and
@@ -529,25 +530,34 @@ et_filename_prepare (gchar *filename_utf8,
     {
         size_t last;
 
-        // Commented as we display unicode values as "\351" for "é"
-        //while ( (character=g_utf8_strchr(filename_utf8, -1, '\\'))!=NULL )
-        //    *character = ',';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, ':'))!=NULL )
+        while ((character = strchr (filename_utf8, ':')) != NULL)
+        {
             *character = '-';
-        //while ( (character=g_utf8_strchr(filename_utf8, -1, ';'))!=NULL )
-        //    *character = '-';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '*'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '*')) != NULL)
+        {
             *character = '+';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '?'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '?')) != NULL)
+        {
             *character = '_';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '\"'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '\"')) != NULL)
+        {
             *character = '\'';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '<'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '<')) != NULL)
+        {
             *character = '(';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '>'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '>')) != NULL)
+        {
             *character = ')';
-        while ( (character=g_utf8_strchr(filename_utf8, -1, '|'))!=NULL )
+        }
+        while ((character = strchr (filename_utf8, '|')) != NULL)
+        {
             *character = '-';
+        }
 
         /* FAT has additional restrictions on the last character of a filename.
          * https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247%28v=vs.85%29.aspx#naming_conventions */

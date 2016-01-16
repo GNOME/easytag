@@ -345,7 +345,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
-                            string = g_utf8_strchr (field_value, -1, '/');
+                            string = strchr (field_value, '/');
 
                             if (string && !FileTag->disc_total)
                             {
@@ -423,7 +423,7 @@ flac_tag_read_file_tag (GFile *file,
                             field_len = field->length - (field_value - (gchar*) field->entry);
                             field_value = validate_field_utf8 (field_value,
                                                                field_len);
-                            string = g_utf8_strchr(field_value, -1, '/');
+                            string = strchr (field_value, '/');
 
                             if (string && !FileTag->track_total)
                             {

@@ -1177,7 +1177,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             cddbtrackalbum->cddbalbum = cddbalbum; // To find the CddbAlbum father quickly
 
             // Here is a fix when TTITLExx doesn't contain an "=", we skip the line
-            if ( (copy = g_utf8_strchr(cddb_out,-1,'=')) != NULL )
+            if ((copy = strchr (cddb_out, '=')) != NULL)
             {
                 cddbtrackalbum->track_name = Try_To_Validate_Utf8_String(copy+1);
             }else
@@ -1186,7 +1186,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
                 continue;
             }
 
-            *g_utf8_strchr(cddb_out,-1,'=') = 0;
+            *strchr (cddb_out, '=') = 0;
             cddbtrackalbum->track_number = atoi(cddb_out+6)+1;
 
             // Note : titles too long take severals lines. For example :
