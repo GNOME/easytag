@@ -229,13 +229,34 @@ id3tag_write_file_v23tag (const ET_File *ETFile,
         return FALSE;
     }
 
-    basename_utf8 = g_path_get_basename(filename_utf8);
+#ifdef G_OS_WIN32
+    /* On Windows, id3lib expects filenames to be in the system codepage. */
+    {
+        gchar *locale_filename;
 
-    ID3Tag_Link(id3_tag,filename);
+        locale_filename = g_win32_locale_filename_from_utf8 (filename);
+
+        if (!locale_filename)
+        {
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                         g_strerror (EINVAL));
+            ID3Tag_Delete (id3_tag);
+            g_object_unref (file);
+            return FALSE;
+        }
+
+        ID3Tag_Link (id3_tag, locale_filename);
+
+        g_free (locale_filename);
+    }
+#else
+    ID3Tag_Link (id3_tag, filename);
+#endif
 
     /* Set padding when tag was changed, for faster writing */
     ID3Tag_SetPadding(id3_tag,TRUE);
 
+    basename_utf8 = g_path_get_basename (filename_utf8);
 
     /*********
      * Title *
@@ -803,27 +824,66 @@ ID3_C_EXPORT size_t ID3Tag_Link_1 (ID3Tag *id3tag, const char *filename)
 {
     size_t offset;
 
+#ifdef G_OS_WIN32
+    /* On Windows, id3lib expects filenames to be in the system codepage. */
+    gchar *locale_filename;
+
+    locale_filename = g_win32_locale_filename_from_utf8 (filename);
+
+    if (!locale_filename)
+    {
+        g_debug ("Error converting filename '%s' to system codepage",
+                 filename);
+        return 0;
+    }
+#endif
+
 #   if (0) // Link the file with the both tags may cause damage to unicode strings
 //#   if ( (ID3LIB_MAJOR >= 3) && (ID3LIB_MINOR >= 8) && (ID3LIB_PATCH >= 1) ) // Same test used in Id3tag_Read_File_Tag to use ID3Tag_HasTagType
         /* No problem of priority, so we link the file with the both tags
          * to manage => ID3Tag_HasTagType works correctly */
-        offset = ID3Tag_LinkWithFlags(id3tag,filename,ID3TT_ID3V1 | ID3TT_ID3V2);
+#ifdef G_OS_WIN32
+        offset = ID3Tag_LinkWithFlags (id3tag, locale_filename,
+                                       ID3TT_ID3V1 | ID3TT_ID3V2);
+#else
+        offset = ID3Tag_LinkWithFlags (id3tag, filename,
+                                       ID3TT_ID3V1 | ID3TT_ID3V2);
+#endif
 #   elif ( (ID3LIB_MAJOR >= 3) && (ID3LIB_MINOR >= 8) )
         /* Version 3.8.0pre2 gives priority to tag id3v1 instead of id3v2, so we
          * try to fix it by linking the file with the id3v2 tag first. This bug
          * was fixed in the final version of 3.8.0 but we can't know it... */
         /* First, try to get the ID3v2 tags */
-        offset = ID3Tag_LinkWithFlags(id3tag,filename,ID3TT_ID3V2);
+#ifdef G_OS_WIN32
+        offset = ID3Tag_LinkWithFlags (id3tag, locale_filename, ID3TT_ID3V2);
+#else
+        offset = ID3Tag_LinkWithFlags (id3tag, filename, ID3TT_ID3V2);
+#endif
+
         if (offset == 0)
         {
             /* No ID3v2 tags available => try to get the ID3v1 tags */
-            offset = ID3Tag_LinkWithFlags(id3tag,filename,ID3TT_ID3V1);
+#ifdef G_OS_WIN32
+            offset = ID3Tag_LinkWithFlags (id3tag, locale_filename,
+                                           ID3TT_ID3V1);
+#else
+            offset = ID3Tag_LinkWithFlags (id3tag, filename, ID3TT_ID3V1);
+#endif
         }
 #   else
         /* Function 'ID3Tag_LinkWithFlags' is not defined up to id3lib-.3.7.13 */
-        offset = ID3Tag_Link(id3tag,filename);
+#ifdef G_OS_WIN32
+        offset = ID3Tag_Link (id3tag, locale_filename);
+#else
+        offset = ID3Tag_Link (id3tag, filename);
+#endif
 #   endif
     //g_print("ID3 TAG SIZE: %d\t%s\n",offset,g_path_get_basename(filename));
+
+#ifdef G_OS_WIN32
+    g_free (locale_filename);
+#endif
+
     return offset;
 }
 

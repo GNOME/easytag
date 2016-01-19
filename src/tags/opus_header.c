@@ -60,6 +60,8 @@ et_opus_open_file (GFile *gfile, GError **error)
     g_return_val_if_fail (gfile != NULL, NULL);
 
     path = g_file_get_path (gfile);
+    /* Opusfile does the UTF-8 to UTF-16 translation on Windows
+     * automatically. */
     file = op_open_file (path, &error_val);
     g_free (path);
 

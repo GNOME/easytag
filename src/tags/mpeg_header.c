@@ -110,7 +110,29 @@ et_mpeg_header_read_file_info (GFile *file,
 
     /* Link the file to the tag (uses ID3TT_ID3V2 to get header if APIC is present in Tag) */
     filename = g_file_get_path (file);
-    ID3Tag_LinkWithFlags(id3_tag,filename,ID3TT_ID3V2);
+#ifdef G_OS_WIN32
+    /* On Windows, id3lib expects filenames to be in the system codepage. */
+    {
+        gchar *locale_filename;
+
+        locale_filename = g_win32_locale_filename_from_utf8 (filename);
+
+        if (!locale_filename)
+        {
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                         g_strerror (EINVAL));
+            g_free (filename);
+            return FALSE;
+        }
+
+        ID3Tag_LinkWithFlags (id3_tag, locale_filename, ID3TT_ID3V2);
+
+        g_free (locale_filename);
+    }
+#else
+    ID3Tag_LinkWithFlags (id3_tag, filename, ID3TT_ID3V2);
+#endif
+
     g_free (filename);
 
     if ( (headerInfo = ID3Tag_GetMp3HeaderInfo(id3_tag)) )

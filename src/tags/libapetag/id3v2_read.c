@@ -310,7 +310,27 @@ int readtag_id3v2 ( apetag *mem_cnt, char* fileName )
     if ( (tag = ID3Tag_New ()) == NULL )
     return 1;
     // on some casses its weerrryyy slooowwwwlyyy 65k file take 2-5 sec 
-    ID3Tag_LinkWithFlags ( tag, fileName, ID3TT_ID3V2 );
+#ifdef G_OS_WIN32
+    /* On Windows, id3lib expects filenames to be in the system codepage. */
+    {
+        gchar *locale_filename;
+
+        locale_filename = g_win32_locale_filename_from_utf8 (filename);
+
+        if (!locale_filename)
+        {
+            g_debug ("Error converting filename '%s' to system codepage",
+                     error->message);
+            return 0;
+        }
+
+        ID3Tag_LinkWithFlags (id3_tag, locale_filename, ID3TT_ID3V2);
+
+        g_free (locale_filename);
+    }
+#else
+    ID3Tag_LinkWithFlags (tag, filename, ID3TT_ID3V2);
+#endif
     
     if ( tag == NULL ) {
     ID3Tag_Delete (tag);
