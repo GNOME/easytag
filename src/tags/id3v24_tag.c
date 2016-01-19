@@ -1,5 +1,5 @@
 /* EasyTAG - Tag editor for audio files
- * Copyright (C) 2014-2015  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2016  David King <amigadave@amigadave.com>
  * Copyright (C) 2001-2003  Jerome Couderc <easytag@gmail.com>
  * Copyright (C) 2006-2007  Alexey Illarionov <littlesavage@rambler.ru>
  *
@@ -21,9 +21,13 @@
 #include "config.h"
 
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
 
 #include "id3_tag.h"
 #include "picture.h"
@@ -92,6 +96,7 @@ id3tag_read_file_tag (GFile *gfile,
     gsize bytes_read;
     GSeekable *seekable;
     gchar *filename;
+    int fd;
     struct id3_file *file;
     struct id3_tag *tag;
     struct id3_frame *frame;
@@ -217,7 +222,7 @@ id3tag_read_file_tag (GFile *gfile,
 
     filename = g_file_get_path (gfile);
 
-    if ((file = id3_file_open (filename, ID3_FILE_MODE_READONLY)) == NULL)
+    if ((fd = g_open (filename, O_RDONLY, 0)) == -1)
     {
         g_free (filename);
         g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
@@ -226,6 +231,14 @@ id3tag_read_file_tag (GFile *gfile,
     }
 
     g_free (filename);
+
+    /* The fd ownership is transferred to id3tag. */
+    if ((file = id3_file_fdopen (fd, ID3_FILE_MODE_READONLY)) == NULL)
+    {
+        g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                     _("Error reading tags from file"));
+        return FALSE;
+    }
 
     if ( ((tag = id3_file_tag(file)) == NULL)
     ||   (tag->nframes == 0))
@@ -939,13 +952,21 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     /* Write ID3v2 tag. */
     if (g_settings_get_boolean (MainSettings, "id3v2-enabled"))
     {
+        int fd;
         struct id3_file *file;
         struct id3_tag *tmptag;
         unsigned tagsize;
         id3_byte_t *tmpbuf = NULL;
 
+        if ((fd = g_open (filename, O_RDONLY, 0)) == -1)
+        {
+            g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
+                         _("Error reading tags from file"));
+            return FALSE;
+        }
+
         /* Read old v2 tag */
-        if ((file = id3_file_open(filename, ID3_FILE_MODE_READWRITE)) == NULL)
+        if ((file = id3_file_fdopen (fd, ID3_FILE_MODE_READONLY)) == NULL)
         {
             g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
                          _("Error reading tags from file"));

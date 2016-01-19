@@ -33,6 +33,7 @@
 #include <windows.h>
 #include <io.h>
 #include <stdlib.h>
+#include <glib/gstdio.h>
 #include <stdio.h>
 #include <winuser.h>
 #include <sys/types.h>
@@ -118,7 +119,7 @@ et_w32_mkstemp (gchar *template)
     char *str = mktemp(template);
     if(str != NULL)
     {
-        fd  = open(str, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+        fd  = g_open (str, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
     }
 
     return fd;

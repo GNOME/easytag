@@ -26,6 +26,7 @@
     -Thomas Juerges <thomas.juerges@astro.ruhr-uni-bochum.de> 
 */
 
+#include <glib/gstdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,7 +69,7 @@ info_mpc_read(const char *fn, StreamInfoMpc * Info)
     long SkipSizeID3;
     
     // load file
-    tmpFile = fopen(fn, "rb");
+    tmpFile = g_fopen (fn, "rb");
         
     if (tmpFile == NULL) 
         return 1;    // file not found or read-protected

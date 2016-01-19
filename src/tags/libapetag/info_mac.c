@@ -17,6 +17,7 @@
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <glib/gstdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -93,7 +94,7 @@ info_mac_read(const char *fn, StreamInfoMac * Info)
     struct macHeader * header;
     
     // load file
-    tmpFile = fopen(fn, "rb");
+    tmpFile = g_fopen (fn, "rb");
         
     if (tmpFile == NULL) 
         return 1;    // file not found or read-protected
