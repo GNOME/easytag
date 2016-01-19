@@ -134,8 +134,10 @@ misc_rename_file (void)
     g_assert_no_error (error1);
     g_assert_no_error (error2);
 
-    close (fd1);
-    close (fd2);
+    g_close (fd1, error1);
+    g_close (fd2, error2);
+    g_assert_no_error (error1);
+    g_assert_no_error (error2);
 
     /* Renaming to an existing filename should fail. */
     et_rename_file (filename1, filename2, &error1);
@@ -149,7 +151,8 @@ misc_rename_file (void)
     fd3 = g_file_open_tmp ("EasyTAG-test3.XXXXXX", &filename3, &error3);
     g_assert_no_error (error3);
 
-    close (fd3);
+    g_close (fd3, error3);
+    g_assert_no_error (error3);
 
     g_assert_cmpint (g_unlink (filename3), ==, 0);
 

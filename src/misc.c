@@ -22,6 +22,7 @@
 #include "misc.h"
 
 #include <glib/gi18n.h>
+#include <glib/gstdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
@@ -435,7 +436,8 @@ et_rename_file (const char *old_filepath,
 
             if (fd >= 0)
             {
-                close (fd);
+                /* TODO: Handle error. */
+                g_close (fd, NULL);
             }
 
             tmp_file = g_file_new_for_path (tmp_filename);

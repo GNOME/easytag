@@ -4335,7 +4335,8 @@ Rename_Directory (EtBrowser *self)
 
     if ( (fd_tmp = mkstemp(tmp_path)) >= 0 )
     {
-        close(fd_tmp);
+        /* TODO: handle error. */
+        g_close (fd_tmp, NULL);
         g_unlink (tmp_path);
     }
 
