@@ -3278,7 +3278,13 @@ Browser_Tree_Rename_Directory (EtBrowser *self,
 }
 
 /*
- * Recursive function to update paths of all child nodes
+ * Browser_Tree_Handle_Rename:
+ * @self: an #EtBrowser
+ * @parentnode: the parent node in a tree model containing directory paths
+ * @old_path: (type filename): the old path, in GLib filename encoding
+ * @new_path: (type filename): the new path, in GLib filename encoding
+ *
+ * Recursive function to update paths of all child nodes.
  */
 static void
 Browser_Tree_Handle_Rename (EtBrowser *self,
@@ -3288,9 +3294,6 @@ Browser_Tree_Handle_Rename (EtBrowser *self,
 {
     EtBrowserPrivate *priv;
     GtkTreeIter iter;
-    gchar *path;
-    gchar *path_shift;
-    gchar *path_new;
 
     priv = et_browser_get_instance_private (self);
 
@@ -3303,13 +3306,18 @@ Browser_Tree_Handle_Rename (EtBrowser *self,
 
     do
     {
+        gchar *path;
+        gsize path_shift;
+        gchar *path_new;
+
         gtk_tree_model_get(GTK_TREE_MODEL(priv->directory_model), &iter,
                            TREE_COLUMN_FULL_PATH, &path, -1);
         if(path == NULL)
             continue;
 
-        path_shift = g_utf8_offset_to_pointer(path, g_utf8_strlen(old_path, -1));
-        path_new = g_strconcat(new_path, path_shift, NULL);
+        /* Graft the new path onto the old path. */
+        path_shift = strlen (old_path);
+        path_new = g_strconcat (new_path, path[path_shift], NULL);
 
         gtk_tree_store_set(priv->directory_model, &iter,
                            TREE_COLUMN_FULL_PATH, path_new, -1);
