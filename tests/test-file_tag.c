@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2015 David King <amigadave@amigadave.com>
+ * Copyright (C) 2015-2016 David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -104,6 +104,7 @@ file_tag_difference (void)
 {
     File_Tag *tag1;
     File_Tag *tag2;
+    GBytes *bytes;
 
     tag1 = et_file_tag_new ();
 
@@ -134,6 +135,22 @@ file_tag_difference (void)
     tag2 = et_file_tag_new ();
 
     et_file_tag_set_artist (tag2, "baz");
+
+    g_assert (et_file_tag_detect_difference (tag1, tag2));
+
+    et_file_tag_free (tag2);
+    et_file_tag_free (tag1);
+
+    tag1 = et_file_tag_new ();
+    bytes = g_bytes_new_static ("foo", 3);
+
+    et_file_tag_set_picture (tag1,
+                             et_picture_new (ET_PICTURE_TYPE_FRONT_COVER, "", 0, 0,
+                                             bytes));
+
+    g_bytes_unref (bytes);
+
+    tag2 = et_file_tag_new ();
 
     g_assert (et_file_tag_detect_difference (tag1, tag2));
 
