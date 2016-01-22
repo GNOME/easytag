@@ -2653,7 +2653,7 @@ entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data)
     ||   strstr(mask,"data/") != NULL)
         goto Bad_Mask;
 
-    while (mask)
+    do
     {
         if ( (tmp=strrchr(mask,'%'))==NULL )
         {
@@ -2673,7 +2673,7 @@ entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data)
         {
             goto Bad_Mask;
         }
-    }
+    } while (mask);
 
     Bad_Mask:
         g_free(mask);
