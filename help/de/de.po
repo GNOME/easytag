@@ -1,4 +1,4 @@
-# German translation for easytag.
+# German translation for the easytag manual.
 # Copyright (C) 2014 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 # Christian Kirbach <Christian.Kirbach@gmail.com>, 2014.
@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag easytag-2-2\n"
-"POT-Creation-Date: 2015-03-27 16:00+0000\n"
-"PO-Revision-Date: 2016-01-21 21:30+0100\n"
+"POT-Creation-Date: 2016-01-22 04:28+0000\n"
+"PO-Revision-Date: 2016-01-24 17:20+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -28,27 +28,27 @@ msgstr ""
 "Mario Blättermann <mario.blaettermann@gmail.com>, 2016"
 
 #. (itstool) path: credit/name
-#: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
+#: C/cddb-search.page:12 C/file-rename.page:11 C/file-select.page:11
 #: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
-#: C/image.page:15 C/index.page:11 C/introduction.page:12
+#: C/image.page:16 C/index.page:14 C/introduction.page:12
 #: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
-#: C/problems-ogg-split.page:17 C/scanner.page:11 C/starting.page:10
-#: C/tag-field.page:14 C/tag.page:13
+#: C/problems-ogg-split.page:18 C/scanner.page:12 C/starting.page:10
+#: C/tag-capitalization.page:13 C/tag-field.page:14 C/tag.page:13
 msgid "Ekaterina Gerasimova"
 msgstr "Ekaterina Gerasimova"
 
 #. (itstool) path: info/desc
-#: C/cddb-search.page:17
+#: C/cddb-search.page:18
 msgid "Fill tags using information from a CD database"
 msgstr "Metainformationen mit Hilfe einer CD-Datenbank füllen"
 
 #. (itstool) path: page/title
-#: C/cddb-search.page:20
+#: C/cddb-search.page:21
 msgid "Search CDDB"
 msgstr "CDDB durchsuchen"
 
 #. (itstool) path: page/p
-#: C/cddb-search.page:22
+#: C/cddb-search.page:23
 msgid ""
 "If your music is organized by album, <app>EasyTAG</app> can search online "
 "databases using the <sys>CDDB</sys> protocol and automatically fill in "
@@ -59,7 +59,7 @@ msgstr ""
 "einige Metainformationen ausfüllen."
 
 #. (itstool) path: item/p
-#: C/cddb-search.page:28
+#: C/cddb-search.page:29
 msgid ""
 "<link xref=\"file-select\">Select all the files</link> in the album that you "
 "want to search for. The ordering of the files must match the track order on "
@@ -70,7 +70,7 @@ msgstr ""
 "des Albums entsprechen."
 
 #. (itstool) path: item/p
-#: C/cddb-search.page:33
+#: C/cddb-search.page:34
 msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">CDDB Search…</gui></guiseq>."
@@ -79,12 +79,13 @@ msgstr ""
 "\"menuitem\">CDDB-Suche …</gui></guiseq>."
 
 #. (itstool) path: item/p
-#: C/cddb-search.page:37
+#: C/cddb-search.page:38
 msgid ""
-"Press <gui style=\"button\">Find</gui> and wait for the search to finish."
+"Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
+"the search to finish."
 msgstr ""
-"Klicken Sie auf <gui style=\"button\">Suchen</gui> und warten Sie auf die "
-"Ergebnisse."
+"Klicken Sie auf <gui style=\"button\">Anhand ausgewählter Dateien suchen</"
+"gui> und warten Sie auf die Ergebnisse."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:43
@@ -100,35 +101,32 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/cddb-search.page:46
 msgid ""
-"If there are no results which match the tracks that you selected, select "
-"<gui style=\"tab\">Manual Search</gui> and enter the name of the album in "
-"the search field. Press <gui style=\"button\">Find</gui> and wait for the "
-"search to finish, and check the results again to see if you can find an "
-"album which matches the tracks that you selected."
+"If there are no results which match the tracks that you selected, enter the "
+"name of the album in the search field. Press <gui style=\"button\">Search</"
+"gui> and wait for the search to finish, and check the results again to see "
+"if you can find an album which matches the tracks that you selected."
 msgstr ""
-"Wenn es keine passenden Ergebnisse zu den gewählten Titel gibt, wählen Sie "
-"<gui style=\"tab\">Manuelle Suche</gui> und geben Sie den Namen des Albums "
-"im Suchfeld ein. Klicken Sie anschließend auf <gui style=\"button\">Suchen</"
-"gui> und warten Sie auf die Ergebnisse. Danach können Sie die Ergebnisse "
-"erneut auf das gewünschte Album überprüfen."
+"Wenn es keine passenden Ergebnisse zu den gewählten Titeln gibt, geben Sie "
+"den Namen des Albums im Suchfeld ein. Klicken Sie anschließend auf <gui "
+"style=\"button\">Suchen</gui> und warten Sie auf die Ergebnisse. Danach "
+"können Sie die Ergebnisse erneut auf das gewünschte Album überprüfen."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:53
 msgid ""
-"Choose the tag fields to fill in by selecting either <gui style=\"checkbox"
-"\">All</gui> or a combination of <gui style=\"checkbox\">Filename</gui>, "
-"<gui style=\"checkbox\">Title</gui>, <gui style=\"checkbox\">Artist</gui>, "
-"<gui style=\"checkbox\">Album</gui>, <gui style=\"checkbox\">Year</gui>, "
-"<gui style=\"checkbox\">Track #</gui>, <gui style=\"checkbox\"># Tracks</"
-"gui> and <gui style=\"checkbox\">Genre</gui>."
+"Choose the tag fields to fill in by selecting a combination of <gui style="
+"\"checkbox\">Filename</gui>, <gui style=\"checkbox\">Title</gui>, <gui style="
+"\"checkbox\">Artist</gui>, <gui style=\"checkbox\">Album</gui>, <gui style="
+"\"checkbox\">Year</gui>, <gui style=\"checkbox\">Track Number</gui>, <gui "
+"style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
+"gui>."
 msgstr ""
-"Wählen Sie die zu befüllenden Metainformationsfelder durch die Auswahl von "
-"<gui style=\"checkbox\">Alle</gui> oder eine Kombination aus den folgenden "
-"Möglichkeiten: <gui style=\"checkbox\">Dateiname</gui>, <gui style=\"checkbox"
-"\">Titel</gui>, <gui style=\"checkbox\">Künstler</gui>, <gui style=\"checkbox"
-"\">Album</gui>, <gui style=\"checkbox\">Jahr</gui>, <gui style=\"checkbox"
-"\">Titelnummer</gui>, <gui style=\"checkbox\">Anzahl der Titel</gui> und "
-"<gui style=\"checkbox\">Genre</gui>."
+"Wählen Sie die zu befüllenden Metainformationsfelder als Kombination aus den "
+"folgenden Möglichkeiten: <gui style=\"checkbox\">Dateiname</gui>, <gui style="
+"\"checkbox\">Titel</gui>, <gui style=\"checkbox\">Künstler</gui>, <gui style="
+"\"checkbox\">Album</gui>, <gui style=\"checkbox\">Jahr</gui>, <gui style="
+"\"checkbox\">Titelnummer</gui>, <gui style=\"checkbox\">Anzahl der Titel</"
+"gui> und <gui style=\"checkbox\">Genre</gui>."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:64
@@ -149,17 +147,17 @@ msgstr ""
 "Auswahl nach erfolgreicher Suche ändern."
 
 #. (itstool) path: info/desc
-#: C/file-rename.page:16
+#: C/file-rename.page:17
 msgid "Change the file names using tags"
 msgstr "Dateinamen mit Hilfe von Metainformationen ändern"
 
 #. (itstool) path: page/title
-#: C/file-rename.page:19
+#: C/file-rename.page:20
 msgid "Rename files"
 msgstr "Dateien umbenennen"
 
 #. (itstool) path: page/p
-#: C/file-rename.page:21
+#: C/file-rename.page:22
 msgid ""
 "You can rename your music files using the tags from within <app>EasyTAG</"
 "app>:"
@@ -168,7 +166,7 @@ msgstr ""
 "<app>EasyTAG</app>:"
 
 #. (itstool) path: item/p
-#: C/file-rename.page:26
+#: C/file-rename.page:27
 msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to rename "
 "in the file view."
@@ -177,7 +175,7 @@ msgstr ""
 "Dateiansicht umbenennen möchten."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:30
+#: C/file-rename.page:31
 msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
@@ -186,12 +184,12 @@ msgstr ""
 "\">Scanner anzeigen</gui></guiseq>."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:34
-msgid "Select the <gui>Rename File and Directory</gui> scanner."
-msgstr "Wählen Sie das Programm <gui>Dateien und Ordner umbenennen</gui>."
+#: C/file-rename.page:35
+msgid "Select the <gui>Rename File</gui> scanner."
+msgstr "Wählen Sie den Scanner <gui>Datei umbenennen</gui>."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:37
+#: C/file-rename.page:38
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
@@ -204,7 +202,7 @@ msgstr ""
 "%a - %t</input> in das Feld ein."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:44
+#: C/file-rename.page:45
 msgid ""
 "To apply the changes to the selected files, click <gui style=\"button\">Scan "
 "Files</gui>."
@@ -213,14 +211,14 @@ msgstr ""
 "style=\"button\">Dateien einlesen</gui>."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:48
+#: C/file-rename.page:49
 msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
 msgstr ""
 "Schließen Sie das Dialogfenster <gui style=\"dialog\">Scan von "
 "Metainformationen und Dateinamen</gui>"
 
 #. (itstool) path: item/p
-#: C/file-rename.page:51
+#: C/file-rename.page:52
 msgid ""
 "To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
 "<gui style=\"menuitem\">Save Files</gui></guiseq>."
@@ -230,7 +228,7 @@ msgstr ""
 "guiseq>."
 
 #. (itstool) path: note/p
-#: C/file-rename.page:58
+#: C/file-rename.page:59
 msgid "If you close the application without saving, your changes will be lost."
 msgstr ""
 "Wenn Sie die Anwendung ohne Speichern beenden, gehen Ihre Änderungen "
@@ -400,13 +398,18 @@ msgstr ""
 "Jahr der Aufnahme, manchmal wird anstelle das Veröffentlichungsdatum "
 "verwendet"
 
+#. (itstool) path: info/desc
+#: C/image-delete.page:17
+msgid "Remove an image from a tag"
+msgstr "Ein Bild aus einem Tag entfernen"
+
 #. (itstool) path: page/title
-#: C/image-delete.page:19
+#: C/image-delete.page:21
 msgid "Delete an image"
 msgstr "Bild löschen"
 
 #. (itstool) path: page/p
-#: C/image-delete.page:21
+#: C/image-delete.page:23
 msgid ""
 "To delete an image from a tag, select it and press the <gui style=\"button"
 "\">Remove selected images from the tag</gui> button."
@@ -416,14 +419,14 @@ msgstr ""
 "Metainformationen löschen</gui>."
 
 #. (itstool) path: page/p
-#: C/image-delete.page:24
+#: C/image-delete.page:26
 msgid ""
 "To delete more than one image, select those images before deleting them."
 msgstr ""
 "Um mehr als ein Bild zu löschen, wählen Sie diese Bilder vor dem Löschen aus."
 
 #. (itstool) path: page/p
-#: C/image-delete.page:27
+#: C/image-delete.page:29
 msgid ""
 "It is also possible to delete all images from more than one file. To do "
 "this, select the files from which you want to delete the images, delete all "
@@ -435,13 +438,18 @@ msgstr ""
 "<gui style=\"tab\">Bild</gui>. Anschließend klicken Sie auf den Knopf <gui "
 "style=\"button\">Diese Bilder in allen ausgewählten Dateien eintragen</gui>."
 
+#. (itstool) path: info/desc
+#: C/image-export.page:17
+msgid "Export an image from the tag"
+msgstr "Ein Bild aus einem Tag exportieren"
+
 #. (itstool) path: page/title
-#: C/image-export.page:19
+#: C/image-export.page:21
 msgid "Save an image"
-msgstr "Bild speichern"
+msgstr "Ein Bild speichern"
 
 #. (itstool) path: page/p
-#: C/image-export.page:21
+#: C/image-export.page:23
 msgid ""
 "If the file is already tagged with an image, you can export the image from "
 "the tag by selecting it and pressing <gui style=\"button\">Save the selected "
@@ -454,7 +462,7 @@ msgstr ""
 "vorgegebene Dateiname ist die Bildbeschreibung."
 
 #. (itstool) path: page/p
-#: C/image-export.page:26
+#: C/image-export.page:28
 msgid ""
 "To export a number of images, select these images, then press the <gui style="
 "\"button\">Save the selected images to files</gui> button."
@@ -464,17 +472,17 @@ msgstr ""
 "speichern</gui>."
 
 #. (itstool) path: info/desc
-#: C/image.page:19
-msgid "Add images, such as cover art to the tag"
+#: C/image.page:20
+msgid "Add images, such as cover art, to the tag"
 msgstr "Bilder wie z.B. von der Hülle zu den Metainformationen hinzufügen"
 
 #. (itstool) path: page/title
-#: C/image.page:23
+#: C/image.page:24
 msgid "Add an image to a file"
-msgstr "Ein Bild einer Datei hinzufügen"
+msgstr "Ein Bild zu einer Datei hinzufügen"
 
 #. (itstool) path: page/p
-#: C/image.page:25
+#: C/image.page:26
 msgid ""
 "Most audio file formats support an <sys>image</sys> tag field which can be "
 "used to add cover art and other related images to the audio file."
@@ -484,7 +492,7 @@ msgstr ""
 "Bilder verwendet werden kann."
 
 #. (itstool) path: page/p
-#: C/image.page:28
+#: C/image.page:29
 msgid ""
 "To add an image to the file, select the file, open the <gui style=\"tab"
 "\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
@@ -496,27 +504,27 @@ msgstr ""
 "gui>. Wählen Sie das Bild aus und bestätigen Sie Ihre Auswahl."
 
 #. (itstool) path: page/p
-#: C/image.page:33
+#: C/image.page:34
 msgid ""
 "Once the image is uploaded, it will be automatically marked as a front cover "
 "and the description will be the filename. To change the <gui>type</gui> and "
 "<gui>description</gui>, press the <gui style=\"button\">Edit image "
 "properties</gui> button. Once you have made the changes, press <gui style="
-"\"button\">OK</gui> to apply the changes."
+"\"button\">Accept</gui> to apply the changes."
 msgstr ""
-"Sobald das Bild eingefügt ist, wird es automatisch als Fronthülle und der "
+"Sobald das Bild eingefügt ist, wird es automatisch als Hülle und der "
 "Dateiname als Beschreibung festgelegt. Um den <gui>Typ</gui> oder die "
 "<gui>Beschreibung</gui> zu ändern, klicken Sie auf den Knopf <gui style="
 "\"button\">Bildeigenschaften bearbeiten</gui>. Klicken Sie auf <gui style="
-"\"button\">OK</gui> zum Übernehmen der Änderungen."
+"\"button\">Akzeptieren</gui> zum Übernehmen der Änderungen."
 
 #. (itstool) path: note/p
-#: C/image.page:40
+#: C/image.page:41
 msgid "Your changes will not be saved automatically."
 msgstr "Ihre Änderungen werden nicht automatisch gespeichert."
 
 #. (itstool) path: page/p
-#: C/image.page:43
+#: C/image.page:44
 msgid ""
 "You can tag multiple files with the same image by selecting them in the list "
 "of files, then selecting the image and pressing the <gui style=\"button"
@@ -530,7 +538,7 @@ msgstr ""
 "zu schreiben."
 
 #. (itstool) path: page/p
-#: C/image.page:48
+#: C/image.page:49
 msgid ""
 "You can work with more than one image at a time by selecting those images "
 "before you edit, apply, save to file or delete them."
@@ -539,39 +547,50 @@ msgstr ""
 "dem Bearbeiten, Anwenden, Exportieren oder Löschen auswählen."
 
 #. (itstool) path: info/title
-#: C/index.page:17
-msgctxt "link"
-msgid "EasyTAG"
-msgstr "EasyTAG"
-
-#. (itstool) path: info/title
-#: C/index.page:18
+#: C/index.page:11 C/index.page:21
 msgctxt "text"
 msgid "EasyTAG"
 msgstr "EasyTAG"
 
+#. (itstool) path: info/title
+#: C/index.page:20
+msgctxt "link"
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#. (itstool) path: info/desc
+#: C/index.page:23
+msgid ""
+"Learn how to use <app>EasyTAG</app>, a comprehensive tag editor for FLAC, "
+"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
+"and WavPack audio files."
+msgstr ""
+"<app>EasyTAG</app> ist eine umfassende Anwendung zum Bearbeiten von "
+"Metainformationen für folgende Audio-Dateiformate: FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis und WavPack."
+
 #. (itstool) path: page/title
-#: C/index.page:22
+#: C/index.page:29
 msgid "<_:media-1/> EasyTAG"
 msgstr "<_:media-1/> EasyTAG"
 
 #. (itstool) path: section/title
-#: C/index.page:28
+#: C/index.page:35
 msgid "Features"
 msgstr "Funktionen"
 
 #. (itstool) path: section/title
-#: C/index.page:32
+#: C/index.page:39
 msgid "Tags"
 msgstr "Metainformationen"
 
 #. (itstool) path: section/title
-#: C/index.page:36
+#: C/index.page:43
 msgid "The image tag field"
 msgstr "Das Metainfo-Feld Bild"
 
 #. (itstool) path: section/title
-#: C/index.page:44
+#: C/index.page:51
 msgid "Common problems and questions"
 msgstr "Häufige Probleme und Fragen"
 
@@ -694,7 +713,7 @@ msgstr ""
 #: C/playlist-generate.page:27
 msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
-"the playlist in the file list."
+"the playlist from the list of files."
 msgstr ""
 "<link xref=\"file-select\">Wählen Sie die Dateien</link>, die Sie zu einer "
 "Wiedergabeliste hinzufügen möchten."
@@ -800,46 +819,46 @@ msgstr ""
 "erstellen."
 
 #. (itstool) path: credit/name
-#: C/problems-id3.page:13 C/problems-ogg-split.page:13
+#: C/problems-id3.page:14 C/problems-ogg-split.page:14
 msgid "David King"
 msgstr "David King"
 
 #. (itstool) path: info/desc
-#: C/problems-id3.page:17
+#: C/problems-id3.page:18
 msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
 msgstr ""
 "ID3-Metainfos korrgieren, die leere oder fehlerhafte Metainformationen in "
 "anderen Anwendungen anzeigen"
 
 #. (itstool) path: page/title
-#: C/problems-id3.page:21
+#: C/problems-id3.page:22
 msgid "MP3 tags not showing correctly"
 msgstr "MP3-Metainformationen werden nicht korrekt angezeigt"
 
 #. (itstool) path: page/p
-#: C/problems-id3.page:23
+#: C/problems-id3.page:24
 msgid ""
 "<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
 "different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
-"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.4, which has the "
-"most features and is most efficient."
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.3, which is the "
+"most compatible."
 msgstr ""
 "<em>ID3</em>-Metainfos für MP3-Dateien können verschiedene Versionen haben. "
 "<app>EasyTAG</app> unterstützt ID3v2.4, ID3v2.3 und ID3v1.1. Die "
-"Vorgabeversion in <app>EasyTAG</app> ist ID3v2.4. Sie hat die meisten "
+"Vorgabeversion in <app>EasyTAG</app> ist ID3v2.3. Sie hat die meisten "
 "Funktionen und ist auch am effizientesten."
 
 #. (itstool) path: page/p
-#: C/problems-id3.page:28
+#: C/problems-id3.page:29
 msgid ""
-"Most applications support the most recent version of the ID3 standard: "
+"Many applications support the most recent version of the ID3 standard: "
 "ID3v2.4."
 msgstr ""
 "Viele Anwendungen unterstützen die neueste Version des ID3-Standards: "
 "ID3v2.4."
 
 #. (itstool) path: page/p
-#: C/problems-id3.page:31
+#: C/problems-id3.page:32
 msgid ""
 "Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
 "a few may support only ID3v1.1 tags. If another application or a device has "
@@ -852,7 +871,7 @@ msgstr ""
 "können Sie versuchen die ID3-Version in den Einstellungen zu ändern:"
 
 #. (itstool) path: item/p
-#: C/problems-id3.page:38 C/problems-ogg-split.page:45
+#: C/problems-id3.page:39 C/problems-ogg-split.page:46
 msgid ""
 "Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
 "\"menuitem\">Preferences</gui></guiseq>"
@@ -861,40 +880,34 @@ msgstr ""
 "gui><gui style=\"menuitem\">Einstellungen</gui></guiseq>."
 
 #. (itstool) path: item/p
-#: C/problems-id3.page:42
-msgid "Select the <gui style=\"tab\">ID3 Tag Settings</gui> tab"
-msgstr ""
-"Wählen Sie den Reiter <gui style=\"tab\">ID3-Metainfo-Einstellungen</gui>"
+#: C/problems-id3.page:43
+msgid "Select the <gui style=\"tab\">ID3 Tags</gui> tab"
+msgstr "Wählen Sie den Reiter <gui style=\"tab\">ID3-Metainformationen</gui>"
 
 #. (itstool) path: item/p
-#: C/problems-id3.page:45
+#: C/problems-id3.page:46
 msgid ""
-"In the <gui style=\"group\">ID3v2 tags</gui> section, choose the "
-"<gui>ID3v2.3</gui> setting in the <gui>Version</gui> drop-down lid to "
-"improve compatibility with other systems capable of reading ID3v2 tags"
+"In the <gui style=\"group\">ID3v2</gui> section, choose the <gui>ID3v2.4</"
+"gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
+"version of ID3v2, if your application or device supports it"
 msgstr ""
-"Wählen Sie die Einstellung <gui>ID3v2.3</gui> in der <gui>Version</gui>-"
-"Auswahlliste des Abschnitts <gui style=\"group\">ID3v2-Metainformationen</"
-"gui>, um die Kompatibilität mit anderen Anwendungen zu verbessern."
+"Im Abschnitt <gui style=\"group\">ID3v2</gui> wählen Sie <gui>ID3v2.4</gui> "
+"in der <gui>Version</gui>-Auswahlliste, um die neueste Version von ID3v2 zu "
+"verwenden, sofern Ihre Anwendung oder Ihr Gerät dies unterstützt."
 
 #. (itstool) path: item/p
-#: C/problems-id3.page:50
+#: C/problems-id3.page:52
 msgid ""
 "Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
-"the <gui style=\"group\">ID3v1 tags</gui> section"
+"the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
+"device only supports ID3v1"
 msgstr ""
 "Stellen Sie sicher, dass <gui style=\"check\">ID3v1.x-Metainfo schreiben</"
-"gui> im Abschnitt <gui style=\"group\">ID3v1-Metainfo</gui> ausgewählt ist."
-
-#. (itstool) path: item/p
-#: C/problems-id3.page:54 C/problems-ogg-split.page:56
-msgid "Click <gui style=\"button\">OK</gui> to save the settings"
-msgstr ""
-"Klicken Sie auf<gui style=\"button\">OK</gui>, um die Einstellungen zu "
-"speichern."
+"gui> im Abschnitt <gui style=\"group\">ID3v1-Metainfo</gui> ausgewählt ist, "
+"wenn Ihre Anwendung nur ID3v1 unterstützt."
 
 #. (itstool) path: info/desc
-#: C/problems-ogg-split.page:21
+#: C/problems-ogg-split.page:22
 msgid ""
 "Split a single tag field into multiple fields when you save Ogg and FLAC "
 "files"
@@ -903,12 +916,12 @@ msgstr ""
 "FLAC-Dateien speichern"
 
 #. (itstool) path: page/title
-#: C/problems-ogg-split.page:25
+#: C/problems-ogg-split.page:26
 msgid "Split tag fields when saving"
 msgstr "Metainfofelder beim Speichern aufspalten"
 
 #. (itstool) path: page/p
-#: C/problems-ogg-split.page:27
+#: C/problems-ogg-split.page:28
 msgid ""
 "In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
 "\">tag field</link> of each type. For example, if two artists performed a "
@@ -923,7 +936,7 @@ msgstr ""
 "automatisch zu einem einzigen Feld."
 
 #. (itstool) path: page/p
-#: C/problems-ogg-split.page:33
+#: C/problems-ogg-split.page:34
 msgid ""
 "Many applications do not read the multi-value field correctly, so the "
 "default configuration is to save using a single field per entry. If the "
@@ -942,36 +955,36 @@ msgstr ""
 "aufgespalten."
 
 #. (itstool) path: page/p
-#: C/problems-ogg-split.page:41
+#: C/problems-ogg-split.page:42
 msgid "To split fields when you save the files:"
 msgstr "So teilen Sie Felder beim Speichern der Dateien auf:"
 
 #. (itstool) path: item/p
-#: C/problems-ogg-split.page:49
-msgid "Select the <gui style=\"tab\">Tag Settings</gui> tab"
-msgstr "Wählen Sie den Reiter <gui style=\"tab\">Metainfo-Einstellungen</gui>"
+#: C/problems-ogg-split.page:50
+msgid "Select the <gui style=\"tab\">Tags</gui> tab"
+msgstr "Wählen Sie den Reiter <gui style=\"tab\">Metainformationen</gui>"
 
 #. (itstool) path: item/p
-#: C/problems-ogg-split.page:52
+#: C/problems-ogg-split.page:53
 msgid ""
-"In <gui style=\"group\">Tag Splitting</gui> section, check the fields that "
-"you want to be split into multiple fields when saving"
+"In <gui style=\"group\">Splitting</gui> section, check the fields that you "
+"want to be split into multiple fields when saving"
 msgstr ""
-"Im Bereich <gui style=\"group\">Metainfo-Aufspaltung</gui> können Sie die "
-"beim Speichern aufzuspaltenden Felder auswählen"
+"Im Bereich <gui style=\"group\">Trennen</gui> können Sie die beim Speichern "
+"aufzuspaltenden Felder auswählen."
 
 #. (itstool) path: info/desc
-#: C/scanner.page:17
-msgid "Update tags automatically."
-msgstr "Metainformationen automatisch anpassen"
+#: C/scanner.page:18
+msgid "Update tags automatically"
+msgstr "Metainformationen automatisch aktualisieren"
 
 #. (itstool) path: page/title
-#: C/scanner.page:21
+#: C/scanner.page:22
 msgid "The <gui>Scanner</gui>"
 msgstr "Der <gui>Scanner</gui>"
 
 #. (itstool) path: page/p
-#: C/scanner.page:23
+#: C/scanner.page:24
 msgid ""
 "The scanner can be used to fill in fields based on the filename, rename a "
 "file and create a new directory based on the filled fields, and process the "
@@ -983,12 +996,12 @@ msgstr ""
 "Dateinamen verwendet werden."
 
 #. (itstool) path: section/title
-#: C/scanner.page:28
+#: C/scanner.page:29
 msgid "Fill fields from a filename and directory structure"
 msgstr "Felder anhand der Dateinamen und Orderstruktur befüllen"
 
 #. (itstool) path: section/p
-#: C/scanner.page:30
+#: C/scanner.page:31
 msgid ""
 "<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
 "and its parent directories."
@@ -997,7 +1010,7 @@ msgstr ""
 "basierend auf den Dateinamen und den übergeordneten Ordnern verwendet werden."
 
 #. (itstool) path: section/p
-#: C/scanner.page:33
+#: C/scanner.page:34
 msgid ""
 "Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
 "em> to split the filename and parent directories into different tag fields. "
@@ -1017,7 +1030,7 @@ msgstr ""
 "einen Elternordner."
 
 #. (itstool) path: section/p
-#: C/scanner.page:41
+#: C/scanner.page:42
 msgid ""
 "For example, if you keep your audio files using the <file>artist/"
 "album/01 track title.flac</file> directory structure and filenames, use the "
@@ -1032,7 +1045,7 @@ msgstr ""
 "Albentitel aus dem Elternordner und den Künstler aus dem Großelternordner."
 
 #. (itstool) path: section/p
-#: C/scanner.page:47
+#: C/scanner.page:48
 msgid ""
 "Fill the tag fields for the selected files using the <gui style=\"button"
 "\">Scan Files</gui> button."
@@ -1041,26 +1054,26 @@ msgstr ""
 "Knopfes <gui style=\"button\">Dateien einlesen</gui>."
 
 #. (itstool) path: section/title
-#: C/scanner.page:53
+#: C/scanner.page:54
 msgid "Rename files and create new directories"
 msgstr "Dateien umbenennen und neue Ordner anlegen"
 
 #. (itstool) path: section/p
-#: C/scanner.page:55
+#: C/scanner.page:56
 msgid ""
-"<gui xref=\"file-rename\">Rename File and Directory</gui> can be used to "
-"create a directory hierarchy and update filenames using the filled tag "
-"fields. If a new directory hierarchy is specified, it will be created inside "
-"the directory where the file is currently located."
+"<gui xref=\"file-rename\">Rename File</gui> can be used to create a "
+"directory hierarchy and update filenames using the filled tag fields. If a "
+"new directory hierarchy is specified, it will be created inside the "
+"directory where the file is currently located."
 msgstr ""
-"Mit <gui xref=\"file-rename\">Datei und Ordner umbenennen</gui> legen Sie "
-"eine Ordnerhierarchie an und aktualisieren die Dateinamen Dateinamen anhand "
-"der ausgefüllten Metadaten-Felder. Wenn eine neue Ordnerhierarchie angegeben "
+"Mit <gui xref=\"file-rename\">Datei umbenennen</gui> legen Sie eine "
+"Ordnerhierarchie an und aktualisieren die Dateinamen Dateinamen anhand der "
+"ausgefüllten Metadaten-Felder. Wenn eine neue Ordnerhierarchie angegeben "
 "wird, wird diese innerhalb des gleichen Ordners angelegt, in dem sich die "
 "aktuelle Datei befindet."
 
 #. (itstool) path: section/p
-#: C/scanner.page:60
+#: C/scanner.page:61
 msgid ""
 "For example, if you have a tagged file inside the <file>Music</file> "
 "directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
@@ -1075,7 +1088,7 @@ msgstr ""
 "Vorschau des Benennungsschemas unterhalb der angegebenen Formatzeichenkette."
 
 #. (itstool) path: section/p
-#: C/scanner.page:66
+#: C/scanner.page:67
 msgid ""
 "To prepare the files for moving and renaming, press the <gui style=\"button"
 "\">Scan Files</gui> button."
@@ -1084,12 +1097,12 @@ msgstr ""
 "Knopf <gui style=\"button\">Dateien einlesen</gui>."
 
 #. (itstool) path: section/title
-#: C/scanner.page:72
+#: C/scanner.page:73
 msgid "Bulk process tag fields and filename"
 msgstr "Stapelverarbeitung von Metadaten-Feldern und Dateinamen"
 
 #. (itstool) path: section/p
-#: C/scanner.page:74
+#: C/scanner.page:75
 msgid ""
 "<gui>Process Fields</gui> is a sophisticated find and replace feature which "
 "allows you to select which tag fields to process. It also allows for the "
@@ -1100,7 +1113,16 @@ msgstr ""
 "werden können. Auch der Dateiname kann verarbeitet werden."
 
 #. (itstool) path: section/p
-#: C/scanner.page:78
+#: C/scanner.page:79
+msgid ""
+"Specify which fields to change by selecting them from the <gui>Tag Fields</"
+"gui> section."
+msgstr ""
+"Geben Sie an, welche Felder geändert werden sollen, indem Sie diese im "
+"Abschnitt <gui>Felder füllen</gui> auswählen."
+
+#. (itstool) path: section/p
+#: C/scanner.page:82
 msgid ""
 "You can <gui>Convert</gui> characters for a simple find and replace, change "
 "capitalization and add or remove spaces."
@@ -1108,16 +1130,6 @@ msgstr ""
 "Für einfaches Suchen und Ersetzen können Sie Zeichen <gui>umwandeln</gui>, "
 "die Groß- oder Kleinschreibung ändern und Leerzeichen hinzufügen oder "
 "entfernen."
-
-#. (itstool) path: section/p
-#: C/scanner.page:81
-msgid ""
-"Use the <gui>Select fields</gui> buttons to specify which fields to change. "
-"You can also select or deselect all fields and invert your selection."
-msgstr ""
-"Mit den <gui>Felder auswählen:</gui>-Knöpfen geben Sie an, welche Felder "
-"geändert werden sollen. Sie können auch alle Felder aus- oder abwählen oder "
-"die Auswahl umkehren."
 
 #. (itstool) path: info/desc
 #: C/starting.page:16
@@ -1173,9 +1185,86 @@ msgstr ""
 "style=\"dialog\">Einstellungen</gui> deaktivieren."
 
 #. (itstool) path: info/desc
+#: C/tag-capitalization.page:17
+msgid "Apply consistent capitalization to tags"
+msgstr "Konsistente Großschreibung auf Metainformationen anwenden"
+
+#. (itstool) path: page/title
+#: C/tag-capitalization.page:21
+msgid "Capitalize tags consistently"
+msgstr "Metainformationen konsistent groß schreiben"
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:23
+msgid ""
+"Tag capitalization can be changed for one or more tag fields in one or more "
+"files."
+msgstr ""
+"Die Groß- oder Kleinschreibung kann für eines oder mehrere Metainformations-"
+"Felder in einer oder mehreren Dateien geändert werden."
+
+#. (itstool) path: steps/title
+#: C/tag-capitalization.page:27
+msgid "Change tag field capitalization"
+msgstr "Schreibung der Metainformations-Felder ändern"
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:29
+msgid "Select the files that you wish to tag."
+msgstr "Wählen Sie die Dateien, die Sie bearbeiten möchten."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:32
+msgid ""
+"Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
+msgstr ""
+"Wählen Sie <guiseq><gui style=\"menu\">Ansicht</gui> <gui style=\"menuitem"
+"\">Scanner anzeigen</gui></guiseq>."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:36
+msgid "Select the <gui style=\"tab\">Process Fields</gui> tab."
+msgstr "Wählen Sie den Reiter <gui style=\"tab\">Felder verarbeiten</gui>"
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:39
+msgid "Check the fields that you want to change."
+msgstr "Wählen Sie die Felder, die Sie ändern wollen."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:42
+msgid ""
+"There are a number of available options for changing the capitalization. "
+"Choose the one that you want."
+msgstr ""
+"Für die Änderung der Schreibweise ist eine Reihe von Optionen verfügbar. "
+"Wählen Sie die gewünschte Option aus."
+
+#. (itstool) path: item/p
+#: C/tag-capitalization.page:46
+msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
+msgstr ""
+"Um die Änderungen auf die gewählten Dateien anzuwenden, klicken Sie auf <gui "
+"style=\"button\">Dateien einlesen</gui>."
+
+#. (itstool) path: page/p
+#: C/tag-capitalization.page:51
+msgid ""
+"The <gui>Scanner</gui> dialog can also be used to process space and "
+"character conversions. If you do not want to make any changes to these, "
+"select the correct option before you press <gui style=\"button\">Scan Files</"
+"gui>."
+msgstr ""
+"Im <gui>Scanner</gui>-Dialog können Sie außerdem die Verarbeitung von "
+"Leerzeichen und Umwandlung von Zeichen anpassen. Wenn Sie hier nichts "
+"verändern wollen, wählen Sie die korrekte Option, bevor Sie <gui style="
+"\"button\">Dateien einlesen</gui> anklicken."
+
+#. (itstool) path: info/desc
 #: C/tag-field.page:18
 msgid "Add text tags to a file"
-msgstr "Metainformationen einer Datei hinzufügen"
+msgstr "Metainformationen zu einer Datei hinzufügen"
 
 #. (itstool) path: page/title
 #: C/tag-field.page:22
@@ -1265,53 +1354,3 @@ msgstr ""
 "bearbeiten. Die bearbeitbaren Felder sind vom Format der jeweiligen Datei "
 "abhängig."
 
-#~ msgid "%a"
-#~ msgstr "%a"
-
-#~ msgid "%z"
-#~ msgstr "%z"
-
-#~ msgid "%b"
-#~ msgstr "%b"
-
-#~ msgid "%c"
-#~ msgstr "%c"
-
-#~ msgid "%p"
-#~ msgstr "%p"
-
-#~ msgid "%r"
-#~ msgstr "%r"
-
-#~ msgid "%d"
-#~ msgstr "%d"
-
-#~ msgid "%e"
-#~ msgstr "%e"
-
-#~ msgid "%g"
-#~ msgstr "%g"
-
-#~ msgid "%i"
-#~ msgstr "%i"
-
-#~ msgid "%l"
-#~ msgstr "%l"
-
-#~ msgid "%o"
-#~ msgstr "%o"
-
-#~ msgid "%n"
-#~ msgstr "%n"
-
-#~ msgid "%t"
-#~ msgstr "%t"
-
-#~ msgid "%u"
-#~ msgstr "%u"
-
-#~ msgid "%x"
-#~ msgstr "%x"
-
-#~ msgid "%y"
-#~ msgstr "%y"
