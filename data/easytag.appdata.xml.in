@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 David King <amigadave@amigadave.com> -->
 <component type="desktop">
-  <id>easytag.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-2.0+</project_license>
+    <id>easytag.desktop</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-2.0+</project_license>
 
-  <!-- Name and summary taken from the desktop file. -->
-  <_name>EasyTAG</_name>
-  <_summary>Edit audio file metadata</_summary>
-  <description>
-    <_p>
-      View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg
-      Speex, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files.
-    </_p>
-    <_p>
-      Look up albums in online databases, bulk edit tags, create
-      playlists and rename a collection of files.
-    </_p>
-    <_p>
-      A simple and nice GTK+ interface makes tagging easier under
-      GNU/Linux and Windows.
-    </_p>
-  </description>
-  <url type="homepage">https://wiki.gnome.org/Apps/EasyTAG</url>
-  <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=easytag</url>
-  <url type="donation">http://www.gnome.org/friends/</url>
-  <url type="help">https://help.gnome.org/users/easytag/stable/</url>
-  <project_group>GNOME</project_group>
-  <screenshots>
-    <screenshot type="default">
-      <image>http://amigadave.com/temp/easytag-default.png</image>
-    </screenshot>
-  </screenshots>
-  <kudos>
-    <kudo>AppMenu</kudo>
-    <kudo>ModernToolkit</kudo>
-  </kudos>
-  <update_contact>amigadave@amigadave.com</update_contact>
-  <translation type="gettext">easytag</translation>
+<!-- Name and summary taken from the desktop file. -->
+    <_name>EasyTAG</_name>
+    <_summary>Edit audio file metadata</_summary>
+    <description>
+        <_p>View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg
+        Speex, Ogg Vorbis, MusePack, Monkey's Audio and WavPack files.</_p>
+        <_p>Look up albums in online databases, bulk edit tags, create
+        playlists and rename a collection of files.</_p>
+        <_p>A simple and nice GTK+ interface makes tagging easier under
+        GNU/Linux and Windows.</_p>
+    </description>
+    <url type="homepage">https://wiki.gnome.org/Apps/EasyTAG</url>
+    <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=easytag</url>
+    <url type="help">https://help.gnome.org/users/easytag/stable/</url>
+    <screenshots>
+        <screenshot type="default">
+            <image>http://amigadave.com/temp/easytag-default.png</image>
+        </screenshot>
+    </screenshots>
+    <kudos>
+        <kudo>AppMenu</kudo>
+        <kudo>ModernToolkit</kudo>
+    </kudos>
+    <update_contact>amigadave@amigadave.com</update_contact>
+    <translation type="gettext">easytag</translation>
 </component>
