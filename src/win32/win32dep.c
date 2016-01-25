@@ -109,23 +109,6 @@ weasytag_locale_dir (void)
 }
 
 /* Miscellaneous */
-#ifndef HAVE_MKSTEMP
-/* emulate the unix function */
-gint
-et_w32_mkstemp (gchar *template)
-{
-    int fd = -1;
-
-    char *str = mktemp(template);
-    if(str != NULL)
-    {
-        fd  = g_open (str, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
-    }
-
-    return fd;
-}
-#endif /* !HAVE_MKSTEMP */
-
 #ifndef HAVE_TRUNCATE
 gint
 et_w32_truncate (const gchar *path, off_t length)

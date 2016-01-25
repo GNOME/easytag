@@ -48,11 +48,6 @@ G_BEGIN_DECLS
 /* Determine EasyTAG paths */
 const gchar * weasytag_locale_dir (void);
 
-#ifndef HAVE_MKSTEMP
-#define et_w32_mkstemp mkstemp
-extern gint et_w32_mkstemp (char *template);
-#endif /* !HAVE_MKSTEMP */
-
 #ifndef HAVE_TRUNCATE
 #define et_w32_truncate truncate
 extern gint et_w32_truncate (const gchar *path, off_t length);

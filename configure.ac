@@ -360,7 +360,7 @@ AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS],
 dnl -------------------------------
 dnl Checks for library functions.
 dnl -------------------------------
-AC_CHECK_FUNCS([mkstemp truncate])
+AC_CHECK_FUNCS([truncate])
 
 GLIB_GSETTINGS
 

@@ -4341,7 +4341,7 @@ Rename_Directory (EtBrowser *self)
     tmp_path = g_strdup_printf("%s.XXXXXX",last_path);
     tmp_path_utf8 = g_filename_display_name (tmp_path);
 
-    if ( (fd_tmp = mkstemp(tmp_path)) >= 0 )
+    if ((fd_tmp = g_mkstemp (tmp_path)) >= 0)
     {
         /* TODO: handle error. */
         g_close (fd_tmp, NULL);

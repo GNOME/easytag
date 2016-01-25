@@ -431,7 +431,7 @@ et_rename_file (const char *old_filepath,
             tmp_filename = g_strconcat (old_filepath, ".XXXXXX", NULL);
 
             old_mode = umask (077);
-            fd = mkstemp (tmp_filename);
+            fd = g_mkstemp (tmp_filename);
             umask (old_mode);
 
             if (fd >= 0)
