@@ -2761,6 +2761,8 @@ init_search_field_check (GtkWidget *widget)
 {
     g_object_set_data (G_OBJECT (widget), "flags-type",
                        GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_FIELD));
+    g_object_set_data (G_OBJECT (widget), "flags-key",
+                       (gpointer) "cddb-search-fields");
     g_settings_bind_with_mapping (MainSettings, "cddb-search-fields", widget,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_flags_toggle_get,
@@ -2771,6 +2773,8 @@ init_search_category_check (GtkWidget *widget)
 {
     g_object_set_data (G_OBJECT (widget), "flags-type",
                        GSIZE_TO_POINTER (ET_TYPE_CDDB_SEARCH_CATEGORY));
+    g_object_set_data (G_OBJECT (widget), "flags-key",
+                       (gpointer) "cddb-search-categories");
     g_settings_bind_with_mapping (MainSettings, "cddb-search-categories",
                                   widget, "active", G_SETTINGS_BIND_DEFAULT,
                                   et_settings_flags_toggle_get,
