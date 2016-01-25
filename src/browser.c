@@ -4045,9 +4045,10 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     GtkBuilder *builder;
     GtkWidget *label;
     GtkWidget *button;
-    gchar *directory_parent = NULL;
-    gchar *directory_name = NULL;
-    gchar *directory_name_utf8 = NULL;
+    GFile *parent;
+    gchar *parent_path;
+    gchar *basename;
+    gchar *display_basename;
     gchar *string;
 
     priv = et_browser_get_instance_private (self);
@@ -4059,16 +4060,29 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     }
 
     /* We get the full path but we musn't display the parent directories */
-    directory_parent = g_file_get_path (priv->current_path);
+    parent = g_file_get_parent (priv->current_path);
 
-    if (et_str_empty (directory_parent))
+    if (!parent)
     {
-        g_free (directory_parent);
         return;
     }
 
-    directory_name = g_path_get_basename (directory_parent);
-    directory_name_utf8 = g_filename_display_basename (directory_parent);
+    parent_path = g_file_get_path (parent);
+    g_object_unref (parent);
+
+    if (!parent_path)
+    {
+        return;
+    }
+
+    basename = g_file_get_basename (priv->current_path);
+
+    if (!basename)
+    {
+        return;
+    }
+
+    display_basename = g_filename_display_name (basename);
 
     builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/browser_dialogs.ui");
 
@@ -4082,14 +4096,14 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
 
     /* We attach useful data to the combobox */
     g_object_set_data_full (G_OBJECT (priv->rename_directory_dialog),
-                            "Parent_Directory", directory_parent, g_free);
+                            "Parent_Directory", parent_path, g_free);
     g_object_set_data_full (G_OBJECT (priv->rename_directory_dialog),
-                            "Current_Directory", directory_name, g_free);
+                            "Current_Directory", basename, g_free);
     g_signal_connect (priv->rename_directory_dialog, "response",
                       G_CALLBACK (et_rename_directory_on_response), self);
 
     string = g_strdup_printf (_("Rename the directory ‘%s’ to:"),
-                              directory_name_utf8);
+                              display_basename);
     label = GTK_WIDGET (gtk_builder_get_object (builder, "rename_label"));
     gtk_label_set_label (GTK_LABEL (label), string);
     g_free (string);
@@ -4100,7 +4114,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
                                                                        "rename_entry"));
     /* Set the directory into the combobox */
     gtk_entry_set_text (GTK_ENTRY (priv->rename_directory_entry),
-                        directory_name_utf8);
+                        display_basename);
 
     /* Rename directory : check box + entry + Status icon */
     priv->rename_directory_mask_toggle = GTK_WIDGET (gtk_builder_get_object (builder,
@@ -4154,7 +4168,7 @@ et_browser_show_rename_directory_dialog (EtBrowser *self)
     /* To initialize PreviewLabel + MaskStatusIconBox. */
     g_signal_emit_by_name (priv->rename_directory_mask_entry, "changed");
 
-    g_free (directory_name_utf8);
+    g_free (display_basename);
 }
 
 static void
@@ -4267,9 +4281,10 @@ Rename_Directory (EtBrowser *self)
     }
 
     /* Build the current and new absolute paths */
-    last_path = g_strconcat(directory_parent, directory_last_name, NULL);
+    last_path = g_build_filename (directory_parent, directory_last_name, NULL);
     last_path_utf8 = g_filename_display_name (last_path);
-    new_path = g_strconcat(directory_parent, directory_new_name_file, NULL);
+    new_path = g_build_filename (directory_parent, directory_new_name_file,
+                                 NULL);
     new_path_utf8 = g_filename_display_name (new_path);
 
     /* TODO: Replace with g_file_move(). */
