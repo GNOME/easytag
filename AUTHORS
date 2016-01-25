@@ -39,6 +39,10 @@ Goetz Waschk <waschk@informatik.uni-rostock.de>
   - a lot of patches
   - German translation
 
+James Cowgill <james410@cowgill.org.uk>
+  - Debian packager
+  - several bugfixes
+
 Holger Schemel <aeglos@valinor.owl.de>
   - patch to fix tag priority problem with id3lib
 
@@ -117,3 +121,6 @@ Guilherme Destefani <gd@helixbrasil.com.br>
 
 Andreas Winkelmann <ml@awinkelmann.de>
   - Warning and bug fixes
+
+Dennis Björklund <db@zigo.dhs.org>
+  - CDDB fields settings bugfix

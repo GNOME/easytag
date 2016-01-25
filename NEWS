@@ -1,3 +1,30 @@
+2.4.1 - 2016-01-25 :
+====================
+
+    * James Cowgill’s Opus parsing crash fix
+    * James Cowgill’s playlist writing crash fix
+    * Handle FLAC files with an invalid sample rate
+    * Fix generated playlist order
+    * Consistently use the GLib filename encoding
+    * Extensive refactoring of locale and encoding handling
+    * Improve fallback legacy locale detection
+    * Dennis Björklund’s CDDB fill fields fix
+    * Fix CDDB search fields and categories settings handling
+    * Use the correct encoding when writing ID3v2.4 tags
+    * Fix a linking error on Mac OS X
+    * Improve illegal character logic, especially for trailing characters
+    * Remove several outdated and unnecessary Windows compatibility wrappers
+    * Mario Blättermann’s German help translation update
+    * Marcus Gisslén’s Swedish help translation
+    * Josef Andersson’s Swedish translation update
+    * Мирослав Николић’s Serbian translation update
+    * Jordi Mas’ Catalan translation update
+    * Seong-ho Cho’s Korean translation update
+    * Daniel Mustieles’ Spanish translation updates
+    * Marek Černocký’s Czech translation update
+    * Åka Sikrom’s Norwegian bokmål translation update
+    * Piotr Drąg’s Polish translation update
+
 2.4.0 - 2015-08-29 :
 ====================
 
