@@ -37,4 +37,5 @@
     <kudo>ModernToolkit</kudo>
   </kudos>
   <update_contact>amigadave@amigadave.com</update_contact>
+  <translation type="gettext">easytag</translation>
 </component>
