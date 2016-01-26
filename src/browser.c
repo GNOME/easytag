@@ -4190,7 +4190,6 @@ static void
 Rename_Directory (EtBrowser *self)
 {
     EtBrowserPrivate *priv;
-    GDir *dir;
     gchar *directory_parent;
     gchar *directory_last_name;
     gchar *directory_new_name;
@@ -4290,13 +4289,10 @@ Rename_Directory (EtBrowser *self)
     /* TODO: Replace with g_file_move(). */
     /* Check if the new directory name doesn't already exists, and detect if
      * it's only a case change (needed for vfat) */
-    /* TODO: Handle the GError, such as by checking for G_FILE_ERROR_NOENT. */
-    if ((dir = g_dir_open (new_path, 0, NULL)) != NULL)
+    if (g_file_test (new_path, G_FILE_TEST_IS_DIR))
     {
         GtkWidget *msgdialog;
         //gint response;
-
-        g_dir_close (dir);
 
         if (strcasecmp(last_path,new_path) != 0)
         {

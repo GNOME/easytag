@@ -26,7 +26,6 @@
 #include "browser.h"
 #include "charset.h"
 #include "easytag.h"
-#include "log.h"
 #include "misc.h"
 #include "picture.h"
 #include "scan.h"
