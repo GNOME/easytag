@@ -1017,6 +1017,7 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
         size_t fileSize;
         size_t newFileSize;
         size_t writedBytes;
+        int fd;
         
         fseek (fp, 0, SEEK_END);
         fileSize = ftell (fp);
@@ -1037,12 +1038,24 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
             newFileSize = (fileSize - skipBytes);
         }
         fflush (fp);
-        fclose (fp);
-        /* ftruncate don't work */ 
-        if (truncate (filename, newFileSize) == -1)
+
+        if ((fd = fileno (fp)) == -1)
+        {
+            PRINT_ERR ("FATAL_ERROR->libapetag->apetag_save::fileno [file not truncated]");
+            fclose (fp);
+            return ATL_FWRITE;
+        }
+
+#ifdef G_OS_WIN32
+        if (_chsize (fd, newFileSize) == -1)
+#else
+        if (ftruncate (fd, newFileSize) == -1)
+#endif
         {
             PRINT_ERR ("FATAL_ERROR->libapetag->apetag_save::fwrite [file not truncated]");
         }
+
+        fclose (fp);
     } else { /* !!SAVE_FAKE_SAVE */
         libapetag_print_mem_cnt (mem_cnt);
     }

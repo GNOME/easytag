@@ -357,11 +357,6 @@ AX_IS_RELEASE([git-directory])
 AX_COMPILER_FLAGS([WARN_CFLAGS], [WARN_LDFLAGS],
                   [$ax_is_release])
 
-dnl -------------------------------
-dnl Checks for library functions.
-dnl -------------------------------
-AC_CHECK_FUNCS([truncate])
-
 GLIB_GSETTINGS
 
 AC_CONFIG_FILES([ Makefile

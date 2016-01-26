@@ -108,27 +108,4 @@ weasytag_locale_dir (void)
     return locale_dir;
 }
 
-/* Miscellaneous */
-#ifndef HAVE_TRUNCATE
-gint
-et_w32_truncate (const gchar *path, off_t length)
-{
-    HANDLE h;
-    gint ret;
-
-    h = CreateFile (path, GENERIC_WRITE, 0, 0, OPEN_EXISTING, 0, 0);
-
-    if (h == INVALID_HANDLE_VALUE)
-    {
-        /* errno = map_errno (GetLastError ()); */
-        return -1;
-    }
-
-    ret = chsize ((gint)h, length);
-    CloseHandle (h);
-
-    return ret;
-}
-#endif /* !HAVE_TRUNCATE */
-
 #endif /* G_OS_WIN32 */

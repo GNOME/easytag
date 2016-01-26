@@ -20,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-#ifndef _WIN32DEP_H_
-#define _WIN32DEP_H_
+#ifndef ET_WIN32DEP_H_
+#define ET_WIN32DEP_H_
 
 #include <glib.h> /* Needed for G_OS_WIN32. */
 
@@ -48,11 +48,6 @@ G_BEGIN_DECLS
 /* Determine EasyTAG paths */
 const gchar * weasytag_locale_dir (void);
 
-#ifndef HAVE_TRUNCATE
-#define et_w32_truncate truncate
-extern gint et_w32_truncate (const gchar *path, off_t length);
-#endif /* !HAVE_TRUNCATE */
-
 /*
  *  MACROS
  */
@@ -67,4 +62,4 @@ G_END_DECLS
 
 #endif /* G_OS_WIN32 */
 
-#endif /* _WIN32DEP_H_ */
+#endif /* ET_WIN32DEP_H_ */
