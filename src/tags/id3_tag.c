@@ -1512,7 +1512,7 @@ et_id3tag_check_if_file_is_valid (GFile *file, GError **error)
     if (!valid)
     {
         g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "%s",
-                     "Input truncated or empty");
+                     _("Input truncated or empty"));
     }
 
     return valid;

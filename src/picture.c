@@ -475,7 +475,7 @@ et_picture_load_file_data (GFile *file, GError **error)
             g_object_unref (ostream);
             /* FIXME: Mark up the string for translation. */
             g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA, "%s",
-                         "Input truncated or empty");
+                         _("Input truncated or empty"));
             return NULL;
         }
 
