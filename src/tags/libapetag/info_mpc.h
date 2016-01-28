@@ -20,6 +20,8 @@
 #ifndef INFO_MPC_H
 #define INFO_MPC_H
 
+#include <gio/gio.h>
+
 /** \file info_mpc.h 
     \brief Get information from MusePack file.
 
@@ -86,7 +88,6 @@ typedef struct
     \retval 1 file not found or write protected
     \retval 2 not musepack audio file
 */
-int
-info_mpc_read(const char *fn, StreamInfoMpc *Info);
+gboolean info_mpc_read (GFile *file, StreamInfoMpc *Info, GError **error);
 
 #endif /* INFO_MPC_H */

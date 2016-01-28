@@ -32,23 +32,15 @@ et_mpc_header_read_file_info (GFile *file,
                               ET_File_Info *ETFileInfo,
                               GError **error)
 {
-    gchar *filename;
     StreamInfoMpc Info;
 
     g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    filename = g_file_get_path (file);
-
-    if (info_mpc_read (filename, &Info))
+    if (!info_mpc_read (file, &Info, error))
     {
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
-                     _("Error opening Musepack file"));
-        g_free (filename);
         return FALSE;
     }
-
-    g_free (filename);
 
     ETFileInfo->mpc_profile = g_strdup(Info.ProfileName);
     ETFileInfo->version     = Info.StreamVersion;

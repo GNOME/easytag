@@ -26,23 +26,22 @@
     -Thomas Juerges <thomas.juerges@astro.ruhr-uni-bochum.de> 
 */
 
+#include <errno.h>
 #include <glib/gstdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "info_mpc.h"
 #include "is_tag.h"
- 
+
+#define MPC_HEADER_LENGTH 16
 
 /*
 *.MPC,*.MP+,*.MPP
 */
+/* Profile is 0...15, where 7...13 is used. */
 static const char *
-profile_stringify(unsigned int profile);    // profile is 0...15, where 7...13 is used
-
-
-static const char *
-profile_stringify(unsigned int profile)    // profile is 0...15, where 7...13 is used
+profile_stringify (unsigned int profile)
 {
     static const char na[] = "n.a.";
     static const char *Names[] = {
@@ -57,119 +56,193 @@ profile_stringify(unsigned int profile)    // profile is 0...15, where 7...13 is
 }
 
 /*
-    return 0; Info has all info
-    return 1; File not found
-    return 2; no Mpc file
+* info_mpc_read:
+* @file: file from which to read a header
+* @stream_info: stream information to fill
+* @error: a #Gerror, or %NULL
+*
+* Read header from the given MusePack @file.
+*
+* Returns: %TRUE on success, %FALSE and with @error set on failure
 */
-int
-info_mpc_read(const char *fn, StreamInfoMpc * Info)
+gboolean
+info_mpc_read (GFile *file,
+               StreamInfoMpc *stream_info,
+               GError **error)
 {
-    unsigned int HeaderData[16];
-    FILE *tmpFile = NULL;
-    long SkipSizeID3;
+    GFileInfo *info;
+    GFileInputStream *istream;
+    guint32 header_buffer[MPC_HEADER_LENGTH];
+    gsize bytes_read;
+    gsize id3_size;
     
-    // load file
-    tmpFile = g_fopen (fn, "rb");
-        
-    if (tmpFile == NULL) 
-        return 1;    // file not found or read-protected
-    // skip id3v2 
-    SkipSizeID3=is_id3v2(tmpFile);
-    fseek(tmpFile,SkipSizeID3 , SEEK_SET);
-    if (fread ((void *) HeaderData, sizeof (int), 16, tmpFile) != 16)
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
     {
-        fclose (tmpFile);
-        return 1;
+        return FALSE;
     }
-    fseek(tmpFile, 0, SEEK_END);
-    Info->FileSize=ftell(tmpFile);
-    // stream size 
-    Info->ByteLength = Info->FileSize-is_id3v1(tmpFile)-is_ape(tmpFile)-SkipSizeID3;
+
+    stream_info->FileSize = g_file_info_get_size (info);
+    g_object_unref (info);
+
+    {
+        gchar *path;
+        FILE *fp;
+
+        path = g_file_get_path (file);
+        fp = g_fopen (path, "rb");
+        g_free (path);
+
+        if (!fp)
+        {
+            /* TODO: Add specific error domain and message. */
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                         g_strerror (EINVAL));
+            return FALSE;
+        }
+
+        /* Skip id3v2. */
+        /* FIXME: is_id3v2 (and is_id3v1 and is_ape) should accept an istream
+         * or GFile. */
+        id3_size = is_id3v2 (fp);
+
+        fseek (fp, 0, SEEK_END);
+        stream_info->FileSize = ftell (fp);
+
+        /* Stream size. */
+        stream_info->ByteLength = stream_info->FileSize - is_id3v1 (fp)
+                                  - is_ape (fp) - id3_size;
+
+        fclose (fp);
+    }
+        
+    istream = g_file_read (file, NULL, error);
+
+    if (!istream)
+    {
+        return FALSE;
+    }
+
+    if (!g_seekable_seek (G_SEEKABLE (istream), id3_size, G_SEEK_SET, NULL,
+                          error))
+    {
+        return FALSE;
+    }
+
+    /* Read 16 guint32. */
+    if (!g_input_stream_read_all (G_INPUT_STREAM (istream), header_buffer,
+                                  MPC_HEADER_LENGTH * 4, &bytes_read, NULL,
+                                  error))
+    {
+        g_debug ("Only %" G_GSIZE_FORMAT "bytes out of 16 bytes of data were "
+                 "read", bytes_read);
+        return FALSE;
+    }
+
+    /* FIXME: Read 4 bytes, take as a uint32, then byteswap if necessary. (The
+     * official Musepack decoder expects the user(!) to request the
+     * byteswap.) */
+    if (memcmp (header_buffer, "MP+", 3) != 0)
+    {
+        /* TODO: Add specific error domain and message. */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                     g_strerror (EINVAL));
+        return FALSE;
+    }
     
-    fclose(tmpFile);
-    
-    if (0 != memcmp(HeaderData, "MP+", 3))
-        return 2; // no musepack file
-    
-    Info->StreamVersion = HeaderData[0] >> 24;
-    if (Info->StreamVersion >= 7) {
+    stream_info->StreamVersion = header_buffer[0] >> 24;
+
+    if (stream_info->StreamVersion >= 7)
+    {
         const long samplefreqs[4] = { 44100, 48000, 37800, 32000 };
         
         // read the file-header (SV7 and above)
-        Info->Bitrate = 0;
-        Info->Frames = HeaderData[1];
-        Info->SampleFreq = samplefreqs[(HeaderData[2] >> 16) & 0x0003];
-        Info->MaxBand = (HeaderData[2] >> 24) & 0x003F;
-        Info->MS = (HeaderData[2] >> 30) & 0x0001;
-        Info->Profile = (HeaderData[2] << 8) >> 28;
-        Info->IS = (HeaderData[2] >> 31) & 0x0001;
-        Info->BlockSize = 1;
+        stream_info->Bitrate = 0;
+        stream_info->Frames = header_buffer[1];
+        stream_info->SampleFreq = samplefreqs[(header_buffer[2] >> 16) & 0x0003];
+        stream_info->MaxBand = (header_buffer[2] >> 24) & 0x003F;
+        stream_info->MS = (header_buffer[2] >> 30) & 0x0001;
+        stream_info->Profile = (header_buffer[2] << 8) >> 28;
+        stream_info->IS = (header_buffer[2] >> 31) & 0x0001;
+        stream_info->BlockSize = 1;
         
-        Info->EncoderVersion = (HeaderData[6] >> 24) & 0x00FF;
-        Info->Channels = 2;
+        stream_info->EncoderVersion = (header_buffer[6] >> 24) & 0x00FF;
+        stream_info->Channels = 2;
         // gain
-        Info->EstPeakTitle = HeaderData[2] & 0xFFFF;    // read the ReplayGain data
-        Info->GainTitle = (HeaderData[3] >> 16) & 0xFFFF;
-        Info->PeakTitle = HeaderData[3] & 0xFFFF;
-        Info->GainAlbum = (HeaderData[4] >> 16) & 0xFFFF;
-        Info->PeakAlbum = HeaderData[4] & 0xFFFF;
+        stream_info->EstPeakTitle = header_buffer[2] & 0xFFFF;    // read the ReplayGain data
+        stream_info->GainTitle = (header_buffer[3] >> 16) & 0xFFFF;
+        stream_info->PeakTitle = header_buffer[3] & 0xFFFF;
+        stream_info->GainAlbum = (header_buffer[4] >> 16) & 0xFFFF;
+        stream_info->PeakAlbum = header_buffer[4] & 0xFFFF;
         // gaples
-        Info->IsTrueGapless = (HeaderData[5] >> 31) & 0x0001;    // true gapless: used?
-        Info->LastFrameSamples = (HeaderData[5] >> 20) & 0x07FF;    // true gapless: valid samples for last frame
+        stream_info->IsTrueGapless = (header_buffer[5] >> 31) & 0x0001;    // true gapless: used?
+        stream_info->LastFrameSamples = (header_buffer[5] >> 20) & 0x07FF;    // true gapless: valid samples for last frame
         
-        if (Info->EncoderVersion == 0) {
-            sprintf(Info->Encoder, "<= 1.05"); // Buschmann 1.7.x, Klemm <= 1.05
-        } else {
-            switch (Info->EncoderVersion % 10) {
+        if (stream_info->EncoderVersion == 0)
+        {
+            sprintf (stream_info->Encoder, "<= 1.05"); // Buschmann 1.7.x, Klemm <= 1.05
+        }
+        else
+        {
+            switch (stream_info->EncoderVersion % 10)
+            {
             case 0:
-                sprintf(Info->Encoder, "%u.%u",
-                    Info->EncoderVersion / 100,
-                    Info->EncoderVersion / 10 % 10);
+                sprintf (stream_info->Encoder, "%u.%u",
+                         stream_info->EncoderVersion / 100,
+                         stream_info->EncoderVersion / 10 % 10);
                 break;
             case 2:
             case 4:
             case 6:
             case 8:
-                sprintf(Info->Encoder, "%u.%02u Beta",
-                    Info->EncoderVersion / 100,
-                    Info->EncoderVersion % 100);
+                sprintf (stream_info->Encoder, "%u.%02u Beta",
+                         stream_info->EncoderVersion / 100,
+                         stream_info->EncoderVersion % 100);
                 break;
             default:
-                sprintf(Info->Encoder, "%u.%02u Alpha",
-                    Info->EncoderVersion / 100,
-                    Info->EncoderVersion % 100);
+                sprintf (stream_info->Encoder, "%u.%02u Alpha",
+                         stream_info->EncoderVersion / 100,
+                         stream_info->EncoderVersion % 100);
                 break;
             }
         }
         // estimation, exact value needs too much time
-        Info->Bitrate = (long) (Info->ByteLength) * 8. * Info->SampleFreq / (1152 * Info->Frames - 576);
+        stream_info->Bitrate = (long) (stream_info->ByteLength) * 8. * stream_info->SampleFreq / (1152 * stream_info->Frames - 576);
         
-    } else {
+    }
+    else
+    {
         // read the file-header (SV6 and below)
-        Info->Bitrate = ((HeaderData[0] >> 23) & 0x01FF) * 1000;    // read the file-header (SV6 and below)
-        Info->MS = (HeaderData[0] >> 21) & 0x0001;
-        Info->IS = (HeaderData[0] >> 22) & 0x0001;
-        Info->StreamVersion = (HeaderData[0] >> 11) & 0x03FF;
-        Info->MaxBand = (HeaderData[0] >> 6) & 0x001F;
-        Info->BlockSize = (HeaderData[0]) & 0x003F;
+        stream_info->Bitrate = ((header_buffer[0] >> 23) & 0x01FF) * 1000;    // read the file-header (SV6 and below)
+        stream_info->MS = (header_buffer[0] >> 21) & 0x0001;
+        stream_info->IS = (header_buffer[0] >> 22) & 0x0001;
+        stream_info->StreamVersion = (header_buffer[0] >> 11) & 0x03FF;
+        stream_info->MaxBand = (header_buffer[0] >> 6) & 0x001F;
+        stream_info->BlockSize = (header_buffer[0]) & 0x003F;
         
-        Info->Profile = 0;
+        stream_info->Profile = 0;
         //gain
-        Info->GainTitle = 0;    // not supported
-        Info->PeakTitle = 0;
-        Info->GainAlbum = 0;
-        Info->PeakAlbum = 0;
+        stream_info->GainTitle = 0;    // not supported
+        stream_info->PeakTitle = 0;
+        stream_info->GainAlbum = 0;
+        stream_info->PeakAlbum = 0;
         //gaples
-        Info->LastFrameSamples = 0;
-        Info->IsTrueGapless = 0;
+        stream_info->LastFrameSamples = 0;
+        stream_info->IsTrueGapless = 0;
         
-        if (Info->StreamVersion >= 5)
-            Info->Frames = HeaderData[1];    // 32 bit
+        if (stream_info->StreamVersion >= 5)
+        {
+            stream_info->Frames = header_buffer[1];    // 32 bit
+        }
         else
-            Info->Frames = (HeaderData[1] >> 16);    // 16 bit
+        {
+            stream_info->Frames = (header_buffer[1] >> 16);    // 16 bit
+        }
         
-        Info->EncoderVersion = 0;
-        Info->Encoder[0] = '\0';
+        stream_info->EncoderVersion = 0;
+        stream_info->Encoder[0] = '\0';
 #if 0
         if (Info->StreamVersion == 7)
             return ERROR_CODE_SV7BETA;    // are there any unsupported parameters used?
@@ -180,15 +253,19 @@ info_mpc_read(const char *fn, StreamInfoMpc * Info)
         if (Info->BlockSize != 1)
             return ERROR_CODE_BLOCKSIZE;
 #endif
-        if (Info->StreamVersion < 6)    // Bugfix: last frame was invalid for up to SV5
-            Info->Frames -= 1;
+        if (stream_info->StreamVersion < 6)    // Bugfix: last frame was invalid for up to SV5
+        {
+            stream_info->Frames -= 1;
+        }
         
-        Info->SampleFreq = 44100;    // AB: used by all files up to SV7
-        Info->Channels = 2;
+        stream_info->SampleFreq = 44100;    // AB: used by all files up to SV7
+        stream_info->Channels = 2;
     }
     
-    Info->ProfileName=profile_stringify(Info->Profile);
+    stream_info->ProfileName = profile_stringify (stream_info->Profile);
     
-    Info->Duration = (int) (Info->Frames * 1152 / (Info->SampleFreq/1000.0));
-    return 0;
+    stream_info->Duration = (int) (stream_info->Frames * 1152
+                                   / (stream_info->SampleFreq / 1000.0));
+
+    return TRUE;
 }
