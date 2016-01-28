@@ -27,13 +27,21 @@
 #include <assert.h>
 #include "is_tag.h"
 
-unsigned long
-is_tag_ape2long (unsigned char *p);
-
 /*
     PL: czy dany plik ma taga odpowiednio id3v1, id3v2 i ape ???
     PL: nie zmienia pozycji w pliku !!!
 */
+
+static unsigned long
+is_tag_ape2long (unsigned char *p)
+{
+
+    return (((unsigned long) p[0] << 0)  |
+            ((unsigned long) p[1] << 8)  |
+            ((unsigned long) p[2] << 16) |
+            ((unsigned long) p[3] << 24) );
+
+}
 
 /** 
     return size of all id3v1 tags (some bugy tagers add this again and 
@@ -173,16 +181,4 @@ is_ape (FILE * fp)
             ) ? 32 : 0 
         ) /* footer size = 32 */
         );
-}
-
-
-unsigned long
-is_tag_ape2long (unsigned char *p)
-{
-
-    return (((unsigned long) p[0] << 0)  |
-            ((unsigned long) p[1] << 8)  |
-            ((unsigned long) p[2] << 16) |
-            ((unsigned long) p[3] << 24) );
-
 }
