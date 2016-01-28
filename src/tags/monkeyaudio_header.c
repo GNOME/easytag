@@ -32,23 +32,15 @@ et_mac_header_read_file_info (GFile *file,
                               ET_File_Info *ETFileInfo,
                               GError **error)
 {
-    gchar *filename;
     StreamInfoMac Info;
 
     g_return_val_if_fail (file != NULL && ETFileInfo != NULL, FALSE);
     g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-    filename = g_file_get_path (file);
-
-    if (info_mac_read (filename, &Info))
+    if (!info_mac_read (file, &Info, error))
     {
-        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED, "%s",
-                     _("Error opening Monkey’s Audio file"));
-        g_free (filename);
         return FALSE;
     }
-
-    g_free (filename);
 
     ETFileInfo->mpc_profile   = g_strdup(Info.CompresionName);
     ETFileInfo->version       = Info.Version;

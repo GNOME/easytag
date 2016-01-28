@@ -20,6 +20,8 @@
 #ifndef INFO_MAC_H
 #define INFO_MAC_H
 
+#include <gio/gio.h>
+
 /** \file info_mac.h 
     \brief Get information from MonkeyAudio file.
 
@@ -77,16 +79,6 @@ typedef struct
     unsigned int EncoderVersion;    /**< version of encoder used */
 } StreamInfoMac;
 
-/**
-    Read all mac info from filename 
-
-    \param fn File name 
-    \param Info StreamInfoMac Structure for all information
-    \retval 0 ok
-    \retval 1 file not found or write protected
-    \retval 2 not monkey's audio file
-*/
-int
-info_mac_read(const char *fn, StreamInfoMac * Info);
+gboolean info_mac_read (GFile *file, StreamInfoMac *stream_info, GError **error);
 
 #endif /* INFO_MAC_H */

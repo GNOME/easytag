@@ -17,6 +17,7 @@
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <errno.h>
 #include <glib/gstdio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +31,8 @@
 #define MAC_FORMAT_FLAG_24_BIT                8    // 24-bit wave
 #define MAC_FORMAT_FLAG_HAS_SEEK_ELEMENTS    16    // number of seek elements after the peak level
 #define MAC_FORMAT_FLAG_CREATE_WAV_HEADER    32    // wave header not stored
+
+#define MAC_FORMAT_HEADER_LENGTH 16
 
 struct macHeader {
     char             id[4];               // should equal 'MAC '
@@ -81,73 +84,133 @@ monkey_samples_per_frame(unsigned int versionid, unsigned int compressionlevel)
 }    
     
 /*
-    return 0; Info has all info
-    return 1; File not found
-    return 2; no MAC file
+ * info_mac_read:
+ * @file: file from which to read a header
+ * @stream_info: stream information to fill
+ * @error: a #GError, or NULL
+ *
+ * Read the header information from a Monkey's Audio file.
+ *
+ * Returns: %TRUE on success, or %FALSE and with @error set on failure
 */
-int
-info_mac_read(const char *fn, StreamInfoMac * Info)
+gboolean
+info_mac_read (GFile *file,
+               StreamInfoMac *stream_info,
+               GError **error)
 {
-    unsigned int HeaderData[32];
-    FILE *tmpFile = NULL;
-    long SkipSizeID3;
-    struct macHeader * header;
+    GFileInfo *info;
+    GFileInputStream *istream;
+    guint8 header_buffer[MAC_FORMAT_HEADER_LENGTH];
+    gsize bytes_read;
+    gsize size_id3;
+    struct macHeader *header;
     
-    // load file
-    tmpFile = g_fopen (fn, "rb");
-        
-    if (tmpFile == NULL) 
-        return 1;    // file not found or read-protected
-    
-    // skip id3v2 
-    SkipSizeID3 = is_id3v2(tmpFile);
-    fseek(tmpFile, SkipSizeID3, SEEK_SET);
-    if (fread ((void *) HeaderData, sizeof (int), 16, tmpFile) != 16)
+    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+    info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE, NULL, error);
+
+    if (!info)
     {
-        fclose (tmpFile);
-        return 1;
+        return FALSE;
     }
-    fseek(tmpFile, 0, SEEK_END);
-    Info->FileSize = ftell(tmpFile);
-    fclose(tmpFile);
+
+    stream_info->FileSize = g_file_info_get_size (info);
+    g_object_unref (info);
+
+    istream = g_file_read (file, NULL, error);
+
+    if (!istream)
+    {
+        return FALSE;
+    }
+
+    /* FIXME: is_id3v2() should accept an istream or a GFile. */
+    {
+        gchar *path;
+        FILE *fp;
+
+        path = g_file_get_path (file);
+        fp = g_fopen (path, "rb");
+
+        if (!fp)
+        {
+            /* TODO: Add specific error domain and message. */
+            g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                         g_strerror (EINVAL));
+            g_free (path);
+            return FALSE;
+        }
+
+        size_id3 = is_id3v2 (fp);
+        fclose (fp);
+        g_free (path);
+    }
+
+    if (!g_seekable_seek (G_SEEKABLE (istream), size_id3, G_SEEK_SET, NULL,
+                          error))
+    {
+        return FALSE;
+    }
+
+    if (!g_input_stream_read_all (G_INPUT_STREAM (istream), header_buffer,
+                                  MAC_FORMAT_HEADER_LENGTH, &bytes_read, NULL,
+                                  error))
+    {
+        g_debug ("Only %" G_GSIZE_FORMAT " bytes out of 16 bytes of data were "
+                 "read", bytes_read);
+        return FALSE;
+    }
+
+    if (memcmp (header_buffer, "MAC", 3) != 0)
+    {
+        /* TODO: Add specific error domain and message. */
+        g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_INVAL, "%s",
+                     g_strerror (EINVAL));
+        return FALSE; // no monkeyAudio file
+    }
     
-    if (0 != memcmp(HeaderData, "MAC", 3))
-        return 2; // no monkeyAudio file
+    header = (struct macHeader *) header_buffer;
     
-    header= (struct macHeader *) HeaderData;
+    stream_info->Version = stream_info->EncoderVersion = header->ver;
+    stream_info->Channels = header->channels;
+    stream_info->SampleFreq = header->sampleRate;
+    stream_info->Flags = header->formatFlags;
+    stream_info->SamplesPerFrame = monkey_samples_per_frame(header->ver, header->compLevel);
+    stream_info->BitsPerSample = (header->formatFlags & MAC_FORMAT_FLAG_8_BIT)
+                                  ? 8 : ((header->formatFlags & MAC_FORMAT_FLAG_24_BIT) ? 24 : 16);
     
-    Info->Version         = Info->EncoderVersion = header->ver;
-    Info->Channels        = header->channels;
-    Info->SampleFreq      = header->sampleRate;
-    Info->Flags           = header->formatFlags;
-    Info->SamplesPerFrame = monkey_samples_per_frame(header->ver, header->compLevel);
-    Info->BitsPerSample   = (header->formatFlags & MAC_FORMAT_FLAG_8_BIT) 
-        ? 8 : ((header->formatFlags & MAC_FORMAT_FLAG_24_BIT) ? 24 : 16);
-    
-    Info->PeakLevel       = header->peakLevel;
+    stream_info->PeakLevel = header->peakLevel;
 //    Info->PeakRatio       = Info->PakLevel / pow(2, Info->bitsPerSample - 1);
-    Info->Frames          = header->totalFrames;
-    Info->Samples         = (Info->Frames - 1) * Info->SamplesPerFrame + 
-        header->finalFrameBlocks;
+    stream_info->Frames = header->totalFrames;
+    stream_info->Samples = (stream_info->Frames - 1)
+                           * stream_info->SamplesPerFrame
+                           + header->finalFrameBlocks;
     
-    Info->Duration        = Info->SampleFreq > 0 ? 
-        ((float)Info->Samples / Info->SampleFreq)*1000 : 0;
+    stream_info->Duration = stream_info -> SampleFreq > 0 ?
+                            ((float)stream_info->Samples
+                             / stream_info->SampleFreq) * 1000 : 0;
     
-    Info->Compresion      = header->compLevel;
-    Info->CompresionName  = monkey_stringify(Info->Compresion);
+    stream_info->Compresion = header->compLevel;
+    stream_info->CompresionName = monkey_stringify (stream_info->Compresion);
     
-    Info->UncompresedSize = Info->Samples * Info->Channels * 
-        (Info->BitsPerSample / 8);
+    stream_info->UncompresedSize = stream_info->Samples
+                                   * stream_info->Channels
+                                   * (stream_info->BitsPerSample / 8);
     
-    Info->CompresionRatio = 
-        (Info->UncompresedSize + header->headerBytesWAV) > 0 ?
-        Info->FileSize / (float) (Info->UncompresedSize + 
-        header->headerBytesWAV) : 0. ;
+    stream_info->CompresionRatio = (stream_info->UncompresedSize
+                                    + header->headerBytesWAV) > 0
+                                    ? stream_info->FileSize
+                                      / (float) (stream_info->UncompresedSize
+                                                 + header->headerBytesWAV) : 0.;
     
-    Info->Bitrate         = Info->Duration > 0 ? (((Info->Samples * 
-        Info->Channels * Info->BitsPerSample) / (float) Info->Duration) *
-        Info->CompresionRatio) * 1000 : 0;
+    stream_info->Bitrate = stream_info->Duration > 0
+                           ? (((stream_info->Samples * stream_info->Channels
+                                * stream_info->BitsPerSample)
+                               / (float) stream_info->Duration)
+                              * stream_info->CompresionRatio) * 1000 : 0;
     
-    Info->PeakRatio=Info->ByteLength=0;
-    return 0;
+    stream_info->PeakRatio = stream_info->ByteLength = 0;
+
+    return TRUE;
 }
