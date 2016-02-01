@@ -552,10 +552,14 @@ ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (const GList *AlbumList1,
     etfile1_artist = ((File_Tag *)etfile1->FileTag->data)->artist;
     etfile2_artist = ((File_Tag *)etfile2->FileTag->data)->artist;
 
-    /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
-     *    return strcmp(etfile1_artist,etfile2_artist); */
-    //else
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
+    {
+        return et_normalized_strcmp0 (etfile1_artist, etfile2_artist);
+    }
+    else
+    {
         return et_normalized_strcasecmp0 (etfile1_artist, etfile2_artist);
+    }
 }
 
 /*
@@ -583,10 +587,14 @@ ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (const GList *etfilelist1,
     etfile1_album  = ((File_Tag *)etfile1->FileTag->data)->album;
     etfile2_album  = ((File_Tag *)etfile2->FileTag->data)->album;
 
-    /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
-     *    return strcmp(etfile1_album,etfile2_album); */
-    //else
+    if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
+    {
+        return et_normalized_strcmp0 (etfile1_album, etfile2_album);
+    }
+    else
+    {
         return et_normalized_strcasecmp0 (etfile1_album, etfile2_album);
+    }
 }
 
 /*
