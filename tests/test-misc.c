@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014-2015 David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2016 David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -106,11 +106,42 @@ misc_normalized_strcmp0 (void)
 {
     static const gchar str1[] = "foo";
     static const gchar str2[] = "bar";
+    static const gchar str3[] = "BAR";
 
     g_assert_cmpint (et_normalized_strcmp0 (NULL, NULL), ==, 0);
     g_assert_cmpint (et_normalized_strcmp0 (str1, NULL), >, 0);
     g_assert_cmpint (et_normalized_strcmp0 (NULL, str2), <, 0);
     g_assert_cmpint (et_normalized_strcmp0 (str1, str2), >, 0);
+    g_assert_cmpint (et_normalized_strcmp0 (str2, str3), >, 0);
+}
+
+static void
+misc_normalized_strcasecmp0 (void)
+{
+    gsize i;
+
+    static const struct
+    {
+        const gchar *str1;
+        const gchar *str2;
+        const gint result;
+    } strings[] =
+    {
+        { NULL, NULL, 0 },
+        { "foo", NULL, 1 },
+        { NULL, "bar", -1 },
+        { "foo", "bar", -1 },
+        { "FOO", "foo", 0 },
+        { "foo", "FOO", 0 }
+        /* TODO: Add more tests. */
+    };
+
+    for (i = 0; i < G_N_ELEMENTS (strings); i++)
+    {
+        g_assert_cmpint (et_normalized_strcasecmp0 (strings->str1,
+                                                    strings->str2), ==,
+                         strings->result);
+    }
 }
 
 static void
@@ -232,6 +263,8 @@ main (int argc, char** argv)
     g_test_add_func ("/misc/convert-duration", misc_convert_duration);
     g_test_add_func ("/misc/filename-prepare", misc_filename_prepare);
     g_test_add_func ("/misc/normalized-strcmp0", misc_normalized_strcmp0);
+    g_test_add_func ("/misc/normalized-strcasecmp0",
+                     misc_normalized_strcasecmp0);
     g_test_add_func ("/misc/rename-file", misc_rename_file);
     g_test_add_func ("/misc/str-empty", misc_str_empty);
     g_test_add_func ("/misc/undo-key", misc_undo_key);
