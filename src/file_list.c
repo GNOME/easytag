@@ -1,5 +1,5 @@
 /* EasyTAG - tag editor for audio files
- * Copyright (C) 2014  David King <amigadave@amigadave.com>
+ * Copyright (C) 2014-2016  David King <amigadave@amigadave.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -537,22 +537,25 @@ ET_Comp_Func_Sort_Artist_Item_By_Ascending_Artist (const GList *AlbumList1,
     const gchar *etfile1_artist;
     const gchar *etfile2_artist;
 
-    if (!AlbumList1
-    || !(etfilelist1    = (GList *)AlbumList1->data)
-    || !(etfile1        = (ET_File *)etfilelist1->data)
-    || !(etfile1_artist = ((File_Tag *)etfile1->FileTag->data)->artist) )
+    if (!AlbumList1 || !(etfilelist1 = (GList *)AlbumList1->data)
+        || !(etfile1 = (ET_File *)etfilelist1->data))
+    {
         return -1;
+    }
 
-    if (!AlbumList2
-    || !(etfilelist2    = (GList *)AlbumList2->data)
-    || !(etfile2        = (ET_File *)etfilelist2->data)
-    || !(etfile2_artist = ((File_Tag *)etfile2->FileTag->data)->artist) )
+    if (!AlbumList2 || !(etfilelist2 = (GList *)AlbumList2->data)
+        || !(etfile2 = (ET_File *)etfilelist2->data))
+    {
         return 1;
+    }
+
+    etfile1_artist = ((File_Tag *)etfile1->FileTag->data)->artist;
+    etfile2_artist = ((File_Tag *)etfile2->FileTag->data)->artist;
 
     /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
      *    return strcmp(etfile1_artist,etfile2_artist); */
     //else
-        return strcasecmp(etfile1_artist,etfile2_artist);
+        return et_normalized_strcasecmp0 (etfile1_artist, etfile2_artist);
 }
 
 /*
@@ -567,20 +570,23 @@ ET_Comp_Func_Sort_Album_Item_By_Ascending_Album (const GList *etfilelist1,
     const gchar *etfile1_album;
     const gchar *etfile2_album;
 
-    if (!etfilelist1
-    || !(etfile1        = (ET_File *)etfilelist1->data)
-    || !(etfile1_album  = ((File_Tag *)etfile1->FileTag->data)->album) )
+    if (!etfilelist1 || !(etfile1 = (ET_File *)etfilelist1->data))
+    {
         return -1;
+    }
 
-    if (!etfilelist2
-    || !(etfile2        = (ET_File *)etfilelist2->data)
-    || !(etfile2_album  = ((File_Tag *)etfile2->FileTag->data)->album) )
+    if (!etfilelist2 || !(etfile2 = (ET_File *)etfilelist2->data))
+    {
         return 1;
+    }
+
+    etfile1_album  = ((File_Tag *)etfile1->FileTag->data)->album;
+    etfile2_album  = ((File_Tag *)etfile2->FileTag->data)->album;
 
     /*if (g_settings_get_boolean (MainSettings, "sort-case-sensitive"))
      *    return strcmp(etfile1_album,etfile2_album); */
     //else
-        return strcasecmp(etfile1_album,etfile2_album);
+        return et_normalized_strcasecmp0 (etfile1_album, etfile2_album);
 }
 
 /*

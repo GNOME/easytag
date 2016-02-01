@@ -622,6 +622,48 @@ et_normalized_strcmp0 (const gchar *str1,
 }
 
 /*
+ * et_normalized_strcasecmp0:
+ * @str1: UTF-8 string, or %NULL
+ * @str2: UTF-8 string to compare against, or %NULL
+ *
+ * Compare two UTF-8 strings, normalizing them before doing so, in a
+ * case-insensitive manner.
+ *
+ * Returns: an integer less than, equal to, or greater than zero, if str1 is
+ * less than, equal to or greater than str2
+ */
+gint
+et_normalized_strcasecmp0 (const gchar *str1,
+                           const gchar *str2)
+{
+    gint result;
+    gchar *casefolded1;
+    gchar *casefolded2;
+
+    /* Check for NULL, as it cannot be passed to g_utf8_casefold(). */
+    if (!str1)
+    {
+        return -(str1 != str2);
+    }
+
+    if (!str2)
+    {
+        return str1 != str2;
+    }
+
+    /* The strings are automatically normalized during casefolding. */
+    casefolded1 = g_utf8_casefold (str1, -1);
+    casefolded2 = g_utf8_casefold (str2, -1);
+
+    result = g_utf8_collate (casefolded1, casefolded2);
+
+    g_free (casefolded1);
+    g_free (casefolded2);
+
+    return result;
+}
+
+/*
  * et_str_empty:
  * @str: string to test for emptiness
  *

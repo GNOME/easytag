@@ -42,6 +42,7 @@ gboolean et_rename_file (const gchar *old_filename, const gchar *new_filename, G
 
 guint et_undo_key_new (void);
 gint et_normalized_strcmp0 (const gchar *str1, const gchar *str2);
+gint et_normalized_strcasecmp0 (const gchar *str1, const gchar *str2);
 gboolean et_str_empty (const gchar *str);
 
 G_END_DECLS
