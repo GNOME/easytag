@@ -155,61 +155,67 @@ Search_Result_List_Row_Selected (GtkTreeSelection *selection,
     g_list_free_full (selectedRows, (GDestroyNotify)gtk_tree_path_free);
 }
 
+/*
+ * Add_Row_To_Search_Result_List:
+ * @self: an #EtSearchDialog
+ * @ETFile: a file with tags in which to search
+ * @string_to_search: the search term
+ *
+ * Search for the given @string_to_search in tags and the filename from
+ * @ETFile. Add the result row, corresctly-formatted to highlight matches, to
+ * the tree view in @self.
+ */
 static void
 Add_Row_To_Search_Result_List (EtSearchDialog *self,
-                               ET_File *ETFile, const gchar *string_to_search)
+                               const ET_File *ETFile,
+                               const gchar *string_to_search)
 {
     EtSearchDialogPrivate *priv;
-    gchar *SearchResultList_Text[15]; // Because : 15 columns to display
-    gint SearchResultList_Weight[15] = {PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
-                                        PANGO_WEIGHT_NORMAL};
-    GdkRGBA *SearchResultList_Color[15] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                            NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                            NULL};
-    gchar *track, *track_total;
-    gchar *disc_number, *disc_total;
+    const gchar *haystacks[15]; /* 15 columns to display. */
+    gint weights[15] = { PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL, PANGO_WEIGHT_NORMAL,
+                         PANGO_WEIGHT_NORMAL };
+    GdkRGBA *colors[15] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                            NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+    gchar *display_basename;
+    const gchar *track;
+    const gchar *track_total;
+    const gchar *disc_number;
+    const gchar *disc_total;
+    gchar *discs = NULL;
+    gchar *tracks = NULL;
     gboolean case_sensitive;
-    gint column;
+    gsize column;
 
     priv = et_search_dialog_get_instance_private (self);
 
     if (!ETFile || !string_to_search)
         return;
 
-    case_sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check));
+    case_sensitive = g_settings_get_boolean (MainSettings, "search-case-sensitive");
 
-    // Filename
-    SearchResultList_Text[SEARCH_RESULT_FILENAME]    = g_path_get_basename( ((File_Name *)ETFile->FileNameNew->data)->value_utf8 );
-    // Title
-    SearchResultList_Text[SEARCH_RESULT_TITLE]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->title);
-    // Artist
-    SearchResultList_Text[SEARCH_RESULT_ARTIST]      = g_strdup(((File_Tag *)ETFile->FileTag->data)->artist);
-    // Album Artist
-    SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST]= g_strdup(((File_Tag *)ETFile->FileTag->data)->album_artist);
-    // Album
-    SearchResultList_Text[SEARCH_RESULT_ALBUM]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->album);
-    // Year
-    SearchResultList_Text[SEARCH_RESULT_YEAR]        = g_strdup(((File_Tag *)ETFile->FileTag->data)->year);
-    //Genre
-    SearchResultList_Text[SEARCH_RESULT_GENRE]       = g_strdup(((File_Tag *)ETFile->FileTag->data)->genre);
-    // Comment
-    SearchResultList_Text[SEARCH_RESULT_COMMENT]     = g_strdup(((File_Tag *)ETFile->FileTag->data)->comment);
-    // Composer
-    SearchResultList_Text[SEARCH_RESULT_COMPOSER]    = g_strdup(((File_Tag *)ETFile->FileTag->data)->composer);
-    // Orig. Artist
-    SearchResultList_Text[SEARCH_RESULT_ORIG_ARTIST] = g_strdup(((File_Tag *)ETFile->FileTag->data)->orig_artist);
-    // Copyright
-    SearchResultList_Text[SEARCH_RESULT_COPYRIGHT]   = g_strdup(((File_Tag *)ETFile->FileTag->data)->copyright);
-    // URL
-    SearchResultList_Text[SEARCH_RESULT_URL]         = g_strdup(((File_Tag *)ETFile->FileTag->data)->url);
-    // Encoded by
-    SearchResultList_Text[SEARCH_RESULT_ENCODED_BY]  = g_strdup(((File_Tag *)ETFile->FileTag->data)->encoded_by);
+    /* Most fields can be taken from the tag as-is. */
+    haystacks[SEARCH_RESULT_TITLE] = ((File_Tag *)ETFile->FileTag->data)->title;
+    haystacks[SEARCH_RESULT_ARTIST] = ((File_Tag *)ETFile->FileTag->data)->artist;
+    haystacks[SEARCH_RESULT_ALBUM_ARTIST] = ((File_Tag *)ETFile->FileTag->data)->album_artist;
+    haystacks[SEARCH_RESULT_ALBUM] = ((File_Tag *)ETFile->FileTag->data)->album;
+    haystacks[SEARCH_RESULT_YEAR] = ((File_Tag *)ETFile->FileTag->data)->year;
+    haystacks[SEARCH_RESULT_GENRE] = ((File_Tag *)ETFile->FileTag->data)->genre;
+    haystacks[SEARCH_RESULT_COMMENT] = ((File_Tag *)ETFile->FileTag->data)->comment;
+    haystacks[SEARCH_RESULT_COMPOSER] = ((File_Tag *)ETFile->FileTag->data)->composer;
+    haystacks[SEARCH_RESULT_ORIG_ARTIST] = ((File_Tag *)ETFile->FileTag->data)->orig_artist;
+    haystacks[SEARCH_RESULT_COPYRIGHT] = ((File_Tag *)ETFile->FileTag->data)->copyright;
+    haystacks[SEARCH_RESULT_URL] = ((File_Tag *)ETFile->FileTag->data)->url;
+    haystacks[SEARCH_RESULT_ENCODED_BY] = ((File_Tag *)ETFile->FileTag->data)->encoded_by;
+
+    /* Some fields need extra allocations. */
+    display_basename = g_path_get_basename (((File_Name *)ETFile->FileNameNew->data)->value_utf8);
+    haystacks[SEARCH_RESULT_FILENAME] = display_basename;
 
     /* Disc Number. */
     disc_number = ((File_Tag *)ETFile->FileTag->data)->disc_number;
@@ -219,154 +225,161 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
     {
         if (disc_total)
         {
-            SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strconcat (disc_number, "/", disc_total, NULL);
+            discs = g_strconcat (disc_number, "/", disc_total, NULL);
+            haystacks[SEARCH_RESULT_DISC_NUMBER] = discs;
         }
         else
         {
-            SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = g_strdup (disc_number);
+            haystacks[SEARCH_RESULT_DISC_NUMBER] = disc_number;
         }
     }
     else
     {
-        SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER] = NULL;
+        haystacks[SEARCH_RESULT_DISC_NUMBER] = NULL;
     }
 
-    // Track
-    track       = ((File_Tag *)ETFile->FileTag->data)->track;
+    /* Track. */
+    track = ((File_Tag *)ETFile->FileTag->data)->track;
     track_total = ((File_Tag *)ETFile->FileTag->data)->track_total;
+
     if (track)
     {
         if (track_total)
-            SearchResultList_Text[SEARCH_RESULT_TRACK] = g_strconcat(track,"/",track_total,NULL);
+        {
+            tracks = g_strconcat (track, "/", track_total, NULL);
+            haystacks[SEARCH_RESULT_TRACK] = tracks;
+        }
         else
-            SearchResultList_Text[SEARCH_RESULT_TRACK] = g_strdup(track);
-    } else
+        {
+            haystacks[SEARCH_RESULT_TRACK] = track;
+        }
+    }
+    else
     {
-        SearchResultList_Text[SEARCH_RESULT_TRACK] = NULL;
+        haystacks[SEARCH_RESULT_TRACK] = NULL;
     }
 
-
-    // Highlight the keywords in the result list
-    // Don't display files to red if the searched string is '' (to display all files)
-    for (column=0;column<14;column++)
+    /* Highlight the keywords in the result list. Don't display files in red if
+     * the searched string is '' (to display all files). */
+    for (column = 0; column < G_N_ELEMENTS (haystacks); column++)
     {
+        gchar *needle;
+        gchar *haystack;
+
+        /* Already checked if string_to_search is NULL. */
+        needle = g_utf8_normalize (string_to_search, -1, G_NORMALIZE_DEFAULT);
+        haystack = haystacks[column] ? g_utf8_normalize (haystacks[column], -1,
+                                                         G_NORMALIZE_DEFAULT)
+                                     : NULL;
+
         if (case_sensitive)
         {
-            if (SearchResultList_Text[column]
-                && !et_str_empty (string_to_search)
-                && strstr (SearchResultList_Text[column], string_to_search))
+            if (haystack && !et_str_empty (needle)
+                && strstr (haystack, needle))
             {
+
                 if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
-                    SearchResultList_Weight[column] = PANGO_WEIGHT_BOLD;
+                    weights[column] = PANGO_WEIGHT_BOLD;
                 }
                 else
                 {
-                    SearchResultList_Color[column] = &RED;
+                    colors[column] = &RED;
                 }
             }
-
-        } else
+        }
+        else
         {
-            // Search wasn't case sensitive
-            gchar *list_text = NULL;
-            gchar *string_to_search2 = g_utf8_casefold(string_to_search, -1);
+            /* Search wasn't case-sensitive. */
+            gchar *list_text;
+            gchar *string_to_search2;
 
-            if (!SearchResultList_Text[column])
+            if (!haystack)
             {
-                g_free(string_to_search2);
+                g_free (needle);
                 continue;
             }
 
-            list_text = g_utf8_casefold(SearchResultList_Text[column], -1);
+            string_to_search2 = g_utf8_casefold (needle, -1);
+            list_text = g_utf8_casefold (haystack, -1);
 
-            if (list_text && !et_str_empty (string_to_search2)
+            if (!et_str_empty (string_to_search2)
                 && strstr (list_text, string_to_search2))
             {
                 if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
-                    SearchResultList_Weight[column] = PANGO_WEIGHT_BOLD;
+                    weights[column] = PANGO_WEIGHT_BOLD;
                 }
                 else
                 {
-                    SearchResultList_Color[column] = &RED;
+                    colors[column] = &RED;
                 }
             }
 
             g_free(list_text);
             g_free(string_to_search2);
         }
+
+        g_free (haystack);
+        g_free (needle);
     }
 
-    // Load the row in the list
+    /* Load the row in the list. */
     gtk_list_store_insert_with_values (priv->search_results_model, NULL, G_MAXINT,
-                       SEARCH_RESULT_FILENAME,    SearchResultList_Text[SEARCH_RESULT_FILENAME],
-                       SEARCH_RESULT_TITLE,       SearchResultList_Text[SEARCH_RESULT_TITLE],
-                       SEARCH_RESULT_ARTIST,      SearchResultList_Text[SEARCH_RESULT_ARTIST],
-                       SEARCH_RESULT_ALBUM_ARTIST,SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST],
-                       SEARCH_RESULT_ALBUM,       SearchResultList_Text[SEARCH_RESULT_ALBUM],
-                       SEARCH_RESULT_DISC_NUMBER, SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER],
-                       SEARCH_RESULT_YEAR,        SearchResultList_Text[SEARCH_RESULT_YEAR],
-                       SEARCH_RESULT_TRACK,       SearchResultList_Text[SEARCH_RESULT_TRACK],
-                       SEARCH_RESULT_GENRE,       SearchResultList_Text[SEARCH_RESULT_GENRE],
-                       SEARCH_RESULT_COMMENT,     SearchResultList_Text[SEARCH_RESULT_COMMENT],
-                       SEARCH_RESULT_COMPOSER,    SearchResultList_Text[SEARCH_RESULT_COMPOSER],
-                       SEARCH_RESULT_ORIG_ARTIST, SearchResultList_Text[SEARCH_RESULT_ORIG_ARTIST],
-                       SEARCH_RESULT_COPYRIGHT,   SearchResultList_Text[SEARCH_RESULT_COPYRIGHT],
-                       SEARCH_RESULT_URL,         SearchResultList_Text[SEARCH_RESULT_URL],
-                       SEARCH_RESULT_ENCODED_BY,  SearchResultList_Text[SEARCH_RESULT_ENCODED_BY],
+                                       SEARCH_RESULT_FILENAME, haystacks[SEARCH_RESULT_FILENAME],
+                                       SEARCH_RESULT_TITLE, haystacks[SEARCH_RESULT_TITLE],
+                                       SEARCH_RESULT_ARTIST, haystacks[SEARCH_RESULT_ARTIST],
+                                       SEARCH_RESULT_ALBUM_ARTIST,haystacks[SEARCH_RESULT_ALBUM_ARTIST],
+                                       SEARCH_RESULT_ALBUM, haystacks[SEARCH_RESULT_ALBUM],
+                                       SEARCH_RESULT_DISC_NUMBER, haystacks[SEARCH_RESULT_DISC_NUMBER],
+                                       SEARCH_RESULT_YEAR, haystacks[SEARCH_RESULT_YEAR],
+                                       SEARCH_RESULT_TRACK, haystacks[SEARCH_RESULT_TRACK],
+                                       SEARCH_RESULT_GENRE, haystacks[SEARCH_RESULT_GENRE],
+                                       SEARCH_RESULT_COMMENT, haystacks[SEARCH_RESULT_COMMENT],
+                                       SEARCH_RESULT_COMPOSER, haystacks[SEARCH_RESULT_COMPOSER],
+                                       SEARCH_RESULT_ORIG_ARTIST, haystacks[SEARCH_RESULT_ORIG_ARTIST],
+                                       SEARCH_RESULT_COPYRIGHT, haystacks[SEARCH_RESULT_COPYRIGHT],
+                                       SEARCH_RESULT_URL, haystacks[SEARCH_RESULT_URL],
+                                       SEARCH_RESULT_ENCODED_BY, haystacks[SEARCH_RESULT_ENCODED_BY],
 
-                       SEARCH_RESULT_FILENAME_WEIGHT,    SearchResultList_Weight[SEARCH_RESULT_FILENAME],
-                       SEARCH_RESULT_TITLE_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_TITLE],
-                       SEARCH_RESULT_ARTIST_WEIGHT,      SearchResultList_Weight[SEARCH_RESULT_ARTIST],
-                       SEARCH_RESULT_ALBUM_ARTIST_WEIGHT, SearchResultList_Weight[SEARCH_RESULT_ALBUM_ARTIST],
-		       SEARCH_RESULT_ALBUM_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_ALBUM],
-                       SEARCH_RESULT_DISC_NUMBER_WEIGHT, SearchResultList_Weight[SEARCH_RESULT_DISC_NUMBER],
-                       SEARCH_RESULT_YEAR_WEIGHT,        SearchResultList_Weight[SEARCH_RESULT_YEAR],
-                       SEARCH_RESULT_TRACK_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_TRACK],
-                       SEARCH_RESULT_GENRE_WEIGHT,       SearchResultList_Weight[SEARCH_RESULT_GENRE],
-                       SEARCH_RESULT_COMMENT_WEIGHT,     SearchResultList_Weight[SEARCH_RESULT_COMMENT],
-                       SEARCH_RESULT_COMPOSER_WEIGHT,    SearchResultList_Weight[SEARCH_RESULT_COMPOSER],
-                       SEARCH_RESULT_ORIG_ARTIST_WEIGHT, SearchResultList_Weight[SEARCH_RESULT_ORIG_ARTIST],
-                       SEARCH_RESULT_COPYRIGHT_WEIGHT,   SearchResultList_Weight[SEARCH_RESULT_COPYRIGHT],
-                       SEARCH_RESULT_URL_WEIGHT,         SearchResultList_Weight[SEARCH_RESULT_URL],
-                       SEARCH_RESULT_ENCODED_BY_WEIGHT,  SearchResultList_Weight[SEARCH_RESULT_ENCODED_BY],
+                                       SEARCH_RESULT_FILENAME_WEIGHT, weights[SEARCH_RESULT_FILENAME],
+                                       SEARCH_RESULT_TITLE_WEIGHT, weights[SEARCH_RESULT_TITLE],
+                                       SEARCH_RESULT_ARTIST_WEIGHT, weights[SEARCH_RESULT_ARTIST],
+                                       SEARCH_RESULT_ALBUM_ARTIST_WEIGHT, weights[SEARCH_RESULT_ALBUM_ARTIST],
+                                       SEARCH_RESULT_ALBUM_WEIGHT, weights[SEARCH_RESULT_ALBUM],
+                                       SEARCH_RESULT_DISC_NUMBER_WEIGHT, weights[SEARCH_RESULT_DISC_NUMBER],
+                                       SEARCH_RESULT_YEAR_WEIGHT, weights[SEARCH_RESULT_YEAR],
+                                       SEARCH_RESULT_TRACK_WEIGHT, weights[SEARCH_RESULT_TRACK],
+                                       SEARCH_RESULT_GENRE_WEIGHT, weights[SEARCH_RESULT_GENRE],
+                                       SEARCH_RESULT_COMMENT_WEIGHT, weights[SEARCH_RESULT_COMMENT],
+                                       SEARCH_RESULT_COMPOSER_WEIGHT, weights[SEARCH_RESULT_COMPOSER],
+                                       SEARCH_RESULT_ORIG_ARTIST_WEIGHT, weights[SEARCH_RESULT_ORIG_ARTIST],
+                                       SEARCH_RESULT_COPYRIGHT_WEIGHT, weights[SEARCH_RESULT_COPYRIGHT],
+                                       SEARCH_RESULT_URL_WEIGHT, weights[SEARCH_RESULT_URL],
+                                       SEARCH_RESULT_ENCODED_BY_WEIGHT, weights[SEARCH_RESULT_ENCODED_BY],
 
-                       SEARCH_RESULT_FILENAME_FOREGROUND,    SearchResultList_Color[SEARCH_RESULT_FILENAME],
-                       SEARCH_RESULT_TITLE_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_TITLE],
-                       SEARCH_RESULT_ARTIST_FOREGROUND,      SearchResultList_Color[SEARCH_RESULT_ARTIST],
-                       SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_ALBUM_ARTIST],
-		       SEARCH_RESULT_ALBUM_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_ALBUM],
-                       SEARCH_RESULT_DISC_NUMBER_FOREGROUND, SearchResultList_Color[SEARCH_RESULT_DISC_NUMBER],
-                       SEARCH_RESULT_YEAR_FOREGROUND,        SearchResultList_Color[SEARCH_RESULT_YEAR],
-                       SEARCH_RESULT_TRACK_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_TRACK],
-                       SEARCH_RESULT_GENRE_FOREGROUND,       SearchResultList_Color[SEARCH_RESULT_GENRE],
-                       SEARCH_RESULT_COMMENT_FOREGROUND,     SearchResultList_Color[SEARCH_RESULT_COMMENT],
-                       SEARCH_RESULT_COMPOSER_FOREGROUND,    SearchResultList_Color[SEARCH_RESULT_COMPOSER],
-                       SEARCH_RESULT_ORIG_ARTIST_FOREGROUND, SearchResultList_Color[SEARCH_RESULT_ORIG_ARTIST],
-                       SEARCH_RESULT_COPYRIGHT_FOREGROUND,   SearchResultList_Color[SEARCH_RESULT_COPYRIGHT],
-                       SEARCH_RESULT_URL_FOREGROUND,         SearchResultList_Color[SEARCH_RESULT_URL],
-                       SEARCH_RESULT_ENCODED_BY_FOREGROUND,  SearchResultList_Color[SEARCH_RESULT_ENCODED_BY],
+                                       SEARCH_RESULT_FILENAME_FOREGROUND, colors[SEARCH_RESULT_FILENAME],
+                                       SEARCH_RESULT_TITLE_FOREGROUND, colors[SEARCH_RESULT_TITLE],
+                                       SEARCH_RESULT_ARTIST_FOREGROUND, colors[SEARCH_RESULT_ARTIST],
+                                       SEARCH_RESULT_ALBUM_ARTIST_FOREGROUND, colors[SEARCH_RESULT_ALBUM_ARTIST],
+                                       SEARCH_RESULT_ALBUM_FOREGROUND, colors[SEARCH_RESULT_ALBUM],
+                                       SEARCH_RESULT_DISC_NUMBER_FOREGROUND, colors[SEARCH_RESULT_DISC_NUMBER],
+                                       SEARCH_RESULT_YEAR_FOREGROUND, colors[SEARCH_RESULT_YEAR],
+                                       SEARCH_RESULT_TRACK_FOREGROUND, colors[SEARCH_RESULT_TRACK],
+                                       SEARCH_RESULT_GENRE_FOREGROUND, colors[SEARCH_RESULT_GENRE],
+                                       SEARCH_RESULT_COMMENT_FOREGROUND, colors[SEARCH_RESULT_COMMENT],
+                                       SEARCH_RESULT_COMPOSER_FOREGROUND, colors[SEARCH_RESULT_COMPOSER],
+                                       SEARCH_RESULT_ORIG_ARTIST_FOREGROUND, colors[SEARCH_RESULT_ORIG_ARTIST],
+                                       SEARCH_RESULT_COPYRIGHT_FOREGROUND, colors[SEARCH_RESULT_COPYRIGHT],
+                                       SEARCH_RESULT_URL_FOREGROUND, colors[SEARCH_RESULT_URL],
+                                       SEARCH_RESULT_ENCODED_BY_FOREGROUND, colors[SEARCH_RESULT_ENCODED_BY],
 
-                       SEARCH_RESULT_POINTER, ETFile,
-                       -1);
+                                       SEARCH_RESULT_POINTER, ETFile, -1);
 
-    // Frees allocated data
-    g_free(SearchResultList_Text[SEARCH_RESULT_FILENAME]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_TITLE]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_ARTIST]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_ALBUM_ARTIST]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_ALBUM]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_DISC_NUMBER]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_YEAR]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_TRACK]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_GENRE]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_COMMENT]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_COMPOSER]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_ORIG_ARTIST]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_COPYRIGHT]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_URL]);
-    g_free(SearchResultList_Text[SEARCH_RESULT_ENCODED_BY]);
+    /* Frees allocated data. */
+    g_free (display_basename);
+    g_free (discs);
+    g_free (tracks);
 }
 
 /*
