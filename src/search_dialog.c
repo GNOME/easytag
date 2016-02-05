@@ -386,20 +386,24 @@ Add_Row_To_Search_Result_List (EtSearchDialog *self,
  * This function and the one below could do with improving
  * as we are looking up tag data twice (once when searching, once when adding to list)
  */
+/*
+ * Search_File:
+ * @search_button: the search button which was clicked
+ * @user_data: the #EtSearchDialog which contains @search_button
+ *
+ * Search for the search term (in the search entry of @user_data) in the list
+ * of open files.
+ */
 static void
-Search_File (GtkWidget *search_button, gpointer user_data)
+Search_File (GtkWidget *search_button,
+             gpointer user_data)
 {
     EtSearchDialog *self;
     EtSearchDialogPrivate *priv;
     const gchar *string_to_search = NULL;
     GList *l;
-    ET_File *ETFile;
+    const ET_File *ETFile;
     gchar *msg;
-    gchar *temp = NULL;
-    gchar *title2, *artist2, *album_artist2, *album2, *disc_number2,
-          *disc_total2, *year2, *track2, *track_total2, *genre2, *comment2,
-          *composer2, *orig_artist2, *copyright2, *url2, *encoded_by2,
-          *string_to_search2;
     gint resultCount = 0;
 
     self = ET_SEARCH_DIALOG (user_data);
@@ -408,164 +412,243 @@ Search_File (GtkWidget *search_button, gpointer user_data)
     if (!priv->search_string_combo || !priv->search_filename_check || !priv->search_tag_check || !priv->search_results_view)
         return;
 
-    string_to_search = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(priv->search_string_combo))));
+    string_to_search = gtk_entry_get_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->search_string_combo))));
+
     if (!string_to_search)
         return;
 
     Add_String_To_Combo_List (priv->search_string_model, string_to_search);
 
-    gtk_widget_set_sensitive(GTK_WIDGET(search_button),FALSE);
-    gtk_list_store_clear(priv->search_results_model);
-    gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,"");
+    gtk_widget_set_sensitive (GTK_WIDGET (search_button), FALSE);
+    gtk_list_store_clear (priv->search_results_model);
+    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                        priv->status_bar_context, "");
 
     for (l = ETCore->ETFileList; l != NULL; l = g_list_next (l))
     {
         ETFile = (ET_File *)l->data;
 
-        // Search in the filename
-        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_filename_check)))
+        /* Search in the filename. */
+        if (g_settings_get_boolean (MainSettings, "search-filename"))
         {
-            gchar *filename_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
-            gchar *basename_utf8;
+            const gchar *filename_utf8 = ((File_Name *)ETFile->FileNameNew->data)->value_utf8;
+            gchar *basename;
+            gchar *haystack;
+            gchar *needle;
 
-            // To search without case sensivity
-            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check)))
+            basename = g_path_get_basename (filename_utf8);
+
+            /* To search without case sensitivity. */
+            if (!g_settings_get_boolean (MainSettings, "search-case-sensitive"))
             {
-                temp = g_path_get_basename(filename_utf8);
-                basename_utf8 = g_utf8_casefold(temp, -1);
-                g_free(temp);
-                string_to_search2 = g_utf8_casefold(string_to_search, -1);
-            } else
+                haystack = g_utf8_casefold (basename, -1);
+                needle = g_utf8_casefold (string_to_search, -1);
+            }
+            else
             {
-                basename_utf8 = g_path_get_basename(filename_utf8);
-                string_to_search2 = g_strdup(string_to_search);
+                haystack = g_utf8_normalize (basename, -1, G_NORMALIZE_DEFAULT);
+                needle = g_utf8_normalize (string_to_search, -1,
+                                           G_NORMALIZE_DEFAULT);
             }
 
-            if ( basename_utf8 && strstr(basename_utf8,string_to_search2) )
+            g_free (basename);
+
+            if (haystack && strstr (haystack, needle))
             {
-                Add_Row_To_Search_Result_List (self, ETFile,
-                                               string_to_search2);
-                g_free(basename_utf8);
-                g_free(string_to_search2);
+                Add_Row_To_Search_Result_List (self, ETFile, needle);
+                g_free (haystack);
+                g_free (needle);
                 continue;
             }
-            g_free(basename_utf8);
-            g_free(string_to_search2);
+
+            g_free (haystack);
+            g_free (needle);
         }
 
-        // Search in the tag
-        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(priv->search_tag_check)))
+        /* Search in the tag. */
+        if (g_settings_get_boolean (MainSettings, "search-tag"))
         {
-            File_Tag *FileTag   = (File_Tag *)ETFile->FileTag->data;
+            gchar *title2, *artist2, *album_artist2, *album2, *disc_number2,
+                  *disc_total2, *year2, *track2, *track_total2, *genre2,
+                  *comment2, *composer2, *orig_artist2, *copyright2, *url2,
+                  *encoded_by2;
+            gchar *needle;
+            const File_Tag *FileTag = (File_Tag *)ETFile->FileTag->data;
 
-            // To search with or without case sensivity
-            if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->search_case_check)))
+            if (!g_settings_get_boolean (MainSettings, "search-case-sensitive"))
             {
-                // To search without case sensivity...
-                // Duplicate and convert the strings into UTF-8 in loxer case
-                if (FileTag->title)       title2       = g_utf8_casefold(FileTag->title, -1);        else title2       = NULL;
-                if (FileTag->artist)      artist2      = g_utf8_casefold(FileTag->artist, -1);       else artist2      = NULL;
-                if (FileTag->album_artist) album_artist2 = g_utf8_casefold(FileTag->album_artist, -1); else album_artist2= NULL;
-                if (FileTag->album)       album2       = g_utf8_casefold(FileTag->album, -1);        else album2       = NULL;
-                if (FileTag->disc_number) disc_number2 = g_utf8_casefold(FileTag->disc_number, -1);  else disc_number2 = NULL;
-                if (FileTag->disc_total)
-                {
-                    disc_total2 = g_utf8_casefold (FileTag->disc_total, -1);
-                }
-                else
-                {
-                    disc_total2 = NULL;
-                }
-                if (FileTag->year)        year2        = g_utf8_casefold(FileTag->year, -1);         else year2        = NULL;
-                if (FileTag->track)       track2       = g_utf8_casefold(FileTag->track, -1);        else track2       = NULL;
-                if (FileTag->track_total) track_total2 = g_utf8_casefold(FileTag->track_total, -1);  else track_total2 = NULL;
-                if (FileTag->genre)       genre2       = g_utf8_casefold(FileTag->genre, -1);        else genre2       = NULL;
-                if (FileTag->comment)     comment2     = g_utf8_casefold(FileTag->comment, -1);      else comment2     = NULL;
-                if (FileTag->composer)    composer2    = g_utf8_casefold(FileTag->composer, -1);     else composer2    = NULL;
-                if (FileTag->orig_artist) orig_artist2 = g_utf8_casefold(FileTag->orig_artist, -1);  else orig_artist2 = NULL;
-                if (FileTag->copyright)   copyright2   = g_utf8_casefold(FileTag->copyright, -1);    else copyright2   = NULL;
-                if (FileTag->url)         url2         = g_utf8_casefold(FileTag->url, -1);          else url2         = NULL;
-                if (FileTag->encoded_by)  encoded_by2  = g_utf8_casefold(FileTag->encoded_by, -1);   else encoded_by2  = NULL;
-                string_to_search2 = g_utf8_strdown(string_to_search, -1);
-            }else
+                /* To search without case sensitivity. */
+                title2 = FileTag->title ? g_utf8_casefold (FileTag->title, -1)
+                                        : NULL;
+                artist2 = FileTag->artist ? g_utf8_casefold (FileTag->artist,
+                                                             -1)
+                                          : NULL;
+                album_artist2 = FileTag->album_artist ? g_utf8_casefold (FileTag->album_artist,
+                                                                         -1)
+                                          : NULL;
+                album2 = FileTag->album ? g_utf8_casefold (FileTag->album, -1)
+                                          : NULL;
+                disc_number2 = FileTag->disc_number ? g_utf8_casefold (FileTag->disc_number,
+                                                                       -1)
+                                                    : NULL;
+                disc_total2 = FileTag->disc_total ? g_utf8_casefold (FileTag->disc_total,
+                                                                     -1)
+                                                  : NULL;
+                year2 = FileTag->year ? g_utf8_casefold (FileTag->year, -1)
+                                      : NULL;
+                track2 = FileTag->track ? g_utf8_casefold (FileTag->track, -1)
+                                        : NULL;
+                track_total2 = FileTag->track_total ? g_utf8_casefold (FileTag->track_total,
+                                                                       -1)
+                                                    : NULL;
+                genre2 = FileTag->genre ? g_utf8_casefold (FileTag->genre, -1)
+                                        : NULL;
+                comment2 = FileTag->comment ? g_utf8_casefold (FileTag->comment,
+                                                               -1)
+                                            : NULL;
+                composer2 = FileTag->composer ? g_utf8_casefold (FileTag->composer,
+                                                                 -1)
+                                              : NULL;
+                orig_artist2 = FileTag->orig_artist ? g_utf8_casefold (FileTag->orig_artist,
+                                                                       -1)
+                                                    : NULL;
+                copyright2 = FileTag->copyright ? g_utf8_casefold (FileTag->copyright,
+                                                                   -1)
+                                                : NULL;
+                url2 = FileTag->url ? g_utf8_casefold (FileTag->url, -1)
+                                    : NULL;
+                encoded_by2 = FileTag->encoded_by ? g_utf8_casefold (FileTag->encoded_by,
+                                                                     -1)
+                                                  : NULL;
+                needle = g_utf8_casefold (string_to_search, -1);
+            }
+            else
             {
-                // To search with case sensivity...
-                // Duplicate and convert the strings into UTF-8
-                title2       = g_strdup(FileTag->title);
-                artist2      = g_strdup(FileTag->artist);
-                album_artist2= g_strdup(FileTag->album_artist);
-                album2       = g_strdup(FileTag->album);
-                disc_number2 = g_strdup(FileTag->disc_number);
-                disc_total2 = g_strdup (FileTag->disc_total);
-                year2        = g_strdup(FileTag->year);
-                track2       = g_strdup(FileTag->track);
-                track_total2 = g_strdup(FileTag->track_total);
-                genre2       = g_strdup(FileTag->genre);
-                comment2     = g_strdup(FileTag->comment);
-                composer2    = g_strdup(FileTag->composer);
-                orig_artist2 = g_strdup(FileTag->orig_artist);
-                copyright2   = g_strdup(FileTag->copyright);
-                url2         = g_strdup(FileTag->url);
-                encoded_by2  = g_strdup(FileTag->encoded_by);
-                string_to_search2 = g_strdup(string_to_search);
+                /* To search with case-sensitivity. */
+                title2 = FileTag->disc_number ? g_utf8_normalize (FileTag->title,
+                                                                  -1,
+                                                                  G_NORMALIZE_DEFAULT)
+                                              : NULL;
+                artist2 = FileTag->artist ? g_utf8_normalize (FileTag->artist,
+                                                              -1,
+                                                              G_NORMALIZE_DEFAULT)
+                                          : NULL;
+                album_artist2 = FileTag->album_artist ? g_utf8_normalize (FileTag->album_artist,
+                                                                          -1,
+                                                                          G_NORMALIZE_DEFAULT)
+                                                      : NULL;
+                album2 = FileTag->album ? g_utf8_normalize (FileTag->album, -1,
+                                                            G_NORMALIZE_DEFAULT)
+                                        : NULL;
+                disc_number2 = FileTag->disc_number ? g_utf8_normalize (FileTag->disc_number,
+                                                                        -1,
+                                                                        G_NORMALIZE_DEFAULT)
+                                                     : NULL;
+                disc_total2 = FileTag->disc_total ? g_utf8_normalize (FileTag->disc_total,
+                                                                      -1,
+                                                                      G_NORMALIZE_DEFAULT)
+                                                  : NULL;
+                year2 = FileTag->year ? g_utf8_normalize (FileTag->year, -1,
+                                                          G_NORMALIZE_DEFAULT)
+                                      : NULL;
+                track2 = FileTag->track ? g_utf8_normalize (FileTag->track, -1,
+                                                            G_NORMALIZE_DEFAULT)
+                                        : NULL;
+                track_total2 = FileTag->track_total ? g_utf8_normalize (FileTag->track_total,
+                                                                        -1,
+                                                                        G_NORMALIZE_DEFAULT)
+                                                    : NULL;
+                genre2 = FileTag->genre ? g_utf8_normalize (FileTag->genre, -1,
+                                                            G_NORMALIZE_DEFAULT)
+                                        : NULL;
+                comment2 = FileTag->comment ? g_utf8_normalize (FileTag->comment,
+                                                                -1,
+                                                                G_NORMALIZE_DEFAULT)
+                                            : NULL;
+                composer2 = FileTag->composer ? g_utf8_normalize (FileTag->composer,
+                                                                  -1,
+                                                                  G_NORMALIZE_DEFAULT)
+                                              : NULL;
+                orig_artist2 = FileTag->orig_artist ? g_utf8_normalize (FileTag->orig_artist,
+                                                                        -1,
+                                                                        G_NORMALIZE_DEFAULT)
+                                                    : NULL;
+                copyright2 = FileTag->copyright ? g_utf8_normalize (FileTag->copyright,
+                                                                    -1,
+                                                                    G_NORMALIZE_DEFAULT)
+                                                : NULL;
+                url2 = FileTag->url ? g_utf8_normalize (FileTag->url, -1,
+                                                        G_NORMALIZE_DEFAULT)
+                                    : NULL;
+                encoded_by2 = FileTag->encoded_by ? g_utf8_normalize (FileTag->encoded_by,
+                                                                      -1,
+                                                                      G_NORMALIZE_DEFAULT)
+                                                  : NULL;
+                needle = g_utf8_normalize (string_to_search, -1,
+                                           G_NORMALIZE_DEFAULT);
             }
 
-            // FIX ME : should use UTF-8 functions?
-            if ( (title2       && strstr(title2,       string_to_search2) )
-             ||  (artist2      && strstr(artist2,      string_to_search2) )
-             ||  (album_artist2 && strstr(album_artist2,string_to_search2) )
-             ||  (album2       && strstr(album2,       string_to_search2) )
-             ||  (disc_number2 && strstr(disc_number2, string_to_search2) )
-             ||  (disc_total2 && strstr (disc_total2, string_to_search2))
-             ||  (year2        && strstr(year2,        string_to_search2) )
-             ||  (track2       && strstr(track2,       string_to_search2) )
-             ||  (track_total2 && strstr(track_total2, string_to_search2) )
-             ||  (genre2       && strstr(genre2,       string_to_search2) )
-             ||  (comment2     && strstr(comment2,     string_to_search2) )
-             ||  (composer2    && strstr(composer2,    string_to_search2) )
-             ||  (orig_artist2 && strstr(orig_artist2, string_to_search2) )
-             ||  (copyright2   && strstr(copyright2,   string_to_search2) )
-             ||  (url2         && strstr(url2,         string_to_search2) )
-             ||  (encoded_by2  && strstr(encoded_by2,  string_to_search2) ) )
+            if ((title2 && strstr (title2, needle))
+                || (artist2 && strstr (artist2, needle))
+                || (album_artist2 && strstr (album_artist2, needle))
+                || (album2 && strstr (album2, needle))
+                || (disc_number2 && strstr (disc_number2, needle))
+                || (disc_total2 && strstr (disc_total2, needle))
+                || (year2 && strstr (year2, needle))
+                || (track2 && strstr (track2, needle))
+                || (track_total2 && strstr (track_total2, needle))
+                || (genre2 && strstr (genre2, needle))
+                || (comment2 && strstr (comment2, needle))
+                || (composer2 && strstr (composer2, needle))
+                || (orig_artist2 && strstr (orig_artist2, needle))
+                || (copyright2 && strstr (copyright2, needle))
+                || (url2 && strstr (url2, needle))
+                || (encoded_by2 && strstr (encoded_by2, needle)))
             {
                 Add_Row_To_Search_Result_List (self, ETFile, string_to_search);
             }
-            g_free(title2);
-            g_free(artist2);
-            g_free(album_artist2);
-            g_free(album2);
-            g_free(disc_number2);
+
+            g_free (title2);
+            g_free (artist2);
+            g_free (album_artist2);
+            g_free (album2);
+            g_free (disc_number2);
             g_free (disc_total2);
-            g_free(year2);
-            g_free(track2);
-            g_free(track_total2);
-            g_free(genre2);
-            g_free(comment2);
-            g_free(composer2);
-            g_free(orig_artist2);
-            g_free(copyright2);
-            g_free(url2);
-            g_free(encoded_by2);
-            g_free(string_to_search2);
+            g_free (year2);
+            g_free (track2);
+            g_free (track_total2);
+            g_free (genre2);
+            g_free (comment2);
+            g_free (composer2);
+            g_free (orig_artist2);
+            g_free (copyright2);
+            g_free (url2);
+            g_free (encoded_by2);
+            g_free (needle);
         }
     }
 
-    gtk_widget_set_sensitive(GTK_WIDGET(search_button),TRUE);
+    gtk_widget_set_sensitive (GTK_WIDGET (search_button), TRUE);
 
-    // Display the number of files in the statusbar
-    resultCount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(priv->search_results_model), NULL);
+    /* Display the number of matches in the statusbar. */
+    resultCount = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->search_results_model),
+                                                  NULL);
     msg = g_strdup_printf (ngettext ("Found one file", "Found %d files",
                            resultCount), resultCount);
-    gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-    g_free(msg);
+    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                        priv->status_bar_context, msg);
+    g_free (msg);
 
-    // Disable result list if no row inserted
-    if (resultCount > 0 )
+    /* Disable result list if no row inserted. */
+    if (resultCount > 0)
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->search_results_view), TRUE);
-    } else
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_results_view),
+                                  TRUE);
+    }
+    else
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->search_results_view), FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->search_results_view),
+                                  FALSE);
     }
 }
 
