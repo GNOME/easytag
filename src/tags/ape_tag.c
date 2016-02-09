@@ -38,6 +38,33 @@
  *************/
 
 /*
+ * set_string_field:
+ * @field: (inout): pointer to a location in which to store the field value
+ * @string: (transfer none): the string to copy and store in @field
+ *
+ * Copy @string and store it in @field, first validating that the string is
+ * valid UTF-8.
+ */
+static void
+set_string_field (gchar **field,
+                  gchar *string)
+{
+    if (!et_str_empty (string))
+    {
+        if (g_utf8_validate (string, -1, NULL))
+        {
+            *field = g_strdup (string);
+        }
+        else
+        {
+            /* Unnecessarily validates the field again, but this should not be
+             * the common case. */
+            *field = Try_To_Validate_Utf8_String (string);
+        }
+    }
+}
+
+/*
  * Note:
  *  - if field is found but contains no info (strlen(str)==0), we don't read it
  */
@@ -71,40 +98,25 @@ ape_tag_read_file_tag (GFile *file,
 
     g_free (filename);
 
-    /*********
-     * Title *
-     *********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_TITLE);
-    if (FileTag->title == NULL)
-        FileTag->title = Try_To_Validate_Utf8_String(string);
+    /* Title */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_TITLE);
+    set_string_field (&FileTag->title, string);
 
-
-    /**********
-     * Artist *
-     **********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_ARTIST);
-    if (FileTag->artist == NULL)
-        FileTag->artist = Try_To_Validate_Utf8_String(string);
+    /* Artist */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_ARTIST);
+    set_string_field (&FileTag->artist, string);
 
     /* Album artist. */
     string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_ALBUMARTIST);
+    set_string_field (&FileTag->album_artist, string);
 
-    if (FileTag->album_artist == NULL)
-    {
-        FileTag->album_artist = Try_To_Validate_Utf8_String (string);
-    }
+    /* Album */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_ALBUM);
+    set_string_field (&FileTag->album, string);
 
-    /*********
-     * Album *
-     *********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_ALBUM);
-    if (FileTag->album == NULL)
-        FileTag->album = Try_To_Validate_Utf8_String(string);
-
-    /******************************
-     * Disc Number and Disc Total *
-     ******************************/
+    /* Disc Number and Disc Total */
     string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_PART);
+
     if (string)
     {
         string = Try_To_Validate_Utf8_String (string);
@@ -127,16 +139,13 @@ ape_tag_read_file_tag (GFile *file,
         FileTag->disc_number = FileTag->disc_total = NULL;
     }
 
-    /********
-     * Year *
-     ********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_YEAR);
-    FileTag->year = Try_To_Validate_Utf8_String(string);
+    /* Year */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_YEAR);
+    set_string_field (&FileTag->year, string);
 
-    /*************************
-     * Track and Total Track *
-     *************************/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_TRACK);
+    /* Track and Total Track */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_TRACK);
+
     if (string)
     {
         string = Try_To_Validate_Utf8_String(string);
@@ -157,56 +166,35 @@ ape_tag_read_file_tag (GFile *file,
         FileTag->track = FileTag->track_total = NULL;
     }
 
-    /*********
-     * Genre *
-     *********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_GENRE);
-    if (FileTag->genre == NULL)
-        FileTag->genre = Try_To_Validate_Utf8_String(string);
+    /* Genre */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_GENRE);
+    set_string_field (&FileTag->genre, string);
 
-    /***********
-     * Comment *
-     ***********/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_COMMENT);
-    if (FileTag->comment == NULL)
-        FileTag->comment = Try_To_Validate_Utf8_String(string);
+    /* Comment */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_COMMENT);
+    set_string_field (&FileTag->comment, string);
 
-    /************
-     * Composer *
-     ************/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_COMPOSER);
-    if (FileTag->composer == NULL)
-        FileTag->composer = Try_To_Validate_Utf8_String(string);
+    /* Composer */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_COMPOSER);
+    set_string_field (&FileTag->composer, string);
 
-    /*******************
-     * Original artist *
-     *******************/
-    string = apefrm_getstr(ape_cnt, "Original Artist");
-    if (FileTag->orig_artist == NULL)
-        FileTag->orig_artist = Try_To_Validate_Utf8_String(string);
+    /* Original artist */
+    string = apefrm_getstr (ape_cnt, "Original Artist");
+    set_string_field (&FileTag->orig_artist, string);
 
-    /*************
-     * Copyright *
-     *************/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_COPYRIGHT);
-    if (FileTag->copyright == NULL)
-        FileTag->copyright = Try_To_Validate_Utf8_String(string);
+    /* Copyright */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_COPYRIGHT);
+    set_string_field (&FileTag->copyright, string);
 
-    /*******
-     * URL *
-     *******/
-    string = apefrm_getstr(ape_cnt, APE_TAG_FIELD_RELATED_URL);
-    if (FileTag->url == NULL)
-        FileTag->url = Try_To_Validate_Utf8_String(string);
+    /* URL */
+    string = apefrm_getstr (ape_cnt, APE_TAG_FIELD_RELATED_URL);
+    set_string_field (&FileTag->url, string);
 
-    /**************
-     * Encoded by *
-     **************/
-    string = apefrm_getstr(ape_cnt, "Encoded By");
-    if (FileTag->encoded_by == NULL)
-        FileTag->encoded_by = Try_To_Validate_Utf8_String(string);
+    /* Encoded by */
+    string = apefrm_getstr (ape_cnt, "Encoded By");
+    set_string_field (&FileTag->encoded_by, string);
 
-    apetag_free(ape_cnt);
+    apetag_free (ape_cnt);
     fclose (fp);
 
     return TRUE;
