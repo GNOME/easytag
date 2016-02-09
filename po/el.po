@@ -2429,7 +2429,7 @@ msgstr "Αρχείο FLAC"
 msgid "MusePack File"
 msgstr "Αρχείο MusePack"
 
-#: ../src/et_core.c:2833
+#: ../src/tags/monkeyaudio_header.c:77
 msgid "Monkey's Audio File"
 msgstr "Αρχείο ήχου Monkey"
 

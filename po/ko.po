@@ -4596,6 +4596,10 @@ msgstr "파일에서 태그를 읽는 중 오류"
 msgid "Error opening Monkey’s Audio file"
 msgstr "Monkey 오디오 파일 여는 중 오류"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monkey 오디오 파일"
+
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:78 ../src/tags/musepack_header.c:81
 msgid "Profile:"

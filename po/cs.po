@@ -4677,6 +4677,10 @@ msgstr "Chyba při vytváření dočasného souboru"
 msgid "Error reading tags from file"
 msgstr "Chyba při čtení štítků ze souboru"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Zvukový soubor Monkey"
+
 #: ../src/tags/monkeyaudio_header.c:46
 msgid "Error opening Monkey’s Audio file"
 msgstr "Chyba při otevírání zvukového soubor Monkey"

@@ -2859,10 +2859,6 @@ msgstr "Файл FLAC"
 msgid "MusePack File"
 msgstr "Файл MusePack"
 
-#: ../src/et_core.c:2674
-msgid "Monkey's Audio File"
-msgstr "Файл Monkey's Audio"
-
 #: ../src/et_core.c:2679
 #, fuzzy
 msgid "MP4/AAC File"
@@ -3401,6 +3397,10 @@ msgstr "Підняти на одну позицію"
 #, fuzzy
 msgid "Move down this line"
 msgstr "Опустити на одну позицію"
+
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Файл Monkey's Audio"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80

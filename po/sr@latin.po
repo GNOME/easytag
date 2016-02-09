@@ -4723,6 +4723,10 @@ msgstr "Greška čitanja oznaka iz datoteke"
 msgid "Error opening Monkey’s Audio file"
 msgstr "Greška otvaranja Monkijeve zvučne datoteke"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monki audio datoteka"
+
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:78 ../src/tags/musepack_header.c:81
 msgid "Profile:"

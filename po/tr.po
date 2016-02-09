@@ -4726,6 +4726,10 @@ msgstr "Dosyadan etiketler okunurken hata oluştu"
 msgid "Error opening Monkey’s Audio file"
 msgstr "Monkey’s ses dosyası açılırken hata"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio Dosyası"
+
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:78 ../src/tags/musepack_header.c:81
 msgid "Profile:"

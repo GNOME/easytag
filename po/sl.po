@@ -2383,10 +2383,6 @@ msgstr "Datoteka FLAC"
 msgid "MusePack File"
 msgstr "Datoteka MusePack"
 
-#: ../src/et_core.c:2832
-msgid "Monkey's Audio File"
-msgstr "Zvočna datoteka Monkey"
-
 #: ../src/et_core.c:2837
 msgid "MP4/AAC File"
 msgstr "Datoteka MP4/AAC"
@@ -2931,6 +2927,10 @@ msgstr "Premakni to vrstico navzgor"
 #: ../src/misc.c:3423
 msgid "Move down this line"
 msgstr "Premakni to vrstico navzdol"
+
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Zvočna datoteka Monkey"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80

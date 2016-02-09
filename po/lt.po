@@ -5226,10 +5226,8 @@ msgstr "Klaida kuriant laikiną failą"
 msgid "Error reading tags from file"
 msgstr "Klaida skaitant žymas iš failo: „%s“"
 
-#: ../src/tags/monkeyaudio_header.c:46
-#, fuzzy
-#| msgid "Monkey's Audio File"
-msgid "Error opening Monkey’s Audio file"
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
 msgstr "Monkey's Audio failas"
 
 #. Mode changed to profile name

@@ -2708,8 +2708,8 @@ msgid "MusePack File"
 msgstr "קובץ MusePack"
 
 #: ../src/et_core.c:2674
-msgid "Monkey's Audio File"
-msgstr "קובץ Monkey's Audio"
+msgid "monkey's audio file"
+msgstr "קובץ monkey's audio"
 
 #: ../src/et_core.c:2679
 msgid "MP4/AAC File"
@@ -3252,6 +3252,10 @@ msgstr "הזז מסכה זו למעלה"
 #, fuzzy
 msgid "Move down this line"
 msgstr "הזז מסכה זו למטה"
+
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "קובץ Monkey's Audio"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80

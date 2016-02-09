@@ -4821,6 +4821,10 @@ msgstr "Error al leer las etiquetas del archivo"
 msgid "Error opening Monkey’s Audio file"
 msgstr "Error al abrir el archivo de sonido Monkey"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Archivo de sonido Monkey"
+
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:78 ../src/tags/musepack_header.c:81
 msgid "Profile:"

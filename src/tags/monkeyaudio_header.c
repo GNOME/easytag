@@ -74,6 +74,8 @@ et_mac_header_display_file_info_to_ui (const ET_File *ETFile)
     info = ETFile->ETFileInfo;
     fields = g_slice_new (EtFileHeaderFields);
 
+    fields->description = _("Monkey's Audio File");
+
     /* Mode changed to profile name  */
     fields->mode_label = _("Profile:");
     fields->mode = info->mpc_profile;

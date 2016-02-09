@@ -4642,6 +4642,10 @@ msgstr "Det oppstod en feil under lesing av tagger fra fil"
 msgid "Error opening Monkey’s Audio file"
 msgstr "Det oppstod en feil under åpning av en Monkey's Audio-fil"
 
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio File"
+
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:78 ../src/tags/musepack_header.c:81
 msgid "Profile:"

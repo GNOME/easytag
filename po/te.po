@@ -2347,7 +2347,7 @@ msgstr ""
 
 #: ../src/et_core.c:2792
 msgid "Monkey's Audio File"
-msgstr ""
+msgstr "Monkey's Audio దస్త్రం"
 
 #: ../src/et_core.c:2797
 msgid "MP4/AAC File"

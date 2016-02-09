@@ -2785,10 +2785,6 @@ msgstr "FLAC-bestand"
 msgid "MusePack File"
 msgstr "MusePack-bestand"
 
-#: ../src/et_core.c:2674
-msgid "Monkey's Audio File"
-msgstr "Monkey's Audio-bestand"
-
 #: ../src/et_core.c:2679
 #, fuzzy
 msgid "MP4/AAC File"
@@ -3341,6 +3337,10 @@ msgstr "Verplaats masker naar boven in lijst"
 #, fuzzy
 msgid "Move down this line"
 msgstr "Verplaats masker naar beneden in lijst"
+
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio-bestand"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80

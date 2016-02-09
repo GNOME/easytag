@@ -2715,10 +2715,6 @@ msgstr "FLAC 文件"
 msgid "MusePack File"
 msgstr "MusePack 文件"
 
-#: ../src/et_core.c:2674
-msgid "Monkey's Audio File"
-msgstr "Monkey's Audio 文件"
-
 #: ../src/et_core.c:2679
 msgid "MP4/AAC File"
 msgstr "MP4/AAC 文件"
@@ -3258,6 +3254,10 @@ msgstr "上移此行"
 #: ../src/misc.c:3423
 msgid "Move down this line"
 msgstr "下移此行"
+
+#: ../src/tags/monkeyaudio_header.c:2674
+msgid "Monkey's Audio File"
+msgstr "Monkey's Audio 文件"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80

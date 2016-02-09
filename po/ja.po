@@ -2729,10 +2729,6 @@ msgstr "FLAC ファイル"
 msgid "MusePack File"
 msgstr "MusePack ファイル"
 
-#: ../src/et_core.c:2674
-msgid "Monkey's Audio File"
-msgstr "Monkey's オーディオ・ファイル"
-
 #: ../src/et_core.c:2679
 msgid "MP4/AAC File"
 msgstr "MP4/AAC ファイル"
@@ -3277,6 +3273,10 @@ msgstr "この行を上に移動します"
 #: ../src/misc.c:3423
 msgid "Move down this line"
 msgstr "この行を下に移動します"
+
+#: ../src/tags/monkeyaudio_header.c:77
+msgid "Monkey's Audio File"
+msgstr "Monkey's オーディオ・ファイル"
 
 #. Mode changed to profile name
 #: ../src/monkeyaudio_header.c:78 ../src/musepack_header.c:80
