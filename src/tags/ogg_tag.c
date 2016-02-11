@@ -746,20 +746,6 @@ err:
 }
 
 /*
- * Save field value in a single tag
- */
-static void
-et_ogg_write_tag (vorbis_comment *vc,
-                  const gchar *tag_name,
-                  const gchar *value)
-{
-    char *string = g_strconcat (tag_name, value, NULL);
-
-    vorbis_comment_add (vc, string);
-    g_free (string);
-}
-
-/*
  * Save field value in separated tags if it contains multifields
  */
 static void
@@ -776,7 +762,7 @@ et_ogg_write_delimited_tag (vorbis_comment *vc,
     {
         if (*strings[i])
         {
-            et_ogg_write_tag (vc, tag_name, strings[i]);
+            vorbis_comment_add_tag (vc, tag_name, strings[i]);
         }
     }
 
@@ -797,7 +783,7 @@ et_ogg_set_tag (vorbis_comment *vc,
         }
         else
         {
-            et_ogg_write_tag (vc, tag_name, value);
+            vorbis_comment_add_tag (vc, tag_name, value);
         }
     }
 }
@@ -811,7 +797,6 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     GFile           *file;
     EtOggState *state;
     vorbis_comment *vc;
-    gchar          *string;
     GList *l;
     EtPicture *pic;
 
@@ -843,86 +828,86 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     /*********
      * Title *
      *********/
-    et_ogg_set_tag (vc, "TITLE=", FileTag->title,
+    et_ogg_set_tag (vc, "TITLE", FileTag->title,
                     g_settings_get_boolean (MainSettings, "ogg-split-title"));
 
     /**********
      * Artist *
      **********/
-    et_ogg_set_tag (vc, "ARTIST=", FileTag->artist,
+    et_ogg_set_tag (vc, "ARTIST", FileTag->artist,
                     g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /****************
      * Album Artist *
      ****************/
-    et_ogg_set_tag (vc, "ALBUMARTIST=", FileTag->album_artist,
+    et_ogg_set_tag (vc, "ALBUMARTIST", FileTag->album_artist,
                     g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /*********
      * Album *
      *********/
-    et_ogg_set_tag (vc, "ALBUM=", FileTag->album,
+    et_ogg_set_tag (vc, "ALBUM", FileTag->album,
                     g_settings_get_boolean (MainSettings, "ogg-split-album"));
 
     /***************
      * Disc Number *
      ***************/
-    et_ogg_set_tag (vc, "DISCNUMBER=", FileTag->disc_number, FALSE);
-    et_ogg_set_tag (vc, "DISCTOTAL=", FileTag->disc_total, FALSE);
+    et_ogg_set_tag (vc, "DISCNUMBER", FileTag->disc_number, FALSE);
+    et_ogg_set_tag (vc, "DISCTOTAL", FileTag->disc_total, FALSE);
 
     /********
      * Year *
      ********/
-    et_ogg_set_tag (vc, "DATE=", FileTag->year, FALSE);
+    et_ogg_set_tag (vc, "DATE", FileTag->year, FALSE);
 
     /*************************
      * Track and Total Track *
      *************************/
-    et_ogg_set_tag (vc, "TRACKNUMBER=", FileTag->track, FALSE);
-    et_ogg_set_tag (vc, "TRACKTOTAL=", FileTag->track_total, FALSE);
+    et_ogg_set_tag (vc, "TRACKNUMBER", FileTag->track, FALSE);
+    et_ogg_set_tag (vc, "TRACKTOTAL", FileTag->track_total, FALSE);
 
     /*********
      * Genre *
      *********/
-    et_ogg_set_tag (vc, "GENRE=", FileTag->genre,
+    et_ogg_set_tag (vc, "GENRE", FileTag->genre,
                     g_settings_get_boolean (MainSettings, "ogg-split-genre"));
 
     /***********
      * Comment *
      ***********/
     /* Format of new specification. */
-    et_ogg_set_tag (vc, "DESCRIPTION=", FileTag->comment,
+    et_ogg_set_tag (vc, "DESCRIPTION", FileTag->comment,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-comment"));
 
     /************
      * Composer *
      ************/
-    et_ogg_set_tag (vc ,"COMPOSER=", FileTag->composer,
+    et_ogg_set_tag (vc ,"COMPOSER", FileTag->composer,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-composer"));
 
     /*******************
      * Original artist *
      *******************/
-    et_ogg_set_tag (vc, "PERFORMER=", FileTag->orig_artist,
+    et_ogg_set_tag (vc, "PERFORMER", FileTag->orig_artist,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-original-artist"));
 
     /*************
      * Copyright *
      *************/
-    et_ogg_set_tag (vc, "COPYRIGHT=", FileTag->copyright, FALSE);
+    et_ogg_set_tag (vc, "COPYRIGHT", FileTag->copyright, FALSE);
 
     /*******
      * URL *
      *******/
-    et_ogg_set_tag (vc, "CONTACT=", FileTag->url, FALSE);
+    et_ogg_set_tag (vc, "CONTACT", FileTag->url, FALSE);
 
     /**************
      * Encoded by *
      **************/
-    et_ogg_set_tag (vc, "ENCODED-BY=", FileTag->encoded_by, FALSE);
+    et_ogg_set_tag (vc, "ENCODED-BY", FileTag->encoded_by, FALSE);
     
     /***********
      * Picture *
@@ -1050,13 +1035,10 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         add_to_guchar_str (ustring, &ustring_len, data, data_size);
 
         base64_string = g_base64_encode (ustring, ustring_len);
-        string = g_strconcat ("METADATA_BLOCK_PICTURE=", base64_string,
-                              NULL);
-        vorbis_comment_add (vc, string);
+        vorbis_comment_add_tag (vc, "METADATA_BLOCK_PICTURE", base64_string);
 
         g_free (base64_string);
         g_free (ustring);
-        g_free (string);
     }
 
     /**************************
