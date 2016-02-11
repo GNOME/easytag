@@ -751,6 +751,30 @@ flac_tag_read_file_tag (GFile *file,
 }
 
 /*
+ * vc_block_append_other_tag:
+ * @vc_block: the Vorbis comment in which to add the tag
+ * @tag: the name and value of the tag
+ *
+ * Append the unsupported (not shown in the UI) @tag to @vc_block.
+ */
+static void
+vc_block_append_other_tag (FLAC__StreamMetadata *vc_block,
+                           const gchar *tag)
+{
+    FLAC__StreamMetadata_VorbisComment_Entry field;
+
+    field.entry = (FLAC__byte *)tag;
+    field.length = strlen (tag);
+
+    if (!FLAC__metadata_object_vorbiscomment_append_comment (vc_block, field,
+                                                             true))
+    {
+        g_critical ("Invalid Vorbis comment, or memory allocation failed, when writing other FLAC tag '%s'",
+                    tag);
+    }
+}
+
+/*
  * vc_block_append_single_tag:
  * @vc_block: the Vorbis comment in which to add the tag
  * @tag_name: the name of the tag
@@ -764,16 +788,18 @@ vc_block_append_single_tag (FLAC__StreamMetadata *vc_block,
                             const gchar *value)
 {
     FLAC__StreamMetadata_VorbisComment_Entry field;
-    char *string = g_strconcat (tag_name, value, NULL);
-    FLAC__bool result;
 
-    field.entry = (FLAC__byte *)string;
-    field.length = strlen (string);
-    result = FLAC__metadata_object_vorbiscomment_append_comment (vc_block,
-                                                                 field, true);
-    g_free (string);
+    if (!FLAC__metadata_object_vorbiscomment_entry_from_name_value_pair (&field,
+                                                                         tag_name,
+                                                                         value))
+    {
+        g_critical ("Invalid Vorbis comment, or memory allocation failed, when creating FLAC entry from tag name '%s' and value '%s'",
+                    tag_name, value);
+        return;
+    }
 
-    if (result != true)
+    if (!FLAC__metadata_object_vorbiscomment_append_comment (vc_block, field,
+                                                             false))
     {
         g_critical ("Invalid Vorbis comment, or memory allocation failed, when writing FLAC tag '%s' with value '%s'",
                     tag_name, value);
@@ -989,94 +1015,94 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         /*********
          * Title *
          *********/
-        vc_block_append_tag (vc_block, "TITLE=", FileTag->title,
+        vc_block_append_tag (vc_block, "TITLE", FileTag->title,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-title"));
 
         /**********
          * Artist *
          **********/
-        vc_block_append_tag (vc_block, "ARTIST=", FileTag->artist,
+        vc_block_append_tag (vc_block, "ARTIST", FileTag->artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-artist"));
 
         /****************
          * Album Artist *
          ****************/
-        vc_block_append_tag (vc_block, "ALBUMARTIST=", FileTag->album_artist,
+        vc_block_append_tag (vc_block, "ALBUMARTIST", FileTag->album_artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-artist"));
 
         /*********
          * Album *
          *********/
-        vc_block_append_tag (vc_block, "ALBUM=", FileTag->album,
+        vc_block_append_tag (vc_block, "ALBUM", FileTag->album,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-album"));
 
         /******************************
          * Disc Number and Disc Total *
          ******************************/
-        vc_block_append_tag (vc_block, "DISCNUMBER=", FileTag->disc_number,
+        vc_block_append_tag (vc_block, "DISCNUMBER", FileTag->disc_number,
                              FALSE);
-        vc_block_append_tag (vc_block, "DISCTOTAL=", FileTag->disc_total,
+        vc_block_append_tag (vc_block, "DISCTOTAL", FileTag->disc_total,
                              FALSE);
 
         /********
          * Year *
          ********/
-        vc_block_append_tag (vc_block, "DATE=", FileTag->year, FALSE);
+        vc_block_append_tag (vc_block, "DATE", FileTag->year, FALSE);
 
         /*************************
          * Track and Total Track *
          *************************/
-        vc_block_append_tag (vc_block, "TRACKNUMBER=", FileTag->track, FALSE);
-        vc_block_append_tag (vc_block, "TRACKTOTAL=", FileTag->track_total,
+        vc_block_append_tag (vc_block, "TRACKNUMBER", FileTag->track, FALSE);
+        vc_block_append_tag (vc_block, "TRACKTOTAL", FileTag->track_total,
                              FALSE);
 
         /*********
          * Genre *
          *********/
-        vc_block_append_tag (vc_block, "GENRE=", FileTag->genre,
+        vc_block_append_tag (vc_block, "GENRE", FileTag->genre,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-genre"));
 
         /***********
          * Comment *
          ***********/
-        vc_block_append_tag (vc_block, "DESCRIPTION=", FileTag->comment,
+        vc_block_append_tag (vc_block, "DESCRIPTION", FileTag->comment,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-comment"));
 
         /************
          * Composer *
          ************/
-        vc_block_append_tag (vc_block, "COMPOSER=", FileTag->composer,
+        vc_block_append_tag (vc_block, "COMPOSER", FileTag->composer,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-composer"));
 
         /*******************
          * Original artist *
          *******************/
-        vc_block_append_tag (vc_block, "PERFORMER=", FileTag->orig_artist,
+        vc_block_append_tag (vc_block, "PERFORMER", FileTag->orig_artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-original-artist"));
 
         /*************
          * Copyright *
          *************/
-        vc_block_append_tag (vc_block, "COPYRIGHT=", FileTag->copyright,
+        vc_block_append_tag (vc_block, "COPYRIGHT", FileTag->copyright,
                              FALSE);
 
         /*******
          * URL *
          *******/
-        vc_block_append_tag (vc_block, "CONTACT=", FileTag->url, FALSE);
+        vc_block_append_tag (vc_block, "CONTACT", FileTag->url, FALSE);
 
         /**************
          * Encoded by *
          **************/
-        vc_block_append_tag (vc_block, "ENCODED-BY=", FileTag->encoded_by,
+        vc_block_append_tag (vc_block, "ENCODED-BY", FileTag->encoded_by,
                              FALSE);
 
 
@@ -1085,7 +1111,7 @@ flac_tag_write_file_tag (const ET_File *ETFile,
          **************************/
         for (l = FileTag->other; l != NULL; l = g_list_next (l))
         {
-            vc_block_append_tag (vc_block, "", (gchar *)l->data, FALSE);
+            vc_block_append_other_tag (vc_block, (gchar *)l->data);
         }
 
         // Add the block to the the chain (so we don't need to free the block)
