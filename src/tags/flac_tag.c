@@ -37,33 +37,6 @@
 
 #define MULTIFIELD_SEPARATOR " - "
 
-/* FLAC uses Ogg Vorbis comments
- * Ogg Vorbis fields names :
- *  - TITLE        : Track name
- *  - VERSION      : The version field may be used to differentiate multiple version of the same track title in a single collection. (e.g. remix info)
- *  - ALBUM        : The collection name to which this track belongs
- *  - ALBUMARTIST  : Compilation Artist or overall artist of an album
- *  - TRACKNUMBER  : The track number of this piece if part of a specific larger collection or album
- *  - TRACKTOTAL   :
- *  - ARTIST       : Track performer
- *  - ORGANIZATION : Name of the organization producing the track (i.e. the 'record label')
- *  - DESCRIPTION  : A short text description of the contents
- *  - COMMENT      : same as DESCRIPTION
- *  - GENRE        : A short text indication of music genre
- *  - DATE         : Date the track was recorded
- *  - LOCATION     : Location where track was recorded
- *  - CONTACT      : Contact information for the creators or distributors of
- *                   the track. This could be a URL, an email address, the
- *                   physical address of the producing label.
- *  - COPYRIGHT    : Copyright information
- *  - ISRC         : ISRC number for the track; see the ISRC intro page for more information on ISRC numbers.
- *
- * Field names should not be 'internationalized'; this is a concession to simplicity
- * not an attempt to exclude the majority of the world that doesn't speak English.
- * Field *contents*, however, are represented in UTF-8 to allow easy representation
- * of any language.
- */
-
 /*
  * validate_field_utf8:
  * @field_value: the string to validate
@@ -122,6 +95,20 @@ set_or_append_field (gchar **field,
         *field = field_tmp;
         g_free (field_value);
     }
+}
+
+/*
+ * @field: a tag field to search
+ * @str: a search term to compare against @field
+ *
+ * Call strncasecmp() on @str as well as the string in field, comparing only up
+ * to the length of the field.
+ */
+static gint
+field_strncasecmp (FLAC__StreamMetadata_VorbisComment_Entry *field,
+                   const gchar *str)
+{
+    return strncasecmp ((gchar *)field->entry, str, strlen (str));
 }
 
 /*
@@ -207,7 +194,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Title *
                  *********/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"TITLE")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_TITLE)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -232,7 +219,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Artist *
                  **********/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ARTIST")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_ARTIST)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -258,7 +245,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Album Artist *
                  ****************/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ALBUMARTIST")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -284,7 +271,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Album *
                  *********/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ALBUM")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_ALBUM)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -308,7 +295,7 @@ flac_tag_read_file_tag (GFile *file,
                 /******************************
                  * Disc Number and Disc Total *
                  ******************************/
-                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, "DISCTOTAL")) >= 0)
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, ET_VORBIS_COMMENT_FIELD_DISC_TOTAL)) >= 0)
                 {
                     /* Extract field value. */
                     field = &vc->comments[field_num];
@@ -330,7 +317,7 @@ flac_tag_read_file_tag (GFile *file,
                     /* Discs is also filled below, if not done here. */
                 }
 
-                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"DISCNUMBER")) >= 0 )
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num];
@@ -363,7 +350,7 @@ flac_tag_read_file_tag (GFile *file,
                 /********
                  * Year *
                  ********/
-                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"DATE")) >= 0 )
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, ET_VORBIS_COMMENT_FIELD_DATE)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num];
@@ -386,7 +373,7 @@ flac_tag_read_file_tag (GFile *file,
                 /*************************
                  * Track and Total Track *
                  *************************/
-                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"TRACKTOTAL")) >= 0 )
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num];
@@ -408,7 +395,7 @@ flac_tag_read_file_tag (GFile *file,
                     // Below is also filled track_total if not done here
                 }
 
-                if ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,0,"TRACKNUMBER")) >= 0 )
+                if ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, 0, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num];
@@ -441,7 +428,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Genre *
                  *********/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"GENRE")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_GENRE)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -471,8 +458,8 @@ flac_tag_read_file_tag (GFile *file,
                     gint field_num1, field_num2;
 
                     // The comment field can take two forms...
-                    field_num1 = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"DESCRIPTION");
-                    field_num2 = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COMMENT");
+                    field_num1 = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_DESCRIPTION);
+                    field_num2 = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_COMMENT);
 
                     if (field_num1 >= 0 && field_num2 >= 0)
                         // Note : We set field_num to the last "comment" field to avoid to concatenate 
@@ -512,7 +499,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Composer *
                  ************/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COMPOSER")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_COMPOSER)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -538,7 +525,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Original artist *
                  *******************/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"PERFORMER")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_PERFORMER)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -564,7 +551,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Copyright *
                  *************/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"COPYRIGHT")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_COPYRIGHT)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -590,7 +577,7 @@ flac_tag_read_file_tag (GFile *file,
                  * URL *
                  *******/
                 field_num = 0;
-                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, "CONTACT")) >= 0)
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_CONTACT)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -615,7 +602,7 @@ flac_tag_read_file_tag (GFile *file,
                  * Encoded by *
                  **************/
                 field_num = 0;
-                while ( (field_num = FLAC__metadata_object_vorbiscomment_find_entry_from(block,field_num,"ENCODED-BY")) >= 0 )
+                while ((field_num = FLAC__metadata_object_vorbiscomment_find_entry_from (block, field_num, ET_VORBIS_COMMENT_FIELD_ENCODED_BY)) >= 0)
                 {
                     /* Extract field value */
                     field = &vc->comments[field_num++];
@@ -643,23 +630,40 @@ flac_tag_read_file_tag (GFile *file,
                 for (i=0;i<(guint)vc->num_comments;i++)
                 {
                     field = &vc->comments[i];
-                    if ( strncasecmp((gchar *)field->entry,"TITLE=",       MIN(6,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"ARTIST=",      MIN(7,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"ALBUMARTIST=", MIN(12, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"ALBUM=",       MIN(6,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"DISCNUMBER=",  MIN(11, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"DISCTOTAL=",   MIN(10, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"DATE=",        MIN(5,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"TRACKNUMBER=", MIN(12, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"TRACKTOTAL=",  MIN(11, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"GENRE=",       MIN(6,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"DESCRIPTION=", MIN(12, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"COMMENT=",     MIN(8,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"COMPOSER=",    MIN(9,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"PERFORMER=",   MIN(10, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"COPYRIGHT=",   MIN(10, field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"CONTACT=",     MIN(8,  field->length)) != 0
-                      && strncasecmp((gchar *)field->entry,"ENCODED-BY=",  MIN(11, field->length)) != 0 )
+                    if (field_strncasecmp (field,
+                                           ET_VORBIS_COMMENT_FIELD_TITLE "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_ARTIST "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_ALBUM "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_DISC_NUMBER "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_DISC_TOTAL "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_DATE "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_GENRE "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_DESCRIPTION "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_COMMENT "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_COMPOSER "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_PERFORMER "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_COPYRIGHT "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_CONTACT "=") != 0
+                        && field_strncasecmp (field,
+                                              ET_VORBIS_COMMENT_FIELD_ENCODED_BY "=") != 0)
                     {
                         //g_print("custom %*s\n", field->length, field->entry);
                         FileTag->other = g_list_append(FileTag->other,g_strndup((const gchar *)field->entry, field->length));
@@ -1015,95 +1019,106 @@ flac_tag_write_file_tag (const ET_File *ETFile,
         /*********
          * Title *
          *********/
-        vc_block_append_tag (vc_block, "TITLE", FileTag->title,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_TITLE,
+                             FileTag->title,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-title"));
 
         /**********
          * Artist *
          **********/
-        vc_block_append_tag (vc_block, "ARTIST", FileTag->artist,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_ARTIST,
+                             FileTag->artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-artist"));
 
         /****************
          * Album Artist *
          ****************/
-        vc_block_append_tag (vc_block, "ALBUMARTIST", FileTag->album_artist,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST,
+                             FileTag->album_artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-artist"));
 
         /*********
          * Album *
          *********/
-        vc_block_append_tag (vc_block, "ALBUM", FileTag->album,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_ALBUM,
+                             FileTag->album,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-album"));
 
         /******************************
          * Disc Number and Disc Total *
          ******************************/
-        vc_block_append_tag (vc_block, "DISCNUMBER", FileTag->disc_number,
-                             FALSE);
-        vc_block_append_tag (vc_block, "DISCTOTAL", FileTag->disc_total,
-                             FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER,
+                             FileTag->disc_number, FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_DISC_TOTAL,
+                             FileTag->disc_total, FALSE);
 
         /********
          * Year *
          ********/
-        vc_block_append_tag (vc_block, "DATE", FileTag->year, FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_DATE,
+                             FileTag->year, FALSE);
 
         /*************************
          * Track and Total Track *
          *************************/
-        vc_block_append_tag (vc_block, "TRACKNUMBER", FileTag->track, FALSE);
-        vc_block_append_tag (vc_block, "TRACKTOTAL", FileTag->track_total,
-                             FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER,
+                             FileTag->track, FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL,
+                             FileTag->track_total, FALSE);
 
         /*********
          * Genre *
          *********/
-        vc_block_append_tag (vc_block, "GENRE", FileTag->genre,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_GENRE,
+                             FileTag->genre,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-genre"));
 
         /***********
          * Comment *
          ***********/
-        vc_block_append_tag (vc_block, "DESCRIPTION", FileTag->comment,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_DESCRIPTION,
+                             FileTag->comment,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-comment"));
 
         /************
          * Composer *
          ************/
-        vc_block_append_tag (vc_block, "COMPOSER", FileTag->composer,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_COMPOSER,
+                             FileTag->composer,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-composer"));
 
         /*******************
          * Original artist *
          *******************/
-        vc_block_append_tag (vc_block, "PERFORMER", FileTag->orig_artist,
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_PERFORMER,
+                             FileTag->orig_artist,
                              g_settings_get_boolean (MainSettings,
                                                      "ogg-split-original-artist"));
 
         /*************
          * Copyright *
          *************/
-        vc_block_append_tag (vc_block, "COPYRIGHT", FileTag->copyright,
-                             FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_COPYRIGHT,
+                             FileTag->copyright, FALSE);
 
         /*******
          * URL *
          *******/
-        vc_block_append_tag (vc_block, "CONTACT", FileTag->url, FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_CONTACT,
+                             FileTag->url, FALSE);
 
         /**************
          * Encoded by *
          **************/
-        vc_block_append_tag (vc_block, "ENCODED-BY", FileTag->encoded_by,
-                             FALSE);
+        vc_block_append_tag (vc_block, ET_VORBIS_COMMENT_FIELD_ENCODED_BY,
+                             FileTag->encoded_by, FALSE);
 
 
         /**************************

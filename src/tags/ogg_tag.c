@@ -44,54 +44,6 @@
 
 #define MULTIFIELD_SEPARATOR " - "
 
-/* Ogg Vorbis fields names in UTF-8 : http://www.xiph.org/vorbis/doc/v-comment.html
- *
- * Field names :
- *
- * Below is a proposed, minimal list of standard field names with a description of intended use. No single or group of field names is mandatory; a comment header may contain one, all or none of the names in this list.
- *
- * TITLE        : Track/Work name
- * VERSION      : The version field may be used to differentiate multiple versions of the same track title in a single collection. (e.g. remix info)
- * ALBUM        : The collection name to which this track belongs
- * TRACKNUMBER  : The track number of this piece if part of a specific larger collection or album
- * ARTIST       : The artist generally considered responsible for the work. In popular music this is usually the performing band or singer. For classical music it would be the composer. For an audio book it would be the author of the original text.
- * ALBUMARTIST  : The compilation artist or overall artist of an album
- * PERFORMER    : The artist(s) who performed the work. In classical music this would be the conductor, orchestra, soloists. In an audio book it would be the actor who did the reading. In popular music this is typically the same as the ARTIST and is omitted.
- * COPYRIGHT    : Copyright attribution, e.g., '2001 Nobody's Band' or '1999 Jack Moffitt'
- * LICENSE      : License information, eg, 'All Rights Reserved', 'Any Use Permitted', a URL to a license such as a Creative Commons license ("www.creativecommons.org/blahblah/license.html") or the EFF Open Audio License ('distributed under the terms of the Open Audio License. see http://www.eff.org/IP/Open_licenses/eff_oal.html for details'), etc.
- * ORGANIZATION : Name of the organization producing the track (i.e. the 'record label')
- * DESCRIPTION  : A short text description of the contents
- * GENRE        : A short text indication of music genre
- * DATE         : Date the track was recorded
- * LOCATION     : Location where track was recorded
- * CONTACT      : Contact information for the creators or distributors of the track. This could be a URL, an email address, the physical address of the producing label.
- * ISRC         : ISRC number for the track; see the ISRC intro page for more information on ISRC numbers.
- *
- * The remaining tags are multiples; if they are present more than once, all their occurances are considered significant.
- *
- * PUBLISHER   : who publishes the disc the track came from
- * DISCNUMBER  : if part of a multi-disc album, put the disc number here
- * EAN/UPN     : there may be a barcode on the CD; it is most likely an EAN or UPN (Universal Product Number).
- * LABEL       : the record label or imprint on the disc
- * LABELNO     : record labels often put the catalog number of the source media somewhere on the packaging. use this tag to record it.
- * OPUS        : the number of the work; eg, Opus 10, BVW 81, K6
- * SOURCEMEDIA : the recording media the track came from. eg, CD, Cassette, Radio Broadcast, LP, CD Single
- * TRACKTOTAL  :
- * ENCODED-BY  : The person who encoded the Ogg file. May include contact information such as email address and phone number.
- * ENCODING    : Put the settings you used to encode the Ogg file here. This tag is NOT expected to be stored or returned by cddb type databases. It includes information about the quality setting, bit rate, and bitrate management settings used to encode the Ogg. It also is used for information about which encoding software was used to do the encoding.
- * COMPOSER    : composer of the work. eg, Gustav Mahler
- * ARRANGER    : the person who arranged the piece, eg, Ravel
- * LYRICIST    : the person who wrote the lyrics, eg Donizetti
- * AUTHOR      : for text that is spoken, or was originally meant to be spoken, the author, eg JRR Tolkien
- * CONDUCTOR   : conductor of the work; eg Herbert von Karajan. choir directors would also use this tag.
- * PERFORMER   : individual performers singled out for mention; eg, Yoyo Ma (violinist)
- * ENSEMBLE    : the group playing the piece, whether orchestra, singing duo, or rock and roll band.
- * PART        : a division within a work; eg, a movement of a symphony. Some tracks contain several parts. Use a single PART tag for each part contained in a track. ie, PART="Oh sole mio"
- * PARTNUMBER  : The part number goes in here. You can use any format you like, such as Roman numerals, regular numbers, or whatever. The numbers should be entered in such a way that an alphabetical sort on this tag will correctly show the proper ordering of all the oggs that contain the contain the piece of music.
- * LOCATION    : location of recording, or other location of interest
- * COMMENT     : additional comments of any nature.
- */
-
 /*
  * convert_to_byte_array:
  * @n: Integer to convert
@@ -183,6 +135,20 @@ set_or_append_field (gchar **field,
 }
 
 /*
+ * @field: a tag field to search
+ * @str: a search term to compare against @field
+ *
+ * Call strncasecmp() on @str and @field, comparing only up to the length of
+ * the field.
+ */
+static gint
+field_strncasecmp (const gchar *field,
+                   const gchar *str)
+{
+    return strncasecmp (field, str, strlen (str));
+}
+
+/*
  * et_add_file_tags_from_vorbis_comments:
  * @vc: Vorbis comment from which to fill @FileTag
  * @FileTag: tag to populate from @vc
@@ -204,7 +170,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      *********/
     /* Note : don't forget to add any new field to 'Save unsupported fields' */
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"TITLE",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_TITLE,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -217,7 +184,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Artist *
      **********/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"ARTIST",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_ARTIST,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -230,7 +198,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Album Artist *
      ****************/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"ALBUMARTIST",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -243,7 +213,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Album *
      *********/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"ALBUM",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_ALBUM,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -255,11 +226,13 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     /**********************************************
      * Disc Number (Part of a Set) and Disc Total *
      **********************************************/
-    if ((string = vorbis_comment_query (vc, "DISCNUMBER", 0)) != NULL
+    if ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER, 0)) != NULL
         && !et_str_empty (string))
     {
         /* Check if DISCTOTAL used, else takes it in DISCNUMBER. */
-        if ((string1 = vorbis_comment_query (vc, "DISCTOTAL", 0)) != NULL
+        if ((string1 = vorbis_comment_query (vc,
+                                             ET_VORBIS_COMMENT_FIELD_DISC_TOTAL,
+                                             0)) != NULL
             && !et_str_empty (string1))
         {
             FileTag->disc_total = et_disc_number_to_string (atoi (string1));
@@ -277,7 +250,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     /********
      * Year *
      ********/
-    string = vorbis_comment_query (vc, "DATE", 0);
+    string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_DATE, 0);
 
     if (!et_str_empty (string))
     {
@@ -287,12 +260,15 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
     /*************************
      * Track and Total Track *
      *************************/
-    string = vorbis_comment_query (vc, "TRACKNUMBER", 0);
+    string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER,
+                                   0);
 
     if (!et_str_empty (string))
     {
         /* Check if TRACKTOTAL used, else takes it in TRACKNUMBER. */
-        if ((string1 = vorbis_comment_query (vc, "TRACKTOTAL", 0)) != NULL
+        if ((string1 = vorbis_comment_query (vc,
+                                             ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL,
+                                             0)) != NULL
             && !et_str_empty (string1))
         {
             FileTag->track_total = et_track_number_to_string (atoi (string1));
@@ -310,7 +286,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Genre *
      *********/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"GENRE",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_GENRE,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -324,9 +301,13 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      ***********/
     field_num = 0;
     string1 = NULL; // Cause it may be not updated into the 'while' condition
-    while ( ((string2 = vorbis_comment_query(vc,"DESCRIPTION",field_num)) != NULL )   // New specifications
-         || ((string  = vorbis_comment_query(vc,"COMMENT",    field_num)) != NULL )   // Old : Winamp format (for EasyTAG 1.99.11 and older)
-         || ((string1 = vorbis_comment_query(vc,"",           field_num)) != NULL ) ) // Old : Xmms format   (for EasyTAG 1.99.11 and older)
+    while (((string2 = vorbis_comment_query (vc,
+                                             ET_VORBIS_COMMENT_FIELD_DESCRIPTION,
+                                             field_num)) != NULL) /* New specification */
+           || ((string  = vorbis_comment_query (vc,
+                                                ET_VORBIS_COMMENT_FIELD_COMMENT,
+                                                field_num)) != NULL) /* Old : Winamp format (for EasyTAG 1.99.11 and older) */
+           || ((string1 = vorbis_comment_query (vc, "", field_num)) != NULL)) /* Old : Xmms format (for EasyTAG 1.99.11 and older). */
     {
         /* Contains comment in new specifications format and we prefer this
          * format (field name defined). */
@@ -356,7 +337,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Composer *
      ************/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"COMPOSER",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_COMPOSER,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -369,7 +352,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Original artist *
      *******************/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"PERFORMER",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_PERFORMER,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -382,7 +367,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Copyright *
      *************/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"COPYRIGHT",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_COPYRIGHT,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -395,7 +382,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * URL *
      *******/
     field_num = 0;
-    while ((string = vorbis_comment_query (vc, "CONTACT", field_num++)) != NULL)
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_CONTACT,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -408,7 +397,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      * Encoded by *
      **************/
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"ENCODED-BY",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_ENCODED_BY,
+                                           field_num++)) != NULL)
     {
         if (!et_str_empty (string))
         {
@@ -428,7 +419,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
      *  - COVERARTMIME        : image/jpeg or image/png (written only)
      */
     field_num = 0;
-    while ( (string = vorbis_comment_query(vc,"COVERART",field_num++)) != NULL )
+    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_COVER_ART,
+                                           field_num++)) != NULL)
     {
         EtPicture *pic;
         guchar *data;
@@ -445,7 +437,9 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
         data = g_base64_decode (string, &data_size);
         bytes = g_bytes_new_take (data, data_size);
 
-        if ((string = vorbis_comment_query (vc, "COVERARTTYPE", field_num - 1))
+        if ((string = vorbis_comment_query (vc,
+                                            ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE,
+                                            field_num - 1))
             != NULL)
         {
             type = atoi (string);
@@ -455,7 +449,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
             type = ET_PICTURE_TYPE_FRONT_COVER;
         }
 
-        if ((string = vorbis_comment_query (vc, "COVERARTDESCRIPTION",
+        if ((string = vorbis_comment_query (vc,
+                                            ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION,
                                             field_num - 1)) != NULL)
         {
             description = string;
@@ -482,7 +477,8 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
 
     /* METADATA_BLOCK_PICTURE tag used for picture information */
     field_num = 0;
-    while ((string = vorbis_comment_query (vc, "METADATA_BLOCK_PICTURE",
+    while ((string = vorbis_comment_query (vc,
+                                           ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE,
                                            field_num++)) != NULL)
     {
         EtPicture *pic;
@@ -616,28 +612,51 @@ invalid_picture:
      ***************************/
     for (i=0;i<(guint)vc->comments;i++)
     {
-        if ( strncasecmp(vc->user_comments[i],"TITLE=",            6) != 0
-          && strncasecmp(vc->user_comments[i],"ARTIST=",           7) != 0
-          && strncasecmp(vc->user_comments[i],"ALBUMARTIST=",     12) != 0
-          && strncasecmp(vc->user_comments[i],"ALBUM=",            6) != 0
-          && strncasecmp(vc->user_comments[i],"DISCNUMBER=",      11) != 0
-          && strncasecmp(vc->user_comments[i],"DATE=",             5) != 0
-          && strncasecmp(vc->user_comments[i],"TRACKNUMBER=",     12) != 0
-          && strncasecmp(vc->user_comments[i],"TRACKTOTAL=",      11) != 0
-          && strncasecmp(vc->user_comments[i],"GENRE=",            6) != 0
-          && strncasecmp(vc->user_comments[i],"DESCRIPTION=",     12) != 0
-          && strncasecmp(vc->user_comments[i],"COMMENT=",          8) != 0
-          && strncasecmp(vc->user_comments[i],"=",                 1) != 0
-          && strncasecmp(vc->user_comments[i],"COMPOSER=",         9) != 0
-          && strncasecmp(vc->user_comments[i],"PERFORMER=",       10) != 0
-          && strncasecmp(vc->user_comments[i],"COPYRIGHT=",       10) != 0
-          && strncasecmp(vc->user_comments[i],"CONTACT=",          8) != 0
-          && strncasecmp(vc->user_comments[i],"ENCODED-BY=",      11) != 0
-          && strncasecmp(vc->user_comments[i],"COVERART=",         9) != 0
-          && strncasecmp(vc->user_comments[i],"COVERARTTYPE=",       13) != 0
-          && strncasecmp(vc->user_comments[i],"COVERARTMIME=",       13) != 0
-          && strncasecmp(vc->user_comments[i],"COVERARTDESCRIPTION=",20) != 0
-          && strncasecmp (vc->user_comments[i], "METADATA_BLOCK_PICTURE=", 23) != 0
+        if (field_strncasecmp (vc->user_comments[i],
+                               ET_VORBIS_COMMENT_FIELD_TITLE "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_ARTIST "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_ALBUM "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_DISC_NUMBER "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_DISC_TOTAL "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_DATE "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER) != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL) != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_GENRE "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_DESCRIPTION "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COMMENT "=") != 0
+            && field_strncasecmp (vc->user_comments[i], "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COMPOSER "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_PERFORMER "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COPYRIGHT "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_CONTACT "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_ENCODED_BY "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COVER_ART "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_MIME "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION "=") != 0
+            && field_strncasecmp (vc->user_comments[i],
+                                  ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE "=") != 0
            )
         {
             FileTag->other = g_list_append(FileTag->other,
@@ -828,86 +847,94 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
     /*********
      * Title *
      *********/
-    et_ogg_set_tag (vc, "TITLE", FileTag->title,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_TITLE, FileTag->title,
                     g_settings_get_boolean (MainSettings, "ogg-split-title"));
 
     /**********
      * Artist *
      **********/
-    et_ogg_set_tag (vc, "ARTIST", FileTag->artist,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_ARTIST, FileTag->artist,
                     g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /****************
      * Album Artist *
      ****************/
-    et_ogg_set_tag (vc, "ALBUMARTIST", FileTag->album_artist,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST,
+                    FileTag->album_artist,
                     g_settings_get_boolean (MainSettings, "ogg-split-artist"));
 
     /*********
      * Album *
      *********/
-    et_ogg_set_tag (vc, "ALBUM", FileTag->album,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_ALBUM, FileTag->album,
                     g_settings_get_boolean (MainSettings, "ogg-split-album"));
 
     /***************
      * Disc Number *
      ***************/
-    et_ogg_set_tag (vc, "DISCNUMBER", FileTag->disc_number, FALSE);
-    et_ogg_set_tag (vc, "DISCTOTAL", FileTag->disc_total, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER,
+                    FileTag->disc_number, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_DISC_TOTAL,
+                    FileTag->disc_total, FALSE);
 
     /********
      * Year *
      ********/
-    et_ogg_set_tag (vc, "DATE", FileTag->year, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_DATE, FileTag->year, FALSE);
 
     /*************************
      * Track and Total Track *
      *************************/
-    et_ogg_set_tag (vc, "TRACKNUMBER", FileTag->track, FALSE);
-    et_ogg_set_tag (vc, "TRACKTOTAL", FileTag->track_total, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER, FileTag->track,
+                    FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL,
+                    FileTag->track_total, FALSE);
 
     /*********
      * Genre *
      *********/
-    et_ogg_set_tag (vc, "GENRE", FileTag->genre,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_GENRE, FileTag->genre,
                     g_settings_get_boolean (MainSettings, "ogg-split-genre"));
 
     /***********
      * Comment *
      ***********/
     /* Format of new specification. */
-    et_ogg_set_tag (vc, "DESCRIPTION", FileTag->comment,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_DESCRIPTION, FileTag->comment,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-comment"));
 
     /************
      * Composer *
      ************/
-    et_ogg_set_tag (vc ,"COMPOSER", FileTag->composer,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_COMPOSER, FileTag->composer,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-composer"));
 
     /*******************
      * Original artist *
      *******************/
-    et_ogg_set_tag (vc, "PERFORMER", FileTag->orig_artist,
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_PERFORMER,
+                    FileTag->orig_artist,
                     g_settings_get_boolean (MainSettings,
                                             "ogg-split-original-artist"));
 
     /*************
      * Copyright *
      *************/
-    et_ogg_set_tag (vc, "COPYRIGHT", FileTag->copyright, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_COPYRIGHT, FileTag->copyright,
+                    FALSE);
 
     /*******
      * URL *
      *******/
-    et_ogg_set_tag (vc, "CONTACT", FileTag->url, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_CONTACT, FileTag->url, FALSE);
 
     /**************
      * Encoded by *
      **************/
-    et_ogg_set_tag (vc, "ENCODED-BY", FileTag->encoded_by, FALSE);
+    et_ogg_set_tag (vc, ET_VORBIS_COMMENT_FIELD_ENCODED_BY,
+                    FileTag->encoded_by, FALSE);
     
     /***********
      * Picture *
@@ -1035,7 +1062,9 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         add_to_guchar_str (ustring, &ustring_len, data, data_size);
 
         base64_string = g_base64_encode (ustring, ustring_len);
-        vorbis_comment_add_tag (vc, "METADATA_BLOCK_PICTURE", base64_string);
+        vorbis_comment_add_tag (vc,
+                                ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE,
+                                base64_string);
 
         g_free (base64_string);
         g_free (ustring);
