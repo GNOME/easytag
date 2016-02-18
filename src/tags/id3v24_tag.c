@@ -443,7 +443,9 @@ id3tag_read_file_tag (GFile *gfile,
         tmpupdate = libid3tag_Get_Frame_Str(frame, ~0, &string1);
         if (string1)
         {
-            if (strncasecmp(string1, EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR, strlen(EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR)) == 0)
+            if (strncmp (string1,
+                         EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR,
+                         strlen (EASYTAG_STRING_ENCODEDBY MULTIFIELD_SEPARATOR)) == 0)
             {
                 FileTag->encoded_by = g_strdup(&string1[sizeof(EASYTAG_STRING_ENCODEDBY) + sizeof(MULTIFIELD_SEPARATOR) - 2]);
                 g_free(string1);
