@@ -135,17 +135,120 @@ set_or_append_field (gchar **field,
 }
 
 /*
- * @field: a tag field to search
- * @str: a search term to compare against @field
+ * validate_field_utf8:
+ * @field_value: the string to validate
+ * @field_len: the length of the string
  *
- * Call strncasecmp() on @str and @field, comparing only up to the length of
- * the field.
+ * Validate a Vorbis comment field to ensure that it is UTF-8. Either return a
+ * duplicate of the original (valid) string, or a converted equivalent (of an
+ * invalid UTF-8 string).
+ *
+ * Returns: a valid UTF-8 represenation of @field_value
  */
-static gint
-field_strncasecmp (const gchar *field,
-                   const gchar *str)
+static gchar *
+validate_field_utf8 (const gchar *field_value,
+                     gint field_len)
 {
-    return strncasecmp (field, str, strlen (str));
+    gchar *result;
+
+    if (g_utf8_validate (field_value, field_len, NULL))
+    {
+        result = g_strndup (field_value, field_len);
+    }
+    else
+    {
+        gchar *field_value_tmp = g_strndup (field_value,
+                                            field_len);
+        /* Unnecessarily validates the field again, but this should not be the
+         * common case. */
+        result = Try_To_Validate_Utf8_String (field_value_tmp);
+        g_free (field_value_tmp);
+    }
+
+    return result;
+}
+
+/*
+ * populate_tag_hash_table:
+ * @vc: a Vorbis comment block from which to read fields
+ *
+ * Add comments from the supplied @vc block to a newly-allocated hash table.
+ * Normalise the field names to upper-case ASCII, taking care to ignore the
+ * current locale. Validate the field values are UTF-8 before inserting them in
+ * the hash table. Add the values as strings in a GSList.
+ *
+ * Returns: (transfer full): a newly-allocated hash table of tags
+ */
+static GHashTable *
+populate_tag_hash_table (const vorbis_comment *vc)
+{
+    GHashTable *ret;
+    gint i;
+
+    /* Free the string lists manually, to avoid having to duplicate them each
+     * time that an existing key is inserted. */
+    ret = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+    for (i = 0; i < vc->comments; i++)
+    {
+        const gchar *comment = vc->user_comments[i];
+        const gint len = vc->comment_lengths[i];
+        const gchar *separator;
+        gchar *field;
+        gchar *field_up;
+        gchar *value;
+        /* TODO: Use a GPtrArray instead? */
+        GSList *l;
+
+        separator = memchr (comment, '=', len);
+
+        if (!separator)
+        {
+            g_warning ("Field separator not found when reading Vorbis tag: %s",
+                       comment);
+            continue;
+        }
+
+        field = g_strndup (comment, separator - comment);
+        field_up = g_ascii_strup (field, -1);
+        g_free (field);
+
+        l = g_hash_table_lookup (ret, field_up);
+
+        /* If the lookup failed, a new list is created. The list takes
+         * ownership of the field value. */
+        value = validate_field_utf8 (separator + 1, len - ((separator + 1) -
+                                                           comment));
+
+        /* Appending is slower, but much easier here (and the lists should be
+         * short). */
+        l = g_slist_append (l, value);
+
+        g_hash_table_insert (ret, field_up, l);
+    }
+
+    return ret;
+}
+
+/*
+ * values_list_foreach
+ * @data: (transfer full): the tag value
+ * @user_data: (inout); a tag location to fill
+ *
+ * Called on each element in a GSList of tag values, to set or append the
+ * string to the tag.
+ */
+static void
+values_list_foreach (gpointer data,
+                     gpointer user_data)
+{
+    gchar *value = (gchar *)data;
+    gchar **tag = (gchar **)user_data;
+
+    if (!et_str_empty (value))
+    {
+        set_or_append_field (tag, value);
+    }
 }
 
 /*
@@ -159,510 +262,465 @@ void
 et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
                                        File_Tag *FileTag)
 {
-    gchar *string = NULL;
-    gchar *string1 = NULL;
-    gchar *string2 = NULL;
-    guint field_num, i;
+    GHashTable *tags;
+    GSList *strings;
+    GHashTableIter tags_iter;
+    gchar *key;
     EtPicture *prev_pic = NULL;
 
-    /*********
-     * Title *
-     *********/
+    tags = populate_tag_hash_table (vc);
+
     /* Note : don't forget to add any new field to 'Save unsupported fields' */
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_TITLE,
-                                           field_num++)) != NULL)
+
+    /* Title. */
+    if ((strings = g_hash_table_lookup (tags, ET_VORBIS_COMMENT_FIELD_TITLE)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->title, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->title);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_TITLE);
     }
 
-    /**********
-     * Artist *
-     **********/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_ARTIST,
-                                           field_num++)) != NULL)
+    /* Artist. */
+    if ((strings = g_hash_table_lookup (tags, ET_VORBIS_COMMENT_FIELD_ARTIST)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->artist, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->artist);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_ARTIST);
     }
 
-    /****************
-     * Album Artist *
-     ****************/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST,
-                                           field_num++)) != NULL)
+    /* Album artist. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->album_artist, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->album_artist);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST);
     }
 
-    /*********
-     * Album *
-     *********/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_ALBUM,
-                                           field_num++)) != NULL)
+    /* Album */
+    if ((strings = g_hash_table_lookup (tags, ET_VORBIS_COMMENT_FIELD_ALBUM)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->album, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->album);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_ALBUM);
     }
 
-    /**********************************************
-     * Disc Number (Part of a Set) and Disc Total *
-     **********************************************/
-    if ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER, 0)) != NULL
-        && !et_str_empty (string))
+    /* Disc number and total discs. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_DISC_TOTAL)))
     {
-        /* Check if DISCTOTAL used, else takes it in DISCNUMBER. */
-        if ((string1 = vorbis_comment_query (vc,
-                                             ET_VORBIS_COMMENT_FIELD_DISC_TOTAL,
-                                             0)) != NULL
-            && !et_str_empty (string1))
+        /* Only take values from the first total discs field. */
+        if (!et_str_empty (strings->data))
         {
-            FileTag->disc_total = et_disc_number_to_string (atoi (string1));
-        }
-        else if ((string1 = strchr (string, '/')))
-        {
-            FileTag->disc_total = et_disc_number_to_string (atoi (string1
-                                                                  + 1));
-            *string1 = '\0';
+            FileTag->disc_total = et_disc_number_to_string (atoi (strings->data));
         }
 
-        FileTag->disc_number = et_disc_number_to_string (atoi (string));
+        g_slist_free_full (strings, g_free);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_DISC_TOTAL);
     }
 
-    /********
-     * Year *
-     ********/
-    string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_DATE, 0);
-
-    if (!et_str_empty (string))
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_DISC_NUMBER)))
     {
-        FileTag->year = g_strdup(string);
+        /* Only take values from the first disc number field. */
+        if (!et_str_empty (strings->data))
+        {
+            gchar *separator;
+
+            separator = strchr (strings->data, '/');
+
+            if (separator && !FileTag->disc_total)
+            {
+                FileTag->disc_total = et_disc_number_to_string (atoi (separator + 1));
+                *separator = '\0';
+            }
+
+            FileTag->disc_number = et_disc_number_to_string (atoi (strings->data));
+        }
+
+        g_slist_free_full (strings, g_free);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_DISC_NUMBER);
     }
 
-    /*************************
-     * Track and Total Track *
-     *************************/
-    string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER,
-                                   0);
-
-    if (!et_str_empty (string))
+    /* Year. */
+    if ((strings = g_hash_table_lookup (tags, ET_VORBIS_COMMENT_FIELD_DATE)))
     {
-        /* Check if TRACKTOTAL used, else takes it in TRACKNUMBER. */
-        if ((string1 = vorbis_comment_query (vc,
-                                             ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL,
-                                             0)) != NULL
-            && !et_str_empty (string1))
-        {
-            FileTag->track_total = et_track_number_to_string (atoi (string1));
-        }
-        else if ((string1 = strchr (string, '/')))
-        {
-            FileTag->track_total = et_track_number_to_string (atoi (string1
-                                                                    + 1));
-            *string1 = '\0';
-        }
-        FileTag->track = g_strdup (string);
+        g_slist_foreach (strings, values_list_foreach, &FileTag->year);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_DATE);
     }
 
-    /*********
-     * Genre *
-     *********/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_GENRE,
-                                           field_num++)) != NULL)
+    /* Track number and total tracks. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL)))
     {
-        if (!et_str_empty (string))
+        /* Only take values from the first total tracks field. */
+        if (!et_str_empty (strings->data))
         {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->genre, string);
+            FileTag->track_total = et_track_number_to_string (atoi (strings->data));
         }
+
+        g_slist_free_full (strings, g_free);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL);
     }
 
-    /***********
-     * Comment *
-     ***********/
-    field_num = 0;
-    string1 = NULL; // Cause it may be not updated into the 'while' condition
-    while (((string2 = vorbis_comment_query (vc,
-                                             ET_VORBIS_COMMENT_FIELD_DESCRIPTION,
-                                             field_num)) != NULL) /* New specification */
-           || ((string  = vorbis_comment_query (vc,
-                                                ET_VORBIS_COMMENT_FIELD_COMMENT,
-                                                field_num)) != NULL) /* Old : Winamp format (for EasyTAG 1.99.11 and older) */
-           || ((string1 = vorbis_comment_query (vc, "", field_num)) != NULL)) /* Old : Xmms format (for EasyTAG 1.99.11 and older). */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER)))
     {
-        /* Contains comment in new specifications format and we prefer this
-         * format (field name defined). */
-        if (!et_str_empty (string2))
+        /* Only take values from the first track number field. */
+        if (!et_str_empty (strings->data))
         {
-            string2 = Try_To_Validate_Utf8_String (string2);
-            set_or_append_field (&FileTag->comment, string2);
-        }
-        /* Contains comment to Winamp format and we prefer this format (field
-         * name defined). */
-        else if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->comment, string);
-        }
-        /* Contains comment in XMMS format only. */
-        else if (!et_str_empty (string1))
-        {
-            string1 = Try_To_Validate_Utf8_String (string1);
-            set_or_append_field (&FileTag->comment, string1);
+            gchar *separator;
+
+            separator = strchr (strings->data, '/');
+
+            if (separator && !FileTag->track_total)
+            {
+                FileTag->track_total = et_track_number_to_string (atoi (separator + 1));
+                *separator = '\0';
+            }
+
+            FileTag->track = et_track_number_to_string (atoi (strings->data));
         }
 
-        field_num++;
+        g_slist_free_full (strings, g_free);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER);
     }
 
-    /************
-     * Composer *
-     ************/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_COMPOSER,
-                                           field_num++)) != NULL)
+    /* Genre. */
+    if ((strings = g_hash_table_lookup (tags, ET_VORBIS_COMMENT_FIELD_GENRE)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->composer, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->genre);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_GENRE);
     }
 
-    /*******************
-     * Original artist *
-     *******************/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_PERFORMER,
-                                           field_num++)) != NULL)
+    /* Comment */
     {
-        if (!et_str_empty (string))
+        GSList *descs;
+        GSList *comments;
+
+        descs = g_hash_table_lookup (tags,
+                                     ET_VORBIS_COMMENT_FIELD_DESCRIPTION);
+        comments = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_COMMENT);
+
+        if (descs && !comments)
         {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->orig_artist, string);
+            g_slist_foreach (descs, values_list_foreach, &FileTag->comment);
         }
+        else if (descs && comments)
+        {
+            g_slist_foreach (descs, values_list_foreach, &FileTag->comment);
+            g_slist_foreach (comments, values_list_foreach, &FileTag->comment);
+        }
+        else if (descs && comments)
+        {
+            g_slist_foreach (comments, values_list_foreach, &FileTag->comment);
+        }
+
+        g_slist_free (descs);
+        g_slist_free (comments);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_DESCRIPTION);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COMMENT);
     }
 
-    /*************
-     * Copyright *
-     *************/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_COPYRIGHT,
-                                           field_num++)) != NULL)
+    /* Composer. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_COMPOSER)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->copyright, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->composer);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COMPOSER);
     }
 
-    /*******
-     * URL *
-     *******/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_CONTACT,
-                                           field_num++)) != NULL)
+    /* Original artist. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_PERFORMER)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->url, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->orig_artist);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_PERFORMER);
     }
 
-    /**************
-     * Encoded by *
-     **************/
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_ENCODED_BY,
-                                           field_num++)) != NULL)
+    /* Copyright. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_COPYRIGHT)))
     {
-        if (!et_str_empty (string))
-        {
-            string = Try_To_Validate_Utf8_String (string);
-            set_or_append_field (&FileTag->encoded_by, string);
-        }
+        g_slist_foreach (strings, values_list_foreach, &FileTag->copyright);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COPYRIGHT);
     }
 
-
-    /**************
-     * Picture    *
-     **************/
-    /* Non officials tags used for picture information:
-     *  - COVERART            : contains the picture data
-     *  - COVERARTTYPE        : cover front, ...
-     *  - COVERARTDESCRIPTION : information set by user
-     *  - COVERARTMIME        : image/jpeg or image/png (written only)
-     */
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc, ET_VORBIS_COMMENT_FIELD_COVER_ART,
-                                           field_num++)) != NULL)
+    /* URL. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_CONTACT)))
     {
-        EtPicture *pic;
-        guchar *data;
-        gsize data_size;
-        GBytes *bytes;
-        EtPictureType type;
-        const gchar *description;
-            
+        g_slist_foreach (strings, values_list_foreach, &FileTag->url);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_CONTACT);
+    }
+
+    /* Encoded by. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_ENCODED_BY)))
+    {
+        g_slist_foreach (strings, values_list_foreach, &FileTag->encoded_by);
+        g_slist_free (strings);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_ENCODED_BY);
+    }
+
+    /* Cover art. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_COVER_ART)))
+    {
+        GSList *l;
+        GSList *m;
+        GSList *n;
+        GSList *types;
+        GSList *descs;
+
         /* Force marking the file as modified, so that the deprecated cover art
-         * field in converted in a METADATA_PICTURE_BLOCK field. */
+         * field is converted to a METADATA_PICTURE_BLOCK field. */
         FileTag->saved = FALSE;
 
-        /* Decode picture data. */
-        data = g_base64_decode (string, &data_size);
-        bytes = g_bytes_new_take (data, data_size);
+        types = g_hash_table_lookup (tags,
+                                     ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE);
+        descs = g_hash_table_lookup (tags,
+                                     ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION);
 
-        if ((string = vorbis_comment_query (vc,
-                                            ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE,
-                                            field_num - 1))
-            != NULL)
+        l = strings;
+        m = types;
+        n = descs;
+
+        while (l && !et_str_empty (l->data))
         {
-            type = atoi (string);
-        }
-        else
-        {
-            type = ET_PICTURE_TYPE_FRONT_COVER;
+            EtPicture *pic;
+            guchar *data;
+            gsize data_size;
+            GBytes *bytes;
+            EtPictureType type;
+            const gchar *description;
+
+            /* Decode picture data. */
+            data = g_base64_decode (l->data, &data_size);
+            bytes = g_bytes_new_take (data, data_size);
+
+            /* It is only necessary for there to be image data, but the type
+             * and description are optional. */
+            if (m)
+            {
+                type = !et_str_empty (m->data) ? atoi (m->data)
+                                               : ET_PICTURE_TYPE_FRONT_COVER;
+
+                m = g_slist_next (m);
+            }
+            else
+            {
+                type = ET_PICTURE_TYPE_FRONT_COVER;
+            }
+
+            if (n)
+            {
+                description = !et_str_empty (n->data) ? n->data : "";
+
+                n = g_slist_next (n);
+            }
+            else
+            {
+                description = "";
+            }
+
+            pic = et_picture_new (type, description, 0, 0, bytes);
+            g_bytes_unref (bytes);
+
+            if (!prev_pic)
+            {
+                FileTag->picture = pic;
+            }
+            else
+            {
+                prev_pic->next = pic;
+            }
+
+            prev_pic = pic;
+
+            l = g_slist_next (l);
         }
 
-        if ((string = vorbis_comment_query (vc,
-                                            ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION,
-                                            field_num - 1)) != NULL)
-        {
-            description = string;
-        }
-        else
-        {
-            description = "";
-        }
-
-        pic = et_picture_new (type, description, 0, 0, bytes);
-        g_bytes_unref (bytes);
-
-        if (!prev_pic)
-        {
-            FileTag->picture = pic;
-        }
-        else
-        {
-            prev_pic->next = pic;
-        }
-
-        prev_pic = pic;
+        g_slist_free_full (strings, g_free);
+        g_slist_free_full (types, g_free);
+        g_slist_free_full (descs, g_free);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COVER_ART);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION);
+        g_hash_table_remove (tags, ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE);
     }
 
-    /* METADATA_BLOCK_PICTURE tag used for picture information */
-    field_num = 0;
-    while ((string = vorbis_comment_query (vc,
-                                           ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE,
-                                           field_num++)) != NULL)
+    /* METADATA_BLOCK_PICTURE tag used for picture information. */
+    if ((strings = g_hash_table_lookup (tags,
+                                        ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE)))
     {
-        EtPicture *pic;
-        gsize bytes_pos, mimelen, desclen;
-        guchar *decoded_ustr;
-        GBytes *bytes = NULL;
-        EtPictureType type;
-        gchar *description;
-        GBytes *pic_bytes;
-        gsize decoded_size;
-        gsize data_size;
+        GSList *l;
 
-        /* Decode picture data. */
-        decoded_ustr = g_base64_decode (string, &decoded_size);
-
-        /* Check that the comment decoded to a long enough string to hold the
-         * whole structure (8 fields of 4 bytes each). */
-        if (decoded_size < 8 * 4)
+        for (l = strings; l != NULL; l = g_slist_next (l))
         {
-            g_free (decoded_ustr);
-            goto invalid_picture;
-        }
+            EtPicture *pic;
+            gsize bytes_pos, mimelen, desclen;
+            guchar *decoded_ustr;
+            GBytes *bytes = NULL;
+            EtPictureType type;
+            gchar *description;
+            GBytes *pic_bytes;
+            gsize decoded_size;
+            gsize data_size;
 
-        bytes = g_bytes_new_take (decoded_ustr, decoded_size);
+            /* Decode picture data. */
+            decoded_ustr = g_base64_decode (l->data, &decoded_size);
 
-        /* Reading picture type. */
-        type = read_guint32_from_byte (decoded_ustr, 0);
-        bytes_pos = 4;
-
-        /* TODO: Check that there is a maximum of 1 of each of
-         * ET_PICTURE_TYPE_FILE_ICON and ET_PICTURE_TYPE_OTHER_FILE_ICON types
-         * in the file. */
-        if (type >= ET_PICTURE_TYPE_UNDEFINED)
-        {
-            goto invalid_picture;
-        }
-
-        /* Reading MIME data. */
-        mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos += 4;
-
-        if (mimelen > decoded_size - bytes_pos - (6 * 4))
-        {
-            goto invalid_picture;
-        }
-
-        /* Check for a valid MIME type. */
-        if (mimelen > 0)
-        {
-            const gchar *mime;
-
-            mime = (const gchar *)&decoded_ustr[bytes_pos];
-
-            /* TODO: Check for "-->" when adding linked image support. */
-            if (strncmp (mime, "image/", mimelen) != 0
-                && strncmp (mime, "image/png", mimelen) != 0
-                && strncmp (mime, "image/jpeg", mimelen) != 0)
+            /* Check that the comment decoded to a long enough string to hold the
+             * whole structure (8 fields of 4 bytes each). */
+            if (decoded_size < 8 * 4)
             {
-                gchar *mime_str;
-
-                mime_str = g_strndup (mime, mimelen);
-                g_debug ("Invalid Vorbis comment image MIME type: %s",
-                         mime_str);
-
-                g_free (mime_str);
+                g_free (decoded_ustr);
                 goto invalid_picture;
             }
-        }
 
-        /* Skip over the MIME type, as gdk-pixbuf does not use it. */
-        bytes_pos += mimelen;
+            bytes = g_bytes_new_take (decoded_ustr, decoded_size);
 
-        /* Reading description */
-        desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos += 4;
+            /* Reading picture type. */
+            type = read_guint32_from_byte (decoded_ustr, 0);
+            bytes_pos = 4;
 
-        if (desclen > decoded_size - bytes_pos - (5 * 4))
-        {
-            goto invalid_picture;
-        }
+            /* TODO: Check that there is a maximum of 1 of each of
+             * ET_PICTURE_TYPE_FILE_ICON and ET_PICTURE_TYPE_OTHER_FILE_ICON types
+             * in the file. */
+            if (type >= ET_PICTURE_TYPE_UNDEFINED)
+            {
+                goto invalid_picture;
+            }
 
-        description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
-                                 desclen);
+            /* Reading MIME data. */
+            mimelen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+            bytes_pos += 4;
 
-        /* Skip the width, height, color depth and number-of-colors fields. */
-        bytes_pos += desclen + 16;
+            if (mimelen > decoded_size - bytes_pos - (6 * 4))
+            {
+                goto invalid_picture;
+            }
 
-        /* Reading picture size */
-        data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
-        bytes_pos += 4;
+            /* Check for a valid MIME type. */
+            if (mimelen > 0)
+            {
+                const gchar *mime;
 
-        if (data_size > decoded_size - bytes_pos)
-        {
+                mime = (const gchar *)&decoded_ustr[bytes_pos];
+
+                /* TODO: Check for "-->" when adding linked image support. */
+                if (strncmp (mime, "image/", mimelen) != 0
+                    && strncmp (mime, "image/png", mimelen) != 0
+                    && strncmp (mime, "image/jpeg", mimelen) != 0)
+                {
+                    gchar *mime_str;
+
+                    mime_str = g_strndup (mime, mimelen);
+                    g_debug ("Invalid Vorbis comment image MIME type: %s",
+                             mime_str);
+
+                    g_free (mime_str);
+                    goto invalid_picture;
+                }
+            }
+
+            /* Skip over the MIME type, as gdk-pixbuf does not use it. */
+            bytes_pos += mimelen;
+
+            /* Reading description */
+            desclen = read_guint32_from_byte (decoded_ustr, bytes_pos);
+            bytes_pos += 4;
+
+            if (desclen > decoded_size - bytes_pos - (5 * 4))
+            {
+                goto invalid_picture;
+            }
+
+            description = g_strndup ((const gchar *)&decoded_ustr[bytes_pos],
+                                     desclen);
+
+            /* Skip the width, height, color depth and number-of-colors fields. */
+            bytes_pos += desclen + 16;
+
+            /* Reading picture size */
+            data_size = read_guint32_from_byte (decoded_ustr, bytes_pos);
+            bytes_pos += 4;
+
+            if (data_size > decoded_size - bytes_pos)
+            {
+                g_free (description);
+                goto invalid_picture;
+            }
+
+            /* Read only the image data into a new GBytes. */
+            pic_bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
+
+            pic = et_picture_new (type, description, 0, 0, pic_bytes);
+
             g_free (description);
-            goto invalid_picture;
-        }
+            g_bytes_unref (pic_bytes);
 
-        /* Read only the image data into a new GBytes. */
-        pic_bytes = g_bytes_new_from_bytes (bytes, bytes_pos, data_size);
+            if (!prev_pic)
+            {
+                FileTag->picture = pic;
+            }
+            else
+            {
+                prev_pic->next = pic;
+            }
 
-        pic = et_picture_new (type, description, 0, 0, pic_bytes);
+            prev_pic = pic;
 
-        g_free (description);
-        g_bytes_unref (pic_bytes);
-
-        if (!prev_pic)
-        {
-            FileTag->picture = pic;
-        }
-        else
-        {
-            prev_pic->next = pic;
-        }
-
-        prev_pic = pic;
-
-        /* pic->bytes still holds a ref on the decoded data. */
-        g_bytes_unref (bytes);
-        continue;
+            /* pic->bytes still holds a ref on the decoded data. */
+            g_bytes_unref (bytes);
+            continue;
 
 invalid_picture:
-        /* Mark the file as modified, so that the invalid field is removed upon
-         * saving. */
-        FileTag->saved = FALSE;
+            /* Mark the file as modified, so that the invalid field is removed upon
+             * saving. */
+            FileTag->saved = FALSE;
 
-        g_bytes_unref (bytes);
-    }
-
-    /***************************
-     * Save unsupported fields *
-     ***************************/
-    for (i=0;i<(guint)vc->comments;i++)
-    {
-        if (field_strncasecmp (vc->user_comments[i],
-                               ET_VORBIS_COMMENT_FIELD_TITLE "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_ARTIST "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_ALBUM_ARTIST "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_ALBUM "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_DISC_NUMBER "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_DISC_TOTAL "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_DATE "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_TRACK_NUMBER) != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_TRACK_TOTAL) != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_GENRE "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_DESCRIPTION "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COMMENT "=") != 0
-            && field_strncasecmp (vc->user_comments[i], "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COMPOSER "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_PERFORMER "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COPYRIGHT "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_CONTACT "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_ENCODED_BY "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COVER_ART "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_TYPE "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_MIME "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION "=") != 0
-            && field_strncasecmp (vc->user_comments[i],
-                                  ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE "=") != 0
-           )
-        {
-            FileTag->other = g_list_append(FileTag->other,
-                                           Try_To_Validate_Utf8_String(vc->user_comments[i]));
+            g_bytes_unref (bytes);
         }
+
+        g_slist_free_full (strings, g_free);
+        g_hash_table_remove (tags,
+                             ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE);
     }
+
+    /* Save unsupported fields. */
+    g_hash_table_iter_init (&tags_iter, tags);
+
+    while (g_hash_table_iter_next (&tags_iter, (gpointer *)&key,
+                                   (gpointer *)&strings))
+    {
+        GSList *l;
+
+        for (l = strings; l != NULL; l = g_slist_next (l))
+        {
+            FileTag->other = g_list_prepend (FileTag->other,
+                                             g_strconcat (key, "=", l->data,
+                                                          NULL));
+        }
+
+        g_slist_free_full (strings, g_free);
+        g_hash_table_iter_remove (&tags_iter);
+    }
+
+    if (FileTag->other)
+    {
+        FileTag->other = g_list_reverse (FileTag->other);
+    }
+
+    /* The hash table should now only contain keys. */
+    g_hash_table_unref (tags);
 }
 
 /*
