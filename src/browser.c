@@ -3317,7 +3317,7 @@ Browser_Tree_Handle_Rename (EtBrowser *self,
 
         /* Graft the new path onto the old path. */
         path_shift = strlen (old_path);
-        path_new = g_strconcat (new_path, path[path_shift], NULL);
+        path_new = g_strconcat (new_path, path + path_shift, NULL);
 
         gtk_tree_store_set(priv->directory_model, &iter,
                            TREE_COLUMN_FULL_PATH, path_new, -1);
