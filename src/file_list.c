@@ -210,7 +210,6 @@ et_file_list_add (GList *file_list,
     GFileInfo *fileinfo;
     gchar *filename;
     gchar *display_path;
-    const gchar  *locale_lc_ctype = getenv("LC_CTYPE");
     GError *error = NULL;
     gboolean success;
 
@@ -235,12 +234,6 @@ et_file_list_add (GList *file_list,
     /* Fill the File_Tag structure for FileTagList */
     FileTag = et_file_tag_new ();
     FileTag->saved = TRUE;    /* The file hasn't been changed, so it's saved */
-
-    /* Patch from Doruk Fisek and Onur Kucuk: avoid upper/lower conversion bugs
-     * (like I->i conversion in some locales) in tag parsing. The problem occurs
-     * for example with Turkish language where it can't read 'TITLE=' field if
-     * it is written as 'Title=' in the file */
-    setlocale(LC_CTYPE, "C");
 
     switch (description->TagType)
     {
@@ -443,9 +436,6 @@ et_file_list_add (GList *file_list,
                    display_path, error->message);
         g_error_free (error);
     }
-
-    /* Restore previous value */
-    setlocale(LC_CTYPE, locale_lc_ctype ? locale_lc_ctype : "");
 
     /* Store the modification time of the file to check if the file was changed
      * before saving */
