@@ -1266,7 +1266,7 @@ Id3tag_delete_txxframes(struct id3_tag *tag, const gchar *param1, int start)
         {
             str = NULL;
             if ((str = (gchar *)id3_ucs4_latin1duplicate(ucs4string))
-            && (strncasecmp(str, param1, strlen(param1)) == 0) )
+            && (g_ascii_strncasecmp (str, param1, strlen (param1)) == 0))
             {
                 g_free(str);
                 id3_tag_detachframe(tag, frame);
