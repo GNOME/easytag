@@ -1,3 +1,17 @@
+2.4.2 - 2016-02-21 :
+====================
+
+    * Fix a crash when renaming directories
+    * Fix input of new file names in the file area
+    * Add case-insensitive sorting of the artist/album list
+    * Improve searching within UTF-8 strings
+    * Handle UTF-8 strings when sorting the file list
+    * Fix display of the Monkey's Audio file type
+    * Avoid locale-sensitive tag reading issues (especially for FLAC and Ogg)
+    * Only install the metainfo file for the Nautilus extension if requested
+    * Refactor reading of Ogg and FLAC tags
+    * Refactor Monkey's Audio and Musepack header reading
+
 2.4.1 - 2016-01-25 :
 ====================
 
