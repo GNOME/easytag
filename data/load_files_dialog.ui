@@ -153,7 +153,7 @@
                                                         <property name="icon-name">view-refresh</property>
                                                         <property name="tooltip-text" translatable="yes">Reload</property>
                                                         <property name="visible">True</property>
-                                                        <signal name="clicked" handler="on_load_file_content_view_reload_clicked"/>
+                                                        <signal name="clicked" handler="on_load_file_content_view_reload_clicked" swapped="yes"/>
                                                     </object>
                                                 </child>
                                             </object>

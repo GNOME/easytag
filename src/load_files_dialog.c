@@ -759,9 +759,9 @@ create_load_file_content_view_popup (EtLoadFilesDialog *self)
 
     MenuItem = gtk_menu_item_new_with_label(_("Reload"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect (MenuItem, "activate",
-                      G_CALLBACK (on_load_file_name_view_reload_clicked),
-                      self);
+    g_signal_connect_swapped (MenuItem, "activate",
+                              G_CALLBACK (on_load_file_name_view_reload_clicked),
+                              self);
 
     gtk_widget_show_all(BrowserPopupMenu);
 
@@ -862,9 +862,9 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self)
 
     MenuItem = gtk_menu_item_new_with_label (_("Reload"));
     gtk_menu_shell_append(GTK_MENU_SHELL(BrowserPopupMenu),MenuItem);
-    g_signal_connect (MenuItem, "activate",
-                      G_CALLBACK (on_load_file_content_view_reload_clicked),
-                      self);
+    g_signal_connect_swapped (MenuItem, "activate",
+                              G_CALLBACK (on_load_file_content_view_reload_clicked),
+                              self);
 
     gtk_widget_show_all(BrowserPopupMenu);
 
