@@ -52,19 +52,23 @@ on_help (GSimpleAction *action,
 {
     GError *error = NULL;
 
-#ifndef G_OS_WIN32
-    gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
-                  "help:easytag", GDK_CURRENT_TIME, &error);
-#else /* G_OS_WIN32 */
     /* TODO: Link to locally-installed help on Windows. */
     gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
-                  "https://help.gnome.org/users/easytag/stable/",
-                  GDK_CURRENT_TIME, &error);
-#endif
+                  "help:easytag", GDK_CURRENT_TIME, &error);
 
     if (error)
     {
         g_debug ("Error while opening help: %s", error->message);
+        g_clear_error (&error);
+    }
+
+    gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
+                  "https://help.gnome.org/users/easytag/stable/",
+                  GDK_CURRENT_TIME, &error);
+
+    if (error)
+    {
+        g_debug ("Error while opening online help: %s", error->message);
         g_error_free (error);
     }
 }
