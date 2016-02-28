@@ -39,6 +39,8 @@ typedef struct
     GtkWidget *file_load_button;
     GtkWidget *file_content_view;
     GtkListStore *file_content_model;
+    GtkWidget *content_reload;
+    GtkWidget *content_reload_menuitem;
     GtkWidget *load_file_content_menu;
     GtkWidget *file_name_view;
     GtkListStore *file_name_model;
@@ -204,6 +206,8 @@ set_load_button_sensitivity (EtLoadFilesDialog *self,
     if (!file)
     {
         gtk_widget_set_sensitive (priv->file_load_button, FALSE);
+        gtk_widget_set_sensitive (priv->content_reload, FALSE);
+        gtk_widget_set_sensitive (priv->content_reload_menuitem, FALSE);
         return;
     }
 
@@ -214,10 +218,14 @@ set_load_button_sensitivity (EtLoadFilesDialog *self,
     if (info && G_FILE_TYPE_REGULAR == g_file_info_get_file_type (info))
     {
         gtk_widget_set_sensitive (GTK_WIDGET (priv->file_load_button), TRUE);
+        gtk_widget_set_sensitive (priv->content_reload, TRUE);
+        gtk_widget_set_sensitive (priv->content_reload_menuitem, TRUE);
     }
     else
     {
         gtk_widget_set_sensitive (GTK_WIDGET (priv->file_load_button), FALSE);
+        gtk_widget_set_sensitive (priv->content_reload, FALSE);
+        gtk_widget_set_sensitive (priv->content_reload_menuitem, FALSE);
 
         if (!info)
         {
@@ -868,6 +876,7 @@ create_load_file_name_view_popup (EtLoadFilesDialog *self)
 
     gtk_widget_show_all(BrowserPopupMenu);
 
+    priv->content_reload_menuitem = MenuItem;
     priv->load_file_name_menu = BrowserPopupMenu;
 }
 
@@ -1052,6 +1061,9 @@ et_load_files_dialog_class_init (EtLoadFilesDialogClass *klass)
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtLoadFilesDialog,
                                                   file_content_view);
+    gtk_widget_class_bind_template_child_private (widget_class,
+                                                  EtLoadFilesDialog,
+                                                  content_reload);
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtLoadFilesDialog,
                                                   file_content_model);
