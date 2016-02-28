@@ -114,6 +114,10 @@ dnl Help.
 m4_ifdef([YELP_HELP_INIT], [YELP_HELP_INIT],
          [AC_MSG_ERROR([yelp-tools is required to build EasyTAG help])])
 
+AC_PATH_PROG([YELP], [yelp])
+AS_IF([test "x$ac_cv_path_YELP" = "x"],
+      [AC_MSG_WARN([Yelp is required at runtime for user help])])
+
 dnl -------------------------------
 dnl Handle cross-compiling with mingw32.
 dnl -------------------------------
