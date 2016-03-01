@@ -418,7 +418,7 @@ et_add_file_tags_from_vorbis_comments (vorbis_comment *vc,
             g_slist_foreach (descs, values_list_foreach, &FileTag->comment);
             g_slist_foreach (comments, values_list_foreach, &FileTag->comment);
         }
-        else if (descs && comments)
+        else if (comments)
         {
             FileTag->saved = FALSE;
 
