@@ -29,6 +29,7 @@ The original EasyTAG coding style was close to K&R style, with four-space
 indents. This has been changed slightly to the following guidelines:
 
 * BSD/Allman brace style
+* C89 comments
 * one space before opening bracket, none after opening or closing
 * four space indent
 * try to keep to 80 character lines
