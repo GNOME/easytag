@@ -823,7 +823,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     gchar *pathName;
     GFile *file;
     gchar *parse_name;
-    static int counter = 0;
+    static gboolean first_read = TRUE;
     GtkTreeIter selectedIter;
     GtkTreePath *selectedPath;
 
@@ -915,9 +915,10 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
     g_free (parse_name);
 
     /* Start to read the directory */
-    /* The first time, 'counter' is equal to zero. And if we don't want to load
-     * directory on startup, we skip the 'reading', but newt we must read it each time */
-    if (g_settings_get_boolean (MainSettings, "load-on-startup") || counter)
+    /* Skip loading the file list the first time that it is shown, if the user
+     * has requested the read to be skipped. */
+    if (!first_read
+        || g_settings_get_boolean (MainSettings, "load-on-startup"))
     {
         gboolean dir_loaded;
         GtkTreeIter parentIter;
@@ -960,7 +961,8 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
         /* As we don't use the function 'Read_Directory' we must add this function here */
         et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
     }
-    counter++;
+
+    first_read = FALSE;
 
     g_object_unref (file);
     g_free(pathName);
