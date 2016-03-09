@@ -23,20 +23,13 @@
 
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
+#include <libsoup/soup.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include "win32/win32dep.h"
-#ifndef G_OS_WIN32
-#include <sys/socket.h>
-/* Patch OpenBSD from Jim Geovedi. */
-#include <netinet/in.h>
-#include <arpa/inet.h>
-/* End patch */
-#include <netdb.h>
-#endif /* !G_OS_WIN32 */
 #include <errno.h>
 
 #include "application_window.h"
@@ -101,6 +94,8 @@ typedef struct
 
     GtkWidget *scanner_check;
     GtkWidget *dlm_check;
+
+    SoupSession *session;
 } EtCDDBDialogPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EtCDDBDialog, et_cddb_dialog, GTK_TYPE_DIALOG)
@@ -198,10 +193,6 @@ static const gchar *cddb_genre_vs_id3_genre [][2] =
     {"Misc",        "Other"}
 };
 
-
-// File for result of the Cddb/Freedb request (on remote access)
-static const gchar CDDB_RESULT_FILE[] = "cddb_result_file.tmp";
-
 static const guint MAX_STRING_LEN = 1024;
 
 
@@ -210,10 +201,6 @@ static const guint MAX_STRING_LEN = 1024;
  **************/
 static gboolean Cddb_Free_Track_Album_List (GList *track_list);
 
-static gint Cddb_Read_Line        (FILE **file, gchar **cddb_out);
-static gint Cddb_Read_Http_Header (FILE **file, gchar **cddb_out);
-static gint Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out);
-
 static GdkPixbuf *Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name);
 
 static const gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre);
@@ -221,13 +208,12 @@ static const gchar *Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 static gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a,
                                        GtkTreeIter *b, gpointer data);
 
-static gchar *Cddb_Format_Proxy_Authentification (void);
-
 static void Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelection *selection);
 
 
 /*
  * The window to connect to the cd data base.
+ * Protocol information: http://ftp.freedb.org/pub/freedb/latest/CDDBPROTO
  */
 
 static void
@@ -581,274 +567,165 @@ Cddb_Load_Track_Album_List (EtCDDBDialog *self, GList *track_list)
     }
 }
 
-/*
- * Cddb_Open_Connection:
- * @host: a hostname
- * @port: a port number
- *
- * Open a connection to @hostname, performing a DNS lookup as necessary.
- *
- * Returns: the socket fd, or 0 upon failure
- */
-/* TODO: Propagate the GError to the caller. */
-static gint
-Cddb_Open_Connection (EtCDDBDialog *self, const gchar *host, gint port)
-{
-    EtCDDBDialogPrivate *priv;
-    GSocketConnectable *address;
-    GSocketAddressEnumerator *enumerator;
-    GCancellable *cancellable;
-    GSocketAddress *sockaddress;
-    GError *error = NULL;
-    GError *sock_error = NULL;
-    gint socket_id = 0;
-    gchar *msg;
-
-    g_return_val_if_fail (self != NULL, 0);
-    g_return_val_if_fail (host != NULL && port > 0, 0);
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    msg = g_strdup_printf(_("Resolving host '%s'…"),host);
-    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                        priv->status_bar_context, msg);
-    g_free(msg);
-
-    while (gtk_events_pending ())
-    {
-        gtk_main_iteration ();
-    }
-
-    address = g_network_address_new (host, port);
-    enumerator = g_socket_connectable_enumerate (address);
-    g_object_unref (address);
-
-    cancellable = g_cancellable_new ();
-
-    while (socket_id == 0
-           && (sockaddress = g_socket_address_enumerator_next (enumerator,
-                                                               cancellable,
-                                                               &error)))
-    {
-        struct sockaddr sockaddr_in;
-        gint optval = 1;
-
-        if (!g_socket_address_to_native (sockaddress, &sockaddr_in,
-                                         sizeof (sockaddr_in),
-                                         sock_error ? NULL : &sock_error))
-        {
-            g_object_unref (sockaddress);
-            continue;
-        }
-
-        g_object_unref (sockaddress);
-
-        while (gtk_events_pending ())
-        {
-            gtk_main_iteration ();
-        }
-
-        /* Create socket. */
-        if ((socket_id = socket (AF_INET, SOCK_STREAM, 0)) < 0)
-        {
-            msg = g_strdup_printf (_("Cannot create a new socket ‘%s’"),
-                                   g_strerror (errno));
-            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                                priv->status_bar_context, msg);
-            Log_Print (LOG_ERROR, "%s", msg);
-            g_free (msg);
-            goto err;
-        }
-
-        /* FIXME : must catch SIGPIPE? */
-        if (setsockopt (socket_id, SOL_SOCKET, SO_KEEPALIVE, (void *)&optval,
-            sizeof (optval)) < 0)
-        {
-            Log_Print (LOG_WARNING,
-                       _("Cannot set options on the newly-created socket"));
-        }
-
-        /* Open connection to the server. */
-        msg = g_strdup_printf (_("Connecting to host ‘%s’, port ‘%d’…"), host,
-                               port);
-        gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                            priv->status_bar_context, msg);
-        g_free (msg);
-
-        while (gtk_events_pending ())
-        {
-            gtk_main_iteration ();
-        }
-
-        if (connect (socket_id, &sockaddr_in, sizeof (struct sockaddr)) < 0)
-        {
-            msg = g_strdup_printf (_("Cannot connect to host ‘%s’: %s"), host,
-                                   g_strerror (errno));
-            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                                priv->status_bar_context, msg);
-            Log_Print (LOG_ERROR, "%s", msg);
-            g_free (msg);
-
-            goto err;
-        }
-    }
-
-    if (socket_id != 0)
-    {
-        /* First address failed, but a later address succeeded. */
-        if (sock_error)
-        {
-            g_debug ("Failure while looking up address: %s",
-                     sock_error->message);
-            g_error_free (sock_error);
-        }
-    }
-
-    if (error)
-    {
-        msg = g_strdup_printf (_("Cannot resolve host ‘%s’: %s"), host,
-                               error->message);
-        gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                            priv->status_bar_context, msg);
-        Log_Print (LOG_ERROR, "%s", msg);
-        g_free (msg);
-        g_error_free (error);
-        goto err;
-    }
-
-    g_object_unref (enumerator);
-    g_object_unref (cancellable);
-
-    msg = g_strdup_printf (_("Connected to host ‘%s’"), host);
-    gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar), priv->status_bar_context,
-                        msg);
-    g_free (msg);
-
-    while (gtk_events_pending ())
-    {
-        gtk_main_iteration ();
-    }
-
-    return socket_id;
-
-err:
-    g_object_unref (enumerator);
-    g_object_unref (cancellable);
-
-    return 0;
-}
-
-/*
- * Close the connection correcponding to the socket_id
- */
-static void
-Cddb_Close_Connection (EtCDDBDialog *self, gint socket_id)
-{
-    EtCDDBDialogPrivate *priv;
-
-#ifndef G_OS_WIN32
-    shutdown(socket_id,SHUT_RDWR);
-#endif /* !G_OS_WIN32 */
-    close(socket_id);
-
-    g_return_if_fail (ET_CDDB_DIALOG (self));
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    priv->stop_searching = FALSE;
-}
-
-/*
- * Read the result of the request and write it into a file.
- * And return the number of bytes read.
- *  - bytes_read=0 => no more data.
- *  - bytes_read_total : use to add bytes of severals pages... must be initialized before
- *
- * Server answser is formated like this :
- *
- * HTTP/1.1 200 OK\r\n                              }
- * Server: Apache/1.3.19 (Unix) PHP/4.0.4pl1\r\n    } "Header"
- * Connection: close\r\n                            }
- * \r\n
- * <html>\n                                         }
- * [...]                                            } "Body"
- */
-static gint
-Cddb_Write_Result_To_File (EtCDDBDialog *self,
-                           gint socket_id,
-                           gulong *bytes_read_total)
-{
-    EtCDDBDialogPrivate *priv;
-    gchar *file_path = NULL;
-    FILE  *file;
-
-    priv = et_cddb_dialog_get_instance_private (self);
-
-    /* Cache directory was already created by Log_Print(). */
-    file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
-                                  CDDB_RESULT_FILE, NULL);
-
-    if ((file = g_fopen (file_path, "w+")) != NULL)
-    {
-        gchar cddb_out[MAX_STRING_LEN+1];
-        gint  bytes_read = 0;
-
-        while (!priv->stop_searching
-        // Read data
-        && (bytes_read = recv(socket_id,(void *)&cddb_out,MAX_STRING_LEN,0)) > 0 )
-        {
-            gchar *size_str;
-            gchar *msg;
-
-
-            // Write to file
-            cddb_out[bytes_read] = 0;
-            if (fwrite (&cddb_out, bytes_read, 1, file) != 1)
-            {
-                 Log_Print (LOG_ERROR,
-                            _("Error while writing CDDB results to file ‘%s’"),
-                            file_path);
-                 break;
-            }
-
-            *bytes_read_total += bytes_read;
-
-            //g_print("\nLine : %lu : %s\n",bytes_read,cddb_out);
-
-            // Display message
-            size_str =  g_format_size (*bytes_read_total);
-            msg = g_strdup_printf(_("Receiving data (%s)…"),size_str);
-            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                                priv->status_bar_context, msg);
-            g_free(msg);
-            g_free(size_str);
-            while (gtk_events_pending())
-                gtk_main_iteration();
-        }
-
-        fclose(file);
-
-        if (bytes_read < 0)
-        {
-            Log_Print (LOG_ERROR, _("Error when reading CDDB response ‘%s’"),
-	               g_strerror(errno));
-            return -1; // Error!
-        }
-
-    } else
-    {
-        Log_Print (LOG_ERROR, _("Cannot create file ‘%s’: %s"), file_path,
-	           g_strerror(errno));
-    }
-    g_free(file_path);
-
-    return 0;
-}
-
 static void
 cddb_track_frame_offset_free (CddbTrackFrameOffset *offset)
 {
     g_slice_free (CddbTrackFrameOffset, offset);
+}
+
+/*
+ * check_message_successful:
+ * @message: the message on which to check for success
+ *
+ * Check the result of @message to see whether it was a success. Soup handles
+ * redirects, so that the result code is that of the final request.
+ *
+ * Returns: %TRUE if the request was successful, %FALSE otherwise
+ */
+static gboolean
+check_message_successful (SoupMessage *message)
+{
+    return message->status_code == SOUP_STATUS_OK;
+}
+
+/*
+ * read_cddb_result_line:
+ * @dstream: a #GDataInputStream corresponding to a CDDB result, with the line
+ *           ending mode set appropriately
+ * @cancellable: a #GCancellable for the operation
+ * @result: a location to store the resulting line
+ *
+ * Read a single line from a CDDB result.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise. @result is always set, and
+ *          should be freed when finished with
+ */
+static gboolean
+read_cddb_result_line (GDataInputStream *dstream,
+                       GCancellable *cancellable,
+                       gchar **result)
+{
+    gchar *buffer;
+    gsize bytes_read;
+    GError *error = NULL;
+
+    if ((buffer = g_data_input_stream_read_line_utf8 (dstream, &bytes_read,
+                                                      cancellable, &error))
+        == NULL)
+    {
+        /* The error is not set if there are no more lines to read. */
+        if (error)
+        {
+            g_debug ("Error reading line from CDDB result: %s",
+                     error->message);
+            g_error_free (error);
+        }
+
+        *result = NULL;
+        return FALSE;
+    }
+
+    if (bytes_read > MAX_STRING_LEN)
+    {
+        /* TODO: Although the maximum line length is not specified, this is
+         * probably bogus. */
+        g_warning ("Overly long line in CDDB result");
+    }
+
+    *result = buffer;
+
+    return TRUE;
+}
+
+/*
+ * read_cddb_header_line:
+ * @dstream: a #GDataInputStream corresponding to a CDDB header, with the line
+ *           ending mode set appropriately
+ * @cancellable: a #GCancellable for the operation
+ * @result: a location to store the resulting line
+ *
+ * Read a single line from a CDDB header.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise. @result is always set, and
+ *          should be freed when finished with
+ */
+static gboolean
+read_cddb_header_line (GDataInputStream *dstream,
+                       GCancellable *cancellable,
+                       gchar **result)
+{
+    gchar *buffer;
+    gsize bytes_read;
+    GError *error = NULL;
+
+    if ((buffer = g_data_input_stream_read_line_utf8 (dstream, &bytes_read,
+                                                      cancellable, &error))
+        == NULL)
+    {
+        /* The error is not set if there are no more lines to read. */
+        if (error)
+        {
+            g_debug ("Error reading line from CDDB header: %s",
+                     error->message);
+            g_error_free (error);
+        }
+
+        return FALSE;
+    }
+
+    if (bytes_read > MAX_STRING_LEN)
+    {
+        /* TODO: Although the maximum line length is not specified, this is
+         * probably bogus. */
+        g_warning ("Overly long line in CDDB header");
+    }
+
+    *result = buffer;
+
+    if (result == NULL || (strncmp (*result, "200", 3) != 0
+                           && strncmp (*result, "210", 3) != 0
+                           && strncmp (*result, "211", 3) != 0))
+    {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+/*
+ * log_message_from_request_error:
+ * @message: the message which failed to be sent
+ * @error: the error associated with the failed message
+ *
+ * Create an appropriate message for @message based on the status code and
+ * contents of @error.
+ *
+ * Returns: a newly-allocated string
+ */
+static gchar *
+log_message_from_request_error (SoupMessage *message,
+                                GError *error)
+{
+    SoupURI *uri;
+    gchar *msg;
+
+    uri = soup_message_get_uri (message);
+
+    switch (message->status_code)
+    {
+        case SOUP_STATUS_CANT_RESOLVE:
+        case SOUP_STATUS_CANT_RESOLVE_PROXY:
+            msg = g_strdup_printf (_("Cannot resolve host: ‘%s’: %s"),
+                                   soup_uri_get_host (uri), error->message);
+        case SOUP_STATUS_CANT_CONNECT:
+        case SOUP_STATUS_CANT_CONNECT_PROXY:
+        case SOUP_STATUS_TOO_MANY_REDIRECTS:
+        default:
+            msg = g_strdup_printf (_("Cannot connect to host: ‘%s’: %s"),
+                                   soup_uri_get_host (uri), error->message);
+    }
+
+    return msg;
 }
 
 /*
@@ -858,24 +735,21 @@ static gboolean
 Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
 {
     EtCDDBDialogPrivate *priv;
-    gint       socket_id = 0;
     CddbAlbum *cddbalbum = NULL;
     GList     *TrackOffsetList = NULL;
-    gchar     *cddb_in, *cddb_out = NULL;
+    gchar *uri;
+    gchar *cddb_out = NULL;
     gchar *msg, *copy, *valid;
-    const gchar CDDB_END_STR[] = ".";
-    gchar     *proxy_auth;
     gchar     *cddb_server_name;
     guint cddb_server_port;
     gchar     *cddb_server_cgi_path;
-    gboolean proxy_enabled;
-    gchar *proxy_hostname;
-    guint proxy_port;
-    gint       bytes_written;
-    gulong     bytes_read_total = 0;
-    FILE      *file = NULL;
     gboolean   read_track_offset = FALSE;
     GtkTreeIter row;
+    SoupMessage *message;
+    GCancellable *cancellable;
+    GError *error = NULL;
+    GInputStream *istream;
+    GDataInputStream *dstream;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -901,197 +775,100 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
     cddb_server_port     = cddbalbum->server_port;
     cddb_server_cgi_path = cddbalbum->server_cgi_path;
 
+
+    /* Connection to the server. */
+    if (strstr (cddb_server_name, "gnudb") != NULL)
     {
-        /* Connection to the server. */
-        proxy_enabled = g_settings_get_boolean (MainSettings,
-                                                "cddb-proxy-enabled");
-        proxy_hostname = g_settings_get_string (MainSettings,
-                                                "cddb-proxy-hostname");
-        proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
-        if ((socket_id = Cddb_Open_Connection (self,
-                                               proxy_enabled
-                                               ? proxy_hostname
-                                               : cddb_server_name,
-                                               proxy_enabled
-                                               ? proxy_port
-                                               : cddb_server_port)) <= 0)
-        {
-            g_free (proxy_hostname);
-            return FALSE;
-        }
-
-		if ( strstr(cddb_server_name,"gnudb") != NULL )
-		{
-			// For gnudb
-			// New version of gnudb doesn't use a cddb request, but a http request
-            /* HTTP/1.0 to avoid the server returning chunked results.
-             * https://bugzilla.gnome.org/show_bug.cgi?id=743812 */
-		    cddb_in = g_strdup_printf("GET %s%s/gnudb/"
-		                              "%s/%s"
-		                              " HTTP/1.0\r\n"
-		                              "Host: %s:%u\r\n"
-		                              "User-Agent: %s %s\r\n"
-		                              "%s"
-		                              "Connection: close\r\n"
-		                              "\r\n",
-		                              proxy_enabled ? "http://" : "",
-                                              proxy_enabled ? cddb_server_name : "",
-		                              cddbalbum->category,cddbalbum->id,
-		                              cddb_server_name,cddb_server_port,
-		                              PACKAGE_NAME, PACKAGE_VERSION,
-		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
-		                              );
-		}else
-		{
-		    // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
-		    // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
-		    // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
-            /* HTTP/1.0 to avoid the server returning chunked results.
-             * https://bugzilla.gnome.org/show_bug.cgi?id=743812 */
-		    cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+read+"
-		                              "%s+%s"
-		                              "&hello=noname+localhost+%s+%s"
-		                              "&proto=6 HTTP/1.0\r\n"
-		                              "Host: %s:%u\r\n"
-		                              "%s"
-		                              "Connection: close\r\n\r\n",
-		                              proxy_enabled ? "http://" : "",
-                                              proxy_enabled ? cddb_server_name : "",
-                                              cddb_server_cgi_path,
-		                              cddbalbum->category,cddbalbum->id,
-		                              PACKAGE_NAME, PACKAGE_VERSION,
-		                              cddb_server_name,cddb_server_port,
-		                              (proxy_auth=Cddb_Format_Proxy_Authentification())
-		                              );
-		}
-
-		
-		g_free(proxy_auth);
-        //g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
-
-        // Send the request
-        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Sending request…"));
-        while (gtk_events_pending()) gtk_main_iteration();
-        if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
-        {
-            Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
-                       g_strerror (errno));
-            Cddb_Close_Connection (self, socket_id);
-            g_free(cddb_in);
-            g_free (proxy_hostname);
-            return FALSE;
-        }
-        g_free(cddb_in);
-        g_free (proxy_hostname);
-
-
-        // Read the answer
-        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Receiving data…"));
-        while (gtk_events_pending())
-            gtk_main_iteration();
-
-        /* Write result in a file. */
-        if (Cddb_Write_Result_To_File (self, socket_id, &bytes_read_total) < 0)
-        {
-            msg = g_strdup(_("The server returned a bad response"));
-            gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-            Log_Print(LOG_ERROR,"%s",msg);
-            g_free(msg);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            return FALSE;
-        }
-
-
-        // Parse server answer : Check HTTP Header (freedb or gnudb) and CDDB Header (freedb only)
-        file = NULL;
-		if ( strstr(cddb_server_name,"gnudb") != NULL )
-		{
-			// For gnudb (don't check CDDB header)
-			if ( Cddb_Read_Http_Header(&file,&cddb_out) <= 0 )
-		    {
-		        msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                                                      cddb_out);
-		        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-		        Log_Print(LOG_ERROR,"%s",msg);
-		        g_free(msg);
-		        g_free(cddb_out);
-		        if (file)
-		            fclose(file);
-		        return FALSE;
-		    }
-		}else
-		{
-            /* For freedb. */
-            if (Cddb_Read_Http_Header (&file, &cddb_out) <= 0)
-            {
-                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                                                      cddb_out);
-                gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                                    priv->status_bar_context, msg);
-                Log_Print (LOG_ERROR, "%s", msg);
-
-                g_free (msg);
-                g_free (cddb_out);
-
-                if (file)
-                {
-                    fclose (file);
-                }
-
-                return FALSE;
-            }
-
-            g_free (cddb_out);
-
-            if (Cddb_Read_Cddb_Header (&file, &cddb_out) <= 0)
-            {
-                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                                                      cddb_out);
-                gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
-                                    priv->status_bar_context, msg);
-                Log_Print (LOG_ERROR, "%s", msg);
-
-                g_free (msg);
-                g_free (cddb_out);
-
-                if (file)
-                {
-                    fclose (file);
-                }
-
-                return FALSE;
-		    }
-		}
-        g_free(cddb_out);
-
+        /* For gnudb. */
+        uri = g_strdup_printf ("http://%s:%u/gnudb/%s/%s", cddb_server_name,
+                               cddb_server_port, cddbalbum->category,
+                               cddbalbum->id);
+    }
+    else
+    {
+        /* CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+read+jazz+0200a401&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close). */
+        uri = g_strdup_printf ("http://%s:%u%s?cmd=cddb+read+%s+%s&hello=noname+localhost+%s+%s&proto=6",
+                               cddb_server_name, cddb_server_port,
+                               cddb_server_cgi_path, cddbalbum->category,
+                               cddbalbum->id, PACKAGE_NAME, PACKAGE_VERSION);
     }
 
-    while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
+    /* Send the request. */
+    gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Sending request…"));
+    while (gtk_events_pending()) gtk_main_iteration();
+
+    /* Write result in a file. */
+    message = soup_message_new (SOUP_METHOD_GET, uri);
+
+    if (!message)
+    {
+        g_critical ("Invalid CDDB request URI: %s", uri);
+        g_free (uri);
+        return FALSE;
+    }
+
+    g_free (uri);
+
+    cancellable = g_cancellable_new ();
+    istream = soup_session_send (priv->session, message, cancellable,
+                                 &error);
+
+    if (!check_message_successful (message))
+    {
+        msg = log_message_from_request_error (message, error);
+        gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                            priv->status_bar_context, msg);
+        Log_Print (LOG_ERROR, "%s", msg);
+        g_free (msg);
+        g_error_free (error);
+        g_object_unref (cancellable);
+        g_object_unref (message);
+        gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button),FALSE);
+        return FALSE;
+    }
+
+    dstream = g_data_input_stream_new (istream);
+    g_object_unref (istream);
+    g_data_input_stream_set_newline_type (dstream,
+                                          G_DATA_STREAM_NEWLINE_TYPE_ANY);
+
+    /* Parse server answer: Check CDDB Header (freedb only). */
+    if (strstr (cddb_server_name, "gnudb") == NULL)
+    {
+        /* For freedb. */
+        if (!read_cddb_header_line (dstream, cancellable, &cddb_out))
+        {
+            msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
+                                   cddb_out);
+            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                                priv->status_bar_context, msg);
+            Log_Print (LOG_ERROR, "%s", msg);
+
+            g_object_unref (dstream);
+            g_object_unref (cancellable);
+            g_object_unref (message);
+            g_free (msg);
+            g_free (cddb_out);
+
+            return FALSE;
+        }
+    }
+
+    g_free (cddb_out);
+
+    while (!priv->stop_searching
+           && read_cddb_result_line (dstream, cancellable, &cddb_out))
     {
         if (!cddb_out) // Empty line?
             continue;
-        //g_print("%s\n",cddb_out);
 
-        // To avoid the cddb lookups to hang (Patch from Paul Giordano)
-        /* It appears that on some systems that cddb lookups continue to attempt
-         * to get data from the socket even though the other system has completed
-         * sending. The fix adds one check to the loops to see if the actual
-         * end of data is in the last block read. In this case, the last line
-         * will be a single '.'
-         */
-        if (strlen (cddb_out) <= 3 && strstr (cddb_out, CDDB_END_STR) != NULL)
-        {
-            g_free (cddb_out);
-            break;
-        }
-
-        if ( strstr(cddb_out,"Track frame offsets")!=NULL ) // We read the Track frame offset
+        if (strstr (cddb_out, "Track frame offsets") != NULL) /* We read the Track frame offset. */
         {
             read_track_offset = TRUE; // The next reads are for the tracks offset
             g_free (cddb_out);
             continue;
-
-        }else if (read_track_offset) // We are reading a track offset? (generates TrackOffsetList)
+        }
+        else if (read_track_offset) /* We are reading a track offset? (generates TrackOffsetList). */
         {
             if ( strtoul(cddb_out+1,NULL,10)>0 )
             {
@@ -1106,9 +883,11 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             g_free (cddb_out);
             continue;
 
-        }else if ( strstr(cddb_out,"Disc length: ")!=NULL ) // Length of album (in second)
+        }
+        else if (strstr (cddb_out, "Disc length: ") != NULL) /* Length of album (in second). */
         {
             cddbalbum->duration = atoi(strchr(cddb_out,':')+1);
+
             if (TrackOffsetList) // As it must be the last item, do nothing if no previous data
             {
                 CddbTrackFrameOffset *cddbtrackframeoffset = g_slice_new (CddbTrackFrameOffset);
@@ -1119,7 +898,8 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
             g_free (cddb_out);
             continue;
 
-        }else if ( strncmp(cddb_out,"DTITLE=",7)==0 ) // "Artist / Album" names
+        }
+        else if (strncmp (cddb_out, "DTITLE=", 7) == 0) /* "Artist / Album" names. */
         {
             // Note : disc title too long take severals lines. For example :
             // DTITLE=Marilyn Manson / The Nobodies (2005 Against All Gods Mix - Korea Tour L
@@ -1242,16 +1022,11 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
         g_free(cddb_out);
     }
 
-    // Close file opened for reading lines
-    if (file)
-    {
-        fclose(file);
-        file = NULL;
-    }
-
     /* Remote access. */
     /* Close connection */
-    Cddb_Close_Connection (self, socket_id);
+    g_object_unref (dstream);
+    g_object_unref (cancellable);
+    g_object_unref (message);
 
     /* Set color of the selected row (without reloading the whole list) */
     Cddb_Album_List_Set_Row_Appearance (self, &row);
@@ -1491,7 +1266,6 @@ Cddb_Generate_Request_String_With_Fields_And_Categories_Options (EtCDDBDialog *s
     return g_string_free (string, FALSE);
 }
 
-
 /*
  * Site FREEDB.ORG - Manual Search
  * Send request (using the HTML search page in freedb.org site) to the CD database
@@ -1501,20 +1275,15 @@ static gboolean
 Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gint   socket_id;
     gchar *string = NULL;
     gchar *tmp, *tmp1;
     gchar *cddb_in;         // For the request to send
     gchar *cddb_out = NULL; // Answer received
     gchar *cddb_out_tmp;
     gchar *msg;
-    gchar *proxy_auth = NULL;
     gchar *cddb_server_name;
     guint cddb_server_port;
     gchar *cddb_server_cgi_path;
-    gboolean proxy_enabled;
-    gchar *proxy_hostname;
-    guint proxy_port;
 
     gchar *ptr_cat, *cat_str, *id_str, *art_alb_str;
     gchar *art_alb_tmp = NULL;
@@ -1522,10 +1291,13 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     gchar *end_str;
     gchar *html_end_str;
     gchar  buffer[MAX_STRING_LEN+1];
-    gint   bytes_written;
-    gulong bytes_read_total = 0;
-    FILE  *file = NULL;
     gboolean web_search_disabled = FALSE;
+
+    SoupMessage *message;
+    GCancellable *cancellable;
+    GError *error = NULL;
+    GInputStream *istream;
+    GDataInputStream *dstream;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -1560,70 +1332,38 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     cddb_server_cgi_path = g_settings_get_string (MainSettings,
                                                   "cddb-manual-search-path");
 
-    /* Connection to the server */
-    proxy_enabled = g_settings_get_boolean (MainSettings,
-                                            "cddb-proxy-enabled");
-    proxy_hostname = g_settings_get_string (MainSettings,
-                                            "cddb-proxy-hostname");
-    proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
-    if ((socket_id = Cddb_Open_Connection (self,
-                                           proxy_enabled
-                                           ? proxy_hostname
-                                           : cddb_server_name,
-                                           proxy_enabled
-                                           ? proxy_port
-                                           : cddb_server_port)) <= 0)
-    {
-        g_free (string);
-        g_free (cddb_server_name);
-        g_free (cddb_server_cgi_path);
-        g_free (proxy_hostname);
-        return FALSE;
-    }
-
     /* Build request */
-    //cddb_in = g_strdup_printf("GET http://www.freedb.org/freedb_search.php?" // In this case, problem with squid cache...
-    cddb_in = g_strdup_printf("GET %s%s/freedb_search.php?"
-                              "words=%s"
-                              "%s"
-                              "&grouping=none"
-                              " HTTP/1.1\r\n"
-                              "Host: %s:%u\r\n"
-                              "User-Agent: %s %s\r\n"
-                              "%s"
-                              "Connection: close\r\n"
-                              "\r\n",
-                              proxy_enabled ? "http://" : "",
-                              proxy_enabled ? cddb_server_name : "",
-                              string,
-                              (tmp = Cddb_Generate_Request_String_With_Fields_And_Categories_Options (self)),
-                              cddb_server_name,cddb_server_port,
-                              PACKAGE_NAME, PACKAGE_VERSION,
-                              (proxy_auth=Cddb_Format_Proxy_Authentification())
-                              );
+    cddb_in = g_strdup_printf ("http://%s:%u/freedb_search.php?words=%s%s&grouping=none",
+                               cddb_server_name,
+                               cddb_server_port,
+                               string,
+                               (tmp = Cddb_Generate_Request_String_With_Fields_And_Categories_Options (self)));
+
+    message = soup_message_new (SOUP_METHOD_GET, cddb_in);
 
     g_free(string);
     g_free(tmp);
-    g_free(proxy_auth);
+    g_free (cddb_in);
     //g_print("Request Cddb_Search_Album_List_From_String_Freedb : '%s'\n", cddb_in);
 
-    // Send the request
+    /* Send the request. */
+    cancellable = g_cancellable_new ();
+    istream = soup_session_send (priv->session, message, cancellable, &error);
     gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Sending request…"));
     while (gtk_events_pending()) gtk_main_iteration();
-    if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
+
+    if (!check_message_successful (message))
     {
-        Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
-                   g_strerror (errno));
-        Cddb_Close_Connection (self, socket_id);
-        g_free(cddb_in);
-        g_free(string);
+        msg = log_message_from_request_error (message, error);
+        gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                            priv->status_bar_context, msg);
+        Log_Print (LOG_ERROR, "%s", msg);
+        g_error_free (error);
+        g_object_unref (message);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
-        g_free (proxy_hostname);
         return FALSE;
     }
-    g_free(cddb_in);
-
 
     /* Delete previous album list. */
     cddb_album_model_clear (self);
@@ -1643,37 +1383,11 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     while (gtk_events_pending())
         gtk_main_iteration();
 
-    /* Write result in a file. */
-    if (Cddb_Write_Result_To_File (self, socket_id, &bytes_read_total) < 0)
-    {
-        msg = g_strdup(_("The server returned a bad response"));
-        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-        Log_Print(LOG_ERROR,"%s",msg);
-        g_free(msg);
-        g_free(cddb_server_name);
-        g_free(cddb_server_cgi_path);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-        return FALSE;
-    }
-
-    // Parse server answer : Check returned code in the first line
-    if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
-    {
-        msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                               cddb_out);
-        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-        Log_Print(LOG_ERROR,"%s",msg);
-        g_free(msg);
-        g_free(cddb_out);
-        g_free(cddb_server_name);
-        g_free(cddb_server_cgi_path);
-        g_free (proxy_hostname);
-        gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-        if (file)
-            fclose(file);
-        return FALSE;
-    }
-    g_free(cddb_out);
+    /* Parse server answer : Check returned code in the first line. */
+    dstream = g_data_input_stream_new (istream);
+    g_object_unref (istream);
+    g_data_input_stream_set_newline_type (dstream,
+                                          G_DATA_STREAM_NEWLINE_TYPE_ANY);
 
     // Read other lines, and get list of matching albums
     // Composition of a line :
@@ -1684,7 +1398,9 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     art_alb_str  = g_strdup("\">");
     end_str      = g_strdup("</a>"); //"</a><br>");
     html_end_str = g_strdup("</body>"); // To avoid the cddb lookups to hang
-    while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
+    while (!priv->stop_searching && read_cddb_result_line (dstream,
+                                                           cancellable,
+                                                           &cddb_out))
     {
         cddb_out_tmp = cddb_out;
         //g_print("%s\n",cddb_out); // To print received data
@@ -1791,19 +1507,13 @@ Cddb_Search_Album_List_From_String_Freedb (EtCDDBDialog *self)
     g_free(cat_str); g_free(id_str); g_free(art_alb_str); g_free(end_str); g_free(html_end_str);
     g_free(cddb_server_name);
     g_free(cddb_server_cgi_path);
-    g_free (proxy_hostname);
-
-    // Close file opened for reading lines
-    if (file)
-    {
-        fclose(file);
-        file = NULL;
-    }
 
     gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
 
     /* Close connection. */
-    Cddb_Close_Connection (self, socket_id);
+    g_object_unref (dstream);
+    g_object_unref (cancellable);
+    g_object_unref (message);
 
     if (web_search_disabled)
         msg = g_strdup_printf(_("Sorry, the web-based search is currently not available"));
@@ -1833,33 +1543,23 @@ static gboolean
 Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gint   socket_id;
     gchar *string = NULL;
     gchar *tmp, *tmp1;
-    gchar *cddb_in;         // For the request to send
     gchar *cddb_out = NULL; // Answer received
     gchar *cddb_out_tmp;
     gchar *msg;
-    gchar *proxy_auth = NULL;
     gchar *cddb_server_name;
     guint cddb_server_port;
     gchar *cddb_server_cgi_path;
-    gboolean proxy_enabled;
-    gchar *proxy_hostname;
-    guint proxy_port;
 
     gchar *ptr_cat, *cat_str, *art_alb_str;
     gchar *end_str;
     gchar *ptr_sraf, *sraf_str, *sraf_end_str;
     gchar *html_end_str;
     gchar  buffer[MAX_STRING_LEN+1];
-    gint   bytes_written;
-    gulong bytes_read_total = 0;
-    FILE  *file;
     gint   num_albums = 0;
     gint   total_num_albums = 0;
 
-    gchar *next_page = NULL;
     gint   next_page_cpt = 0;
     gboolean next_page_found;
 
@@ -1903,6 +1603,14 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
     // Do a loop to load all the pages of results
     do
     {
+        gchar *uri;
+        SoupMessage *message;
+        GCancellable *cancellable;
+        GError *error = NULL;
+        GInputStream *istream;
+        GDataInputStream *dstream;
+        gchar *next_page;
+
         cddb_server_name = g_settings_get_string (MainSettings,
                                                   "cddb-manual-search-hostname");
         cddb_server_port = g_settings_get_uint (MainSettings,
@@ -1910,67 +1618,49 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         cddb_server_cgi_path = g_settings_get_string (MainSettings,
                                                       "cddb-manual-search-path");
 
-        /* Connection to the server */
-        proxy_enabled = g_settings_get_boolean (MainSettings,
-                                                "cddb-proxy-enabled");
-        proxy_hostname = g_settings_get_string (MainSettings,
-                                                "cddb-proxy-hostname");
-        proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
-        if ((socket_id = Cddb_Open_Connection (self,
-                                               proxy_enabled ? proxy_hostname
-                                                             : cddb_server_name,
-                                               proxy_enabled ? proxy_port
-                                                             : cddb_server_port)) <= 0)
+        /* Build request */
+        uri = g_strdup_printf ("http://%s:%u/search/%s?page=%d",
+                               cddb_server_name, cddb_server_port, string,
+                               next_page_cpt);
+        next_page_found = FALSE;
+
+        message = soup_message_new (SOUP_METHOD_GET, uri);
+
+        if (!message)
         {
-            g_free(string);
-            g_free(cddb_server_name);
-            g_free(cddb_server_cgi_path);
-            g_free (proxy_hostname);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
+            g_critical ("Invalid CDDB_request URI: %s", uri);
+            g_free (uri);
             return FALSE;
         }
 
+        g_free (uri);
 
-        /* Build request */
-        cddb_in = g_strdup_printf("GET %s%s/search/"
-                                  "%s"
-                                  "?page=%d"
-                                  " HTTP/1.1\r\n"
-                                  "Host: %s:%u\r\n"
-                                  "User-Agent: %s %s\r\n"
-                                  "%s"
-                                  "Connection: close\r\n"
-                                  "\r\n",
-                                  proxy_enabled ? "http://" : "",
-                                  proxy_enabled ? cddb_server_name : "",
-                                  string,
-                                  next_page_cpt,
-                                  cddb_server_name,cddb_server_port,
-                                  PACKAGE_NAME, PACKAGE_VERSION,
-                                  (proxy_auth=Cddb_Format_Proxy_Authentification())
-                                  );
-        next_page_found = FALSE;
-        g_free(proxy_auth);
-        //g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
-
-        // Send the request
-        gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Sending request…"));
+        /* Send the request. */
+        gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                            priv->status_bar_context, _("Sending request…"));
         while (gtk_events_pending()) gtk_main_iteration();
-        if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
+
+        cancellable = g_cancellable_new ();
+        istream = soup_session_send (priv->session, message, cancellable,
+                                     &error);
+
+        if (!check_message_successful (message))
         {
-            Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
-                       g_strerror (errno));
-            Cddb_Close_Connection (self, socket_id);
-            g_free (cddb_in);
+            msg = log_message_from_request_error (message, error);
+            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                                priv->status_bar_context, msg);
+            Log_Print (LOG_ERROR, "%s", msg);
+            g_free (msg);
+            g_object_unref (cancellable);
+            g_object_unref (message);
+            g_error_free (error);
             g_free (string);
             g_free (cddb_server_name);
             g_free (cddb_server_cgi_path);
-            g_free (proxy_hostname);
             gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button),
                                       FALSE);
             return FALSE;
         }
-        g_free(cddb_in);
 
 
         /*
@@ -1986,44 +1676,33 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         while (gtk_events_pending())
             gtk_main_iteration();
 
-        /* Write result in a file. */
-        if (Cddb_Write_Result_To_File (self, socket_id, &bytes_read_total) < 0)
-        {
-            msg = g_strdup(_("The server returned a bad response"));
-            gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-            Log_Print(LOG_ERROR,"%s",msg);
-            g_free(msg);
-            g_free(string);
-            g_free(cddb_server_name);
-            g_free(cddb_server_cgi_path);
-            g_free (proxy_hostname);
-            gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            return FALSE;
-        }
+        /* Parse server answer : Check returned code in the first line. */
+        dstream = g_data_input_stream_new (istream);
+        g_object_unref (istream);
+        g_data_input_stream_set_newline_type (dstream,
+                                              G_DATA_STREAM_NEWLINE_TYPE_ANY);
 
-        // Parse server answer : Check returned code in the first line
-        file = NULL;
-        if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
+        if (!read_cddb_result_line (dstream, cancellable, &cddb_out)
+            || !cddb_out)
         {
-            msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                                   cddb_out);
-            gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-            Log_Print(LOG_ERROR,"%s",msg);
+            msg = g_strdup (_("The server returned a bad response"));
+            gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                                priv->status_bar_context, msg);
+            Log_Print (LOG_ERROR, "%s", msg);
+            g_object_unref (dstream);
+            g_object_unref (cancellable);
+            g_object_unref (message);
             g_free(msg);
             g_free(cddb_out);
             g_free(string);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
-            g_free (proxy_hostname);
             gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-            if (file)
-                fclose(file);
             return FALSE;
         }
         g_free(cddb_out);
 
         // The next page if exists will contains this url :
-        g_free(next_page);
         next_page = g_strdup_printf("?page=%d",++next_page_cpt);
 
         // Read other lines, and get list of matching albums
@@ -2039,7 +1718,9 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
         sraf_str     = g_strdup("<h2>Search Results, ");
         sraf_end_str = g_strdup(" albums found:</h2>");
 
-        while (!priv->stop_searching && Cddb_Read_Line (&file, &cddb_out) > 0)
+        while (!priv->stop_searching && read_cddb_result_line (dstream,
+                                                               cancellable,
+                                                               &cddb_out))
         {
             cddb_out_tmp = cddb_out;
             //g_print("%s\n",cddb_out); // To print received data
@@ -2154,22 +1835,17 @@ Cddb_Search_Album_List_From_String_Gnudb (EtCDDBDialog *self)
 
             g_free(cddb_out);
         }
+
         g_free(cat_str); g_free(art_alb_str); g_free(end_str); g_free(html_end_str);
         g_free(sraf_str);g_free(sraf_end_str);
         g_free(cddb_server_name);
         g_free(cddb_server_cgi_path);
-        g_free (proxy_hostname);
-
-        // Close file opened for reading lines
-        if (file)
-        {
-            fclose(file);
-            file = NULL;
-        }
+        g_free (next_page);
 
         /* Close connection. */
-        Cddb_Close_Connection (self, socket_id);
-
+        g_object_unref (dstream);
+        g_object_unref (cancellable);
+        g_object_unref (message);
     } while (next_page_found);
     g_free(string);
 
@@ -2783,6 +2459,13 @@ create_cddb_dialog (EtCDDBDialog *self)
 
     g_signal_emit_by_name (priv->search_entry, "changed");
     priv->stop_searching = FALSE;
+
+    /* The User-Agent header is not used by the CDDB protocol over HTTP, but it
+     * is still good practice to set it appropriately. */
+    /* FIXME: Enable a SoupLogger with g_parse_debug_string(). */
+    priv->session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
+                                                   PACKAGE_NAME " " PACKAGE_VERSION,
+                                                   NULL);
 }
 
 /*
@@ -2836,153 +2519,6 @@ Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b,
     return ret;
 }
 
-/*
- * Read one line (of the connection) into cddb_out.
- * return  : -1 on error
- *            0 if no more line to read (EOF)
- *            1 if more lines to read
- *
- * Server answser is formated like this :
- *
- * HTTP/1.1 200 OK\r\n                              }
- * Server: Apache/1.3.19 (Unix) PHP/4.0.4pl1\r\n    } "Header"
- * Connection: close\r\n                            }
- * \r\n
- * <html>\n                                         }
- * [...]                                            } "Body"
- */
-static gint
-Cddb_Read_Line (FILE **file, gchar **cddb_out)
-{
-    gchar  buffer[MAX_STRING_LEN];
-    gchar *result;
-    size_t l;
-
-    if (*file == NULL)
-    {
-        // Open the file for reading the first time
-        gchar *file_path;
-
-        file_path = g_build_filename (g_get_user_cache_dir (), PACKAGE_TARNAME,
-                                      CDDB_RESULT_FILE, NULL);
-
-        if ((*file = g_fopen (file_path, "r")) == 0)
-        {
-            Log_Print (LOG_ERROR, _("Cannot open file ‘%s’: %s"), file_path,
-                       g_strerror (errno));
-            g_free (file_path);
-            return -1; // Error!
-        }
-        g_free (file_path);
-    }
-
-    result = fgets(buffer,sizeof(buffer),*file);
-    if (result != NULL)
-    {
-	l = strlen(buffer);
-        if (l > 0 && buffer[l-1] == '\n')
-            buffer[l-1] = '\0';
-
-	// Many '\r' chars may be present
-        while ((l = strlen(buffer)) > 0 && buffer[l-1] == '\r')
-            buffer[l-1] = '\0';
-
-        *cddb_out = g_strdup(buffer);
-    }else
-    {
-        // On error, or EOF
-        fclose(*file);
-        *file = NULL;
-
-        //*cddb_out = NULL;
-        *cddb_out = g_strdup(""); // To avoid a crash
-
-        return 0;
-    }
-
-    //g_print("Line read: %s\n",*cddb_out);
-    return 1;
-}
-
-
-/*
- * Read HTTP header data : from "HTTP/1.1 200 OK" to the blank line
- */
-static gint
-Cddb_Read_Http_Header (FILE **file, gchar **cddb_out)
-{
-
-    // The 'file' is opened (if no error) in this function
-    if ( Cddb_Read_Line(file,cddb_out) < 0 )
-        return -1; // Error!
-
-    // First line must be : "HTTP/1.1 200 OK"
-    if ( !*cddb_out || strncmp("HTTP",*cddb_out,4)!=0 || strstr(*cddb_out,"200 OK")==NULL )
-        return -1;
-
-    /* Read until end of the HTTP header up to the next blank line. */
-    do
-    {
-        g_free (*cddb_out);
-    }
-    while (Cddb_Read_Line (file, cddb_out) > 0 && !et_str_empty (*cddb_out));
-
-    //g_print("Http Header : %s\n",*cddb_out);
-    return 1;
-}
-
-/*
- * Read CDDB header data when requesting a file (cmd=cddb+read+<album genre>+<discid>)
- * Must be read after the HTTP header :
- *
- *      HTTP/1.1 200 OK
- *      Date: Sun, 26 Nov 2006 22:37:13 GMT
- *      Server: Apache/2.0.54 (Debian GNU/Linux) mod_python/3.1.3 Python/2.3.5 PHP/4.3.10-16 proxy_html/2.4 mod_perl/1.999.21 Perl/v5.8.4
- *      Expires: Sun Nov 26 23:37:14 2006
- *      Content-Length: 1013
- *      Connection: close
- *      Content-Type: text/plain; charset=UTF-8
- *
- *      210 newage 710ed208 CD database entry follows (until terminating `.')
- *
- * Cddb Header is the line like this :
- *      210 newage 710ed208 CD database entry follows (until terminating `.')
- */
-static gint
-Cddb_Read_Cddb_Header (FILE **file, gchar **cddb_out)
-{
-    if ( Cddb_Read_Line(file,cddb_out) < 0 )
-        return -1; // Error!
-
-    /* Some requests receive some strange data (arbitrary: less than 10 chars.)
-     * at the beginning (2 or 3 characters)... So we read one line more... */
-    if (!*cddb_out || strlen (*cddb_out) < 10)
-    {
-        g_free (*cddb_out);
-
-        if (Cddb_Read_Line (file, cddb_out) < 0)
-        {
-            return -1; /* Error! */
-        }
-    }
-
-    //g_print("Cddb Header : %s\n",*cddb_out);
-
-    // Read the line
-    // 200 - exact match
-    // 210 - multiple exact matches
-    // 211 - inexact match
-    if ( *cddb_out == NULL
-    || (strncmp(*cddb_out,"200",3)!=0
-    &&  strncmp(*cddb_out,"210",3)!=0
-    &&  strncmp(*cddb_out,"211",3)!=0) )
-        return -1;
-
-    return 1;
-}
-
-
-
 static gboolean
 Cddb_Free_Track_Album_List (GList *track_list)
 {
@@ -3016,26 +2552,15 @@ gboolean
 et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 {
     EtCDDBDialogPrivate *priv;
-    gint   socket_id;
-    gint   bytes_written;
-    gulong bytes_read_total = 0;
-    FILE  *file = NULL;
 
-    gchar *cddb_in = NULL; /* For the request to send. */
     gchar *cddb_out = NULL;       /* Answer received */
-    gchar *cddb_out_tmp;
     gchar *msg;
-    gchar *proxy_auth;
     gchar *cddb_server_name;
     guint cddb_server_port;
     gchar *cddb_server_cgi_path;
-    gboolean proxy_enabled;
-    gchar *proxy_hostname;
-    guint proxy_port;
     gint   server_try = 0;
     GString *query_string;
     gchar *cddb_discid;
-    const gchar CDDB_END_STR[] = ".";
 
     guint total_frames = 150;   /* First offset is (almost) always 150 */
     guint disc_length  = 2;     /* and 2s elapsed before first track */
@@ -3123,6 +2648,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 
     file_iterlist = g_list_reverse (file_iterlist);
 
+    /* FIXME: Split this out to a separate function. */
     for (l = file_iterlist; l != NULL; l = g_list_next (l))
     {
         ET_File *etfile;
@@ -3179,7 +2705,15 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
          */
         while (server_try < 2)
         {
+            gchar *uri;
+            SoupMessage *message;
+            GError *error = NULL;
+            GCancellable *cancellable;
+            GInputStream *istream;
+            GDataInputStream *dstream;
+
             server_try++;
+
             if (server_try == 1)
             {
                 /* 1st try. */
@@ -3202,59 +2736,31 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                                                               "cddb-automatic-search-path2");
             }
 
-            // Check values
-            if (!cddb_server_name || strcmp(cddb_server_name,"")==0)
-                continue;
-
-            /* Connection to the server. */
-            proxy_enabled = g_settings_get_boolean (MainSettings,
-                                                    "cddb-proxy-enabled");
-            proxy_hostname = g_settings_get_string (MainSettings,
-                                                   "cddb-proxy-hostname");
-            proxy_port = g_settings_get_uint (MainSettings, "cddb-proxy-port");
-
-            if ((socket_id = Cddb_Open_Connection (self,
-                                                   proxy_enabled
-                                                   ? proxy_hostname
-                                                   : cddb_server_name,
-                                                   proxy_enabled
-                                                   ? proxy_port
-                                                   : cddb_server_port)) <= 0)
+            /* Check values. */
+            if (et_str_empty (cddb_server_name))
             {
-                g_free(cddb_in);
-                g_free(cddb_server_name);
-                g_free(cddb_server_cgi_path);
-                g_free (proxy_hostname);
-                g_string_free (query_string, TRUE);
-                g_free (cddb_discid);
-                return FALSE;
+                g_free (cddb_server_name);
+                g_free (cddb_server_cgi_path);
+                continue;
             }
 
             // CDDB Request (ex: GET /~cddb/cddb.cgi?cmd=cddb+query+0800ac01+1++150+172&hello=noname+localhost+EasyTAG+0.31&proto=1 HTTP/1.1\r\nHost: freedb.freedb.org:80\r\nConnection: close)
-            // Without proxy : "GET /~cddb/cddb.cgi?…" but doesn't work with a proxy.
-            // With proxy    : "GET http://freedb.freedb.org/~cddb/cddb.cgi?…"
             // proto=1 => ISO-8859-1 - proto=6 => UTF-8
-            cddb_in = g_strdup_printf("GET %s%s%s?cmd=cddb+query+"
-                                      "%s+"
-                                      "%u+%s+"
-                                      "%u"
-                                      "&hello=noname+localhost+%s+%s"
-                                      "&proto=6 HTTP/1.1\r\n"
-                                      "Host: %s:%u\r\n"
-                                      "%s"
-                                      "Connection: close\r\n\r\n",
-                                      proxy_enabled ? "http://" : "",
-                                      proxy_enabled ? cddb_server_name : "",
-                                      cddb_server_cgi_path,
-                                      cddb_discid,
-                                      num_tracks, query_string->str,
-                                      disc_length,
-                                      PACKAGE_NAME, PACKAGE_VERSION,
-                                      cddb_server_name,cddb_server_port,
-                                      (proxy_auth=Cddb_Format_Proxy_Authentification())
-                                      );
-            g_free (proxy_auth);
-            //g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
+            uri = g_strdup_printf ("http://%s:%u%s?cmd=cddb+query+%s+%u+%s+%u&hello=noname+localhost+%s+%s&proto=6",
+                                   cddb_server_name, cddb_server_port,
+                                   cddb_server_cgi_path, cddb_discid,
+                                   num_tracks, query_string->str, disc_length,
+                                   PACKAGE_NAME, PACKAGE_VERSION);
+            message = soup_message_new (SOUP_METHOD_GET, uri);
+
+            if (!message)
+            {
+                g_critical ("Invalid CDDB request URI: %s", uri);
+                g_free (uri);
+                return FALSE;
+            }
+
+            g_free (uri);
 
             msg = g_strdup_printf (_("Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"),
                                    cddb_discid, num_tracks, disc_length);
@@ -3264,67 +2770,34 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
             while (gtk_events_pending())
                 gtk_main_iteration();
 
-            if ( (bytes_written=send(socket_id,cddb_in,strlen(cddb_in)+1,0)) < 0)
+            cancellable = g_cancellable_new ();
+            istream = soup_session_send (priv->session, message, cancellable,
+                                         &error);
+
+            if (!check_message_successful (message))
             {
-                Log_Print (LOG_ERROR, _("Cannot send the request ‘%s’"),
-                           g_strerror (errno));
-                Cddb_Close_Connection (self, socket_id);
-                g_free (cddb_in);
+                msg = log_message_from_request_error (message, error);
+                gtk_statusbar_push (GTK_STATUSBAR (priv->status_bar),
+                                    priv->status_bar_context, msg);
+                Log_Print (LOG_ERROR, "%s", msg);
+                g_free (msg);
+                g_error_free (error);
                 g_free (cddb_server_name);
                 g_free (cddb_server_cgi_path);
-                g_free (proxy_hostname);
                 g_string_free (query_string, TRUE);
                 g_free (cddb_discid);
-                return FALSE;
-            }
-            g_free(cddb_in);
-            cddb_in = NULL;
-
-
-            /*
-             * Read the answer
-             */
-            gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,_("Receiving data…"));
-            while (gtk_events_pending())
-                gtk_main_iteration();
-
-            /* Write result in a file. */
-            if (Cddb_Write_Result_To_File (self, socket_id, &bytes_read_total) < 0)
-            {
-                msg = g_strdup(_("The server returned a bad response"));
-                gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-                Log_Print(LOG_ERROR,"%s",msg);
-                g_free(msg);
-                g_free(cddb_server_name);
-                g_free(cddb_server_cgi_path);
-                g_free (proxy_hostname);
-                g_string_free (query_string, TRUE);
-                g_free (cddb_discid);
-                gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
+                g_object_unref (cancellable);
+                g_object_unref (message);
+                gtk_widget_set_sensitive (GTK_WIDGET (priv->stop_search_button),
+                                          FALSE);
                 return FALSE;
             }
 
-            // Parse server answer : Check returned code in the first line
-            file = NULL;
-            if (Cddb_Read_Http_Header(&file,&cddb_out) <= 0 || !cddb_out) // Order is important!
-            {
-                msg = g_strdup_printf (_("The server returned a bad response ‘%s’"),
-                                       cddb_out);
-                gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
-                Log_Print(LOG_ERROR,"%s",msg);
-                g_free(msg);
-                g_free(cddb_out);
-                g_free(cddb_server_name);
-                g_free(cddb_server_cgi_path);
-                g_free (proxy_hostname);
-                g_string_free (query_string, TRUE);
-                g_free (cddb_discid);
-                gtk_widget_set_sensitive(GTK_WIDGET(priv->stop_search_button),FALSE);
-                if (file)
-                    fclose(file);
-                return FALSE;
-            }
-            g_free(cddb_out);
+            /* Read the answer. */
+            dstream = g_data_input_stream_new (istream);
+            g_object_unref (istream);
+            g_data_input_stream_set_newline_type (dstream,
+                                                  G_DATA_STREAM_NEWLINE_TYPE_ANY);
 
             /*
              * Format :
@@ -3337,36 +2810,27 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
              *      200 jazz 7e0a100a Pink Floyd / Dark Side of the Moon
              */
             while (!priv->stop_searching
-                   && Cddb_Read_Line (&file, &cddb_out) > 0)
+                   && read_cddb_result_line (dstream, cancellable, &cddb_out))
             {
-                cddb_out_tmp = cddb_out;
-                //g_print("%s\n",cddb_out);
+                const gchar *cddb_out_tmp = cddb_out;
 
-                // To avoid the cddb lookups to hang (Patch from Paul Giordano)
-                /* It appears that on some systems that cddb lookups continue to attempt
-                 * to get data from the socket even though the other system has completed
-                 * sending. The fix adds one check to the loops to see if the actual
-                 * end of data is in the last block read. In this case, the last line
-                 * will be a single '.'
-                 */
-                if (cddb_out_tmp && strlen (cddb_out_tmp) <= 3
-                    && strstr (cddb_out_tmp, CDDB_END_STR) != NULL)
+                if (!cddb_out_tmp)
                 {
-                    g_free (cddb_out);
-                    cddb_out = NULL;
                     break;
                 }
 
-                // Compatibility for the MusicBrainz CddbGateway
-                if ( cddb_out_tmp && strlen(cddb_out_tmp)>3
-                &&  (strncmp(cddb_out_tmp,"200",3)==0
-                ||   strncmp(cddb_out_tmp,"210",3)==0
-                ||   strncmp(cddb_out_tmp,"211",3)==0) )
-                    cddb_out_tmp = cddb_out_tmp + 4;
+                /* Compatibility for the MusicBrainz CddbGateway. */
+                if (strlen (cddb_out_tmp) > 3
+                    && (strncmp (cddb_out_tmp, "200", 3) == 0
+                        || strncmp (cddb_out_tmp, "210", 3) == 0
+                        || strncmp (cddb_out_tmp, "211", 3) == 0))
+                {
+                    cddb_out_tmp += 4;
+                }
 
                 // Reading of lines with albums (skiping return code lines :
                 // "211 Found inexact matches, list follows (until terminating `.')" )
-                if (cddb_out != NULL && strstr(cddb_out_tmp,"/") != NULL)
+                if (strstr (cddb_out_tmp, "/") != NULL)
                 {
                     gchar* ptr;
                     CddbAlbum *cddbalbum;
@@ -3403,22 +2867,17 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
                     priv->album_list = g_list_append(priv->album_list,cddbalbum);
                 }
 
+                /* There is no need to explicitly check for the terminating
+                 * '.' */
                 g_free(cddb_out);
             }
+
             g_free (cddb_out);
             g_free(cddb_server_name);
             g_free(cddb_server_cgi_path);
-            g_free (proxy_hostname);
-
-            /* Close file opened for reading lines. */
-            if (file)
-            {
-                fclose(file);
-                file = NULL;
-            }
-
-            /* Close connection. */
-            Cddb_Close_Connection (self, socket_id);
+            g_object_unref (dstream);
+            g_object_unref (cancellable);
+            g_object_unref (message);
         }
     }
 
@@ -3483,40 +2942,6 @@ Cddb_Get_Pixbuf_From_Server_Name (const gchar *server_name)
         return NULL;
 }
 
-
-static gchar *
-Cddb_Format_Proxy_Authentification (void)
-{
-    gchar *username;
-    gchar *password;
-    gchar *ret;
-
-    username = g_settings_get_string (MainSettings, "cddb-proxy-username");
-    password = g_settings_get_string (MainSettings, "cddb-proxy-password");
-
-    if (g_settings_get_boolean (MainSettings, "cddb-proxy-enabled")
-        && username && *username )
-    {
-        const gchar *tempstr;
-        gchar *str_encoded;
-
-        tempstr = g_strconcat (username, ":", password, NULL);
-        str_encoded = g_base64_encode((const guchar *)tempstr, strlen(tempstr));
-
-        ret = g_strdup_printf("Proxy-authorization: Basic %s\r\n", str_encoded);
-        g_free (str_encoded);
-    }
-    else
-    {
-        ret = g_strdup ("");
-    }
-
-    g_free (username);
-    g_free (password);
-
-    return ret;
-}
-
 static void
 et_cddb_dialog_finalize (GObject *object)
 {
@@ -3530,6 +2955,8 @@ et_cddb_dialog_finalize (GObject *object)
     {
         Cddb_Free_Album_List (self);
     }
+
+    g_object_unref (priv->session);
 
     G_OBJECT_CLASS (et_cddb_dialog_parent_class)->finalize (object);
 }

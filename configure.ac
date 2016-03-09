@@ -162,6 +162,8 @@ AC_ARG_ENABLE([mp4],
 AC_ARG_ENABLE([wavpack],
               [AS_HELP_STRING([--disable-wavpack], [Disable support for Wavpack files (default=auto)])])
 
+AC_ARG_ENABLE([cddb],
+              [AS_HELP_STRING([--disable-cddb], [Disable CDDB support (default=auto)])])
 AC_ARG_ENABLE([nautilus_actions],
               [AS_HELP_STRING([--disable-nautilus-actions], [do not build the nautilus context menu actions (default=auto)])])
 
@@ -170,10 +172,6 @@ AC_ARG_ENABLE([nautilus_actions],
 dnl -------------------------------
 dnl Checks for libraries.
 dnl -------------------------------
-
-dnl Patch from Ben Taylor to fix a Solaris bug (for CDDB)
-AC_CHECK_LIB([socket], [recv])
-
 
 dnl ################################################
 dnl # Ogg Vorbis libraries
@@ -320,6 +318,20 @@ AS_IF([test "x$have_wavpack" != "xno"],
              [AC_MSG_ERROR([Wavpack support requested but required dependencies ($WAVPACK_DEPS) not found])])])
 
 dnl ################################################
+dnl # CDDB (libsoup)
+dnl ################################################
+CDDB_DEPS="libsoup-2.4 >= 2.42"
+AS_IF([test "x$enable_cddb" != "xno"],
+      [PKG_CHECK_EXISTS([$CDDB_DEPS], [have_cddb=yes], [have_cddb=no])],
+      [have_cddb=no])
+
+AS_IF([test "x$enable_cddb" != "xno"],
+      [AC_DEFINE([ENABLE_CDDB], [], [Define for CDDB support])],
+      [CDDB_DEPS=""
+       AS_IF([test "x$enable_cddb" = "xyes"],
+             [AC_MSG_ERROR([CDDB support requested but required dependences ($CDDB_DEPS) not found])])])
+
+dnl ################################################
 dnl # Nautilus
 dnl ################################################
 NAUTILUS_DEPS="libnautilus-extension >= 3.0 gio-unix-2.0"
@@ -344,17 +356,9 @@ AC_SUBST([GLIB_DEPRECATION_FLAGS],
 GTK_DEPS="gtk+-3.0 >= 3.10.0"
 AC_SUBST([GTK_DEPRECATION_FLAGS],
          ["-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_10 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_10"])
-PKG_CHECK_MODULES([EASYTAG], [$GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
-
-dnl Check for winsock
-AC_SEARCH_LIBS([gethostbyname], [nsl socket], [],
-    [saved_LIBS=$LIBS
-     LIBS="-lws2_32 $LIBS"
-     AC_MSG_CHECKING([for gethostbyname in ws2_32])
-     AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <winsock2.h>]],
-        [[gethostbyname ("");]])],
-        [have_ws2=yes], [have_ws2=no LIBS=$saved_LIBS])
-     AC_MSG_RESULT([$have_ws2])])
+AC_SUBST([SOUP_DEPRECATION_FLAGS],
+         ["-DSOUP_VERSION_MIN_REQUIRED=SOUP_VERSION_2_42 -DSOUP_VERSION_MAX_ALLOWED=SOUP_VERSION_2_42"])
+PKG_CHECK_MODULES([EASYTAG], [$CDDB_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Set warning flags
 AX_IS_RELEASE([git-directory])
@@ -382,6 +386,7 @@ echo Compiler ................: $CC $CFLAGS
 echo Compiler warnings .......: $WARN_CFLAGS
 echo C++ Compiler warnings ...: $WARN_CXXFLAGS
 echo Linker ..................: $CC $LDFLAGS $LIBS
+echo CDDB support ............: $have_cddb
 echo MP3 file support ........: $have_mp3
 echo ID3v2.3 tags support ....: $have_id3lib $ID3LIB_VERSION
 echo Ogg Vorbis file support .: $have_ogg

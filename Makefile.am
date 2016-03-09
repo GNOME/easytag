@@ -26,7 +26,8 @@ easytag_CPPFLAGS = \
 	-I$(top_builddir)/src \
 	-DLOCALEDIR=\"$(localedir)\" \
 	$(GLIB_DEPRECATION_FLAGS) \
-	$(GTK_DEPRECATION_FLAGS)
+	$(GTK_DEPRECATION_FLAGS) \
+	$(SOUP_DEPRECATION_FLAGS)
 
 easytag_CFLAGS = \
 	$(WARN_CFLAGS) \

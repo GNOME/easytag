@@ -994,6 +994,7 @@ et_browser_win32_get_drive_root (EtBrowser *self,
     {
         gtk_tree_model_get(GTK_TREE_MODEL(priv->directory_model), &parentNode,
                            TREE_COLUMN_FULL_PATH, &nodeName, -1);
+        /* FIXME: Use something other than strncasecmp()! */
         if (strncasecmp(drive,nodeName, strlen(drive)) == 0)
         {
             g_free(nodeName);
