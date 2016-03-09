@@ -4,7 +4,6 @@ TODO List
 General tidying
 ---------------
 
-* Use GProxyResolver for proxy settings
 * Port file I/O to use GFile from GIO
 ** Additionally, make I/O asynchronous
 * Avoid using gtk_events_pending(), use asynchronous operations instead

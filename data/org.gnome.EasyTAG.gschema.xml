@@ -101,37 +101,6 @@
       <default>true</default>
     </key>
 
-    <key name="cddb-proxy-enabled" type="b">
-      <summary>Enable proxy for remote CDDB</summary>
-      <description>Whether to access remote CDDB through a proxy</description>
-      <default>false</default>
-    </key>
-
-    <key name="cddb-proxy-hostname" type="s">
-      <summary>CDDB proxy hostname</summary>
-      <description>Hostname for a proxy to access remote CDDB</description>
-      <default>''</default>
-    </key>
-
-    <key name="cddb-proxy-port" type="u">
-      <summary>CDDB proxy port</summary>
-      <description>Port for a proxy to access remote CDDB</description>
-      <default>8080</default>
-      <range min="0" max="65535" />
-    </key>
-
-    <key name="cddb-proxy-username" type="s">
-      <summary>CDDB proxy username</summary>
-      <description>Username for a proxy to access remote CDDB</description>
-      <default>''</default>
-    </key>
-
-    <key name="cddb-proxy-password" type="s">
-      <summary>CDDB proxy password</summary>
-      <description>Password for a proxy to access remote CDDB</description>
-      <default>''</default>
-    </key>
-
     <key name="cddb-run-scanner" type="b">
       <summary>Run the scanner on CDDB results</summary>
       <description>Whether to run the tag scanner, with the current settings, on the CDDB results</description>

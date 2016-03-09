@@ -118,11 +118,6 @@ typedef struct
     GtkWidget *cddb_manual_host_combo;
     GtkWidget *cddb_manual_port_button;
     GtkWidget *cddb_manual_path_entry;
-    GtkWidget *cddb_proxy_check;
-    GtkWidget *cddb_host_entry;
-    GtkWidget *cddb_port_button;
-    GtkWidget *cddb_password_entry;
-    GtkWidget *cddb_user_entry;
     GtkWidget *cddb_follow_check;
     GtkWidget *cddb_dlm_check;
     GtkWidget *confirm_write_check;
@@ -702,29 +697,6 @@ create_preferences_dialog (EtPreferencesDialog *self)
                      priv->cddb_manual_path_entry, "text",
                      G_SETTINGS_BIND_DEFAULT);
 
-    /* CDDB Proxy Settings. */
-    g_settings_bind (MainSettings, "cddb-proxy-enabled",
-                     priv->cddb_proxy_check, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-hostname",
-                     priv->cddb_host_entry, "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", priv->cddb_host_entry,
-                     "sensitive", G_SETTINGS_BIND_GET);
-    g_settings_bind (MainSettings, "cddb-proxy-port", priv->cddb_port_button,
-                     "value", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled",
-                     priv->cddb_port_button, "sensitive", G_SETTINGS_BIND_GET);
-    g_settings_bind (MainSettings, "cddb-proxy-username",
-                     priv->cddb_user_entry, "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled", priv->cddb_user_entry,
-                     "sensitive", G_SETTINGS_BIND_GET);
-    g_settings_bind (MainSettings, "cddb-proxy-password",
-                     priv->cddb_password_entry, "text",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "cddb-proxy-enabled",
-                     priv->cddb_password_entry, "sensitive",
-                     G_SETTINGS_BIND_GET);
-
     /* Track Name list (CDDB results). */
     g_settings_bind (MainSettings, "cddb-follow-file", priv->cddb_follow_check,
                      "active", G_SETTINGS_BIND_DEFAULT);
@@ -1220,21 +1192,6 @@ et_preferences_dialog_class_init (EtPreferencesDialogClass *klass)
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtPreferencesDialog,
                                                   cddb_manual_path_entry);
-    gtk_widget_class_bind_template_child_private (widget_class,
-                                                  EtPreferencesDialog,
-                                                  cddb_proxy_check);
-    gtk_widget_class_bind_template_child_private (widget_class,
-                                                  EtPreferencesDialog,
-                                                  cddb_host_entry);
-    gtk_widget_class_bind_template_child_private (widget_class,
-                                                  EtPreferencesDialog,
-                                                  cddb_port_button);
-    gtk_widget_class_bind_template_child_private (widget_class,
-                                                  EtPreferencesDialog,
-                                                  cddb_user_entry);
-    gtk_widget_class_bind_template_child_private (widget_class,
-                                                  EtPreferencesDialog,
-                                                  cddb_password_entry);
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtPreferencesDialog,
                                                   cddb_follow_check);

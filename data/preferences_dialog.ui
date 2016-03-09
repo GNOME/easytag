@@ -15,11 +15,6 @@
         <property name="step-increment">1.0</property>
         <property name="upper">65535.0</property>
     </object>
-    <object class="GtkAdjustment" id="cddb_proxy_adjustment">
-        <property name="lower">0.0</property>
-        <property name="step-increment">1.0</property>
-        <property name="upper">65535.0</property>
-    </object>
     <object class="GtkAdjustment" id="tags_disc_adjustment">
         <property name="lower">1.0</property>
         <property name="step-increment">1.0</property>
@@ -1298,118 +1293,6 @@
                                             <packing>
                                                 <property name="left_attach">5</property>
                                                 <property name="top_attach">4</property>
-                                            </packing>
-                                        </child>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkLabel" id="cddb_proxy_label">
-                                        <property name="halign">start</property>
-                                        <property name="label" translatable="yes">Proxy</property>
-                                        <property name="margin-top">12</property>
-                                        <property name="visible">True</property>
-                                        <attributes>
-                                            <attribute name="weight" value="bold"/>
-                                        </attributes>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkCheckButton" id="cddb_proxy_check">
-                                        <property name="label" translatable="yes">Use a proxy server</property>
-                                        <property name="margin-left">12</property>
-                                        <property name="tooltip-text" translatable="yes">Whether to access remote CDDB through a proxy</property>
-                                        <property name="visible">True</property>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkGrid" id="cddb_proxy_grid">
-                                        <property name="column-spacing">12</property>
-                                        <property name="row-spacing">6</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                            <object class="GtkLabel" id="cddb_host_label">
-                                                <property name="halign">start</property>
-                                                <property name="label" translatable="yes">Host:</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">0</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkEntry" id="cddb_host_entry">
-                                                <property name="tooltip-text" translatable="yes">Hostname for a proxy to access remote CDDB</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">1</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkLabel" id="cddb_port_label">
-                                                <property name="halign">start</property>
-                                                <property name="label" translatable="yes">Port:</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">2</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkSpinButton" id="cddb_port_button">
-                                                <property name="adjustment">cddb_proxy_adjustment</property>
-                                                <property name="tooltip-text" translatable="yes">Port for a proxy to access remote CDDB</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">3</property>
-                                                <property name="top-attach">0</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkLabel" id="cddb_user_label">
-                                                <property name="halign">start</property>
-                                                <property name="label" translatable="yes">User:</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">0</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkEntry" id="cddb_user_entry">
-                                                <property name="tooltip-text" translatable="yes">Username for a proxy to access remote CDDB</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">1</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkLabel" id="cddb_password_label">
-                                                <property name="halign">start</property>
-                                                <property name="label" translatable="yes">Password:</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">2</property>
-                                                <property name="top-attach">1</property>
-                                            </packing>
-                                        </child>
-                                        <child>
-                                            <object class="GtkEntry" id="cddb_password_entry">
-                                                <property name="tooltip-text" translatable="yes">Password for a proxy to access remote CDDB</property>
-                                                <property name="visibility">False</property>
-                                                <property name="visible">True</property>
-                                            </object>
-                                            <packing>
-                                                <property name="left-attach">3</property>
-                                                <property name="top-attach">1</property>
                                             </packing>
                                         </child>
                                     </object>
