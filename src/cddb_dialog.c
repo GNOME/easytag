@@ -3454,13 +3454,18 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
 static const gchar *
 Cddb_Get_Id3_Genre_From_Cddb_Genre (const gchar *cddb_genre)
 {
-    guint i;
+    gsize i;
 
     g_return_val_if_fail (cddb_genre != NULL, "");
 
-    for (i=0; i<=CDDB_GENRE_MAX; i++)
-        if (strcasecmp(cddb_genre,cddb_genre_vs_id3_genre[i][0])==0)
+    for (i = 0; i <= CDDB_GENRE_MAX; i++)
+    {
+        if (g_ascii_strcasecmp (cddb_genre, cddb_genre_vs_id3_genre[i][0]) == 0)
+        {
             return cddb_genre_vs_id3_genre[i][1];
+        }
+    }
+
     return cddb_genre;
 }
 
