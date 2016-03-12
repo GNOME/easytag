@@ -647,31 +647,24 @@ on_undo_file_changes (GSimpleAction *action,
                       gpointer user_data)
 {
     EtApplicationWindow *self;
-    EtApplicationWindowPrivate *priv;
-    GList *selfilelist = NULL;
+    GList *etfilelist = NULL;
     GList *l;
     gboolean state = FALSE;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
 
     et_application_window_update_et_file_from_ui (self);
 
-    selection = et_application_window_browser_get_selection (self);
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+    etfilelist = et_application_window_browser_get_selected_files (self);
 
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
-                                                   l->data);
-        state |= ET_Undo_File_Data(etfile);
+        state |= ET_Undo_File_Data ((ET_File *)l->data);
     }
 
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    g_list_free (etfilelist);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
     et_application_window_browser_refresh_list (self);
@@ -679,8 +672,6 @@ on_undo_file_changes (GSimpleAction *action,
     /* Display the current file */
     et_application_window_display_et_file (self, ETCore->ETFileDisplayed);
     et_application_window_update_actions (self);
-
-    //ET_Debug_Print_File_List(ETCore->ETFileList,__FILE__,__LINE__,__FUNCTION__);
 }
 
 static void
@@ -689,31 +680,24 @@ on_redo_file_changes (GSimpleAction *action,
                       gpointer user_data)
 {
     EtApplicationWindow *self;
-    EtApplicationWindowPrivate *priv;
-    GList *selfilelist = NULL;
+    GList *etfilelist;
     GList *l;
     gboolean state = FALSE;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
 
     et_application_window_update_et_file_from_ui (self);
 
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (user_data));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+    etfilelist = et_application_window_browser_get_selected_files (self);
 
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
-                                                   l->data);
-        state |= ET_Redo_File_Data(etfile);
+        state |= ET_Redo_File_Data ((ET_File *)l->data);
     }
 
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    g_list_free (etfilelist);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
     et_application_window_browser_refresh_list (ET_APPLICATION_WINDOW (user_data));
@@ -888,35 +872,28 @@ on_remove_tags (GSimpleAction *action,
                 gpointer user_data)
 {
     EtApplicationWindow *self;
-    EtApplicationWindowPrivate *priv;
-    GList *selfilelist = NULL;
+    GList *etfilelist;
     GList *l;
-    ET_File *etfile;
     File_Tag *FileTag;
     gint progress_bar_index;
     gint selectcount;
     double fraction;
-    GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
 
     et_application_window_update_et_file_from_ui (self);
 
     /* Initialize status bar */
     et_application_window_progress_set_fraction (self, 0.0);
-    selection = et_application_window_browser_get_selection (self);
-    selectcount = gtk_tree_selection_count_selected_rows (selection);
+    etfilelist = et_application_window_browser_get_selected_files (self);
+    selectcount = g_list_length (etfilelist);
     progress_bar_index = 0;
 
-    selfilelist = gtk_tree_selection_get_selected_rows (selection, NULL);
-
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    for (l = etfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_browser_get_et_file_from_path (ET_BROWSER (priv->browser),
-                                                   l->data);
+        ET_File *etfile = (ET_File *)l->data;
         FileTag = et_file_tag_new ();
         ET_Manage_Changes_Of_File_Data (etfile, NULL, FileTag);
 
@@ -929,7 +906,7 @@ on_remove_tags (GSimpleAction *action,
         }
     }
 
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    g_list_free (etfilelist);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
     et_application_window_browser_refresh_list (self);
@@ -2620,12 +2597,9 @@ et_application_window_update_actions (EtApplicationWindow *self)
         return;
     }else
     {
-        GList *selfilelist = NULL;
-        ET_File *etfile;
         gboolean has_undo = FALSE;
         gboolean has_redo = FALSE;
         //gboolean has_to_save = FALSE;
-        GtkTreeSelection *selection;
 
         /* File and Tag frames */
         et_application_window_file_area_set_sensitive (self, TRUE);
@@ -2656,23 +2630,23 @@ et_application_window_update_actions (EtApplicationWindow *self)
 
         /* Check if one of the selected files has undo or redo data */
         {
+            GList *etfilelist;
             GList *l;
 
-            selection = et_application_window_browser_get_selection (self);
-            selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+            etfilelist = et_application_window_browser_get_selected_files (self);
 
-            for (l = selfilelist; l != NULL; l = g_list_next (l))
+            for (l = etfilelist; l != NULL; l = g_list_next (l))
             {
-                etfile = et_application_window_browser_get_et_file_from_path (self,
-                                                                              l->data);
-                has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
-                has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
+                const ET_File *etfile = (ET_File *)l->data;
+
+                has_undo |= ET_File_Data_Has_Undo_Data (etfile);
+                has_redo |= ET_File_Data_Has_Redo_Data (etfile);
                 /* has_to_save |= et_file_check_saved (etfile); */
                 if ((has_undo && has_redo /*&& has_to_save*/) || !l->next) // Useless to check the other files
                     break;
             }
 
-            g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+            g_list_free (etfilelist);
         }
 
         /* Enable undo commands if there are undo data */
@@ -2863,6 +2837,16 @@ et_application_window_browser_get_et_file_from_iter (EtApplicationWindow *self,
     priv = et_application_window_get_instance_private (self);
 
     return et_browser_get_et_file_from_iter (ET_BROWSER (priv->browser), iter);
+}
+
+GList *
+et_application_window_browser_get_selected_files (EtApplicationWindow *self)
+{
+    EtApplicationWindowPrivate *priv;
+
+    priv = et_application_window_get_instance_private (self);
+
+    return et_browser_get_selected_files (ET_BROWSER (priv->browser));
 }
 
 GtkTreeSelection *

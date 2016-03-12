@@ -75,6 +75,7 @@ void et_application_window_browser_entry_set_text (EtApplicationWindow *self, co
 void et_application_window_browser_label_set_text (EtApplicationWindow *self, const gchar *text);
 ET_File * et_application_window_browser_get_et_file_from_path (EtApplicationWindow *self, GtkTreePath *path);
 ET_File * et_application_window_browser_get_et_file_from_iter (EtApplicationWindow *self, GtkTreeIter *iter);
+GList * et_application_window_browser_get_selected_files (EtApplicationWindow *self);
 GtkTreeSelection * et_application_window_browser_get_selection (EtApplicationWindow *self);
 GtkTreeViewColumn *et_application_window_browser_get_column_for_column_id (EtApplicationWindow *self, gint column_id);
 GtkSortType et_application_window_browser_get_sort_order_for_column_id (EtApplicationWindow *self, gint column_id);

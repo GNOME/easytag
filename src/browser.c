@@ -514,6 +514,44 @@ et_browser_get_current_path (EtBrowser *self)
     return priv->current_path;
 }
 
+/*
+ * et_browser_get_selected_files:
+ * @self: an #EtBrowser from which to get a list of selected files
+ *
+ * Get a list of #ET_File of the current selection of the #EtBrowser @self.
+ *
+ * Returns: (element-type ET_File) (transfer container): a newly-allocated list
+ *          of the selected files in the browser
+ */
+GList *
+et_browser_get_selected_files (EtBrowser *self)
+{
+    EtBrowserPrivate *priv;
+    GtkTreeSelection *selection;
+    GList *selfilelist;
+    GList *l;
+    GList *files = NULL;
+
+    g_return_val_if_fail (ET_BROWSER (self), NULL);
+
+    priv = et_browser_get_instance_private (self);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->file_view));
+    selfilelist = gtk_tree_selection_get_selected_rows (selection, NULL);
+
+    for (l = selfilelist; l != NULL; l = g_list_next (l))
+    {
+        ET_File *etfile;
+
+        etfile = et_browser_get_et_file_from_path (self,
+                                                   (GtkTreePath *)l->data);
+        files = g_list_prepend (files, etfile);
+    }
+
+    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+
+    return g_list_reverse (files);
+}
+
 GtkTreeSelection *
 et_browser_get_selection (EtBrowser *self)
 {

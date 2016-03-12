@@ -2712,15 +2712,13 @@ entry_check_rename_file_mask (GtkEntry *entry, gpointer user_data)
 void
 et_scan_dialog_scan_selected_files (EtScanDialog *self)
 {
-    gint progress_bar_index;
-    gint selectcount;
+    EtApplicationWindow *window;
+    guint progress_bar_index = 0;
+    guint selectcount;
     gchar progress_bar_text[30];
     double fraction;
     GList *selfilelist = NULL;
     GList *l;
-    ET_File *etfile;
-    EtApplicationWindow *window;
-    GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
@@ -2728,24 +2726,19 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
     et_application_window_update_et_file_from_ui (window);
 
     /* Initialize status bar */
-    selection = et_application_window_browser_get_selection (window);
-    selectcount = gtk_tree_selection_count_selected_rows (selection);
     et_application_window_progress_set_fraction (window, 0.0);
-    progress_bar_index = 0;
-    g_snprintf(progress_bar_text, 30, "%d/%d", progress_bar_index, selectcount);
+    selfilelist = et_application_window_browser_get_selected_files (window);
+    selectcount = g_list_length (selfilelist);
+    g_snprintf (progress_bar_text, 30, "%u/%u", progress_bar_index,
+                selectcount);
     et_application_window_progress_set_text (window, progress_bar_text);
 
     /* Set to unsensitive all command buttons (except Quit button) */
     et_application_window_disable_command_actions (window);
 
-    progress_bar_index = 0;
-
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
     for (l = selfilelist; l != NULL; l = g_list_next (l))
     {
-        etfile = et_application_window_browser_get_et_file_from_path (window,
-                                                                      l->data);
+        ET_File *etfile = l->data;
 
         /* Run the current scanner. */
         Scan_Select_Mode_And_Run_Scanner (self, etfile);
@@ -2760,7 +2753,7 @@ et_scan_dialog_scan_selected_files (EtScanDialog *self)
             gtk_main_iteration();
     }
 
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    g_list_free (selfilelist);
 
     /* Refresh the whole list (faster than file by file) to show changes. */
     et_application_window_browser_refresh_list (window);

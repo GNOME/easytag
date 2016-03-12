@@ -105,26 +105,11 @@ Save_Selected_Files_With_Answer (gboolean force_saving_files)
 {
     gint toreturn;
     GList *etfilelist = NULL;
-    GList *selfilelist = NULL;
-    GList *l;
-    ET_File *etfile;
-    GtkTreeSelection *selection;
 
-    selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
-    selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
+    etfilelist = et_application_window_browser_get_selected_files (ET_APPLICATION_WINDOW (MainWindow));
+    toreturn = Save_List_Of_Files (etfilelist, force_saving_files);
+    g_list_free (etfilelist);
 
-    for (l = selfilelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
-                                                                      l->data);
-        etfilelist = g_list_prepend (etfilelist, etfile);
-    }
-
-    g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-
-    etfilelist = g_list_reverse (etfilelist);
-    toreturn = Save_List_Of_Files(etfilelist, force_saving_files);
-    g_list_free(etfilelist);
     return toreturn;
 }
 

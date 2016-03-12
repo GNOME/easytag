@@ -125,24 +125,9 @@ write_playlist (EtPlaylistDialog *self, GFile *file, GError **error)
 
     if (g_settings_get_boolean (MainSettings, "playlist-selected-only"))
     {
-        GList *selfilelist = NULL;
-        GtkTreeSelection *selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
-
-        selfilelist = gtk_tree_selection_get_selected_rows(selection, NULL);
-
-        for (l = selfilelist; l != NULL; l = g_list_next (l))
-        {
-            ET_File *etfile;
-
-            etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
-                                                                          l->data);
-            etfilelist = g_list_prepend (etfilelist, etfile);
-        }
-
-        etfilelist = g_list_reverse (etfilelist);
-
-        g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
-    }else
+        etfilelist = et_application_window_browser_get_selected_files (ET_APPLICATION_WINDOW (MainWindow));
+    }
+    else
     {
         etfilelist = ETCore->ETFileList;
     }

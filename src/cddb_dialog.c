@@ -2584,21 +2584,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
      * selected. */
     if (n_files > 0)
     {
-        GList* selfilelist;
-
-        selfilelist = gtk_tree_selection_get_selected_rows (file_selection,
-                                                            NULL);
-
-        for (l = selfilelist; l != NULL; l = g_list_next (l))
-        {
-            ET_File *etfile;
-
-            etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
-                                                                          l->data);
-            filelist = g_list_prepend (filelist, etfile);
-        }
-
-        g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+        filelist = et_application_window_browser_get_selected_files (ET_APPLICATION_WINDOW (MainWindow));
     }
     else /* No rows selected, use the whole list */
     {
@@ -2651,7 +2637,6 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     total_id = 0;
     num_tracks = n_files;
     query_string = g_string_new ("");
-    filelist = g_list_reverse (filelist);
 
     /* FIXME: Split this out to a separate function. */
     for (l = filelist; l != NULL; l = g_list_next (l))

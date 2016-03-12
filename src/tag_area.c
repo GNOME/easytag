@@ -133,15 +133,13 @@ on_apply_to_selection (GObject *object,
 {
     EtTagAreaPrivate *priv;
     EtApplicationWindow *window;
-    GList *etfilelist = NULL;
-    GList *selection_filelist = NULL;
+    GList *etfilelist;
     GList *l;
     const gchar *string_to_set;
     const gchar *string_to_set1;
     gchar *msg = NULL;
     ET_File *etfile;
     File_Tag *FileTag;
-    GtkTreeSelection *selection;
 
     g_return_if_fail (ETCore->ETFileDisplayedList != NULL);
 
@@ -151,21 +149,7 @@ on_apply_to_selection (GObject *object,
 
     et_application_window_update_et_file_from_ui (window);
 
-    /* Warning : 'selection_filelist' is not a list of 'ETFile' items! */
-    selection = et_application_window_browser_get_selection (window);
-    selection_filelist = gtk_tree_selection_get_selected_rows (selection, NULL);
-
-    // Create an 'ETFile' list from 'selection_filelist'
-    for (l = selection_filelist; l != NULL; l = g_list_next (l))
-    {
-        etfile = et_application_window_browser_get_et_file_from_path (window,
-                                                                      l->data);
-        etfilelist = g_list_prepend (etfilelist, etfile);
-    }
-
-    etfilelist = g_list_reverse (etfilelist);
-    g_list_free_full (selection_filelist, (GDestroyNotify)gtk_tree_path_free);
-
+    etfilelist = et_application_window_browser_get_selected_files (window);
 
     if (object == G_OBJECT (priv->title_entry))
     {
