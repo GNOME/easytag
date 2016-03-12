@@ -2566,16 +2566,11 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     guint disc_length  = 2;     /* and 2s elapsed before first track */
 
     GtkTreeSelection *file_selection = NULL;
-    guint file_selectedcount = 0;
-    GtkTreeIter  currentIter;
+    guint n_files = 0;
     guint total_id;
     guint num_tracks;
 
-    gpointer iterptr;
-
-    GtkListStore *fileListModel;
-    GtkTreeIter *fileIter;
-    GList *file_iterlist = NULL;
+    GList *filelist = NULL;
     GList *l;
 
     priv = et_cddb_dialog_get_instance_private (self);
@@ -2583,47 +2578,58 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     /* Number of selected files. */
     /* FIXME: Hack! */
     file_selection = et_application_window_browser_get_selection (ET_APPLICATION_WINDOW (MainWindow));
-    fileListModel = GTK_LIST_STORE (gtk_tree_view_get_model (gtk_tree_selection_get_tree_view (file_selection)));
-    file_selectedcount = gtk_tree_selection_count_selected_rows(file_selection);
+    n_files = gtk_tree_selection_count_selected_rows (file_selection);
 
-    // Create the list 'file_iterlist' of selected files (no selected files => all files selected)
-    if (file_selectedcount > 0)
+    /* Either take the selected files, or use all files if no files are
+     * selected. */
+    if (n_files > 0)
     {
-        GList* file_selectedrows = gtk_tree_selection_get_selected_rows(file_selection, NULL);
+        GList* selfilelist;
 
-        for (l = file_selectedrows; l != NULL; l = g_list_next (l))
+        selfilelist = gtk_tree_selection_get_selected_rows (file_selection,
+                                                            NULL);
+
+        for (l = selfilelist; l != NULL; l = g_list_next (l))
         {
-            iterptr = g_malloc0(sizeof(GtkTreeIter));
-            if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fileListModel),
-                                        (GtkTreeIter*) iterptr,
-                                        (GtkTreePath*) l->data))
-            {
-                file_iterlist = g_list_prepend (file_iterlist, iterptr);
-            }
+            ET_File *etfile;
+
+            etfile = et_application_window_browser_get_et_file_from_path (ET_APPLICATION_WINDOW (MainWindow),
+                                                                          l->data);
+            filelist = g_list_prepend (filelist, etfile);
         }
-        g_list_free_full (file_selectedrows,
-                          (GDestroyNotify)gtk_tree_path_free);
 
-    } else /* No rows selected, use the whole list */
+        g_list_free_full (selfilelist, (GDestroyNotify)gtk_tree_path_free);
+    }
+    else /* No rows selected, use the whole list */
     {
-        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(fileListModel), &currentIter);
+        GtkTreeIter iter;
+        GtkTreeModel *model;
 
-        do
+        model = gtk_tree_view_get_model (gtk_tree_selection_get_tree_view (file_selection));
+
+        if (gtk_tree_model_get_iter_first (model, &iter))
         {
-            iterptr = g_memdup(&currentIter, sizeof(GtkTreeIter));
-            file_iterlist = g_list_prepend (file_iterlist, iterptr);
-        } while (gtk_tree_model_iter_next(GTK_TREE_MODEL(fileListModel), &currentIter));
+            do
+            {
+                ET_File *etfile;
 
-        file_selectedcount = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(fileListModel), NULL);
+                etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow), &iter);
+                filelist = g_list_prepend (filelist, etfile);
+                n_files++;
+            } while (gtk_tree_model_iter_next (model, &iter));
+
+            filelist = g_list_reverse (filelist);
+        }
     }
 
-    if (file_selectedcount == 0)
+    if (n_files == 0)
     {
         msg = g_strdup_printf(_("No file selected"));
         gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
         g_free(msg);
         return TRUE;
-    }else if (file_selectedcount > 99)
+    }
+    else if (n_files > 99)
     {
         // The CD redbook standard defines the maximum number of tracks as 99, any
         // queries with more than 99 tracks will never return a result.
@@ -2635,28 +2641,25 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
     {
         msg = g_strdup_printf (ngettext ("One file selected",
                                          "%u files selected",
-                                         file_selectedcount),
-                               file_selectedcount);
+                                         n_files),
+                               n_files);
         gtk_statusbar_push(GTK_STATUSBAR(priv->status_bar),priv->status_bar_context,msg);
         g_free(msg);
     }
 
     // Generate query string and compute discid from the list 'file_iterlist'
     total_id = 0;
-    num_tracks = file_selectedcount;
+    num_tracks = n_files;
     query_string = g_string_new ("");
-
-    file_iterlist = g_list_reverse (file_iterlist);
+    filelist = g_list_reverse (filelist);
 
     /* FIXME: Split this out to a separate function. */
-    for (l = file_iterlist; l != NULL; l = g_list_next (l))
+    for (l = filelist; l != NULL; l = g_list_next (l))
     {
-        ET_File *etfile;
+        const ET_File *etfile;
         gulong secs = 0;
 
-        fileIter = (GtkTreeIter *)l->data;
-        etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
-                                                                      fileIter);
+        etfile = (const ET_File *)l->data;
 
         if (query_string->len > 0)
         {
@@ -2670,6 +2673,7 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         secs = etfile->ETFileInfo->duration;
         total_frames += secs * 75;
         disc_length  += secs;
+
         while (secs > 0)
         {
             total_id = total_id + (secs % 10);
@@ -2677,7 +2681,8 @@ et_cddb_dialog_search_from_selection (EtCDDBDialog *self)
         }
     }
 
-    g_list_free_full (file_iterlist, (GDestroyNotify)g_free);
+    /* No need to free the contained ET_File *. */
+    g_list_free (filelist);
 
     /* Compute CddbId. */
     cddb_discid = g_strdup_printf ("%08x", (guint)(((total_id % 0xFF) << 24) |
