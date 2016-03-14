@@ -6,24 +6,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag easytag-2-2\n"
-"POT-Creation-Date: 2014-05-04 15:12+0000\n"
-"PO-Revision-Date: 2014-05-04 07:25+0300\n"
-"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"POT-Creation-Date: 2015-03-27 16:00+0000\n"
+"PO-Revision-Date: 2016-03-12 15:17+0200\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
 "Language-Team: www.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
-"Ελληνική μεταφραστική ομάδα του GNOME\n"
-" Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2014\n"
-"Για περισσότερα δείτε: http://gnome.gr"
+"Ελληνική μεταφραστική ομάδα GNOME <team@gnome.gr>, 2014-2016\n"
+"Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2014"
 
 #. (itstool) path: credit/name
 #: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
@@ -179,14 +178,19 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/file-rename.page:30
 msgid ""
-"Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
-"\">Rename Files and Directories…</gui></guiseq>."
+"Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
+"Scanner</gui></guiseq>."
 msgstr ""
-"Επιλέξτε <guiseq><gui style=\"menu\">Σαρωτής</gui> <gui style=\"menuitem"
-"\">Μετονομασία αρχείων και καταλόγων…</gui></guiseq>."
+"Επιλέξτε <guiseq><gui style=\"menu\">Προβολή</gui> <gui style=\"menuitem"
+"\">Εμφάνιση σαρωτή</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:34
+msgid "Select the <gui>Rename File and Directory</gui> scanner."
+msgstr "Επιλέξτε τον σαρωτή <gui>Μετονομασία αρχείου και καταλόγου</gui>."
+
+#. (itstool) path: item/p
+#: C/file-rename.page:37
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
@@ -200,23 +204,23 @@ msgstr ""
 "input> στο πεδίο μετονομασίας."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:41
+#: C/file-rename.page:44
 msgid ""
-"To apply the changes to all files, select <guiseq><gui style=\"menu\">File</"
-"gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
+"To apply the changes to the selected files, click <gui style=\"button\">Scan "
+"Files</gui>."
 msgstr ""
-"Για να εφαρμόσετε τις αλλαγές σε όλα τα αρχεία, επιλέξτε <guiseq><gui style="
-"\"menu\">Αρχείο</gui> <gui style=\"menuitem\">Σάρωση αρχείων…</gui></guiseq>."
+"Για να εφαρμόσετε τις αλλαγές στα επιλεγμένα αρχεία, κάντε κλικ στο <gui "
+"style=\"button\">Σάρωση αρχείων</gui>."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:46
-msgid "Close the <gui style=\"dialog\">Tag and Filename scan</gui> dialog."
+#: C/file-rename.page:48
+msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
 msgstr ""
 "Κλείστε τον διάλογο <gui style=\"dialog\">Ετικέτες και σάρωση ονόματος "
 "αρχείου</gui>."
 
 #. (itstool) path: item/p
-#: C/file-rename.page:49
+#: C/file-rename.page:51
 msgid ""
 "To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
 "<gui style=\"menuitem\">Save Files</gui></guiseq>."
@@ -226,7 +230,7 @@ msgstr ""
 "guiseq>."
 
 #. (itstool) path: note/p
-#: C/file-rename.page:56
+#: C/file-rename.page:58
 msgid "If you close the application without saving, your changes will be lost."
 msgstr "Αν κλείσετε την εφαρμογή χωρίς αποθήκευση, οι αλλαγές σας θα χαθούν."
 
@@ -291,11 +295,6 @@ msgid "Corresponding tag field"
 msgstr "Αντιστοίχηση πεδίου ετικέτας"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:41
-msgid "%a"
-msgstr "%a"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:44
 msgid ""
 "Artist: this is the artist or artists who created the track, this field may "
@@ -306,19 +305,9 @@ msgstr ""
 "καθώς και τον δίσκο του καλλιτέχνη."
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:50
-msgid "%z"
-msgstr "%z"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:53
 msgid "Album artist"
 msgstr "Καλλιτέχνης του δίσκου"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:58
-msgid "%b"
-msgstr "%b"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:61
@@ -326,29 +315,14 @@ msgid "Album title"
 msgstr "Τίτλος δίσκου"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:66
-msgid "%c"
-msgstr "%c"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:69
 msgid "Comment: this is the free-form comment field"
 msgstr "Σχόλιο: αυτό είναι ένα πεδίο σχολίου ελεύθερης μορφής"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:74
-msgid "%p"
-msgstr "%p"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:77
 msgid "Composer: this is the creator of the track"
 msgstr "Συνθέτης: αυτό είναι ο δημιουργός του κομματιού"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:82
-msgid "%r"
-msgstr "%r"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:85
@@ -360,19 +334,9 @@ msgstr ""
 "μπορεί επίσης να είναι η ετικέτα εγγραφής."
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:91
-msgid "%d"
-msgstr "%d"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:94
 msgid "Disc number"
 msgstr "Αριθμός δίσκου"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:99
-msgid "%e"
-msgstr "%e"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:102
@@ -385,19 +349,9 @@ msgstr ""
 "για να κωδικοποιήσει το αρχείο."
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:109
-msgid "%g"
-msgstr "%g"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:112
 msgid "Genre"
 msgstr "Είδος"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:117
-msgid "%i"
-msgstr "%i"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:120
@@ -410,19 +364,9 @@ msgstr ""
 "πρέπει να αγνοηθούν."
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:127
-msgid "%l"
-msgstr "%l"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:130
 msgid "Number of tracks: the total number of tracks on the medium"
 msgstr "Αριθμός κομματιών: ο συνολικός αριθμός κομματιών στο μέσο"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:135
-msgid "%o"
-msgstr "%o"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:138
@@ -430,19 +374,9 @@ msgid "Original artist"
 msgstr "Αρχικός καλλιτέχνης"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:143
-msgid "%n"
-msgstr "%n"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:146
 msgid "Track number"
 msgstr "Αριθμός κομματιών"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:151
-msgid "%t"
-msgstr "%t"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:154
@@ -450,29 +384,14 @@ msgid "Track title"
 msgstr "Τίτλος κομματιού"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:159
-msgid "%u"
-msgstr "%u"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:162
 msgid "URL"
 msgstr "URL"
 
 #. (itstool) path: td/p
-#: C/format-specifier.page:167
-msgid "%x"
-msgstr "%x"
-
-#. (itstool) path: td/p
 #: C/format-specifier.page:170
 msgid "Number of discs"
 msgstr "Αριθμός δίσκων"
-
-#. (itstool) path: td/p
-#: C/format-specifier.page:175
-msgid "%y"
-msgstr "%y"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:178
@@ -1110,13 +1029,13 @@ msgstr ""
 msgid ""
 "For example, if you keep your audio files using the <file>artist/"
 "album/01 track title.flac</file> directory structure and filenames, use the "
-"<input>%a/%b/%t %n</input> <em>format string</em> to extract the track "
+"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
 "number and title from the filename, the album title from the parent "
 "directory and the artist from the grandparent directory."
 msgstr ""
 "Για παράδειγμα, αν κρατήσετε τα αρχεία ήχου σας χρησιμοποιώντας τη δομή "
 "καταλόγου και τα ονόματα αρχείων του <file>artist/album/01 track title.flac</"
-"file>, χρησιμοποιήστε το <input>%a/%b/%t %n</input> της <em>συμβολοσειράς "
+"file>, χρησιμοποιήστε το <input>%a/%b/%n %t</input> της <em>συμβολοσειράς "
 "μορφής</em> για να εξάγετε τον αριθμό κομματιού και τον τίτλο από το όνομα "
 "του αρχείου, τον τίτλο δίσκου από τον γονικό κατάλογο και τον καλλιτέχνη από "
 "τον προγονικό κατάλογο."
@@ -1153,13 +1072,13 @@ msgstr ""
 #: C/scanner.page:60
 msgid ""
 "For example, if you have a tagged file inside the <file>Music</file> "
-"directory, you can use the <input>%a/%b/%t %n</input> <em>format string</"
+"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
 "em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
 "file structure and filename. You will see a preview of the naming scheme "
 "below your specified format string."
 msgstr ""
 "Για παράδειγμα, αν έχετε ένα αρχείο με ετικέτα μέσα στον κατάλογο "
-"<file>μουσική</file>, μπορείτε να χρησιμοποιήσετε το <input>%a/%b/%t %n</"
+"<file>μουσική</file>, μπορείτε να χρησιμοποιήσετε το <input>%a/%b/%n %t</"
 "input> της <em>συμβολοσειράς μορφής</em>, που θα δημιουργήσει τη δομή "
 "αρχείου και το όνομα αρχείου <file>Music/artist/album/01 track title.flac</"
 "file>. Θα δείτε μια προεπισκόπηση του σχήματος ονομασίας κάτω από την "
@@ -1356,3 +1275,69 @@ msgstr ""
 "<gui>Καλλιτέχνης</gui>. Μπορείτε να επεξεργαστείτε μερικά από αυτά τα πεδία "
 "χρησιμοποιώντας <app>EasyTAG</app>. Τα επεξεργάσιμα πεδία εξαρτώνται από τη "
 "μορφή του αρχείου στο οποίο θέλετε να βάλετε ετικέτα."
+
+#~ msgid ""
+#~ "Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
+#~ "\">Rename Files and Directories…</gui></guiseq>."
+#~ msgstr ""
+#~ "Επιλέξτε <guiseq><gui style=\"menu\">Σαρωτής</gui> <gui style=\"menuitem"
+#~ "\">Μετονομασία αρχείων και καταλόγων…</gui></guiseq>."
+
+#~ msgid ""
+#~ "To apply the changes to all files, select <guiseq><gui style=\"menu"
+#~ "\">File</gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
+#~ msgstr ""
+#~ "Για να εφαρμόσετε τις αλλαγές σε όλα τα αρχεία, επιλέξτε <guiseq><gui "
+#~ "style=\"menu\">Αρχείο</gui> <gui style=\"menuitem\">Σάρωση αρχείων…</"
+#~ "gui></guiseq>."
+
+#~ msgid "%a"
+#~ msgstr "%a"
+
+#~ msgid "%z"
+#~ msgstr "%z"
+
+#~ msgid "%b"
+#~ msgstr "%b"
+
+#~ msgid "%c"
+#~ msgstr "%c"
+
+#~ msgid "%p"
+#~ msgstr "%p"
+
+#~ msgid "%r"
+#~ msgstr "%r"
+
+#~ msgid "%d"
+#~ msgstr "%d"
+
+#~ msgid "%e"
+#~ msgstr "%e"
+
+#~ msgid "%g"
+#~ msgstr "%g"
+
+#~ msgid "%i"
+#~ msgstr "%i"
+
+#~ msgid "%l"
+#~ msgstr "%l"
+
+#~ msgid "%o"
+#~ msgstr "%o"
+
+#~ msgid "%n"
+#~ msgstr "%n"
+
+#~ msgid "%t"
+#~ msgstr "%t"
+
+#~ msgid "%u"
+#~ msgstr "%u"
+
+#~ msgid "%x"
+#~ msgstr "%x"
+
+#~ msgid "%y"
+#~ msgstr "%y"
