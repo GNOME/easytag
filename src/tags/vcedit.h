@@ -22,24 +22,9 @@
 
 #include "config.h"
 
-#ifdef ENABLE_OGG
-
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
-
-#include <ogg/ogg.h>
-#include <vorbis/codec.h>
-
-#ifdef ENABLE_OPUS
-#include <opus/opus.h>
-#include <opus/opusfile.h>
-#endif
-
-#ifdef ENABLE_SPEEX
-#include <speex/speex.h>
-#include <speex/speex_header.h>
-#endif
 
 /* Ogg Vorbis fields names in (most of) ASCII, excluding '=':
  * http://www.xiph.org/vorbis/doc/v-comment.html
@@ -95,6 +80,21 @@ G_BEGIN_DECLS
 #define ET_VORBIS_COMMENT_FIELD_COVER_ART_DESCRIPTION "COVERARTDESCRIPTION"
 #define ET_VORBIS_COMMENT_FIELD_METADATA_BLOCK_PICTURE "METADATA_BLOCK_PICTURE"
 
+#ifdef ENABLE_OGG
+
+#include <ogg/ogg.h>
+#include <vorbis/codec.h>
+
+#ifdef ENABLE_OPUS
+#include <opus/opus.h>
+#include <opus/opusfile.h>
+#endif
+
+#ifdef ENABLE_SPEEX
+#include <speex/speex.h>
+#include <speex/speex_header.h>
+#endif
+
 typedef enum
 {
     ET_OGG_KIND_VORBIS,
@@ -114,8 +114,8 @@ const SpeexHeader * vcedit_speex_header (EtOggState *state);
 int vcedit_open (EtOggState *state, GFile *in, GError **error);
 int vcedit_write (EtOggState *state, GFile *file, GError **error);
 
-G_END_DECLS
-
 #endif /* ENABLE_OGG */
+
+G_END_DECLS
 
 #endif /* ET_VCEDIT_H_ */
