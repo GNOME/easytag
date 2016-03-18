@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-03-16 16:29+0000\n"
-"PO-Revision-Date: 2016-03-17 11:22+0100\n"
+"POT-Creation-Date: 2016-03-17 16:28+0000\n"
+"PO-Revision-Date: 2016-03-18 10:00+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -78,8 +78,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:38
-#| msgid ""
-#| "Press <gui style=\"button\">Find</gui> and wait for the search to finish."
 msgid ""
 "Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
 "the search to finish."
@@ -178,9 +176,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/file-rename.page:31
-#| msgid ""
-#| "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style="
-#| "\"menuitem\">Generate Playlist…</gui></guiseq>."
 msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
@@ -204,9 +199,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/file-rename.page:45
-#| msgid ""
-#| "To apply the changes to all files, select <guiseq><gui style=\"menu"
-#| "\">File</gui> <gui style=\"menuitem\">Scan Files…</gui></guiseq>."
 msgid ""
 "To apply the changes to the selected files, click <gui style=\"button\">Scan "
 "Files</gui>."
@@ -459,7 +451,6 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/image.page:20
-#| msgid "Add images, such as cover art to the tag"
 msgid "Add images, such as cover art, to the tag"
 msgstr "Añadir imágenes, como la carátula, a la etiqueta"
 
@@ -693,6 +684,11 @@ msgid ""
 "style=\"radiobutton\">Use directory name</gui> to name the playlist after "
 "the directory which is selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
+"Seleccione <gui style=\"radiobutton\">Utilizar máscara</gui> y pulse en una "
+"máscara, utilizando <link xref=\"format-specifier\">especificadores de "
+"formato</link>, o seleccione <gui style=\"radiobutton\">Usar nombre de "
+"carpeta</gui> para nombrar la lista de reproducción después de la carpeta "
+"que está seleccionada en el <gui style=\"group\">Navegador</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:42
@@ -701,6 +697,10 @@ msgid ""
 "the files which are selected in the file list when generating the playlist. "
 "Deselect it to include all the displayed files in the playlist."
 msgstr ""
+"Seleccione <gui style=\"checkbox\">Incluir sólo los archivos seleccionados</"
+"gui> para usar los archivos que se seleccionan en la lista de archivos "
+"cuando se genera la lista de reproducción. Cancele la selección para incluir "
+"todo los archivos desplegados en la lista de reproducción."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:48
@@ -710,6 +710,11 @@ msgid ""
 "do not plan to move the audio files, in which case you can select <gui style="
 "\"radiobutton\">Use full path for files in playlist</gui>."
 msgstr ""
+"Seleccione <gui style=\"radiobutton\">Usar la ruta relativa para los "
+"archivos de la lista de reproducción</gui> a menos que solo utilice la lista "
+"de reproducción en el mismo equipo y no va a mover los archivos de audio, en "
+"cuyo caso puede seleccionar <gui style=\"radiobutton\">Utilizar la ruta "
+"completa para los archivos de la lista de reproducción</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:55
@@ -719,6 +724,11 @@ msgid ""
 "the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
 "saved in the directory selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
+"Seleccione <gui style=\"checkbox\">Crear lista de reproducción en el "
+"directorio principal</gui> si quiere guardar la lista de reproducción en el "
+"principal del directorio seleccionado en el <gui style=\"group\">Navegador</"
+"gui>. De otra manera, la lista de reproducción se guardará en la carpeta "
+"seleccionada en el <gui style=\"group\">Navegador</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:63
@@ -727,6 +737,9 @@ msgid ""
 "<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
 "\">Use DOS directory separator</gui>."
 msgstr ""
+"Si esta creando una lista de reproducción para usarla en un equipo con "
+"Windows, o en un sistema de archivos <sys>NTFS</sys> o <sys>FAT</sys>, "
+"seleccione <gui style=\"checkbox\">Utilizar separador de carpetas DOS</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:68
@@ -738,6 +751,15 @@ msgid ""
 "\"radiobutton\">Write info using</gui> and enter a mask, using format "
 "specifiers, to write custom extended information to the playlist."
 msgstr ""
+"Seleccione <gui style=\"radiobutton\">Escribir sólo la lista de archivos</"
+"gui> para crear una lista de reproducción que solo contenga una lista de "
+"archivos. Seleccione <gui style=\"radiobutton\">Escribir información "
+"utilizando el nombre de archivo</gui> para escribir también información "
+"adicional, incluyendo la duración del archivo de sonido, para la lista de "
+"reproducción. Seleccione <gui style=\"radiobutton\">Escribir información "
+"utilizando</gui> e introduzca una máscara, utilizando especificaciones de "
+"formato, para escribir información extendida personalizada a la lista de "
+"reproducción."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:77
@@ -755,6 +777,8 @@ msgstr "David King"
 #: C/problems-id3.page:18
 msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
 msgstr ""
+"Corregir las etiquetas ID3 que muestran las etiquetas en blanco o "
+"incorrectas en otras aplicaciones"
 
 #. (itstool) path: page/title
 #: C/problems-id3.page:22
@@ -776,6 +800,8 @@ msgid ""
 "Many applications support the most recent version of the ID3 standard: "
 "ID3v2.4."
 msgstr ""
+"Muchas aplicaciones son compatibles con la versión más reciente del estándar "
+"ID3: ID3v2.4."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:32
@@ -785,6 +811,11 @@ msgid ""
 "a problem reading tags from your files, you should try changing the ID3 tag "
 "version settings in the preferences:"
 msgstr ""
+"Algunas aplicaciones y dispositivos pueden soportar sólo etiquetas ID3v2.3 e "
+"ID3v1.1, y unos pocos pueden soportar sólo etiquetas ID3v1.1. Si otra "
+"aplicación o un dispositivo tiene un problema al leer las etiquetas de sus "
+"archivos, debe tratar de cambiar la configuración de la versión de la "
+"etiqueta ID3 en las preferencias:"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:39 C/problems-ogg-split.page:46
@@ -792,11 +823,13 @@ msgid ""
 "Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
 "\"menuitem\">Preferences</gui></guiseq>"
 msgstr ""
+"Seleccione <guiseq style=\"menuitem\"><gui style=\"menu\">Editar</gui><gui "
+"style=\"menuitem\">Preferencias</gui></guiseq>"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:43
 msgid "Select the <gui style=\"tab\">ID3 Tags</gui> tab"
-msgstr ""
+msgstr "Seleccione la pestaña <gui style=\"tab\">Etiquetas ID3 </gui>"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:46
@@ -805,6 +838,9 @@ msgid ""
 "gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
 "version of ID3v2, if your application or device supports it"
 msgstr ""
+"En la sección <gui style=\"group\">ID3v2</gui> , elija la configuración "
+"<gui>ID3v2.4</gui> en la lista desplegable <gui>Versión</gui> para usar la "
+"versión más actual de ID3v2, si su aplicación o dispositivo lo soporta"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:52
@@ -813,6 +849,9 @@ msgid ""
 "the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
 "device only supports ID3v1"
 msgstr ""
+"Asegúrese de que <gui style=\"check\">Escribir etiqueta ID3v1.x</gui> está "
+"marcada en la sección <gui style=\"group\">Etiquetas ID3v1</gui>, si su "
+"aplicación o dispositivo soporta sólo ID3v1"
 
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:22
@@ -820,6 +859,8 @@ msgid ""
 "Split a single tag field into multiple fields when you save Ogg and FLAC "
 "files"
 msgstr ""
+"Dividir un único campo de etiqueta en varios campos cuando guarde archivos "
+"Ogg and FLAC"
 
 #. (itstool) path: page/title
 #: C/problems-ogg-split.page:26
@@ -864,13 +905,14 @@ msgid ""
 "In <gui style=\"group\">Splitting</gui> section, check the fields that you "
 "want to be split into multiple fields when saving"
 msgstr ""
+"En la sección <gui style=\"group\">Dividiendo</gui>, verificar los campos "
+"que desea sean dividos en múltiples campos cuando guarde"
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
-#, fuzzy
 #| msgid "Update tags automatically."
 msgid "Update tags automatically"
-msgstr "Actualizar las etiquetas automáticamente"
+msgstr "Actualizar automáticamente las etiquetas "
 
 #. (itstool) path: page/title
 #: C/scanner.page:22
@@ -884,11 +926,14 @@ msgid ""
 "file and create a new directory based on the filled fields, and process the "
 "text in fields and the filename."
 msgstr ""
+"El analizador se puede usar para rellenar los campos basados en el nombre de "
+"archivo, renombrar un archivo y crear una nueva carpeta basado en los campos "
+"llenos, y procesar el texto en los campos y el nombre del archivo."
 
 #. (itstool) path: section/title
 #: C/scanner.page:29
 msgid "Fill fields from a filename and directory structure"
-msgstr ""
+msgstr "Rellenar los campos de una estructura de nombre de archivo y carpeta"
 
 #. (itstool) path: section/p
 #: C/scanner.page:31
