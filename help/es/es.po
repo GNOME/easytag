@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-03-17 16:28+0000\n"
-"PO-Revision-Date: 2016-03-18 10:00+0100\n"
+"POT-Creation-Date: 2016-03-18 16:28+0000\n"
+"PO-Revision-Date: 2016-03-21 17:17+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -247,6 +247,13 @@ msgid ""
 "another file to select all the files between the two, including the first "
 "and last file."
 msgstr ""
+"<app>EasyTAG</app> tiene varias características que operan en los archivos "
+"que están actualmente seleccionados en la lista de archivos. Para "
+"seleccionar múltiples archivos, puede mantener pulsado <key>Ctrl</key> "
+"mientras pulsa en los archivos que quiere seleccionar o puede seleccionar un "
+"archivo y después mantener presionado <key>Mayús</key> y pulse en otro "
+"archivo para seleccionar todos los archivos entre los dos, incluyendo el "
+"primer y último archivo."
 
 #. (itstool) path: info/desc
 #: C/format-specifier.page:17
@@ -419,6 +426,11 @@ msgid ""
 "images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
 "style=\"button\">Tag selected files with these images</gui> button."
 msgstr ""
+"También es posible eliminar todas las imágenes de más de un archivo. Para "
+"ello, seleccione los archivos de los que quiere eliminar las imágenes, "
+"elimine todas las imágenes de la pestaña <gui style=\"tab\">Imagen</gui>, "
+"después pulse el botón <gui style=\"button\">Etiquetar archivos "
+"seleccionados con estas imágenes</gui>."
 
 #. (itstool) path: info/desc
 #: C/image-export.page:17
@@ -438,6 +450,10 @@ msgid ""
 "images to files</gui> button. The default filename will be the image "
 "description."
 msgstr ""
+"Si el archivo ya está etiquetado con una imagen, puede exportar la imagen de "
+"la etiqueta seleccionando y presionando el botón <gui style=\"button"
+"\">Guardar las imágenes seleccionadas en archivos</gui>. El nombre "
+"predeterminado será la descripción de la imagen."
 
 #. (itstool) path: page/p
 #: C/image-export.page:28
@@ -465,6 +481,9 @@ msgid ""
 "Most audio file formats support an <sys>image</sys> tag field which can be "
 "used to add cover art and other related images to the audio file."
 msgstr ""
+"La mayoría de los formatos de archivo de sonido admiten un campo de etiqueta "
+"<sys>image</sys> que se puede usar para añadir la carátula y otras imágenes "
+"relacionadas con el archivo de sonido."
 
 #. (itstool) path: page/p
 #: C/image.page:29
@@ -473,6 +492,10 @@ msgid ""
 "\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
 "tag</gui> button. Select the image and confirm your selection."
 msgstr ""
+"Para añadir una imagen al archivo, seleccione el archivo, abra la pestaña "
+"<gui style=\"tab\">Imágenes</gui> y presione el botón <gui style=\"button"
+"\">Añadir imágenes a la etiqueta</gui>. Seleccione la imagen y confirme su "
+"selección."
 
 #. (itstool) path: page/p
 #: C/image.page:34
@@ -483,6 +506,11 @@ msgid ""
 "properties</gui> button. Once you have made the changes, press <gui style="
 "\"button\">Accept</gui> to apply the changes."
 msgstr ""
+"Una vez que la imagen esté subida, se marcará automáticamente como una "
+"carátula y la descripción será el nombre del archivo. Para cambiar el "
+"<gui>tipo</gui> y <gui>descripción</gui>, pulse el botón <gui style=\"button"
+"\">Editar características de la imagen</gui>. Una vez que haya realizado los "
+"cambios, pulse <gui style=\"button\">Aceptar</gui> para aplicar los cambios."
 
 #. (itstool) path: note/p
 #: C/image.page:41
@@ -497,6 +525,10 @@ msgid ""
 "\">Tag selected files with these images</gui> button. You will need to save "
 "these changes to write them to the files."
 msgstr ""
+"Puede etiquetar varios archivos con la misma imagen seleccionándolos en la "
+"lista de archivos, después seleccione la imagen y presione el botón <gui "
+"style=\"button\">Etiquetar los archivos seleccionados con estas imágenes</"
+"gui>. Tendrá que guardar estos cambios para escribirlos en los archivos."
 
 #. (itstool) path: page/p
 #: C/image.page:49
@@ -504,6 +536,8 @@ msgid ""
 "You can work with more than one image at a time by selecting those images "
 "before you edit, apply, save to file or delete them."
 msgstr ""
+"Puede trabajar con más de una imagen a la vez seleccionando esas imágenes "
+"antes de editar, aplicar, guardar los archivos o eliminarlos."
 
 #. (itstool) path: info/title
 #: C/index.page:11 C/index.page:21
@@ -524,6 +558,9 @@ msgid ""
 "Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
 "and WavPack audio files."
 msgstr ""
+"Aprenda como usar <app>EasyTAG</app>, un completo editor de etiquetas para "
+"archivos de sonido FLAC, Mono audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, "
+"Ogg Speex, Ogg Vorbis y WavPack."
 
 #. (itstool) path: page/title
 #: C/index.page:29
@@ -562,6 +599,9 @@ msgid ""
 "MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
 "audio files."
 msgstr ""
+"<app>EasyTAG</app> es un completo editor de etiquetas para archivos de audio "
+"FLAC, Mono audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis y WavPack."
 
 #. (itstool) path: page/title
 #: C/keyboard-shortcuts.page:20
@@ -574,6 +614,9 @@ msgid ""
 "<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
 "listed in the menus. Here are some which are especially useful:"
 msgstr ""
+"<app>EasyTAG</app> tiene una serie de atajos de teclado, la mayor parte de "
+"los cuales están listados en los menús. Aquí hay algunos que son "
+"especialmente útiles:"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:29
@@ -653,10 +696,11 @@ msgid ""
 "You can create a M3U playlist for use with a music player based on the list "
 "of files shown in <app>EasyTAG</app>:"
 msgstr ""
+"Puede crear una lista de reproducción M3U para usar con un reproductor de "
+"música basado en la lista de archivos que se muestran en <app>EasyTAG</app>:"
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:27
-#, fuzzy
 #| msgid ""
 #| "<link xref=\"file-select\">Select the files</link> that you wish to be in "
 #| "the playlist in the file list."
@@ -664,8 +708,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
 "the playlist from the list of files."
 msgstr ""
-"En la lista de archivos, <link xref=\"file-select\">seleccione los archivos</"
-"link> que quiere incluir en la lista de reproducción."
+"<link xref=\"file-select\">Seleccione los archivos</link> que quiera que "
+"estén en la lista de reproducción de la lista de archivos."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:31
@@ -793,6 +837,10 @@ msgid ""
 "ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.3, which is the "
 "most compatible."
 msgstr ""
+"Las etiquetas <em>ID3</em>, que las usan los archivos MP3, pueden ser de una "
+"de las varias versiones diferentes. <app>EasyTAG</app> soporta ID3v2.4, "
+"ID3v2.3 e ID3v1.1. La versión predeterminada en <app>EasyTAG</app> es "
+"ID3v2.3, que es la más compatible."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:29
@@ -876,6 +924,11 @@ msgid ""
 "<app>EasyTAG</app> automatically reads the extra fields, combining them "
 "together and showing them as if they were a single field."
 msgstr ""
+"En archivos Ogg y FLAC, es posible tener más de un <link xref=\"tag\">campo "
+"de etiqueta</link> de cada tipo. Por ejemplo, si dos artistas interpretaron "
+"una canción, puede haber dos campos artista en la etiqueta, uno para cada "
+"artista. <app>EasyTAG</app> lee automáticamente los campos extra, "
+"combinándolos y mostrándolos como si fueran un solo campo."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:34
@@ -910,7 +963,6 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
-#| msgid "Update tags automatically."
 msgid "Update tags automatically"
 msgstr "Actualizar automáticamente las etiquetas "
 
@@ -965,6 +1017,11 @@ msgid ""
 "title from the filename, the album title from the parent directory and the "
 "artist from the grandparent directory."
 msgstr ""
+"Por ejemplo, si guarda sus archivos de sonido usando la estructura de "
+"carpetas y nombres de archivos <file>artista/álbum/título de la pista 01."
+"flac</file>, utilice el <em>formato cadena</em> <input>%a/%b/%n %t</input> "
+"para extraer el número de pista y el título del nombre del archivo, el "
+"título del álbum de la carpeta principal y el artista de la carpeta superior."
 
 #. (itstool) path: section/p
 #: C/scanner.page:48
@@ -972,6 +1029,8 @@ msgid ""
 "Fill the tag fields for the selected files using the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
+"Rellene los campos de la etiqueta para los archivos seleccionados utilizando "
+"el botón <gui style=\"button\">Analizar archivos</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:54
@@ -1009,7 +1068,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/scanner.page:73
 msgid "Bulk process tag fields and filename"
-msgstr ""
+msgstr "Campos de la etiqueta de procesamiento en masa y nombre de archivo"
 
 #. (itstool) path: section/p
 #: C/scanner.page:75
@@ -1076,12 +1135,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/tag-capitalization.page:17
 msgid "Apply consistent capitalization to tags"
-msgstr ""
+msgstr "Aplicar mayúsculas de forma coherente a las etiquetas"
 
 #. (itstool) path: page/title
 #: C/tag-capitalization.page:21
 msgid "Capitalize tags consistently"
-msgstr ""
+msgstr "Usar mayúsculas y minúsculas en las etiquetas consistentemente"
 
 #. (itstool) path: page/p
 #: C/tag-capitalization.page:23
