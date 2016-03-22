@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-03-18 16:28+0000\n"
-"PO-Revision-Date: 2016-03-21 17:17+0100\n"
+"POT-Creation-Date: 2016-03-22 04:31+0000\n"
+"PO-Revision-Date: 2016-03-22 12:23+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -196,6 +196,10 @@ msgid ""
 "your files to be named <file>[artist] - [title].[extension]</file>, enter "
 "<input>%a - %t</input> into the renaming field."
 msgstr ""
+"Usando el tipo <gui xref=\"format-specifier\">Leyenda</gui>, en la "
+"estructura que le gustaría usar para la nomenclatura de archivos. Por "
+"ejemplo, si quiere que sus archivos se nombren <file>[artista] - [título]."
+"[extensión]</file>, escriba <input>%a - %t</input> en el campo renombrar."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:45
@@ -599,9 +603,9 @@ msgid ""
 "MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
 "audio files."
 msgstr ""
-"<app>EasyTAG</app> es un completo editor de etiquetas para archivos de audio "
-"FLAC, Mono audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg "
-"Vorbis y WavPack."
+"<app>EasyTAG</app> es un completo editor de etiquetas para archivos de "
+"sonido FLAC, Mono audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, "
+"Ogg Vorbis y WavPack."
 
 #. (itstool) path: page/title
 #: C/keyboard-shortcuts.page:20
@@ -701,9 +705,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:27
-#| msgid ""
-#| "<link xref=\"file-select\">Select the files</link> that you wish to be in "
-#| "the playlist in the file list."
 msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
 "the playlist from the list of files."
@@ -756,8 +757,8 @@ msgid ""
 msgstr ""
 "Seleccione <gui style=\"radiobutton\">Usar la ruta relativa para los "
 "archivos de la lista de reproducción</gui> a menos que solo utilice la lista "
-"de reproducción en el mismo equipo y no va a mover los archivos de audio, en "
-"cuyo caso puede seleccionar <gui style=\"radiobutton\">Utilizar la ruta "
+"de reproducción en el mismo equipo y no va a mover los archivos de sonido, "
+"en cuyo caso puede seleccionar <gui style=\"radiobutton\">Utilizar la ruta "
 "completa para los archivos de la lista de reproducción</gui>."
 
 #. (itstool) path: item/p
@@ -941,6 +942,13 @@ msgid ""
 "the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
 "\" and \"Queen\"."
 msgstr ""
+"Muchas aplicaciones no leen el campo de valor múltiple correctamente, por lo "
+"que la configuración predeterminada es guardar usando un único campo por "
+"entrada. Si la aplicación que está usando soporta múltiples campos de un "
+"tipo, puede configurar EasyTAG para dividir los campos cuando guarde el "
+"archivo. Los campos serán automáticamente divididos cada vez que « - » "
+"ocurra en el campo. Por ejemplo, en el campo «David Bowie - Queen», dos "
+"campos se guardarán: «David Bowie» y «Queen»."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:42
@@ -1007,9 +1015,23 @@ msgid ""
 "the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
 "parent directory."
 msgstr ""
+"Use <em xref=\"format-specifier\">Especificadores de formato</em> y "
+"<em>separadores</em> al dividir los nombres de archivo y las carpetas "
+"principales en diferentes campos de la etiqueta. El <em>formato específico</"
+"em>, como <input>%t</input> para títulos de pistas, se utilizan para indicar "
+"los diferentes campos de la etiqueta, se listan en la <gui>Leyenda</gui>. "
+"Los <em>Separadores</em> pueden ser cualquier parte del nombre de archivo o "
+"las carpetas principales. Use <key>/</key> para agregar los <em>separadores</"
+"em> a una carpeta principal."
 
 #. (itstool) path: section/p
 #: C/scanner.page:42
+#| msgid ""
+#| "For example, if you keep your audio files using the <file>artist/album/01 "
+#| "track title.flac</file> directory structure and filenames, use the <input>"
+#| "%a/%b/%n %t</input> <em>format string</em> to extract the track number "
+#| "and title from the filename, the album title from the parent directory "
+#| "and the artist from the grandparent directory."
 msgid ""
 "For example, if you keep your audio files using the <file>artist/album/01 "
 "track title.flac</file> directory structure and filenames, use the <input>%a/"
@@ -1018,10 +1040,10 @@ msgid ""
 "artist from the grandparent directory."
 msgstr ""
 "Por ejemplo, si guarda sus archivos de sonido usando la estructura de "
-"carpetas y nombres de archivos <file>artista/álbum/título de la pista 01."
-"flac</file>, utilice el <em>formato cadena</em> <input>%a/%b/%n %t</input> "
-"para extraer el número de pista y el título del nombre del archivo, el "
-"título del álbum de la carpeta principal y el artista de la carpeta superior."
+"carpetas y nombres de archivos <file>artista/álbum/01 título de la pista."
+"flac</file>, use el <input>%a/%b/%n %t</input> <em>formato</em> para extraer "
+"el número de pista y el título del nombre del archivo, el título del álbum "
+"de la carpeta principal y el artista de la carpeta superior."
 
 #. (itstool) path: section/p
 #: C/scanner.page:48
@@ -1045,6 +1067,11 @@ msgid ""
 "new directory hierarchy is specified, it will be created inside the "
 "directory where the file is currently located."
 msgstr ""
+"<gui xref=\"file-rename\">Renombrar archivo</gui> se puede usar para crear "
+"una jerarquía de carpetas y actualizar los nombres de archivos usando los "
+"campos de etiquetas llenados. Si se especifica una nueva jerarquía de "
+"carpetas, se creará dentro de la carpeta donde el archivo se encuentra "
+"actualmente. "
 
 #. (itstool) path: section/p
 #: C/scanner.page:61
@@ -1055,6 +1082,11 @@ msgid ""
 "file structure and filename. You will see a preview of the naming scheme "
 "below your specified format string."
 msgstr ""
+"Por ejemplo, si tiene un archivo etiquetado dentro de la carpeta "
+"<file>Música</file>, puede usar el <em>formato</em> <input>%a/%b/%n %t</"
+"input>, se creará la estructura de archivo y nombre de archivo <file>Música/"
+"artista/álbum/01 título de la pista.flac</file>. Verá una vista previa del "
+"esquema de nombres debajo de su formato especificado."
 
 #. (itstool) path: section/p
 #: C/scanner.page:67
@@ -1077,6 +1109,9 @@ msgid ""
 "allows you to select which tag fields to process. It also allows for the "
 "filename to be processed as well."
 msgstr ""
+"<gui>Procesar campos</gui> es una sofisticada característica de buscar y "
+"reemplazar que le permite seleccionar qué campos de la etiqueta procesar. "
+"También permite procesar el nombre del archivo."
 
 #. (itstool) path: section/p
 #: C/scanner.page:79
@@ -1084,6 +1119,8 @@ msgid ""
 "Specify which fields to change by selecting them from the <gui>Tag Fields</"
 "gui> section."
 msgstr ""
+"Especifique qué campos cambiarán seleccionándolos en la sección <gui>Campos "
+"de la etiqueta</gui>."
 
 #. (itstool) path: section/p
 #: C/scanner.page:82
@@ -1111,6 +1148,9 @@ msgid ""
 "<file>Music</file> directory or your home directory for audio files. If you "
 "wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
 msgstr ""
+"Cuando inicie <app>EasyTAG</app> por primera vez, buscará en su carpeta "
+"<file>Música</file> o en su carpeta personal archivos de sonido. Si quiere "
+"omitir la búsqueda, pulse el botón <gui style=\"button\">Parar</gui>."
 
 #. (itstool) path: page/p
 #: C/starting.page:25
@@ -1120,6 +1160,10 @@ msgid ""
 "updates to the tag metadata containers and will not be applied until you "
 "save the changes."
 msgstr ""
+"<app>EasyTAG</app> puede aplicar algunas correcciones automáticas a algunos "
+"de sus archivos de música. Estos archivos se resaltarán en negro. "
+"Normalmente son actualizaciones de los contenedores de etiquetas de "
+"metadatos y no se aplicará hasta que guarde los cambios."
 
 #. (itstool) path: page/p
 #: C/starting.page:30
@@ -1131,6 +1175,13 @@ msgid ""
 "style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
 "\">Preferences</gui> dialog."
 msgstr ""
+"Para guardar estos cambios, seleccione todos los archivos que se han "
+"modificado y pulse <keyseq><key>Ctrl</key><key>S</key></keyseq>. No es "
+"posible deshacer los cambios automáticos pero no se guardarán a menos que "
+"seleccione el archivo y lo guarde. Puede desactivar algunas de las "
+"actualizaciones automáticas en la pestaña <gui style=\"tab\">Configuración "
+"de la etiqueta ID3</gui> en el diálogo <gui style=\"dialog\">Preferencias</"
+"gui>."
 
 #. (itstool) path: info/desc
 #: C/tag-capitalization.page:17
@@ -1148,22 +1199,22 @@ msgid ""
 "Tag capitalization can be changed for one or more tag fields in one or more "
 "files."
 msgstr ""
+"Las mayúsculas de la etiqueta se pueden cambiar para uno o más campos de la "
+"etiqueta en uno o más archivos."
 
 #. (itstool) path: steps/title
 #: C/tag-capitalization.page:27
 msgid "Change tag field capitalization"
-msgstr ""
+msgstr "Cambiar las mayúsculas de los campos de la etiqueta"
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:29
-#, fuzzy
 #| msgid "Select the file that you wish to tag."
 msgid "Select the files that you wish to tag."
-msgstr "Seleccione el archivo que quiere etiquetar"
+msgstr "Seleccionar los archivos que quiere etiquetar."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:32
-#, fuzzy
 #| msgid ""
 #| "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style="
 #| "\"menuitem\">Generate Playlist…</gui></guiseq>."
@@ -1171,20 +1222,19 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Seleccione <guiseq><gui style=\"menu\">Varios</gui> <gui style=\"menuitem"
-"\">Generar lista de reproducción…</gui></guiseq>."
+"Seleccione <guiseq><gui style=\"menu\">Vista</gui><gui style=\"menuitem"
+"\">Mostrar analizador</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:36
 msgid "Select the <gui style=\"tab\">Process Fields</gui> tab."
-msgstr ""
+msgstr "Seleccione la pestaña <gui style=\"tab\">Procesar campos</gui>."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:39
-#, fuzzy
 #| msgid "Select the file that you wish to tag."
 msgid "Check the fields that you want to change."
-msgstr "Seleccione el archivo que quiere etiquetar"
+msgstr "Seleccionar los campos que quiere etiquetar."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:42
@@ -1192,17 +1242,17 @@ msgid ""
 "There are a number of available options for changing the capitalization. "
 "Choose the one that you want."
 msgstr ""
+"Hay varias opciones disponibles para cambiar las mayúsculas. Elija la que "
+"quiera."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:46
-#, fuzzy
 #| msgid ""
 #| "To prepare the files for moving and renaming, press the <gui style="
 #| "\"button\">Scan Files</gui> button."
 msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
 msgstr ""
-"Para preparar los archivos para moverlos y renombrarlos, pulse el botón <gui "
-"style=\"button\">Analizar archivos</gui>."
+"Aplique los cambios pulsando <gui style=\"button\">Analizar archivos</gui>."
 
 #. (itstool) path: page/p
 #: C/tag-capitalization.page:51
@@ -1212,6 +1262,10 @@ msgid ""
 "select the correct option before you press <gui style=\"button\">Scan Files</"
 "gui>."
 msgstr ""
+"El diálogo <gui>Analizar</gui> puede también ser usado para procesar espacio "
+"y conversiones de caracteres. Si no quiere realizar algun cambio, seleccione "
+"la opción correcta antes de pulsar <gui style=\"button\">Analizar archivos</"
+"gui>."
 
 #. (itstool) path: info/desc
 #: C/tag-field.page:18
@@ -1254,6 +1308,9 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
 "files</gui></guiseq> to save your changes to the selected file."
 msgstr ""
+"Seleccione <guiseq><gui style=\"menu\">Archivo</gui><gui style=\"menuitem"
+"\">Guardar archivos</gui></guiseq> para guardar sus cambios para el archivo "
+"seleccionado."
 
 #. (itstool) path: item/p
 #: C/tag-field.page:42
@@ -1261,6 +1318,8 @@ msgid ""
 "When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
 "\"button\">Save</gui> to save the changes."
 msgstr ""
+"Cuando se le pide <gui>Confirmar la escritura de la etiqueta</gui>, pulse "
+"<gui style=\"button\">Guardar</gui> para guardar los cambios."
 
 #. (itstool) path: page/p
 #: C/tag-field.page:47
@@ -1270,6 +1329,10 @@ msgid ""
 "in the field that you want to tag. You will need to save these changes to "
 "write them to the files."
 msgstr ""
+"Puede etiquetar varios archivos con el mismo campo seleccionándolos en la "
+"lista de archivos y pulsando el icono <gui>Seleccionar archivos etiqueta con "
+"este […]</gui> en el campo que quiere etiquetar. Necesitará guardar estos "
+"cambios para escribirlos en los archivos."
 
 #. (itstool) path: info/desc
 #: C/tag.page:17
@@ -1290,6 +1353,11 @@ msgid ""
 "fields using <app>EasyTAG</app>. The editable fields depend on the format of "
 "the file that you want to tag."
 msgstr ""
+"Un archivo de sonido puede contener <em>metadatos</em> — información sobre "
+"sí mismo — dentro de una <em>etiqueta</em>. Cada etiqueta puede contener uno "
+"o mas <em>campos</em>, tales como <gui>Título</gui> o <gui>Artista</gui>. "
+"Puede editar alguno de estos campos usando <app>EasyTAG</app>. Los campos "
+"editables dependen del formato del archivo que quiere etiquetar."
 
 #~ msgid ""
 #~ "Select <guiseq><gui style=\"menu\">Scanner</gui> <gui style=\"menuitem"
