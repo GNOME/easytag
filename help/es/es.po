@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-03-22 04:31+0000\n"
-"PO-Revision-Date: 2016-03-22 12:23+0100\n"
+"POT-Creation-Date: 2016-03-23 04:31+0000\n"
+"PO-Revision-Date: 2016-03-23 10:05+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -190,13 +190,18 @@ msgstr "Seleccione el analizador <gui>Renombrar archivo</gui>"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
+#| msgid ""
+#| "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the "
+#| "structure that you would like to use for the file naming. For example, if "
+#| "you wish your files to be named <file>[artist] - [title].[extension]</"
+#| "file>, enter <input>%a - %t</input> into the renaming field."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
 "your files to be named <file>[artist] - [title].[extension]</file>, enter "
 "<input>%a - %t</input> into the renaming field."
 msgstr ""
-"Usando el tipo <gui xref=\"format-specifier\">Leyenda</gui>, en la "
+"Usando la <gui xref=\"format-specifier\">Leyenda</gui>, escriba en la "
 "estructura que le gustaría usar para la nomenclatura de archivos. Por "
 "ejemplo, si quiere que sus archivos se nombren <file>[artista] - [título]."
 "[extensión]</file>, escriba <input>%a - %t</input> en el campo renombrar."
@@ -1039,11 +1044,11 @@ msgid ""
 "title from the filename, the album title from the parent directory and the "
 "artist from the grandparent directory."
 msgstr ""
-"Por ejemplo, si guarda sus archivos de sonido usando la estructura de "
-"carpetas y nombres de archivos <file>artista/álbum/01 título de la pista."
-"flac</file>, use el <input>%a/%b/%n %t</input> <em>formato</em> para extraer "
-"el número de pista y el título del nombre del archivo, el título del álbum "
-"de la carpeta principal y el artista de la carpeta superior."
+"Por ejemplo, si guarda sus archivos de sonido usando la <file>artista/"
+"álbum/01 título de la pista.flac</file> estructura de carpetas y nombres de "
+"archivos, use el <input>%a/%b/%n %t</input> <em>formato</em> para extraer el "
+"número de pista y el título del nombre del archivo, el título del álbum de "
+"la carpeta principal y el artista de la carpeta principal superior."
 
 #. (itstool) path: section/p
 #: C/scanner.page:48
@@ -1209,15 +1214,11 @@ msgstr "Cambiar las mayúsculas de los campos de la etiqueta"
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:29
-#| msgid "Select the file that you wish to tag."
 msgid "Select the files that you wish to tag."
 msgstr "Seleccionar los archivos que quiere etiquetar."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:32
-#| msgid ""
-#| "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style="
-#| "\"menuitem\">Generate Playlist…</gui></guiseq>."
 msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
@@ -1232,7 +1233,6 @@ msgstr "Seleccione la pestaña <gui style=\"tab\">Procesar campos</gui>."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:39
-#| msgid "Select the file that you wish to tag."
 msgid "Check the fields that you want to change."
 msgstr "Seleccionar los campos que quiere etiquetar."
 
@@ -1247,9 +1247,6 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:46
-#| msgid ""
-#| "To prepare the files for moving and renaming, press the <gui style="
-#| "\"button\">Scan Files</gui> button."
 msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
 msgstr ""
 "Aplique los cambios pulsando <gui style=\"button\">Analizar archivos</gui>."
