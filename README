@@ -77,11 +77,24 @@ Installation
 
 See INSTALL.
 
-When running, if you get a warning about a settings schema that is not
-installed, make sure that the GSettings schemas can be found in
-$XDG_DATA_DIRS/glib-2.0/schemas and that the schema cache has been updated with
-glib-compile-schemas.
+When running, if you get the following warning about the EasyTAG settings
+schema that is not installed:
 
+(easytag:19122): GLib-GIO-ERROR **: Settings schema 'org.gnome.EasyTAG' is not installed
+
+make sure that the GSettings schema and enums files can be found somewhere in
+$XDG_DATA_DIRS/glib-2.0/schemas (for example /usr/share/glib-2.0/schemas) and
+that the schema cache has been updated with glib-compile-schemas.
+
+There are two files to copy to the schema path, and the glib-compile-schemas
+command must run on the directories which have been updated. Example commands
+follow:
+
+sudo cp org.gnome.EasyTAG.enums.xml /usr/share/glib-2.0/schemas
+sudo cp data/org.gnome.EasyTAG.gschema.xml /usr/share/glib-2.0/schemas
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+If uninstalling, the files should be removed and the schema cache updated.
 
 License
 -------
@@ -96,4 +109,4 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 General Public License for more details.
 
-(It sould be included in this package in the file COPYING)
+(It should be included in this package in the file COPYING)
