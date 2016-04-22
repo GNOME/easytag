@@ -1,5 +1,5 @@
 data/easytag.appdata.xml.in
-data/easytag.desktop.in
+data/org.gnome.EasyTAG.desktop.in
 data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/browser.ui
 [type: gettext/glade]data/browser_dialogs.ui

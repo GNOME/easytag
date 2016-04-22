@@ -6,7 +6,6 @@
     "sdk": "org.gnome.Sdk",
     "command": "easytag",
     "rename-appdata-file": "easytag.appdata.xml",
-    "rename-desktop-file": "easytag.desktop",
     "rename-icon": "easytag",
     "finish-args": ["--filesystem=host",
                     "--share=ipc",

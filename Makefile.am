@@ -287,7 +287,7 @@ appdata_XML = $(appdata_in_files:.xml.in=.xml)
 
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications
-desktop_in_files = data/easytag.desktop.in
+desktop_in_files = data/org.gnome.EasyTAG.desktop.in
 $(desktop_in_files:.desktop.in=.desktop): data/.dstamp
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
