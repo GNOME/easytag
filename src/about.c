@@ -99,7 +99,7 @@ et_show_about_dialog (GtkWindow *parent)
                            "copyright", copyright,
                            "documenters", documenters,
                            "license-type", GTK_LICENSE_GPL_2_0,
-                           "logo-icon-name", PACKAGE_TARNAME,
+                           "logo-icon-name", "org.gnome.EasyTAG",
                            "translator-credits", translators,
                            "version", PACKAGE_VERSION,
                            "website", PACKAGE_URL,

@@ -1638,7 +1638,7 @@ et_application_window_init (EtApplicationWindow *self)
 
     window = GTK_WINDOW (self);
 
-    gtk_window_set_icon_name (window, PACKAGE_TARNAME);
+    gtk_window_set_icon_name (window, "org.gnome.EasyTAG");
     gtk_window_set_title (window, _(PACKAGE_NAME));
 
     g_signal_connect (self, "configure-event",

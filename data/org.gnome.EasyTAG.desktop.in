@@ -5,7 +5,7 @@ _Comment=Edit audio file metadata
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 _Keywords=mp3;tag;audio;music;
 Type=Application
-Icon=easytag
+Icon=org.gnome.EasyTAG
 Categories=GTK;AudioVideo;AudioVideoEditing;Audio;
 MimeType=inode/directory;audio/x-mp3;audio/x-mpeg;audio/mpeg;application/ogg;audio/x-vorbis+ogg;audio/x-flac;audio/x-musepack;audio/x-ape;audio/x-speex+ogg;audio/x-opus+ogg;
 Exec=easytag %F

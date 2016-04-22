@@ -336,25 +336,25 @@ appiconscalabledir = $(iconthemedir)/scalable/apps
 appiconsymbolicdir = $(iconthemedir)/symbolic/apps
 
 dist_appicon16_DATA = \
-	data/icons/16x16/easytag.png
+	data/icons/16x16/org.gnome.EasyTAG.png
 dist_appicon22_DATA = \
-	data/icons/22x22/easytag.png
+	data/icons/22x22/org.gnome.EasyTAG.png
 dist_appicon24_DATA = \
-	data/icons/24x24/easytag.png
+	data/icons/24x24/org.gnome.EasyTAG.png
 dist_appicon32_DATA = \
-	data/icons/32x32/easytag.png
+	data/icons/32x32/org.gnome.EasyTAG.png
 dist_appicon48_DATA = \
-	data/icons/48x48/easytag.png
+	data/icons/48x48/org.gnome.EasyTAG.png
 dist_appicon64_DATA = \
-	data/icons/64x64/easytag.png
+	data/icons/64x64/org.gnome.EasyTAG.png
 dist_appicon128_DATA = \
-	data/icons/128x128/easytag.png
+	data/icons/128x128/org.gnome.EasyTAG.png
 dist_appicon256_DATA = \
-	data/icons/256x256/easytag.png
+	data/icons/256x256/org.gnome.EasyTAG.png
 dist_appiconscalable_DATA = \
-	data/icons/scalable/easytag.svg
+	data/icons/scalable/org.gnome.EasyTAG.svg
 dist_appiconsymbolic_DATA = \
-	data/icons/symbolic/easytag-symbolic.svg
+	data/icons/symbolic/org.gnome.EasyTAG-symbolic.svg
 
 UPDATE_ICON_CACHE = gtk-update-icon-cache --ignore-theme-index --force
 
