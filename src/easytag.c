@@ -756,6 +756,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
 
     if (!hide_msgbox)
     {
+#ifdef ENABLE_ID3LIB
         if (g_error_matches (error, ET_ID3_ERROR, ET_ID3_ERROR_BUGGY_ID3LIB))
         {
             msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
@@ -785,6 +786,7 @@ Write_File_Tag (ET_File *ETFile, gboolean hide_msgbox)
                                                       basename_utf8);
         }
         else
+#endif
         {
             msgdialog = gtk_message_dialog_new (GTK_WINDOW (MainWindow),
                                                 GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
