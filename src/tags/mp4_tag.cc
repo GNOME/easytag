@@ -59,6 +59,7 @@ mp4tag_read_file_tag (GFile *file,
 {
     TagLib::MP4::Tag *tag;
     guint year;
+    TagLib::String str;
 
     g_return_val_if_fail (file != NULL && FileTag != NULL, FALSE);
 
@@ -105,17 +106,32 @@ mp4tag_read_file_tag (GFile *file,
     /*********
      * Title *
      *********/
-    FileTag->title = g_strdup (tag->title ().toCString (true));
+    str = tag->title ();
+
+    if (!str.isEmpty ())
+    {
+        et_file_tag_set_title (FileTag, str.toCString (true));
+    }
 
     /**********
      * Artist *
      **********/
-    FileTag->artist = g_strdup (tag->artist ().toCString (true));
+    str = tag->artist ();
+
+    if (!str.isEmpty ())
+    {
+        et_file_tag_set_artist (FileTag, str.toCString (true));
+    }
 
     /*********
      * Album *
      *********/
-    FileTag->album = g_strdup (tag->album ().toCString (true));
+    str = tag->album ();
+
+    if (!str.isEmpty ())
+    {
+        et_file_tag_set_album (FileTag, str.toCString (true));
+    }
 
     const TagLib::PropertyMap extra_tag = tag->properties ();
 
@@ -164,12 +180,22 @@ mp4tag_read_file_tag (GFile *file,
     /*********
      * Genre *
      *********/
-    FileTag->genre = g_strdup (tag->genre ().toCString (true));
+    str = tag->genre ();
+
+    if (!str.isEmpty ())
+    {
+        et_file_tag_set_genre (FileTag, str.toCString (true));
+    }
 
     /***********
      * Comment *
      ***********/
-    FileTag->comment = g_strdup (tag->comment ().toCString (true));
+    str = tag->comment ();
+
+    if (!str.isEmpty ())
+    {
+        et_file_tag_set_comment (FileTag, str.toCString (true));
+    }
 
     /**********************
      * Composer or Writer *
