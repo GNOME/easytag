@@ -224,14 +224,21 @@ mp4tag_read_file_tag (GFile *file,
 
     const TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
 
-    /****************
-     * Album Artist *
-     ****************/
+    /* Album Artist */
+#if (TAGLIB_MAJOR_VERSION == 1) && (TAGLIB_MINOR_VERSION < 10)
+    /* No "ALBUMARTIST" support in TagLib until 1.10; use atom directly. */
     if (extra_items.contains ("aART"))
     {
         const TagLib::MP4::Item album_artists = extra_items["aART"];
         FileTag->album_artist = g_strdup (album_artists.toStringList ().front ().toCString (true));
     }
+#else
+    if (extra_tag.contains ("ALBUMARTIST"))
+    {
+        const TagLib::StringList album_artists = extra_tag["ALBUMARTIST"];
+        FileTag->album_artist = g_strdup (album_artists.front ().toCString (true));
+    }
+#endif
 
     /***********
      * Picture *
@@ -433,17 +440,22 @@ mp4tag_write_file_tag (const ET_File *ETFile,
     TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
 
     /* Album artist. */
-    /* FIXME: No "ALBUMARTIST" support in TagLib until 1.10, use atom
-     * directly. */
     if (!et_str_empty (FileTag->album_artist))
     {
         TagLib::String string (FileTag->album_artist, TagLib::String::UTF8);
+#if (TAGLIB_MAJOR_VERSION == 1) && (TAGLIB_MINOR_VERSION < 10)
+        /* No "ALBUMARTIST" support in TagLib until 1.10; use atom directly. */
         extra_items.insert ("aART", TagLib::MP4::Item (string));
+#else
+        fields.insert ("ALBUMARTIST", string);
+#endif
     }
+#if (TAGLIB_MAJOR_VERSION == 1) && (TAGLIB_MINOR_VERSION < 10)
     else
     {
         extra_items.erase ("aART");
     }
+#endif
 
     /***********
      * Picture *
