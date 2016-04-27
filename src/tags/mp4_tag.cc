@@ -327,37 +327,31 @@ mp4tag_write_file_tag (const ET_File *ETFile,
 
     TagLib::PropertyMap fields;
 
-    /*********
-     * Title *
-     *********/
-    if (FileTag->title && *(FileTag->title))
+    /* Title */
+    if (!et_str_empty (FileTag->title))
     {
         TagLib::String string (FileTag->title, TagLib::String::UTF8);
         fields.insert ("TITLE", string);
     }
 
-    /**********
-     * Artist *
-     **********/
-    if (FileTag->artist && *(FileTag->artist))
+    /* Artist */
+    if (!et_str_empty (FileTag->artist))
     {
         TagLib::String string (FileTag->artist, TagLib::String::UTF8);
         fields.insert ("ARTIST", string);
     }
 
-    /*********
-     * Album *
-     *********/
-    if (FileTag->album && *(FileTag->album))
+    /* Album */
+    if (!et_str_empty (FileTag->album))
     {
         TagLib::String string (FileTag->album, TagLib::String::UTF8);
         fields.insert ("ALBUM", string);
     }
 
     /* Disc number. */
-    if (FileTag->disc_number && *(FileTag->disc_number))
+    if (!et_str_empty (FileTag->disc_number))
     {
-        if (FileTag->disc_total && *(FileTag->disc_total))
+        if (!et_str_empty (FileTag->disc_total))
         {
             gchar *str;
 
@@ -374,21 +368,17 @@ mp4tag_write_file_tag (const ET_File *ETFile,
         }
     }
 
-    /********
-     * Year *
-     ********/
-    if (FileTag->year && *(FileTag->year))
+    /* Year */
+    if (!et_str_empty (FileTag->year))
     {
         TagLib::String string (FileTag->year, TagLib::String::UTF8);
         fields.insert ("DATE", string);
     }
 
-    /*************************
-     * Track and Total Track *
-     *************************/
-    if (FileTag->track && *(FileTag->track))
+    /* Track and Total Track */
+    if (!et_str_empty (FileTag->track))
     {
-        if (FileTag->track_total && *(FileTag->track_total))
+        if (!et_str_empty (FileTag->track_total))
         {
             gchar *str;
 
@@ -405,44 +395,36 @@ mp4tag_write_file_tag (const ET_File *ETFile,
         }
     }
 
-    /*********
-     * Genre *
-     *********/
-    if (FileTag->genre && *(FileTag->genre))
+    /* Genre */
+    if (!et_str_empty (FileTag->genre))
     {
         TagLib::String string (FileTag->genre, TagLib::String::UTF8);
         fields.insert ("GENRE", string);
     }
 
-    /***********
-     * Comment *
-     ***********/
-    if (FileTag->comment && *(FileTag->comment))
+    /* Comment */
+    if (!et_str_empty (FileTag->comment))
     {
         TagLib::String string (FileTag->comment, TagLib::String::UTF8);
         fields.insert ("COMMENT", string);
     }
 
-    /**********************
-     * Composer or Writer *
-     **********************/
-    if (FileTag->composer && *(FileTag->composer))
+    /* Composer or Writer */
+    if (!et_str_empty (FileTag->composer))
     {
         TagLib::String string (FileTag->composer, TagLib::String::UTF8);
         fields.insert ("COMPOSER", string);
     }
 
     /* Copyright. */
-    if (FileTag->copyright && *(FileTag->copyright))
+    if (!et_str_empty (FileTag->copyright))
     {
         TagLib::String string (FileTag->copyright, TagLib::String::UTF8);
         fields.insert ("COPYRIGHT", string);
     }
 
-    /*****************
-     * Encoding Tool *
-     *****************/
-    if (FileTag->encoded_by && *(FileTag->encoded_by))
+    /* Encoding Tool */
+    if (!et_str_empty (FileTag->encoded_by))
     {
         TagLib::String string (FileTag->encoded_by, TagLib::String::UTF8);
         fields.insert ("ENCODEDBY", string);
@@ -451,8 +433,9 @@ mp4tag_write_file_tag (const ET_File *ETFile,
     TagLib::MP4::ItemListMap &extra_items = tag->itemListMap ();
 
     /* Album artist. */
-    /* FIXME: No "ALBUMARTIST" support in TagLib, use atom directly. */
-    if (FileTag->album_artist && *(FileTag->album_artist))
+    /* FIXME: No "ALBUMARTIST" support in TagLib until 1.10, use atom
+     * directly. */
+    if (!et_str_empty (FileTag->album_artist))
     {
         TagLib::String string (FileTag->album_artist, TagLib::String::UTF8);
         extra_items.insert ("aART", TagLib::MP4::Item (string));
