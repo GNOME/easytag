@@ -282,7 +282,7 @@ endif
 
 @APPDATA_XML_RULES@
 @INTLTOOL_XML_RULE@
-appdata_in_files = data/easytag.appdata.xml.in $(nautilus_appdata_in_file)
+appdata_in_files = data/org.gnome.EasyTAG.appdata.xml.in $(nautilus_appdata_in_file)
 appdata_XML = $(appdata_in_files:.xml.in=.xml)
 
 @INTLTOOL_DESKTOP_RULE@

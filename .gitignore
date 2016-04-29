@@ -15,9 +15,9 @@ config.h.in
 config.log
 config.status
 configure
-/data/easytag.appdata.valid
-/data/easytag.appdata.xml
 /data/easytag-nautilus.metainfo.xml
+/data/org.gnome.EasyTAG.appdata.valid
+/data/org.gnome.EasyTAG.appdata.xml
 /data/org.gnome.EasyTAG.desktop
 /doc/easytag.1
 /doc/version.xml

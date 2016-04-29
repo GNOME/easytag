@@ -1,4 +1,4 @@
-data/easytag.appdata.xml.in
+data/org.gnome.EasyTAG.appdata.xml.in
 data/org.gnome.EasyTAG.desktop.in
 data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/browser.ui
