@@ -15,7 +15,7 @@ data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/search_dialog.ui
 [type: gettext/glade]data/tag_area.ui
 [type: gettext/glade]data/toolbar.ui
-data/org.gnome.EasyTAG.gschema.xml
+[type: gettext/gsettings]data/org.gnome.EasyTAG.gschema.xml
 nautilus-extension/nautilus-easytag.c
 src/about.c
 src/application.c
