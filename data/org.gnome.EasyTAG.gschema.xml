@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist>
+<schemalist gettext-domain="easytag">
 
   <schema id="org.gnome.EasyTAG" path="/org/gnome/easytag/">
     <key name="load-on-startup" type="b">
