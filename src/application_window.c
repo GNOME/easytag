@@ -2667,7 +2667,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
                                                                               l->data);
                 has_undo    |= ET_File_Data_Has_Undo_Data(etfile);
                 has_redo    |= ET_File_Data_Has_Redo_Data(etfile);
-                //has_to_save |= ET_Check_If_File_Is_Saved(etfile);
+                /* has_to_save |= et_file_check_saved (etfile); */
                 if ((has_undo && has_redo /*&& has_to_save*/) || !l->next) // Useless to check the other files
                     break;
             }

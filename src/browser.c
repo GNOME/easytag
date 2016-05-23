@@ -1706,7 +1706,7 @@ Browser_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
         background = NULL;
 
     // Set text to bold/red if 'filename' or 'tag' changed
-    if ( ET_Check_If_File_Is_Saved(rowETFile) == FALSE )
+    if (!et_file_check_saved (rowETFile))
     {
         if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
         {
@@ -2462,7 +2462,7 @@ Browser_Artist_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
     {
         for (m = (GList *)l->data; m != NULL; m = g_list_next (m))
         {
-            if (ET_Check_If_File_Is_Saved ((ET_File *)m->data) == FALSE)
+            if (!et_file_check_saved ((ET_File *)m->data))
             {
                 if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
                 {
@@ -2701,7 +2701,7 @@ Browser_Album_List_Set_Row_Appearance (EtBrowser *self, GtkTreeIter *iter)
                              ALBUM_ETFILE_LIST_POINTER, &l, -1);
          l != NULL; l = g_list_next (l))
     {
-        if (ET_Check_If_File_Is_Saved ((ET_File *)l->data) == FALSE)
+        if (!et_file_check_saved ((ET_File *)l->data))
         {
             if (g_settings_get_boolean (MainSettings, "file-changed-bold"))
             {

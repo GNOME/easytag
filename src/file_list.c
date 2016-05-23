@@ -1390,7 +1390,7 @@ et_file_list_check_all_saved (GList *etfilelist)
 
         for (l = g_list_first (etfilelist); l != NULL; l = g_list_next (l))
         {
-            if (!ET_Check_If_File_Is_Saved ((ET_File *)l->data))
+            if (!et_file_check_saved ((ET_File *)l->data))
             {
                 return FALSE;
             }

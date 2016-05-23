@@ -62,7 +62,7 @@ typedef struct
     ET_File *ETFile;           /* Pointer to item of ETFileList changed */
 } ET_History_File;
 
-gboolean ET_Check_If_File_Is_Saved (const ET_File *ETFile);
+gboolean et_file_check_saved (const ET_File *ETFile);
 
 ET_File * ET_File_Item_New (void);
 void ET_Free_File_List_Item (ET_File *ETFile);

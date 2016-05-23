@@ -1657,32 +1657,41 @@ ET_File_Data_Has_Redo_Data (const ET_File *ETFile)
 }
 
 /*
- * Ckecks if the current files had been changed but not saved.
+ * Checks if the current files had been changed but not saved.
  * Returns TRUE if the file has been saved.
  * Returns FALSE if some changes haven't been saved.
  */
 gboolean
-ET_Check_If_File_Is_Saved (const ET_File *ETFile)
+et_file_check_saved (const ET_File *ETFile)
 {
-    File_Tag  *FileTag     = NULL;
-    File_Name *FileNameNew = NULL;
+    const File_Tag *FileTag = NULL;
+    const File_Name *FileNameNew = NULL;
 
     g_return_val_if_fail (ETFile != NULL, TRUE);
 
     if (ETFile->FileTag)
-        FileTag     = ETFile->FileTag->data;
+    {
+        FileTag = ETFile->FileTag->data;
+    }
+
     if (ETFile->FileNameNew)
+    {
         FileNameNew = ETFile->FileNameNew->data;
+    }
 
-    // Check if the tag has been changed
-    if ( FileTag && FileTag->saved != TRUE )
+    /* Check if the tag has been changed. */
+    if (FileTag && !FileTag->saved)
+    {
         return FALSE;
+    }
 
-    // Check if name of file has been changed
-    if ( FileNameNew && FileNameNew->saved != TRUE )
+    /* Check if name of file has been changed. */
+    if (FileNameNew && !FileNameNew->saved)
+    {
         return FALSE;
+    }
 
-    // No changes
+    /* No changes. */
     return TRUE;
 }
 
