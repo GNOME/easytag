@@ -1514,15 +1514,18 @@ on_picture_add_button_clicked (GObject *object,
     EtTagAreaPrivate *priv;
     GtkWidget *FileSelectionWindow;
     GtkFileFilter *filter;
-    GtkWindow *parent_window = NULL;
-    static gchar *init_dir = NULL;
+    GtkWindow *parent_window;
+    gchar *init_dir;
     gint response;
 
     self = ET_TAG_AREA (user_data);
     priv = et_tag_area_get_instance_private (self);
 
-    parent_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(object)));
-    if (!gtk_widget_is_toplevel(GTK_WIDGET(parent_window)))
+    g_return_if_fail (ETCore->ETFileDisplayed);
+
+    parent_window = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (object)));
+
+    if (!gtk_widget_is_toplevel (GTK_WIDGET (parent_window)))
     {
         g_warning("Could not get parent window\n");
         return;
@@ -1572,18 +1575,13 @@ on_picture_add_button_clicked (GObject *object,
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (FileSelectionWindow),
                                      FALSE);
 
-    // Starting directory (the same of the current file)
-    if (ETCore->ETFileDisplayed)
-    {
-        const gchar *cur_filename_utf8 = ((File_Name *)((GList *)ETCore->ETFileDisplayed->FileNameCur)->data)->value_utf8;
-        init_dir = g_path_get_dirname(cur_filename_utf8);
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),init_dir);
-    }else
-    // Starting directory (the same than the previous one)
-    if (init_dir)
-        gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow),init_dir);
+    /* Starting directory (the same as the current file). */
+    init_dir = g_path_get_dirname (((File_Name *)((GList *)ETCore->ETFileDisplayed->FileNameCur)->data)->value);
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (FileSelectionWindow),
+                                         init_dir);
+    g_free (init_dir);
 
-    response = gtk_dialog_run(GTK_DIALOG(FileSelectionWindow));
+    response = gtk_dialog_run (GTK_DIALOG (FileSelectionWindow));
 
     if (response == GTK_RESPONSE_OK)
     {
@@ -1596,19 +1594,11 @@ on_picture_add_button_clicked (GObject *object,
         list = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (FileSelectionWindow));
         g_slist_foreach (list, (GFunc) load_picture_from_file, self);
         g_slist_free_full (list, g_object_unref);
-
-        // Save the directory selected for initialize next time
-        g_free(init_dir);
-        init_dir = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(FileSelectionWindow));
     }
 
     et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
-
-    if (ETCore->ETFileDisplayed)
-    {
-        et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
-                                               ETCore->ETFileDisplayed);
-    }
+    et_application_window_display_et_file (ET_APPLICATION_WINDOW (MainWindow),
+                                           ETCore->ETFileDisplayed);
 
     gtk_widget_destroy(FileSelectionWindow);
 }
