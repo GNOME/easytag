@@ -441,28 +441,10 @@
       <default>''</default>
     </key>
 
-    <key name="process-lowercase-all" type="b">
-      <summary>Lower-case all characters</summary>
-      <description>Whether to lower-case all characters of the tag when processing tag fields</description>
-      <default>false</default>
-    </key>
-
-    <key name="process-uppercase-all" type="b">
-      <summary>Upper-case all characters</summary>
-      <description>Whether to upper-case all characters of the tag when processing tag fields</description>
-      <default>false</default>
-    </key>
-
-    <key name="process-uppercase-first-letter" type="b">
-      <summary>Upper-case the first letter of the tag</summary>
-      <description>Whether to upper-case the first letter of the tag when processing tag fields</description>
-      <default>false</default>
-    </key>
-
-    <key name="process-uppercase-first-letters" type="b">
-      <summary>Upper-case the first letter of each word</summary>
-      <description>Whether to upper-case the first letter of each word when processing tag fields</description>
-      <default>true</default>
+    <key name="process-capitalize" enum="org.gnome.EasyTAG.EtProcessCapitalize">
+      <summary>Capitalize tag fields when processing</summary>
+      <description>Whether to change the capitalization when processing tag fields</description>
+      <default>'first-words-up'</default>
     </key>
 
     <key name="process-uppercase-prepositions" type="b">

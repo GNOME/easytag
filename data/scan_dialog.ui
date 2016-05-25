@@ -638,6 +638,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                             <object class="GtkRadioButton" id="capitalize_all_radio">
                                                 <property name="label" translatable="yes">Capitalize all</property>
                                                 <property name="margin-left">12</property>
+                                                <property name="name">all-up</property>
                                                 <property name="tooltip-text" translatable="yes">Whether to upper-case all characters of the tag when processing tag fields</property>
                                                 <property name="visible">True</property>
                                             </object>
@@ -651,6 +652,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                                 <property name="group">capitalize_all_radio</property>
                                                 <property name="label" translatable="yes">Lowercase all</property>
                                                 <property name="margin-left">12</property>
+                                                <property name="name">all-down</property>
                                                 <property name="tooltip-text" translatable="yes">Whether to lower-case all characters of the tag when processing tag fields</property>
                                                 <property name="visible">True</property>
                                             </object>
@@ -664,6 +666,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                                 <property name="group">capitalize_all_radio</property>
                                                 <property name="label" translatable="yes">Capitalize first letter</property>
                                                 <property name="margin-left">12</property>
+                                                <property name="name">first-letter-up</property>
                                                 <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of the tag when processing tag fields</property>
                                                 <property name="visible">True</property>
                                             </object>
@@ -677,6 +680,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                                 <property name="group">capitalize_all_radio</property>
                                                 <property name="label" translatable="yes">Capitalize the first letter of each word</property>
                                                 <property name="margin-left">12</property>
+                                                <property name="name">first-words-up</property>
                                                 <property name="tooltip-text" translatable="yes">Whether to upper-case the first letter of each word when processing tag fields</property>
                                                 <property name="visible">True</property>
                                                 <signal name="toggled" handler="Process_Fields_First_Letters_Check_Button_Toggled" swapped="yes"/>
@@ -703,6 +707,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                                 <property name="group">capitalize_all_radio</property>
                                                 <property name="label" translatable="yes">Do not change capitalization</property>
                                                 <property name="margin-left">12</property>
+                                                <property name="name">no-change</property>
                                                 <property name="tooltip-text" translatable="yes"></property>
                                                 <property name="visible">True</property>
                                             </object>

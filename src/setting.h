@@ -125,6 +125,16 @@ typedef enum
     ET_FILENAME_EXTENSION_NO_CHANGE
 } EtFilenameExtensionMode;
 
+/* Scanner dialog process fields capitalization options. */
+typedef enum
+{
+    ET_PROCESS_CAPITALIZE_ALL_UP,
+    ET_PROCESS_CAPITALIZE_ALL_DOWN,
+    ET_PROCESS_CAPITALIZE_FIRST_LETTER_UP,
+    ET_PROCESS_CAPITALIZE_FIRST_WORDS_UP,
+    ET_PROCESS_CAPITALIZE_NO_CHANGE
+} EtProcessCapitalize;
+
 /* Tag fields to process in the scanner. */
 typedef enum
 {

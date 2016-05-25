@@ -86,6 +86,7 @@ typedef struct
     GtkWidget *capitalize_lower_radio;
     GtkWidget *capitalize_first_radio;
     GtkWidget *capitalize_first_style_radio;
+    GtkWidget *capitalize_none_radio;
     GtkWidget *capitalize_roman_check;
 
     GtkWidget *spaces_remove_radio;
@@ -2440,21 +2441,39 @@ create_scan_dialog (EtScanDialog *self)
                      priv->convert_to_entry, "text", G_SETTINGS_BIND_DEFAULT);
 
     /* Group: capitalize, ... */
-    g_settings_bind (MainSettings, "process-uppercase-all",
-                     priv->capitalize_all_radio, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "process-lowercase-all",
-                     priv->capitalize_lower_radio, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "process-uppercase-first-letter",
-                     priv->capitalize_first_radio, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "process-uppercase-first-letters",
-                     priv->capitalize_first_style_radio, "active",
-                     G_SETTINGS_BIND_DEFAULT);
     g_settings_bind (MainSettings, "process-detect-roman-numerals",
                      priv->capitalize_roman_check, "active",
                      G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind_with_mapping (MainSettings, "process-capitalize",
+                                  priv->capitalize_all_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->capitalize_all_radio, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-capitalize",
+                                  priv->capitalize_lower_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->capitalize_lower_radio, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-capitalize",
+                                  priv->capitalize_first_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->capitalize_first_radio, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-capitalize",
+                                  priv->capitalize_first_style_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->capitalize_first_style_radio, NULL);
+    g_settings_bind_with_mapping (MainSettings, "process-capitalize",
+                                  priv->capitalize_none_radio, "active",
+                                  G_SETTINGS_BIND_DEFAULT,
+                                  et_settings_enum_radio_get,
+                                  et_settings_enum_radio_set,
+                                  priv->capitalize_none_radio, NULL);
 
     /* Group: insert/remove spaces */
     g_settings_bind (MainSettings, "process-remove-spaces",
@@ -2874,6 +2893,8 @@ et_scan_dialog_class_init (EtScanDialogClass *klass)
                                                   capitalize_first_radio);
     gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
                                                   capitalize_first_style_radio);
+    gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
+                                                  capitalize_none_radio);
     gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
                                                   capitalize_roman_check);
     gtk_widget_class_bind_template_child_private (widget_class, EtScanDialog,
