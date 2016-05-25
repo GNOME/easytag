@@ -1096,7 +1096,7 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         /* Adding MIME string and its length. */
         convert_to_byte_array (strlen (mime), array);
         add_to_guchar_str (ustring, &ustring_len, array, 4);
-        add_to_guchar_str (ustring, &ustring_len, (guchar *)mime,
+        add_to_guchar_str (ustring, &ustring_len, (const guchar *)mime,
                            strlen (mime));
 
         /* Adding picture description. */

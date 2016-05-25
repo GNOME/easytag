@@ -618,6 +618,8 @@ vc_block_append_other_tag (FLAC__StreamMetadata *vc_block,
     field.entry = (FLAC__byte *)tag;
     field.length = strlen (tag);
 
+    /* Safe to pass const data, if the last argument (copy) is true, according
+     * to the FLAC API reference. */
     if (!FLAC__metadata_object_vorbiscomment_append_comment (vc_block, field,
                                                              true))
     {
@@ -1029,10 +1031,12 @@ flac_tag_write_file_tag (const ET_File *ETFile,
 
                 /* Picture data. */
                 data = g_bytes_get_data (pic->bytes, &data_size);
+                /* Safe to pass const data, if the last argument (copy) is
+                 * TRUE, according the the FLAC API reference. */
                 FLAC__metadata_object_picture_set_data (picture_block,
                                                         (FLAC__byte *)data,
                                                         (FLAC__uint32)data_size,
-                                                        TRUE);
+                                                        true);
                 
                 if (!FLAC__metadata_object_picture_is_legal (picture_block,
                                                              &violation))
