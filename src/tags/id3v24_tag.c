@@ -1584,8 +1584,7 @@ etag_write_tags (const gchar *filename,
     GInputStream *istream;
     GOutputStream *ostream;
     long filev2size;
-    gsize ctxsize;
-    gchar *ctx = NULL;
+    gchar *audio_buffer = NULL;
     gboolean success = TRUE;
     gsize bytes_read;
     gsize bytes_written;
@@ -1792,6 +1791,7 @@ etag_write_tags (const gchar *filename,
 
     if (filev2size == (long)v2size)
     {
+        /* New and old tag are the same length, so no need to handle audio. */
         if (!g_seekable_seek (seekable, 0, G_SEEK_SET, NULL, error))
         {
             goto err;
@@ -1805,26 +1805,30 @@ etag_write_tags (const gchar *filename,
     }
     else
     {
-        /* XXX */
-        /* Size of audio data (tags at the end were already removed) */
+        gsize audio_length;
+
+        /* New and old tag differ in length, so copy the audio data to after
+         * the new tag. */
         if (!g_seekable_seek (seekable, 0, G_SEEK_END, NULL, error))
         {
             goto err;
         }
 
-        ctxsize = g_seekable_tell (seekable) - filev2size;
-
-        ctx = g_malloc (ctxsize);
+        audio_length = g_seekable_tell (seekable) - filev2size;
+        audio_buffer = g_malloc (audio_length);
 
         if (!g_seekable_seek (seekable, filev2size, G_SEEK_SET, NULL, error))
         {
             goto err;
         }
 
-        if (!g_input_stream_read_all (istream, ctx, ctxsize, &bytes_read, NULL,
-                                      error))
+        if (audio_length != 0)
         {
-            goto err;
+            if (!g_input_stream_read_all (istream, audio_buffer, audio_length,
+                                          &bytes_read, NULL, error))
+            {
+                goto err;
+            }
         }
         
         /* Return to the beginning of the file. */
@@ -1844,10 +1848,14 @@ etag_write_tags (const gchar *filename,
         }
 
         /* Write audio data. */
-        if (!g_output_stream_write_all (ostream, ctx, ctxsize, &bytes_written,
-                                        NULL, error))
+        if (audio_length != 0)
         {
-            goto err;
+            if (!g_output_stream_write_all (ostream, audio_buffer,
+                                            audio_length, &bytes_written, NULL,
+                                            error))
+            {
+                goto err;
+            }
         }
 
         if (!g_seekable_truncate (seekable, g_seekable_tell (seekable), NULL,
@@ -1860,7 +1868,7 @@ etag_write_tags (const gchar *filename,
     success = TRUE;
 
 err:
-    g_free (ctx);
+    g_free (audio_buffer);
     g_object_unref (file);
     g_clear_object (&iostream);
     g_free (v1buf);
