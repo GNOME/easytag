@@ -832,7 +832,8 @@ Scan_Rename_File_With_Mask (EtScanDialog *self, ET_File *ETFile)
     }
 
     /* Build the filename with the full path or relative to old path */
-    filename_new_utf8 = ET_File_Name_Generate(ETFile,filename_generated_utf8);
+    filename_new_utf8 = et_file_generate_name (ETFile,
+                                               filename_generated_utf8);
     g_free(filename_generated);
     g_free(filename_generated_utf8);
 
@@ -1355,7 +1356,7 @@ Scan_Process_Fields (EtScanDialog *self, ET_File *ETFile)
 
             Scan_Process_Fields_Functions (self, &string);
 
-            string_utf8 = ET_File_Name_Generate(ETFile,string);
+            string_utf8 = et_file_generate_name (ETFile, string);
             ET_Set_Filename_File_Name_Item(FileName,string_utf8,NULL);
             g_free(string_utf8);
             g_free(string);

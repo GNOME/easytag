@@ -1734,24 +1734,26 @@ void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
 }
 
 /*
+ * et_file_generate_name:
+ * @ETFile: the file from which to read the existing name
+ * @new_file_name_utf8: UTF-8 encoded new filename
+ *
  * This function generates a new filename using path of the old file and the
  * new name.
- * - ETFile -> old_file_name : "/path_to_file/old_name.ext"
- * - new_file_name_utf8      : "new_name.ext"
- * Returns "/path_to_file/new_name.ext" into allocated data (in UTF-8)!
- * Notes :
- *   - filenames (basemane) musn't exceed 255 characters (i.e. : "new_name.ext")
- *   - ogg filename musn't exceed 255-6 characters as we use mkstemp
+ *
+ * Returns: a newly-allocated filename, in UTF-8
  */
 #if 1
 gchar *
-ET_File_Name_Generate (const ET_File *ETFile,
+et_file_generate_name (const ET_File *ETFile,
                        const gchar *new_file_name_utf8)
 {
     gchar *dirname_utf8;
 
-    if (ETFile && ETFile->FileNameNew->data && new_file_name_utf8
-    && (dirname_utf8=g_path_get_dirname(((File_Name *)ETFile->FileNameNew->data)->value_utf8)) )
+    g_return_val_if_fail (ETFile && ETFile->FileNameNew->data, NULL);
+    g_return_val_if_fail (new_file_name_utf8, NULL);
+
+    if ((dirname_utf8 = g_path_get_dirname (((File_Name *)ETFile->FileNameNew->data)->value_utf8)))
     {
         gchar *extension;
         gchar *new_file_name_path_utf8;
@@ -1762,32 +1764,43 @@ ET_File_Name_Generate (const ET_File *ETFile,
         // Check length of filename (limit ~255 characters)
         //ET_File_Name_Check_Length(ETFile,new_file_name_utf8);
 
-        // If filemame starts with /, it's a full filename with path but without extension
-        if (g_path_is_absolute(new_file_name_utf8))
+        if (g_path_is_absolute (new_file_name_utf8))
         {
-            // We just add the extension
-            new_file_name_path_utf8 = g_strconcat(new_file_name_utf8,extension,NULL);
-        }else
+            /* Just add the extension. */
+            new_file_name_path_utf8 = g_strconcat (new_file_name_utf8,
+                                                   extension, NULL);
+        }
+        else
         {
-            // New path (with filename)
-            if ( strcmp(dirname_utf8,G_DIR_SEPARATOR_S)==0 ) // Root directory?
-                new_file_name_path_utf8 = g_strconcat(dirname_utf8,new_file_name_utf8,extension,NULL);
+            /* New path (with filename). */
+            if (strcmp (dirname_utf8, G_DIR_SEPARATOR_S) == 0)
+            {
+                /* Root directory. */
+                new_file_name_path_utf8 = g_strconcat (dirname_utf8,
+                                                       new_file_name_utf8,
+                                                       extension, NULL);
+            }
             else
-                new_file_name_path_utf8 = g_strconcat(dirname_utf8,G_DIR_SEPARATOR_S,new_file_name_utf8,extension,NULL);
+            {
+                new_file_name_path_utf8 = g_strconcat (dirname_utf8,
+                                                       G_DIR_SEPARATOR_S,
+                                                       new_file_name_utf8,
+                                                       extension, NULL);
+            }
         }
 
         g_free (dirname_utf8);
-        g_free(extension);
-        return new_file_name_path_utf8; // in UTF-8
-    }else
-    {
-        return NULL;
+        g_free (extension);
+
+        return new_file_name_path_utf8;
     }
+
+    return NULL;
 }
 #else
 /* FOR TESTING */
 /* Returns filename in file system encoding */
-gchar *ET_File_Name_Generate (ET_File *ETFile, gchar *new_file_name_utf8)
+gchar *et_file_generate_name (ET_File *ETFile, gchar *new_file_name_utf8)
 {
     gchar *dirname;
 

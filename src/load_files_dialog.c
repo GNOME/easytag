@@ -123,7 +123,7 @@ Load_Filename_Set_Filenames (EtLoadFilesDialog *self)
                                                          "rename-replace-illegal-chars"));
 
             /* Build the filename with the path */
-            filename_new_utf8 = ET_File_Name_Generate(ETFile,list_text_tmp);
+            filename_new_utf8 = et_file_generate_name (ETFile, list_text_tmp);
             g_free(list_text_tmp);
 
             /* Set the new filename */

@@ -2483,7 +2483,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 et_filename_prepare (filename_generated_utf8,
                                      g_settings_get_boolean (MainSettings,
                                                              "rename-replace-illegal-chars"));
-                filename_new_utf8 = ET_File_Name_Generate (etfile,
+                filename_new_utf8 = et_file_generate_name (etfile,
                                                            filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
@@ -2615,7 +2615,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
                 et_filename_prepare (filename_generated_utf8,
                                      g_settings_get_boolean (MainSettings,
                                                              "rename-replace-illegal-chars"));
-                filename_new_utf8 = ET_File_Name_Generate(etfile,filename_generated_utf8);
+                filename_new_utf8 = et_file_generate_name (etfile,
+                                                           filename_generated_utf8);
 
                 ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
 
