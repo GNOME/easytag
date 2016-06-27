@@ -2522,10 +2522,18 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             ET_File *etfile = NULL;
             guint set_fields;
 
-            /* FIXME: The model could have a NULL ET_File *, in which case the
-             * file should be retrieved from the browser selection instead. */
-            gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentIter,
-                               CDDB_TRACK_LIST_ETFILE, &etfile, -1);
+            gtk_tree_model_get (GTK_TREE_MODEL (priv->track_list_model),
+                                &currentIter, CDDB_TRACK_LIST_ETFILE, &etfile,
+                                -1);
+
+            /* If the row in the model does not already have an ET_File
+             * associated with it, take one from the browser selection. */
+            if (!etfile)
+            {
+                fileIter = (GtkTreeIter*) file_iterlist->data;
+                etfile = et_application_window_browser_get_et_file_from_iter (ET_APPLICATION_WINDOW (MainWindow),
+                                                                              fileIter);
+            }
 
             /* Tag fields. */
             set_fields = g_settings_get_flags (MainSettings, "cddb-set-fields");
@@ -2533,7 +2541,7 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             set_et_file_from_cddb_album (etfile, cddbtrackalbum, set_fields,
                                          list_length);
         }
-        else if (cddbtrackalbum && file_iterlist && file_iterlist->data)
+        else if (cddbtrackalbum)
         {
             ET_File *etfile;
             guint set_fields;
