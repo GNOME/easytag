@@ -2217,6 +2217,144 @@ Cddb_Search_Album_List_From_String (EtCDDBDialog *self)
 }
 
 /*
+ * set_et_file_from_cddb_album:
+ * @etfile: an ET_File on which to set values
+ * @cddbtrackalbum: a CddbTrackAlbum from which to take values
+ * @set_fields: flags value for the fields to set
+ * @list_length: length of the CDDB album data (in tracks)
+ *
+ * Set the values obtained from CDDB and stored in @cddbtrackalbum to the
+ * given @etfile.
+ */
+static void
+set_et_file_from_cddb_album (ET_File * etfile,
+                             CddbTrackAlbum *cddbtrackalbum,
+                             guint set_fields,
+                             guint list_length)
+{
+    File_Tag *FileTag = NULL;
+    File_Name *FileName = NULL;
+
+    g_return_if_fail (etfile != NULL);
+    g_return_if_fail (cddbtrackalbum != NULL);
+
+    if (set_fields != 0)
+    {
+        /* Allocation of a new FileTag. */
+        FileTag = et_file_tag_new ();
+        et_file_tag_copy_into (FileTag, etfile->FileTag->data);
+
+        if (set_fields & ET_CDDB_SET_FIELD_TITLE)
+        {
+            et_file_tag_set_title (FileTag,
+                                   cddbtrackalbum->track_name);
+        }
+
+        if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
+            && cddbtrackalbum->cddbalbum->artist)
+        {
+            et_file_tag_set_artist (FileTag,
+                                    cddbtrackalbum->cddbalbum->artist);
+        }
+
+        if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
+            && cddbtrackalbum->cddbalbum->album)
+        {
+            et_file_tag_set_album (FileTag,
+                                   cddbtrackalbum->cddbalbum->album);
+        }
+
+        if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
+            && cddbtrackalbum->cddbalbum->year)
+        {
+            et_file_tag_set_year (FileTag,
+                                  cddbtrackalbum->cddbalbum->year);
+        }
+
+        if (set_fields & ET_CDDB_SET_FIELD_TRACK)
+        {
+            gchar *track_number;
+
+            track_number = et_track_number_to_string (cddbtrackalbum->track_number);
+
+            et_file_tag_set_track_number (FileTag, track_number);
+
+            g_free (track_number);
+        }
+
+        if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
+        {
+            gchar *track_total;
+
+            track_total = et_track_number_to_string (list_length);
+
+            et_file_tag_set_track_total (FileTag, track_total);
+
+            g_free (track_total);
+        }
+
+        if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
+            && (cddbtrackalbum->cddbalbum->genre
+                || cddbtrackalbum->cddbalbum->category))
+        {
+            if (!et_str_empty (cddbtrackalbum->cddbalbum->genre))
+            {
+                et_file_tag_set_genre (FileTag,
+                                       Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
+            }
+            else
+            {
+                et_file_tag_set_genre (FileTag,
+                                       Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
+            }
+        }
+    }
+
+    /* Filename field. */
+    if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
+    {
+        gchar *track_number;
+        gchar *filename_generated_utf8;
+        gchar *filename_new_utf8;
+
+        /* Allocation of a new FileName. */
+        FileName = et_file_name_new ();
+
+        /* Build the filename with the path. */
+        track_number = et_track_number_to_string (cddbtrackalbum->track_number);
+
+        filename_generated_utf8 = g_strconcat (track_number, " - ",
+                                               cddbtrackalbum->track_name,
+                                               NULL);
+        et_filename_prepare (filename_generated_utf8,
+                             g_settings_get_boolean (MainSettings,
+                                                     "rename-replace-illegal-chars"));
+        filename_new_utf8 = et_file_generate_name (etfile,
+                                                   filename_generated_utf8);
+
+        ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
+
+        g_free (track_number);
+        g_free(filename_generated_utf8);
+        g_free(filename_new_utf8);
+    }
+
+    ET_Manage_Changes_Of_File_Data (etfile, FileName, FileTag);
+
+    /* Then run current scanner if requested. */
+    if (g_settings_get_boolean (MainSettings, "cddb-run-scanner"))
+    {
+        EtScanDialog *dialog;
+
+        dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
+
+        if (dialog)
+        {
+            Scan_Select_Mode_And_Run_Scanner (dialog, etfile);
+        }
+    }
+}
+/*
  * Set CDDB data (from tracks list) into tags of the main file list
  */
 static gboolean
@@ -2382,137 +2520,22 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
         if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
         {
             ET_File *etfile = NULL;
-            File_Name *FileName = NULL;
-            File_Tag *FileTag = NULL;
             guint set_fields;
 
+            /* FIXME: The model could have a NULL ET_File *, in which case the
+             * file should be retrieved from the browser selection instead. */
             gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentIter,
                                CDDB_TRACK_LIST_ETFILE, &etfile, -1);
 
             /* Tag fields. */
             set_fields = g_settings_get_flags (MainSettings, "cddb-set-fields");
 
-            if (set_fields != 0)
-            {
-                /* Allocation of a new FileTag. */
-                FileTag = et_file_tag_new ();
-                et_file_tag_copy_into (FileTag, etfile->FileTag->data);
-
-                if (set_fields & ET_CDDB_SET_FIELD_TITLE)
-                {
-                    et_file_tag_set_title (FileTag,
-                                           cddbtrackalbum->track_name);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
-                    && cddbtrackalbum->cddbalbum->artist)
-                {
-                    et_file_tag_set_artist (FileTag,
-                                            cddbtrackalbum->cddbalbum->artist);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
-                    && cddbtrackalbum->cddbalbum->album)
-                {
-                    et_file_tag_set_album (FileTag,
-                                           cddbtrackalbum->cddbalbum->album);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
-                    && cddbtrackalbum->cddbalbum->year)
-                {
-                    et_file_tag_set_year (FileTag,
-                                          cddbtrackalbum->cddbalbum->year);
-                }
-
-                if (set_fields & ET_CDDB_SET_FIELD_TRACK)
-                {
-                    gchar *track_number;
-
-                    track_number = et_track_number_to_string (cddbtrackalbum->track_number);
-
-                    et_file_tag_set_track_number (FileTag, track_number);
-
-                    g_free (track_number);
-                }
-
-                if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
-                {
-                    gchar *track_total;
-
-                    track_total = et_track_number_to_string (list_length);
-
-                    et_file_tag_set_track_total (FileTag, track_total);
-
-                    g_free (track_total);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
-                    && (cddbtrackalbum->cddbalbum->genre
-                        || cddbtrackalbum->cddbalbum->category))
-                {
-                    if (!et_str_empty (cddbtrackalbum->cddbalbum->genre))
-                    {
-                        et_file_tag_set_genre (FileTag,
-                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
-                    }
-                    else
-                    {
-                        et_file_tag_set_genre (FileTag,
-                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
-                    }
-                }
-            }
-
-            /* Filename field. */
-            if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
-            {
-                gchar *track_number;
-                gchar *filename_generated_utf8;
-                gchar *filename_new_utf8;
-
-                /* Allocation of a new FileName. */
-                FileName = et_file_name_new ();
-
-                /* Build the filename with the path. */
-                track_number = et_track_number_to_string (cddbtrackalbum->track_number);
-
-                filename_generated_utf8 = g_strconcat (track_number, " - ",
-                                                       cddbtrackalbum->track_name,
-                                                       NULL);
-                et_filename_prepare (filename_generated_utf8,
-                                     g_settings_get_boolean (MainSettings,
-                                                             "rename-replace-illegal-chars"));
-                filename_new_utf8 = et_file_generate_name (etfile,
-                                                           filename_generated_utf8);
-
-                ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
-
-                g_free (track_number);
-                g_free(filename_generated_utf8);
-                g_free(filename_new_utf8);
-            }
-
-            ET_Manage_Changes_Of_File_Data (etfile, FileName, FileTag);
-
-            /* Then run current scanner if requested. */
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->scanner_check)))
-            {
-                EtScanDialog *dialog;
-
-                dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
-
-                if (dialog)
-                {
-                    Scan_Select_Mode_And_Run_Scanner (dialog, etfile);
-                }
-            }
+            set_et_file_from_cddb_album (etfile, cddbtrackalbum, set_fields,
+                                         list_length);
         }
         else if (cddbtrackalbum && file_iterlist && file_iterlist->data)
         {
-            ET_File   *etfile;
-            File_Name *FileName = NULL;
-            File_Tag  *FileTag  = NULL;
+            ET_File *etfile;
             guint set_fields;
 
             fileIter = (GtkTreeIter*) file_iterlist->data;
@@ -2522,123 +2545,8 @@ Cddb_Set_Track_Infos_To_File_List (EtCDDBDialog *self)
             /* Tag fields. */
             set_fields = g_settings_get_flags (MainSettings, "cddb-set-fields");
 
-            if (set_fields != 0)
-            {
-                /* Allocation of a new FileTag. */
-                FileTag = et_file_tag_new ();
-                et_file_tag_copy_into (FileTag, etfile->FileTag->data);
-
-                if (set_fields & ET_CDDB_SET_FIELD_TITLE)
-                {
-                    et_file_tag_set_title (FileTag,
-                                           cddbtrackalbum->track_name);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_ARTIST)
-                    && cddbtrackalbum->cddbalbum->artist)
-                {
-                    et_file_tag_set_artist (FileTag,
-                                            cddbtrackalbum->cddbalbum->artist);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_ALBUM)
-                    && cddbtrackalbum->cddbalbum->album)
-                {
-                    et_file_tag_set_album (FileTag,
-                                           cddbtrackalbum->cddbalbum->album);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_YEAR)
-                    && cddbtrackalbum->cddbalbum->year)
-                {
-                    et_file_tag_set_year (FileTag,
-                                          cddbtrackalbum->cddbalbum->year);
-                }
-
-                if (set_fields & ET_CDDB_SET_FIELD_TRACK)
-                {
-                    gchar *track_number;
-
-                    track_number = et_track_number_to_string (cddbtrackalbum->track_number);
-
-                    et_file_tag_set_track_number (FileTag, track_number);
-
-                    g_free (track_number);
-                }
-
-                if (set_fields & ET_CDDB_SET_FIELD_TRACK_TOTAL)
-                {
-                    gchar *track_total;
-
-                    track_total = et_track_number_to_string (list_length);
-
-                    et_file_tag_set_track_total (FileTag, track_total);
-
-                    g_free (track_total);
-                }
-
-                if ((set_fields & ET_CDDB_SET_FIELD_GENRE)
-                    && (cddbtrackalbum->cddbalbum->genre
-                        || cddbtrackalbum->cddbalbum->category) )
-                {
-                    if (!et_str_empty (cddbtrackalbum->cddbalbum->genre))
-                    {
-                        et_file_tag_set_genre (FileTag,
-                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->genre));
-                    }
-                    else
-                    {
-                        et_file_tag_set_genre (FileTag,
-                                               Cddb_Get_Id3_Genre_From_Cddb_Genre (cddbtrackalbum->cddbalbum->category));
-                    }
-                }
-            }
-
-            /*
-             * Filename field
-             */
-            if (set_fields & ET_CDDB_SET_FIELD_FILENAME)
-            {
-                gchar *track_number;
-                gchar *filename_generated_utf8;
-                gchar *filename_new_utf8;
-
-                /* Allocation of a new FileName. */
-                FileName = et_file_name_new ();
-
-                /* Build the filename with the path. */
-                track_number = et_track_number_to_string (cddbtrackalbum->track_number);
-
-                filename_generated_utf8 = g_strconcat (track_number, " - ",
-                                                       cddbtrackalbum->track_name,
-                                                       NULL);
-                et_filename_prepare (filename_generated_utf8,
-                                     g_settings_get_boolean (MainSettings,
-                                                             "rename-replace-illegal-chars"));
-                filename_new_utf8 = et_file_generate_name (etfile,
-                                                           filename_generated_utf8);
-
-                ET_Set_Filename_File_Name_Item(FileName,filename_new_utf8,NULL);
-
-                g_free (track_number);
-                g_free(filename_generated_utf8);
-                g_free(filename_new_utf8);
-            }
-
-            ET_Manage_Changes_Of_File_Data(etfile,FileName,FileTag);
-
-            /* Then run current scanner if requested. */
-            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->scanner_check)))
-            {
-                EtScanDialog *dialog;
-
-                dialog = ET_SCAN_DIALOG (et_application_window_get_scan_dialog (ET_APPLICATION_WINDOW (MainWindow)));
-
-                if (dialog)
-                {
-                    Scan_Select_Mode_And_Run_Scanner (dialog, etfile);
-                }
-            }
+            set_et_file_from_cddb_album (etfile, cddbtrackalbum, set_fields,
+                                         list_length);
         }
 
         if(!file_iterlist->next) break;
