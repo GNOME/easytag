@@ -317,9 +317,6 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
     EtCDDBDialogPrivate *priv;
     GList       *selectedRows;
     GList *l;
-    GtkTreeIter  currentFile;
-    gchar       *text_path;
-    ET_File *etfile;
 
     priv = et_cddb_dialog_get_instance_private (self);
 
@@ -340,30 +337,35 @@ Cddb_Track_List_Row_Selected (EtCDDBDialog *self, GtkTreeSelection *selection)
 
     for (l = selectedRows; l != NULL; l = g_list_next (l))
     {
-        gboolean found;
+        GtkTreeIter currentFile;
+        gchar *text_path;
 
-        found = gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->track_list_model),
-                                         &currentFile, (GtkTreePath*)l->data);
-
-        if (found)
+        if (gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->track_list_model),
+                                     &currentFile, (GtkTreePath*)l->data))
         {
             if (g_settings_get_boolean (MainSettings, "cddb-dlm-enabled"))
             {
-                gtk_tree_model_get(GTK_TREE_MODEL(priv->track_list_model), &currentFile,
-                                   CDDB_TRACK_LIST_NAME, &text_path, -1);
+                ET_File *etfile;
+
+                gtk_tree_model_get (GTK_TREE_MODEL (priv->track_list_model),
+                                    &currentFile, CDDB_TRACK_LIST_NAME,
+                                    &text_path, -1);
                 etfile = et_application_window_browser_select_file_by_dlm (ET_APPLICATION_WINDOW (MainWindow),
                                                                             text_path,
                                                                             TRUE);
                 gtk_list_store_set (priv->track_list_model, &currentFile,
                                     CDDB_TRACK_LIST_ETFILE, etfile, -1);
-            } else
+            }
+            else
             {
-                text_path = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(priv->track_list_model), &currentFile);
+                text_path = gtk_tree_model_get_string_from_iter (GTK_TREE_MODEL (priv->track_list_model),
+                                                                 &currentFile);
                 et_application_window_browser_select_file_by_iter_string (ET_APPLICATION_WINDOW (MainWindow),
                                                                           text_path,
                                                                           TRUE);
             }
-            g_free(text_path);
+
+            g_free (text_path);
         }
     }
 
