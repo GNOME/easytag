@@ -1167,10 +1167,10 @@ et_browser_select_dir (EtBrowser *self,
     {
         gtk_tree_view_expand_to_path (GTK_TREE_VIEW (priv->directory_view),
                                       rootPath);
+        Browser_Tree_Set_Node_Visible (priv->directory_view, rootPath);
         /* Select the node to load the corresponding directory. */
         gtk_tree_selection_select_path (gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->directory_view)),
                                         rootPath);
-        Browser_Tree_Set_Node_Visible (priv->directory_view, rootPath);
         gtk_tree_path_free(rootPath);
     }
 
