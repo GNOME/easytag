@@ -13,6 +13,7 @@ After GTK+ 3
 ------------
 
 * Use GtkAppChooserDialog for selecting applications
+* Use gtk_icon_theme_add_resource_path() from GTK+ 3.14
 
 Tagging features
 ----------------
