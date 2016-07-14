@@ -1,6 +1,6 @@
 <interface domain="easytag">
     <object class="GtkImage" id="artist_view_image">
-        <property name="resource">/org/gnome/EasyTAG/images/artist.png</property>
+        <property name="resource">/org/gnome/EasyTAG/images/artist-album.png</property>
         <property name="visible">True</property>
     </object>
     <object class="GtkImage" id="invert_selection_image">
