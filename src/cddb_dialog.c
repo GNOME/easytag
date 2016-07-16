@@ -223,7 +223,7 @@ static gint Cddb_Track_List_Sort_Func (GtkTreeModel *model, GtkTreeIter *a,
 
 static gchar *Cddb_Format_Proxy_Authentification (void);
 
-static gboolean Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelection *selection);
+static void Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelection *selection);
 
 
 /*
@@ -1272,7 +1272,7 @@ Cddb_Get_Album_Tracks_List (EtCDDBDialog *self, GtkTreeSelection* selection)
  * Callback when selecting a row in the Album List.
  * We get the list of tracks of the selected album
  */
-static gboolean
+static void
 Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelection *selection)
 {
     gint i;
@@ -1286,13 +1286,6 @@ Cddb_Get_Album_Tracks_List_CB (EtCDDBDialog *self, GtkTreeSelection *selection)
         {
             break;
         }
-    }
-    if (i <= i_max)
-    {
-        return TRUE;
-    } else
-    {
-        return FALSE;
     }
 }
 
