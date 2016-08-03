@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4
 
-DISTCHECK_CONFIGURE_FLAGS = \
+AM_DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-appdata-check \
 	--enable-flac \
 	--enable-id3v23 \
