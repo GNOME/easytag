@@ -1,21 +1,21 @@
-# Hungarian translation of easytag help
-# Copyright (C) 2015. Free Software Foundation, Inc.
+# Hungarian translation for easytag help.
+# Copyright (C) 2015-2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the user help.
 #
 # Gabor Kelemen <kelemeng at ubuntu dot com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2015-06-17 15:20+0000\n"
-"PO-Revision-Date: 2015-07-06 06:50+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
+"POT-Creation-Date: 2016-08-14 17:15+0000\n"
+"PO-Revision-Date: 2016-08-19 21:49+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 1.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -23,23 +23,12 @@ msgid "translator-credits"
 msgstr "Kelemen Gábor <kelemeng at ubuntu dot com>, 2015."
 
 #. (itstool) path: credit/name
-#: C/cddb-search.page:12
-#: C/file-rename.page:11
-#: C/file-select.page:11
-#: C/format-specifier.page:11
-#: C/image-delete.page:13
-#: C/image-export.page:13
-#: C/image.page:16
-#: C/index.page:14
-#: C/introduction.page:12
-#: C/keyboard-shortcuts.page:11
-#: C/playlist-generate.page:11
-#: C/problems-ogg-split.page:18
-#: C/scanner.page:12
-#: C/starting.page:10
-#: C/tag-capitalization.page:13
-#: C/tag-field.page:14
-#: C/tag.page:13
+#: C/cddb-search.page:12 C/file-rename.page:11 C/file-select.page:11
+#: C/format-specifier.page:11 C/image-delete.page:13 C/image-export.page:13
+#: C/image.page:16 C/index.page:14 C/introduction.page:12
+#: C/keyboard-shortcuts.page:11 C/playlist-generate.page:11
+#: C/problems-ogg-split.page:18 C/scanner.page:12 C/starting.page:10
+#: C/tag-capitalization.page:13 C/tag-field.page:14 C/tag.page:13
 msgid "Ekaterina Gerasimova"
 msgstr "Ekaterina Gerasimova"
 
@@ -77,11 +66,11 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/cddb-search.page:34
 msgid ""
-"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui "
-"style=\"menuitem\">CDDB Search…</gui></guiseq>."
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">CDDB Search…</gui></guiseq>."
 msgstr ""
-"Válassza az <guiseq><gui style=\"menu\">Egyéb</gui><gui style=\"menuitem\">"
-"CDDB keresés</gui></guiseq> menüpontot."
+"Válassza az <guiseq><gui style=\"menu\">Egyéb</gui><gui style=\"menuitem"
+"\">CDDB keresés</gui></guiseq> menüpontot."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:38
@@ -89,8 +78,8 @@ msgid ""
 "Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
 "the search to finish."
 msgstr ""
-"Nyomja meg a <gui style=\"button\">Keresés a kijelölt fájlok használatával<"
-"/gui> gombot, és várjon a keresés befejeződéséig."
+"Nyomja meg a <gui style=\"button\">Keresés a kijelölt fájlok használatával</"
+"gui> gombot, és várjon a keresés befejeződéséig."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:43
@@ -104,31 +93,30 @@ msgstr "Válasszon egy albumot a találati listájából, és a száminformáci�
 #: C/cddb-search.page:46
 msgid ""
 "If there are no results which match the tracks that you selected, enter the "
-"name of the album in the search field. Press <gui style=\"button\">Search<"
-"/gui> and wait for the search to finish, and check the results again to see "
+"name of the album in the search field. Press <gui style=\"button\">Search</"
+"gui> and wait for the search to finish, and check the results again to see "
 "if you can find an album which matches the tracks that you selected."
 msgstr ""
 "Ha nincsenek a kiválasztott számoknak megfelelő találatok, akkor írja be az "
-"album nevét a keresési mezőbe. Nyomja meg a <gui style=\"button\">Keresés<"
-"/gui> gombot, várjon a keresés befejeződéséig, és nézze meg, így talál-e a "
+"album nevét a keresési mezőbe. Nyomja meg a <gui style=\"button\">Keresés</"
+"gui> gombot, várjon a keresés befejeződéséig, és nézze meg, így talál-e a "
 "kijelölt számoknak megfelelő albumot."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:53
 msgid ""
-"Choose the tag fields to fill in by selecting a combination of <gui "
-"style=\"checkbox\">Filename</gui>, <gui style=\"checkbox\">Title</gui>, <gui "
-"style=\"checkbox\">Artist</gui>, <gui style=\"checkbox\">Album</gui>, <gui "
-"style=\"checkbox\">Year</gui>, <gui style=\"checkbox\">Track Number</gui>, <"
-"gui style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">"
-"Genre</gui>."
+"Choose the tag fields to fill in by selecting a combination of <gui style="
+"\"checkbox\">Filename</gui>, <gui style=\"checkbox\">Title</gui>, <gui style="
+"\"checkbox\">Artist</gui>, <gui style=\"checkbox\">Album</gui>, <gui style="
+"\"checkbox\">Year</gui>, <gui style=\"checkbox\">Track Number</gui>, <gui "
+"style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
+"gui>."
 msgstr ""
-"Válassza ki a kitöltendő címkemezőket a következők közül: <gui "
-"style=\"checkbox\">Fájlnév</gui>, <gui style=\"checkbox\">Cím</gui>, <gui "
-"style=\"checkbox\">Előadó</gui>, <gui style=\"checkbox\">Album</gui>, <gui "
-"style=\"checkbox\">Év</gui>, <gui style=\"checkbox\">Szám sorszáma</gui>, <"
-"gui style=\"checkbox\">Számok száma</gui> és <gui style=\"checkbox\">"
-"Műfaj</gui>."
+"Válassza ki a kitöltendő címkemezőket a következők közül: <gui style="
+"\"checkbox\">Fájlnév</gui>, <gui style=\"checkbox\">Cím</gui>, <gui style="
+"\"checkbox\">Előadó</gui>, <gui style=\"checkbox\">Album</gui>, <gui style="
+"\"checkbox\">Év</gui>, <gui style=\"checkbox\">Szám sorszáma</gui>, <gui "
+"style=\"checkbox\">Számok száma</gui> és <gui style=\"checkbox\">Műfaj</gui>."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:64
@@ -161,15 +149,16 @@ msgstr "Fájlok átnevezése"
 #. (itstool) path: page/p
 #: C/file-rename.page:22
 msgid ""
-"You can rename your music files using the tags from within <app>EasyTAG</app>:"
+"You can rename your music files using the tags from within <app>EasyTAG</"
+"app>:"
 msgstr ""
 "Megváltoztathatja a zenefájljai nevét az <app>EasyTAG</app> használatával:"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:27
 msgid ""
-"<link xref=\"file-select\">Select the files</link> that you wish to rename in "
-"the file view."
+"<link xref=\"file-select\">Select the files</link> that you wish to rename "
+"in the file view."
 msgstr ""
 "<link xref=\"file-select\">Jelölje ki</link> a fájlnézetben az átnevezni "
 "kívánt fájlokat."
@@ -180,8 +169,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Válassza a <guiseq><gui style=\"menu\">Nézet</gui> <gui style=\"menuitem\">"
-"Feldolgozó megjelenítése</gui></guiseq> menüpontot."
+"Válassza a <guiseq><gui style=\"menu\">Nézet</gui> <gui style=\"menuitem"
+"\">Feldolgozó megjelenítése</gui></guiseq> menüpontot."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:35
@@ -192,14 +181,15 @@ msgstr "Válassza a <gui>Fájl átnevezése</gui> feldolgozót."
 #: C/file-rename.page:38
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
-"that you would like to use for the file naming. For example, if you wish your "
-"files to be named <file>[artist] - [title].[extension]</file>, enter <input>%"
-"a - %t</input> into the renaming field."
+"that you would like to use for the file naming. For example, if you wish "
+"your files to be named <file>[artist] - [title].[extension]</file>, "
+"enter <input>%a - %t</input> into the renaming field."
 msgstr ""
 "A <gui xref=\"format-specifier\">Jelmagyarázat</gui> használatával írja be a "
-"fájlelnevezéshez használni kívánt szerkezetet. Ha például a fájljait a <file>"
-"[előadó] - [cím].[kiterjesztés]</file> séma szerint szeretné átnevezni, akkor "
-"írja be a <input>%a - %t</input> szöveget az átnevezési mezőbe."
+"fájlelnevezéshez használni kívánt szerkezetet. Ha például a fájljait a "
+"<file>[előadó] - [cím].[kiterjesztés]</file> séma szerint szeretné "
+"átnevezni, akkor írja be a <input>%a - %t</input> szöveget az átnevezési "
+"mezőbe."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:45
@@ -219,11 +209,12 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/file-rename.page:52
 msgid ""
-"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> <"
-"gui style=\"menuitem\">Save Files</gui></guiseq>."
+"To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
+"<gui style=\"menuitem\">Save Files</gui></guiseq>."
 msgstr ""
-"A végrehajtott módosítások mentéséhez válassza a <guiseq><gui style=\"menu\">"
-"Fájl</gui><gui style=\"menuitem\">Fájlok mentése</gui></guiseq> menüpontot."
+"A végrehajtott módosítások mentéséhez válassza a <guiseq><gui style=\"menu"
+"\">Fájl</gui><gui style=\"menuitem\">Fájlok mentése</gui></guiseq> "
+"menüpontot."
 
 #. (itstool) path: note/p
 #: C/file-rename.page:59
@@ -244,18 +235,18 @@ msgstr "Fájlok kijelölése"
 #: C/file-select.page:22
 msgid ""
 "<app>EasyTAG</app> has several features which operate on the files that are "
-"currently selected in the file list. To select multiple files, you can either "
-"hold down <key>Ctrl</key> while you click on the files that you wish to "
-"select or you can select a file then hold down <key>Shift</key> and click "
-"another file to select all the files between the two, including the first and "
-"last file."
+"currently selected in the file list. To select multiple files, you can "
+"either hold down <key>Ctrl</key> while you click on the files that you wish "
+"to select or you can select a file then hold down <key>Shift</key> and click "
+"another file to select all the files between the two, including the first "
+"and last file."
 msgstr ""
-"Az <app>EasyTAG</app> számos funkciója a fájllistában éppen kijelölt fájlokon "
-"működik. Több fájl kijelöléséhez lenyomva tarthatja a <key>Ctrl</key> "
-"billentyűt, miközben a kijelölni kívánt fájlokra kattint, vagy kijelölhet egy "
-"fájlt, lenyomhatja a <key>Shift</key> billentyűt, és egy másik fájlra "
-"kattintással kijelölheti a kettő közti összes fájlt, beleértve azt a kettőt "
-"is."
+"Az <app>EasyTAG</app> számos funkciója a fájllistában éppen kijelölt "
+"fájlokon működik. Több fájl kijelöléséhez lenyomva tarthatja a <key>Ctrl</"
+"key> billentyűt, miközben a kijelölni kívánt fájlokra kattint, vagy "
+"kijelölhet egy fájlt, lenyomhatja a <key>Shift</key> billentyűt, és egy "
+"másik fájlra kattintással kijelölheti a kettő közti összes fájlt, beleértve "
+"azt a kettőt is."
 
 #. (itstool) path: info/desc
 #: C/format-specifier.page:17
@@ -271,11 +262,11 @@ msgstr "Formátumleírók"
 #: C/format-specifier.page:23
 msgid ""
 "<em>Format specifiers</em> can be used to split a file name into tags and to "
-"name a file or playlist based on existing tags using <link xref=\"scanner\">"
-"the scanner</link>."
+"name a file or playlist based on existing tags using <link xref=\"scanner"
+"\">the scanner</link>."
 msgstr ""
-"A <em>formátumleírók</em> használatával egy fájlnév címkékre osztható, és a <"
-"link xref=\"scanner\">feldolgozó</link> segítségével a fájlok vagy "
+"A <em>formátumleírók</em> használatával egy fájlnév címkékre osztható, és a "
+"<link xref=\"scanner\">feldolgozó</link> segítségével a fájlok vagy "
 "lejátszólisták átnevezhetők a meglévő címkék alapján."
 
 #. (itstool) path: td/p
@@ -333,8 +324,8 @@ msgstr "Lemezszám"
 #. (itstool) path: td/p
 #: C/format-specifier.page:102
 msgid ""
-"Encoded by: this is usually the person who encoded the file, but the field is "
-"also used for the application that was used to encode the file"
+"Encoded by: this is usually the person who encoded the file, but the field "
+"is also used for the application that was used to encode the file"
 msgstr ""
 "Kódolta: ez általában az a személy, aki a fájlt kódolta, de a mező "
 "használatos a fájl kódolását végző alkalmazás nevének mentésére is"
@@ -401,8 +392,8 @@ msgstr "Kép törlése"
 #. (itstool) path: page/p
 #: C/image-delete.page:23
 msgid ""
-"To delete an image from a tag, select it and press the <gui style=\"button\">"
-"Remove selected images from the tag</gui> button."
+"To delete an image from a tag, select it and press the <gui style=\"button"
+"\">Remove selected images from the tag</gui> button."
 msgstr ""
 "A címkéhez társított képet eltávolíthatja a kép kijelölésével, majd <gui "
 "style=\"button\">A kijelölt képek eltávolítása a címkéből</gui> gomb "
@@ -417,14 +408,14 @@ msgstr "Több kép eltávolításához előbb jelölje ki azokat."
 #. (itstool) path: page/p
 #: C/image-delete.page:29
 msgid ""
-"It is also possible to delete all images from more than one file. To do this, "
-"select the files from which you want to delete the images, delete all images "
-"from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
+"It is also possible to delete all images from more than one file. To do "
+"this, select the files from which you want to delete the images, delete all "
+"images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
 "style=\"button\">Tag selected files with these images</gui> button."
 msgstr ""
 "Lehetőség van az összes kép törlésére is több fájlból. Ehhez válassza ki a "
-"fájlokat, amelyekből törölni szeretné a képeket, törölje az összes képet a <"
-"gui style=\"tab\">Kép</gui> lapon, majd nyomja meg <gui style=\"button\">A "
+"fájlokat, amelyekből törölni szeretné a képeket, törölje az összes képet a "
+"<gui style=\"tab\">Kép</gui> lapon, majd nyomja meg <gui style=\"button\">A "
 "kijelölt fájlok címkézése ezekkel a képekkel</gui> gombot."
 
 #. (itstool) path: info/desc
@@ -452,11 +443,11 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/image-export.page:28
 msgid ""
-"To export a number of images, select these images, then press the <gui "
-"style=\"button\">Save the selected images to files</gui> button."
+"To export a number of images, select these images, then press the <gui style="
+"\"button\">Save the selected images to files</gui> button."
 msgstr ""
-"Több kép exportálásához válassza ki a képeket, majd nyomja meg <gui "
-"style=\"button\">A kijelölt képek mentése fájlokba</gui> gombot."
+"Több kép exportálásához válassza ki a képeket, majd nyomja meg <gui style="
+"\"button\">A kijelölt képek mentése fájlokba</gui> gombot."
 
 #. (itstool) path: info/desc
 #: C/image.page:20
@@ -481,22 +472,22 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/image.page:29
 msgid ""
-"To add an image to the file, select the file, open the <gui style=\"tab\">"
-"Images</gui> tab and press the <gui style=\"button\">Add images to the tag<"
-"/gui> button. Select the image and confirm your selection."
+"To add an image to the file, select the file, open the <gui style=\"tab"
+"\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
+"tag</gui> button. Select the image and confirm your selection."
 msgstr ""
-"Kép fájlhoz adásához jelölje ki a fájlt, nyissa meg a <gui style=\"tab\">"
-"Képek</gui> lapot, és nyomja meg a <gui style=\"button\">Képek hozzáadása a "
-"címkéhez</gui> gombot. Jelölje ki a képet, és erősítse meg a választását."
+"Kép fájlhoz adásához jelölje ki a fájlt, nyissa meg a <gui style=\"tab"
+"\">Képek</gui> lapot, és nyomja meg a <gui style=\"button\">Képek hozzáadása "
+"a címkéhez</gui> gombot. Jelölje ki a képet, és erősítse meg a választását."
 
 #. (itstool) path: page/p
 #: C/image.page:34
 msgid ""
 "Once the image is uploaded, it will be automatically marked as a front cover "
-"and the description will be the filename. To change the <gui>type</gui> and <"
-"gui>description</gui>, press the <gui style=\"button\">Edit image properties<"
-"/gui> button. Once you have made the changes, press <gui style=\"button\">"
-"Accept</gui> to apply the changes."
+"and the description will be the filename. To change the <gui>type</gui> and "
+"<gui>description</gui>, press the <gui style=\"button\">Edit image "
+"properties</gui> button. Once you have made the changes, press <gui style="
+"\"button\">Accept</gui> to apply the changes."
 msgstr ""
 "A kép feltöltése után automatikusan megjelölésre kerül első borítóként, és a "
 "leírása a fájlnév lesz. A <gui>típus</gui> és a <gui>leírás</gui> "
@@ -513,9 +504,9 @@ msgstr "A változtatásai nem kerülnek automatikusan mentésre."
 #: C/image.page:44
 msgid ""
 "You can tag multiple files with the same image by selecting them in the list "
-"of files, then selecting the image and pressing the <gui style=\"button\">Tag "
-"selected files with these images</gui> button. You will need to save these "
-"changes to write them to the files."
+"of files, then selecting the image and pressing the <gui style=\"button"
+"\">Tag selected files with these images</gui> button. You will need to save "
+"these changes to write them to the files."
 msgstr ""
 "Ugyanazzal a képpel több fájlt is megcímkézhet, ha kiválasztja azokat a "
 "fájllistában, és a kép kiválasztása után megnyomja <gui style=\"button\">A "
@@ -532,8 +523,7 @@ msgstr ""
 "fájlba mentés vagy onnan törlés előtt kiválasztja."
 
 #. (itstool) path: info/title
-#: C/index.page:11
-#: C/index.page:21
+#: C/index.page:11 C/index.page:21
 msgctxt "text"
 msgid "EasyTAG"
 msgstr "EasyTAG"
@@ -592,9 +582,9 @@ msgid ""
 "MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
 "audio files."
 msgstr ""
-"Az <app>EasyTAG</app> egy minden igényt kielégítő FLAC, "
-"Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
-"és WavPack hangfájlszerkesztő."
+"Az <app>EasyTAG</app> egy minden igényt kielégítő FLAC, Monkey's Audio, MP2, "
+"MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis és WavPack "
+"hangfájlszerkesztő."
 
 #. (itstool) path: page/title
 #: C/keyboard-shortcuts.page:20
@@ -686,39 +676,39 @@ msgid ""
 "You can create a M3U playlist for use with a music player based on the list "
 "of files shown in <app>EasyTAG</app>:"
 msgstr ""
-"Létrehozhat egy zenelejátszókban használható M3U lejátszólistát az <app>"
-"EasyTAG-ben</app> megjelenített fájllista alapján:"
+"Létrehozhat egy zenelejátszókban használható M3U lejátszólistát az "
+"<app>EasyTAG-ben</app> megjelenített fájllista alapján:"
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:27
 msgid ""
-"<link xref=\"file-select\">Select the files</link> that you wish to be in the "
-"playlist from the list of files."
+"<link xref=\"file-select\">Select the files</link> that you wish to be in "
+"the playlist from the list of files."
 msgstr ""
-"<link xref=\"file-select\">Jelölje ki</link> a fájlnézetben a lejátszólistára "
-"felvenni kívánt fájlokat."
+"<link xref=\"file-select\">Jelölje ki</link> a fájlnézetben a "
+"lejátszólistára felvenni kívánt fájlokat."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:31
 msgid ""
-"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui "
-"style=\"menuitem\">Generate Playlist…</gui></guiseq>."
+"Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
+"\">Generate Playlist…</gui></guiseq>."
 msgstr ""
-"Válassza az <guiseq><gui style=\"menu\">Egyéb</gui><gui style=\"menuitem\">"
-"Lejátszólista előállítása</gui></guiseq> menüpontot."
+"Válassza az <guiseq><gui style=\"menu\">Egyéb</gui><gui style=\"menuitem"
+"\">Lejátszólista előállítása</gui></guiseq> menüpontot."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:35
 msgid ""
-"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using <"
-"link xref=\"format-specifier\">format specifiers</link>, or select <gui "
-"style=\"radiobutton\">Use directory name</gui> to name the playlist after the "
-"directory which is selected in the <gui style=\"group\">Browser</gui>."
+"Select <gui style=\"radiobutton\">Use mask</gui> and enter a mask, using "
+"<link xref=\"format-specifier\">format specifiers</link>, or select <gui "
+"style=\"radiobutton\">Use directory name</gui> to name the playlist after "
+"the directory which is selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
-"Válassza a <gui style=\"radiobutton\">Használandó maszk</gui> lehetőséget, és "
-"írjon be egy maszkot <link xref=\"format-specifier\">formátumleírók</link> "
-"használatával, vagy válassza a <gui style=\"radiobutton\">Könyvtár nevének "
-"használata</gui> lehetőséget a lejátszólista elnevezéséhez a <gui "
+"Válassza a <gui style=\"radiobutton\">Használandó maszk</gui> lehetőséget, "
+"és írjon be egy maszkot <link xref=\"format-specifier\">formátumleírók</"
+"link> használatával, vagy válassza a <gui style=\"radiobutton\">Könyvtár "
+"nevének használata</gui> lehetőséget a lejátszólista elnevezéséhez a <gui "
 "style=\"group\">Böngészőben</gui> kiválasztott könyvtár alapján."
 
 #. (itstool) path: item/p
@@ -736,10 +726,10 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/playlist-generate.page:48
 msgid ""
-"Select <gui style=\"radiobutton\">Use relative path for files in playlist<"
-"/gui> unless you only plan to use the playlist on the same computer and you "
-"do not plan to move the audio files, in which case you can select <gui "
-"style=\"radiobutton\">Use full path for files in playlist</gui>."
+"Select <gui style=\"radiobutton\">Use relative path for files in playlist</"
+"gui> unless you only plan to use the playlist on the same computer and you "
+"do not plan to move the audio files, in which case you can select <gui style="
+"\"radiobutton\">Use full path for files in playlist</gui>."
 msgstr ""
 "Válassza a <gui style=\"radiobutton\">Relatív elérési út használata a "
 "lejátszólistában</gui> lehetőséget, hacsak nem kizárólag az aktuális "
@@ -752,55 +742,54 @@ msgstr ""
 msgid ""
 "Select <gui style=\"checkbox\">Create playlist in the parent directory</gui> "
 "if you want to save the playlist in the parent of the directory selected in "
-"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be saved "
-"in the directory selected in the <gui style=\"group\">Browser</gui>."
+"the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
+"saved in the directory selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
 "Jelölje be a <gui style=\"checkbox\">Lejátszólista létrehozása a "
-"szülőkönyvtárban</gui> négyzetet, ha a lejátszólistát a <gui style=\"group\">"
-"Böngészőben</gui> kiválasztott könyvtár szülőkönyvtárába szeretné menteni. "
-"Egyébként a lejátszólista a <gui style=\"group\">Böngészőben</gui> "
+"szülőkönyvtárban</gui> négyzetet, ha a lejátszólistát a <gui style=\"group"
+"\">Böngészőben</gui> kiválasztott könyvtár szülőkönyvtárába szeretné "
+"menteni. Egyébként a lejátszólista a <gui style=\"group\">Böngészőben</gui> "
 "kiválasztott könyvtárba jön létre."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:63
 msgid ""
-"If you are creating a playlist for use on a Windows computer, or on a <sys>"
-"NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox\">Use "
-"DOS directory separator</gui>."
+"If you are creating a playlist for use on a Windows computer, or on a "
+"<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
+"\">Use DOS directory separator</gui>."
 msgstr ""
-"Ha a lejátszólistát egy windowsos számítógépen, vagy  <sys>NTFS</sys> vagy <"
-"sys>FAT</sys> fájlrendszeren szeretné használni, akkor jelölje be a <gui "
+"Ha a lejátszólistát egy windowsos számítógépen, vagy  <sys>NTFS</sys> vagy "
+"<sys>FAT</sys> fájlrendszeren szeretné használni, akkor jelölje be a <gui "
 "style=\"checkbox\">DOS könyvtárelválasztó használata</gui> négyzetet."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:68
 msgid ""
 "Select <gui style=\"radiobutton\">Write only list of files</gui> to create a "
-"playlist which only contains a list of files. Select <gui "
-"style=\"radiobutton\">Write info using filename</gui> to also write extended "
-"information, including the duration of the audio file, to the playlist. "
-"Select <gui style=\"radiobutton\">Write info using</gui> and enter a mask, "
-"using format specifiers, to write custom extended information to the playlist."
+"playlist which only contains a list of files. Select <gui style=\"radiobutton"
+"\">Write info using filename</gui> to also write extended information, "
+"including the duration of the audio file, to the playlist. Select <gui style="
+"\"radiobutton\">Write info using</gui> and enter a mask, using format "
+"specifiers, to write custom extended information to the playlist."
 msgstr ""
 "Válassza a <gui style=\"radiobutton\">Csak fájlok listájának írása</gui> "
 "lehetőséget egy csak fájlnevek listáját tartalmazó lejátszólista "
 "létrehozásához. Válassza az <gui style=\"radiobutton\">Információk írása a "
 "fájlnév használatával</gui> lehetőséget bővített információk kiírásához a "
-"lejátszólistába, beleértve a hangfájl hosszát is. Egyéni bővített információk "
-"lejátszólistába írásához válassza az <gui style=\"radiobutton\">Információk "
-"írása ezek használatával</gui> lehetőséget, és formátumleírók használatával "
-"adjon meg egy maszkot."
+"lejátszólistába, beleértve a hangfájl hosszát is. Egyéni bővített "
+"információk lejátszólistába írásához válassza az <gui style=\"radiobutton"
+"\">Információk írása ezek használatával</gui> lehetőséget, és formátumleírók "
+"használatával adjon meg egy maszkot."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:77
 msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
 msgstr ""
-"A lejátszólista előállításához nyomja meg a <gui style=\"button\">Mentés</gui>"
-" gombot."
+"A lejátszólista előállításához nyomja meg a <gui style=\"button\">Mentés</"
+"gui> gombot."
 
 #. (itstool) path: credit/name
-#: C/problems-id3.page:14
-#: C/problems-ogg-split.page:14
+#: C/problems-id3.page:14 C/problems-ogg-split.page:14
 msgid "David King"
 msgstr "David King"
 
@@ -819,9 +808,9 @@ msgstr "MP3 címkék nem jelennek meg megfelelően"
 #: C/problems-id3.page:24
 msgid ""
 "<em>ID3</em> tags, which are used for MP3 files, can be of one of several "
-"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and ID3v1.1. "
-"The default version in <app>EasyTAG</app> is ID3v2.3, which is the most "
-"compatible."
+"different versions. <app>EasyTAG</app> supports ID3v2.4, ID3v2.3 and "
+"ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.3, which is the "
+"most compatible."
 msgstr ""
 "Az MP3 fájlok által használt <em>ID3</em> címkék több különböző verzióban is "
 "előfordulhatnak. Az <app>EasyTAG</app> az ID3v2.4, ID3v2.3 és ID3v1.1 "
@@ -834,14 +823,15 @@ msgid ""
 "Many applications support the most recent version of the ID3 standard: "
 "ID3v2.4."
 msgstr ""
-"Számos alkalmazás támogatja az ID3 szabvány legújabb verzióját, az ID3v2.4-et."
+"Számos alkalmazás támogatja az ID3 szabvány legújabb verzióját, az ID3v2.4-"
+"et."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:32
 msgid ""
 "Some applications and devices may support only ID3v2.3 and ID3v1.1 tags, and "
-"a few may support only ID3v1.1 tags. If another application or a device has a "
-"problem reading tags from your files, you should try changing the ID3 tag "
+"a few may support only ID3v1.1 tags. If another application or a device has "
+"a problem reading tags from your files, you should try changing the ID3 tag "
 "version settings in the preferences:"
 msgstr ""
 "Néhány alkalmazás vagy eszköz csak az ID3v2.3 és ID3v1.1 címkéket támogatja, "
@@ -850,15 +840,13 @@ msgstr ""
 "verzióbeállításait módosítani a beállításokban:"
 
 #. (itstool) path: item/p
-#: C/problems-id3.page:39
-#: C/problems-ogg-split.page:46
+#: C/problems-id3.page:39 C/problems-ogg-split.page:46
 msgid ""
-"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui "
-"style=\"menuitem\">Preferences</gui></guiseq>"
+"Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
+"\"menuitem\">Preferences</gui></guiseq>"
 msgstr ""
-"Válassza a <guiseq style=\"menuitem\"><gui style=\"menu\">Szerkesztés</gui><"
-"gui style=\"menuitem\">Beállítások</gui></guiseq> "
-"menüpontot."
+"Válassza a <guiseq style=\"menuitem\"><gui style=\"menu\">Szerkesztés</"
+"gui><gui style=\"menuitem\">Beállítások</gui></guiseq> menüpontot."
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:43
@@ -868,8 +856,8 @@ msgstr "Válassza az <gui style=\"tab\">ID3 címkék</gui> lapot"
 #. (itstool) path: item/p
 #: C/problems-id3.page:46
 msgid ""
-"In the <gui style=\"group\">ID3v2</gui> section, choose the <gui>ID3v2.4</gui>"
-" setting in the <gui>Version</gui> drop-down list to use the most recent "
+"In the <gui style=\"group\">ID3v2</gui> section, choose the <gui>ID3v2.4</"
+"gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
 "version of ID3v2, if your application or device supports it"
 msgstr ""
 "Az <gui style=\"group\">ID3v2</gui> szakaszban válassza a <gui>Verzió</gui> "
@@ -879,9 +867,9 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/problems-id3.page:52
 msgid ""
-"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in the "
-"<gui style=\"group\">ID3v1 tags</gui> section, if your application or device "
-"only supports ID3v1"
+"Make sure that <gui style=\"check\">Write ID3v1.x tag</gui> is checked in "
+"the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
+"device only supports ID3v1"
 msgstr ""
 "Győződjön meg róla, hogy az <gui style=\"check\">ID3v1 címke írása</gui> be "
 "van jelölve az <gui style=\"group\">ID3v1 címkék</gui> szakaszban, ha az "
@@ -890,7 +878,8 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:22
 msgid ""
-"Split a single tag field into multiple fields when you save Ogg and FLAC files"
+"Split a single tag field into multiple fields when you save Ogg and FLAC "
+"files"
 msgstr ""
 "Egyetlen címkemező felosztása több mezőbe Ogg és  FLAC fájlok mentésekor"
 
@@ -902,27 +891,28 @@ msgstr "Címkemezők felosztása mentéskor"
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:28
 msgid ""
-"In Ogg and FLAC files, it is possible to have more than one <link "
-"xref=\"tag\">tag field</link> of each type. For example, if two artists "
-"performed a song, there can be two artist fields in the tag, one for each "
-"artist. <app>EasyTAG</app> automatically reads the extra fields, combining "
-"them together and showing them as if they were a single field."
+"In Ogg and FLAC files, it is possible to have more than one <link xref=\"tag"
+"\">tag field</link> of each type. For example, if two artists performed a "
+"song, there can be two artist fields in the tag, one for each artist. "
+"<app>EasyTAG</app> automatically reads the extra fields, combining them "
+"together and showing them as if they were a single field."
 msgstr ""
-"Ogg és FLAC fájlok esetén lehetőség van több <link xref=\"tag\">címkemező<"
-"/link> használatára minden típus esetén. Ha például két előadó adott elő egy "
-"dalt, akkor két előadó mező lehet a címkében, egy-egy mindkét előadónak. Az <"
-"app>EasyTAG</app> automatikusan beolvassa és egyesíti az extra mezőket, majd "
-"úgy jeleníti meg, mintha egyetlen mező lenne."
+"Ogg és FLAC fájlok esetén lehetőség van több <link xref=\"tag\">címkemező</"
+"link> használatára minden típus esetén. Ha például két előadó adott elő egy "
+"dalt, akkor két előadó mező lehet a címkében, egy-egy mindkét előadónak. Az "
+"<app>EasyTAG</app> automatikusan beolvassa és egyesíti az extra mezőket, "
+"majd úgy jeleníti meg, mintha egyetlen mező lenne."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:34
 msgid ""
-"Many applications do not read the multi-value field correctly, so the default "
-"configuration is to save using a single field per entry. If the application "
-"that you are using supports multiple field of one type, you can configure "
-"EasyTAG to split fields when you save the file. Fields will automatically be "
-"split whenever \" - \" occurs in the field. For example, in the field \"David "
-"Bowie - Queen\", two fields would be saved: \"David Bowie\" and \"Queen\"."
+"Many applications do not read the multi-value field correctly, so the "
+"default configuration is to save using a single field per entry. If the "
+"application that you are using supports multiple field of one type, you can "
+"configure EasyTAG to split fields when you save the file. Fields will "
+"automatically be split whenever \" - \" occurs in the field. For example, in "
+"the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
+"\" and \"Queen\"."
 msgstr ""
 "Számos alkalmazás nem olvassa be helyesen a több értékű mezőt, így "
 "alapértelmezésben bejegyzésenként egy mezőt ment. Ha az Ön által használt "
@@ -947,8 +937,8 @@ msgid ""
 "In <gui style=\"group\">Splitting</gui> section, check the fields that you "
 "want to be split into multiple fields when saving"
 msgstr ""
-"A <gui style=\"group\">Felosztás</gui> szakaszban jelölje be a mentéskor több "
-"mezőbe felosztani kívánt mezőket"
+"A <gui style=\"group\">Felosztás</gui> szakaszban jelölje be a mentéskor "
+"több mezőbe felosztani kívánt mezőket"
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
@@ -968,8 +958,8 @@ msgid ""
 "text in fields and the filename."
 msgstr ""
 "A feldolgozó használatával a mezők kitölthetők a fájlnév alapján, "
-"átnevezhetők a fájlok és új könyvtár hozható létre a kitöltött mezők alapján, "
-"valamint feldolgozhatók a mezőkben és a fájlnévben lévő szövegek."
+"átnevezhetők a fájlok és új könyvtár hozható létre a kitöltött mezők "
+"alapján, valamint feldolgozhatók a mezőkben és a fájlnévben lévő szövegek."
 
 #. (itstool) path: section/title
 #: C/scanner.page:29
@@ -988,45 +978,45 @@ msgstr ""
 #. (itstool) path: section/p
 #: C/scanner.page:34
 msgid ""
-"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators<"
-"/em> to split the filename and parent directories into different tag fields. "
+"Use <em xref=\"format-specifier\">format specifiers</em> and <em>separators</"
+"em> to split the filename and parent directories into different tag fields. "
 "The <em>format specifiers</em>, such as <input>%t</input> for track title, "
-"which are used to indicate the different tag fields, are listed in the <gui>"
-"Legend</gui>. <em>Separators</em> can be any part of the filename or the "
-"parent directories. Use <key>/</key> to add the <em>separator</em> for a "
+"which are used to indicate the different tag fields, are listed in the "
+"<gui>Legend</gui>. <em>Separators</em> can be any part of the filename or "
+"the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
 "parent directory."
 msgstr ""
 "A <em xref=\"format-specifier\">formátumleírók</em> és <em>elválasztók</em> "
 "használatával különböző címkemezőkbe osztható fel a fájlnév és a "
-"szülőkönyvtárak. A különböző címkemezők jelzésére használt <em>"
-"formátumleírók</em> – mint például a <input>%t</input> a szám címéhez – a <"
-"gui>Jelmagyarázatban</gui> vannak felsorolva. Az <em>elválasztók</em> a "
-"fájlnév vagy a szülőkönyvtárak tetszőleges részei lehetnek. A szülőkönyvtár <"
-"key>elválasztójának</key> megadására használja a <em>/</em> jelet."
+"szülőkönyvtárak. A különböző címkemezők jelzésére használt "
+"<em>formátumleírók</em> – mint például a <input>%t</input> a szám címéhez – "
+"a <gui>Jelmagyarázatban</gui> vannak felsorolva. Az <em>elválasztók</em> a "
+"fájlnév vagy a szülőkönyvtárak tetszőleges részei lehetnek. A szülőkönyvtár "
+"<key>elválasztójának</key> megadására használja a <em>/</em> jelet."
 
 #. (itstool) path: section/p
 #: C/scanner.page:42
 msgid ""
-"For example, if you keep your audio files using the <file>"
-"artist/album/01 track title.flac</file> directory structure and filenames, "
-"use the <input>%a/%b/%n %t</input> <em>format string</em> to extract the "
-"track number and title from the filename, the album title from the parent "
+"For example, if you keep your audio files using the <file>artist/"
+"album/01 track title.flac</file> directory structure and filenames, use the "
+"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
+"number and title from the filename, the album title from the parent "
 "directory and the artist from the grandparent directory."
 msgstr ""
 "Ha például a hangfájljait az <file>előadó/album/01 szám címe.flac</file> "
-"könyvtárszerkezetben és fájlnevekkel tárolja, akkor a <input>%a/%b/%n %t<"
-"/input> <em>formátumleíró</em> használatával kinyerhető a sorszám és a cím a "
+"könyvtárszerkezetben és fájlnevekkel tárolja, akkor a <input>%a/%b/%n %t</"
+"input> <em>formátumleíró</em> használatával kinyerhető a sorszám és a cím a "
 "fájlnévből, az album címe a szülőkönyvtárból, és az előadó annak "
 "szülőkönyvtárából."
 
 #. (itstool) path: section/p
 #: C/scanner.page:48
 msgid ""
-"Fill the tag fields for the selected files using the <gui style=\"button\">"
-"Scan Files</gui> button."
+"Fill the tag fields for the selected files using the <gui style=\"button"
+"\">Scan Files</gui> button."
 msgstr ""
-"A <gui style=\"button\">Fájlok vizsgálata</gui> gombbal kitöltheti a kijelölt "
-"fájlok címkemezőit."
+"A <gui style=\"button\">Fájlok vizsgálata</gui> gombbal kitöltheti a "
+"kijelölt fájlok címkemezőit."
 
 #. (itstool) path: section/title
 #: C/scanner.page:54
@@ -1036,10 +1026,10 @@ msgstr "Fájlok átnevezése és új könyvtárak létrehozása"
 #. (itstool) path: section/p
 #: C/scanner.page:56
 msgid ""
-"<gui xref=\"file-rename\">Rename File</gui> can be used to create a directory "
-"hierarchy and update filenames using the filled tag fields. If a new "
-"directory hierarchy is specified, it will be created inside the directory "
-"where the file is currently located."
+"<gui xref=\"file-rename\">Rename File</gui> can be used to create a "
+"directory hierarchy and update filenames using the filled tag fields. If a "
+"new directory hierarchy is specified, it will be created inside the "
+"directory where the file is currently located."
 msgstr ""
 "A <gui xref=\"file-rename\">Fájlok vizsgálata</gui> segítségével a kitöltött "
 "címkemezők használatával könyvtár-hierarchia hozható létre és a fájlnevek "
@@ -1050,25 +1040,25 @@ msgstr ""
 #: C/scanner.page:61
 msgid ""
 "For example, if you have a tagged file inside the <file>Music</file> "
-"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</em>, "
-"it will create the <file>Music/artist/album/01 track title.flac</file> file "
-"structure and filename. You will see a preview of the naming scheme below "
-"your specified format string."
+"directory, you can use the <input>%a/%b/%n %t</input> <em>format string</"
+"em>, it will create the <file>Music/artist/album/01 track title.flac</file> "
+"file structure and filename. You will see a preview of the naming scheme "
+"below your specified format string."
 msgstr ""
-"Ha például egy megcímkézett fájl a <file>Zene</file> mappában van, és a <"
-"input>%a/%b/%n %t</input> <em>formátumleírót</em> használja, az a <file>"
-"Zene/előadó/album/01 számcím.flac</file> könyvtárstruktúrát és fájlnevet "
-"fogja előállítani. A megadott formátumleíró alatt megjelenik az elnevezési "
-"séma előnézete."
+"Ha például egy megcímkézett fájl a <file>Zene</file> mappában van, és a "
+"<input>%a/%b/%n %t</input> <em>formátumleírót</em> használja, az a "
+"<file>Zene/előadó/album/01 számcím.flac</file> könyvtárstruktúrát és "
+"fájlnevet fogja előállítani. A megadott formátumleíró alatt megjelenik az "
+"elnevezési séma előnézete."
 
 #. (itstool) path: section/p
 #: C/scanner.page:67
 msgid ""
-"To prepare the files for moving and renaming, press the <gui style=\"button\">"
-"Scan Files</gui> button."
+"To prepare the files for moving and renaming, press the <gui style=\"button"
+"\">Scan Files</gui> button."
 msgstr ""
-"A fájlok áthelyezésre és átnevezésre előkészítéséhez nyomja meg a <gui "
-"style=\"button\">Fájlok vizsgálata</gui> gombot."
+"A fájlok áthelyezésre és átnevezésre előkészítéséhez nyomja meg a <gui style="
+"\"button\">Fájlok vizsgálata</gui> gombot."
 
 #. (itstool) path: section/title
 #: C/scanner.page:73
@@ -1089,8 +1079,8 @@ msgstr ""
 #. (itstool) path: section/p
 #: C/scanner.page:79
 msgid ""
-"Specify which fields to change by selecting them from the <gui>Tag Fields<"
-"/gui> section."
+"Specify which fields to change by selecting them from the <gui>Tag Fields</"
+"gui> section."
 msgstr ""
 "A <gui>Mezők feldolgozása</gui> szakaszban kiválasztással adja meg a "
 "módosítandó mezőket."
@@ -1118,22 +1108,22 @@ msgstr "Az <app>EasyTAG</app> használatának megkezdése"
 #. (itstool) path: page/p
 #: C/starting.page:21
 msgid ""
-"When you start <app>EasyTAG</app> for the first time, it will search your <"
-"file>Music</file> directory or your home directory for audio files. If you "
+"When you start <app>EasyTAG</app> for the first time, it will search your "
+"<file>Music</file> directory or your home directory for audio files. If you "
 "wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
 msgstr ""
 "Amikor az <app>EasyTAG</app> alkalmazást először elindítja, az hangfájlokat "
 "fog keresni az Ön <file>Zene</file> könyvárában, vagy saját könyvtárában. Ha "
-"ki szeretné hagyni ezt a keresést, nyomja meg a <gui style=\"button\">"
-"Leállítás</gui> gombot."
+"ki szeretné hagyni ezt a keresést, nyomja meg a <gui style=\"button"
+"\">Leállítás</gui> gombot."
 
 #. (itstool) path: page/p
 #: C/starting.page:25
 msgid ""
-"<app>EasyTAG</app> may apply some automatic corrections to some of your music "
-"files. These files will be highlighted in bold. These are normally updates to "
-"the tag metadata containers and will not be applied until you save the "
-"changes."
+"<app>EasyTAG</app> may apply some automatic corrections to some of your "
+"music files. These files will be highlighted in bold. These are normally "
+"updates to the tag metadata containers and will not be applied until you "
+"save the changes."
 msgstr ""
 "Az <app>EasyTAG</app> alkalmazhat bizonyos automatikus javításokat néhány "
 "zenefájljára. Ezek a fájlok félkövérrel lesznek kiemelve. Ezek a frissítések "
@@ -1143,19 +1133,19 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/starting.page:30
 msgid ""
-"To save these changes, select all the files that have been affected and press "
-"<keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to undo the "
-"automatic changes but they will not be saved unless you select the file and "
-"save it. You can disable some of the automatic updates in the <gui "
-"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog\">"
-"Preferences</gui> dialog."
+"To save these changes, select all the files that have been affected and "
+"press <keyseq><key>Ctrl</key><key>S</key></keyseq>. It is not possible to "
+"undo the automatic changes but they will not be saved unless you select the "
+"file and save it. You can disable some of the automatic updates in the <gui "
+"style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
+"\">Preferences</gui> dialog."
 msgstr ""
-"A módosítások mentéséhez jelölje ki az összes érintett fájlt, és nyomja meg a "
-"<keyseq><key>Ctrl</key><key>S</key></keyseq> kombinációt. Az automatikus "
+"A módosítások mentéséhez jelölje ki az összes érintett fájlt, és nyomja meg "
+"a <keyseq><key>Ctrl</key><key>S</key></keyseq> kombinációt. Az automatikus "
 "módosítások nem vonhatók vissza, de nem kerülnek mentésre, hacsak nem jelöli "
-"ki a fájlt, és nem menti. Az automatikus frissítések egy részét letilthatja a "
-"<gui style=\"dialog\">Beállítások</gui> ablak <gui style=\"tab\">ID3 címkék<"
-"/gui> lapján."
+"ki a fájlt, és nem menti. Az automatikus frissítések egy részét letilthatja "
+"a <gui style=\"dialog\">Beállítások</gui> ablak <gui style=\"tab\">ID3 "
+"címkék</gui> lapján."
 
 #. (itstool) path: info/desc
 #: C/tag-capitalization.page:17
@@ -1191,8 +1181,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Válassza a <guiseq><gui style=\"menu\">Nézet</gui> <gui style=\"menuitem\">"
-"Feldolgozó megjelenítése</gui></guiseq> menüpontot."
+"Válassza a <guiseq><gui style=\"menu\">Nézet</gui> <gui style=\"menuitem"
+"\">Feldolgozó megjelenítése</gui></guiseq> menüpontot."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:36
@@ -1208,7 +1198,7 @@ msgstr "Jelölje be a módosítandó mezőket."
 #: C/tag-capitalization.page:42
 msgid ""
 "There are a number of available options for changing the capitalization. "
-"Chose the one that you want."
+"Choose the one that you want."
 msgstr ""
 "Számos lehetőség van a kis- és nagybetűsség módosítására, válasszon egyet."
 
@@ -1222,9 +1212,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/tag-capitalization.page:51
 msgid ""
-"The <gui>Scanner</gui> dialog can also be used to process space and character "
-"conversions. If you do not want to make any changes to these, select the "
-"correct option before you press <gui style=\"button\">Scan Files</gui>."
+"The <gui>Scanner</gui> dialog can also be used to process space and "
+"character conversions. If you do not want to make any changes to these, "
+"select the correct option before you press <gui style=\"button\">Scan Files</"
+"gui>."
 msgstr ""
 "A <gui>Feldolgozó</gui> ablak használható a szóköz- és karakterátalakítások "
 "kezelésére is. Ha ezeket nem kívánja módosítani, akkor válassza az ennek "
@@ -1271,30 +1262,31 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
 "files</gui></guiseq> to save your changes to the selected file."
 msgstr ""
-"Válassza a <guiseq><gui style=\"menu\">Fájl</gui><gui style=\"menuitem\">"
-"Fájlok mentése</gui></guiseq> menüpontot a változtatások mentéséhez a "
+"Válassza a <guiseq><gui style=\"menu\">Fájl</gui><gui style=\"menuitem"
+"\">Fájlok mentése</gui></guiseq> menüpontot a változtatások mentéséhez a "
 "kijelölt fájlba."
 
 #. (itstool) path: item/p
 #: C/tag-field.page:42
 msgid ""
-"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui "
-"style=\"button\">Save</gui> to save the changes."
+"When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
+"\"button\">Save</gui> to save the changes."
 msgstr ""
-"A <gui>Címke írásának megerősítése</gui> ablakban nyomja meg a <gui "
-"style=\"button\">Mentés</gui> gombot a változtatások mentéséhez."
+"A <gui>Címke írásának megerősítése</gui> ablakban nyomja meg a <gui style="
+"\"button\">Mentés</gui> gombot a változtatások mentéséhez."
 
 #. (itstool) path: page/p
 #: C/tag-field.page:47
 msgid ""
 "You can tag multiple files with the same field by selecting them in the list "
-"of files and pressing the <gui>Tag selected files with this […]</gui> icon in "
-"the field that you want to tag. You will need to save these changes to write "
-"them to the files."
+"of files and pressing the <gui>Tag selected files with this […]</gui> icon "
+"in the field that you want to tag. You will need to save these changes to "
+"write them to the files."
 msgstr ""
 "Ugyanazzal a mezővel több fájlt is megcímkézhet, ha kiválasztja azokat a "
-"fájllistában, és megnyomja <gui>A kijelölt fájlok címkézése ezzel a […]</gui> "
-"ikont a címkemezőben. A változtatásokat menteni kell a fájlokba írásukhoz."
+"fájllistában, és megnyomja <gui>A kijelölt fájlok címkézése ezzel a […]</"
+"gui> ikont a címkemezőben. A változtatásokat menteni kell a fájlokba "
+"írásukhoz."
 
 #. (itstool) path: info/desc
 #: C/tag.page:17
@@ -1310,15 +1302,14 @@ msgstr "Hangfájlok címkéi"
 #: C/tag.page:23
 msgid ""
 "An audio file can contain <em>metadata</em> — information about itself — "
-"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, such "
-"as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these fields "
-"using <app>EasyTAG</app>. The editable fields depend on the format of the "
-"file that you want to tag."
+"inside a <em>tag</em>. Each tag can contain one or more <em>fields</em>, "
+"such as <gui>Title</gui> or <gui>Artist</gui>. You can edit some of these "
+"fields using <app>EasyTAG</app>. The editable fields depend on the format of "
+"the file that you want to tag."
 msgstr ""
 "A hangfájlok <em>metaadatokat</em> – információkat saját magukról – "
-"tartalmazhatnak a <em>címkében</em>. Minden címke egy vagy több <em>mezőt</em>"
-" tartalmazhat, mint például a <gui>Címke</gui> vagy az <gui>Előadó</gui>. Az "
-"<app>EasyTAG</app> használatával ezen mezők némelyikét szerkesztheti. A "
+"tartalmazhatnak a <em>címkében</em>. Minden címke egy vagy több <em>mezőt</"
+"em> tartalmazhat, mint például a <gui>Címke</gui> vagy az <gui>Előadó</gui>. "
+"Az <app>EasyTAG</app> használatával ezen mezők némelyikét szerkesztheti. A "
 "szerkeszthető mezők a címkézni kívánt fájl formátumától függenek."
-
 
