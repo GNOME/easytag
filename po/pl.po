@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-19 18:04+0200\n"
-"PO-Revision-Date: 2016-08-19 18:05+0200\n"
+"POT-Creation-Date: 2016-09-07 04:48+0200\n"
+"PO-Revision-Date: 2016-09-07 04:49+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -241,7 +241,7 @@ msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields"
 msgstr ""
-"Proszę wybrać lub wprowadzić maskę używając kodów (proszę zobaczyć "
+"Proszę wybrać lub wprowadzić maskę za pomocą kodów (proszę zobaczyć "
 "„Legendę”), aby zmienić nazwę katalogu z pól etykiet"
 
 #: ../data/browser_dialogs.ui.h:15
@@ -270,14 +270,14 @@ msgstr "_Znajdź"
 
 #: ../data/cddb_dialog.ui.h:5
 msgid "Search Using Selected _Files"
-msgstr "Z_najdź używając zaznaczonych plików"
+msgstr "Z_najdź za pomocą zaznaczonych plików"
 
 #: ../data/cddb_dialog.ui.h:6
 msgid ""
 "Generate the CDDB disc ID using the selected files (the order is important)"
 msgstr ""
-"Tworzy identyfikator płyty CDDB używając zaznaczonych plików (kolejność jest "
-"ważna)"
+"Tworzy identyfikator płyty CDDB za pomocą zaznaczonych plików (kolejność "
+"jest ważna)"
 
 #: ../data/cddb_dialog.ui.h:7 ../data/toolbar.ui.h:31
 msgid "Stop"
@@ -1030,11 +1030,11 @@ msgstr "Zapisywanie tylko listy plików"
 
 #: ../data/playlist_dialog.ui.h:16
 msgid "Write information using filename"
-msgstr "Zapisywanie informacji używając nazw plików"
+msgstr "Zapisywanie informacji za pomocą nazw plików"
 
 #: ../data/playlist_dialog.ui.h:17
 msgid "Write information using:"
-msgstr "Zapisywanie informacji używając:"
+msgstr "Zapisywanie informacji za pomocą:"
 
 #: ../data/preferences_dialog.ui.h:1
 msgid "Preferences"
@@ -1140,7 +1140,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:21
 msgid "Display changed files in list using:"
-msgstr "Wyświetlanie zmienionych plików na liście używając:"
+msgstr "Wyświetlanie zmienionych plików na liście za pomocą:"
 
 #: ../data/preferences_dialog.ui.h:22
 msgid "Red color"
@@ -1440,8 +1440,8 @@ msgid ""
 "• ID3v2.4 is written using libid3tag (recommended)"
 msgstr ""
 "Proszę wybrać wersję etykiet ID3v2 do zapisywania:\n"
-"• ID3v2.3 jest zapisywane używając biblioteki id3lib,\n"
-"• ID3v2.4 jest zapisywane używając biblioteki libid3tag (zalecane)"
+"• ID3v2.3 jest zapisywane za pomocą biblioteki id3lib,\n"
+"• ID3v2.4 jest zapisywane za pomocą biblioteki libid3tag (zalecane)"
 
 #: ../data/preferences_dialog.ui.h:88
 msgid "Character encoding:"
@@ -1477,7 +1477,7 @@ msgid ""
 "Display an error message when a character cannot be represented in the "
 "target character encoding and keep the original character"
 msgstr ""
-"Wyświetlanie komunikatu błędu, kiedy znak nie może być wyświetlany "
+"Wyświetlanie komunikat o błędzie, kiedy znak nie może być wyświetlany "
 "w docelowym kodowaniu znaków i pozostawienie pierwotnego znaku"
 
 #: ../data/preferences_dialog.ui.h:96
@@ -1719,7 +1719,7 @@ msgstr "Lista wyników"
 msgid ""
 "Select corresponding file (according to position or DLM if activated below)"
 msgstr ""
-"Wybieranie odpowiedniego pliku (odnośnie pozycji lub DLM, jeśli włączono "
+"Wybieranie odpowiedniego pliku (według pozycji lub DLM, jeśli włączono "
 "poniżej)"
 
 #: ../data/preferences_dialog.ui.h:149
@@ -1736,8 +1736,8 @@ msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
 msgstr ""
-"Używanie algorytmu Levenshteina (DLM) do dopasowywania wyników (używając "
-"tytułu) do plików dźwiękowych (używając nazw plików)"
+"Używanie algorytmu Levenshteina (DLM) do dopasowywania wyników (za pomocą "
+"tytułu) do plików dźwiękowych (za pomocą nazw plików)"
 
 #: ../data/preferences_dialog.ui.h:152
 msgid "CDDB"
@@ -1830,7 +1830,7 @@ msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "directory. Used to fill in tag fields"
 msgstr ""
-"Proszę wybrać lub wprowadzić maskę używając kodów (proszę zobaczyć "
+"Proszę wybrać lub wprowadzić maskę za pomocą kodów (proszę zobaczyć "
 "„Legendę”), aby przetworzyć nazwę pliku i katalog. Używane do wypełniania "
 "pól etykiet"
 
@@ -1974,7 +1974,7 @@ msgid ""
 "Use ‘/’ to make directories. If the first character is ‘/’, it is an "
 "absolute path, otherwise it is relative to the old path"
 msgstr ""
-"Proszę wybrać lub wprowadzić maskę używając kodów (proszę zobaczyć "
+"Proszę wybrać lub wprowadzić maskę za pomocą kodów (proszę zobaczyć "
 "„Legendę”), aby przetworzyć pola etykiet. Używane do zmiany nazwy pliku.\n"
 "Można użyć „/”, aby tworzyć katalogi. Jeśli pierwszym znakiem jest „/”, "
 "oznacza on ścieżkę bezwzględną, w innych przypadkach ścieżka traktowana jest "
@@ -2364,7 +2364,7 @@ msgstr "Adres URL:"
 
 #: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
-msgstr "Adres URL z tego pola zostaną wstawione do zaznaczonych plików"
+msgstr "Adres URL z tego pola zostanie wstawiony do zaznaczonych plików"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
@@ -2922,7 +2922,7 @@ msgid ""
 "or extended information using a supplied mask"
 msgstr ""
 "Zapisywanie zwykłej listy plików, w tym rozszerzonych informacji z nazw "
-"plików lub rozszerzonych informacji używając podanej maski"
+"plików lub rozszerzonych informacji za pomocą podanej maski"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:169
 msgid "Playlist default mask"
@@ -4643,7 +4643,7 @@ msgstr "Nieznany typ pola"
 
 #: ../src/tags/id3_tag.c:799
 msgid "Tag is already attached to a file"
-msgstr "Plik już posiada dołączoną etykietę"
+msgstr "Plik już ma dołączoną etykietę"
 
 #: ../src/tags/id3_tag.c:801
 msgid "Invalid tag version"
@@ -4663,7 +4663,7 @@ msgstr "Błąd podczas kompresji/dekompresji"
 
 #: ../src/tags/id3_tag.c:809
 msgid "Unknown error message"
-msgstr "Nieznany komunikat błędu"
+msgstr "Nieznany komunikat o błędzie"
 
 #: ../src/tags/id3_tag.c:1553
 msgid "Error while creating temporary file"
@@ -4774,7 +4774,7 @@ msgstr "Nieprawidłowy nagłówek strumienia bitów Vorbis"
 
 #: ../src/tags/ogg_header.c:274
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
-msgstr "Wewnętrzny błąd logiczny, oznacza to błąd lub uszkodzenie stosu"
+msgstr "Wewnętrzny błąd logiczny, oznacza błąd lub uszkodzenie stosu"
 
 #: ../src/tags/ogg_header.c:325
 #, c-format
