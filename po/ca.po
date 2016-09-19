@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-06 08:06+0200\n"
-"PO-Revision-Date: 2016-08-11 19:05+0200\n"
+"POT-Creation-Date: 2016-09-19 22:11+0200\n"
+"PO-Revision-Date: 2016-09-19 19:36+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <Catalan <info@softcatala.org>>\n"
 "Language: ca\n"
@@ -43,7 +43,7 @@ msgid ""
 "Look up albums in online databases, bulk edit tags, create playlists and "
 "rename a collection of files."
 msgstr ""
-"Cerca albums en base de dades en línia, edita copies, crea llistes de "
+"Cerca àlbums en base de dades en línia, edita etiquetes lots, crea llistes de "
 "reproducció i reanomena col·leccions de fitxers."
 
 #: ../data/easytag.appdata.xml.in.h:6
@@ -80,7 +80,7 @@ msgstr "Escull un directori per mostrar en el navegador"
 #: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3795
 #: ../src/tag_area.c:1540
 msgid "_Open"
-msgstr ""
+msgstr "_Obre"
 
 #: ../data/browser.ui.h:3 ../src/application.c:127
 msgid "Select a directory to browse"
@@ -182,14 +182,14 @@ msgstr "Navega pel directori"
 
 #: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
-msgstr ""
+msgstr "Executa el programa"
 
 #: ../data/browser_dialogs.ui.h:3
 msgid ""
 "Enter the program to run; it will receive the current directory as a "
 "parameter"
 msgstr ""
-"Entreu el programa a executar; rebrà el directori actual com paràmetre."
+"Introduïu el programa a executar; rebrà el directori actual com paràmetre."
 
 #: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
 #: ../src/application_window.c:373 ../src/application_window.c:387
@@ -211,7 +211,7 @@ msgstr "Obre fitxers amb"
 #: ../data/browser_dialogs.ui.h:8
 msgid ""
 "Enter the program to run; it will receive the current files as a parameter"
-msgstr "Entreu el programa a executat; rebrà el fitxer actual com paràmetre."
+msgstr "Introduïu el programa a executar; rebrà el fitxer actual com paràmetre."
 
 #. Only directories changed
 #: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:577
@@ -410,6 +410,8 @@ msgid ""
 "Whether to run the tag scanner, with the current settings, on the CDDB "
 "results"
 msgstr ""
+"Si executar l'analitzador d'etiquetes, amb la configuració actual, als "
+"resultats CDDB"
 
 #: ../data/cddb_dialog.ui.h:46
 msgid "Match lines with the Levenshtein algorithm"
@@ -419,6 +421,7 @@ msgstr "Línies coincidents amb l'algoritme Levenshtein"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
 msgstr ""
+"Si usar l'algoritme DLM per fer concordar els resultats CDDB amb els fitxers"
 
 #. The window
 #: ../data/cddb_dialog.ui.h:48 ../data/search_dialog.ui.h:11
@@ -556,6 +559,8 @@ msgid ""
 "Whether to run the currently selected scanner on filenames loaded from a "
 "text file"
 msgstr ""
+"Si executar l'analitzador seleccionat actualment als noms de fitxers "
+"carregats des d'un fitxer de text"
 
 #: ../data/menus.ui.h:1
 msgid "_Help"
@@ -595,7 +600,7 @@ msgstr "Desfés per a fitxer"
 
 #: ../data/menus.ui.h:10
 msgid "Redo for File"
-msgstr ""
+msgstr "Refés per al fitxer"
 
 #: ../data/menus.ui.h:11 ../data/toolbar.ui.h:17
 msgid "_Save Files"
@@ -979,7 +984,7 @@ msgstr "Opcions"
 
 #: ../data/playlist_dialog.ui.h:6
 msgid "Include only the selected files"
-msgstr "Inclou sols el fitxers seleccionats"
+msgstr "Inclou sols els fitxers seleccionats"
 
 #: ../data/playlist_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:160
 msgid ""
@@ -1058,6 +1063,8 @@ msgid ""
 "Whether to load the default path (or the path passed as an argument) on "
 "application startup"
 msgstr ""
+"Si carregar el camí per defecte (o el camí passat com un argument) a l'inici "
+"de l'aplicació"
 
 #: ../data/preferences_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:5
 msgid "Browse subdirectories"
@@ -1081,6 +1088,8 @@ msgid ""
 "Whether to expand the subdirectories of a node in the directory browser when "
 "selecting it"
 msgstr ""
+"Si expandir els subdirectoris d'un node al navegador de directoris quan se "
+"selecciona"
 
 #: ../data/preferences_dialog.ui.h:11
 msgid "Search hidden directories"
@@ -1096,12 +1105,12 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:13
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:53
 msgid "Sort files case-sensitively"
-msgstr ""
+msgstr "Ordena el fitxer respectant majúscules i minúscules"
 
 #: ../data/preferences_dialog.ui.h:14
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:54
 msgid "Whether file sorting is case-sensitive"
-msgstr ""
+msgstr "Si l'ordenació de fitxers respecta majúscules i minúscules"
 
 #: ../data/preferences_dialog.ui.h:16
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:57
@@ -1115,12 +1124,12 @@ msgstr "Si s'ha de mostrar el registre a la finestra principal"
 
 #: ../data/preferences_dialog.ui.h:18
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ../data/preferences_dialog.ui.h:19
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:49
 msgid "Show audio file header summary"
-msgstr ""
+msgstr "Mostra el resum de les capçaleres de fitxers d'àudio"
 
 #: ../data/preferences_dialog.ui.h:20
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
@@ -1128,6 +1137,8 @@ msgid ""
 "Whether to show header information, such as bit rate and duration, for audio "
 "files"
 msgstr ""
+"Si mostrar la informació de les capçaleres, com ara la taxa de bits i la "
+"duració, per a fitxers d'àudio"
 
 #: ../data/preferences_dialog.ui.h:21
 msgid "Display changed files in list using:"
@@ -1192,6 +1203,9 @@ msgid ""
 "Convert characters which cannot be represented in filenames on the FAT32/16 "
 "and Joliet filesystems (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, ‘<’, ‘>’, ‘|’)"
 msgstr ""
+"Converteix els caràcters que no es poden representar als noms de fitxers en "
+"els sistemes de fitxers FAT32/16 i Joliet (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, "
+"‘<’, ‘>’, ‘|’)"
 
 #: ../data/preferences_dialog.ui.h:34
 msgid "Convert filename extension to:"
@@ -1234,6 +1248,8 @@ msgid ""
 "Try to use the encoding associated with your locale and if this fails, try "
 "the ISO-8859-1 character encoding"
 msgstr ""
+"Proveu d'usar la codificació associada amb la vostra localització i si això "
+"falla, proveu la codificació de caràcters ISO-8859-1"
 
 #: ../data/preferences_dialog.ui.h:44
 msgid "Transliterate characters into the system character encoding"
@@ -1244,6 +1260,8 @@ msgid ""
 "Replace unsupported characters with a similar character from the target "
 "character encoding"
 msgstr ""
+"Reemplaça els caràcters sense suport amb un caràcter similar de la "
+"codificació de caràcters de destí"
 
 #: ../data/preferences_dialog.ui.h:46
 msgid ""
@@ -1266,37 +1284,42 @@ msgstr "Fitxers"
 
 #: ../data/preferences_dialog.ui.h:49
 msgid "Automatically complete date field"
-msgstr ""
+msgstr "Completa el camp de data automàticament"
 
 #: ../data/preferences_dialog.ui.h:50
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:92
 msgid "Whether to automatically complete the date tag"
-msgstr ""
+msgstr "Si completar automàticament l'etiqueta de data"
 
 #: ../data/preferences_dialog.ui.h:51
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:97
 msgid "Automatically select the type of the image based on its filename"
 msgstr ""
+"Selecciona automàticament el tipus de la imatge en base al seu nom de fitxer"
 
 #: ../data/preferences_dialog.ui.h:52
 msgid ""
 "Whether to, when adding cover art, automatically select a type for an image "
 "based on its filename"
 msgstr ""
+"Si, quan s'està afegint la coberta, seleccionar automàticament el tipus "
+"d'una imatge en base al seu nom de fitxer"
 
 #: ../data/preferences_dialog.ui.h:53
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:103
 msgid "Preserve the tag field focus"
-msgstr ""
+msgstr "Preserva el focus del camp de l'etiqueta"
 
 #: ../data/preferences_dialog.ui.h:54
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:104
 msgid "Whether to preserve focus on the current tag field when switching file"
 msgstr ""
+"Si preservar el focus del cap actual d'etiqueta quan s'està canviant el "
+"fitxer"
 
 #: ../data/preferences_dialog.ui.h:55
 msgid "Pad the number of digits in the disc field to:"
-msgstr ""
+msgstr "Completa el nombre de dígits del camp de disc a:"
 
 #: ../data/preferences_dialog.ui.h:56
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:94
@@ -1307,7 +1330,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:57
 msgid "Pad the number of digits in the track field to:"
-msgstr ""
+msgstr "Completa el nombre de dígits al camp de pista a:"
 
 #: ../data/preferences_dialog.ui.h:58
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:100
@@ -1331,31 +1354,39 @@ msgstr ""
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:202
 msgid "Whether to split title fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps de títol a un separador « - » als comentaris dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:64
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:204
 msgid "Whether to split artist fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps d'artista a un separador « - » als comentaris dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:66
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:206
 msgid "Whether to split album fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps d'àlbum a un separador « - » als comentaris dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:68
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:208
 msgid "Whether to split genre fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps de gènere a un separador « - » als comentaris dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:70
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:210
 msgid "Whether to split comment fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps de comentari a un separador « - » als comentaris dels "
+"Ogg"
 
 #: ../data/preferences_dialog.ui.h:72
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:212
 msgid "Whether to split composer fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps de comentari de compositor a un separador « - » als "
+"comentaris dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:73
 msgid "Original artist"
@@ -1366,10 +1397,12 @@ msgstr "Artista original"
 msgid ""
 "Whether to split original artist fields at a “ - ” separator in Ogg comments"
 msgstr ""
+"Si dividir els camps d'artista original a un separador « - » als comentaris "
+"dels Ogg"
 
 #: ../data/preferences_dialog.ui.h:75
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetes"
 
 #: ../data/preferences_dialog.ui.h:76
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:61
@@ -1382,6 +1415,8 @@ msgid ""
 "Whether to remove the ID3 tag from the audio file if all the individual tag "
 "fields are empty"
 msgstr ""
+"Si suprimir l'etiqueta ID3 del fitxer d'àudio si tots els camps d'etiqueta "
+"individual estan buits"
 
 #: ../data/preferences_dialog.ui.h:78
 msgid "Non-standard encoding for reading ID3 tags:"
@@ -1391,6 +1426,8 @@ msgstr "Codificació no estàndard per llegir etiquetes ID3:"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:60
 msgid "Whether to use a non-standard character encoding when reading ID3 tags"
 msgstr ""
+"Si usar una codificació no estàndard de caràcters quan s'estiguin llegint "
+"les etiquetes ID3"
 
 #: ../data/preferences_dialog.ui.h:80
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:70
@@ -1411,6 +1448,8 @@ msgstr "Escriu l'etiqueta ID3v2"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:72
 msgid "Whether to write ID3v2 tags when writing ID3 tags into audio files"
 msgstr ""
+"Si escriure etiquetes ID3v2 quan s'estiguin escrivint etiquetes ID3 a "
+"fitxers d'àudio"
 
 #: ../data/preferences_dialog.ui.h:84
 msgid "Version:"
@@ -1438,20 +1477,24 @@ msgstr "Unicode"
 msgid ""
 "Choose the Unicode character encoding to be used when writing ID3v2 tags"
 msgstr ""
+"Escull la codificació Unicode de caràcters a usar quan s'escriguin etiquetes "
+"ID3v2"
 
 #: ../data/preferences_dialog.ui.h:92
 msgid ""
 "Override the standard Unicode character encoding to be used when writing "
 "ID3v2 tags"
 msgstr ""
+"Sobreescriu la codificació Unicode estàndard de caràcters a usar quan "
+"s'escriguin etiquetes ID3v2"
 
 #: ../data/preferences_dialog.ui.h:93
 msgid "When encoding conversion fails:"
-msgstr ""
+msgstr "Quan la conversió de la codificació falla:"
 
 #: ../data/preferences_dialog.ui.h:94
 msgid "Report error"
-msgstr ""
+msgstr "Informa sobre l'error"
 
 #: ../data/preferences_dialog.ui.h:95
 msgid ""
@@ -1479,6 +1522,9 @@ msgid ""
 "Whether to convert ID3 tags written against old version of the "
 "specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"
 msgstr ""
+"Si convertir les etiquetes ID3 escrites usant versions antigues de "
+"l'especificació, com ara ID3v2.2, a versions més noves, com ara ID3v2.3 o "
+"ID3v2.4"
 
 #: ../data/preferences_dialog.ui.h:100
 msgid "Use CRC-32"
@@ -1488,6 +1534,8 @@ msgstr "Usa CRC-32"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:80
 msgid "Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"
 msgstr ""
+"Si incrustar la suma de comprovació CRC-32 de les dades del fitxer d'àudio a "
+"les etiquetes ID3v2"
 
 #: ../data/preferences_dialog.ui.h:102
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:77
@@ -1502,7 +1550,7 @@ msgstr "Si s'han de comprimir les dades a les etiquetes ID3v2"
 #: ../data/preferences_dialog.ui.h:104
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:81
 msgid "Use text-only genre in ID3v2 tags"
-msgstr ""
+msgstr "Usa gènere de sols text a les etiquetes ID3v2"
 
 #: ../data/preferences_dialog.ui.h:105
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:82
@@ -1510,6 +1558,8 @@ msgid ""
 "Whether to use only a string, and not the integer-base ID3v1 genre field, "
 "when writing a genre field to ID3v2 tags"
 msgstr ""
+"Si usar sols una cadena, i no el camp de gènere ID3v1 amb base d'enters, "
+"quan s'escrigui un camp de gènere a les etiquetes ID3v2"
 
 #: ../data/preferences_dialog.ui.h:106
 msgid "ID3v1"
@@ -1523,6 +1573,8 @@ msgstr "Escriu l'etiqueta ID3v1"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
 msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
 msgstr ""
+"Si escriure etiquetes ID3v1 quan s'escriguin etiquetes ID3 als fitxers "
+"d'àudio"
 
 #: ../data/preferences_dialog.ui.h:109
 msgid "Choose the character set to be used when writing ID3v1 tag"
@@ -1554,7 +1606,7 @@ msgstr "Converteix espais i «%20» a «_»"
 
 #: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
-msgstr ""
+msgstr "Cap conversió"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:120
@@ -1568,7 +1620,7 @@ msgstr "Escàner de processament de camps"
 
 #: ../data/preferences_dialog.ui.h:123
 msgid "Upper-case the first letters of all words"
-msgstr "Canvia a majúsca les primeres lletres de totes les paraules"
+msgstr "Canvia a majúscula les primeres lletres de totes les paraules"
 
 #: ../data/preferences_dialog.ui.h:124
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:146
@@ -1576,6 +1628,9 @@ msgid ""
 "Whether to upper-case the first letter of all words, including prepositions "
 "and other short words such as “feat.”, when processing tag fields"
 msgstr ""
+"Si posar en majúscules la primera lletra de totes les paraules, incloent-hi "
+"proposicions i altres paraules curtes com ara «carac.» quan es processin els "
+"camps d'etiquetes"
 
 #: ../data/preferences_dialog.ui.h:125
 msgid "Fields"
@@ -1591,6 +1646,8 @@ msgid ""
 "Whether to overwrite the tag field values when filling tags. Otherwise, only "
 "blank tag fields will be filled"
 msgstr ""
+"Si sobreescriure el camp d'etiqueta quan s'omplin etiquetes. Altrament, sols "
+"s'ompliran els camps d'etiqueta en blanc"
 
 #: ../data/preferences_dialog.ui.h:128
 msgid "Set this text as default comment:"
@@ -1602,6 +1659,8 @@ msgid ""
 "Whether to set the comment tag field to the provided default value when "
 "filling tags"
 msgstr ""
+"Si establir el camp d'etiqueta de comentari al valor proveït per defecte "
+"quan s'omplin les etiquetes"
 
 #: ../data/preferences_dialog.ui.h:130
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
@@ -1643,26 +1702,27 @@ msgstr "Servidor de cerca manual"
 
 #: ../data/preferences_dialog.ui.h:138
 msgid "Proxy"
-msgstr ""
+msgstr "Servidor intermediari"
 
 #: ../data/preferences_dialog.ui.h:139
 msgid "Use a proxy server"
-msgstr "Usa un servidor proxy"
+msgstr "Usa un servidor intermediari"
 
 #: ../data/preferences_dialog.ui.h:140
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:28
 msgid "Whether to access remote CDDB through a proxy"
-msgstr ""
+msgstr "Si accedir al CDDB remot usant un servidor intermediari"
 
 #: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
 msgid "Hostname for a proxy to access remote CDDB"
 msgstr ""
+"Nom d'amfitrió per a un servidor intermediari per accedir a un CDDB remot"
 
 #: ../data/preferences_dialog.ui.h:142
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:32
 msgid "Port for a proxy to access remote CDDB"
-msgstr ""
+msgstr "Port per a un servidor intermediari per accedir a un CDDB remot"
 
 #: ../data/preferences_dialog.ui.h:143
 msgid "User:"
@@ -1672,6 +1732,7 @@ msgstr "Usuari:"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:34
 msgid "Username for a proxy to access remote CDDB"
 msgstr ""
+"Nom d'usuari per a un servidor intermediari per accedir a un CDDB remot"
 
 #: ../data/preferences_dialog.ui.h:145
 msgid "Password:"
@@ -1680,7 +1741,7 @@ msgstr "Contrasenya:"
 #: ../data/preferences_dialog.ui.h:146
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
 msgid "Password for a proxy to access remote CDDB"
-msgstr ""
+msgstr "Contrasenya per a un servidor intermediari per accedir a un CDDB remot"
 
 #: ../data/preferences_dialog.ui.h:147
 msgid "Results List"
@@ -1699,6 +1760,8 @@ msgid ""
 "Whether to select the file in the file list which matches the position in "
 "the CDDB results list"
 msgstr ""
+"Si seleccionar el fitxer a la llista de fitxers que concorda amb la posició "
+"a la llista de resultats del CDDB"
 
 #: ../data/preferences_dialog.ui.h:150
 msgid ""
@@ -1706,7 +1769,7 @@ msgid ""
 "audio files (using filename)"
 msgstr ""
 "Usa l'algoritme Levenshtein (DLM) per concordar els resultats (usant el "
-"títol) amb els fitxers d'àudio (usant els nom dels fitxer)"
+"títol) amb els fitxers d'àudio (usant el nom del fitxer)"
 
 #: ../data/preferences_dialog.ui.h:152
 msgid "CDDB"
@@ -1727,6 +1790,8 @@ msgid ""
 "Whether to ask for confirmation from the user before writing tags to audio "
 "files"
 msgstr ""
+"Si demanar confirmació de l'usuari abans d'escriure etiquetes als fitxers "
+"d'àudio"
 
 #: ../data/preferences_dialog.ui.h:156
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
@@ -1736,7 +1801,7 @@ msgstr "Confirma abans de canviar el nom a un fitxer"
 #: ../data/preferences_dialog.ui.h:157
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:119
 msgid "Whether to ask for confirmation from the user before renaming a file"
-msgstr ""
+msgstr "Si demanar confirmació de l'usuari abans de canviar el nom a un fitxer"
 
 #: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:122
@@ -1746,7 +1811,7 @@ msgstr "Confirma abans de suprimir un fitxer"
 #: ../data/preferences_dialog.ui.h:159
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
 msgid "Whether to ask for confirmation from the user before deleting a file"
-msgstr ""
+msgstr "Si demanar confirmació a l'usuari abans d'esborrar un fitxer"
 
 #: ../data/preferences_dialog.ui.h:160
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:120
@@ -1757,6 +1822,7 @@ msgstr "Confirma abans d'escriure una llista de reproducció"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:121
 msgid "Whether to ask for confirmation from the user before writing a playlist"
 msgstr ""
+"Si demanar confirmació a un usuari abans d'escriure una llista de reproducció"
 
 #: ../data/preferences_dialog.ui.h:162
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:124
@@ -1769,6 +1835,8 @@ msgid ""
 "Whether to ask for confirmation from the user before performing an operation "
 "that would lose unsaved changes on files"
 msgstr ""
+"Si demanar confirmació a un usuari abans de realitzar una operació que "
+"esborri canvis no desats als fitxers"
 
 #: ../data/preferences_dialog.ui.h:164
 msgid "Scanner Dialog"
@@ -1785,7 +1853,7 @@ msgstr "Si mostrar la finestra de l'escàner en iniciar l'aplicació"
 
 #: ../data/preferences_dialog.ui.h:167
 msgid "Application"
-msgstr ""
+msgstr "Aplicació"
 
 #: ../data/scan_dialog.ui.h:1
 msgid "Tag and Filename Scan"
@@ -1883,7 +1951,7 @@ msgstr "%e: codificat per"
 #: ../data/scan_dialog.ui.h:30
 #, no-c-format
 msgid "%g: genre"
-msgstr "%g: genere"
+msgstr "%g: gènere"
 
 #: ../data/scan_dialog.ui.h:32
 #, no-c-format
@@ -1980,7 +2048,7 @@ msgstr "Processa el camp àlbum"
 
 #: ../data/scan_dialog.ui.h:65
 msgid "Process genre field"
-msgstr "Processa el camp genere"
+msgstr "Processa el camp gènere"
 
 #: ../data/scan_dialog.ui.h:67
 msgid "Process comment field"
@@ -2022,6 +2090,8 @@ msgstr "Tot amb majúscules"
 msgid ""
 "Whether to upper-case all characters of the tag when processing tag fields"
 msgstr ""
+"Si escriure en majúscules tots els caràcters d'una etiqueta quan s'estiguin "
+"processant els camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:81
 msgid "Lowercase all"
@@ -2031,6 +2101,8 @@ msgstr "Tot en minúscules"
 msgid ""
 "Whether to lower-case all characters of the tag when processing tag fields"
 msgstr ""
+"Si escriure en minúscules totes els caràcters de l'etiqueta quan s'estiguin "
+"processant els camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:83
 msgid "Capitalize first letter"
@@ -2040,6 +2112,8 @@ msgstr "En majúscules la primera lletra"
 msgid ""
 "Whether to upper-case the first letter of the tag when processing tag fields"
 msgstr ""
+"Si posar en majúscula la primera lletra de l'etiqueta quan s'estiguin "
+"processant els camps de les etiquetes"
 
 #: ../data/scan_dialog.ui.h:85
 msgid "Capitalize the first letter of each word"
@@ -2062,6 +2136,8 @@ msgid ""
 "Whether to detect Roman numerals when applying upper-case conversions while "
 "processing tag fields"
 msgstr ""
+"Si detectar nombres romans quan s'estiguin aplicant les conversions a "
+"majúscules mentre es processen el camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
@@ -2069,7 +2145,7 @@ msgstr "No canvies les majúscules"
 
 #: ../data/scan_dialog.ui.h:90
 msgid "Spaces Conversions"
-msgstr ""
+msgstr "Conversions d'espais"
 
 #: ../data/scan_dialog.ui.h:91 ../data/org.gnome.EasyTAG.gschema.xml.h:149
 #: ../src/tag_area.c:910
@@ -2079,6 +2155,7 @@ msgstr "Treu els espais"
 #: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:150
 msgid "Whether to remove all spaces when processing tag fields"
 msgstr ""
+"Si eliminar tots els espais quan s'estiguin processant els camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:93
 msgid "Insert a space before uppercase letters"
@@ -2088,6 +2165,8 @@ msgstr "Insereix un espai abans de les lletres majúscules"
 msgid ""
 "Whether to insert spaces before capital letters when processing tag fields"
 msgstr ""
+"Si inserir espais abans de lletres majúscules quan s'estiguin processant "
+"camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:95
 msgid "Remove duplicate spaces and underscores"
@@ -2397,7 +2476,7 @@ msgstr "Suprimeix etiquetes"
 
 #: ../data/toolbar.ui.h:13
 msgid "_Undo"
-msgstr ""
+msgstr "_Desfés"
 
 #: ../data/toolbar.ui.h:14
 msgid "Undo for file"
@@ -2405,7 +2484,7 @@ msgstr "Desfés per al fitxer"
 
 #: ../data/toolbar.ui.h:15
 msgid "R_edo"
-msgstr ""
+msgstr "R_efés"
 
 #: ../data/toolbar.ui.h:16
 msgid "Redo for file"
@@ -2512,56 +2591,64 @@ msgid ""
 "Select the file with the position which matches the position of the CDDB "
 "result"
 msgstr ""
+"Seleccioneu el fitxer que concorda amb la posició que concorda amb la "
+"posició del resultat del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:27
 msgid "Enable proxy for remote CDDB"
-msgstr ""
+msgstr "Habilita el servidor intermediari per al CDDB remot"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:29
 msgid "CDDB proxy hostname"
-msgstr ""
+msgstr "Nom d'amfitrió del servidor intermediari CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:31
 msgid "CDDB proxy port"
-msgstr ""
+msgstr "Port del servidor intermediari del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:33
 msgid "CDDB proxy username"
-msgstr ""
+msgstr "Nom d'usuari del servidor intermediari del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:35
 msgid "CDDB proxy password"
-msgstr ""
+msgstr "Contrasenya del servidor intermediari del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:37
 msgid "Run the scanner on CDDB results"
-msgstr ""
+msgstr "Executa l'analitzador sobre els resultats del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:39
 msgid "The fields to use in a manual CDDB search"
-msgstr ""
+msgstr "Els camps a usar a una cerca manual del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:40
 msgid "Which fields to search for matches of the returned CDDB results"
 msgstr ""
+"Els camps a cercar per a concordances amb els resultats retornats del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:41
 msgid "The categories to use in a CDDB search"
-msgstr ""
+msgstr "Les categories a usar a una cerca del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:42
 msgid "Which categories to search for matches in the returned CDDB results"
 msgstr ""
+"Quines categories cercar per a concordances als resultats retornats del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:43
 msgid "The tag fields to set when matching against CDDB results"
 msgstr ""
+"Els camps d'etiqueta a establir quan s'estigui concordant amb resultats del "
+"CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:44
 msgid ""
 "Which tag fields should be set when matching against selected files and CDDB "
 "results"
 msgstr ""
+"Quins camps d'etiqueta s'haurien d'establir quan s'estigui concordant amb "
+"fitxers seleccionats i resultats del CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:51
 msgid "Show changed files in bold"
@@ -2572,14 +2659,17 @@ msgid ""
 "Whether to highlight changed files in the file list by making them bold, or "
 "alternatively by making them red"
 msgstr ""
+"Si ressaltar els fitxers modificats a la llista de fitxers mostrant-los en "
+"negreta, o alternativament mostrant-los en vermell"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:55
 msgid "How to sort audio files in the file list"
-msgstr ""
+msgstr "Com ordenar fitxers d'àudio a la llista de fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:56
 msgid "Sort files in ascending or descending order for the selected type"
 msgstr ""
+"Ordena els fitxers en ordre ascendent o descendent per al tipus seleccionat"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:59
 msgid "Use a non-standard character encoding when reading ID3 tags"
@@ -2602,13 +2692,15 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:67
 msgid "Encoding options when writing ID3v1 tags"
-msgstr ""
+msgstr "Opcions de codificació quan s'escriuen etiquetes ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:68
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v1 tags"
 msgstr ""
+"Opcions addicionals a passar a iconv() quan s'estigui convertint entre "
+"codificacions quan s'escriuen etiquetes ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:69
 msgid "The character set for reading ID3v1 and ID3v2 tags"
@@ -2620,11 +2712,11 @@ msgstr "Escriu les etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:73
 msgid "Enable ID3v2.4 support"
-msgstr ""
+msgstr "Habilita el suport d'ID3v2.4"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:74
 msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
-msgstr ""
+msgstr "Si escriure etiquetes ID3v2.4 quan s'habilita el suport ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "Convert old ID3 tag versions to new ones"
@@ -2663,58 +2755,70 @@ msgstr "El conjunt de caràcters per escriure les etiquetes ID3v2"
 msgid ""
 "Override the typical Unicode character set to be used when writing ID3v2 tags"
 msgstr ""
+"Ignora el conjunt típic de caràcters Unicode a usar quan s'estiguin "
+"escrivint etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Encoding options when writing ID3v2 tags"
-msgstr ""
+msgstr "Opcions de codificació quan s'estiguin escrivint etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:90
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v2 tags"
 msgstr ""
+"Opcions addicionals a passar a l'iconv() quan s'estigui convertint entre "
+"codificacions quan s'estigui escrivint etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:91
 msgid "Automatically complete the date"
-msgstr ""
+msgstr "Completa automàticament la data"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:93
 msgid "Pad the disc number tag field"
-msgstr ""
+msgstr "Completa el camp d'etiqueta de número de disc"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "The length of the disc number field"
-msgstr ""
+msgstr "La longitud del camp de número de disc"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:96
 msgid ""
 "The length of the disc number field, which controls if the field is padded "
 "with leading zeroes"
 msgstr ""
+"La longitud del camp de número de disc, que controla si el camp es completa "
+"amb zeros inicials"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:98
 msgid ""
 "Whether to, when adding cover art, automatically select the type for an "
 "image based on its filename"
 msgstr ""
+"Si, quan s'afegeix la caràtula, seleccionar automàticament el tipus d'una "
+"imatge en base al seu nom de fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:99
 msgid "Pad the track number tag field"
-msgstr ""
+msgstr "Completa el camp de l'etiqueta de número de pista"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:101
 msgid "The length of the track number field"
-msgstr ""
+msgstr "La longitud del camp de número de pista"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:102
 msgid ""
 "The length of the track number field, which controls if the field is padded "
 "with leading zeroes"
 msgstr ""
+"La longitud del camp d'etiqueta de número de pista, que controla si el camp "
+"es completa amb zeros inicials"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:105
 msgid "Convert spaces and underscores when filling tag fields"
 msgstr ""
+"Converteix els zeros i els caràcters de subratllat quan s'estiguin omplint "
+"els camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:107
 #, no-c-format
@@ -2722,10 +2826,12 @@ msgid ""
 "Whether to convert to spaces (and %20) or underscores when filling tag "
 "fields from filenames"
 msgstr ""
+"Si convertir a espais (i %20) o caràcters de subratllat quan s'estiguin "
+"completant els camps d'etiqueta des de fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:108
 msgid "Overwrite tag field"
-msgstr ""
+msgstr "Sobreescriu el camp d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:110
 msgid "Set the default comment"
@@ -2733,11 +2839,11 @@ msgstr "Establiu el comentari per defecte"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:112
 msgid "Default comment for filling tags"
-msgstr ""
+msgstr "Comentari predeterminat per completar etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:113
 msgid "The default comment to use when filling tags"
-msgstr ""
+msgstr "El comentari predeterminat quan s'omplen etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:114
 msgid "Use the CRC-32 as the default comment"
@@ -2746,16 +2852,16 @@ msgstr "Usa el CRC-32 com comentari per defecte"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:126
 msgid "Run the current scanner when loading filenames from a file"
 msgstr ""
-"Executa l'escànner actual qua s'estiguin carregant els noms de fitxer des "
+"Executa l'escànner actual quan s'estiguin carregant els noms de fitxer des "
 "d'un fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:128
 msgid "Process these tag fields"
-msgstr "Processa aquestes camps d'etiqueta"
+msgstr "Processa aquests camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:129
 msgid "The tag fields to process when using the scanner"
-msgstr ""
+msgstr "Els camps d'etiqueta a processar quan s'estigui usant l'escàner"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:130
 msgid "Convert tag fields when processing"
@@ -2767,6 +2873,8 @@ msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
 "processing tag fields"
 msgstr ""
+"Si convertir a espais (o %20), caràcters de subratllat o altres caràcters "
+"quan s'estiguin processant els camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:133
 msgid "Convert characters in tags"
@@ -2777,16 +2885,22 @@ msgid ""
 "Whether to convert characters of the tag from one value to another when "
 "processing tag fields"
 msgstr ""
+"Si convertir els caràcters de l'etiqueta d'un valor a un altre quan "
+"s'estiguin processant els camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:135
 msgid "Convert the following characters when processing tag fields"
 msgstr ""
+"Converteix els caràcters següents quan s'estiguin processant els camps "
+"d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:136
 msgid ""
 "Replace any matched sequence of characters with this string when processing "
 "tag fields"
 msgstr ""
+"Reemplaça totes les seqüències de caràcters que hagin concordat amb aquesta "
+"cadena de caràcters quan s'estiguin processant els camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:137
 msgid "Lower-case all characters"
@@ -2794,7 +2908,7 @@ msgstr "Tots els caràcters en minúscules"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:139
 msgid "Upper-case all characters"
-msgstr ""
+msgstr "Posa en majúscules tots els caràcters"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:141
 msgid "Upper-case the first letter of the tag"
@@ -2806,7 +2920,7 @@ msgstr "En majúscules la primera lletra de cada paraula"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:145
 msgid "Upper-case prepositions"
-msgstr ""
+msgstr "Posa en majúscules les preposicions"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:147
 msgid "Detect roman numerals"
@@ -2827,14 +2941,20 @@ msgstr "Màscara del nom de fitxer de llista de reproducció"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:156
 msgid "The default filename mask to use for a new playlist"
 msgstr ""
+"La màscara predeterminada de fitxer a usar per a una nova llist de "
+"reproducció"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:157
 msgid "Use a filename mask when generating a playlist"
 msgstr ""
+"Usa una màscara de nom de fitxer quan s'estigui generant una llista de "
+"reproducció"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:158
 msgid "Whether to use a filename mask when creating playlists"
 msgstr ""
+"Si usar una màscara de nom de fitxer quan s'estiguin creant llistes de "
+"reproducció"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:159
 msgid "Create playlists with only the selected files"
@@ -2866,10 +2986,12 @@ msgid ""
 "Write a plain list of files, include extended information from the filename "
 "or extended information using a supplied mask"
 msgstr ""
+"Escriu una llista plana de fitxers, inclou la informació estesa a partir del "
+"nom del fitxer o informació estesa usant una màscara que s'hagi donat"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:169
 msgid "Playlist default mask"
-msgstr ""
+msgstr "Màscara predeterminada de llista de reproducció"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:170
 msgid "The default mask to use for files in a playlist"
@@ -2878,11 +3000,13 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:171
 msgid "Search for files case-sensitively"
-msgstr ""
+msgstr "Cerca els fitxers respectant majúscules i minúscules"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:172
 msgid "Whether matches when searching for files are case-sensitive"
 msgstr ""
+"Si les concordances quan s'estiguin cercant fitxers respecten majúscules i "
+"minúscules"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:173
 msgid "Search in filenames"
@@ -2890,7 +3014,7 @@ msgstr "Cerca als noms de fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:174
 msgid "Perform the search on filenames"
-msgstr ""
+msgstr "Realitza la cerca sobre els noms dels fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:175
 msgid "Search in tags"
@@ -2898,7 +3022,7 @@ msgstr "Cerca a les etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:176
 msgid "Perform the search on tags"
-msgstr ""
+msgstr "Realitza la cerca sobre les etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:177
 msgid "Mask for filling tags from filenames"
@@ -2909,6 +3033,8 @@ msgid ""
 "The default mask to use when automatically filling tags with information "
 "from filenames"
 msgstr ""
+"La màscara predeterminada a usar quan s'estiguin omplin automàticament les "
+"etiquetes amb informació sobre noms de fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:179
 msgid "Mask for renaming files"
@@ -2925,10 +3051,11 @@ msgstr "Màscara per canviar els noms als directoris"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:182
 msgid "The default mask to use when renaming directories"
 msgstr ""
+"La màscara predeterminada a usar quan s'estiguin reanomenant els directoris"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:183
 msgid "Use a mask when renaming directories"
-msgstr "Usa una màscara quan es canviïn els noms del directoris"
+msgstr "Usa una màscara quan es canviïn els noms dels directoris"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:185
 msgid "Convert spaces and underscores when renaming files"
@@ -2937,20 +3064,25 @@ msgstr "Converteix els espais i els «_» quan es canviïn els noms als fitxers"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:186
 msgid "Whether to convert to spaces or underscores when renaming files"
 msgstr ""
+"Si convertir a espais o caràcters de subratllat quan s'estan reanomenant els "
+"fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:187
 msgid "How to modify filename extensions when renaming"
 msgstr ""
+"Com modificar les extensions de noms de fitxers quan s'estigui reanomenant"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:188
 msgid ""
 "Change the file extension to all lower-case, all upper-case or do not change "
 "it"
 msgstr ""
+"Canvia l'extensió del fitxer a totes les lletres minúscules, totes "
+"majúscules o no ho canviïs"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:189
 msgid "Encoding options when renaming files"
-msgstr ""
+msgstr "Opcions de codificació quan s'estiguin reanomenant fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:190
 msgid ""
@@ -2958,6 +3090,10 @@ msgid ""
 "choose whether to try another encoding, approximate the filesystem encoding "
 "with transliteration or discard the offending characters"
 msgstr ""
+"Si la codificació del nom del fitxer no concorda amb la codificació del "
+"sistema de fitxers, escolliu si provar una altra codificació, aproximar la "
+"codificació del sistema de fitxers amb transliteració o eliminar els "
+"caràcters problemàtics"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:192
 msgid ""
@@ -2974,6 +3110,7 @@ msgstr "Mostra l'editor de màscares"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:194
 msgid "Whether to show the scanner mask editor in the tag scanner"
 msgstr ""
+"Si mostrar l'editor de màscara d'analitzador a l'analitzador d'etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:195
 msgid "Show the scanner legend"
@@ -2989,27 +3126,27 @@ msgstr "Mostra la finestra de l'escàner a l'inici"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:199
 msgid "The scan mode"
-msgstr ""
+msgstr "El mode d'anàlisis"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:200
 msgid "Which type of scan to show in the scanner"
-msgstr ""
+msgstr "Quin tipus d'anàlisi mostrar a l'analitzador"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:201
 msgid "Split Ogg title fields"
-msgstr ""
+msgstr "Separa els camps de títol d'Ogg"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:203
 msgid "Split Ogg artist fields"
-msgstr ""
+msgstr "Separa els camps d'artista d'Ogg"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:205
 msgid "Split Ogg album fields"
-msgstr ""
+msgstr "Separa els camps d'àlbum d'Ogg"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:207
 msgid "Split Ogg genre fields"
-msgstr ""
+msgstr "Separa els camps de gènere d'Ogg"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:209
 msgid "Split Ogg comment fields"
@@ -3025,15 +3162,15 @@ msgstr "Separa els camps d'artista original Ogg"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:215
 msgid "Page to show in the preferences dialog"
-msgstr ""
+msgstr "Pàgina a mostrar al diàleg de preferències"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:216
 msgid "The page in the notebook of the preferences dialog"
-msgstr ""
+msgstr "La pàgina al bloc de notes o el diàleg de preferències"
 
 #: ../nautilus-extension/nautilus-easytag.c:229
 msgid "Open in EasyTAG"
-msgstr ""
+msgstr "Obre a l'EasyTag"
 
 #: ../nautilus-extension/nautilus-easytag.c:230
 msgid "Open the selected directory in EasyTAG"
@@ -3047,8 +3184,8 @@ msgstr "Obre els fitxers seleccionats a l'EasyTAG"
 #: ../src/about.c:88
 msgid "translator-credits"
 msgstr ""
-"Jordi Mas i Hernàndez <jmas@softcatala.org>Carles Ferrando Garcia <carles."
-"ferrando@gmail.com>"
+"Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
+"Carles Ferrando Garcia <carles.ferrando@gmail.com>"
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
@@ -3072,7 +3209,7 @@ msgstr "S'està configurant la localització: «%s»"
 #: ../src/application.c:184
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
-msgstr ""
+msgstr "La localització del sistema és «%s», s'està usant «%s»"
 
 #: ../src/application.c:189
 msgid "Unable to create setting directories"
@@ -3104,11 +3241,11 @@ msgstr "De veritat voleu suprimir el fitxer «%s»?"
 
 #: ../src/application_window.c:370 ../src/easytag.c:474 ../src/easytag.c:607
 msgid "Repeat action for the remaining files"
-msgstr "Repeteix l'acció per al fitxers restants"
+msgstr "Repeteix l'acció per als fitxers restants"
 
 #: ../src/application_window.c:372
 msgid "_Skip"
-msgstr ""
+msgstr "_Omet"
 
 #: ../src/application_window.c:374 ../src/application_window.c:388
 msgid "_Delete"
@@ -3682,7 +3819,7 @@ msgstr[1] "%d fitxers han estat modificats per un programa extern"
 
 #: ../src/easytag.c:253
 msgid "Do you want to continue saving the file?"
-msgstr "Voleu continuar desant el el fitxer?"
+msgstr "Voleu continuar desant el fitxer?"
 
 #: ../src/easytag.c:314 ../src/easytag.c:335
 msgid "Saving files was stopped"
@@ -3846,7 +3983,7 @@ msgstr "S'està cercant"
 
 #: ../src/easytag.c:1132
 msgid "_Stop"
-msgstr ""
+msgstr "_Atura"
 
 #: ../src/file_area.c:244 ../src/file_area.c:299
 msgid "File not found"
@@ -3869,7 +4006,7 @@ msgstr "Error en llegir l'etiqueta ID3 del fitxer «%s»: %s"
 #: ../src/file_list.c:256
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
-msgstr "Error en llegi l'etiqueta del fitxer ogg «%s»: %s"
+msgstr "Error en llegir l'etiqueta del fitxer ogg «%s»: %s"
 
 #: ../src/file_list.c:267
 #, c-format
@@ -3993,7 +4130,7 @@ msgstr "Conductor"
 
 #: ../src/picture.c:211
 msgid "Band/Orchestra"
-msgstr "Banda / Orquesta"
+msgstr "Banda / Orquestra"
 
 #: ../src/picture.c:215
 msgid "Lyricist/text writer"
@@ -4096,7 +4233,7 @@ msgstr "Etiqueta escanejada amb èxit «%s»"
 #: ../src/scan_dialog.c:473
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
-msgstr "No s'ha trobar l'extensió «%s» al nom de fitxer «%s»"
+msgstr "No s'ha trobat l'extensió «%s» al nom de fitxer «%s»"
 
 #: ../src/scan_dialog.c:565 ../src/scan_dialog.c:596
 #, c-format
@@ -4361,7 +4498,7 @@ msgstr "Treu tot el text"
 #: ../src/tag_area.c:1289 ../src/tag_area.c:1382
 #, c-format
 msgid "Error parsing image data ‘%s’"
-msgstr ""
+msgstr "Error quan s'estava analitzant les dades d'imatge «%s»"
 
 #: ../src/tag_area.c:1364
 msgid ""
@@ -4478,7 +4615,7 @@ msgstr "Error mentre s'obria el fitxer: %s"
 
 #: ../src/tags/ape_tag.c:372
 msgid "Failed to write APE tag"
-msgstr ""
+msgstr "No s'ha pogut escriure l'etiqueta APE"
 
 #: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:225
 msgid "Error opening FLAC file"
@@ -4581,7 +4718,7 @@ msgstr "Tipus de camp desconegut"
 
 #: ../src/tags/id3_tag.c:799
 msgid "Tag is already attached to a file"
-msgstr "La etiqueta està incrustada a un fitxer"
+msgstr "L'etiqueta està incrustada a un fitxer"
 
 #: ../src/tags/id3_tag.c:801
 msgid "Invalid tag version"
@@ -4650,7 +4787,7 @@ msgid "Error while opening file ‘%s’: %s"
 msgstr "Error mentre s'obria el fitxer: «%s»: %s"
 
 #: ../src/tags/mp4_tag.cc:331
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tags from file ‘%s’"
 msgstr "Error en llegir etiquetes del fitxer: «%s»"
 
@@ -4688,45 +4825,37 @@ msgid "MusePack File"
 msgstr "Fitxer MusePack"
 
 #: ../src/tags/ogg_header.c:243
-#, fuzzy
 msgid ""
 "The specified bitstream does not exist or the file has been initialized "
 "improperly"
 msgstr ""
-"Vorbis Ogg: el flux de bits especificat no existeix o el fitxer s'ha "
-"inicialitzat de forma indeguda (fitxer: «%s»)."
+"El flux de bits especificat no existeix o el fitxer s'ha inicialitzat de "
+"forma indeguda (fitxer: «%s»)."
 
 #: ../src/tags/ogg_header.c:262
-#, fuzzy
 msgid "Read from media returned an error"
-msgstr "Vorbis Ogg: la lectura del suport ha donat un error (fitxer: «%s»)."
+msgstr "La lectura del suport ha donat un error."
 
 #: ../src/tags/ogg_header.c:265
-#, fuzzy
 msgid "Bitstream is not Vorbis data"
-msgstr "Vorbis Ogg: el flux de bits no són dades Vorbis (fitxer: «%s»)."
+msgstr "El flux de bits no són dades Vorbis."
 
 #: ../src/tags/ogg_header.c:268
-#, fuzzy
 msgid "Vorbis version mismatch"
-msgstr "Vorbis Ogg: la versió Vorbis no coincideix (fitxer: «%s»)."
+msgstr "La versió de Vorbis no concorda"
 
 #: ../src/tags/ogg_header.c:271
-#, fuzzy
 msgid "Invalid Vorbis bitstream header"
-msgstr "Vorbis Ogg: capçalera de flux de bits Vorbis invàlida (fitxer: «%s»)."
+msgstr "La capçalera de flux de bits Vorbis no és vàlida"
 
 #: ../src/tags/ogg_header.c:274
-#, fuzzy
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
-msgstr ""
-"Vorbis Ogg: fallada lògica interna, indica un error o corrupció a la memòria/"
-"pila (fitxer: «%s»)."
+msgstr "Fallada lògica interna, indica un error o corrupció a la memòria/pila."
 
 #: ../src/tags/ogg_header.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open file as Vorbis: %s"
-msgstr "Error: Fallada en obrir el fitxer: «%s» com Vorbis (%s)."
+msgstr "Fallada en obrir el fitxer com Vorbis: «%s»"
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
@@ -4744,1147 +4873,3 @@ msgstr "Fitxer Opus"
 msgid "Wavpack File"
 msgstr "Fitxer Wavpack"
 
-#~ msgid ""
-#~ "This program is free software; you can redistribute it and/or modify it "
-#~ "under the terms of the GNU General Public License as published by the "
-#~ "Free Software Foundation; either version 2 of the License, or (at your "
-#~ "option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful, but "
-#~ "WITHOUT ANY WARRANTY; without even the implied warranty of "
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General "
-#~ "Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License along "
-#~ "with this program. If not, see <http://www.gnu.org/licenses/>."
-#~ msgstr ""
-#~ "Aquest programa és programari lliure; podeu distribuir-lo o modificar-lo "
-#~ "en els termes de la Llicència Pública General GNU publicada per la Free "
-#~ "Software Foundation; en la versió 2 de la Llicència, o (a opció vostra) "
-#~ "qualsevol versió posterior.\n"
-#~ "\n"
-#~ "Aquest programa es distribueix amb l'expectativa que serà útil, però "
-#~ "SENSE CAP GARANTIA; fins i tot sense la garantia implícita de "
-#~ "COMERCIALITZACIÓ o ADEQUACIÓ PER A CAP PROPÒSIT EN PARTICULAR. Vegeu la "
-#~ "Llicència Pública General GNU per obtenir-ne més detalls.\n"
-#~ "\n"
-#~ "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU "
-#~ "juntament amb aquest programa; en cas contrari, consulteu la pàgina "
-#~ "<http://www.gnu.org/licenses/>."
-
-#~ msgid "Error while opening file: '%s' (%s)."
-#~ msgstr "Error mentre s'està obrint el fitxer: «%s» (%s)."
-
-#~ msgid "Run a command on the selected files"
-#~ msgstr "Executa una ordre als fitxers seleccionats"
-
-#~ msgid "Clear the current selection"
-#~ msgstr "Neteja la selecció actual"
-
-#~ msgid "Delete files"
-#~ msgstr "Suprimeix els fitxers"
-
-#~ msgid "S_can Files"
-#~ msgstr "_Explora fitxers"
-
-#~ msgid "_Undo Last Files Changes"
-#~ msgstr "_Desfés els canvis dels darrers fitxers"
-
-#~ msgid "Undo last files changes"
-#~ msgstr "Desfés els canvis dels darrers fitxers"
-
-#~ msgid "R_edo Last Files Changes"
-#~ msgstr "_Refés els canvis dels darrers fitxers"
-
-#~ msgid "Redo last files changes"
-#~ msgstr "Refés els canvis dels darrers fitxers"
-
-#~ msgid "Force saving files"
-#~ msgstr "Força el desat dels fitxers"
-
-#~ msgid "Undo Last Changes"
-#~ msgstr "Desfés els darrers canvis"
-
-#~ msgid "Undo last changes"
-#~ msgstr "Desfés els darrers canvis"
-
-#~ msgid "Redo Last Changes"
-#~ msgstr "Refés els darrers canvis"
-
-#~ msgid "Redo last changes"
-#~ msgstr "Refés els darrers canvis"
-
-#~ msgid "Go to home directory"
-#~ msgstr "Ves al directori d'inici"
-
-#~ msgid "Go to desktop directory"
-#~ msgstr "Ves al directori escriptori"
-
-#~ msgid "Go to documents directory"
-#~ msgstr "Ves al directori documents"
-
-#~ msgid "Go to downloads directory"
-#~ msgstr "Ves al directori baixades"
-
-#~ msgid "Go to music directory"
-#~ msgstr "Ves al directori música"
-
-#~ msgid "Go to parent directory"
-#~ msgstr "Ves al directori pare"
-
-#~ msgid "Go to default directory"
-#~ msgstr "Ves al directori per defecte"
-
-#~ msgid "Set current path as default"
-#~ msgstr "Configura el camí actual per defecte"
-
-#~ msgid "Rename directory"
-#~ msgstr "Canvia el nom al directori"
-
-#~ msgid "Reload directory"
-#~ msgstr "Torna a carregar el directori"
-
-#~ msgid "Run a command on the directory"
-#~ msgstr "Executa una ordre al directori"
-
-#~ msgid "Reload directory tree"
-#~ msgstr "Recarrega l'arbre de directoris"
-
-#~ msgid "CDDB search"
-#~ msgstr "Cerca CDDB"
-
-#~ msgid "Load filenames from a text file"
-#~ msgstr "Carrega els noms dels fitxers des d'un fitxer de text"
-
-#~ msgid "Run audio player"
-#~ msgstr "Executa Reproductor d'àudio"
-
-#~ msgid "About"
-#~ msgstr "Quant a"
-
-#~ msgid "_File Operations"
-#~ msgstr "_Operacions de fitxer"
-
-#~ msgid "S_canner"
-#~ msgstr "_Explora"
-
-#~ msgid "CDDB search files…"
-#~ msgstr "Cerca fitxers a la CDDB..."
-
-#~ msgid "Tree Browser"
-#~ msgstr "Navega per l'arbre"
-
-#~ msgid "View by directory tree"
-#~ msgstr "Mostra per arbre de directoris"
-
-#~ msgid "_Fill Tags…"
-#~ msgstr "_Emplena etiquetes..."
-
-#~ msgid "Fill tags"
-#~ msgstr "Emplena etiquetes"
-
-#~ msgid "Rename files and directories"
-#~ msgstr "Canvia el nom a fitxers i directoris"
-
-#~ msgid "_Process Fields…"
-#~ msgstr "_Processa els camps..."
-
-#~ msgid "Could not merge UI, error was: %s\n"
-#~ msgstr "No s'ha pogut fusionar UI, l'error era: %s\n"
-
-#~ msgid "Error: Searching for %s, could not find node %s in tree."
-#~ msgstr "Error: S'està cercant %s, no es pot trobar el node %s a l'arbre."
-
-#~ msgid "Tree"
-#~ msgstr "Arbre"
-
-#~ msgid "Select a directory to browse."
-#~ msgstr "Selecciona un directori per navegar."
-
-#~ msgid "Artist & Album"
-#~ msgstr "Artista i àlbum"
-
-#~ msgid "If activated, it will use masks to rename directory."
-#~ msgstr "Si està activat, s'usaran mascares per canviar el nom al directori."
-
-#~ msgid "Program to run:"
-#~ msgstr "Programa a executar:"
-
-#~ msgid "Request CDDB"
-#~ msgstr "Petició CDDB"
-
-#~ msgid "Use local CDDB"
-#~ msgstr "Usa CDDB local"
-
-#~ msgid ""
-#~ "When activating this option, after loading the fields, the current "
-#~ "selected scanner will be ran (the scanner window must be opened)."
-#~ msgstr ""
-#~ "Quan s'activa aquesta opció, després de carregar els camps, l'escàner "
-#~ "seleccionat actual es posarà en marxa (la finestra de l'escàner s'obrirà)."
-
-#~ msgid "Words:"
-#~ msgstr "Paraules:"
-
-#~ msgid "Search In:"
-#~ msgstr "Cerca en:"
-
-#~ msgid "All Fields"
-#~ msgstr "Tots els camps"
-
-#~ msgid "All Categories"
-#~ msgstr "Totes les categories"
-
-#~ msgid "included: funk, soul, rap, pop, industrial, metal, etc."
-#~ msgstr "incloses: funk, soul, rap, pop, industrial, metal, etc."
-
-#~ msgid "movies, shows"
-#~ msgstr "Films, espectacles"
-
-#~ msgid "others that do not fit in the above categories"
-#~ msgstr "altres no trobades a les categories superiors"
-
-#~ msgid "Enter the words to search in the list below"
-#~ msgstr "Entra les paraules a cercar a la llista de sota"
-
-#~ msgid "Search Next"
-#~ msgstr "Cerca següent"
-
-#~ msgid "Search Previous"
-#~ msgstr "Cerca prèvia"
-
-#~ msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
-#~ msgstr ""
-#~ "Mostra sols les línies vermelles (o mostra totes les línies) a la llista "
-#~ "«Artista / Àlbum»"
-
-#~ msgid "Set Into:"
-#~ msgstr "Estableix en:"
-
-#~ msgid "All"
-#~ msgstr "Tot"
-
-#~ msgid "Track #"
-#~ msgstr "Núm. cançó"
-
-#~ msgid "# Tracks"
-#~ msgstr "Nombre de cançons"
-
-#~ msgid ""
-#~ "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
-#~ "Levenshtein Metric) will be used to match the CDDB title against every "
-#~ "filename in the current folder, and to select the best match. This will "
-#~ "be used when selecting the corresponding audio file, or applying CDDB "
-#~ "results, instead of using directly the position order."
-#~ msgstr ""
-#~ "Quan s'activi aquesta opció, l'algoritme Levenshtein (DLM: Damerau-"
-#~ "Levenshtein Metric) s'usarà per cercar el títol CDDB per a cada nom de "
-#~ "fitxer al directori actual, i seleccionarà la millor coincidència. Això "
-#~ "s'usarà quan es seleccioni el fitxer d'àudio corresponent, o s'apliquin "
-#~ "els resultats CDDB, en lloc d'utilitzar directament l'ordre de posició."
-
-#~ msgid "The path for 'Local CD Database' was not defined"
-#~ msgstr "El camí per la «Base de dades de CDs locals» no està definit"
-
-#~ msgid "Enter it in the preferences window before using this search."
-#~ msgstr "Entreu-lo a la finestra de preferències abans d'usar aquesta cerca."
-
-#~ msgid "Local CD search"
-#~ msgstr "Cerca de CD local"
-
-#~ msgid "Can't load file: '%s' (%s)."
-#~ msgstr "No es pot carregar el fitxer:  «%s» (%s)."
-
-#~ msgid "The filename '%s' couldn't be converted into UTF-8 (%s)."
-#~ msgstr "El nom del fitxer «%s» no es pot convertir a UTF-8 (%s)."
-
-#~ msgid "Using libid3tag version %s"
-#~ msgstr "S'està usant libid3tag versió %s"
-
-#~ msgid "Using id3lib version %d.%d.%d"
-#~ msgstr "S'està usant id3lib versió %d.%d.%d"
-
-#~ msgid "Variable EASYTAGLANG defined. Setting locale: '%s'"
-#~ msgstr "Variable EASYTAGLANG definida. Configurant la localització: «%s»"
-
-#~ msgid "Currently using locale '%s' (and eventually '%s')"
-#~ msgstr "S'està usant actualment la localització «%s» ( i eventualment «%s»)"
-
-#~ msgid "Frequency:"
-#~ msgstr "Freqüència"
-
-#~ msgid "Select Mode and Mask, and redo the same action"
-#~ msgstr "Selecciona mode i màscara, i torna a fer la mateixa acció."
-
-#~ msgid "Files have been partially deleted"
-#~ msgstr "Els fitxers s'han suprimit de forma parcial"
-
-#~ msgid "Tag(s) written"
-#~ msgstr "Etiqueta(es) escrites"
-
-#~ msgid "Cannot read directory (%s)"
-#~ msgstr "No es pot llegir el directori  (%s)"
-
-#~ msgid "Convert ' ' to '_'"
-#~ msgstr "Converteix « » en «_»"
-
-#~ msgid "Do you really want to quit?"
-#~ msgstr "Segur que voleu sortir?"
-
-#~ msgid "Error writing tag type %d to file %s (%s)"
-#~ msgstr "Error en escriure el tipus d'etiqueta %d al fitxer %s (%s)"
-
-#~ msgid "Picture block isn't valid: '%s'"
-#~ msgstr "El bloc imatge no és vàlid: «%s»"
-
-#~ msgid "Error while reading file: '%s' (%s)"
-#~ msgstr "Error mentre es llegia el fitxer: «%s» (%s)"
-
-#~ msgid ""
-#~ "As the following corrupted file '%s' will cause an error in id3lib, it "
-#~ "will not be processed"
-#~ msgstr ""
-#~ "Com el fitxer corrupte «%s» provocarà en error en id3lib, no es "
-#~ "processarà."
-
-#~ msgid "Updated tag of '%s'"
-#~ msgstr "S'ha actualitzat l'etiqueta de «%s»"
-
-#~ msgid "Error while creating temporary file: '%s'"
-#~ msgstr "Error mentre es creava el fitxer temporal: «%s»"
-
-#~ msgid "Error while writing to file: '%s' (%s)"
-#~ msgstr "Error mentre s'escrivia al fitxer: «%s» (%s)"
-
-#~ msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
-#~ msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
-#~ msgstr[0] ""
-#~ "No es pot escriure l'etiqueta del fitxer «%s» ( un byte s'ha perdut)"
-#~ msgstr[1] ""
-#~ "No es pot escriure l'etiqueta del fitxer «%s» ( %s bytes s'han perdut)"
-
-#~ msgid "Cannot save tag of file '%s'"
-#~ msgstr "No es pot desar l'etiqueta del fitxer «%s»"
-
-#~ msgid "Size error while saving tag of '%s'"
-#~ msgstr "Error de mida mentre es desava l'etiqueta de «%s»"
-
-#~ msgid "M3U Playlist Name"
-#~ msgstr "Nom de la llista de reproducció M3U"
-
-#~ msgid "Playlist Options"
-#~ msgstr "Opcions de la llista de reproducció"
-
-#~ msgid ""
-#~ "If activated, only the selected files will be written in the playlist "
-#~ "file. Else, all the files will be written."
-#~ msgstr ""
-#~ "Si s'habilita, sols els fitxers seleccionats s'escriuran a la llista de "
-#~ "reproducció. En cas contrari, tots els fitxers s'escriuran."
-
-#~ msgid "If activated, the playlist will be created in the parent directory."
-#~ msgstr ""
-#~ "Si s'habilita, la llista de reproducció es crearà al directori pare."
-
-#~ msgid ""
-#~ "This option replaces the UNIX directory separator '/' into DOS separator "
-#~ "'\\'."
-#~ msgstr ""
-#~ "Aquesta opció reemplaça el separador de directori UNIX «/» al separador "
-#~ "DOS «\\»"
-
-#~ msgid "Playlist Content"
-#~ msgstr "Contingut de la llista de reproducció"
-
-#~ msgid "Move down the selected line"
-#~ msgstr "Mou avall la línia seleccionada"
-
-#~ msgid ""
-#~ "When activating this option, after loading the filenames, the current "
-#~ "selected scanner will be ran (the scanner window must be opened)."
-#~ msgstr ""
-#~ "Quan s'activi aquesta opció, després de carregar els noms dels fitxers, "
-#~ "l'escàner seleccionat actual es posarà en marxa ( la finestra d'escàner "
-#~ "s'obrirà)."
-
-#~ msgid "Cannot retrieve file info (%s)"
-#~ msgstr "No es pot recuperar la informació del fitxer (%s)"
-
-#~ msgid "Can't open file '%s' (%s)"
-#~ msgstr "No es pot obrir el fitxer «%s» (%s)"
-
-#~ msgid "Move down this line"
-#~ msgstr "Mou avall aquesta línia"
-
-#~ msgid "File contains no audio track: '%s'"
-#~ msgstr "El fitxer no conté cap pista d'àudio: «%s»"
-
-#~ msgid "Image Description:"
-#~ msgstr "Descripció de la imatge:"
-
-#~ msgid "Error with 'loader_close': %s"
-#~ msgstr "Error amb «loader_close»: %s"
-
-#~ msgid "Error with 'loader_write': %s"
-#~ msgstr "Error amb «loader_write»: %s"
-
-#~ msgid "Default directory:"
-#~ msgstr "Directori per defecte:"
-
-#~ msgid ""
-#~ "Specify the directory where your files are located. This path will be "
-#~ "loaded when EasyTAG starts without parameter."
-#~ msgstr ""
-#~ "Especifiqueu el directori on voleu posar els fitxers. Aquest camí es "
-#~ "carregarà quan EasyTAG s'inicie sense cap paràmetre."
-
-#~ msgid ""
-#~ "Automatically search files, when EasyTAG starts, into the default "
-#~ "directory. Note that this path may be overridden by the parameter passed "
-#~ "to easytag (easytag /path_to/mp3_files)."
-#~ msgstr ""
-#~ "Quan EasyTAG s'inicia cerca fitxers de forma automàtica al directori per "
-#~ "defecte. Nota per avisar que aquest camí pot ser sobreescrit pel "
-#~ "paràmetre passat a easytag (easytag /camí a/fitxers_mp3)."
-
-#~ msgid "Search subdirectories"
-#~ msgstr "Cerca subdirectoris"
-
-#~ msgid ""
-#~ "This expands the selected node into the file browser to display the sub-"
-#~ "directories."
-#~ msgstr ""
-#~ "Això expandeix el node seleccionat dins del navegador de fitxers per "
-#~ "mostrar els subdirectoris."
-
-#~ msgid "Search hidden directories for files (directories starting by a '.')."
-#~ msgstr ""
-#~ "Cerca directoris amagats per als fitxers (directoris que comencin per «.»)"
-
-#~ msgid "Misc"
-#~ msgstr "Miscel·lània"
-
-#~ msgid "Show header information of file"
-#~ msgstr "Mostra la capçalera d'informació del fitxer"
-
-#~ msgid ""
-#~ "If activated, information about the file as the bitrate, the time, the "
-#~ "size, will be displayed under the filename entry."
-#~ msgstr ""
-#~ "Si s'habilita, la informació sobre el fitxer com la taxa de bits, la "
-#~ "data, la mida es mostrarà sota l'entrada del nom."
-
-#~ msgid "Sorting List Options"
-#~ msgstr "Llista d'opcions en ordenació"
-
-#~ msgid "Sort the file list by:"
-#~ msgstr "Ordena la llista per:"
-
-#~ msgid "Ascending filename"
-#~ msgstr "Nom de fitxer ascendent"
-
-#~ msgid "Descending filename"
-#~ msgstr "Nom de fitxer descendent"
-
-#~ msgid "Ascending title"
-#~ msgstr "Títol ascendent"
-
-#~ msgid "Descending title"
-#~ msgstr "Títol descendent"
-
-#~ msgid "Ascending artist"
-#~ msgstr "Artista ascendent"
-
-#~ msgid "Descending artist"
-#~ msgstr "Artista descendent"
-
-#~ msgid "Ascending album artist"
-#~ msgstr "Artista de l'àlbum ascendent"
-
-#~ msgid "Descending album artist"
-#~ msgstr "Artista de l'àlbum descendent"
-
-#~ msgid "Ascending album"
-#~ msgstr "Àlbum ascendent"
-
-#~ msgid "Descending album"
-#~ msgstr "Àlbum descendent"
-
-#~ msgid "Ascending year"
-#~ msgstr "Any ascendent"
-
-#~ msgid "Descending year"
-#~ msgstr "Any descendent"
-
-#~ msgid "Ascending disc number"
-#~ msgstr "Nombre de disc ascendent"
-
-#~ msgid "Descending disc number"
-#~ msgstr "Nombre de disc descendent"
-
-#~ msgid "Descending track number"
-#~ msgstr "Nombre de pista descendent"
-
-#~ msgid "Ascending genre"
-#~ msgstr "Genere ascendent"
-
-#~ msgid "Descending genre"
-#~ msgstr "Genere descendent"
-
-#~ msgid "Ascending comment"
-#~ msgstr "Comentari ascendent"
-
-#~ msgid "Descending comment"
-#~ msgstr "Comentari descendent"
-
-#~ msgid "Ascending composer"
-#~ msgstr "Compositor ascendent"
-
-#~ msgid "Descending composer"
-#~ msgstr "Compositor descendent"
-
-#~ msgid "Ascending original artist"
-#~ msgstr "Artista original ascendent"
-
-#~ msgid "Descending original artist"
-#~ msgstr "Artista original descendent"
-
-#~ msgid "Ascending copyright"
-#~ msgstr "Copyright ascendent"
-
-#~ msgid "Descending copyright"
-#~ msgstr "Copyright descendent"
-
-#~ msgid "Ascending URL"
-#~ msgstr "URL ascendent"
-
-#~ msgid "Descending URL"
-#~ msgstr "URL descendent"
-
-#~ msgid "Ascending encoded by"
-#~ msgstr "Codificat per ascendent"
-
-#~ msgid "Descending encoded by"
-#~ msgstr "Codificat per descendent"
-
-#~ msgid "Ascending creation date"
-#~ msgstr "Creació de data ascendent"
-
-#~ msgid "Descending creation date"
-#~ msgstr "Creació de data descendent"
-
-#~ msgid "Select the type of file sorting when loading a directory."
-#~ msgstr ""
-#~ "Selecciona el tipus d'ordenació del fitxer quan es carregui un directori"
-
-#~ msgid "If activated, the sorting of the list will be dependent on the case."
-#~ msgstr "Si s'habilita, l'ordenació de la llista dependrà de la caixa."
-
-#~ msgid "File Audio Player"
-#~ msgstr "Reproductor d'àudio fitxers"
-
-#~ msgid "Player to run:"
-#~ msgstr "Reproductor a executar:"
-
-#~ msgid ""
-#~ "Enter the program used to play the files. Some arguments can be passed "
-#~ "for the program (as 'xmms -p') before to receive files as other arguments."
-#~ msgstr ""
-#~ "Entreu el programa usat per reproduir fitxers. Alguns arguments poden ser "
-#~ "passats al programa (com «xmms -p») abans de rebre els fitxers amb altres "
-#~ "arguments."
-
-#~ msgid "If activated, the log view would be visible in the main window."
-#~ msgstr ""
-#~ "Si s'habilita, el registre mostrat serà visible a la finestra principal."
-
-#~ msgid "Max number of lines:"
-#~ msgstr "Màxim nombre de línies:"
-
-#~ msgid "File Options"
-#~ msgstr "Opcions del fitxer"
-
-#~ msgid ""
-#~ "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
-#~ "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
-#~ "problem when renaming the file. This is useful when renaming the file "
-#~ "from the tag with the scanner."
-#~ msgstr ""
-#~ "Converteix caràcters il·legals per a FAT32/16 i ISO9660 + Sistemes de "
-#~ "fitxers Windows ('\\', ':', ';', '*', '?', '\"', '<', '>', '|') del nom "
-#~ "del fitxer per evitar problemes quan es canvii el nom del fitxer. Això és "
-#~ "útil quan es canvia el nom de l'etiqueta amb l'escàner."
-
-#~ msgid ""
-#~ "Update modification time of the parent directory of the file (recommended "
-#~ "when using Amarok)"
-#~ msgstr ""
-#~ "Actualitza la data de modificació del directori pare del fitxer "
-#~ "(recomanat quan s'està usant Amarok)"
-
-#~ msgid ""
-#~ "The modification time of the parent directory of the file will be updated "
-#~ "when saving tag the file. At the present time it is automatically done "
-#~ "only when renaming a file.\n"
-#~ "This feature is interesting when using applications like Amarok. For "
-#~ "performance reasons, they refresh file information by detecting changes "
-#~ "of the parent directory."
-#~ msgstr ""
-#~ "La modificació de la data del directori pare del fitxer s'actualitzarà "
-#~ "quan es desi l'etiqueta del fitxer. Actualment això es fa de forma "
-#~ "automàtica quan es canvia el nom al fitxer.\n"
-#~ "Aquesta característica  es interessant quan s'usen aplicacions com "
-#~ "Amarok. Per motius de rendiment, es refresca la informació del fitxer per "
-#~ "detectar canvis al directori pare."
-
-#~ msgid "Character Set for Filename"
-#~ msgstr "Joc de caràcters per al nom del fitxer"
-
-#~ msgid ""
-#~ "Rules to apply if some characters can't be converted to the system "
-#~ "character encoding when writing filename:"
-#~ msgstr ""
-#~ "Regles a aplicar quan alguns caràcters no es puguin convertir a la "
-#~ "codificació de caràcters del sistema quan s'escrigui el nom del fitxer:"
-
-#~ msgid ""
-#~ "With this option, it will try the conversion to the encoding associated "
-#~ "to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', "
-#~ "ISO-8859-2 for 'ro'). If it fails, it will try the character encoding "
-#~ "ISO-8859-1."
-#~ msgstr ""
-#~ "Amb aquesta opció, s'intentarà la conversió a la codificació associada a "
-#~ "la vostra configuració local (per exemple:  ISO-8859-1 per «fr», KOI8-R "
-#~ "per «ru», ISO-8859-2 per «ro»). Si això falla, s'intentarà usar la "
-#~ "codificació ISO-8859-1."
-
-#~ msgid ""
-#~ "Force using the system character encoding and activate the transliteration"
-#~ msgstr ""
-#~ "Força l'ús de la codificació de caràcters del sistema i activa la "
-#~ "transliteració"
-
-#~ msgid ""
-#~ "With this option, when a character cannot be represented in the target "
-#~ "character set, it can be approximated through one or several similarly "
-#~ "looking characters."
-#~ msgstr ""
-#~ "Amb aquesta acció, quan no es pot representar per un element del conjunt "
-#~ "de caràcters, aquest pot ser aproximat per un o més semblants."
-
-#~ msgid "Tag Settings"
-#~ msgstr "Configuracions de l'etiqueta"
-
-#~ msgid "Tag Options"
-#~ msgstr "Opcions de l'etiqueta"
-
-#~ msgid "Auto completion of date if not complete"
-#~ msgstr "Auto compleció de la data si no està completa"
-
-#~ msgid ""
-#~ "Try to complete the year field if you enter only the last numerals of the "
-#~ "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 "
-#~ "=> 1996, 95 => 1995…)."
-#~ msgstr ""
-#~ "Intentarà completar el camp any si entreu sols el darreres números de la "
-#~ "data (per exemple, si l'any és  2005: 5 => 2005, 4 => 2004, 6 => 1996, 95 "
-#~ "=> 1995…)."
-
-#~ msgid "Write the track field with the following number of digits:"
-#~ msgstr "Escriu el camp de la pista amb el següent nombre de dígits:"
-
-#~ msgid ""
-#~ "If activated, the track field is written using the number '0' as padding "
-#~ "to obtain a number with 'n' digits (for example, with two digits: '05', "
-#~ "'09', '10'…). Else it keeps the 'raw' track value."
-#~ msgstr ""
-#~ "Si s'habilita, el camp de la pista s'escriu usant el número «0» com "
-#~ "farciment per obtenir un nombre amb «n» digits ( per exemple, amb dos "
-#~ "digits:  «05», «09», «10»…). En cas contrari manté el valor de la pista "
-#~ "en brut."
-
-#~ msgid "Write the disc field with the following number of digits:"
-#~ msgstr "Escriu el camp disc amb els següents digits:"
-
-#~ msgid ""
-#~ "Tag field focus when switching files in list with shortcuts Page Up/Page "
-#~ "Down:"
-#~ msgstr ""
-#~ "Posa el focus al camp etiqueta quan es canvien els fitxers a la llista "
-#~ "amb el accessos directes Pàgina amunt / Pàgina avall"
-
-#~ msgid "Keep focus to the same tag field"
-#~ msgstr "Manté el focus al mateix camp etiqueta"
-
-#~ msgid "Return focus to the first tag field (i.e. 'Title' field)"
-#~ msgstr ""
-#~ "Torna el focus al primer camp de la primera etiqueta (ex. camp «Títol»)"
-
-#~ msgid "ID3 Tag Settings"
-#~ msgstr "Paràmetres de l'etiqueta ID3"
-
-#~ msgid "ID3 Tag Rules"
-#~ msgstr "Regles de l'etiqueta ID3"
-
-#~ msgid ""
-#~ "As ID3v2 tags may contain other data than Title, Artist, Album, Year, "
-#~ "Track, Genre or Comment (as an attached image, lyrics…), this option "
-#~ "allows you to strip the whole tag when these seven standard data fields "
-#~ "have been set to blank."
-#~ msgstr ""
-#~ "Com les etiquetes ID3v2 poden contindre altres dades com Títol, Artista, "
-#~ "Àlbum, Any, Pista, Gènere o Comentari ( com una imatge adjunta, "
-#~ "lletres ...), aquesta opció us permet eliminar l'etiqueta sencera quan "
-#~ "aquests set camps de dades s'han deixat buits."
-
-#~ msgid ""
-#~ "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to "
-#~ "the ID3v2.3 version."
-#~ msgstr ""
-#~ "Si s'habilita, les etiquetes antigues ID3v2 s'actualitzaran a la nova "
-#~ "versió ID3v2.3."
-
-#~ msgid "Use Compression"
-#~ msgstr "Usa compressió"
-
-#~ msgid "Write Genre in text only"
-#~ msgstr "Escriu gènere sols en text"
-
-#~ msgid ""
-#~ "Don't use ID3v1 number references in genre tag. Enable this if you see "
-#~ "numbers as genre in your music player."
-#~ msgstr ""
-#~ "No useu les referencies de nombre ID3v1 a l'etiqueta gènere. Habilita "
-#~ "aquesta opció si veieu nombre com gènere al reproductor de música."
-
-#~ msgid ""
-#~ "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
-#~ "the MP3 files. Else it will be stripped."
-#~ msgstr ""
-#~ "Si s'habilita, una etiqueta ID3v2.4 s'afegirà o s'actualitzarà al "
-#~ "començament dels fitxers MP3. En cas contrari s'eliminarà."
-
-#~ msgid "Charset:"
-#~ msgstr "Joc de caràcters:"
-
-#~ msgid "Unicode type to use"
-#~ msgstr "Tipus Unicode a usar"
-
-#~ msgid "Character set used to write the tag data in the file."
-#~ msgstr ""
-#~ "Joc de caràcters usat per escriure les dades de l'etiqueta al fitxer."
-
-#~ msgid "Additional settings for iconv():"
-#~ msgstr "Paràmetres addicionals per iconv():"
-
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgid ""
-#~ "With this option, when a character cannot be represented in the target "
-#~ "character set, it isn't changed. But note that an error message will be "
-#~ "displayed for information."
-#~ msgstr ""
-#~ "Amb aquesta opció, quan un caràcter no es pot representar amb el conjunt "
-#~ "de caràcters, no es canvia. Però fixeu-vos que es mostrarà un missatge "
-#~ "d'error amb informació."
-
-#~ msgid "//TRANSLIT"
-#~ msgstr "//TRANSLITERA"
-
-#~ msgid "//IGNORE"
-#~ msgstr "//IGNORA"
-
-#~ msgid ""
-#~ "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
-#~ "files. Else it will be stripped."
-#~ msgstr ""
-#~ "Si s'habilita, s'afegirà una etiqueta ID3v1 o s'actualitzarà al final "
-#~ "dels fitxers MP3. En cas contrari s'eliminarà."
-
-#~ msgid "Character set used to write ID3v1 tag data in the file."
-#~ msgstr ""
-#~ "Joc de caràcters usats per escriure les dades de l'etiqueta ID3v1 al "
-#~ "fitxer."
-
-#~ msgid "Non-standard:"
-#~ msgstr "No estàndard:"
-
-#~ msgid ""
-#~ "This character set will be used when reading the tag data, to convert "
-#~ "each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and "
-#~ "ID3v1 tag).\n"
-#~ "\n"
-#~ "For example:\n"
-#~ "  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
-#~ "ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
-#~ "activate this option and select UTF-8. You must also activate above the "
-#~ "option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
-#~ "UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
-#~ "  - If Unicode was not used, Russian people can select the character set "
-#~ "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load "
-#~ "tags written under Unix systems."
-#~ msgstr ""
-#~ "Aquest caràcter s'usarà quan es llegeixin dades de les etiquetes, es "
-#~ "converteixi cada cadena trobada en un camp ISO-8859-1 d'etiqueta (per "
-#~ "etiquetes D3v2 o/i ID3v1).\n"
-#~ "\n"
-#~ "Per exemple:\n"
-#~ " - En versions anteriors de  EasyTAG, podíeu desar cadenes UTF-8 en un "
-#~ "camp ISO-8859-1. Això  no és correcte. Per convertir aquestes etiquetes a "
-#~ "Unicode: activa aquesta opció i selecciona UTF-8. Us caldrà activar "
-#~ "l'opció «Intenta desar les etiquetes en ISO-8859-1. Si això no es "
-#~ "possible llavors usa UNICODE (recomanat)» o «Desa sempre les etiquetes en "
-#~ "jocs de caràcters UNICODE».\n"
-#~ " - Si Unicode no s'usa la gent de Rússia pot seleccionar el joc de "
-#~ "caràcters «Windows-1251» per carregar etiquetes escrites sota Windows. I "
-#~ "«KOI8-R» per carregar etiquetes escrites sota sistemes Unix."
-
-#~ msgid "Character set used to read tag data in the file."
-#~ msgstr "Joc de caràcters usats per llegir dades d'etiquetes al fitxer."
-
-#~ msgid "Convert underscore character '_' and string '%20' to space ' '"
-#~ msgstr ""
-#~ "Converteix el caràcter subratllat «_» i la cadena «%20» a l'espai « »"
-
-#~ msgid ""
-#~ "If activated, this conversion will be used when applying a mask from the "
-#~ "scanner for tags."
-#~ msgstr ""
-#~ "Si s'habilita, aquesta conversió s'usarà quan s'apliqui una màscara de "
-#~ "l'escànner d'etiquetes."
-
-#~ msgid "Rename File Scanner - Character Conversion"
-#~ msgstr "Canvia el nom al fitxer escanejat  - Conversió de caràcters"
-
-#~ msgid ""
-#~ "If activated, this conversion will be used when applying a mask from the "
-#~ "scanner for filenames."
-#~ msgstr ""
-#~ "Si s'habilita, aquesta conversió s'usarà quan s'apliqui la mascarà a un "
-#~ "nom de fitxer provenint de l'escànner."
-
-#~ msgid "Process Fields Scanner - Character Conversion"
-#~ msgstr "Processa camps escanejats - Conversió de caràcters"
-
-#~ msgid ""
-#~ "Don't convert first letter of words like prepositions, articles and words "
-#~ "like feat., when using the scanner 'First letter uppercase of each "
-#~ "word' (for example, you will obtain 'Text in an Entry' instead of 'Text "
-#~ "In An Entry')."
-#~ msgstr ""
-#~ "No converteixi la primera lletra de les paraules com preposicions, "
-#~ "articles i paraules en escanejar «Primera lletra majúscula de cada "
-#~ "paraula» (per exemple, obtindrà «Text en una entrada» en comptes de « "
-#~ "Text En Una entrada »)."
-
-#~ msgid ""
-#~ "Activate this option to open automatically the scanner window when "
-#~ "EasyTAG starts."
-#~ msgstr ""
-#~ "Activa aquesta opció per obrir de forma automàtica la finestra de "
-#~ "l'escànner quan EasyTAG  s'inicie."
-
-#~ msgid ""
-#~ "If activated, the scanner will replace existing text in fields by the new "
-#~ "one. If deactivated, only blank fields of the tag will be filled."
-#~ msgstr ""
-#~ "Si s'habilita, l'escànner reemplaçarà el camp existent a les etiquetes "
-#~ "per un nou. Si es deshabilita, sols els camps en blanc s'ompliran."
-
-#~ msgid ""
-#~ "Activate this option if you want to put the following string into the "
-#~ "comment field when using the 'Fill Tag' scanner."
-#~ msgstr ""
-#~ "Habiliteu aquesta opció si voleu posar la següent cadena dins del camp "
-#~ "del comentari quan s'usi «Emplena etiquetes» des de l'escànner."
-
-#~ msgid ""
-#~ "Calculates the CRC-32 value of the file and writes it into the comment "
-#~ "field when using the 'Fill Tag' scanner."
-#~ msgstr ""
-#~ "Calcula el valor CRC-32 de la fila i ho escriu dins del camp del "
-#~ "comentari quan s'usi el «Emplena etiquetes» des de l'escànner."
-
-#~ msgid "Name:"
-#~ msgstr "Nom:"
-
-#~ msgid "Local CDDB"
-#~ msgstr "CDDB local"
-
-#~ msgid "Path:"
-#~ msgstr "Camí:"
-
-#~ msgid ""
-#~ "Specify the directory where the local CD database is located. The local "
-#~ "CD database contains the eleven following directories 'blues', "
-#~ "'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
-#~ "'rock', 'soundtrack' and 'misc'."
-#~ msgstr ""
-#~ "Especifiqueu el directori on la base de dades local de CD's està situada. "
-#~ "La base de de dades local de CD's conté els onze directoris següents  "
-#~ "«blues», «clàssica», «country», «dades», «folk», «jazz», «newage», "
-#~ "«reggae», «rock», «banda sonora» i «misc»."
-
-#~ msgid "Proxy Settings"
-#~ msgstr "Paràmetres del servidor intermediari"
-
-#~ msgid "Set active the settings of the proxy server."
-#~ msgstr "Estableix a actius el paràmetres del servidor proxy."
-
-#~ msgid "Name of the proxy server."
-#~ msgstr "Nom del servidor proxy."
-
-#~ msgid "Port of the proxy server."
-#~ msgstr "Port del servidor proxy."
-
-#~ msgid "Name of user for the the proxy server."
-#~ msgstr "Nom de l'usuari al servidor proxy."
-
-#~ msgid "Password of user for the proxy server."
-#~ msgstr "Contrasenya de l'usuari al servidor proxy."
-
-#~ msgid "Track Name List"
-#~ msgstr "Llista de noms de les pistes"
-
-#~ msgid ""
-#~ "If activated, when selecting a line in the list of tracks name, the "
-#~ "corresponding audio file in the main list will be also selected."
-#~ msgstr ""
-#~ "Si s'habilita, quan es seleccioni una línia a la llista de noms de "
-#~ "pistes, es seleccionarà el fitxer d'àudio corresponent a la llista de "
-#~ "pistes."
-
-#~ msgid "Confirm exit from program"
-#~ msgstr "Confirma la sortida del programa"
-
-#~ msgid ""
-#~ "If activated, opens a dialog box to ask confirmation before exiting the "
-#~ "program."
-#~ msgstr ""
-#~ "Si s'habilita, obre un quadre de diàleg per preguntar abans de sortir del "
-#~ "programa."
-
-#~ msgid "Confirm changing directory when there are unsaved changes"
-#~ msgstr "Confirma el canvi del directori quan hi hagi canvis no desats"
-
-#~ msgid "(Example: %.*d_-_Track_name_1.mp3)"
-#~ msgstr "(Exemple: %.*d_-_Track_name_1.mp3)"
-
-#~ msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
-#~ msgstr "(Exemple: disc_%.*d_of_10/Track_name_1.mp3)"
-
-#~ msgid "Configuration saved"
-#~ msgstr "Configuració desada"
-
-#~ msgid "Configuration unchanged"
-#~ msgstr "Configuració sense canviar"
-
-#~ msgid "The audio file player '%s' cannot be found"
-#~ msgstr "El reproductor de fitxers d'àudio «%s» no es pot trobar"
-
-#~ msgid "Audio Player Error"
-#~ msgstr "Error de reproductor d'àudio"
-
-#~ msgid "Scanner:"
-#~ msgstr "Escànner:"
-
-#~ msgid "Select the type of scanner to use"
-#~ msgstr "Selecciona el tipus d'escànner a usar"
-
-#~ msgid "Select fields:"
-#~ msgstr "Selecciona camps:"
-
-#~ msgid ""
-#~ "The buttons on the right represent the fields which can be processed. "
-#~ "Select those which interest you"
-#~ msgstr ""
-#~ "Els botons a la dreta representen els camps que poden ser processats. "
-#~ "Seleccioneu aquells que us interessen"
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "T"
-#~ msgstr "T"
-
-#~ msgid "Ar"
-#~ msgstr "Ar"
-
-#~ msgid "AA"
-#~ msgstr "AA"
-
-#~ msgid "Al"
-#~ msgstr "AI"
-
-#~ msgid "G"
-#~ msgstr "G"
-
-#~ msgid "Cm"
-#~ msgstr "Cm"
-
-#~ msgid "Cp"
-#~ msgstr "Cp"
-
-#~ msgid "O"
-#~ msgstr "O"
-
-#~ msgid "Cr"
-#~ msgstr "Cr"
-
-#~ msgid "U"
-#~ msgstr "U"
-
-#~ msgid "E"
-#~ msgstr "E"
-
-#~ msgid "Select/Unselect all"
-#~ msgstr "Selecciona / Deselecciona-ho tot"
-
-#~ msgid ""
-#~ "Convert all words in all fields to upper case. Example, before: 'Text IN "
-#~ "AN entry', after: 'TEXT IN AN ENTRY'."
-#~ msgstr ""
-#~ "Converteix totes les paraules de tots els camps en majúscules. Exemple, "
-#~ "abans: «Text EN UNA entrada» després: «TEXT EN UNA ENTRADA»"
-
-#~ msgid ""
-#~ "Convert all words in all fields to lower case. Example, before: 'TEXT IN "
-#~ "an entry', after: 'text in an entry'."
-#~ msgstr ""
-#~ "Converteix totes les paraules de tots els camps en minúscules. Exemple, "
-#~ "abans: «Text EN UNA entrada» després: «text en una entrada»"
-
-#~ msgid ""
-#~ "Convert the initial of the first word in all fields to upper case. "
-#~ "Example, before: 'text IN An ENTRY', after: 'Text in an entry'."
-#~ msgstr ""
-#~ "Converteix la lletra inicial de la primera paraula de tots els camps a "
-#~ "majúscula. Exemple, «Text EN UNA entrada» després: «Text en una entrada»"
-
-#~ msgid ""
-#~ "Convert the initial of each word in all fields to upper case. Example, "
-#~ "before: 'Text in an ENTRY', after: 'Text In An Entry'."
-#~ msgstr ""
-#~ "Converteix la lletra inicial de cada paraula de tots els camps a "
-#~ "majúscules. Exemple, «Text EN UNA entrada» després: «Text En Una Entrada»"
-
-#~ msgid ""
-#~ "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
-#~ "text in an entry', after: 'IX. Text In An Entry'."
-#~ msgstr ""
-#~ "Força la conversió a majúscules de la numeració romana. Exemple, abans: "
-#~ "«ix.text en una entrada» després: «IX. Text En Una Entrada»."
-
-#~ msgid ""
-#~ "All spaces between words are removed. Example, before: 'Text In An "
-#~ "Entry', after: 'TextInAnEntry'."
-#~ msgstr ""
-#~ "Suprimeix tots els espais entre paraules. Exemple, abans:«Text una una "
-#~ "entrada» després:«Textenunaparaula»."
-
-#~ msgid ""
-#~ "A space is inserted before each upper case letter. Example, before: "
-#~ "'TextInAnEntry', after: 'Text In An Entry'."
-#~ msgstr ""
-#~ "S'insereix un espai abans de cada lletra majúscula. Exemple, "
-#~ "abans:«TextEnUnaEntrada» després: «Text En Una Entrada»"
-
-#~ msgid ""
-#~ "Duplicate spaces and underscores are removed. Example, before: "
-#~ "'Text__In__An   Entry', after: 'Text_In_An Entry'."
-#~ msgstr ""
-#~ "Es suprimeixen els espais duplicats i els subratllats. Exemple, "
-#~ "abans:«Text__En__Una  Entrada» després: «Text_En_Una Entrada»."
-
-#~ msgid "%n: track"
-#~ msgstr "%n: pista"
-
-#~ msgid "Move Up this Mask"
-#~ msgstr "Puja amunt aquesta mascara"
-
-#~ msgid "Move Down this Mask"
-#~ msgstr "Baixa avall aquesta mascara"
-
-#~ msgid "Duplicate Mask"
-#~ msgstr "Duplica la mascara"
-
-#~ msgid "Remove Mask"
-#~ msgstr "Suprimeix la mascara"
-
-#~ msgid "Copy: No row selected"
-#~ msgstr "Copia: cap fila seleccionada"
-
-#~ msgid "Remove: No row selected"
-#~ msgstr "Suprimeix: cap fila seleccionada"
-
-#~ msgid "Move Up: No row selected"
-#~ msgstr "Puja: Cap fila seleccionada"
-
-#~ msgid "Move Down: No row selected"
-#~ msgstr "Baixa: Cap fila seleccionada"
-
-#~ msgid "Error: Cannot write configuration file: %s (%s)"
-#~ msgstr "Error: No es pot escriure el fitxer de configuració: %s (%s)"
-
-#~ msgid "Error while writing configuration file: %s"
-#~ msgstr "Error mentre s'estava escrivint el fitxer de configuració: %s"
-
-#~ msgid "Cannot open configuration file '%s' (%s)"
-#~ msgstr "No es pot obrir el fitxer de configuració «%s» (%s)"
-
-#~ msgid "Loading default configuration"
-#~ msgstr "S'està carregant la configuració per defecte"
-
-#~ msgid "Cannot create or open file '%s' (%s)"
-#~ msgstr "No es pot crear o obrir el fitxer «%s» (%s)"
-
-#~ msgid "Error while writing list file: %s"
-#~ msgstr "Error mentre s'estava escrivint el fitxer llista: %s"
-
-#~ msgid "Loading default 'Rename Directory' masks…"
-#~ msgstr ""
-#~ "S'estan carregant les mascares per defecte «Canvia el nom al directori»..."
-
-#~ msgid "Migrating configuration from directory '%s' to '%s'"
-#~ msgstr "S'està migrant la configuració del directori «%s» a «%s»"
-
-#~ msgid "Failed to migrate configuration file '%s'"
-#~ msgstr "Ha fallat la migració de la configuració  del fitxer «%s»"
-
-#~ msgid "Error: Cannot create directory '%s' (%s)"
-#~ msgstr "Error: No es pot crear el directori «%s» (%s)"
-
-#~ msgid "Find files"
-#~ msgstr "Cercar fitxers"
-
-#~ msgid "_Settings"
-#~ msgstr "_Paràmetres"
-
-#, fuzzy
-#~| msgid "File Name"
-#~ msgid "File(s) renamed"
-#~ msgstr "Nom del fitxer"
-
-#, fuzzy
-#~| msgid "File Name"
-#~ msgid "File(s) moved"
-#~ msgstr "Nom del fitxer"
-
-#~ msgid "B"
-#~ msgstr "B"
-
-#~ msgid "kB"
-#~ msgstr "kB"
-
-#~ msgid "MB"
-#~ msgstr "MB"
-
-#~ msgid "GB"
-#~ msgstr "GB"
-
-#~ msgid "TB"
-#~ msgstr "TB"
-
-#~ msgid "Close this window"
-#~ msgstr "Tanca aquesta finestra"
