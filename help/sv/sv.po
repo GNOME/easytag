@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-01-03 16:10+0000\n"
-"PO-Revision-Date: 2016-01-03 17:21+0100\n"
-"Last-Translator: Marcus Gisslén <marcus.gisslen@gmail.com>\n"
+"POT-Creation-Date: 2016-08-14 17:15+0000\n"
+"PO-Revision-Date: 2016-09-26 00:07+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -222,7 +222,7 @@ msgstr ""
 #: C/file-rename.page:59
 msgid "If you close the application without saving, your changes will be lost."
 msgstr ""
-"Om du stänger programmet utan att spara kommer du att förlora din ändringar."
+"Om du stänger programmet utan att spara kommer du att förlora dina ändringar."
 
 #. (itstool) path: info/desc
 #: C/file-select.page:17
@@ -499,7 +499,7 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/image.page:41
 msgid "Your changes will not be saved automatically."
-msgstr "Din ändringar sparas inte automatiskt."
+msgstr "Dina ändringar sparas inte automatiskt."
 
 #. (itstool) path: page/p
 #: C/image.page:44
