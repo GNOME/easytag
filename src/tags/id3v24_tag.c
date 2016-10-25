@@ -1112,15 +1112,22 @@ id3tag_write_file_v24tag (const ET_File *ETFile,
     if ((genre_value == ID3_INVALID_GENRE)
         || g_settings_get_boolean (MainSettings, "id3v2-text-only-genre"))
     {
-        string1 = g_strdup (FileTag->genre);
+        etag_set_tags (FileTag->genre, ID3_FRAME_GENRE,
+                       ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
     }
     else
     {
-        string1 = g_strdup_printf ("(%d)",genre_value);
-    }
+        /* The ID3v1 genre must always be given as a plain string, and
+         * libid3tag does the appropriate conversion. */
+        etag_set_tags (FileTag->genre, ID3_FRAME_GENRE,
+                       ID3_FIELD_TYPE_STRINGLIST, v1tag, NULL, &strip_tags);
 
-    etag_set_tags(string1, ID3_FRAME_GENRE, ID3_FIELD_TYPE_STRINGLIST, v1tag, v2tag, &strip_tags);
-    g_free(string1);
+        /* Only the ID3v2 tag is converted to the bracketed form. */
+        string1 = g_strdup_printf ("(%d)",genre_value);
+        etag_set_tags (string1, ID3_FRAME_GENRE,
+                       ID3_FIELD_TYPE_STRINGLIST, NULL, v2tag, &strip_tags);
+        g_free (string1);
+    }
 
     /***********
      * Comment *
