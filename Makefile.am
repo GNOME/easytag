@@ -442,6 +442,7 @@ test-report perf-report full-report: $(check_PROGRAMS)
 
 check_PROGRAMS = \
 	tests/test-dlm \
+	tests/test-genres \
 	tests/test-file_description \
 	tests/test-file_info \
 	tests/test-file_tag \
@@ -512,6 +513,18 @@ tests_test_file_tag_SOURCES = \
 	src/picture.c
 
 tests_test_file_tag_LDADD = \
+	$(EASYTAG_LIBS)
+
+tests_test_genres_CPPFLAGS = \
+	$(common_test_cppflags)
+
+tests_test_genres_CFLAGS = \
+	$(common_test_cflags)
+
+tests_test_genres_SOURCES = \
+	tests/test-genres.c
+
+tests_test_genres_LDADD = \
 	$(EASYTAG_LIBS)
 
 tests_test_misc_CPPFLAGS = \
