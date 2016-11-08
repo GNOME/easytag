@@ -977,7 +977,7 @@
                                 <child>
                                     <object class="GtkRadioButton" id="rfs_remove_radio">
                                         <property name="group">rfs_underscore_p20_radio</property>
-                                        <property name="label" translatable="yes">No conversion</property>
+                                        <property name="label" translatable="yes">Remove spaces</property>
                                         <property name="margin-left">24</property>
                                         <property name="name">remove</property>
                                         <property name="visible">True</property>
