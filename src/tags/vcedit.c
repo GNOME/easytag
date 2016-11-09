@@ -1045,18 +1045,57 @@ cleanup:
     buf = g_memory_output_stream_steal_data (G_MEMORY_OUTPUT_STREAM (ostream));
     size = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (ostream));
 
+    /* At least on Windows, writing to a file with an open-for-reading stream
+     * fails, so close the input stream before writing to the file. */
+    if (!g_input_stream_close (G_INPUT_STREAM (state->in), NULL, error))
+    {
+        /* Ignore the _close() failure, and try the write anyway. */
+        g_warning ("Error closing Ogg file for reading: %s",
+                   (*error)->message);
+        g_clear_error (error);
+    }
+
+    g_object_unref (state->in);
+    state->in = NULL;
+
     /* Write the in-memory data back out to the original file. */
     if (!g_file_replace_contents (file, buf, size, NULL, FALSE,
                                   G_FILE_CREATE_NONE, NULL, NULL, error))
     {
-       g_object_unref (ostream);
-       g_free (buf);
-       g_assert (error == NULL || *error != NULL);
-       return FALSE;
+        GError *tmp_error = NULL;
+
+        g_object_unref (ostream);
+        g_free (buf);
+
+        /* Re-open the file for reading, to keep the internal state
+         * consistent. */
+        state->in = g_file_read (file, NULL, &tmp_error);
+
+        if (!state->in)
+        {
+            g_warning ("Error opening Ogg file for reading after write failure: %s",
+                       tmp_error->message);
+            g_clear_error (&tmp_error);
+            g_assert (error == NULL || *error != NULL);
+            return FALSE;
+        }
+
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
     }
 
     g_free (buf);
     g_object_unref (ostream);
+
+    /* Re-open the file, now that the write has completed. */
+    state->in = g_file_read (file, NULL, error);
+
+    if (!state->in)
+    {
+        g_assert (error == NULL || *error != NULL);
+        return FALSE;
+    }
+
 
     return TRUE;
 }
