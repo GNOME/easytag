@@ -501,7 +501,9 @@ id3tag_read_file_tag (GFile *gfile,
             }
         }
 
-        /* Picture description. */
+        /* Picture description. The accepted fields are restricted to those
+         * of string type, as the description field is the only one of string
+         * type in the APIC tag (the MIME type is Latin1 type). */
         update |= libid3tag_Get_Frame_Str (frame, EASYTAG_ID3_FIELD_STRING,
                                            &description);
 
