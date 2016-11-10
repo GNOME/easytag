@@ -351,23 +351,29 @@ id3tag_read_file_tag (GFile *gfile,
             unsigned genre = 0;
             FileTag->genre = NULL;
 
-            if ((string1[0] == '(') && (tmp = strchr (string1,')')) && *(tmp+1))
+            if ((string1[0] == '(') && g_ascii_isdigit (string1[1])
+                && (tmp = strchr (string1 + 1, ')')) && *(tmp+1))
                 /* Convert a genre written as '(3)EuroDance' into 'EuroDance' */
             {
-                FileTag->genre = g_strdup(tmp+1);
-            } else if ( (string1[0]=='(') && strchr(string1,')') )
+                FileTag->genre = g_strdup (tmp + 1);
+            }
+            else if ((string1[0] == '(') && g_ascii_isdigit (string1[1])
+                     && strchr (string1, ')'))
             {
                 /* Convert a genre written as '(3)' into 'Dance' */
-                genre = strtol(string1+1, &tmp, 10);
+                genre = strtol (string1 +1 , &tmp, 10);
                 if (*tmp != ')')
                 {
-                    FileTag->genre = g_strdup(string1);
+                    FileTag->genre = g_strdup (string1);
                 }
-            } else
+            }
+            else
             {
-                genre = strtol(string1, &tmp, 10);
+                genre = strtol (string1, &tmp, 10);
                 if (tmp == string1)
-                    FileTag->genre = g_strdup(string1);
+                {
+                    FileTag->genre = g_strdup (string1);
+                }
             }
 
             if (!FileTag->genre)
