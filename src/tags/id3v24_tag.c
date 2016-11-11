@@ -51,7 +51,6 @@
  ****************/
 #define MULTIFIELD_SEPARATOR " - "
 #define EASYTAG_STRING_ENCODEDBY "Encoded by"
-#define ID3V1_TAG_SIZE 128
 
 enum {
     EASYTAG_ID3_FIELD_LATIN1        = 0x0001,

@@ -31,6 +31,7 @@
 #endif
 #include <glib/gstdio.h>
 #include "apetaglib.h"
+#include "../id3_tag.h"
 #include "../genres.h"
 #include "../win32/win32dep.h"
 
@@ -606,7 +607,7 @@ readtag_id3v1_fp (apetag *mem_cnt, FILE * fp)
     if (!is_id3v1(fp))
             return 0;  /* TODO:: 0 or no_id3v1*/
     
-    fseek(fp, -128, SEEK_END);
+    fseek (fp, -ID3V1_TAG_SIZE, SEEK_END);
     if (sizeof (struct _id3v1Tag)!=fread(&m, 1, sizeof (struct _id3v1Tag), fp)){
         PRINT_ERR( "ERROR->libapetag->readtag_id3v1_fp:fread\n");
         return ATL_FREAD;
@@ -714,7 +715,8 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, const char *filename, int flag)
         return ATL_NOINIT;
     }
     
-    fseek(fp, id3v1 ? -128 - sizeof (ape_footer) : -sizeof (ape_footer), SEEK_END);
+    fseek (fp, id3v1 ? -ID3V1_TAG_SIZE - sizeof (ape_footer)
+                     : -sizeof (ape_footer), SEEK_END);
     if (sizeof (ape_footer) != fread(&ape_footer, 1, sizeof (ape_footer), fp)){
         PRINT_ERR( "ERROR->libapetag->apetag_read_fp:fread1\n");
         fseek(fp, savedFilePosition, SEEK_SET);
@@ -732,15 +734,15 @@ apetag_read_fp(apetag *mem_cnt, FILE * fp, const char *filename, int flag)
              is_id3v1 (fp), is_id3v2 (fp), is_ape (fp), is_ape_ver (fp));
         
         apeTag2 = ape2long(ape_footer.version);
-        buffLength = is_ape(fp) + 128;
+        buffLength = is_ape(fp) + ID3V1_TAG_SIZE;
         buff = (unsigned char *) malloc(buffLength);
         if (buff == NULL) {
             PRINT_ERR( "ERROR->libapetag->apetag_read_fp:malloc\n");
             return ATL_MALOC;
         }
         
-        fseek(fp, id3v1 ? -ape2long(ape_footer.length) -
-              128 : -ape2long(ape_footer.length), SEEK_END);
+        fseek (fp, id3v1 ? -ape2long (ape_footer.length) -
+               ID3V1_TAG_SIZE : -ape2long (ape_footer.length), SEEK_END);
         memset(buff, 0, buffLength);
         if (ape2long(ape_footer.length) != fread(buff, 1, ape2long(ape_footer.length), fp)) {
             PRINT_ERR( "ERROR->libapetag->apetag_read_fp:fread2\n");
@@ -915,7 +917,7 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
     saveApe2 = !(flag & APE_TAG_V1); // (flag & APE_TAG_V2) ? 1 : (flag & APE_TAG_V1);
     
     if (id3v1) {
-        fseek (fp, -128, SEEK_END);
+        fseek (fp, -ID3V1_TAG_SIZE, SEEK_END);
         if (fread (&id3v1_tag, 1, sizeof (struct _id3v1Tag), fp)
             != sizeof (struct _id3v1Tag))
         {
@@ -944,7 +946,7 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
     }
     if (!!(flag & SAVE_CREATE_ID3V1_TAG )) {
         make_id3v1_tag(mem_cnt, &id3v1_tag);
-        tagSSize += 128;
+        tagSSize += ID3V1_TAG_SIZE;
     }
     //PRINT_D4 (">apetaglib>SAVE>>: size %li %i %i %i\n", tagSSize,
     //    mem_cnt->countTag, flag, saveApe2);
@@ -959,7 +961,7 @@ apetag_save (const char *filename, apetag *mem_cnt, int flag)
     memcpy (ape_footer.id, "APETAGEX", sizeof (ape_footer.id));
     long2ape (ape_footer.flags, 0l);
     if (!!(flag & SAVE_CREATE_ID3V1_TAG ))
-        long2ape (ape_footer.length, tagSSize-128);
+        long2ape (ape_footer.length, tagSSize - ID3V1_TAG_SIZE);
     else
         long2ape (ape_footer.length, tagSSize);
     //long2ape(ape_footer.tagCount, mem_cnt->countTag);

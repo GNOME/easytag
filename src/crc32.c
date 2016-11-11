@@ -19,6 +19,7 @@
  */
 
 #include "crc32.h"
+#include "id3_tag.h"
 
 #define BUFFERSIZE 16384   /* (16k) buffer size for reading from the file */
 
@@ -140,7 +141,8 @@ crc32_file_with_ID3_tag (GFile *file,
     }
 
     /* Check if there is an ID3v1 tag. */
-    if (!g_seekable_seek (G_SEEKABLE (istream), -128, G_SEEK_END, NULL, err))
+    if (!g_seekable_seek (G_SEEKABLE (istream), -ID3V1_TAG_SIZE, G_SEEK_END,
+                          NULL, err))
     {
         goto error;
     }
@@ -217,16 +219,16 @@ crc32_file_with_ID3_tag (GFile *file,
     while ((nr = g_input_stream_read (G_INPUT_STREAM (istream), buf,
                                       sizeof (buf), NULL, err)) > 0)
     {
-        if (has_id3v1 && nr <= 128)
+        if (has_id3v1 && nr <= ID3V1_TAG_SIZE)
         /* Reading the end of an ID3v1 tag. */
         {
             break;
         }
 
-        if (has_id3v1 && ((size = size - nr) < 128))
+        if (has_id3v1 && ((size = size - nr) < ID3V1_TAG_SIZE))
         {
             /* ID3v1 tag is in the current buf. */
-            nr = nr - 128 + size;
+            nr = nr - ID3V1_TAG_SIZE + size;
         }
 
         for (p = buf; nr--; ++p)

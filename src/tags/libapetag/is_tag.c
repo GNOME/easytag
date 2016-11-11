@@ -26,6 +26,7 @@
 #include <limits.h>
 #include <assert.h>
 #include "is_tag.h"
+#include "../id3_tag.h"
 
 /*
     PL: czy dany plik ma taga odpowiednio id3v1, id3v2 i ape ???
@@ -62,7 +63,7 @@ is_id3v1 (FILE * fp)
     do {
         n++;
         memset (buf, 0, sizeof (buf));
-        fseek (fp, ((-128)*n) - 3 , SEEK_END);
+        fseek (fp, ((-ID3V1_TAG_SIZE) * n) - 3, SEEK_END);
         if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
         {
             fseek (fp, savedFilePosition, SEEK_SET);
@@ -73,7 +74,7 @@ is_id3v1 (FILE * fp)
     } while (memcmp (buf+3, "TAG", 3) == 0);
     
     fseek (fp, savedFilePosition, SEEK_SET);
-    return (n-1)*128;
+    return (n - 1) * ID3V1_TAG_SIZE;
 }
 
 /** 
@@ -129,7 +130,7 @@ is_ape_ver (FILE * fp)
     savedFilePosition = ftell (fp);
     memset (buf, 0, sizeof (buf));
         
-    fseek (fp, (is_id3v1 (fp) ? -32 - 128 : -32), SEEK_END);
+    fseek (fp, (is_id3v1 (fp) ? -32 - ID3V1_TAG_SIZE : -32), SEEK_END);
     if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
     {
         fseek (fp, savedFilePosition, SEEK_SET);
@@ -161,7 +162,7 @@ is_ape (FILE * fp)
     savedFilePosition = ftell (fp);
     memset (buf, 0, sizeof (buf));
         
-    fseek (fp, (is_id3v1 (fp) ? -32 - 128 : -32), SEEK_END);
+    fseek (fp, (is_id3v1 (fp) ? -32 - ID3V1_TAG_SIZE : -32), SEEK_END);
     if (fread (&buf, 1, sizeof (buf), fp) != sizeof (buf))
     {
         fseek (fp, savedFilePosition, SEEK_SET);
