@@ -491,16 +491,16 @@ create_preferences_dialog (EtPreferencesDialog *self)
 
     /* Charset */
     /* Unicode. */
-    g_settings_bind (MainSettings, "id3v2-enable-unicode",
-                     priv->id3_v2_unicode_radio, "active",
-                     G_SETTINGS_BIND_DEFAULT);
-
     g_settings_bind_with_mapping (MainSettings, "id3v2-unicode-charset",
                                   priv->id3_v2_unicode_encoding_combo,
                                   "active", G_SETTINGS_BIND_DEFAULT,
                                   et_preferences_id3v2_unicode_charset_get,
                                   et_preferences_id3v2_unicode_charset_set,
                                   NULL, NULL);
+
+    g_settings_bind (MainSettings, "id3v2-enable-unicode",
+                     priv->id3_v2_other_radio, "active",
+                     G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
     g_signal_connect (priv->id3_v2_unicode_radio,
                       "notify::active",
                       G_CALLBACK (notify_id3_settings_active), self);
