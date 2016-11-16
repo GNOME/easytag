@@ -61,6 +61,10 @@ on_help (GSimpleAction *action,
         g_debug ("Error while opening help: %s", error->message);
         g_clear_error (&error);
     }
+    else
+    {
+        return;
+    }
 
     gtk_show_uri (gtk_window_get_screen (GTK_WINDOW (MainWindow)),
                   "https://help.gnome.org/users/easytag/stable/",
