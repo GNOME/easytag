@@ -468,7 +468,7 @@ Section Uninstall
              "Do you want to remove your personal settings?" IDYES deletesettings IDNO dontdeletesettings
   deletesettings:
     ; Get 'Application Data' user's directory
-    RMDir /r "${LOCALAPPDATA}\@PACKAGE_TARNAME@"
+    RMDir /r "$LOCALAPPDATA\@PACKAGE_TARNAME@"
   dontdeletesettings:
 
   SetAutoClose true
