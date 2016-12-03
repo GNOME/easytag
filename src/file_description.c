@@ -53,6 +53,7 @@ const ET_File_Description ETFileDescription[] =
     { MP4_FILE, ".m4a", MP4_TAG}, /* Implemented by Michael Ihde. */
     { MP4_FILE, ".m4p", MP4_TAG}, /* Implemented by Michael Ihde. */
     { MP4_FILE, ".m4v", MP4_TAG},
+    { MP4_FILE, ".aac", MP4_TAG},
 #endif
 #ifdef ENABLE_WAVPACK
     { WAVPACK_FILE, ".wv", WAVPACK_TAG}, /* Implemented by Maarten Maathuis. */

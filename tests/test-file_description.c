@@ -75,6 +75,7 @@ file_description_get_file_description (void)
         { "test.m4a", MP4_FILE, MP4_TAG },
         { "test.m4p", MP4_FILE, MP4_TAG },
         { "test.m4v", MP4_FILE, MP4_TAG },
+        { "test.aac", MP4_FILE, MP4_TAG },
 #else /* !ENABLE_MP4 */
         { "test.Mp4", UNKNOWN_FILE, UNKNOWN_TAG },
         { "test.mp4", UNKNOWN_FILE, UNKNOWN_TAG },
