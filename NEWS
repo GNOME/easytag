@@ -1,3 +1,31 @@
+2.4.3 - 2016-12-05 :
+====================
+
+    * Fix two crashes in the dialog to load filenames from a file
+    * Avoid a crash when adding an image and no files are selected
+    * Avoid a crash when saving ID3v2.4 tags and no audio is present
+    * Fix a crash when applying CDDB results
+    * Fix saving of ID3v1 genres when also using ID3v2.4
+    * Fix Ogg tag writing on Windows
+    * Ensure that a selected path in the browser is shown in the path list
+    * Open the online version of the help if Yelp is not available
+    * Fix handling of MP4 files with empty tag fields
+    * Fix the artist/album toolbar icon
+    * Eckhard M. Jäger’s Adwaita-style artist/album icons
+    * Add support for MP4 files with the .aac file extension
+    * Anders Jonsson’s Swedish translation update
+    * Balázs Úr’s Hungarian translation update
+    * Charles Monzat’s French translation update
+    * Cédric Valmary’s Occitan translation
+    * Walter Cheuk’s Chinese (Taiwan) translation update
+    * Jobava’s Romanian translation update
+    * Jordi Mas’s Catalan translation updates
+    * Piotr Drąg’s Polish translation updates
+    * Rafael Fontanelle’s Brazilian Portuguese translation update
+    * Tiago Santos’ Portuguese translation update
+    * Daniel Mustieles’ and Mónica Canizo’s Spanish translation updates
+    * gogo’s Croation translation
+
 2.4.2 - 2016-02-21 :
 ====================
 
