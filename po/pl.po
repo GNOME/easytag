@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-05 20:34+0100\n"
-"PO-Revision-Date: 2016-12-05 20:35+0100\n"
+"POT-Creation-Date: 2016-12-05 20:48+0100\n"
+"PO-Revision-Date: 2016-12-05 20:49+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -3152,7 +3152,7 @@ msgstr "Witryna: %s"
 
 #: ../src/application.c:343
 msgid "- Tag and rename audio files"
-msgstr "— nadawanie etykiet i zmienianie nazw plikach dźwiękowych"
+msgstr "— nadawanie etykiet i zmienianie nazw plików dźwiękowych"
 
 #: ../src/application.c:429 ../src/file_list.c:435
 #, c-format
