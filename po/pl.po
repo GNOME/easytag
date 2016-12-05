@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-07 04:48+0200\n"
-"PO-Revision-Date: 2016-09-07 04:49+0200\n"
+"POT-Creation-Date: 2016-12-05 20:34+0100\n"
+"PO-Revision-Date: 2016-12-05 20:35+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -85,7 +85,7 @@ msgstr "Wybór katalogu do wyświetlenia w przeglądarce"
 msgid "_Open"
 msgstr "_Otwórz"
 
-#: ../data/browser.ui.h:3 ../src/application.c:127
+#: ../data/browser.ui.h:3 ../src/application.c:131
 msgid "Select a directory to browse"
 msgstr "Wybór katalogu do przeglądania"
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "Match lines with the Levenshtein algorithm"
 msgstr "Dopasowanie wierszy według algorytmu Levenshteina"
 
-#: ../data/cddb_dialog.ui.h:47 ../data/preferences_dialog.ui.h:151
+#: ../data/cddb_dialog.ui.h:47 ../data/preferences_dialog.ui.h:152
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
 msgstr "Czy używać algorytmu DLM do dopasowywania wyników CDDB do plików"
@@ -1477,7 +1477,7 @@ msgid ""
 "Display an error message when a character cannot be represented in the "
 "target character encoding and keep the original character"
 msgstr ""
-"Wyświetlanie komunikat o błędzie, kiedy znak nie może być wyświetlany "
+"Wyświetlanie komunikatu o błędzie, kiedy znak nie może być wyświetlany "
 "w docelowym kodowaniu znaków i pozostawienie pierwotnego znaku"
 
 #: ../data/preferences_dialog.ui.h:96
@@ -1586,16 +1586,21 @@ msgstr "Bez zmieniania"
 msgid "Rename File and Directory Scanner"
 msgstr "Skaner zmiany nazw plików i katalogów"
 
+#: ../data/preferences_dialog.ui.h:121 ../data/scan_dialog.ui.h:91
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:149 ../src/tag_area.c:910
+msgid "Remove spaces"
+msgstr "Usuwanie spacji"
+
 #. Translators: a section header in the Scanner section of the preferences dialog.
-#: ../data/preferences_dialog.ui.h:122
+#: ../data/preferences_dialog.ui.h:123
 msgid "Process Fields Scanner"
 msgstr "Skaner przetwarzania pól"
 
-#: ../data/preferences_dialog.ui.h:123
+#: ../data/preferences_dialog.ui.h:124
 msgid "Upper-case the first letters of all words"
 msgstr "Wielka pierwsza litera każdego słowa"
 
-#: ../data/preferences_dialog.ui.h:124
+#: ../data/preferences_dialog.ui.h:125
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:146
 msgid ""
 "Whether to upper-case the first letter of all words, including prepositions "
@@ -1604,15 +1609,15 @@ msgstr ""
 "Czy podczas przetwarzania pól etykiet zmieniać pierwszą literę wszystkich "
 "słów na wielką, w tym przyimków i innych krótkich słów, takich jak „feat.”"
 
-#: ../data/preferences_dialog.ui.h:125
+#: ../data/preferences_dialog.ui.h:126
 msgid "Fields"
 msgstr "Pola"
 
-#: ../data/preferences_dialog.ui.h:126
+#: ../data/preferences_dialog.ui.h:127
 msgid "Overwrite fields when scanning tags"
 msgstr "Zastępowanie pól podczas skanowania etykiet"
 
-#: ../data/preferences_dialog.ui.h:127
+#: ../data/preferences_dialog.ui.h:128
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:109
 msgid ""
 "Whether to overwrite the tag field values when filling tags. Otherwise, only "
@@ -1621,11 +1626,11 @@ msgstr ""
 "Czy zastępować wartości pól etykiet podczas wypełniania etykiet. "
 "W przeciwnym przypadku tylko puste pola będę wypełniane"
 
-#: ../data/preferences_dialog.ui.h:128
+#: ../data/preferences_dialog.ui.h:129
 msgid "Set this text as default comment:"
 msgstr "Ustawianie tego tekstu jako domyślny komentarz:"
 
-#: ../data/preferences_dialog.ui.h:129
+#: ../data/preferences_dialog.ui.h:130
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:111
 msgid ""
 "Whether to set the comment tag field to the provided default value when "
@@ -1634,11 +1639,11 @@ msgstr ""
 "Czy ustawiać pole etykiety komentarza podaną domyślną wartością podczas "
 "wypełniania etykiet"
 
-#: ../data/preferences_dialog.ui.h:130
+#: ../data/preferences_dialog.ui.h:131
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
 msgstr "Ustawianie sumy CRC-32 pliku jako domyślny komentarz (tylko ID3)"
 
-#: ../data/preferences_dialog.ui.h:131
+#: ../data/preferences_dialog.ui.h:132
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:115
 msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
@@ -1646,83 +1651,83 @@ msgid ""
 msgstr ""
 "Czy używać sumy CRC-32 pliku dźwiękowego jako domyślny komentarz (tylko ID3)"
 
-#: ../data/preferences_dialog.ui.h:132
+#: ../data/preferences_dialog.ui.h:133
 msgid "Scanner"
 msgstr "Skaner"
 
-#: ../data/preferences_dialog.ui.h:133
+#: ../data/preferences_dialog.ui.h:134
 msgid "Automatic Search Servers"
 msgstr "Serwer automatycznego wyszukiwania"
 
-#: ../data/preferences_dialog.ui.h:134
+#: ../data/preferences_dialog.ui.h:135
 msgid "Host:"
 msgstr "Serwer:"
 
-#: ../data/preferences_dialog.ui.h:135
+#: ../data/preferences_dialog.ui.h:136
 msgid "Port:"
 msgstr "Port:"
 
-#: ../data/preferences_dialog.ui.h:136
+#: ../data/preferences_dialog.ui.h:137
 msgid "CGI Path:"
 msgstr "Ścieżka CGI:"
 
-#: ../data/preferences_dialog.ui.h:137
+#: ../data/preferences_dialog.ui.h:138
 msgid "Manual Search Server"
 msgstr "Serwer ręcznego wyszukiwania"
 
-#: ../data/preferences_dialog.ui.h:138
+#: ../data/preferences_dialog.ui.h:139
 msgid "Proxy"
 msgstr "Pośrednik"
 
-#: ../data/preferences_dialog.ui.h:139
+#: ../data/preferences_dialog.ui.h:140
 msgid "Use a proxy server"
 msgstr "Używanie pośrednika"
 
-#: ../data/preferences_dialog.ui.h:140
+#: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:28
 msgid "Whether to access remote CDDB through a proxy"
 msgstr "Czy używać zdalnego serwera CDDB przez pośrednika"
 
-#: ../data/preferences_dialog.ui.h:141
+#: ../data/preferences_dialog.ui.h:142
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
 msgid "Hostname for a proxy to access remote CDDB"
 msgstr "Nazwa serwera dla pośrednika do zdalnego serwera CDDB"
 
-#: ../data/preferences_dialog.ui.h:142
+#: ../data/preferences_dialog.ui.h:143
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:32
 msgid "Port for a proxy to access remote CDDB"
 msgstr "Port pośrednika do zdalnego serwera CDDB"
 
-#: ../data/preferences_dialog.ui.h:143
+#: ../data/preferences_dialog.ui.h:144
 msgid "User:"
 msgstr "Użytkownik:"
 
-#: ../data/preferences_dialog.ui.h:144
+#: ../data/preferences_dialog.ui.h:145
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:34
 msgid "Username for a proxy to access remote CDDB"
 msgstr "Nazwa użytkownika pośrednika do zdalnego serwera CDDB"
 
-#: ../data/preferences_dialog.ui.h:145
+#: ../data/preferences_dialog.ui.h:146
 msgid "Password:"
 msgstr "Hasło:"
 
-#: ../data/preferences_dialog.ui.h:146
+#: ../data/preferences_dialog.ui.h:147
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
 msgid "Password for a proxy to access remote CDDB"
 msgstr "Hasło pośrednika do zdalnego serwera CDDB"
 
-#: ../data/preferences_dialog.ui.h:147
+#: ../data/preferences_dialog.ui.h:148
 msgid "Results List"
 msgstr "Lista wyników"
 
-#: ../data/preferences_dialog.ui.h:148
+#: ../data/preferences_dialog.ui.h:149
 msgid ""
 "Select corresponding file (according to position or DLM if activated below)"
 msgstr ""
 "Wybieranie odpowiedniego pliku (według pozycji lub DLM, jeśli włączono "
 "poniżej)"
 
-#: ../data/preferences_dialog.ui.h:149
+#: ../data/preferences_dialog.ui.h:150
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:26
 msgid ""
 "Whether to select the file in the file list which matches the position in "
@@ -1731,7 +1736,7 @@ msgstr ""
 "Czy zaznaczać na liście plików plik z pasującym położeniem na liście wyników "
 "CDDB"
 
-#: ../data/preferences_dialog.ui.h:150
+#: ../data/preferences_dialog.ui.h:151
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
@@ -1739,20 +1744,20 @@ msgstr ""
 "Używanie algorytmu Levenshteina (DLM) do dopasowywania wyników (za pomocą "
 "tytułu) do plików dźwiękowych (za pomocą nazw plików)"
 
-#: ../data/preferences_dialog.ui.h:152
+#: ../data/preferences_dialog.ui.h:153
 msgid "CDDB"
 msgstr "CDDB"
 
-#: ../data/preferences_dialog.ui.h:153
+#: ../data/preferences_dialog.ui.h:154
 msgid "Confirmation"
 msgstr "Potwierdzenia"
 
-#: ../data/preferences_dialog.ui.h:154
+#: ../data/preferences_dialog.ui.h:155
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Confirm before writing tags"
 msgstr "Potwierdzanie zapisania etykiet"
 
-#: ../data/preferences_dialog.ui.h:155
+#: ../data/preferences_dialog.ui.h:156
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:117
 msgid ""
 "Whether to ask for confirmation from the user before writing tags to audio "
@@ -1760,42 +1765,42 @@ msgid ""
 msgstr ""
 "Czy pytać o potwierdzenie przed zapisaniem etykiet w plikach dźwiękowych"
 
-#: ../data/preferences_dialog.ui.h:156
+#: ../data/preferences_dialog.ui.h:157
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
 msgid "Confirm before renaming a file"
 msgstr "Potwierdzanie zmiany nazwy pliku"
 
-#: ../data/preferences_dialog.ui.h:157
+#: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:119
 msgid "Whether to ask for confirmation from the user before renaming a file"
 msgstr "Czy pytać o potwierdzenie przed zmianą nazwy pliku"
 
-#: ../data/preferences_dialog.ui.h:158
+#: ../data/preferences_dialog.ui.h:159
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:122
 msgid "Confirm before deleting a file"
 msgstr "Potwierdzanie usuwania pliku"
 
-#: ../data/preferences_dialog.ui.h:159
+#: ../data/preferences_dialog.ui.h:160
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
 msgid "Whether to ask for confirmation from the user before deleting a file"
 msgstr "Czy pytać o potwierdzenie przed usunięciem pliku"
 
-#: ../data/preferences_dialog.ui.h:160
+#: ../data/preferences_dialog.ui.h:161
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:120
 msgid "Confirm before writing a playlist"
 msgstr "Potwierdzanie zapisania listy odtwarzania"
 
-#: ../data/preferences_dialog.ui.h:161
+#: ../data/preferences_dialog.ui.h:162
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:121
 msgid "Whether to ask for confirmation from the user before writing a playlist"
 msgstr "Czy pytać o potwierdzenie przed zapisaniem listy odtwarzania"
 
-#: ../data/preferences_dialog.ui.h:162
+#: ../data/preferences_dialog.ui.h:163
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:124
 msgid "Confirm before losing unsaved changes to files"
 msgstr "Potwierdzanie porzucenia niezapisanych zmian plików"
 
-#: ../data/preferences_dialog.ui.h:163
+#: ../data/preferences_dialog.ui.h:164
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:125
 msgid ""
 "Whether to ask for confirmation from the user before performing an operation "
@@ -1804,20 +1809,20 @@ msgstr ""
 "Czy pytać o potwierdzenie przed wykonaniem działania, które może spowodować "
 "utratę zmian w plikach"
 
-#: ../data/preferences_dialog.ui.h:164
+#: ../data/preferences_dialog.ui.h:165
 msgid "Scanner Dialog"
 msgstr "Okno skanera"
 
-#: ../data/preferences_dialog.ui.h:165
+#: ../data/preferences_dialog.ui.h:166
 msgid "Show the scanner dialog on startup"
 msgstr "Wyświetlanie okna skanera podczas uruchamiania"
 
-#: ../data/preferences_dialog.ui.h:166
+#: ../data/preferences_dialog.ui.h:167
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:198
 msgid "Whether to show the scanner window on application startup"
 msgstr "Czy wyświetlać okna skanera podczas uruchamiania programu"
 
-#: ../data/preferences_dialog.ui.h:167
+#: ../data/preferences_dialog.ui.h:168
 msgid "Application"
 msgstr "Program"
 
@@ -2113,11 +2118,6 @@ msgstr "Bez zmiany wielkości liter"
 #: ../data/scan_dialog.ui.h:90
 msgid "Spaces Conversions"
 msgstr "Zmiana spacji"
-
-#: ../data/scan_dialog.ui.h:91 ../data/org.gnome.EasyTAG.gschema.xml.h:149
-#: ../src/tag_area.c:910
-msgid "Remove spaces"
-msgstr "Usuwanie spacji"
 
 #: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:150
 msgid "Whether to remove all spaces when processing tag fields"
@@ -3126,40 +3126,40 @@ msgid "Print the version and exit"
 msgstr "Wyświetla wersję i kończy działanie"
 
 #. Starting messages
-#: ../src/application.c:174
+#: ../src/application.c:178
 #, c-format
 msgid "Starting EasyTAG version %s…"
 msgstr "Uruchamianie programu EasyTAG %s…"
 
-#: ../src/application.c:178
+#: ../src/application.c:182
 #, c-format
 msgid "Setting locale: ‘%s’"
 msgstr "Ustawianie lokalizacji: „%s”"
 
-#: ../src/application.c:184
+#: ../src/application.c:188
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
 msgstr "Lokalizacja systemu to „%s”, używanie „%s”"
 
-#: ../src/application.c:189
+#: ../src/application.c:193
 msgid "Unable to create setting directories"
 msgstr "Nie można utworzyć katalogów ustawień"
 
-#: ../src/application.c:330
+#: ../src/application.c:334
 #, c-format
 msgid "Website: %s"
 msgstr "Witryna: %s"
 
-#: ../src/application.c:339
+#: ../src/application.c:343
 msgid "- Tag and rename audio files"
 msgstr "— nadawanie etykiet i zmienianie nazw plikach dźwiękowych"
 
-#: ../src/application.c:425 ../src/file_list.c:435
+#: ../src/application.c:429 ../src/file_list.c:435
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
 msgstr "Błąd podczas odpytywania informacji o pliku „%s”: %s"
 
-#: ../src/application.c:474 ../src/application.c:481
+#: ../src/application.c:478 ../src/application.c:485
 #, c-format
 msgid "Cannot open path ‘%s’"
 msgstr "Nie można otworzyć ścieżki „%s”"
@@ -4669,11 +4669,11 @@ msgstr "Nieznany komunikat o błędzie"
 msgid "Error while creating temporary file"
 msgstr "Błąd podczas tworzenia pliku tymczasowego"
 
-#: ../src/tags/id3v24_tag.c:136 ../src/tags/id3v24_tag.c:191
-#: ../src/tags/id3v24_tag.c:229 ../src/tags/id3v24_tag.c:239
-#: ../src/tags/id3v24_tag.c:248 ../src/tags/id3v24_tag.c:966
-#: ../src/tags/id3v24_tag.c:974 ../src/tags/id3v24_tag.c:981
-#: ../src/tags/id3v24_tag.c:1007 ../src/tags/id3v24_tag.c:1047
+#: ../src/tags/id3v24_tag.c:135 ../src/tags/id3v24_tag.c:190
+#: ../src/tags/id3v24_tag.c:228 ../src/tags/id3v24_tag.c:238
+#: ../src/tags/id3v24_tag.c:247 ../src/tags/id3v24_tag.c:973
+#: ../src/tags/id3v24_tag.c:981 ../src/tags/id3v24_tag.c:988
+#: ../src/tags/id3v24_tag.c:1014 ../src/tags/id3v24_tag.c:1054
 #: ../src/tags/mp4_tag.cc:102 ../src/tags/ogg_header.c:277
 msgid "Error reading tags from file"
 msgstr "Błąd podczas odczytywania etykiet z pliku"
