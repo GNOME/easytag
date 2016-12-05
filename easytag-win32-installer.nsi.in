@@ -168,11 +168,15 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   SetOutPath "$INSTDIR\bin"
   File "${PREFIX}/bin/iconv.dll"
   File "${PREFIX}/bin/libatk-1.0-0.dll"
+  File "${PREFIX}/bin/libbz2-1.dll"
   File "${PREFIX}/bin/libcairo-2.dll"
   File "${PREFIX}/bin/libcairo-gobject-2.dll"
   File "${PREFIX}/bin/libepoxy-0.dll"
+  File "${PREFIX}/bin/libexpat-1.dll"
   File "${PREFIX}/bin/libFLAC-8.dll"
   File "${PREFIX}/bin/libffi-6.dll"
+  File "${PREFIX}/bin/libfontconfig-1.dll"
+  File "${PREFIX}/bin/libfreetype-6.dll"
   File "${PREFIX}/bin/libgcc_s_sjlj-1.dll"
   File "${PREFIX}/bin/libgdk-3-0.dll"
   File "${PREFIX}/bin/libgdk_pixbuf-2.0-0.dll"
@@ -190,6 +194,7 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/libpango-1.0-0.dll"
   File "${PREFIX}/bin/libpangocairo-1.0-0.dll"
   File "${PREFIX}/bin/libpangowin32-1.0-0.dll"
+  File "${PREFIX}/bin/libpcre-1.dll"
   File "${PREFIX}/bin/libpixman-1-0.dll"
   File "${PREFIX}/bin/libpng16-16.dll"
   File "${PREFIX}/bin/libstdc++-6.dll"
@@ -202,18 +207,15 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
   File "${PREFIX}/bin/glib-compile-schemas.exe"
   File "${PREFIX}/bin/gspawn-win32-helper.exe"
   File "${PREFIX}/bin/gtk-update-icon-cache.exe"
-  File "${PREFIX}/bin/pango-querymodules.exe"
   File "${PREFIX}/bin/zlib1.dll"
 
   SetOutPath "$INSTDIR\etc"
   File /r "${PREFIX}/etc/fonts"
   File /r "${PREFIX}/etc/gtk-3.0"
-  CreateDirectory "$INSTDIR\etc\pango"
 
   SetOutPath "$INSTDIR\lib"
   File /r "${PREFIX}/lib/gdk-pixbuf-2.0"
   File /r "${PREFIX}/lib/gtk-3.0"
-  File /r "${PREFIX}/lib/pango"
 
   SetOutPath "$INSTDIR\etc\gtk-3.0"
   FileOpen $0 settings.ini w
@@ -242,7 +244,6 @@ Section "Core ${PRODUCT_NAME} Files" SecProgram
 
   ReadEnvStr $0 COMSPEC
   SetOutPath "$INSTDIR"
-  nsExec::ExecToLog '"$0" /C bin\pango-querymodules.exe > etc\pango\pango.modules'
   nsExec::ExecToLog '"$0" /C bin\glib-compile-schemas.exe share\glib-2.0\schemas'
   nsExec::ExecToLog '"$0" /C bin\gtk-update-icon-cache.exe share\icons\Adwaita'
   nsExec::ExecToLog '"$0" /C bin\gtk-update-icon-cache.exe share\icons\hicolor'
@@ -394,12 +395,10 @@ Section Uninstall
   RMDir /r "$INSTDIR\lib\pango"
   RMDir /r "$INSTDIR\lib\gtk-3.0"
   RMDir /r "$INSTDIR\lib\gdk-pixbuf-2.0"
-  RMDir /r "$INSTDIR\etc\pango"
   RMDir /r "$INSTDIR\etc\gtk-3.0"
   RMDir /r "$INSTDIR\etc\fonts"
 
   Delete /rebootok "$INSTDIR\bin\zlib1.dll"
-  Delete /rebootok "$INSTDIR\bin\pango-querymodules.exe"
   Delete /rebootok "$INSTDIR\bin\gtk-update-icon-cache.exe"
   Delete /rebootok "$INSTDIR\bin\gspawn-win32-helper.exe"
   Delete /rebootok "$INSTDIR\bin\glib-compile-schemas.exe"
@@ -412,6 +411,7 @@ Section Uninstall
   Delete /rebootok "$INSTDIR\bin\libspeex-1.dll"
   Delete /rebootok "$INSTDIR\bin\libpng16-16.dll"
   Delete /rebootok "$INSTDIR\bin\libpixman-1-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpcre-1.dll"
   Delete /rebootok "$INSTDIR\bin\libpangowin32-1.0-0.dll"
   Delete /rebootok "$INSTDIR\bin\libpangocairo-1.0-0.dll"
   Delete /rebootok "$INSTDIR\bin\libpango-1.0-0.dll"
@@ -429,11 +429,15 @@ Section Uninstall
   Delete /rebootok "$INSTDIR\bin\libgdk_pixbuf-2.0-0.dll"
   Delete /rebootok "$INSTDIR\bin\libgdk-3-0.dll"
   Delete /rebootok "$INSTDIR\bin\libgcc_s_sjlj-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libfreetype-6.dll"
+  Delete /rebootok "$INSTDIR\bin\libfontconfig-1.dll"
   Delete /rebootok "$INSTDIR\bin\libffi-6.dll"
   Delete /rebootok "$INSTDIR\bin\libFLAC-8.dll"
+  Delete /rebootok "$INSTDIR\bin\libexpat-1.dll"
   Delete /rebootok "$INSTDIR\bin\libepoxy-0.dll"
   Delete /rebootok "$INSTDIR\bin\libcairo-gobject-2.dll"
   Delete /rebootok "$INSTDIR\bin\libcairo-2.dll"
+  Delete /rebootok "$INSTDIR\bin\libbz2-1.dll"
   Delete /rebootok "$INSTDIR\bin\libatk-1.0-0.dll"
   Delete /rebootok "$INSTDIR\bin\iconv.dll"
   RMDir /r "$INSTDIR\usr"
