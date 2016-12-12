@@ -279,7 +279,7 @@ et_application_window_tag_area_create_file_tag (EtApplicationWindow *self)
     return et_tag_area_create_file_tag (ET_TAG_AREA (priv->tag_area));
 }
 
-gboolean
+static gboolean
 et_application_window_tag_area_display_et_file (EtApplicationWindow *self,
                                                 const ET_File *ETFile)
 {

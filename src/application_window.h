@@ -46,7 +46,6 @@ struct _EtApplicationWindowClass
 GType et_application_window_get_type (void);
 EtApplicationWindow *et_application_window_new (GtkApplication *application);
 File_Tag * et_application_window_tag_area_create_file_tag (EtApplicationWindow *self);
-gboolean et_application_window_tag_area_display_et_file (EtApplicationWindow *self, const ET_File *ETFile);
 void et_application_window_tag_area_clear (EtApplicationWindow *self);
 void et_application_window_tag_area_set_sensitive (EtApplicationWindow *self, gboolean sensitive);
 const gchar * et_application_window_file_area_get_filename (EtApplicationWindow *self);
