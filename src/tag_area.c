@@ -2920,7 +2920,7 @@ et_tag_area_display_et_file (EtTagArea *self,
                              const ET_File *ETFile)
 {
     EtTagAreaPrivate *priv;
-    File_Tag *FileTag = NULL;
+    const File_Tag *FileTag;
 
     g_return_val_if_fail (ET_TAG_AREA (self), FALSE);
 
