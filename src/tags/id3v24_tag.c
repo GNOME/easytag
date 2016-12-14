@@ -902,7 +902,7 @@ libid3tag_Get_Frame_Str (const struct id3_frame *frame,
                 break;
         }
 
-        if (tmpstr && *tmpstr && g_utf8_validate (tmpstr, -1, NULL))
+        if (!et_str_empty (tmpstr) && g_utf8_validate (tmpstr, -1, NULL))
         {
             if (ret)
             {
