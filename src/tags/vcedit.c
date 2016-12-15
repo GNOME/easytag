@@ -50,11 +50,11 @@ struct _EtOggState
     guchar *mainbuf;
     guchar *bookbuf;
     gchar *vendor;
-    gint mainlen;
-    gint booklen;
-    gint prevW;
-    gint extrapage;
-    gint eosin;
+    glong mainlen;
+    glong booklen;
+    glong prevW;
+    gboolean extrapage;
+    gboolean eosin;
 };
 
 EtOggState *
@@ -220,14 +220,14 @@ _commentheader_out (EtOggState *state,
     return 0;
 }
 
-static int
+static gint64
 _blocksize (EtOggState *s,
             ogg_packet *p)
 {
-    int this = vorbis_packet_blocksize (s->vi, p);
-    int ret = (this + s->prevW) / 4;
+    glong this = vorbis_packet_blocksize (s->vi, p);
+    gint64 ret = (this + s->prevW) / 4;
 
-    if(!s->prevW)
+    if (!s->prevW)
     {
         s->prevW = this;
         return 0;
@@ -289,14 +289,14 @@ _fetch_next_packet (EtOggState *s,
 
         if (ogg_page_eos (page))
         {
-            s->eosin = 1;
+            s->eosin = TRUE;
         }
         else if (ogg_page_serialno (page) != s->serial)
         {
             g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_SN,
                          "Page serial number and state serial number doesn't match");
-            s->eosin = 1;
-            s->extrapage = 1;
+            s->eosin = TRUE;
+            s->extrapage = TRUE;
             g_assert (error == NULL || *error != NULL);
             return FALSE;
         }
@@ -381,9 +381,9 @@ vcedit_open (EtOggState *state,
 {
     char *buffer;
     gssize bytes;
-    int i;
-    int chunks = 0;
-    int headerpackets = 0;
+    guint i;
+    guint chunks = 0;
+    guint headerpackets = 0;
     oggpack_buffer opb;
     ogg_packet *header;
     ogg_packet  header_main;
@@ -695,10 +695,11 @@ vcedit_write (EtOggState *state,
     ogg_page ogout, ogin;
     ogg_packet op;
     ogg_int64_t granpos = 0;
-    int result;
-    char *buffer;
-    int bytes;
-    int needflush = 0, needout = 0;
+    gint result;
+    gchar *buffer;
+    glong bytes;
+    gboolean needflush = FALSE;
+    gboolean needout = FALSE;
     GFileInputStream *istream;
     GOutputStream *ostream;
     gchar *buf;
@@ -732,8 +733,8 @@ vcedit_write (EtOggState *state,
                                           g_realloc, g_free);
     g_object_unref (fileinfo);
 
-    state->eosin = 0;
-    state->extrapage = 0;
+    state->eosin = FALSE;
+    state->extrapage = FALSE;
 
     header_main.bytes = state->mainlen;
     header_main.packet = state->mainbuf;
@@ -843,7 +844,7 @@ vcedit_write (EtOggState *state,
             }
         }
 
-        needflush = needout = 0;
+        needflush = needout = FALSE;
 
         if (state->oggtype == ET_OGG_KIND_VORBIS ||
             state->oggtype == ET_OGG_KIND_OPUS)
@@ -871,12 +872,12 @@ vcedit_write (EtOggState *state,
                 {
                     granpos = op.granulepos;
                     ogg_stream_packetin (&streamout, &op);
-                    needflush = 1;
+                    needflush = TRUE;
                 }
                 else 
                 {
                     ogg_stream_packetin (&streamout, &op);
-                    needout = 1;
+                    needout = TRUE;
                 }
             }
         }
@@ -885,7 +886,7 @@ vcedit_write (EtOggState *state,
         else if (state->oggtype == ET_OGG_KIND_SPEEX)
         {
             ogg_stream_packetin (&streamout, &op);
-            needout = 1;
+            needout = TRUE;
         }
     }
 
@@ -954,7 +955,7 @@ vcedit_write (EtOggState *state,
         }
     }
 
-    state->eosin = 0; /* clear it, because not all paths to here do */
+    state->eosin = FALSE; /* clear it, because not all paths to here do */
 
     while (!state->eosin) /* We reached eos, not eof */
     {
@@ -1012,7 +1013,7 @@ vcedit_write (EtOggState *state,
 
         if (bytes == 0)
         {
-            state->eosin = 1;
+            state->eosin = TRUE;
             break;
         }
     }
