@@ -203,7 +203,7 @@ _commentheader_out (EtOggState *state,
 
     oggpack_write (&opb, 1, 1);
 
-    op->packet = _ogg_malloc (oggpack_bytes (&opb));
+    op->packet = malloc (oggpack_bytes (&opb));
     memcpy (op->packet, opb.buffer, oggpack_bytes (&opb));
 
     op->bytes = oggpack_bytes (&opb);
