@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-05 20:48+0100\n"
-"PO-Revision-Date: 2016-12-05 20:49+0100\n"
+"POT-Creation-Date: 2016-12-15 05:07+0100\n"
+"PO-Revision-Date: 2016-12-15 05:08+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -2307,7 +2307,7 @@ msgstr ""
 
 #: ../data/tag_area.ui.h:15
 msgid "Track #:"
-msgstr "Ścieżka #:"
+msgstr "Nr ścieżki:"
 
 #: ../data/tag_area.ui.h:16
 msgid ""
@@ -2382,7 +2382,7 @@ msgstr "Ogólne"
 
 #: ../data/tag_area.ui.h:32
 msgid "You can use drag and drop to add an image"
-msgstr "Można tutaj przeciągnąć i upuścić obraz"
+msgstr "Można tutaj przeciągnąć obraz"
 
 #: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
@@ -2771,7 +2771,7 @@ msgid ""
 "Whether to convert to spaces (and %20) or underscores when filling tag "
 "fields from filenames"
 msgstr ""
-"Czy zmieniać na spacje (i %20) lub podkreślenia podczas wypełniania pól "
+"Czy zmieniać na spacje (i %20) lub podkreślenia podczas wypełniania pól "
 "etykiet z nazw plików"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:108
@@ -2816,7 +2816,7 @@ msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
 "processing tag fields"
 msgstr ""
-"Czy zmieniać na spacje (i %20), podkreślenia lub inne znaki podczas "
+"Czy zmieniać na spacje (i %20), podkreślenia lub inne znaki podczas "
 "przetwarzania pól etykiet"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:133
