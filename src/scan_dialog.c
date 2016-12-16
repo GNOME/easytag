@@ -164,6 +164,8 @@ static const gchar *Rename_File_Masks [] =
     NULL
 };**/
 
+/* Keep up to date with the format specifiers shown in the UI. */
+static const gchar allowed_specifiers[] = "abcdegilnoprtuxyz";
 
 typedef enum
 {
@@ -2587,10 +2589,7 @@ entry_check_scan_tag_mask (GtkEntry *entry, gpointer user_data)
                 /* There is no more code => accepted */
                 goto Good_Mask;
         }
-        if ( strlen(tmp)>1
-        && (tmp[1]=='a' || tmp[1]=='b' || tmp[1]=='c' || tmp[1]=='d' || tmp[1]=='p' ||
-            tmp[1]=='r' || tmp[1]=='e' || tmp[1]=='g' || tmp[1]=='i' || tmp[1]=='l' ||
-            tmp[1]=='o' || tmp[1]=='n' || tmp[1]=='t' || tmp[1]=='u' || tmp[1]=='y' ) )
+        if (strlen (tmp) > 1 && strchr (allowed_specifiers, tmp[1]))
         {
             /* Code is correct */
             *(mask+strlen(mask)-strlen(tmp)) = '\0';
@@ -2604,10 +2603,7 @@ entry_check_scan_tag_mask (GtkEntry *entry, gpointer user_data)
             /* There is no more code => accepted */
             goto Good_Mask;
 
-        if ( strlen(tmp)>2
-        && (tmp[1]=='a' || tmp[1]=='b' || tmp[1]=='c' || tmp[1]=='d' || tmp[1]=='p' ||
-            tmp[1]=='r' || tmp[1]=='e' || tmp[1]=='g' || tmp[1]=='i' || tmp[1]=='l' ||
-            tmp[1]=='o' || tmp[1]=='n' || tmp[1]=='t' || tmp[1]=='u' || tmp[1]=='y' ) )
+        if (strlen (tmp) > 2 && strchr (allowed_specifiers, tmp[1]))
         {
             /* There is a separator and code is correct */
             *(mask+strlen(mask)-strlen(tmp)) = '\0';
