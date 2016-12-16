@@ -329,7 +329,7 @@
     <key name="fill-set-default-comment" type="b">
       <summary>Set the default comment</summary>
       <description>Whether to set the comment tag field to the provided default value when filling tags</description>
-      <default>true</default>
+      <default>false</default>
     </key>
 
     <key name="fill-default-comment" type="s">
