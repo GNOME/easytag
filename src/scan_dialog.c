@@ -274,59 +274,77 @@ Scan_Return_File_Tag_Field_From_Mask_Code (File_Tag *FileTag, gchar code)
 
 static void
 et_scan_dialog_set_file_tag_for_mask_item (File_Tag *file_tag,
-                                           Scan_Mask_Item *item)
+                                           const Scan_Mask_Item *item,
+                                           gboolean overwrite)
 {
     switch (item->code)
     {
         case 't':
+            if (!overwrite && !et_str_empty (file_tag->title)) return;
             et_file_tag_set_title (file_tag, item->string);
             break;
         case 'a':
+            if (!overwrite && !et_str_empty (file_tag->artist)) return;
             et_file_tag_set_artist (file_tag, item->string);
             break;
         case 'b':
+            if (!overwrite && !et_str_empty (file_tag->album)) return;
             et_file_tag_set_album (file_tag, item->string);
             break;
         case 'd':
+            if (!overwrite && !et_str_empty (file_tag->disc_number)) return;
             et_file_tag_set_disc_number (file_tag, item->string);
             break;
         case 'x':
+            if (!overwrite && !et_str_empty (file_tag->disc_total)) return;
             et_file_tag_set_disc_total (file_tag, item->string);
             break;
         case 'y':
+            if (!overwrite && !et_str_empty (file_tag->year)) return;
             et_file_tag_set_year (file_tag, item->string);
             break;
         case 'n':
+            if (!overwrite && !et_str_empty (file_tag->track)) return;
             et_file_tag_set_track_number (file_tag, item->string);
             break;
         case 'l':
+            if (!overwrite && !et_str_empty (file_tag->track_total)) return;
             et_file_tag_set_track_total (file_tag, item->string);
             break;
         case 'g':
+            if (!overwrite && !et_str_empty (file_tag->genre)) return;
             et_file_tag_set_genre (file_tag, item->string);
             break;
         case 'c':
+            if (!overwrite && !et_str_empty (file_tag->comment)) return;
             et_file_tag_set_comment (file_tag, item->string);
             break;
         case 'p':
+            if (!overwrite && !et_str_empty (file_tag->composer)) return;
             et_file_tag_set_composer (file_tag, item->string);
             break;
         case 'o':
+            if (!overwrite && !et_str_empty (file_tag->orig_artist)) return;
             et_file_tag_set_orig_artist (file_tag, item->string);
             break;
         case 'r':
+            if (!overwrite && !et_str_empty (file_tag->copyright)) return;
             et_file_tag_set_copyright (file_tag, item->string);
             break;
         case 'u':
+            if (!overwrite && !et_str_empty (file_tag->url)) return;
             et_file_tag_set_url (file_tag, item->string);
             break;
         case 'e':
+            if (!overwrite && !et_str_empty (file_tag->encoded_by)) return;
             et_file_tag_set_encoded_by (file_tag, item->string);
             break;
         case 'z':
+            if (!overwrite && !et_str_empty (file_tag->album_artist)) return;
             et_file_tag_set_album_artist (file_tag, item->string);
             break;
         case 'i':
+            /* Ignored. */
             break;
         default:
             Log_Print (LOG_ERROR, "Scanner: Invalid code '%%%c' found!",
@@ -365,13 +383,12 @@ Scan_Tag_With_Mask (EtScanDialog *self, ET_File *ETFile)
 
     for (l = fill_tag_list; l != NULL; l = g_list_next (l))
     {
-        Scan_Mask_Item *mask_item = l->data;
+        const Scan_Mask_Item *mask_item = l->data;
 
         /* We display the text affected to the code. */
-        if (g_settings_get_boolean (MainSettings, "fill-overwrite-tag-fields"))
-        {
-            et_scan_dialog_set_file_tag_for_mask_item (FileTag, mask_item);
-        }
+        et_scan_dialog_set_file_tag_for_mask_item (FileTag, mask_item,
+                                                   g_settings_get_boolean (MainSettings,
+                                                                           "fill-overwrite-tag-fields"));
 
     }
 
