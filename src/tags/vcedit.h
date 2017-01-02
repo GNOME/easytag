@@ -95,12 +95,20 @@ G_BEGIN_DECLS
 #include <speex/speex_header.h>
 #endif
 
+/* EtOggKind:
+ * @ET_OGG_KIND_VORBIS: Vorbis audio
+ * @ET_OGG_KIND_SPEEX: Speex audio
+ * @ET_OGG_KIND_OPUS: Opus audio
+ * @ET_OGG_KIND_UNKNOWN: unknown Ogg stream
+ * @ET_OGG_KIND_UNSUPPORTED: invalid or unsupported Ogg stream
+ */
 typedef enum
 {
     ET_OGG_KIND_VORBIS,
     ET_OGG_KIND_SPEEX,
     ET_OGG_KIND_OPUS,
-    ET_OGG_KIND_UNKNOWN
+    ET_OGG_KIND_UNKNOWN,
+    ET_OGG_KIND_UNSUPPORTED
 } EtOggKind;
 
 typedef struct _EtOggState EtOggState;

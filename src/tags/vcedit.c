@@ -374,6 +374,94 @@ err_out:
     return(1);
 }
 
+/* vcedit_supported_stream:
+ * @state: current reader state
+ * @page: first page of the Ogg stream
+ * @error: a #GError to set on failure to find a supported stream
+ *
+ * Checks the type of the Ogg stream given by @page to see if it is supported.
+ *
+ * Returns: #ET_OGG_KIND_UNSUPPORTED and sets @error on error, other values
+ *          from #EtOggKind otherwise
+ */
+static EtOggKind
+vcedit_supported_stream (EtOggState *state,
+                         ogg_page *page,
+                         GError **error)
+{
+    ogg_stream_state stream_state;
+    ogg_packet header;
+    EtOggKind result;
+
+    ogg_stream_init (&stream_state, ogg_page_serialno (page));
+
+    if (!ogg_page_bos (page))
+    {
+        /* FIXME: Translatable string. */
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_BOS,
+                     "Beginning of stream packet not found");
+        result = ET_OGG_KIND_UNSUPPORTED;
+        goto err;
+    }
+
+    if (ogg_stream_pagein (&stream_state, page) < 0)
+    {
+        /* FIXME: Translatable string. */
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_PAGE,
+                     "Error reading first page of Ogg bitstream");
+        result = ET_OGG_KIND_UNSUPPORTED;
+        goto err;
+    }
+
+    if (ogg_stream_packetout (&stream_state, &header) != 1)
+    {
+        /* FIXME: Translatable string. */
+        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_HEADER,
+                     "Error reading initial header packet");
+        result = ET_OGG_KIND_UNSUPPORTED;
+        goto err;
+    }
+
+    if (vorbis_synthesis_idheader (&header) > 0)
+    {
+        result = ET_OGG_KIND_VORBIS;
+    }
+    else
+    {
+        result = ET_OGG_KIND_UNKNOWN;
+
+#ifdef ENABLE_SPEEX
+        SpeexHeader *speex;
+
+        /* Done after "Ogg test" to avoid to display an error message in
+         * function speex_packet_to_header() when the file is not Speex. */
+        if ((speex = speex_packet_to_header ((char*)(&header)->packet,
+                                             (&header)->bytes)))
+        {
+            result = ET_OGG_KIND_SPEEX;
+            speex_header_free (speex);
+        }
+#endif
+
+#ifdef ENABLE_OPUS
+        if (result == ET_OGG_KIND_UNKNOWN)
+        {
+            /* TODO: Check for other return values, such as OP_ENOTFORMAT. */
+            if (opus_head_parse (NULL, (unsigned char*)(&header)->packet,
+                                 (&header)->bytes) == 0)
+            {
+                result = ET_OGG_KIND_OPUS;
+            }
+        }
+#endif
+    }
+
+err:
+    ogg_stream_clear (&stream_state);
+
+    return result;
+}
+
 gboolean
 vcedit_open (EtOggState *state,
              GFile *file,
@@ -457,49 +545,55 @@ vcedit_open (EtOggState *state,
         goto err;
     }
 
+    /* FIXME: This is bogus, as speex_packet_to_header() only reads data from
+     * the header packet. */
     /* Save the main header first, it seems speex_packet_to_header() munges
      * it. */
     state->mainlen = header_main.bytes;
     state->mainbuf = g_memdup (header_main.packet, header_main.bytes);
 
-    state->oggtype = ET_OGG_KIND_UNKNOWN;
+    state->oggtype = vcedit_supported_stream (state, &og, error);
 
-    if(vorbis_synthesis_headerin (state->vi, state->vc, &header_main) == 0)
+    switch (state->oggtype)
     {
-        state->oggtype = ET_OGG_KIND_VORBIS;
-    }
-    else
-    {
+        case ET_OGG_KIND_VORBIS:
+            /* TODO: Check for success. */
+            vorbis_synthesis_headerin (state->vi, state->vc, &header_main);
+            break;
 #ifdef ENABLE_SPEEX
-        /* Done after "Ogg test" to avoid to display an error message in
-         * function speex_packet_to_header() when the file is not Speex. */
-        if((state->si = speex_packet_to_header ((char*)(&header_main)->packet,
-                                                (&header_main)->bytes)))
-        {
-            state->oggtype = ET_OGG_KIND_SPEEX;
-        }
+        case ET_OGG_KIND_SPEEX:
+            /* TODO: Check for success. */
+            state->si = speex_packet_to_header ((char*)(&header_main)->packet,
+                                                (&header_main)->bytes);
+            break;
 #endif
-
 #ifdef ENABLE_OPUS
-        if (state->oggtype == ET_OGG_KIND_UNKNOWN)
-        {
+        case ET_OGG_KIND_OPUS:
             state->oi = g_slice_new (OpusHead);
 
-            if (opus_head_parse (state->oi,
-                                 (unsigned char*)(&header_main)->packet,
-                                 (&header_main)->bytes) == 0)
-            {
-                state->oggtype = ET_OGG_KIND_OPUS;
-            }
-        }
+            /* TODO: Check for success. */
+            opus_head_parse (state->oi, (unsigned char*)(&header_main)->packet,
+                             (&header_main)->bytes);
+            break;
 #endif
-    }
-
-    if (state->oggtype == ET_OGG_KIND_UNKNOWN)
-    {
-        g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
-                     "Ogg bitstream contains unknown data");
-        goto err;
+#ifndef ENABLE_SPEEX
+        case ET_OGG_KIND_SPEEX:
+#endif
+#ifndef ENABLE_OPUS
+        case ET_OGG_KIND_OPUS:
+#endif
+        case ET_OGG_KIND_UNKNOWN:
+            /* TODO: Translatable string. */
+            g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
+                         "Ogg bitstream contains unknown data");
+            goto err;
+            break;
+        case ET_OGG_KIND_UNSUPPORTED:
+            goto err;
+            break;
+        default:
+            g_assert_not_reached ();
+            break;
     }
 
     switch (state->oggtype)

@@ -35,6 +35,7 @@ GQuark et_ogg_error_quark (void);
 
 /*
  * EtOGGError:
+ * @ET_OGG_ERROR_BOS: beginning of stream not found
  * @ET_OGG_ERROR_EOS: reached end of logical bitstream
  * @ET_OGG_ERROR_EOF: reached end of file
  * @ET_OGG_ERROR_SN: page and state's serial number are unequal
@@ -53,6 +54,7 @@ GQuark et_ogg_error_quark (void);
  */
 typedef enum
 {
+    ET_OGG_ERROR_BOS,
     ET_OGG_ERROR_EOS,
     ET_OGG_ERROR_EOF,
     ET_OGG_ERROR_SN,
