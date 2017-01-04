@@ -144,6 +144,20 @@ create_status_bar (EtStatusBar *self)
 }
 
 static void
+et_status_bar_finalize (GObject *object)
+{
+    EtStatusBarPrivate *priv;
+
+    priv = et_status_bar_get_instance_private (ET_STATUS_BAR (object));
+
+    if (priv->timer_id)
+    {
+        g_source_remove (priv->timer_id);
+        priv->timer_id = 0;
+    }
+}
+
+static void
 et_status_bar_init (EtStatusBar *self)
 {
     create_status_bar (self);
@@ -152,6 +166,7 @@ et_status_bar_init (EtStatusBar *self)
 static void
 et_status_bar_class_init (EtStatusBarClass *klass)
 {
+    G_OBJECT_CLASS (klass)->finalize = et_status_bar_finalize;
 }
 
 /*
