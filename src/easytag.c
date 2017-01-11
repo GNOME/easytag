@@ -440,7 +440,7 @@ Save_File (ET_File *ETFile, gboolean multiple_files,
         GtkWidget *msgdialog_check_button = NULL;
         gint response;
 
-        if (g_settings_get_boolean (MainSettings, "confirm-rename-file")
+        if (g_settings_get_boolean (MainSettings, "confirm-write-tags")
             && !SF_HideMsgbox_Write_Tag)
         {
             // ET_Display_File_Data_To_UI(ETFile);
