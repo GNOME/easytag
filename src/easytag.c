@@ -973,8 +973,8 @@ Read_Directory (const gchar *path_real)
         et_application_window_file_area_clear (ET_APPLICATION_WINDOW (MainWindow));
         et_application_window_tag_area_clear (ET_APPLICATION_WINDOW (MainWindow));
 
-	/* Translators: No files, as in "0 files". */
         et_application_window_browser_label_set_text (ET_APPLICATION_WINDOW (MainWindow),
+                                                      /* Translators: No files, as in "0 files". */
                                                       _("No files")); /* See in ET_Display_Filename_To_UI */
 
         /* Prepare message for the status bar */
