@@ -140,12 +140,6 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
 #endif
 }
 
-static void
-et_on_child_exited (GPid pid, gint status, gpointer user_data)
-{
-    g_spawn_close_pid (pid);
-}
-
 /*
  * Run a program with a list of parameters
  *  - args_list : list of filename (with path)
@@ -160,8 +154,8 @@ et_run_program (const gchar *program_name,
     gchar **program_args_argv = NULL;
     guint n_program_args = 0;
     gsize i;
-    GPid pid;
     gchar **argv;
+    GSubprocess *subprocess;
     GList *l;
     gchar *program_path;
     gboolean res = FALSE;
@@ -252,13 +246,12 @@ et_run_program (const gchar *program_name,
     argv[i] = NULL;
 
     /* Execution ... */
-    if (g_spawn_async (NULL, argv, NULL,
-                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                       NULL, NULL, &pid, error))
+    if ((subprocess = g_subprocess_newv ((const gchar * const *)argv,
+                                         G_SUBPROCESS_FLAGS_NONE, error)))
     {
-        g_child_watch_add (pid, et_on_child_exited, NULL);
-
         res = TRUE;
+        /* There is no need to watch to see if the child process exited. */
+        g_object_unref (subprocess);
     }
 
     g_strfreev (program_args_argv);
