@@ -1113,8 +1113,9 @@ ogg_tag_write_file_tag (const ET_File *ETFile,
         convert_to_byte_array (pic->height, array);
         add_to_guchar_str (ustring, &ustring_len, array, 4);
 
-        /* GdkPicbuf only supports images with 8 bits per sample. */
-        convert_to_byte_array (8, array);
+        /* TODO: Determine the depth per pixel by querying the pixbuf to see
+         * whether an alpha channel is present. */
+        convert_to_byte_array (0, array);
         add_to_guchar_str (ustring, &ustring_len, array, 4);
 
         /* Non-indexed images should set this to zero. */
