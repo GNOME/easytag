@@ -1110,7 +1110,7 @@ et_browser_select_dir (EtBrowser *self,
 
     while (parts[index]) // it is NULL-terminated
     {
-        if (parts[index] == '\0')
+        if (*parts[index] == '\0')
         {
             index++;
             continue;
