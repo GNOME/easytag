@@ -260,7 +260,7 @@ msgstr "Cerca"
 
 #: ../data/cddb_dialog.ui.h:3
 msgid "Enter the words to search (separated by a space or ‘+’)"
-msgstr "Entreu les paraules a cercar (separades per un espai o «+»)"
+msgstr "Introduïu les paraules a cercar (separades per un espai o «+»)"
 
 #: ../data/cddb_dialog.ui.h:4
 msgid "_Search"
@@ -653,7 +653,7 @@ msgstr "_Mostra l'escàner"
 
 #: ../data/menus.ui.h:23
 msgid "Scanner Mode"
-msgstr "Mode de escàner"
+msgstr "Mode d'escàner"
 
 #: ../data/menus.ui.h:25
 msgid "Rename Files and Directories"
@@ -661,7 +661,7 @@ msgstr "Canvia el nom a fitxers i directoris"
 
 #: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:109
 msgid "Process Fields"
-msgstr "Processa el camps"
+msgstr "Processa els camps"
 
 #: ../data/menus.ui.h:27 ../data/toolbar.ui.h:19
 msgid "Directory Tree"
@@ -2071,7 +2071,7 @@ msgstr "Tot en minúscules"
 msgid ""
 "Whether to lower-case all characters of the tag when processing tag fields"
 msgstr ""
-"Si escriure en minúscules totes els caràcters de l'etiqueta quan s'estiguin "
+"Si escriure en minúscules tots els caràcters de l'etiqueta quan s'estiguin "
 "processant els camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:83
@@ -2107,7 +2107,7 @@ msgid ""
 "processing tag fields"
 msgstr ""
 "Si detectar nombres romans quan s'estiguin aplicant les conversions a "
-"majúscules mentre es processen el camps d'etiqueta"
+"majúscules mentre es processen els camps d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
@@ -2888,7 +2888,7 @@ msgstr "Màscara del nom de fitxer de llista de reproducció"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:140
 msgid "The default filename mask to use for a new playlist"
 msgstr ""
-"La màscara predeterminada de fitxer a usar per a una nova llist de "
+"La màscara predeterminada de fitxer a usar per a una nova llista de "
 "reproducció"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:141
@@ -2980,7 +2980,7 @@ msgid ""
 "The default mask to use when automatically filling tags with information "
 "from filenames"
 msgstr ""
-"La màscara predeterminada a usar quan s'estiguin omplin automàticament les "
+"La màscara predeterminada a usar quan s'estiguin omplint automàticament les "
 "etiquetes amb informació sobre noms de fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:163
@@ -3719,7 +3719,7 @@ msgstr "Canvi de nom del fitxer i del directori"
 
 #: ../src/easytag.c:556
 msgid "File and directory rename confirmation required"
-msgstr "Canvi de nom del fitxer i del directori requerides"
+msgstr "Confirmació requerida pel canvi de nom de directori i fitxer"
 
 #: ../src/easytag.c:557
 #, c-format
@@ -3728,7 +3728,7 @@ msgstr "Voleu canviar el nom del fitxer i del directori «%s» a «%s»?"
 
 #: ../src/easytag.c:563
 msgid "Directory rename confirmation required"
-msgstr "Canvi de nom del directori requerida"
+msgstr "Confirmació requerida pel canvi de nom del directori"
 
 #: ../src/easytag.c:564
 #, c-format
