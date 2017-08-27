@@ -857,7 +857,7 @@ msgstr "Mostra els directoris ocults"
 
 #: ../data/menus.ui.h:75
 msgid "_Browser"
-msgstr "_Navega"
+msgstr "_Navegador"
 
 #: ../data/menus.ui.h:76
 msgid "Set _Current Path as Default"
