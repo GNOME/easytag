@@ -558,7 +558,7 @@ msgid ""
 "used to add cover art and other related images to the audio file."
 msgstr ""
 "La majoria dels formats de fitxer d'àudio poden incloure una <sys>imatge</"
-"sys> a l'etiqueta que s'utilitza per desar la caràtula o qualsevol altre "
+"sys> a l'etiqueta que s'utilitza per desar la caràtula o qualsevol altra "
 "imatge relacionada amb el fitxer."
 
 #. (itstool) path: page/p
@@ -795,7 +795,7 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">Generate Playlist…</gui></guiseq>."
 msgstr ""
-"Seleccioneu <guiseq><gui style=\"menu\">Miscel·lania</gui> <gui style="
+"Seleccioneu <guiseq><gui style=\"menu\">Miscel·lània</gui> <gui style="
 "\"menuitem\">Crea llista de reproducció…</gui></guiseq>."
 
 #. (itstool) path: item/p
@@ -1027,7 +1027,7 @@ msgstr ""
 "múltiples, per això la configuració per defecte desa cada entrada com a un "
 "únic camp. Si l'aplicació que utilitzeu pot llegir camps múltiples d'un "
 "mateix tipus, podeu configurar l'EasyTAG per què separi els camps quan desi "
-"un fitxer. Els camps es separaran automàticament allà on aparegui el "
+"un fitxer. Els camps se separaran automàticament allà on aparegui el "
 "caràcter \" - \". Per exemple, si el camp conté \"David Bowie - Queen\", es "
 "desaran dos camps d'artista:  \"David Bowie\" i \"Queen\"."
 
