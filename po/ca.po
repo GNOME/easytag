@@ -6,11 +6,13 @@
 # Gil Forcada <gilforcada@guifi.net>, 2013.
 # Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2015.
 # Walter Garcia-Fontes <walter.garcia@upf.edu>, 2016.
+# Jordi Serratosa <jordis@softcatala.cat>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 18:35+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=easytag&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-08-27 17:26+0000\n"
 "PO-Revision-Date: 2016-12-19 14:31+0100\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <Catalan <info@softcatala.org>>\n"
@@ -88,6 +90,7 @@ msgstr "_Obre"
 msgid "Select a directory to browse"
 msgstr "Selecciona un directori per navegar"
 
+#. Translators: No files, as in "0 files".
 #: ../data/browser.ui.h:4 ../src/easytag.c:978
 msgid "No files"
 msgstr "Cap fitxer"
@@ -3228,7 +3231,7 @@ msgstr "S'han suprimit totes les etiquetes"
 #: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
 #, c-format
 msgid "Failed to launch program ‘%s’"
-msgstr "Fallada en llançar el programa «%s»"
+msgstr "No s'ha pogut executar el programa «%s»"
 
 #: ../src/application_window.c:1987
 #, c-format
@@ -3947,11 +3950,11 @@ msgstr "Mou amunt aquesta línia"
 msgid "Move this line down"
 msgstr "Mou avall aquesta línia"
 
-#: ../src/misc.c:182
+#: ../src/misc.c:176
 msgid "You must type a program name"
 msgstr "Us cal escriure el nom del programa"
 
-#: ../src/misc.c:183
+#: ../src/misc.c:177
 msgid "Program Name Error"
 msgstr "Error al nom del programa"
 
@@ -4730,7 +4733,7 @@ msgstr "Fallada lògica interna, indica un error o corrupció a la memòria/pila
 #: ../src/tags/ogg_header.c:325
 #, c-format
 msgid "Failed to open file as Vorbis: %s"
-msgstr "Fallada en obrir el fitxer com Vorbis: «%s»"
+msgstr "No s'ha pogut obrir el fitxer com Vorbis: «%s»"
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
