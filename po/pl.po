@@ -1,19 +1,19 @@
 # Polish translation for easytag.
-# Copyright © 2002-2016 the easytag authors.
+# Copyright © 2002-2017 the easytag authors.
 # This file is distributed under the same license as the easytag package.
 # Maciej Kasprzyk <kapsrzol@o2.pl>, 2002.
 # Artur Polaczyński <artii@o2.pl>, 2003-2004.
 # Tomasz Sałaciński <tsalacinski@gmail.com>, 2007.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2007-2012.
-# Piotr Drąg <piotrdrag@gmail.com>, 2012-2016.
-# Aviary.pl <community-poland@mozilla.org>, 2012-2016.
+# Piotr Drąg <piotrdrag@gmail.com>, 2012-2017.
+# Aviary.pl <community-poland@mozilla.org>, 2012-2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-15 05:07+0100\n"
-"PO-Revision-Date: 2016-12-15 05:08+0100\n"
+"POT-Creation-Date: 2017-10-09 22:39+0200\n"
+"PO-Revision-Date: 2017-10-09 22:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -89,7 +89,8 @@ msgstr "_Otwórz"
 msgid "Select a directory to browse"
 msgstr "Wybór katalogu do przeglądania"
 
-#: ../data/browser.ui.h:4 ../src/easytag.c:993
+#. Translators: No files, as in "0 files".
+#: ../data/browser.ui.h:4 ../src/easytag.c:978
 msgid "No files"
 msgstr "Brak plików"
 
@@ -2368,7 +2369,7 @@ msgstr "Adres URL z tego pola zostanie wstawiony do zaznaczonych plików"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
-msgstr "Skompresowany przez:"
+msgstr "Koder:"
 
 #: ../data/tag_area.ui.h:30
 msgid "Tag selected files with this encoder name"
@@ -3114,8 +3115,8 @@ msgstr ""
 "Artur Polaczyński <artii@o2.pl>, 2003-2004\n"
 "Tomasz Sałaciński <tsalacinski@gmail.com>, 2007\n"
 "Michał Smoczyk <msmoczyk@wp.pl>, 2007-2012\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2012-2016\n"
-"Aviary.pl <community-poland@mozilla.org>, 2012-2016"
+"Piotr Drąg <piotrdrag@gmail.com>, 2012-2017\n"
+"Aviary.pl <community-poland@mozilla.org>, 2012-2017"
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
@@ -3998,11 +3999,11 @@ msgstr "Przesuń ten wiersz do góry"
 msgid "Move this line down"
 msgstr "Przesuń ten wiersz w dół"
 
-#: ../src/misc.c:182
+#: ../src/misc.c:176
 msgid "You must type a program name"
 msgstr "Należy wprowadzić nazwę programu"
 
-#: ../src/misc.c:183
+#: ../src/misc.c:177
 msgid "Program Name Error"
 msgstr "Błąd nazwy programu"
 
