@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-26 06:38+0000\n"
+"POT-Creation-Date: 2017-10-22 13:02+0000\n"
 "PO-Revision-Date: 2017-10-18 14:43+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -266,8 +266,7 @@ msgstr "Søg"
 
 #: ../data/cddb_dialog.ui.h:3
 msgid "Enter the words to search (separated by a space or ‘+’)"
-msgstr ""
-"Indtast ordene der skal søges efter (adskilt med mellemrum eller \"+\")"
+msgstr "Indtast ordene der skal søges efter (adskilt med mellemrum eller “+”)"
 
 #: ../data/cddb_dialog.ui.h:4
 msgid "_Search"
@@ -373,7 +372,7 @@ msgstr ""
 "Vælg linjer, hvorfra mærker skal anvendes på din filliste. Bemærk at alle "
 "linjer vil blive behandlet, hvis der ikke er valgt nogen linjer.\n"
 "Du kan også ændre rækkefølgen på linjer i denne liste, før du klikker "
-"knappen \"anvend\""
+"knappen “anvend”"
 
 #. Translators: column header for track number.
 #: ../data/cddb_dialog.ui.h:32
@@ -1223,7 +1222,7 @@ msgstr "Små bogstaver"
 
 #: ../data/preferences_dialog.ui.h:36
 msgid "For example, the extension will be converted to ‘.mp3’"
-msgstr "For eksempel vil filendelsen blive konverteret til \".mp3\""
+msgstr "For eksempel vil filendelsen blive konverteret til “.mp3”"
 
 #: ../data/preferences_dialog.ui.h:37
 msgid "Upper Case"
@@ -1231,7 +1230,7 @@ msgstr "Store bogstaver"
 
 #: ../data/preferences_dialog.ui.h:38
 msgid "For example, the extension will be converted to ‘.MP3’"
-msgstr "For eksempel vil filendelsen blive konverteret til \".MP3\""
+msgstr "For eksempel vil filendelsen blive konverteret til “.MP3”"
 
 #: ../data/preferences_dialog.ui.h:39
 msgid "No Change"
@@ -1582,12 +1581,12 @@ msgstr "Mærkeudfyldningsskanner"
 #: ../data/preferences_dialog.ui.h:115
 #, no-c-format
 msgid "Convert underscores and ‘%20’ to spaces"
-msgstr "Konvertér bundstreger og \"%20\" til mellemrum"
+msgstr "Konvertér bundstreger og “%20” til mellemrum"
 
 #: ../data/preferences_dialog.ui.h:117
 #, no-c-format
 msgid "Convert spaces and ‘%20’ to underscores"
-msgstr "Konvertér mellemrum og \"%20\" til bundstreg"
+msgstr "Konvertér mellemrum og “%20” til bundstreg"
 
 #: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
@@ -1620,7 +1619,7 @@ msgid ""
 "and other short words such as “feat.”, when processing tag fields"
 msgstr ""
 "Om hvert ords forbogstaver skal være store, inklusive forholdsord og andre "
-"korte ord såsom \"feat.\", ved behandling af mærkefelter"
+"korte ord såsom “feat.”, ved behandling af mærkefelter"
 
 #: ../data/preferences_dialog.ui.h:126
 msgid "Fields"
@@ -1953,7 +1952,7 @@ msgid ""
 msgstr ""
 "Vælg eller indtast en maske vha. koder (se signatur) til at fortolke "
 "mærkefelter. Brugt til at omdøbe filen.\n"
-"Anvend \"/\" til at lave mapper. Hvis det første tegn er \"/\", er det en "
+"Anvend “/” til at lave mapper. Hvis det første tegn er “/”, er det en "
 "absolut sti, ellers er den relativ til den gamle sti"
 
 #: ../data/scan_dialog.ui.h:51
@@ -2125,7 +2124,7 @@ msgstr "Tegnkonverteringer"
 #: ../data/scan_dialog.ui.h:100 ../src/tag_area.c:850
 #, no-c-format
 msgid "Convert ‘_’ and ‘%20’ to spaces"
-msgstr "Konvertér \"_\" og \"%20\" til mellemrum"
+msgstr "Konvertér “_” og “%20” til mellemrum"
 
 #: ../data/scan_dialog.ui.h:102
 #, no-c-format
@@ -2133,8 +2132,8 @@ msgid ""
 "The underscore character or the string ‘%20’ is replaced by one space. "
 "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
 msgstr ""
-"Bundstregstegnet eller strengen \"%20\" erstattes med et mellemrum. F.eks. "
-"før: \"Tekst%20i%20et_felt\", efter: \"Tekst i et felt\"."
+"Bundstregstegnet eller strengen “%20” erstattes med et mellemrum. F.eks. "
+"før: “Tekst%20i%20et_felt”, efter: “Tekst i et felt”."
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:856
 msgid "Convert spaces to underscores"
@@ -2145,8 +2144,8 @@ msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
 msgstr ""
-"Mellemrumstegnet erstattes med en bundstreg. F.eks.: før: \"Tekst i et felt"
-"\", efter: \"Tekst_i_et_felt\"."
+"Mellemrumstegnet erstattes med en bundstreg. F.eks.: før: “Tekst i et felt”, "
+"efter: “Tekst_i_et_felt”."
 
 #: ../data/scan_dialog.ui.h:105
 msgid "Convert:"
@@ -3088,12 +3087,12 @@ msgstr "Starter EasyTAG version %s …"
 #: ../src/application.c:182
 #, c-format
 msgid "Setting locale: ‘%s’"
-msgstr "Indstiller region: \"%s\""
+msgstr "Indstiller region: “%s”"
 
 #: ../src/application.c:188
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
-msgstr "Systemregionen er \"%s\"; bruger \"%s\""
+msgstr "Systemregionen er “%s”; bruger “%s”"
 
 #: ../src/application.c:193
 msgid "Unable to create setting directories"
@@ -3111,17 +3110,17 @@ msgstr "– Mærk og omdøb lydfiler"
 #: ../src/application.c:429 ../src/file_list.c:435
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
-msgstr "Fejl ved forespørgsel om information for filen \"%s\": %s"
+msgstr "Fejl ved forespørgsel om information for filen “%s”: %s"
 
 #: ../src/application.c:478 ../src/application.c:485
 #, c-format
 msgid "Cannot open path ‘%s’"
-msgstr "Kan ikke åbne stien \"%s\""
+msgstr "Kan ikke åbne stien “%s”"
 
 #: ../src/application_window.c:361 ../src/application_window.c:378
 #, c-format
 msgid "Do you really want to delete the file ‘%s’?"
-msgstr "Vil du virkelig slette filen \"%s\"?"
+msgstr "Vil du virkelig slette filen “%s”?"
 
 #: ../src/application_window.c:364 ../src/easytag.c:459 ../src/easytag.c:592
 msgid "Repeat action for the remaining files"
@@ -3142,12 +3141,12 @@ msgstr "Slet fil"
 #: ../src/application_window.c:407
 #, c-format
 msgid "File ‘%s’ deleted"
-msgstr "Filen \"%s\" slettet"
+msgstr "Filen “%s” slettet"
 
 #: ../src/application_window.c:582
 #, c-format
 msgid "Cannot delete file ‘%s’"
-msgstr "Kan ikke slette filen \"%s\""
+msgstr "Kan ikke slette filen “%s”"
 
 #: ../src/application_window.c:606
 msgid "Some files were not deleted"
@@ -3165,13 +3164,13 @@ msgstr "Alle mærker er blevet fjernet"
 #: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
 #, c-format
 msgid "Failed to launch program ‘%s’"
-msgstr "Kunne ikke køre programmet \"%s\""
+msgstr "Kunne ikke køre programmet “%s”"
 
 #: ../src/application_window.c:1987
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
 msgstr ""
-"Kunne ikke konvertere filnavnet \"%s\" til systemets kodning for filnavne"
+"Kunne ikke konvertere filnavnet “%s” til systemets kodning for filnavne"
 
 #: ../src/application_window.c:1990
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
@@ -3212,7 +3211,7 @@ msgstr "%d Hz"
 #: ../src/application_window.c:2344 ../src/easytag.c:911
 #, c-format
 msgid "File: ‘%s’"
-msgstr "Fil: \"%s\""
+msgstr "Fil: “%s”"
 
 #. Quit EasyTAG.
 #: ../src/application_window.c:2978
@@ -3263,7 +3262,7 @@ msgstr "Vælg mappe"
 #: ../src/browser.c:4144
 #, c-format
 msgid "Rename the directory ‘%s’ to:"
-msgstr "Omdøb mappen \"%s\" til:"
+msgstr "Omdøb mappen “%s” til:"
 
 #: ../src/browser.c:4280
 msgid "You must type a directory name"
@@ -3276,7 +3275,7 @@ msgstr "Fejl i mappenavn"
 #: ../src/browser.c:4299
 #, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
-msgstr "Kunne ikke konvertere \"%s\" til filnavnskodning"
+msgstr "Kunne ikke konvertere “%s” til filnavnskodning"
 
 #: ../src/browser.c:4302
 msgid "Please use another name."
@@ -3285,7 +3284,7 @@ msgstr "Brug venligst et andet navn."
 #: ../src/browser.c:4374
 #, c-format
 msgid "The directory name ‘%s’ already exists."
-msgstr "Mappenavnet \"%s\" findes allerede."
+msgstr "Mappenavnet “%s” findes allerede."
 
 #: ../src/browser.c:4375 ../src/easytag.c:650
 msgid "Rename File Error"
@@ -3302,7 +3301,7 @@ msgstr "Mappe omdøbt"
 #: ../src/browser.c:4632 ../src/browser.c:4707
 #, c-format
 msgid "Executed command ‘%s’"
-msgstr "Kørte kommando: \"%s\""
+msgstr "Kørte kommando: “%s”"
 
 #: ../src/cddb_dialog.c:280
 #, c-format
@@ -3310,18 +3309,18 @@ msgid ""
 "Album: ‘%s’, artist: ‘%s’, length: ‘%s’, year: ‘%s’, genre: ‘%s’, disc ID: "
 "‘%s’"
 msgstr ""
-"Album: \"%s\", kunstner: \"%s\", længde: \"%s\", år: \"%s\", genre: \"%s\", "
-"disk-id: \"%s\""
+"Album: “%s”, kunstner: “%s”, længde: “%s”, år: “%s”, genre: “%s”, disk-id: "
+"“%s”"
 
 #: ../src/cddb_dialog.c:718
 #, c-format
 msgid "Cannot resolve host: ‘%s’: %s"
-msgstr "Kunne ikke slå værtsnavnet \"%s\" op: %s"
+msgstr "Kunne ikke slå værtsnavnet “%s” op: %s"
 
 #: ../src/cddb_dialog.c:724
 #, c-format
 msgid "Cannot connect to host: ‘%s’: %s"
-msgstr "Kan ikke forbinde til værten \"%s\": %s"
+msgstr "Kan ikke forbinde til værten “%s”: %s"
 
 #. Send the request.
 #: ../src/cddb_dialog.c:797 ../src/cddb_dialog.c:1352 ../src/cddb_dialog.c:1640
@@ -3331,7 +3330,7 @@ msgstr "Sender anmodning …"
 #: ../src/cddb_dialog.c:841
 #, c-format
 msgid "The server returned a bad response ‘%s’"
-msgstr "Serveren returnerede et forkert svar: \"%s\""
+msgstr "Serveren returnerede et forkert svar: “%s”"
 
 #. Load the track list of the album
 #: ../src/cddb_dialog.c:1035
@@ -3416,8 +3415,8 @@ msgstr "Sender anmodning (disk-id: %s, #spor: %u, disklængde: %u) …"
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
-msgstr[0] "DiscID \"%s\" gav et matchende album"
-msgstr[1] "DiscID \"%s\" gav %u matchende albummer"
+msgstr[0] "DiscID “%s” gav et matchende album"
+msgstr[1] "DiscID “%s” gav %u matchende albummer"
 
 #: ../src/charset.c:46
 msgid "Arabic (IBM-864)"
@@ -3603,7 +3602,7 @@ msgstr "Vestlig (Windows-1252)"
 #: ../src/charset.c:576
 #, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
-msgstr "UTF-8 strengen \"%s\" kunne ikke konverteres til filnavnstegnsæt: %s"
+msgstr "UTF-8 strengen “%s” kunne ikke konverteres til filnavnstegnsæt: %s"
 
 #: ../src/charset.c:577
 msgid "Invalid UTF-8"
@@ -3612,7 +3611,7 @@ msgstr "Ugyldig UTF-8"
 #: ../src/charset.c:634
 #, c-format
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
-msgstr "Strengen \"%s\" kunne ikke konverteres til UTF-8: %s"
+msgstr "Strengen “%s” kunne ikke konverteres til UTF-8: %s"
 
 #: ../src/easytag.c:229
 #, c-format
@@ -3636,7 +3635,7 @@ msgstr "Alle filer er blevet gemt"
 #: ../src/easytag.c:452
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
-msgstr "Vil du skrive mærket på filen \"%s\"?"
+msgstr "Vil du skrive mærket på filen “%s”?"
 
 #: ../src/easytag.c:454
 msgid "Confirm Tag Writing"
@@ -3654,7 +3653,7 @@ msgstr "Bekræftelse af fil- og mappeomdøbning er krævet"
 #: ../src/easytag.c:557
 #, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
-msgstr "Vil du omdøbe filen og mappen \"%s\" til \"%s\"?"
+msgstr "Vil du omdøbe filen og mappen “%s” til “%s”?"
 
 #: ../src/easytag.c:563
 msgid "Directory rename confirmation required"
@@ -3663,7 +3662,7 @@ msgstr "Bekræftelse af mappeomdøbning er krævet"
 #: ../src/easytag.c:564
 #, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
-msgstr "Vil du omdøbe mappen \"%s\" til \"%s\"?"
+msgstr "Vil du omdøbe mappen “%s” til “%s”?"
 
 #: ../src/easytag.c:572
 msgid "File rename confirmation required"
@@ -3672,17 +3671,17 @@ msgstr "Bekræftelse af filomdøbning er krævet"
 #: ../src/easytag.c:573
 #, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
-msgstr "Vil du omdøbe filen \"%s\" til \"%s\"?"
+msgstr "Vil du omdøbe filen “%s” til “%s”?"
 
 #: ../src/easytag.c:643
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
-msgstr "Kan ikke omdøbe filen \"%s\" til \"%s\""
+msgstr "Kan ikke omdøbe filen “%s” til “%s”"
 
 #: ../src/easytag.c:657
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
-msgstr "Kan ikke omdøbe filen \"%s\" til \"%s\": %s"
+msgstr "Kan ikke omdøbe filen “%s” til “%s”: %s"
 
 #: ../src/easytag.c:662
 msgid "File(s) not renamed"
@@ -3691,12 +3690,12 @@ msgstr "Ingen omdøbning udført"
 #: ../src/easytag.c:724
 #, c-format
 msgid "Writing tag of ‘%s’"
-msgstr "Skriver mærke for \"%s\""
+msgstr "Skriver mærke for “%s”"
 
 #: ../src/easytag.c:732
 #, c-format
 msgid "Wrote tag of ‘%s’"
-msgstr "Skrev mærke for \"%s\""
+msgstr "Skrev mærke for “%s”"
 
 #: ../src/easytag.c:752
 msgid ""
@@ -3728,7 +3727,7 @@ msgstr ""
 #: ../src/easytag.c:780
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
-msgstr "Kan ikke skrive mærke til filen \"%s\""
+msgstr "Kan ikke skrive mærke til filen “%s”"
 
 #: ../src/easytag.c:785
 msgid "Tag Write Error"
@@ -3737,7 +3736,7 @@ msgstr "Skriv mærke-fejl"
 #: ../src/easytag.c:861 ../src/easytag.c:1095
 #, c-format
 msgid "Cannot read directory ‘%s’"
-msgstr "Kan ikke læse mappen \"%s\""
+msgstr "Kan ikke læse mappen “%s”"
 
 #: ../src/easytag.c:865
 msgid "Directory Read Error"
@@ -3774,7 +3773,7 @@ msgstr "Ingen filer fundet i denne mappe"
 #: ../src/easytag.c:1060
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
-msgstr "Fejl ved åbning af mappen \"%s\": %s"
+msgstr "Fejl ved åbning af mappen “%s”: %s"
 
 #: ../src/easytag.c:1115
 msgid "Searching for audio files…"
@@ -3795,7 +3794,7 @@ msgstr "Fil ikke fundet"
 #: ../src/file_area.c:249 ../src/load_files_dialog.c:232
 #, c-format
 msgid "Cannot query file information ‘%s’"
-msgstr "Kan ikke forespørge filinformation \"%s\""
+msgstr "Kan ikke forespørge filinformation “%s”"
 
 #: ../src/file_area.c:283
 msgid "Read-only file"
@@ -3804,37 +3803,37 @@ msgstr "Skrivebeskyttet fil"
 #: ../src/file_list.c:245
 #, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
-msgstr "Fejl ved læsning af ID3-mærke fra filen \"%s\": %s"
+msgstr "Fejl ved læsning af ID3-mærke fra filen “%s”: %s"
 
 #: ../src/file_list.c:256
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
-msgstr "Fejl ved læsning af mærke fra ogg-filen \"%s\": %s"
+msgstr "Fejl ved læsning af mærke fra ogg-filen “%s”: %s"
 
 #: ../src/file_list.c:267
 #, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
-msgstr "Fejl ved læsning af mærke fra FLAC-filen \"%s\": %s"
+msgstr "Fejl ved læsning af mærke fra FLAC-filen “%s”: %s"
 
 #: ../src/file_list.c:277
 #, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
-msgstr "Fejl ved læsning af APE-mærke fra filen \"%s\": %s"
+msgstr "Fejl ved læsning af APE-mærke fra filen “%s”: %s"
 
 #: ../src/file_list.c:287
 #, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
-msgstr "Fejl ved læsning af mærke fra mp4-filen \"%s\": %s"
+msgstr "Fejl ved læsning af mærke fra mp4-filen “%s”: %s"
 
 #: ../src/file_list.c:298
 #, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
-msgstr "Fejl ved læsning af mærke fra WavPack-filen \"%s\": %s"
+msgstr "Fejl ved læsning af mærke fra WavPack-filen “%s”: %s"
 
 #: ../src/file_list.c:309
 #, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
-msgstr "Fejl ved læsning af mærke fra Opus-filen \"%s\": %s"
+msgstr "Fejl ved læsning af mærke fra Opus-filen “%s”: %s"
 
 #: ../src/file_list.c:345
 #, c-format
@@ -3842,23 +3841,23 @@ msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
 "be lost when saving"
 msgstr ""
-"Årværdien \"%s\" synes at være ugyldig i filen \"%s\". Informationen vil gå "
-"tabt når filen gemmes"
+"Årværdien “%s” synes at være ugyldig i filen “%s”. Informationen vil gå tabt "
+"når filen gemmes"
 
 #: ../src/file_list.c:501
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
-msgstr "Automatiske rettelser foretaget for filen \"%s\""
+msgstr "Automatiske rettelser foretaget for filen “%s”"
 
 #: ../src/load_files_dialog.c:272 ../src/setting.c:329
 #, c-format
 msgid "Cannot open file ‘%s’: %s"
-msgstr "Kan ikke åbne filen \"%s\": %s"
+msgstr "Kan ikke åbne filen “%s”: %s"
 
 #: ../src/load_files_dialog.c:302
 #, c-format
 msgid "Error reading file ‘%s’"
-msgstr "Fejl ved læsning af filen \"%s\""
+msgstr "Fejl ved læsning af filen “%s”"
 
 #: ../src/load_files_dialog.c:742 ../src/load_files_dialog.c:845
 msgid "Insert a blank line"
@@ -3876,11 +3875,11 @@ msgstr "Flyt denne linje op"
 msgid "Move this line down"
 msgstr "Flyt denne linje ned"
 
-#: ../src/misc.c:182
+#: ../src/misc.c:176
 msgid "You must type a program name"
 msgstr "Du skal indtaste et programnavn"
 
-#: ../src/misc.c:183
+#: ../src/misc.c:177
 msgid "Program Name Error"
 msgstr "Programnavn-fejl"
 
@@ -3997,7 +3996,7 @@ msgstr "Input er afkortet eller tomt"
 #: ../src/playlist_dialog.c:530
 #, c-format
 msgid "Cannot write playlist file ‘%s’"
-msgstr "Kan ikke skrive afspilningslistefilen \"%s\""
+msgstr "Kan ikke skrive afspilningslistefilen “%s”"
 
 #: ../src/playlist_dialog.c:534
 msgid "Playlist File Error"
@@ -4006,7 +4005,7 @@ msgstr "Afspilningslistefil-fejl"
 #: ../src/playlist_dialog.c:542
 #, c-format
 msgid "Wrote playlist file ‘%s’"
-msgstr "Skrev afspilningslistefil \"%s\""
+msgstr "Skrev afspilningslistefil “%s”"
 
 #: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2639
 #: ../src/scan_dialog.c:2702
@@ -4023,7 +4022,7 @@ msgid ""
 "Path: ‘%s’\n"
 "Error: %s"
 msgstr ""
-"Sti: \"%s\"\n"
+"Sti: “%s”\n"
 "Fejl: %s"
 
 #: ../src/preferences_dialog.c:870
@@ -4033,7 +4032,7 @@ msgstr "Ugyldig stifejl"
 #: ../src/scan_dialog.c:432
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
-msgstr "Kan ikke beregne CRC-værdi for filen \"%s\""
+msgstr "Kan ikke beregne CRC-værdi for filen “%s”"
 
 #: ../src/scan_dialog.c:447
 msgid "Tag successfully scanned"
@@ -4042,22 +4041,22 @@ msgstr "Mærke blev skannet"
 #: ../src/scan_dialog.c:450
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
-msgstr "Mærke blev skannet: \"%s\""
+msgstr "Mærke blev skannet: “%s”"
 
 #: ../src/scan_dialog.c:493
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
-msgstr "Filendelsen \"%s\" blev ikke fundet i filnavnet \"%s\""
+msgstr "Filendelsen “%s” blev ikke fundet i filnavnet “%s”"
 
 #: ../src/scan_dialog.c:585 ../src/scan_dialog.c:616
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
-msgstr "Kan ikke finde adskiller \"%s\" i \"%s\""
+msgstr "Kan ikke finde adskiller “%s” i “%s”"
 
 #: ../src/scan_dialog.c:844
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
-msgstr "Kunne ikke konvertere filnavnet \"%s\" til systemets filnavnskodning"
+msgstr "Kunne ikke konvertere filnavnet “%s” til systemets filnavnskodning"
 
 #: ../src/scan_dialog.c:870
 msgid "New filename successfully scanned"
@@ -4066,12 +4065,12 @@ msgstr "Nyt filnavn skannet"
 #: ../src/scan_dialog.c:874
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
-msgstr "Nyt filnavn skannet: \"%s\""
+msgstr "Nyt filnavn skannet: “%s”"
 
 #: ../src/scan_dialog.c:1243
 #, c-format
 msgid "Error while processing fields ‘%s’"
-msgstr "Fejl ved behandling af felter \"%s\""
+msgstr "Fejl ved behandling af felter “%s”"
 
 # engelsk fejl? manglende mellemrum?
 #: ../src/scan_dialog.c:2119
@@ -4096,17 +4095,17 @@ msgstr "Klar til at søge …"
 #: ../src/setting.c:246
 #, c-format
 msgid "Cannot write list to file ‘%s’: %s"
-msgstr "Kan ikke skrive liste til filen \"%s\": %s"
+msgstr "Kan ikke skrive liste til filen “%s”: %s"
 
 #. Fall back to defaults.
 #: ../src/setting.c:352
 msgid "Loading default ‘Fill Tag’ masks…"
-msgstr "Indlæser standardmasker for \"Udfyld mærke\" …"
+msgstr "Indlæser standardmasker for “Udfyld mærke” …"
 
 #. Fall back to defaults.
 #: ../src/setting.c:382
 msgid "Loading default ‘Rename File’ masks…"
-msgstr "Indlæser standardmasker for \"Omdøb fil\" …"
+msgstr "Indlæser standardmasker for “Omdøb fil” …"
 
 #: ../src/status_bar.c:143
 msgid "Ready to start"
@@ -4115,7 +4114,7 @@ msgstr "Klar til at starte"
 #: ../src/tag_area.c:169
 #, c-format
 msgid "Selected files tagged with title ‘%s’"
-msgstr "Valgte filer mærket med titlen \"%s\"."
+msgstr "Valgte filer mærket med titlen “%s”."
 
 #: ../src/tag_area.c:174
 msgid "Removed title from selected files"
@@ -4124,7 +4123,7 @@ msgstr "Fjernede titel fra de valgte filer"
 #: ../src/tag_area.c:192
 #, c-format
 msgid "Selected files tagged with artist ‘%s’"
-msgstr "Valgte filer mærket med kunstneren \"%s\"."
+msgstr "Valgte filer mærket med kunstneren “%s”."
 
 #: ../src/tag_area.c:197
 msgid "Removed artist from selected files"
@@ -4133,7 +4132,7 @@ msgstr "Fjernede kunstner fra de valgte filer"
 #: ../src/tag_area.c:215
 #, c-format
 msgid "Selected files tagged with album artist ‘%s’"
-msgstr "Valgte filer mærket med kunstneren \"%s\""
+msgstr "Valgte filer mærket med kunstneren “%s”"
 
 #: ../src/tag_area.c:220
 msgid "Removed album artist from selected files"
@@ -4142,7 +4141,7 @@ msgstr "Fjernede albumkunstner fra de valgte filer"
 #: ../src/tag_area.c:238
 #, c-format
 msgid "Selected files tagged with album ‘%s’"
-msgstr "Valgte filer mærket med albummet \"%s\"."
+msgstr "Valgte filer mærket med albummet “%s”."
 
 #: ../src/tag_area.c:243
 msgid "Removed album name from selected files"
@@ -4151,12 +4150,12 @@ msgstr "Fjernede albumnavn fra de valgte filer"
 #: ../src/tag_area.c:281
 #, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
-msgstr "Valgte filer mærket med disknummeret \"%s/%s\""
+msgstr "Valgte filer mærket med disknummeret “%s/%s”"
 
 #: ../src/tag_area.c:288
 #, c-format
 msgid "Selected files tagged with disc number like ‘xx’"
-msgstr "Valgte filer mærket med disknummer i stil med \"xx\""
+msgstr "Valgte filer mærket med disknummer i stil med “xx”"
 
 #: ../src/tag_area.c:293
 msgid "Removed disc number from selected files"
@@ -4165,7 +4164,7 @@ msgstr "Fjernede disknummer fra de valgte filer"
 #: ../src/tag_area.c:313
 #, c-format
 msgid "Selected files tagged with year ‘%s’"
-msgstr "Valgte filer mærket med året \"%s\"."
+msgstr "Valgte filer mærket med året “%s”."
 
 #: ../src/tag_area.c:318
 msgid "Removed year from selected files"
@@ -4174,12 +4173,12 @@ msgstr "Fjernede år fra de valgte filer"
 #: ../src/tag_area.c:348 ../src/tag_area.c:453
 #, c-format
 msgid "Selected files tagged with track like ‘xx/%s’"
-msgstr "Valgte filer mærket med spor i stil med \"xx/%s\""
+msgstr "Valgte filer mærket med spor i stil med “xx/%s”"
 
 #: ../src/tag_area.c:352
 #, c-format
 msgid "Selected files tagged with track like ‘xx’"
-msgstr "Valgte filer mærket med spor i stil med \"xx\""
+msgstr "Valgte filer mærket med spor i stil med “xx”"
 
 #: ../src/tag_area.c:357 ../src/tag_area.c:458
 msgid "Removed track number from selected files"
@@ -4194,7 +4193,7 @@ msgstr "Valgte spor givet numre sekventielt"
 #: ../src/tag_area.c:478
 #, c-format
 msgid "Selected files tagged with genre ‘%s’"
-msgstr "Valgte filer mærket med genren \"%s\""
+msgstr "Valgte filer mærket med genren “%s”"
 
 #: ../src/tag_area.c:483
 msgid "Removed genre from selected files"
@@ -4203,7 +4202,7 @@ msgstr "Fjernede genre fra de valgte filer"
 #: ../src/tag_area.c:508
 #, c-format
 msgid "Selected files tagged with comment ‘%s’"
-msgstr "Valgte filer mærket med kommentaren \"%s\""
+msgstr "Valgte filer mærket med kommentaren “%s”"
 
 #: ../src/tag_area.c:513
 msgid "Removed comment from selected files"
@@ -4212,7 +4211,7 @@ msgstr "Fjernede kommentar fra de valgte filer"
 #: ../src/tag_area.c:531
 #, c-format
 msgid "Selected files tagged with composer ‘%s’"
-msgstr "Valgte filer mærket med komponist \"%s\""
+msgstr "Valgte filer mærket med komponist “%s”"
 
 #: ../src/tag_area.c:536
 msgid "Removed composer from selected files"
@@ -4221,7 +4220,7 @@ msgstr "Fjernede komponist fra valgte filer"
 #: ../src/tag_area.c:554
 #, c-format
 msgid "Selected files tagged with original artist ‘%s’"
-msgstr "Valgte filer mærket med den oprindelige kunstner \"%s\""
+msgstr "Valgte filer mærket med den oprindelige kunstner “%s”"
 
 #: ../src/tag_area.c:559
 msgid "Removed original artist from selected files"
@@ -4230,7 +4229,7 @@ msgstr "Fjernede oprindelig kunstner fra valgte filer"
 #: ../src/tag_area.c:577
 #, c-format
 msgid "Selected files tagged with copyright ‘%s’"
-msgstr "Valgte filer mærket med ophavsret \"%s\""
+msgstr "Valgte filer mærket med ophavsret “%s”"
 
 #: ../src/tag_area.c:582
 msgid "Removed copyright from selected files"
@@ -4239,7 +4238,7 @@ msgstr "Fjernede ophavsret fra valgte filer"
 #: ../src/tag_area.c:600
 #, c-format
 msgid "Selected files tagged with URL ‘%s’"
-msgstr "Valgte filer mærket med URL \"%s\"."
+msgstr "Valgte filer mærket med URL “%s”."
 
 #: ../src/tag_area.c:605
 msgid "Removed URL from selected files"
@@ -4248,7 +4247,7 @@ msgstr "Fjernede URL fra valgte filer"
 #: ../src/tag_area.c:623
 #, c-format
 msgid "Selected files tagged with encoder name ‘%s’"
-msgstr "Vælg filer mærker med koder-navn \"%s\"."
+msgstr "Vælg filer mærker med koder-navn “%s”."
 
 #: ../src/tag_area.c:628
 msgid "Removed encoder name from selected files"
@@ -4298,7 +4297,7 @@ msgstr "Fjern al tekst"
 #: ../src/tag_area.c:1273 ../src/tag_area.c:1366
 #, c-format
 msgid "Error parsing image data ‘%s’"
-msgstr "Fejl ved fortolkning af billeddata \"%s\""
+msgstr "Fejl ved fortolkning af billeddata “%s”"
 
 #: ../src/tag_area.c:1348
 msgid ""
@@ -4327,12 +4326,12 @@ msgstr "Indlæs billedfil"
 #: ../src/tag_area.c:1404 ../src/tag_area.c:1429
 #, c-format
 msgid "Image file not loaded ‘%s’"
-msgstr "Billedfil ikke indlæst: \"%s\""
+msgstr "Billedfil ikke indlæst: “%s”"
 
 #: ../src/tag_area.c:1421
 #, c-format
 msgid "Cannot open file ‘%s’"
-msgstr "Kan ikke åbne filen \"%s\""
+msgstr "Kan ikke åbne filen “%s”"
 
 #: ../src/tag_area.c:1425
 msgid "Image File Error"
@@ -4367,7 +4366,7 @@ msgstr "Gem billede %d/%d"
 #: ../src/tag_area.c:1923
 #, c-format
 msgid "Image file not saved ‘%s’"
-msgstr "Billedfil ikke gemt: \"%s\""
+msgstr "Billedfil ikke gemt: “%s”"
 
 #: ../src/tag_area.c:2167
 msgid "Tag selected files with this genre"
@@ -4440,13 +4439,13 @@ msgstr "Kanaler:"
 #: ../src/tags/flac_tag.c:808
 #, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
-msgstr "Fejl ved åbning af filen \"%s\" som FLAC: %s"
+msgstr "Fejl ved åbning af filen “%s” som FLAC: %s"
 
 #: ../src/tags/flac_tag.c:1108 ../src/tags/flac_tag.c:1120
 #: ../src/tags/flac_tag.c:1140
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
-msgstr "Kunne ikke skrive kommentarer til filen \"%s\": %s"
+msgstr "Kunne ikke skrive kommentarer til filen “%s”: %s"
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
@@ -4455,27 +4454,27 @@ msgstr "Ødelagt fil"
 #: ../src/tags/id3_tag.c:635
 #, c-format
 msgid "Removed tag of ‘%s’"
-msgstr "Fjernede mærke for \"%s\""
+msgstr "Fjernede mærke for “%s”"
 
 #: ../src/tags/id3_tag.c:642 ../src/tags/id3_tag.c:726
 #, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
-msgstr "Fejl under fjernelse af ID3v1-mærke for \"%s\": %s"
+msgstr "Fejl under fjernelse af ID3v1-mærke for “%s”: %s"
 
 #: ../src/tags/id3_tag.c:651 ../src/tags/id3_tag.c:689
 #, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
-msgstr "Fejl under fjernelse af ID3v2-mærke for \"%s\": %s"
+msgstr "Fejl under fjernelse af ID3v2-mærke for “%s”: %s"
 
 #: ../src/tags/id3_tag.c:677
 #, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
-msgstr "Fejl under opdatering af ID3v2-mærke for \"%s\": %s"
+msgstr "Fejl under opdatering af ID3v2-mærke for “%s”: %s"
 
 #: ../src/tags/id3_tag.c:714
 #, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
-msgstr "Fejl under opdatering af ID3v1-mærke for \"%s\": %s"
+msgstr "Fejl under opdatering af ID3v1-mærke for “%s”: %s"
 
 #: ../src/tags/id3_tag.c:760
 msgid "Buggy id3lib"
@@ -4585,12 +4584,12 @@ msgstr "~%d kb/s"
 #: ../src/tags/mp4_tag.cc:320
 #, c-format
 msgid "Error while opening file ‘%s’: %s"
-msgstr "Fejl ved åbning af filen \"%s\": %s"
+msgstr "Fejl ved åbning af filen “%s”: %s"
 
 #: ../src/tags/mp4_tag.cc:331
 #, c-format
 msgid "Error reading tags from file ‘%s’"
-msgstr "Fejl ved læsning af mærker fra filen \"%s\""
+msgstr "Fejl ved læsning af mærker fra filen “%s”"
 
 #: ../src/tags/mpeg_header.c:51
 msgid "Stereo"
@@ -4730,31 +4729,31 @@ msgstr "Wavpack-fil"
 #~ msgstr "Gør forbogstaver af alle ord store"
 
 #~ msgid "Resolving host '%s'…"
-#~ msgstr "Slår værtsnavn \"%s\" op …"
+#~ msgstr "Slår værtsnavn “%s” op …"
 
 #~ msgid "Cannot create a new socket ‘%s’"
-#~ msgstr "Kan ikke oprette ny sokkel \"%s\""
+#~ msgstr "Kan ikke oprette ny sokkel “%s”"
 
 #~ msgid "Cannot set options on the newly-created socket"
 #~ msgstr "Kan ikke sætte indstillinger på den nyoprettede sokkel"
 
 #~ msgid "Connecting to host ‘%s’, port ‘%d’…"
-#~ msgstr "Forbinder til værten \"%s\", port \"%d\" …"
+#~ msgstr "Forbinder til værten “%s”, port “%d” …"
 
 #~ msgid "Connected to host ‘%s’"
-#~ msgstr "Forbundet til værten \"%s\""
+#~ msgstr "Forbundet til værten “%s”"
 
 #~ msgid "Error while writing CDDB results to file ‘%s’"
-#~ msgstr "Fejl ved skrivning af CDDB-resultater til filen \"%s\""
+#~ msgstr "Fejl ved skrivning af CDDB-resultater til filen “%s”"
 
 #~ msgid "Receiving data (%s)…"
 #~ msgstr "Modtager svar (%s) …"
 
 #~ msgid "Error when reading CDDB response ‘%s’"
-#~ msgstr "Fejl ved læsning af CDDB-svaret \"%s\""
+#~ msgstr "Fejl ved læsning af CDDB-svaret “%s”"
 
 #~ msgid "Cannot create file ‘%s’: %s"
-#~ msgstr "Kan ikke oprette filen \"%s\": %s"
+#~ msgstr "Kan ikke oprette filen “%s”: %s"
 
 #~ msgid "Cannot send the request ‘%s’"
-#~ msgstr "Kunne ikke sende anmodningen \"%s\""
+#~ msgstr "Kunne ikke sende anmodningen “%s”"
