@@ -1,13 +1,13 @@
 # Polish translation for easytag help.
 # Copyright © 2017 the easytag authors.
-# This file is distributed under the same license as the easytag package.
+# This file is distributed under the same license as the easytag help.
 # Piotr Drąg <piotrdrag@gmail.com>, 2017.
 # Aviary.pl <community-poland@mozilla.org>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag-help\n"
-"POT-Creation-Date: 2017-09-10 07:29+0000\n"
+"POT-Creation-Date: 2017-10-22 13:02+0000\n"
 "PO-Revision-Date: 2017-10-09 22:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
