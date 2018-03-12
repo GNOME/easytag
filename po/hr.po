@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-02-26 06:38+0000\n"
-"PO-Revision-Date: 2017-04-09 21:31+0200\n"
+"POT-Creation-Date: 2017-10-22 13:02+0000\n"
+"PO-Revision-Date: 2018-03-12 01:09+0100\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -2791,16 +2791,12 @@ msgstr ""
 "polja oznake"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:127
-#, fuzzy
-#| msgid "Convert tag fields when processing"
 msgid "Capitalize tag fields when processing"
-msgstr "Promijeni polja oznake pri obradi"
+msgstr "Promijeni u poljima oznake slova u velika pri obradi"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:128
-#, fuzzy
-#| msgid "Whether to remove all spaces when processing tag fields"
 msgid "Whether to change the capitalization when processing tag fields"
-msgstr "Treba li ukloniti sve razmake pri obradi polja oznake"
+msgstr "Treba li promijeniti u poljima oznake slova u velika pri obradi"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:129
 msgid "Upper-case prepositions"
@@ -3871,11 +3867,11 @@ msgstr "Pomakni gore odabrani redak"
 msgid "Move this line down"
 msgstr "Pomakni dolje odabrani redak"
 
-#: ../src/misc.c:182
+#: ../src/misc.c:176
 msgid "You must type a program name"
 msgstr "Morate upisati naziv programa"
 
-#: ../src/misc.c:183
+#: ../src/misc.c:177
 msgid "Program Name Error"
 msgstr "Greška naziva programa"
 
