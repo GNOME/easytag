@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-10-22 13:02+0000\n"
-"PO-Revision-Date: 2018-03-12 01:09+0100\n"
+"POT-Creation-Date: 2018-03-12 00:10+0000\n"
+"PO-Revision-Date: 2018-03-14 20:24+0100\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. Name and summary taken from the desktop file.
 #: ../data/org.gnome.EasyTAG.appdata.xml.in.h:2
@@ -180,7 +180,7 @@ msgstr "Enkôdirao"
 
 #: ../data/browser_dialogs.ui.h:1
 msgid "Browse Directory With"
-msgstr "Pregledaj mapu  s..."
+msgstr "Pregledaj mapu s"
 
 #: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
@@ -238,11 +238,11 @@ msgid ""
 "rename the directory from tag fields"
 msgstr ""
 "Odaberi ili upiši masku u obliku kôdova (pogledajte uputu u prozoru "
-"pretraživača) za preimenovanje mapa iz polja oznaka."
+"pretraživača) za preimenovanje mapa iz polja oznaka"
 
 #: ../data/browser_dialogs.ui.h:15
 msgid "Rename directory preview"
-msgstr "Pregled preimenovanja mape..."
+msgstr "Pregled preimenovanja mape"
 
 #: ../data/browser_dialogs.ui.h:16
 msgid "_Rename"
@@ -301,7 +301,7 @@ msgstr "Ostalo"
 
 #: ../data/cddb_dialog.ui.h:16
 msgid "Categories"
-msgstr " Kategorije"
+msgstr "Kategorije"
 
 #: ../data/cddb_dialog.ui.h:17
 msgid "Blues"
@@ -363,7 +363,7 @@ msgid ""
 msgstr ""
 "Odaberite redke iz kojih će se oznake primijeniti na vaš popis datoteka. Svi "
 "redci će biti obrađeni ako nije odabran ni jedan redak.\\nMožete promijeniti "
-"redoslijed redaka u tom popisu prije upotrebe ‘Primijeni’ tipke."
+"redoslijed redaka u tom popisu prije upotrebe ‘Primijeni’ tipke"
 
 #. Translators: column header for track number.
 #: ../data/cddb_dialog.ui.h:32
@@ -476,7 +476,7 @@ msgstr "Veličina:"
 
 #: ../data/file_area.ui.h:8
 msgid "Duration:"
-msgstr "Trajanje"
+msgstr "Trajanje:"
 
 #: ../data/image_properties_dialog.ui.h:1
 msgid "Image Type"
@@ -575,7 +575,7 @@ msgstr "_Datoteka"
 
 #: ../data/menus.ui.h:5
 msgid "Open Files With…"
-msgstr "Otvori datoteku s..."
+msgstr "Otvori datoteku s…"
 
 #: ../data/menus.ui.h:6
 msgid "Run Audio Player"
@@ -611,7 +611,7 @@ msgstr "_Uredi"
 
 #: ../data/menus.ui.h:14 ../data/toolbar.ui.h:25
 msgid "_Find…"
-msgstr "_Pretraži..."
+msgstr "_Pretraži…"
 
 #: ../data/menus.ui.h:15
 msgid "Select All"
@@ -859,11 +859,11 @@ msgstr "Postavi _trenutnu putanju kao zadanu"
 
 #: ../data/menus.ui.h:77
 msgid "Rename Directory…"
-msgstr "Preimenuj mapu..."
+msgstr "Preimenuj mapu…"
 
 #: ../data/menus.ui.h:78
 msgid "Browse Directory With…"
-msgstr "Pregledaj mapu s..."
+msgstr "Pregledaj mapu s…"
 
 #: ../data/menus.ui.h:79
 msgid "Browse _Subdirectories"
@@ -875,15 +875,15 @@ msgstr "_Ostalo"
 
 #: ../data/menus.ui.h:81
 msgid "CDD_B Search…"
-msgstr "CDD_B pretraga..."
+msgstr "CDD_B pretraga…"
 
 #: ../data/menus.ui.h:82
 msgid "Load Filenames From a Text File…"
-msgstr "Učitaj nazive datoteka iz tekstne datoteke..."
+msgstr "Učitaj nazive datoteka iz tekstovne datoteke…"
 
 #: ../data/menus.ui.h:83 ../data/toolbar.ui.h:29
 msgid "Generate Playlist…"
-msgstr "Stvori popis izviđenja..."
+msgstr "Stvori popis izvođenja…"
 
 #: ../data/menus.ui.h:84
 msgid "_Go"
@@ -955,11 +955,11 @@ msgstr "Obrni odabir"
 
 #: ../data/menus.ui.h:102
 msgid "CDDB Search Files…"
-msgstr "CDDB pretraživanje datoteka..."
+msgstr "CDDB pretraživanje datoteka…"
 
 #: ../data/menus.ui.h:103
 msgid "Find…"
-msgstr "Pretraži..."
+msgstr "Pretraži…"
 
 #: ../data/menus.ui.h:104
 msgid "Clear Log"
@@ -1058,7 +1058,7 @@ msgstr "Zadana putanja pretrage glazbenih datoteka"
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
 msgstr ""
-"Učitaj zadanu mapu ili mapu zadanu kao argument pri pokretanju programa."
+"Učitaj zadanu mapu ili mapu zadanu kao argument pri pokretanju programa"
 
 #: ../data/preferences_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:2
 msgid ""
@@ -1201,7 +1201,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:34
 msgid "Convert filename extension to:"
-msgstr "v"
+msgstr "Pretvori nastavk vrste datoteke u:"
 
 #: ../data/preferences_dialog.ui.h:35
 msgid "Lower Case"
@@ -1260,7 +1260,7 @@ msgid ""
 "Use the system character encoding and silently discard unsupported characters"
 msgstr ""
 "Koristi kôdiranje znakova određeno sustavom i potiho izbaci nepodržane "
-"znakove."
+"znakove"
 
 #: ../data/preferences_dialog.ui.h:47
 msgid ""
@@ -1947,7 +1947,7 @@ msgstr ""
 "Odaberi ili upiši u masku koristeći kôdove (pogledajte uputu) za "
 "prosljeđivanje poljima oznaka. Koristi se za preimenovanje datoteka.\n"
 "Koristi '/' za mape. Ako je prvi znak '/', putanja je apsolutna, inače je "
-"relativna u odnosu na staru putanju."
+"relativna u odnosu na staru putanju"
 
 #: ../data/scan_dialog.ui.h:51
 msgid "Rename file preview"
@@ -2118,7 +2118,7 @@ msgid ""
 "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
 msgstr ""
 "Podvlake ili znak '%20' između riječi biti će zamijenjeni razmakom. Npr. "
-"'Tekst%20u%20nekom_polju' će postati 'Tekstu u nekom polju'."
+"'Tekst%20u%20nekom_polju' će postati 'Tekstu u nekom polju'"
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:856
 msgid "Convert spaces to underscores"
@@ -2130,7 +2130,7 @@ msgid ""
 "before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
 msgstr ""
 "Razmak između riječi bit će zamijenjen podvlakom. Npr. 'Tekst u nekom polju' "
-"će postati 'Tekst_u_nekom_polju'."
+"će postati 'Tekst_u_nekom_polju'"
 
 #: ../data/scan_dialog.ui.h:105
 msgid "Convert:"
@@ -2140,11 +2140,11 @@ msgstr "Promijeni:"
 msgid "Replace a string by another one. Note that the search is case sensitive"
 msgstr ""
 "Zamijeni znak s drugim znakom. Zapamtite da je pretraživanje postavljeno za "
-"velika i mala slova."
+"velika i mala slova"
 
 #: ../data/scan_dialog.ui.h:107
 msgid "to: "
-msgstr "u:"
+msgstr "u: "
 
 #: ../data/scan_dialog.ui.h:108
 msgid "Do not convert"
@@ -2188,7 +2188,7 @@ msgstr ""
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
-msgstr "_Pretraži..."
+msgstr "_Pretraži"
 
 #: ../data/search_dialog.ui.h:5
 msgid "In:"
@@ -2266,7 +2266,7 @@ msgstr "Označi odabrane datoteke s ovom godinom"
 
 #: ../data/tag_area.ui.h:14
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory"
-msgstr "Broj odabranih pjesama počinje u nizu. Počinje sa 01 u svakoj podmapi."
+msgstr "Broj odabranih pjesama počinje u nizu. Počinje sa 01 u svakoj podmapi"
 
 #: ../data/tag_area.ui.h:15
 msgid "Track #:"
@@ -2277,7 +2277,7 @@ msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks"
 msgstr ""
-"Postavi ukupni broj pjesama (albuma) u mapi u kojoj je prikazana datoteka."
+"Postavi ukupni broj pjesama (albuma) u mapi u kojoj je prikazana datoteka"
 
 #: ../data/tag_area.ui.h:17
 msgid "Tag selected files with this number of tracks"
@@ -2325,7 +2325,7 @@ msgstr "URL:"
 
 #: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
-msgstr "Označi odabrane datoteke s ovim URL-om:"
+msgstr "Označi odabrane datoteke s ovim URL-om"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
@@ -2417,7 +2417,7 @@ msgstr "Ponovi radnju datoteke"
 
 #: ../data/toolbar.ui.h:18
 msgid "Save changes to selected files"
-msgstr "Spremi promjene u odabrane datoteke."
+msgstr "Spremi promjene u odabrane datoteke"
 
 #: ../data/toolbar.ui.h:20
 msgid "Browse directory tree"
@@ -2437,7 +2437,7 @@ msgstr "Pretraži nazive datoteka i oznake"
 
 #: ../data/toolbar.ui.h:27
 msgid "CDDB Search…"
-msgstr "CDDB pretraga..."
+msgstr "CDDB pretraga…"
 
 #: ../data/toolbar.ui.h:30
 msgid "Generate a playlist"
@@ -3050,7 +3050,9 @@ msgstr "Otvori odabrane datoteke u EasyTAGU"
 #. Translators: put your own name here to appear in the about dialog.
 #: ../src/about.c:88
 msgid "translator-credits"
-msgstr "gogo"
+msgstr ""
+"Launchpad Contributions:\n"
+"  gogo https://launchpad.net/~trebelnik-stefina"
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
@@ -3064,7 +3066,7 @@ msgstr "Ispiši inačicu i zatvori"
 #: ../src/application.c:178
 #, c-format
 msgid "Starting EasyTAG version %s…"
-msgstr "Pokretanje EasyTAGA inačice %s ..."
+msgstr "Pokretanje EasyTAGA inačice %s…"
 
 #: ../src/application.c:182
 #, c-format
@@ -3157,7 +3159,7 @@ msgstr ""
 
 #: ../src/application_window.c:1990
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr "Pokušajte postaviti varijablu okruženja G_FILENAME_ENCODING"
+msgstr "Pokušajte postaviti varijablu okruženja G_FILENAME_ENCODING."
 
 #: ../src/application_window.c:1992 ../src/scan_dialog.c:846
 msgid "Filename translation"
@@ -3246,7 +3248,7 @@ msgstr "Odaberi mapu"
 #: ../src/browser.c:4144
 #, c-format
 msgid "Rename the directory ‘%s’ to:"
-msgstr "Preimenuj mapu '%s' u: "
+msgstr "Preimenuj mapu '%s' u:"
 
 #: ../src/browser.c:4280
 msgid "You must type a directory name"
@@ -3261,7 +3263,7 @@ msgstr "Mapa je preimenovana"
 msgid "Could not convert ‘%s’ into filename encoding"
 msgstr ""
 "Nemoguće je pomijeniti naziv datoteke '%s' u kôdiranje naziva datoteka "
-"sustava."
+"sustava"
 
 #: ../src/browser.c:4302
 msgid "Please use another name."
@@ -3311,7 +3313,7 @@ msgstr "Nemoguće povezivanje s poslužiteljem: '%s':%s"
 #. Send the request.
 #: ../src/cddb_dialog.c:797 ../src/cddb_dialog.c:1352 ../src/cddb_dialog.c:1640
 msgid "Sending request…"
-msgstr "Slanje zahtjeva..."
+msgstr "Slanje zahtjeva…"
 
 #: ../src/cddb_dialog.c:841
 #, c-format
@@ -3321,14 +3323,14 @@ msgstr "Poslužitelj je vratio pogrešan odgovor '%s'"
 #. Load the track list of the album
 #: ../src/cddb_dialog.c:1035
 msgid "Loading album track list…"
-msgstr "Učitavam popis brojeva pjesama albuma..."
+msgstr "Učitavam popis brojeva pjesama albuma…"
 
 #.
 #. * Read the answer
 #.
 #: ../src/cddb_dialog.c:1382
 msgid "Receiving data…"
-msgstr "Preuzimanje podataka..."
+msgstr "Preuzimanje podataka…"
 
 #: ../src/cddb_dialog.c:1519
 #, c-format
@@ -3346,12 +3348,12 @@ msgstr[2] "Pronađena je %u odgovarajućih albuma"
 #: ../src/cddb_dialog.c:1670
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr "Primanje podatka sa stranice %d (album %d/%d)..."
+msgstr "Primanje podatka sa stranice %d (album %d/%d)…"
 
 #: ../src/cddb_dialog.c:1672
 #, c-format
 msgid "Receiving data of page %d…"
-msgstr "Preuzimanje podatka sa stranice %d ..."
+msgstr "Preuzimanje podatka sa stranice %d…"
 
 #: ../src/cddb_dialog.c:1688
 msgid "The server returned a bad response"
@@ -3360,7 +3362,7 @@ msgstr "Poslužitelj je vratio pogrešan odgovor"
 #: ../src/cddb_dialog.c:1827
 #, c-format
 msgid "More results to load…"
-msgstr "Više rezultata za učitavanje..."
+msgstr "Više rezultata za učitavanje…"
 
 #: ../src/cddb_dialog.c:2137
 msgid "The number of CDDB results does not match the number of selected files"
@@ -3736,23 +3738,23 @@ msgstr "Greška čitanja mape"
 #: ../src/easytag.c:886
 #, c-format
 msgid "Search in progress…"
-msgstr "Pretraga je u tijeku..."
+msgstr "Pretraga je u tijeku…"
 
 #: ../src/easytag.c:958
 #, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %u files in this directory and subdirectories"
-msgstr[0] "Pronađena je %u datoteka u ovoj mapi i podmapama."
-msgstr[1] "Pronađene su %u datoteke u ovoj mapi i podmapama."
-msgstr[2] "Pronađeno je %u datoteka u ovoj mapi i podmapama."
+msgstr[0] "Pronađena je %u datoteka u ovoj mapi i podmapama"
+msgstr[1] "Pronađene su %u datoteke u ovoj mapi i podmapama"
+msgstr[2] "Pronađeno je %u datoteka u ovoj mapi i podmapama"
 
 #: ../src/easytag.c:965
 #, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %u files in this directory"
-msgstr[0] "Pronađena je %u datoteka u ovoj mapi."
-msgstr[1] "Pronađene su %u datoteke u ovoj mapi."
-msgstr[2] "Pronađeno je %u datoteka u ovoj mapi."
+msgstr[0] "Pronađena je %u datoteka u ovoj mapi"
+msgstr[1] "Pronađene su %u datoteke u ovoj mapi"
+msgstr[2] "Pronađeno je %u datoteka u ovoj mapi"
 
 #: ../src/easytag.c:982
 msgid "No file found in this directory and subdirectories"
@@ -3769,7 +3771,7 @@ msgstr "Greška pri otvaranju mape '%s': %s"
 
 #: ../src/easytag.c:1115
 msgid "Searching for audio files…"
-msgstr "Pretraživanje glazbenih datoteka..."
+msgstr "Pretraživanje glazbenih datoteka…"
 
 #: ../src/easytag.c:1116
 msgid "Searching"
@@ -4083,7 +4085,7 @@ msgstr[2] "Pronađeno je %d datoteka"
 
 #: ../src/search_dialog.c:718
 msgid "Ready to search…"
-msgstr "Spremno za pretraživanje..."
+msgstr "Spremno za pretraživanje…"
 
 #: ../src/setting.c:246
 #, c-format
@@ -4093,12 +4095,12 @@ msgstr "Nemoguće je zapisivanje popisa u datoteku %s: %s"
 #. Fall back to defaults.
 #: ../src/setting.c:352
 msgid "Loading default ‘Fill Tag’ masks…"
-msgstr "Učitavanje zadane maske za 'Popuni oznaku'..."
+msgstr "Učitavanje zadane maske za 'Popuni oznaku'…"
 
 #. Fall back to defaults.
 #: ../src/setting.c:382
 msgid "Loading default ‘Rename File’ masks…"
-msgstr "Učitavanje zadane maske za 'Preimenuj datoteku'..."
+msgstr "Učitavanje zadane maske za 'Preimenuj datoteku'…"
 
 #: ../src/status_bar.c:143
 msgid "Ready to start"
@@ -4311,7 +4313,7 @@ msgstr "Nedovoljno podataka je učitano za stvaranje međuspremnika slike."
 
 #: ../src/tag_area.c:1359
 msgid "Load Image File"
-msgstr "Učitavanje datoteke slike "
+msgstr "Učitavanje datoteke slike"
 
 #: ../src/tag_area.c:1404 ../src/tag_area.c:1429
 #, c-format
