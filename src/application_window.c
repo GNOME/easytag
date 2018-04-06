@@ -2080,7 +2080,7 @@ et_application_window_update_et_file_from_ui (EtApplicationWindow *self)
 #endif
         case APE_TAG:
             FileTag = et_application_window_tag_area_create_file_tag (self);
-            et_file_tag_copy_other_into (et_file->FileTag->data, FileTag);
+            et_file_tag_copy_other_into (FileTag, et_file->FileTag->data);
             break;
 #ifndef ENABLE_MP3
         case ID3_TAG:
