@@ -717,6 +717,7 @@ log_message_from_request_error (SoupMessage *message,
         case SOUP_STATUS_CANT_RESOLVE_PROXY:
             msg = g_strdup_printf (_("Cannot resolve host: ‘%s’: %s"),
                                    soup_uri_get_host (uri), error->message);
+            break;
         case SOUP_STATUS_CANT_CONNECT:
         case SOUP_STATUS_CANT_CONNECT_PROXY:
         case SOUP_STATUS_TOO_MANY_REDIRECTS:
