@@ -362,6 +362,7 @@ delete_file (ET_File *ETFile, gboolean multiple_files, GError **error)
                                                basename_utf8);
             message_area = gtk_message_dialog_get_message_area(GTK_MESSAGE_DIALOG(msgdialog));
             msgdialog_check_button = gtk_check_button_new_with_label(_("Repeat action for the remaining files"));
+            gtk_widget_show(GTK_WIDGET(msgdialog_check_button));
             gtk_container_add(GTK_CONTAINER(message_area),msgdialog_check_button);
             gtk_dialog_add_buttons (GTK_DIALOG (msgdialog), _("_Skip"),
                                     GTK_RESPONSE_NO, _("_Cancel"),
