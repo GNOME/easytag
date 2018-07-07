@@ -121,8 +121,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://www.wavpack.com/wavpack-4.80.0.tar.bz2",
-                    "sha256": "79182ea75f7bd1ca931ed230062b435fde4a4c2e0dbcad048007bd1ef1e66be9"
+                    "url": "http://www.wavpack.com/wavpack-5.1.0.tar.bz2",
+                    "sha512": "4c31616ae63c3a875afa20f26ce935f7a8f9921e2892b4b8388eca3ccd83b2d686f43eed8b9ec1dead934a1148401b9dced3b05f509b7942c48d7af31cf80a54"
                 }
             ]
         },
