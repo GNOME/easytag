@@ -1,0 +1,107 @@
+id: org.gnome.EasyTAG
+runtime: org.gnome.Platform
+runtime-version: 3.28
+sdk: org.gnome.Sdk
+command: easytag
+finish-args:
+  # Full FS access in order to read media files.
+  - --filesystem=host
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  # Needed for dconf to work.
+  - --filesystem=xdg-run/dconf
+  - --filesystem=~/.config/dconf:ro
+  - --talk-name=ca.desrt.dconf
+  - --env=DCONF_USER_CONFIG_DIR=.config/dconf
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /lib/*.a
+  - /lib/*.la
+modules:
+  - name: id3lib
+    cleanup:
+      - /bin
+    sources:
+      - type: archive
+        url: http://downloads.sourceforge.net/id3lib/id3lib-3.8.3.tar.gz
+        sha512: 3787e261f86933c1c2f2bff2c4b349b42f5d8636e489e4f39f9d75e6dfbdc79b87009a0f4ce4b786f2fb3dbc01ca9d56c4112095b46244f897e6c9a28573adaf
+      - type: patch
+        path: id3lib-3.8.3-autoreconf.patch
+      - type: patch
+        path: id3lib-3.8.3-io_helpers-163101.patch
+      - type: patch
+        path: id3lib-3.8.3-mkstemp.patch
+      - type: patch
+        path: id3lib-3.8.3-includes.patch
+      - type: patch
+        path: id3lib-vbr_buffer_overflow.patch
+      - type: patch
+        path: id3lib-3.8.3-missing-nullpointer-check.patch
+      - type: patch
+        path: id3lib-3.8.3-fix-utf16-stringlists.patch
+  - name: libid3tag
+    cleanup:
+      - /bin
+    rm-configure: true
+    sources:
+      - type: archive
+        url: http://downloads.sourceforge.net/mad/libid3tag-0.15.1b.tar.gz
+        sha512: ade7ce2a43c3646b4c9fdc642095174b9d4938b078b205cd40906d525acd17e87ad76064054a961f391edcba6495441450af2f68be69f116549ca666b069e6d3
+      - type: patch
+        path: libid3tag-0.15.1b-fix_overflow.patch
+        strip-components: 0
+      - type: patch
+        path: libid3tag-0.15.1b-handle-unknown-encoding.patch
+      - type: patch
+        path: libid3tag-0.15.1b-id3v1-zero-padding.patch
+      - type: patch
+        path: libid3tag-0.15.1b-id3v2-endless-loop.patch
+        strip-components: 0
+      - type: patch
+        path: libid3tag-0.15.1b-pkgconfig.patch
+      - type: script
+        commands:
+          - autoreconf --force --install
+  - name: opus
+    cleanup:
+      - /share/aclocal
+    config-opts:
+      - --disable-doc
+      - --disable-extra-programs
+    sources:
+      - type: archive
+        url: https://archive.mozilla.org/pub/opus/opus-1.2.1.tar.gz
+        sha512: 4a98d0a7dbd1a313e89407576805fd733c1192e8ef7e1137e3260025478a1cf1c5a8b71b48c372a0cffe6340524137fe47f181651888284f8221fb4d673f7cd5
+  - name: opusfile
+    config-opts:
+      - --disable-doc
+      - --disable-examples
+    sources:
+      - type: archive
+        url: https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz
+        sha512: 9167b100ad4ea79af8bbe60ce710409b0cfd41b09d640a203a83a751c30eed0bd91b28cbf4d5fe3fcf41269881eb579300c5568fdd6f30208c6b84b429ad6632
+  - name: taglib
+    buildsystem: cmake
+    cleanup:
+      - /bin
+    sources:
+      - type: archive
+        url: http://taglib.org/releases/taglib-1.11.1.tar.gz
+        sha512: 7846775c4954ea948fe4383e514ba7c11f55d038ee06b6ea5a0a1c1069044b348026e76b27aa4ba1c71539aa8143e1401fab39184cc6e915ba0ae2c06133cb98
+  - name: wavpack
+    cleanup:
+      - /bin
+      - /share/man
+    sources:
+      - type: archive
+        url: http://www.wavpack.com/wavpack-5.1.0.tar.bz2
+        sha512: 4c31616ae63c3a875afa20f26ce935f7a8f9921e2892b4b8388eca3ccd83b2d686f43eed8b9ec1dead934a1148401b9dced3b05f509b7942c48d7af31cf80a54
+  - name: easytag
+    config-opts:
+      - --disable-Werror
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/easytag.git
