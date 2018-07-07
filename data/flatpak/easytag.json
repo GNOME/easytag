@@ -1,8 +1,7 @@
 {
     "id": "org.gnome.EasyTAG",
-    "version": "master",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.22",
+    "runtime-version": "3.28",
     "sdk": "org.gnome.Sdk",
     "command": "easytag",
     "finish-args": ["--filesystem=host",
