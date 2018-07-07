@@ -72,6 +72,19 @@
                 },
                 {
                     "type": "patch",
+                    "path": "libid3tag-0.15.1b-handle-unknown-encoding.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "libid3tag-0.15.1b-id3v1-zero-padding.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "libid3tag-0.15.1b-id3v2-endless-loop.patch",
+                    "strip-components": 0
+                },
+                {
+                    "type": "patch",
                     "path": "libid3tag-0.15.1b-pkgconfig.patch"
                 },
                 {
