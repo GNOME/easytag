@@ -102,6 +102,7 @@ modules:
   - name: easytag
     config-opts:
       - --disable-Werror
+    run-tests: true
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/easytag.git
