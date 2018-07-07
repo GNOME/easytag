@@ -98,8 +98,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://downloads.xiph.org/releases/opus/opusfile-0.8.tar.gz",
-                    "sha256": "2c231ed3cfaa1b3173f52d740e5bbd77d51b9dfecb87014b404917fba4b855a4"
+                    "url": "https://archive.mozilla.org/pub/opus/opusfile-0.9.tar.gz",
+                    "sha512": "9167b100ad4ea79af8bbe60ce710409b0cfd41b09d640a203a83a751c30eed0bd91b28cbf4d5fe3fcf41269881eb579300c5568fdd6f30208c6b84b429ad6632"
                 }
             ]
         },
