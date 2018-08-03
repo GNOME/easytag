@@ -419,7 +419,7 @@ msgstr "%l"
 #. (itstool) path: td/p
 #: C/format-specifier.page:130
 msgid "Number of tracks: the total number of tracks on the medium"
-msgstr "Número de pistes: el número total de pistes de l'obra"
+msgstr "Nombre de pistes: el nombre total de pistes de l'obra"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:135
@@ -469,7 +469,7 @@ msgstr "%x"
 #. (itstool) path: td/p
 #: C/format-specifier.page:170
 msgid "Number of discs"
-msgstr "Número de discs"
+msgstr "Nombre de discs"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:175
@@ -736,7 +736,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:58
 msgid "<key>Page Up</key>"
-msgstr "<key>RePàg</key>"
+msgstr "<key>Re Pàg</key>"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:63
@@ -747,7 +747,7 @@ msgstr ""
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:66
 msgid "<key>Page Down</key>"
-msgstr "<key>AvPàg</key>"
+msgstr "<key>Av Pàg</key>"
 
 #. (itstool) path: p/link
 #: C/legal.xml:4
@@ -989,7 +989,7 @@ msgid ""
 "Split a single tag field into multiple fields when you save Ogg and FLAC "
 "files"
 msgstr ""
-"Divideix un camp d'etiqueta únic en diversos camps en desar fitxers de Ogg "
+"Divideix un camp d'etiqueta únic en diversos camps en desar fitxers d'Ogg "
 "i FLAC"
 
 #. (itstool) path: page/title
