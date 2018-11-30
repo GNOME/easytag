@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the easytag package.
 # Julien Hardelin <jhardlin@orange.fr>, 2014.
 # Alexandre Franke <alexandre.franke@gmail.com>, 2015
+# Charles Monzat <charles.monzat@numericable.fr>, 2018.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag easytag-2-2\n"
-"POT-Creation-Date: 2016-08-14 17:15+0000\n"
-"PO-Revision-Date: 2016-08-25 19:37+0200\n"
-"Last-Translator: Alexandre Franke <alexandre.franke@gmail.com>\n"
-"Language-Team: French <gnomefr@traduc.org>\n"
+"POT-Creation-Date: 2018-06-10 15:59+0000\n"
+"PO-Revision-Date: 2018-11-29 22:14+0100\n"
+"Last-Translator: Charles Monzat <charles.monzat@numericable.fr>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 3.30.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -39,7 +40,7 @@ msgstr "Ekaterina Gerasimova"
 #: C/cddb-search.page:18
 msgid "Fill tags using information from a CD database"
 msgstr ""
-"Remplir les étiquettes avec des données issues d'une base de données pour CD"
+"Remplir les étiquettes avec des données issues d’une base de données pour CD"
 
 #. (itstool) path: page/title
 #: C/cddb-search.page:21
@@ -55,7 +56,7 @@ msgid ""
 msgstr ""
 "Si votre musique est organisée en albums, <app>EasyTAG</app> peut explorer "
 "en ligne des bases de données utilisant le protocole <sys>CDDB</sys> et "
-"remplir automatiquement plusieurs champs d'étiquettes."
+"remplir automatiquement plusieurs champs d’étiquettes."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:29
@@ -65,17 +66,18 @@ msgid ""
 "the album."
 msgstr ""
 "<link xref=\"file-select\">Sélectionnez tous les fichiers</link> dans "
-"l'album pour lesquels vous avez l'intention d'effectuer une recherche. "
-"L'ordre des fichiers doit correspondre à celui des pistes dans l'album."
+"l’album pour lesquels vous avez l’intention d’effectuer une recherche. "
+"L’ordre des fichiers doit correspondre à celui des pistes dans l’album."
 
+# ATTENTION : ne pas garder le point final dans la traduction, car il est précédé par des points de suspension !
 #. (itstool) path: item/p
 #: C/cddb-search.page:34
 msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">CDDB Search…</gui></guiseq>."
 msgstr ""
-"Sélectionnez <guiseq><gui style=\"menu\">Divers</gui><gui style=\"menuitem"
-"\">Recherche dans la CDDB…</gui></guiseq>."
+"Sélectionnez <guiseq><gui style=\"menu\">Divers</gui> <gui style=\"menuitem"
+"\">Recherche dans la CDDB…</gui></guiseq>"
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:38
@@ -93,8 +95,8 @@ msgid ""
 "shown to the right. If the album is not the one that you wanted, try "
 "selecting another result in the list."
 msgstr ""
-"Sélectionnez un album dans la liste de résultats, et l'information sur les "
-"pistes s'affiche à droite. Si l'album n'est pas celui que vous souhaitiez, "
+"Sélectionnez un album dans la liste de résultats, et l’information sur les "
+"pistes s’affiche à droite. Si l’album n’est pas celui que vous souhaitiez, "
 "essayez de sélectionner un autre résultat dans la liste."
 
 #. (itstool) path: item/p
@@ -106,7 +108,7 @@ msgid ""
 "if you can find an album which matches the tracks that you selected."
 msgstr ""
 "Si aucun résultat ne correspond aux pistes que vous avez sélectionnées, "
-"saisissez le nom de l'album dans le champ de recherche. Cliquez sur le "
+"saisissez le nom de l’album dans le champ de recherche. Cliquez sur le "
 "bouton <gui style=\"button\">Rechercher</gui>, attendez que la recherche "
 "soit terminée et examinez à nouveau les résultats pour voir si vous pouvez "
 "trouver un album correspondant aux pistes que vous avez sélectionnées."
@@ -121,7 +123,7 @@ msgid ""
 "style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
 "gui>."
 msgstr ""
-"Choisissez les champs d'étiquettes à remplir en sélectionnant une "
+"Choisissez les champs d’étiquettes à remplir en sélectionnant une "
 "combinaison de <gui style=\"checkbox\">Nom de fichier</gui>, <gui style="
 "\"checkbox\">Titre</gui>, <gui style=\"checkbox\">Artiste</gui>, <gui style="
 "\"checkbox\">Album</gui>, <gui style=\"checkbox\">Année</gui>, <gui style="
@@ -144,7 +146,7 @@ msgid ""
 "If you wish to tag only specific files, you can change your selection after "
 "the search is complete."
 msgstr ""
-"Si vous désirez n'étiqueter que certains fichiers, vous pouvez modifier la "
+"Si vous désirez n’étiqueter que certains fichiers, vous pouvez modifier la "
 "sélection après la fin de la recherche."
 
 #. (itstool) path: info/desc
@@ -164,7 +166,7 @@ msgid ""
 "app>:"
 msgstr ""
 "Vous pouvez renommer les fichiers musicaux en vous servant des étiquettes de "
-"l'intérieur d'<app>EasyTAG</app> :"
+"l’intérieur d’<app>EasyTAG</app> :"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:27
@@ -181,8 +183,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Sélectionnez <guiseq><gui style=\"menu\">Affichage</gui><gui style=\"menuitem"
-"\">Afficher le scanner</gui></guiseq>."
+"Sélectionnez <guiseq><gui style=\"menu\">Affichage</gui> <gui style="
+"\"menuitem\">Afficher le scanner</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:35
@@ -215,7 +217,7 @@ msgstr ""
 #: C/file-rename.page:49
 msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
 msgstr ""
-"Fermez la boîte de dialogue <gui style=\"dialog\">Scanner l'étiquette et le "
+"Fermez la boîte de dialogue <gui style=\"dialog\">Scanner l’étiquette et le "
 "nom de fichier</gui>"
 
 #. (itstool) path: item/p
@@ -225,14 +227,14 @@ msgid ""
 "<gui style=\"menuitem\">Save Files</gui></guiseq>."
 msgstr ""
 "Pour enregistrer les modifications appliquées, sélectionnez <guiseq><gui "
-"style=\"menu\">Fichier</gui><gui style=\"menuitem\">Enregistrer les "
+"style=\"menu\">Fichier</gui> <gui style=\"menuitem\">Enregistrer les "
 "fichiers</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/file-rename.page:59
 msgid "If you close the application without saving, your changes will be lost."
 msgstr ""
-"Si vous fermez l'application sans enregistrer, les modifications seront "
+"Si vous fermez l’application sans enregistrer, les modifications seront "
 "perdues."
 
 #. (itstool) path: info/desc
@@ -301,17 +303,17 @@ msgid ""
 "contact a featured artist as well as the album artist"
 msgstr ""
 "Artiste : le ou les artiste(s) créateur(s) de la piste ; ce champ peut "
-"concerner un artiste invité aussi bien que l'artiste de l'album"
+"concerner un artiste invité aussi bien que l’artiste de l’album"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:53
 msgid "Album artist"
-msgstr "Artiste de l'album"
+msgstr "Artiste de l’album"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:61
 msgid "Album title"
-msgstr "Titre de l'album"
+msgstr "Titre de l’album"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:69
@@ -329,7 +331,7 @@ msgid ""
 "Copyright holder: this is usually the artist, but it can also be the record "
 "label"
 msgstr ""
-"Titulaire du copyright : c'est habituellement l'artiste, mais il peut s'agir "
+"Titulaire du copyright : c’est habituellement l’artiste, mais il peut s’agir "
 "de la maison de disques"
 
 #. (itstool) path: td/p
@@ -344,7 +346,7 @@ msgid ""
 "is also used for the application that was used to encode the file"
 msgstr ""
 "Codé par : habituellement la personne qui a codé le fichier, mais ce champ "
-"peut aussi être utilisé pour l'application ayant servi à coder le fichier."
+"peut aussi être utilisé pour l’application ayant servi à coder le fichier."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:112
@@ -358,7 +360,7 @@ msgid ""
 "specify parts of the file name which should be ignored"
 msgstr ""
 "Ignoré : ce spécificateur de format ne peut être utilisé que dans "
-"<gui>Compléter l'étiquette</gui> pour spécifier les parties du nom de "
+"<gui>Compléter l’étiquette</gui> pour spécifier les parties du nom de "
 "fichier qui doivent être ignorées"
 
 #. (itstool) path: td/p
@@ -369,7 +371,7 @@ msgstr "Nombre de pistes : nombre total de pistes sur le média"
 #. (itstool) path: td/p
 #: C/format-specifier.page:138
 msgid "Original artist"
-msgstr "Artiste d'origine"
+msgstr "Artiste d’origine"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:146
@@ -394,7 +396,7 @@ msgstr "Nombre de disques"
 #. (itstool) path: td/p
 #: C/format-specifier.page:178
 msgid "Year of recording, sometimes the date of release is used instead"
-msgstr "Année d'enregistrement ou, parfois, date de publication"
+msgstr "Année d’enregistrement ou, parfois, date de publication"
 
 #. (itstool) path: info/desc
 #: C/image-delete.page:17
@@ -404,7 +406,7 @@ msgstr "Supprimer une image dans une étiquette"
 #. (itstool) path: page/title
 #: C/image-delete.page:21
 msgid "Delete an image"
-msgstr "Suppression d'une image"
+msgstr "Suppression d’une image"
 
 #. (itstool) path: page/p
 #: C/image-delete.page:23
@@ -412,9 +414,9 @@ msgid ""
 "To delete an image from a tag, select it and press the <gui style=\"button"
 "\">Remove selected images from the tag</gui> button."
 msgstr ""
-"Pour supprimer l'image d'une étiquette, sélectionnez-la et cliquez sur le "
+"Pour supprimer l’image d’une étiquette, sélectionnez-la et cliquez sur le "
 "bouton <gui style=\"button\">Supprimer les images sélectionnées de "
-"l'étiquette</gui>."
+"l’étiquette</gui>."
 
 #. (itstool) path: page/p
 #: C/image-delete.page:26
@@ -433,19 +435,19 @@ msgid ""
 msgstr ""
 "Il est également possible de supprimer toutes les images de plusieurs "
 "fichiers. Pour cela, sélectionnez les fichiers dont vous voulez supprimer "
-"les images, supprimez toutes les images de l'onglet <gui style=\"tab"
+"les images, supprimez toutes les images de l’onglet <gui style=\"tab"
 "\">Image</gui> et cliquez sur le bouton <gui style=\"button\">Étiqueter les "
 "fichiers sélectionnés avec ces images</gui>."
 
 #. (itstool) path: info/desc
 #: C/image-export.page:17
 msgid "Export an image from the tag"
-msgstr "Exporter une image depuis l'étiquette"
+msgstr "Exporter une image depuis l’étiquette"
 
 #. (itstool) path: page/title
 #: C/image-export.page:21
 msgid "Save an image"
-msgstr "Enregistrement d'une image"
+msgstr "Enregistrement d’une image"
 
 # Faute d'orthographe dans le po d'UI
 #. (itstool) path: page/p
@@ -456,10 +458,10 @@ msgid ""
 "images to files</gui> button. The default filename will be the image "
 "description."
 msgstr ""
-"Si l'étiquette d'un fichier contient une image, vous pouvez exporter cette "
+"Si l’étiquette d’un fichier contient une image, vous pouvez exporter cette "
 "image en la sélectionnant et en cliquant sur le bouton <gui style=\"button"
 "\">Enregistrer les images sélectionnées dans les fichiers</gui>. Le nom par "
-"défaut sera la description de l'image."
+"défaut sera la description de l’image."
 
 #. (itstool) path: page/p
 #: C/image-export.page:28
@@ -474,12 +476,12 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/image.page:20
 msgid "Add images, such as cover art, to the tag"
-msgstr "Ajouter des images, comme des pochettes d'album, à l'étiquette"
+msgstr "Ajouter des images, comme des pochettes d’album, à l’étiquette"
 
 #. (itstool) path: page/title
 #: C/image.page:24
 msgid "Add an image to a file"
-msgstr "Ajout d'une image à un fichier"
+msgstr "Ajout d’une image à un fichier"
 
 #. (itstool) path: page/p
 #: C/image.page:26
@@ -487,9 +489,9 @@ msgid ""
 "Most audio file formats support an <sys>image</sys> tag field which can be "
 "used to add cover art and other related images to the audio file."
 msgstr ""
-"La plupart des formats de fichiers audio acceptent un champ d'étiquette "
+"La plupart des formats de fichiers audio acceptent un champ d’étiquette "
 "<sys>image</sys> dont vous pouvez vous servir pour ajouter une pochette "
-"d'album, ou d'autres images en rapport, au fichier audio."
+"d’album, ou d’autres images en rapport, au fichier audio."
 
 #. (itstool) path: page/p
 #: C/image.page:29
@@ -498,9 +500,9 @@ msgid ""
 "\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
 "tag</gui> button. Select the image and confirm your selection."
 msgstr ""
-"Pour ajouter une image au fichier, sélectionnez le fichier, ouvrez l'onglet "
+"Pour ajouter une image au fichier, sélectionnez le fichier, ouvrez l’onglet "
 "<gui style=\"tab\">Images</gui> et cliquez sur le bouton <gui style=\"button"
-"\">Ajouter des images à l'étiquette</gui>. Sélectionnez l'image et confirmez "
+"\">Ajouter des images à l’étiquette</gui>. Sélectionnez l’image et confirmez "
 "la sélection."
 
 #. (itstool) path: page/p
@@ -512,10 +514,10 @@ msgid ""
 "properties</gui> button. Once you have made the changes, press <gui style="
 "\"button\">Accept</gui> to apply the changes."
 msgstr ""
-"Dès que l'image est chargée, elle est automatiquement marquée comme "
-"couverture d'album et la description est le nom du fichier. Pour modifier le "
+"Dès que l’image est chargée, elle est automatiquement marquée comme "
+"couverture d’album et la description est le nom du fichier. Pour modifier le "
 "<gui>type</gui> et la <gui>description</gui>, cliquez sur le bouton <gui "
-"style=\"button\">Modifier les propriétés de l'image</gui>. Une fois les "
+"style=\"button\">Modifier les propriétés de l’image</gui>. Une fois les "
 "modifications effectuées, cliquez sur le bouton <gui>Accepter</gui> pour "
 "appliquer les changements."
 
@@ -533,7 +535,7 @@ msgid ""
 "these changes to write them to the files."
 msgstr ""
 "Vous pouvez étiqueter plusieurs fichiers avec la même image en les "
-"sélectionnant dans la liste des fichiers, puis en sélectionnant l'image et "
+"sélectionnant dans la liste des fichiers, puis en sélectionnant l’image et "
 "en cliquant sur le bouton <gui style=\"button\">Étiqueter les fichiers "
 "sélectionnés avec ces images</gui>. Il vous faudra enregistrer ces "
 "modifications afin de les inscrire dans les fichiers."
@@ -545,7 +547,7 @@ msgid ""
 "before you edit, apply, save to file or delete them."
 msgstr ""
 "Vous pouvez travailler sur plusieurs images en même temps en les "
-"sélectionnant avant de les modifier, d'appliquer les changements et de les "
+"sélectionnant avant de les modifier, d’appliquer les changements et de les "
 "enregistrer dans les fichiers, ou de les supprimer."
 
 #. (itstool) path: info/title
@@ -567,8 +569,8 @@ msgid ""
 "Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
 "and WavPack audio files."
 msgstr ""
-"Apprenez à utiliser <app>EasyTAG</app>, un éditeur d'étiquettes complet pour "
-"les fichiers audio FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg "
+"Apprenez à utiliser <app>EasyTAG</app>, un éditeur d’étiquettes complet pour "
+"les fichiers audio FLAC, Monkey’s Audio, MP2, MP3, MP4/AAC, MusePack, Ogg "
 "Opus, Ogg Speex, Ogg Vorbis et WavPack."
 
 #. (itstool) path: page/title
@@ -589,7 +591,7 @@ msgstr "Étiquettes"
 #. (itstool) path: section/title
 #: C/index.page:43
 msgid "The image tag field"
-msgstr "Le champ image de l'étiquette"
+msgstr "Le champ image de l’étiquette"
 
 #. (itstool) path: section/title
 #: C/index.page:51
@@ -608,8 +610,8 @@ msgid ""
 "MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
 "audio files."
 msgstr ""
-"<app>EasyTAG</app> est un éditeur d'étiquettes complet pour les fichiers "
-"audio FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg "
+"<app>EasyTAG</app> est un éditeur d’étiquettes complet pour les fichiers "
+"audio FLAC, Monkey’s Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg "
 "Speex, Ogg Vorbis et WavPack."
 
 #. (itstool) path: page/title
@@ -639,7 +641,7 @@ msgstr "Raccourci"
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:39
 msgid "Apply tag to selected files"
-msgstr "Appliquer l'étiquette aux fichiers sélectionnés"
+msgstr "Appliquer l’étiquette aux fichiers sélectionnés"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:42
@@ -662,7 +664,7 @@ msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
 msgid "Go to previous file while keeping focus on the same tag field"
 msgstr ""
 "Aller au fichier précédent, tout en conservant le focus sur le même champ "
-"d'étiquette"
+"d’étiquette"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:58
@@ -674,7 +676,7 @@ msgstr "<key>Page haut</key>"
 msgid "Go to next file while keeping focus on the same tag field"
 msgstr ""
 "Aller au fichier suivant, tout en conservant le focus sur le même champ "
-"d'étiquette"
+"d’étiquette"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:66
@@ -686,7 +688,7 @@ msgstr "<key>Page bas</key>"
 msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
 msgstr ""
 "Creative Commons Paternité - Partage dans des conditions identiques à "
-"l'initiale 3.0 non transposée"
+"l’initiale 3.0 non transposée"
 
 #. (itstool) path: license/p
 #: C/legal.xml:3
@@ -701,7 +703,7 @@ msgstr "Générer une liste de lecture à partir de la liste de fichiers"
 #. (itstool) path: page/title
 #: C/playlist-generate.page:20
 msgid "Create a playlist"
-msgstr "Création d'une liste de lecture"
+msgstr "Création d’une liste de lecture"
 
 #. (itstool) path: page/p
 #: C/playlist-generate.page:22
@@ -719,8 +721,9 @@ msgid ""
 "the playlist from the list of files."
 msgstr ""
 "Dans la liste des fichiers, <link xref=\"file-select\">sélectionnez les "
-"fichiers</link> que vous voulez voir figurer dans la liste de lecture."
+"fichiers</link> que vous souhaitez voir figurer dans la liste de lecture."
 
+# ATTENTION : ne pas garder le point final dans la traduction, car il est précédé par des points de suspension !
 #. (itstool) path: item/p
 #: C/playlist-generate.page:31
 msgid ""
@@ -728,7 +731,7 @@ msgid ""
 "\">Generate Playlist…</gui></guiseq>."
 msgstr ""
 "Choisissez <guiseq><gui style=\"menu\">Divers</gui> <gui style=\"menuitem"
-"\">Générer une liste de lecture…</gui></guiseq>."
+"\">Générer une liste de lecture…</gui></guiseq>"
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:35
@@ -742,7 +745,7 @@ msgstr ""
 "saisissez un masque, en vous servant des <link xref=\"format-specifier"
 "\">Spécificateurs de format</link>, ou sélectionnez <gui style=\"radiobutton"
 "\">Utiliser le nom du répertoire</gui> pour nommer la liste de lecture "
-"d'après le répertoire sélectionné dans le <gui style=\"group\">Sélecteur</"
+"d’après le répertoire sélectionné dans le <gui style=\"group\">Sélecteur</"
 "gui>."
 
 #. (itstool) path: item/p
@@ -766,7 +769,7 @@ msgid ""
 "\"radiobutton\">Use full path for files in playlist</gui>."
 msgstr ""
 "Activez <gui style=\"radiobutton\">Utiliser le chemin relatif pour les "
-"fichiers de la liste de lecture</gui> si vous n'envisagez d'utiliser la "
+"fichiers de la liste de lecture</gui> si vous n’envisagez d’utiliser la "
 "liste de lecture que sur le même ordinateur et que vous ne prévoyez pas de "
 "déplacer les fichiers audio. Sinon, activez <gui style=\"radiobutton"
 "\">Utiliser le chemin absolu pour les fichiers de la liste de lecture</gui>."
@@ -807,7 +810,7 @@ msgid ""
 "specifiers, to write custom extended information to the playlist."
 msgstr ""
 "Activez <gui style=\"radiobutton\">Écrire seulement la liste des fichiers</"
-"gui> pour créer une liste de lecture ne contenant qu'une liste de fichiers. "
+"gui> pour créer une liste de lecture ne contenant qu’une liste de fichiers. "
 "Activez <gui style=\"radiobutton\">Écrire les informations en utilisant le "
 "nom du fichier</gui> pour inscrire des informations étendues, comprenant la "
 "durée du fichier audio, dans la liste de lecture. Activez <gui style="
@@ -832,7 +835,7 @@ msgstr "David King"
 msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
 msgstr ""
 "Corriger les étiquettes ID3 qui apparaissent vierges ou les étiquettes "
-"incorrectes dans d'autres applications"
+"incorrectes dans d’autres applications"
 
 #. (itstool) path: page/title
 #: C/problems-id3.page:22
@@ -848,9 +851,9 @@ msgid ""
 "most compatible."
 msgstr ""
 "Les étiquettes <em>ID3</em>, utilisées dans les fichiers MP3, peuvent être "
-"de différentes versions. <app>EasyTAG</app> sait gérer les versions  "
-"ID3v2.4, ID3v2.3 et ID3v1.1. La version par défaut dans <app>EasyTAG</app> "
-"est la ID3v2.3, qui possède la plus grande compatibilité."
+"de différentes versions. <app>EasyTAG</app> sait gérer les versions ID3v2.4, "
+"ID3v2.3 et ID3v1.1. La version par défaut dans <app>EasyTAG</app> est la "
+"ID3v2.3, qui possède la plus grande compatibilité."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:29
@@ -869,10 +872,10 @@ msgid ""
 "a problem reading tags from your files, you should try changing the ID3 tag "
 "version settings in the preferences:"
 msgstr ""
-"Certaines applications et périphériques n'acceptent que les étiquettes  "
+"Certaines applications et périphériques n’acceptent que les étiquettes "
 "ID3v2.3 et ID3v1.1, ou même ID3v1.1 uniquement. Si une application ou "
 "périphérique a du mal à lire les étiquettes de vos fichiers, essayez de "
-"changer les paramètres de version des étiquettes ID3 dans les Préférences : "
+"changer les paramètres de version des étiquettes ID3 dans les Préférences :"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:39 C/problems-ogg-split.page:46
@@ -886,7 +889,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/problems-id3.page:43
 msgid "Select the <gui style=\"tab\">ID3 Tags</gui> tab"
-msgstr "Cliquez sur l'onglet <gui style=\"tab\">Étiquettes ID3</gui>"
+msgstr "Cliquez sur l’onglet <gui style=\"tab\">Étiquettes ID3</gui>"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:46
@@ -897,7 +900,7 @@ msgid ""
 msgstr ""
 "À la rubrique <gui style=\"group\">ID3v2</gui>, choisissez le paramètre "
 "<gui>ID3v2.4</gui> dans la liste déroulante <gui>Version</gui> pour utiliser "
-"la version la plus récente d'ID3v2, si votre application ou votre matériel "
+"la version la plus récente d’ID3v2, si votre application ou votre matériel "
 "le prend en charge."
 
 #. (itstool) path: item/p
@@ -907,9 +910,9 @@ msgid ""
 "the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
 "device only supports ID3v1"
 msgstr ""
-"Assurez-vous que l'option <gui style=\"check\">Écrire l'étiquette ID3v1.x</"
+"Assurez-vous que l’option <gui style=\"check\">Écrire l’étiquette ID3v1.x</"
 "gui> est cochée à la rubrique <gui style=\"group\">Étiquettes ID3v1</gui> si "
-"votre équipement ne prend en charge que l'ID3v1."
+"votre équipement ne prend en charge que l’ID3v1"
 
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:22
@@ -917,13 +920,13 @@ msgid ""
 "Split a single tag field into multiple fields when you save Ogg and FLAC "
 "files"
 msgstr ""
-"Diviser un champ d'étiquette en plusieurs champs quand vous enregistrez des "
+"Diviser un champ d’étiquette en plusieurs champs quand vous enregistrez des "
 "fichiers Ogg et FLAC"
 
 #. (itstool) path: page/title
 #: C/problems-ogg-split.page:26
 msgid "Split tag fields when saving"
-msgstr "Division des champs d'étiquettes lors de l'enregistrement"
+msgstr "Division des champs d’étiquettes lors de l’enregistrement"
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:28
@@ -934,12 +937,12 @@ msgid ""
 "<app>EasyTAG</app> automatically reads the extra fields, combining them "
 "together and showing them as if they were a single field."
 msgstr ""
-"Dans les fichiers Ogg et FLAC, il est possible d'avoir plusieurs <link xref="
-"\"tag\">champs d'étiquettes</link> de types différents. Par exemple, si deux "
-"artistes ont réalisé une chanson, il peut y avoir deux champs d'artiste dans "
-"l'étiquette, un pour chaque artiste. <app>EasyTAG</app> lit automatiquement "
-"les champs supplémentaires, les combine et les affiche comme s'il s'agissait "
-"d'un seul champ."
+"Dans les fichiers Ogg et FLAC, il est possible d’avoir plusieurs <link xref="
+"\"tag\">champs d’étiquettes</link> de types différents. Par exemple, si deux "
+"artistes ont réalisé une chanson, il peut y avoir deux champs d’artiste dans "
+"l’étiquette, un pour chaque artiste. <app>EasyTAG</app> lit automatiquement "
+"les champs supplémentaires, les combine et les affiche comme s’il s’agissait "
+"d’un seul champ."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:34
@@ -952,11 +955,11 @@ msgid ""
 "the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
 "\" and \"Queen\"."
 msgstr ""
-"Beaucoup d'applications ne lisent pas correctement les champs multiples, "
-"aussi la configuration par défaut est-elle d'enregistrer en n'utilisant "
-"qu'un seul champ par saisie. Si l'application que vous utilisez accepte les "
-"champs multiples, vous pouvez configurer easyTAG pour diviser les champs "
-"lors de l'enregistrement du fichier. Les champs seront alors divisés "
+"Beaucoup d’applications ne lisent pas correctement les champs multiples, "
+"aussi la configuration par défaut est-elle d’enregistrer en n’utilisant "
+"qu’un seul champ par saisie. Si l’application que vous utilisez accepte les "
+"champs multiples, vous pouvez configurer EasyTAG pour diviser les champs "
+"lors de l’enregistrement du fichier. Les champs seront alors divisés "
 "automatiquement à chaque occurrence de « - » dans le champ. Par exemple, "
 "avec le champ « David Bowie - Queen », deux champs seront enregistrés : "
 "« David Bowie » et « Queen »."
@@ -964,12 +967,12 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:42
 msgid "To split fields when you save the files:"
-msgstr "Pour diviser les champs lors de l'enregistrement des fichiers :"
+msgstr "Pour diviser les champs lors de l’enregistrement des fichiers :"
 
 #. (itstool) path: item/p
 #: C/problems-ogg-split.page:50
 msgid "Select the <gui style=\"tab\">Tags</gui> tab"
-msgstr "Cliquez sur l'onglet <gui style=\"tab\">Étiquettes</gui>"
+msgstr "Cliquez sur l’onglet <gui style=\"tab\">Étiquettes</gui>"
 
 #. (itstool) path: item/p
 #: C/problems-ogg-split.page:53
@@ -978,7 +981,7 @@ msgid ""
 "want to be split into multiple fields when saving"
 msgstr ""
 "À la rubrique <gui style=\"group\">Division</gui>, cochez les champs que "
-"vous voulez diviser en plusieurs champs lors de l'enregistrement"
+"vous voulez diviser en plusieurs champs lors de l’enregistrement"
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
@@ -1015,7 +1018,7 @@ msgid ""
 "and its parent directories."
 msgstr ""
 "<gui>Compléter les étiquettes</gui> est utilisé pour remplir les champs "
-"d'étiquettes avec les données tirées du nom du fichier et de ses répertoire "
+"d’étiquettes avec les données tirées du nom du fichier et de ses répertoires "
 "parents."
 
 #. (itstool) path: section/p
@@ -1030,13 +1033,13 @@ msgid ""
 "parent directory."
 msgstr ""
 "Servez-vous des <em xref=\"format-specifier\">spécificateurs de format</em> "
-"et des <em>séparateurs</em> pour diviser le nom de fichier et les répertoire "
-"parents en différents champs d'étiquette. Les <em>spécificateurs de format</"
-"em>, comme <input>%t</input> pour le titre de la piste, utilisés pour "
-"indiquer les différents champs d'étiquette, figurent dans la <gui>Légende</"
-"gui>. Les <em>séparateurs</em> peuvent être n'importe quelle partie du nom "
-"de fichier ou des répertoires parents. Utilisez <key>/</key> pour ajouter le "
-"<em>séparateur</em> d'un répertoire parent."
+"et des <em>séparateurs</em> pour diviser le nom de fichier et les "
+"répertoires parents en différents champs d’étiquette. Les <em>spécificateurs "
+"de format</em>, comme <input>%t</input> pour le titre de la piste, utilisés "
+"pour indiquer les différents champs d’étiquette, figurent dans la "
+"<gui>Légende</gui>. Les <em>séparateurs</em> peuvent être n’importe quelle "
+"partie du nom de fichier ou des répertoires parents. Utilisez <key>/</key> "
+"pour ajouter le <em>séparateur</em> d’un répertoire parent."
 
 #. (itstool) path: section/p
 #: C/scanner.page:42
@@ -1051,7 +1054,7 @@ msgstr ""
 "de répertoire et les noms de fichier <file>artiste/album/Piste 01 titre."
 "flac</file>, utilisez la <em>chaîne de formatage</em> <input>%a/%b/%n %t</"
 "input> pour extraire le numéro de piste et le titre depuis le nom de "
-"fichier, le titre d'album depuis le répertoire parent et l'artiste depuis le "
+"fichier, le titre d’album depuis le répertoire parent et l’artiste depuis le "
 "répertoire grand-parent."
 
 #. (itstool) path: section/p
@@ -1060,7 +1063,7 @@ msgid ""
 "Fill the tag fields for the selected files using the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
-"Remplissez les champs d'étiquette des fichiers sélectionnés en cliquant sur "
+"Remplissez les champs d’étiquette des fichiers sélectionnés en cliquant sur "
 "le bouton <gui style=\"button\">Scanner les fichiers</gui>."
 
 #. (itstool) path: section/title
@@ -1078,8 +1081,8 @@ msgid ""
 msgstr ""
 "<gui xref=\"file-rename\">Renommer le fichier</gui> est utilisé pour créer "
 "une arborescence de répertoires et mettre à jour les noms de fichiers en se "
-"servant des champs d'étiquettes remplis. Si une nouvelle arborescence de "
-"répertoires est définie, elle sera créée à l'intérieur du répertoire où se "
+"servant des champs d’étiquettes remplis. Si une nouvelle arborescence de "
+"répertoires est définie, elle sera créée à l’intérieur du répertoire où se "
 "situe actuellement le fichier."
 
 #. (itstool) path: section/p
@@ -1093,7 +1096,7 @@ msgid ""
 msgstr ""
 "Par exemple, si vous avez  un fichier étiqueté dans le répertoire "
 "<file>Musique</file>, utilisez la <em>chaîne de formatage</em> <input>%a/%b/"
-"%n %t</input> pour créer la structure de fichier et le nom de fichier  "
+"%n %t</input> pour créer la structure de fichier et le nom de fichier "
 "<file>Musique/artiste/album/Piste 01 titre.flac</file>. Vous aurez un aperçu "
 "du projet de nommage au-dessous de la chaîne de formatage."
 
@@ -1109,7 +1112,7 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/scanner.page:73
 msgid "Bulk process tag fields and filename"
-msgstr "Traitement en masse des champs d'étiquette et de nom de fichier"
+msgstr "Traitement en masse des champs d’étiquette et de nom de fichier"
 
 #. (itstool) path: section/p
 #: C/scanner.page:75
@@ -1119,7 +1122,7 @@ msgid ""
 "filename to be processed as well."
 msgstr ""
 "<gui>Traiter les champs</gui> est une procédure de recherche et de "
-"remplacement sophistiquée qui permet de sélectionner les champs d'étiquettes "
+"remplacement sophistiquée qui permet de sélectionner les champs d’étiquettes "
 "à traiter. Elle permet aussi de traiter le nom de fichier."
 
 #. (itstool) path: section/p
@@ -1129,7 +1132,7 @@ msgid ""
 "gui> section."
 msgstr ""
 "Précisez quels champs modifier en les sélectionnant dans la section "
-"<gui>Champs de l'étiquette</gui>."
+"<gui>Champs de l’étiquette</gui>."
 
 #. (itstool) path: section/p
 #: C/scanner.page:82
@@ -1143,7 +1146,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/starting.page:16
 msgid "Using <app>EasyTAG</app> for the first time"
-msgstr "Utilisation de <app>EasyTAG</app> pour la première fois"
+msgstr "Utilisation d’<app>EasyTAG</app> pour la première fois"
 
 #. (itstool) path: page/title
 #: C/starting.page:19
@@ -1172,7 +1175,7 @@ msgid ""
 msgstr ""
 "<app>EasyTAG</app> peut appliquer des corrections automatiques à certains "
 "fichiers musicaux. Ces fichiers sont marqués en gras. Ces corrections "
-"consistent en des mises à jour des conteneurs de métadonnées d'étiquettes et "
+"consistent en des mises à jour des conteneurs de métadonnées d’étiquettes et "
 "elles ne seront pas appliquées avant enregistrement."
 
 #. (itstool) path: page/p
@@ -1186,10 +1189,10 @@ msgid ""
 "\">Preferences</gui> dialog."
 msgstr ""
 "Pour enregistrer ces modifications, sélectionnez tous les fichiers concernés "
-"et appuyez sur <keyseq><key>Ctrl</key><key>S</key></keyseq>. Il n'est pas "
-"possible d'annuler les changements automatiques mais ils ne sont pas "
-"enregistrés tant que vous n'aurez pas sélectionné et enregistré le fichier. "
-"Vous pouvez désactiver certaines des mises à jour automatiques dans l'onglet "
+"et appuyez sur <keyseq><key>Ctrl</key><key>S</key></keyseq>. Il n’est pas "
+"possible d’annuler les changements automatiques mais ils ne sont pas "
+"enregistrés tant que vous n’aurez pas sélectionné et enregistré le fichier. "
+"Vous pouvez désactiver certaines des mises à jour automatiques dans l’onglet "
 "<gui style=\"tab\">Paramètres des étiquettes ID3</gui> de la fenêtre des "
 "<gui style=\"dialog\">Préférences</gui>."
 
@@ -1210,12 +1213,12 @@ msgid ""
 "files."
 msgstr ""
 "Les majuscules dans les étiquettes peuvent être modifiées pour un ou "
-"plusieurs champ dans un ou plusieurs fichiers."
+"plusieurs champs dans un ou plusieurs fichiers."
 
 #. (itstool) path: steps/title
 #: C/tag-capitalization.page:27
 msgid "Change tag field capitalization"
-msgstr "Changement de capitalisation dans les champs d'étiquettes"
+msgstr "Changement de capitalisation dans les champs d’étiquettes"
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:29
@@ -1234,7 +1237,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:36
 msgid "Select the <gui style=\"tab\">Process Fields</gui> tab."
-msgstr "Cliquez sur l'onglet <gui style=\"tab\">Traiter les champs</gui>"
+msgstr "Cliquez sur l’onglet <gui style=\"tab\">Traiter les champs</gui>"
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:39
@@ -1267,7 +1270,7 @@ msgid ""
 msgstr ""
 "La boîte de dialogue du <gui>Scanner</gui> peut aussi servir à traiter les "
 "espaces et à convertir les caractères. Si vous ne voulez pas faire de "
-"changement pour ceux-ci, sélectionnez l'option appropriée avant de cliquer "
+"changement pour ceux-ci, sélectionnez l’option appropriée avant de cliquer "
 "sur <gui style=\"button\">Scanner les fichiers</gui>."
 
 #. (itstool) path: info/desc
@@ -1278,7 +1281,7 @@ msgstr "Ajouter des étiquettes texte à un fichier"
 #. (itstool) path: page/title
 #: C/tag-field.page:22
 msgid "Tag a file"
-msgstr "Étiquetage d'un fichier"
+msgstr "Étiquetage d’un fichier"
 
 #. (itstool) path: page/p
 #: C/tag-field.page:24
@@ -1286,13 +1289,13 @@ msgid ""
 "Audio files can support a number of different tag <em>fields</em> which "
 "depend on the file format."
 msgstr ""
-"Les fichiers audio acceptent de nombreux <em>champs</em> d'étiquette qui "
+"Les fichiers audio acceptent de nombreux <em>champs</em> d’étiquette qui "
 "dépendent du format de fichier."
 
 #. (itstool) path: steps/title
 #: C/tag-field.page:28
 msgid "Update a tag field in a file"
-msgstr "Mise à jour d'un champ d'étiquette dans un fichier"
+msgstr "Mise à jour d’un champ d’étiquette dans un fichier"
 
 #. (itstool) path: item/p
 #: C/tag-field.page:30
@@ -1314,7 +1317,7 @@ msgid ""
 msgstr ""
 "Sélectionnez <guiseq><gui style=\"menu\">Fichier</gui><gui style=\"menuitem"
 "\">Enregistrer les fichiers</gui></guiseq> pour enregistrer les "
-"modifications dans le fichier sélectionné. "
+"modifications dans le fichier sélectionné."
 
 #. (itstool) path: item/p
 #: C/tag-field.page:42
@@ -1322,7 +1325,7 @@ msgid ""
 "When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
 "\"button\">Save</gui> to save the changes."
 msgstr ""
-"À la requête <gui>Confirmer l'écriture de l'étiquette</gui>, cliquez sur le "
+"À la requête <gui>Confirmer l’écriture de l’étiquette</gui>, cliquez sur le "
 "bouton <gui style=\"button\">Enregistrer</gui> pour enregistrer les "
 "modifications."
 
