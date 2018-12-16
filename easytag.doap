@@ -20,8 +20,8 @@
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <repository>
     <GitRepository>
-      <location rdf:resource="git://git.gnome.org/easytag" />
-      <browse rdf:resource="https://git.gnome.org/browse/easytag/" />
+      <location rdf:resource="https://gitlab.gnome.org/GNOME/easytag.git" />
+      <browse rdf:resource="https://gitlab.gnome.org/GNOME/easytag" />
     </GitRepository>
   </repository>
   <license rdf:resource="http://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html" />
