@@ -1,395 +1,395 @@
 <interface domain="easytag">
-    <requires lib="gtk+" version="3.10"/>
-    <object class="GtkListStore" id="search_results_model">
-        <columns>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gchararray"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="gint"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="GdkRGBA"/>
-            <column type="gpointer"/>
-        </columns>
-    </object>
-    <template class="EtSearchDialog" parent="GtkDialog">
-        <property name="title" translatable="yes">Find Files</property>
-        <signal name="delete-event" handler="on_delete_event"/>
-        <child internal-child="vbox">
-            <object class="GtkBox" id="search_vbox">
-                <property name="border-width">6</property>
+  <requires lib="gtk+" version="3.10"/>
+  <object class="GtkListStore" id="search_results_model">
+    <columns>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gchararray"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="gint"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="GdkRGBA"/>
+      <column type="gpointer"/>
+    </columns>
+  </object>
+  <template class="EtSearchDialog" parent="GtkDialog">
+    <property name="title" translatable="yes">Find Files</property>
+    <signal name="delete-event" handler="gtk_widget_hide_on_delete"/>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="search_vbox">
+        <property name="border-width">6</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkGrid" id="search_grid">
+            <property name="column-spacing">6</property>
+            <property name="row-spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="search_label">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">Search:</property>
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="search_string_combo">
+                <property name="has-entry">True</property>
+                <property name="hexpand">True</property>
+                <property name="entry-text-column">0</property>
+                <property name="tooltip-text" translatable="yes">Type the text to search for in the file list, or leave the field empty to display all files</property>
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="search_find_button">
+                <property name="can-default">True</property>
+                <property name="label" translatable="yes">_Find</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+                <signal name="clicked" handler="Search_File"/>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="search_in_label">
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">In:</property>
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="search_options_box">
                 <property name="spacing">6</property>
+                <property name="visible">True</property>
                 <child>
-                    <object class="GtkGrid" id="search_grid">
-                        <property name="column-spacing">6</property>
-                        <property name="row-spacing">6</property>
-                        <child>
-                            <object class="GtkLabel" id="search_label">
-                                <property name="halign">end</property>
-                                <property name="label" translatable="yes">Search:</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">0</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkComboBox" id="search_string_combo">
-                                <property name="has-entry">True</property>
-                                <property name="hexpand">True</property>
-                                <property name="entry-text-column">0</property>
-                                <property name="tooltip-text" translatable="yes">Type the text to search for in the file list, or leave the field empty to display all files</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">0</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="search_find_button">
-                                <property name="can-default">True</property>
-                                <property name="label" translatable="yes">_Find</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                                <signal name="clicked" handler="Search_File"/>
-                            </object>
-                            <packing>
-                                <property name="left-attach">2</property>
-                                <property name="top-attach">0</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkLabel" id="search_in_label">
-                                <property name="halign">end</property>
-                                <property name="label" translatable="yes">In:</property>
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkBox" id="search_options_box">
-                                <property name="spacing">6</property>
-                                <property name="visible">True</property>
-                                <child>
-                                    <object class="GtkCheckButton" id="search_filename_check">
-                                        <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.">the Filename</property>
-                                        <property name="visible">True</property>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkCheckButton" id="search_tag_check">
-                                        <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.">the Tag</property>
-                                        <property name="visible">True</property>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkSeparator" id="search_separator">
-                                        <property name="orientation">vertical</property>
-                                        <property name="visible">True</property>
-                                    </object>
-                                </child>
-                                <child>
-                                    <object class="GtkCheckButton" id="search_case_check">
-                                        <property name="label" translatable="yes">Case sensitive</property>
-                                        <property name="visible">True</property>
-                                    </object>
-                                </child>
-                            </object>
-                            <packing>
-                                <property name="left-attach">1</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkButton" id="search_close_button">
-                                <property name="label" translatable="yes">_Close</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible">True</property>
-                                <signal name="clicked" handler="on_close_clicked"/>
-                            </object>
-                            <packing>
-                                <property name="left-attach">2</property>
-                                <property name="top-attach">1</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkScrolledWindow" id="search_scrolled">
-                                <property name="min-content-height">300</property>
-                                <property name="min-content-width">400</property>
-                                <property name="visible">True</property>
-                                <child>
-                                    <object class="GtkTreeView" id="search_results_view">
-                                        <property name="expand">True</property>
-                                        <property name="model">search_results_model</property>
-                                        <property name="sensitive">False</property>
-                                        <property name="visible">True</property>
-                                        <child internal-child="selection">
-                                            <object class="GtkTreeSelection" id="search_selection">
-                                                <property name="mode">multiple</property>
-                                                <signal name="changed" handler="Search_Result_List_Row_Selected"/>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="filename_column">
-                                                <property name="title" translatable="yes">Filename</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="filename_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">0</attribute>
-                                                        <attribute name="weight">15</attribute>
-                                                        <attribute name="foreground-rgba">30</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="title_column">
-                                                <property name="title" translatable="yes">Title</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="title_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">1</attribute>
-                                                        <attribute name="weight">16</attribute>
-                                                        <attribute name="foreground-rgba">31</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="artist_column">
-                                                <property name="title" translatable="yes">Artist</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="artist_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">2</attribute>
-                                                        <attribute name="weight">17</attribute>
-                                                        <attribute name="foreground-rgba">32</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="album_artist_column">
-                                                <property name="title" translatable="yes">Album Artist</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="album_artist_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">3</attribute>
-                                                        <attribute name="weight">18</attribute>
-                                                        <attribute name="foreground-rgba">33</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="album_column">
-                                                <property name="title" translatable="yes">Album</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="album_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">4</attribute>
-                                                        <attribute name="weight">19</attribute>
-                                                        <attribute name="foreground-rgba">34</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="cd_column">
-                                                <property name="title" translatable="yes">CD</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="cd_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">5</attribute>
-                                                        <attribute name="weight">20</attribute>
-                                                        <attribute name="foreground-rgba">35</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="year_column">
-                                                <property name="title" translatable="yes">Year</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="year_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">6</attribute>
-                                                        <attribute name="weight">21</attribute>
-                                                        <attribute name="foreground-rgba">36</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="track_column">
-                                                <property name="title" translatable="yes">Track</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="track_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">7</attribute>
-                                                        <attribute name="weight">22</attribute>
-                                                        <attribute name="foreground-rgba">37</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="genre_column">
-                                                <property name="title" translatable="yes">Genre</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="genre_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">8</attribute>
-                                                        <attribute name="weight">23</attribute>
-                                                        <attribute name="foreground-rgba">38</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="comment_column">
-                                                <property name="title" translatable="yes">Comment</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="comment_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">9</attribute>
-                                                        <attribute name="weight">24</attribute>
-                                                        <attribute name="foreground-rgba">39</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="composer_column">
-                                                <property name="title" translatable="yes">Composer</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="composer_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">10</attribute>
-                                                        <attribute name="weight">25</attribute>
-                                                        <attribute name="foreground-rgba">40</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="orig_artist_column">
-                                                <property name="title" translatable="yes">Original Artist</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="orig_artist_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">11</attribute>
-                                                        <attribute name="weight">26</attribute>
-                                                        <attribute name="foreground-rgba">41</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="copyright_column">
-                                                <property name="title" translatable="yes">Copyright</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="copyright_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">12</attribute>
-                                                        <attribute name="weight">27</attribute>
-                                                        <attribute name="foreground-rgba">42</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="url_column">
-                                                <property name="title" translatable="yes">URL</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="url_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">13</attribute>
-                                                        <attribute name="weight">28</attribute>
-                                                        <attribute name="foreground-rgba">43</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                        <child>
-                                            <object class="GtkTreeViewColumn" id="encoded_by_column">
-                                                <property name="title" translatable="yes">Encoded By</property>
-                                                <child>
-                                                    <object class="GtkCellRendererText" id="encoced_by_renderer"/>
-                                                    <attributes>
-                                                        <attribute name="text">14</attribute>
-                                                        <attribute name="weight">29</attribute>
-                                                        <attribute name="foreground-rgba">44</attribute>
-                                                    </attributes>
-                                                </child>
-                                            </object>
-                                        </child>
-                                    </object>
-                                </child>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">2</property>
-                                <property name="width">3</property>
-                            </packing>
-                        </child>
-                        <child>
-                            <object class="GtkStatusbar" id="status_bar">
-                                <property name="visible">True</property>
-                            </object>
-                            <packing>
-                                <property name="left-attach">0</property>
-                                <property name="top-attach">3</property>
-                                <property name="width">3</property>
-                            </packing>
-                        </child>
-                    </object>
+                  <object class="GtkCheckButton" id="search_filename_check">
+                    <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.">the Filename</property>
+                    <property name="visible">True</property>
+                  </object>
                 </child>
-            </object>
+                <child>
+                  <object class="GtkCheckButton" id="search_tag_check">
+                    <property name="label" translatable="yes" comments="This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.">the Tag</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="search_separator">
+                    <property name="orientation">vertical</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="search_case_check">
+                    <property name="label" translatable="yes">Case sensitive</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="search_close_button">
+                <property name="label" translatable="yes">_Close</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+                <signal name="clicked" handler="on_close_clicked"/>
+              </object>
+              <packing>
+                <property name="left-attach">2</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="search_scrolled">
+                <property name="min-content-height">300</property>
+                <property name="min-content-width">400</property>
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkTreeView" id="search_results_view">
+                    <property name="expand">True</property>
+                    <property name="model">search_results_model</property>
+                    <property name="sensitive">False</property>
+                    <property name="visible">True</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="search_selection">
+                        <property name="mode">multiple</property>
+                        <signal name="changed" handler="Search_Result_List_Row_Selected"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="filename_column">
+                        <property name="title" translatable="yes">Filename</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="filename_renderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                            <attribute name="weight">15</attribute>
+                            <attribute name="foreground-rgba">30</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="title_column">
+                        <property name="title" translatable="yes">Title</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="title_renderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                            <attribute name="weight">16</attribute>
+                            <attribute name="foreground-rgba">31</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="artist_column">
+                        <property name="title" translatable="yes">Artist</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="artist_renderer"/>
+                          <attributes>
+                            <attribute name="text">2</attribute>
+                            <attribute name="weight">17</attribute>
+                            <attribute name="foreground-rgba">32</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="album_artist_column">
+                        <property name="title" translatable="yes">Album Artist</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="album_artist_renderer"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
+                            <attribute name="weight">18</attribute>
+                            <attribute name="foreground-rgba">33</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="album_column">
+                        <property name="title" translatable="yes">Album</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="album_renderer"/>
+                          <attributes>
+                            <attribute name="text">4</attribute>
+                            <attribute name="weight">19</attribute>
+                            <attribute name="foreground-rgba">34</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="cd_column">
+                        <property name="title" translatable="yes">CD</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cd_renderer"/>
+                          <attributes>
+                            <attribute name="text">5</attribute>
+                            <attribute name="weight">20</attribute>
+                            <attribute name="foreground-rgba">35</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="year_column">
+                        <property name="title" translatable="yes">Year</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="year_renderer"/>
+                          <attributes>
+                            <attribute name="text">6</attribute>
+                            <attribute name="weight">21</attribute>
+                            <attribute name="foreground-rgba">36</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="track_column">
+                        <property name="title" translatable="yes">Track</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="track_renderer"/>
+                          <attributes>
+                            <attribute name="text">7</attribute>
+                            <attribute name="weight">22</attribute>
+                            <attribute name="foreground-rgba">37</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="genre_column">
+                        <property name="title" translatable="yes">Genre</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="genre_renderer"/>
+                          <attributes>
+                            <attribute name="text">8</attribute>
+                            <attribute name="weight">23</attribute>
+                            <attribute name="foreground-rgba">38</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="comment_column">
+                        <property name="title" translatable="yes">Comment</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="comment_renderer"/>
+                          <attributes>
+                            <attribute name="text">9</attribute>
+                            <attribute name="weight">24</attribute>
+                            <attribute name="foreground-rgba">39</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="composer_column">
+                        <property name="title" translatable="yes">Composer</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="composer_renderer"/>
+                          <attributes>
+                            <attribute name="text">10</attribute>
+                            <attribute name="weight">25</attribute>
+                            <attribute name="foreground-rgba">40</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="orig_artist_column">
+                        <property name="title" translatable="yes">Original Artist</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="orig_artist_renderer"/>
+                          <attributes>
+                            <attribute name="text">11</attribute>
+                            <attribute name="weight">26</attribute>
+                            <attribute name="foreground-rgba">41</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="copyright_column">
+                        <property name="title" translatable="yes">Copyright</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="copyright_renderer"/>
+                          <attributes>
+                            <attribute name="text">12</attribute>
+                            <attribute name="weight">27</attribute>
+                            <attribute name="foreground-rgba">42</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="url_column">
+                        <property name="title" translatable="yes">URL</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="url_renderer"/>
+                          <attributes>
+                            <attribute name="text">13</attribute>
+                            <attribute name="weight">28</attribute>
+                            <attribute name="foreground-rgba">43</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="encoded_by_column">
+                        <property name="title" translatable="yes">Encoded By</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="encoced_by_renderer"/>
+                          <attributes>
+                            <attribute name="text">14</attribute>
+                            <attribute name="weight">29</attribute>
+                            <attribute name="foreground-rgba">44</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+                <property name="width">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkStatusbar" id="status_bar">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">3</property>
+                <property name="width">3</property>
+              </packing>
+            </child>
+          </object>
         </child>
-    </template>
+      </object>
+    </child>
+  </template>
 </interface>
 

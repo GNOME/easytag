@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="easytag">
+  <object class="GtkHeaderBar" id="headerbar">
+    <property name="visible">True</property>
+    <property name="show-close-button">True</property>
+    <child>
+      <object class="GtkButton" id="scanner_btn">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="action_name">win.scanner</property>
+        <property name="tooltip_text" translatable="yes">Show Scanner</property>
+        <property name="label" translatable="yes">Scanner</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="stop_btn">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="action_name">win.stop</property>
+        <property name="tooltip_text" translatable="yes">Stop the current action</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon-name">process-stop-symbolic</property>
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkButton" id="undo_btn">
+            <property name="visible">True</property>
+            <property name="action_name">win.undo-file-changes</property>
+            <property name="tooltip-text" translatable="yes">Undo for file</property>
+            <child>
+              <object class="GtkImage">
+                <property name="icon-name">edit-undo-symbolic</property>
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="redo_btn">
+            <property name="visible">True</property>
+            <property name="action_name">win.redo-file-changes</property>
+            <property name="tooltip-text" translatable="yes">Redo for file</property>
+            <child>
+              <object class="GtkImage">
+                <property name="icon-name">edit-redo-symbolic</property>
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <style>
+          <class name="linked"/>
+        </style>
+      </object>
+    </child>
+
+    <child type="title">
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkRadioButton" id="file_btn">
+            <property name="visible">True</property>
+            <property name="draw-indicator">False</property>
+            <property name="action-name">win.file-artist-view</property>
+            <property name="action-target">"file"</property>
+            <property name="label" translatable="yes">Directory Tree</property>
+            <property name="tooltip_text" translatable="yes">Directory Tree</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="artist_btn">
+            <property name="visible">True</property>
+            <property name="draw-indicator">False</property>
+            <property name="group">file_btn</property>
+            <property name="action-name">win.file-artist-view</property>
+            <property name="action-target">"artist"</property>
+            <property name="label" translatable="yes">Artists and Albums</property>
+            <property name="tooltip_text" translatable="yes">Artists and Albums</property>
+          </object>
+        </child>
+        <style>
+          <class name="linked"/>
+        </style>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuButton" id="primary_menu_btn">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="save_btn">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="action_name">win.save</property>
+        <property name="use_underline">True</property>
+        <property name="label" translatable="yes">_Save These Files</property>
+        <property name="tooltip-text" translatable="yes">Save changes to selected files</property>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="find_btn">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="action_name">win.find</property>
+        <property name="tooltip_text" translatable="yes">Find…</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon-name">edit-find-symbolic</property>
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+      </packing>
+    </child>
+  </object>
+</interface>

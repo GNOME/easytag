@@ -13,7 +13,7 @@ AM_DISTCHECK_CONFIGURE_FLAGS = \
 	--enable-speex \
 	--enable-tests \
 	--enable-wavpack
- 
+
 SUBDIRS = help po
 
 bin_PROGRAMS = easytag
@@ -280,7 +280,6 @@ endif
 	$(AM_V_at)$(MKDIR_P) $(@D)
 	$(AM_V_at)touch $@
 
-@APPDATA_XML_RULES@
 @INTLTOOL_XML_RULE@
 appdata_in_files = data/org.gnome.EasyTAG.appdata.xml.in $(nautilus_appdata_in_file)
 appdata_XML = $(appdata_in_files:.xml.in=.xml)
@@ -316,7 +315,6 @@ images = \
 	data/images/freedb.png \
 	data/images/gnudb.png \
 	data/images/invert-selection.png \
-	data/images/mask.png \
 	data/images/musicbrainz.png \
 	data/images/red-lines.png \
 	data/images/sequence-track.png \
@@ -605,3 +603,4 @@ dist-hook: dist-ChangeLog
 
 .PHONY: clean-local-dstamp
 .PHONY: test test-report perf-report full-report
+
