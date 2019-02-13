@@ -25,7 +25,6 @@
         <file preprocess='to-pixdata'>images/freedb.png</file>
         <file preprocess='to-pixdata'>images/gnudb.png</file>
         <file preprocess='to-pixdata'>images/invert-selection.png</file>
-        <file preprocess='to-pixdata'>images/mask.png</file>
         <file preprocess='to-pixdata'>images/musicbrainz.png</file>
         <file preprocess='to-pixdata'>images/red-lines.png</file>
         <file preprocess='to-pixdata'>images/sequence-track.png</file>
