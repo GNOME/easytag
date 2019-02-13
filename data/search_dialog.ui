@@ -52,7 +52,7 @@
     </object>
     <template class="EtSearchDialog" parent="GtkDialog">
         <property name="title" translatable="yes">Find Files</property>
-        <signal name="delete-event" handler="on_delete_event"/>
+        <signal name="delete-event" handler="gtk_widget_hide_on_delete"/>
         <child internal-child="vbox">
             <object class="GtkBox" id="search_vbox">
                 <property name="border-width">6</property>
