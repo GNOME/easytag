@@ -22,7 +22,7 @@
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <glib/gi18n-lib.h>
-#include <nautilus-extension.h>
+#include <libnautilus-extension/nautilus-extension-types.h>
 #include <libnautilus-extension/nautilus-file-info.h>
 #include <libnautilus-extension/nautilus-menu-provider.h>
 
@@ -292,7 +292,7 @@ nautilus_easytag_class_finalize (NautilusEasytagClass *class)
 {
 }
 
-// Nautilus extension module.
+/* Nautilus extension module. */
 static GType type_list[1];
 
 void

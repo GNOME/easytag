@@ -1,0 +1,177 @@
+<interface domain="easytag">
+    <object class="GtkImage" id="artist_view_image">
+        <property name="resource">/org/gnome/EasyTAG/images/artist-album.png</property>
+        <property name="visible">True</property>
+    </object>
+    <object class="GtkImage" id="invert_selection_image">
+        <property name="resource">/org/gnome/EasyTAG/images/invert-selection.png</property>
+        <property name="visible">True</property>
+    </object>
+    <object class="GtkToolbar" id="main_toolbar">
+        <property name="visible">True</property>
+        <style>
+            <class name="primary-toolbar"/>
+        </style>
+        <child>
+            <object class="GtkToolButton" id="first_button">
+                <property name="action-name">win.go-first</property>
+                <property name="icon-name">go-first</property>
+                <property name="label" translatable="yes">_First File</property>
+                <property name="tooltip-text" translatable="yes">First file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="previous_button">
+                <property name="action-name">win.go-previous</property>
+                <property name="icon-name">go-previous</property>
+                <property name="label" translatable="yes">_Previous File</property>
+                <property name="tooltip-text" translatable="yes">Previous file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="next_button">
+                <property name="action-name">win.go-next</property>
+                <property name="icon-name">go-next</property>
+                <property name="label" translatable="yes">_Next File</property>
+                <property name="tooltip-text" translatable="yes">Next file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="last_button">
+                <property name="action-name">win.go-last</property>
+                <property name="icon-name">go-last</property>
+                <property name="label" translatable="yes">_Last File</property>
+                <property name="tooltip-text" translatable="yes">Last file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator1"/>
+        </child>
+        <child>
+            <object class="GtkToggleToolButton" id="scanner_button">
+                <property name="action-name">win.scanner</property>
+                <property name="icon-name">document-properties</property>
+                <property name="label" translatable="yes">_Show Scanner</property>
+                <property name="tooltip-text" translatable="yes">Show scanner</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="remove_tags_button">
+                <property name="action-name">win.remove-tags</property>
+                <property name="icon-name">edit-clear</property>
+                <property name="label" translatable="yes">_Remove Tags</property>
+                <property name="tooltip-text" translatable="yes">Remove tags</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="undo_file_changes_button">
+                <property name="action-name">win.undo-file-changes</property>
+                <property name="icon-name">edit-undo</property>
+                <property name="label" translatable="yes">_Undo</property>
+                <property name="tooltip-text" translatable="yes">Undo for file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="redo_file_changes_button">
+                <property name="action-name">win.redo-file-changes</property>
+                <property name="icon-name">edit-redo</property>
+                <property name="label" translatable="yes">R_edo</property>
+                <property name="tooltip-text" translatable="yes">Redo for file</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="save_button">
+                <property name="action-name">win.save</property>
+                <property name="icon-name">document-save</property>
+                <property name="label" translatable="yes">_Save Files</property>
+                <property name="tooltip-text" translatable="yes">Save changes to selected files</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator2"/>
+        </child>
+        <child>
+            <object class="GtkToggleToolButton" id="file_view_button">
+                <property name="action-name">win.file-artist-view</property>
+                <property name="action-target">'file'</property>
+                <property name="icon-name">audio-x-generic</property>
+                <property name="label" translatable="yes">Directory Tree</property>
+                <property name="tooltip-text" translatable="yes">Browse directory tree</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToggleToolButton" id="artist_view_button">
+                <property name="action-name">win.file-artist-view</property>
+                <property name="action-target">'artist'</property>
+                <property name="label" translatable="yes">Artists and Albums</property>
+                <property name="icon-widget">artist_view_image</property>
+                <property name="tooltip-text" translatable="yes">Browse artists and albums</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator3"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="invert_selection_button">
+                <property name="action-name">win.invert-selection</property>
+                <property name="label" translatable="yes">Invert File Selection</property>
+                <property name="icon-widget">invert_selection_image</property>
+                <property name="tooltip-text" translatable="yes">Invert file selection</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator4"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="find_button">
+                <property name="action-name">win.find</property>
+                <property name="icon-name">edit-find</property>
+                <property name="label" translatable="yes">_Find…</property>
+                <property name="tooltip-text" translatable="yes">Search filenames and tags</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="cddb_button">
+                <property name="action-name">win.show-cddb</property>
+                <property name="icon-name">media-optical</property>
+                <property name="label" translatable="yes">CDDB Search…</property>
+                <property name="tooltip-text" translatable="yes">CDDB Search</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="playlist_button">
+                <property name="action-name">win.show-playlist</property>
+                <property name="icon-name">document-save-as</property>
+                <property name="label" translatable="yes">Generate Playlist…</property>
+                <property name="tooltip-text" translatable="yes">Generate a playlist</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <child>
+            <object class="GtkSeparatorToolItem" id="separator5"/>
+        </child>
+        <child>
+            <object class="GtkToolButton" id="stop_button">
+                <property name="action-name">win.stop</property>
+                <property name="icon-name">process-stop</property>
+                <property name="label" translatable="yes">Stop</property>
+                <property name="tooltip-text" translatable="yes">Stop the current action</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+    </object>
+</interface>

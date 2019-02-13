@@ -69,7 +69,6 @@ et_show_about_dialog (GtkWindow *parent)
         "Guilherme Destefani <gd@helixbrasil.com.br>",
         "Andreas Winkelmann <ml@awinkelmann.de>",
         "Adrian Bunk <bunk@stusta.de>",
-        "Romain F. T.<rrroschan@gmail.com>",
         NULL
     };
 

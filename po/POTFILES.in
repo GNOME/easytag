@@ -5,7 +5,6 @@ data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/browser_dialogs.ui
 [type: gettext/glade]data/cddb_dialog.ui
 [type: gettext/glade]data/file_area.ui
-[type: gettext/glade]data/headerbar.ui
 [type: gettext/glade]data/image_properties_dialog.ui
 [type: gettext/glade]data/log_area.ui
 [type: gettext/glade]data/load_files_dialog.ui
@@ -14,8 +13,8 @@ data/easytag-nautilus.metainfo.xml.in
 [type: gettext/glade]data/preferences_dialog.ui
 [type: gettext/glade]data/scan_dialog.ui
 [type: gettext/glade]data/search_dialog.ui
-[type: gettext/glade]data/shortcuts.ui
 [type: gettext/glade]data/tag_area.ui
+[type: gettext/glade]data/toolbar.ui
 [type: gettext/gsettings]data/org.gnome.EasyTAG.gschema.xml
 nautilus-extension/nautilus-easytag.c
 src/about.c

@@ -33,6 +33,10 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Package name for ge
 AS_IF([test "x$USE_NLS" != "xno"],
       [AC_DEFINE([ENABLE_NLS], [1], [Native Language support is enabled])])
 
+dnl AppData
+m4_ifdef([APPDATA_XML], [APPDATA_XML],
+         [AC_MSG_ERROR([appdata-tools is required for appdata-xml.m4])])
+
 dnl -------------------------------
 dnl Checks for programs.
 dnl -------------------------------
@@ -399,4 +403,3 @@ echo
 echo Now type 'make' to build $PACKAGE_NAME $PACKAGE_VERSION,
 echo and then 'make install' for installation.
 echo
-

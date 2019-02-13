@@ -750,7 +750,7 @@ on_select_all (GSimpleAction *action,
     GtkWidget *focused;
 
     self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);  
+    priv = et_application_window_get_instance_private (self);
 
     /* Use the currently-focused widget and "select all" as appropriate.
      * https://bugzilla.gnome.org/show_bug.cgi?id=697515 */
@@ -1204,6 +1204,20 @@ on_go_desktop (GSimpleAction *action,
 }
 
 static void
+on_go_documents (GSimpleAction *action,
+                 GVariant *variant,
+                 gpointer user_data)
+{
+    EtApplicationWindowPrivate *priv;
+    EtApplicationWindow *self;
+
+    self = ET_APPLICATION_WINDOW (user_data);
+    priv = et_application_window_get_instance_private (self);
+
+    et_browser_go_documents (ET_BROWSER (priv->browser));
+}
+
+static void
 on_go_downloads (GSimpleAction *action,
                  GVariant *variant,
                  gpointer user_data)
@@ -1515,6 +1529,7 @@ static const GActionEntry actions[] =
     /* Go menu. */
     { "go-home", on_go_home },
     { "go-desktop", on_go_desktop },
+    { "go-documents", on_go_documents },
     { "go-downloads", on_go_downloads },
     { "go-music", on_go_music },
     { "go-parent", on_go_parent },
@@ -1609,9 +1624,6 @@ et_application_window_init (EtApplicationWindow *self)
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
 
-    action = g_settings_create_action (MainSettings, "log-show");
-    g_action_map_add_action (G_ACTION_MAP (self), action);
-    g_object_unref (action);
     action = g_settings_create_action (MainSettings, "browse-show-hidden");
     g_action_map_add_action (G_ACTION_MAP (self), action);
     g_object_unref (action);
@@ -1641,21 +1653,15 @@ et_application_window_init (EtApplicationWindow *self)
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (self), main_vbox);
 
-    /* Header bar. */
-    {      
+    /* Menu bar and tool bar. */
+    {
         GtkBuilder *builder;
-        GtkWidget *headerbar;
-        GtkWidget *primary_menu_btn;
-        GMenuModel *primary_menu_model;
+        GtkWidget *toolbar;
 
-        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/headerbar.ui");
-        gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui", NULL);
+        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/toolbar.ui");
 
-        headerbar = GTK_WIDGET (gtk_builder_get_object (builder, "headerbar"));
-        primary_menu_btn = GTK_WIDGET (gtk_builder_get_object (builder, "primary_menu_btn"));
-        primary_menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "primary-menu"));
-        gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(primary_menu_btn), primary_menu_model);
-        gtk_window_set_titlebar (GTK_WINDOW(window), headerbar);
+        toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
+        gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
 
         g_object_unref (builder);
     }
@@ -1711,7 +1717,7 @@ et_application_window_init (EtApplicationWindow *self)
     priv->progress_bar = et_progress_bar_new ();
     gtk_box_pack_end (GTK_BOX (hbox), priv->progress_bar, FALSE, FALSE, 0);
 
-    gtk_widget_show_all (GTK_WIDGET (main_vbox));  
+    gtk_widget_show_all (GTK_WIDGET (main_vbox));
 
     /* Bind the setting after the log area has been shown, to avoid
      * force-enabling the visibility on startup. */
@@ -2564,7 +2570,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "open-with", FALSE);
         set_action_state (self, "invert-selection", FALSE);
         set_action_state (self, "delete", FALSE);
-        /* XXX set_action_state (self, "sort-mode", FALSE); */
+        /* FIXME: set_action_state (self, "sort-mode", FALSE); */
         set_action_state (self, "go-previous", FALSE);
         set_action_state (self, "go-next", FALSE);
         set_action_state (self, "go-first", FALSE);
@@ -2580,7 +2586,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "show-load-filenames", FALSE);
         set_action_state (self, "show-playlist", FALSE);
         set_action_state (self, "run-player", FALSE);
-        /* XXX set_action_state (self, "scan-mode", FALSE);*/
+        /* FIXME set_action_state (self, "scan-mode", FALSE);*/
         set_action_state (self, "file-artist-view", FALSE);
 
         return;

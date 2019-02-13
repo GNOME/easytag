@@ -165,7 +165,7 @@
     <key name="log-show" type="b">
       <summary>Show the log</summary>
       <description>Whether to show the log in the main window</description>
-      <default>false</default>
+      <default>true</default>
     </key>
 
     <key name="id3-override-read-encoding" type="b">

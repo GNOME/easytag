@@ -1,340 +1,338 @@
 <interface domain="easytag">
-  <requires lib="gtk+" version="3.14"/>
-  <object class="GtkListStore" id="file_content_model">
-    <columns>
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="file_name_model">
-    <columns>
-      <column type="gchararray"/>
-      <column type="gpointer"/>
-    </columns>
-  </object>
-  <template class="EtLoadFilesDialog" parent="GtkDialog">
-    <property name="destroy-with-parent">True</property>
-    <property name="title" translatable="yes">Load Filenames From a Text File</property>
-    <signal name="delete-event" handler="gtk_widget_hide_on_delete"/>
-    <signal name="response" handler="on_response"/>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="load_files_vbox">
-        <property name="border-width">6</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkGrid" id="file_grid">
-            <property name="column-spacing">6</property>
-            <property name="row-spacing">6</property>
-            <child>
-              <object class="GtkLabel" id="file_label">
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">File:</property>
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFileChooserButton" id="file_chooser">
-                <property name="hexpand">True</property>
-                <property name="title" translatable="yes">Choose a Text File</property>
-                <property name="visible">True</property>
-                <signal name="file-set" handler="set_load_button_sensitivity" swapped="true"/>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="file_load_button">
-                <property name="can-default">True</property>
-                <property name="label" translatable="yes">_Load</property>
+    <requires lib="gtk+" version="3.14"/>
+    <object class="GtkListStore" id="file_content_model">
+        <columns>
+            <column type="gchararray"/>
+        </columns>
+    </object>
+    <object class="GtkListStore" id="file_name_model">
+        <columns>
+            <column type="gchararray"/>
+            <column type="gpointer"/>
+        </columns>
+    </object>
+    <template class="EtLoadFilesDialog" parent="GtkDialog">
+        <property name="destroy-with-parent">True</property>
+        <property name="title" translatable="yes">Load Filenames From a Text File</property>
+        <signal name="delete-event" handler="gtk_widget_hide_on_delete"/>
+        <signal name="response" handler="on_response"/>
+        <child internal-child="vbox">
+            <object class="GtkBox" id="load_files_vbox">
+                <property name="border-width">6</property>
+                <property name="spacing">6</property>
+                <child>
+                    <object class="GtkGrid" id="file_grid">
+                        <property name="column-spacing">6</property>
+                        <property name="row-spacing">6</property>
+                        <child>
+                            <object class="GtkLabel" id="file_label">
+                                <property name="halign">end</property>
+                                <property name="label" translatable="yes">File:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkFileChooserButton" id="file_chooser">
+                                <property name="hexpand">True</property>
+                                <property name="title" translatable="yes">Choose a Text File</property>
+                                <property name="visible">True</property>
+                                <signal name="file-set" handler="set_load_button_sensitivity" swapped="true"/>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkButton" id="file_load_button">
+                                <property name="can-default">True</property>
+                                <property name="label" translatable="yes">_Load</property>
+                                <property name="use-underline">True</property>
+                                <property name="visible">True</property>
+                                <signal name="clicked" handler="Load_File_Content"/>
+                            </object>
+                            <packing>
+                                <property name="left-attach">2</property>
+                                <property name="top-attach">0</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkPaned" id="file_paned">
+                                <property name="orientation">horizontal</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <object class="GtkGrid" id="file_content_grid">
+                                        <property name="orientation">vertical</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkScrolledWindow" id="file_content_scrolled">
+                                                <property name="expand">True</property>
+                                                <property name="min-content-height">275</property>
+                                                <property name="min-content-width">275</property>
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <object class="GtkTreeView" id="file_content_view">
+                                                        <property name="model">file_content_model</property>
+                                                        <property name="reorderable">True</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="button-press-event" handler="on_content_view_button_press_event"/>
+                                                        <signal name="key-press-event" handler="Load_Filename_List_Key_Press"/>
+                                                        <signal name="popup-menu" handler="on_content_view_popup_menu"/>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="file_content_column">
+                                                                <property name="title" translatable="yes">Content of Text File</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="filecontent_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="text">0</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                        <child internal-child="selection">
+                                                            <object class="GtkTreeSelection" id="file_content_selection">
+                                                                <signal name="changed" handler="Load_Filename_Edit_Text_Line" swapped="yes"/>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkToolbar" id="file_content_bar">
+                                                <property name="visible">True</property>
+                                                <style>
+                                                    <class name="inline-toolbar"/>
+                                                </style>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_insert_blank">
+                                                        <property name="icon-name">list-add</property>
+                                                        <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_content_insert_blank_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_remove">
+                                                        <property name="icon-name">list-remove</property>
+                                                        <property name="tooltip-text" translatable="yes">Delete the selected line</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_content_remove_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_remove_blank">
+                                                        <property name="icon-name">edit-delete</property>
+                                                        <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_content_delete_all_blank_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_up">
+                                                        <property name="icon-name">go-up</property>
+                                                        <property name="tooltip-text" translatable="yes">Move the selected line up</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_content_move_up_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_down">
+                                                        <property name="icon-name">go-down</property>
+                                                        <property name="tooltip-text" translatable="yes">Move the selected line down</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_content_move_down_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="content_reload">
+                                                        <property name="icon-name">view-refresh</property>
+                                                        <property name="tooltip-text" translatable="yes">Reload</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_load_file_content_view_reload_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                    <packing>
+                                        <property name="resize">True</property>
+                                        <property name="shrink">False</property>
+                                    </packing>
+                                </child>
+                                <child>
+                                    <object class="GtkGrid" id="file_name_grid">
+                                        <property name="orientation">vertical</property>
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <object class="GtkScrolledWindow" id="file_name_scrolled">
+                                                <property name="expand">True</property>
+                                                <property name="min-content-height">275</property>
+                                                <property name="min-content-width">275</property>
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <object class="GtkTreeView" id="file_name_view">
+                                                        <property name="model">file_name_model</property>
+                                                        <property name="reorderable">True</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="button-press-event" handler="on_name_view_button_press_event"/>
+                                                        <signal name="key-press-event" handler="Load_Filename_List_Key_Press"/>
+                                                        <signal name="popup-menu" handler="on_name_view_popup_menu"/>
+                                                        <child>
+                                                            <object class="GtkTreeViewColumn" id="file_name_column">
+                                                                <property name="title" translatable="yes">List of Files</property>
+                                                                <child>
+                                                                    <object class="GtkCellRendererText" id="file_name_renderer"/>
+                                                                    <attributes>
+                                                                        <attribute name="text">0</attribute>
+                                                                    </attributes>
+                                                                </child>
+                                                            </object>
+                                                        </child>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                        <child>
+                                            <object class="GtkToolbar" id="file_name_bar">
+                                                <property name="visible">True</property>
+                                                <style>
+                                                    <class name="inline-toolbar"/>
+                                                </style>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_insert_blank">
+                                                        <property name="icon-name">list-add</property>
+                                                        <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_name_insert_blank_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_remove">
+                                                        <property name="icon-name">list-remove</property>
+                                                        <property name="tooltip-text" translatable="yes">Delete the selected line</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_name_remove_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_remove_blank">
+                                                        <property name="icon-name">edit-delete</property>
+                                                        <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_name_delete_all_blank_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_up">
+                                                        <property name="icon-name">go-up</property>
+                                                        <property name="tooltip-text" translatable="yes">Move the selected line up</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_name_move_up_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_down">
+                                                        <property name="icon-name">go-down</property>
+                                                        <property name="tooltip-text" translatable="yes">Move the selected line down</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_name_move_down_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                                <child>
+                                                    <object class="GtkToolButton" id="name_reload">
+                                                        <property name="icon-name">view-refresh</property>
+                                                        <property name="tooltip-text" translatable="yes">Reload</property>
+                                                        <property name="visible">True</property>
+                                                        <signal name="clicked" handler="on_load_file_name_view_reload_clicked" swapped="yes"/>
+                                                    </object>
+                                                </child>
+                                            </object>
+                                        </child>
+                                    </object>
+                                    <packing>
+                                        <property name="resize">True</property>
+                                        <property name="shrink">False</property>
+                                    </packing>
+                                </child>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">1</property>
+                                <property name="width">3</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkLabel" id="file_entry_label">
+                                <property name="halign">end</property>
+                                <property name="label" translatable="yes">Selected line:</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkEntry" id="file_entry">
+                                <property name="visible">True</property>
+                                <signal name="changed" handler="Load_Filename_Update_Text_Line" swapped="yes"/>
+                            </object>
+                            <packing>
+                                <property name="left-attach">1</property>
+                                <property name="top-attach">2</property>
+                                <property name="width">2</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkSeparator" id="file_separator">
+                                <property name="orientation">horizontal</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">3</property>
+                                <property name="width">3</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <object class="GtkCheckButton" id="file_scanner_check">
+                                <property name="label" translatable="yes">Run the current scanner for each file</property>
+                                <property name="tooltip-text" translatable="yes">Whether to run the currently selected scanner on filenames loaded from a text file</property>
+                                <property name="visible">True</property>
+                            </object>
+                            <packing>
+                                <property name="left-attach">0</property>
+                                <property name="top-attach">4</property>
+                                <property name="width">3</property>
+                            </packing>
+                        </child>
+                    </object>
+                </child>
+            </object>
+        </child>
+        <child type="action">
+            <object class="GtkButton" id="close_button">
+                <property name="label" translatable="yes">_Close</property>
                 <property name="use-underline">True</property>
                 <property name="visible">True</property>
-                <signal name="clicked" handler="Load_File_Content"/>
-              </object>
-              <packing>
-                <property name="left-attach">2</property>
-                <property name="top-attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkPaned" id="file_paned">
-                <property name="orientation">horizontal</property>
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkGrid" id="file_content_grid">
-                    <property name="orientation">vertical</property>
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkScrolledWindow" id="file_content_scrolled">
-                        <property name="expand">True</property>
-                        <property name="min-content-height">275</property>
-                        <property name="min-content-width">275</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkTreeView" id="file_content_view">
-                            <property name="model">file_content_model</property>
-                            <property name="reorderable">True</property>
-                            <property name="visible">True</property>
-                            <signal name="button-press-event" handler="on_content_view_button_press_event"/>
-                            <signal name="key-press-event" handler="Load_Filename_List_Key_Press"/>
-                            <signal name="popup-menu" handler="on_content_view_popup_menu"/>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="file_content_column">
-                                <property name="title" translatable="yes">Content of Text File</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="filecontent_renderer"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                                </child>
-                              </object>
-                            </child>
-                            <child internal-child="selection">
-                              <object class="GtkTreeSelection" id="file_content_selection">
-                                <signal name="changed" handler="Load_Filename_Edit_Text_Line" swapped="yes"/>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToolbar" id="file_content_bar">
-                        <property name="visible">True</property>
-                        <property name="icon_size">1</property>
-                        <style>
-                          <class name="inline-toolbar"/>
-                        </style>
-                        <child>
-                          <object class="GtkToolButton" id="content_insert_blank">
-                            <property name="icon-name">list-add-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_content_insert_blank_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="content_remove">
-                            <property name="icon-name">list-remove-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Delete the selected line</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_content_remove_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="content_remove_blank">
-                            <property name="icon-name">edit-delete-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_content_delete_all_blank_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="content_up">
-                            <property name="icon-name">go-up-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Move the selected line up</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_content_move_up_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="content_down">
-                            <property name="icon-name">go-down-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Move the selected line down</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_content_move_down_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="content_reload">
-                            <property name="icon-name">view-refresh-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Reload</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_load_file_content_view_reload_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkGrid" id="file_name_grid">
-                    <property name="orientation">vertical</property>
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkScrolledWindow" id="file_name_scrolled">
-                        <property name="expand">True</property>
-                        <property name="min-content-height">275</property>
-                        <property name="min-content-width">275</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkTreeView" id="file_name_view">
-                            <property name="model">file_name_model</property>
-                            <property name="reorderable">True</property>
-                            <property name="visible">True</property>
-                            <signal name="button-press-event" handler="on_name_view_button_press_event"/>
-                            <signal name="key-press-event" handler="Load_Filename_List_Key_Press"/>
-                            <signal name="popup-menu" handler="on_name_view_popup_menu"/>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="file_name_column">
-                                <property name="title" translatable="yes">List of Files</property>
-                                <child>
-                                  <object class="GtkCellRendererText" id="file_name_renderer"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToolbar" id="file_name_bar">
-                        <property name="visible">True</property>
-                        <property name="icon_size">1</property>
-                        <style>
-                          <class name="inline-toolbar"/>
-                        </style>
-                        <child>
-                          <object class="GtkToolButton" id="name_insert_blank">
-                            <property name="icon-name">list-add-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_name_insert_blank_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="name_remove">
-                            <property name="icon-name">list-remove-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Delete the selected line</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_name_remove_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="name_remove_blank">
-                            <property name="icon-name">edit-delete-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_name_delete_all_blank_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="name_up">
-                            <property name="icon-name">go-up-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Move the selected line up</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_name_move_up_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="name_down">
-                            <property name="icon-name">go-down-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Move the selected line down</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_name_move_down_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="name_reload">
-                            <property name="icon-name">view-refresh-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Reload</property>
-                            <property name="visible">True</property>
-                            <signal name="clicked" handler="on_load_file_name_view_reload_clicked" swapped="yes"/>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="resize">True</property>
-                    <property name="shrink">False</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">1</property>
-                <property name="width">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="file_entry_label">
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">Selected line:</property>
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="file_entry">
-                <property name="visible">True</property>
-                <signal name="changed" handler="Load_Filename_Update_Text_Line" swapped="yes"/>
-              </object>
-              <packing>
-                <property name="left-attach">1</property>
-                <property name="top-attach">2</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparator" id="file_separator">
-                <property name="orientation">horizontal</property>
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">3</property>
-                <property name="width">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="file_scanner_check">
-                <property name="label" translatable="yes">Run the current scanner for each file</property>
-                <property name="tooltip-text" translatable="yes">Whether to run the currently selected scanner on filenames loaded from a text file</property>
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">4</property>
-                <property name="width">3</property>
-              </packing>
-            </child>
-          </object>
+            </object>
         </child>
-      </object>
-    </child>
-    <child type="action">
-      <object class="GtkButton" id="close_button">
-        <property name="label" translatable="yes">_Close</property>
-        <property name="use-underline">True</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child type="action">
-      <object class="GtkButton" id="apply_button">
-        <property name="can-default">True</property>
-        <property name="label" translatable="yes">_Apply</property>
-        <property name="use-underline">True</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-7">close_button</action-widget>
-      <action-widget response="-10" default="yes">apply_button</action-widget>
-    </action-widgets>
-  </template>
+        <child type="action">
+            <object class="GtkButton" id="apply_button">
+                <property name="can-default">True</property>
+                <property name="label" translatable="yes">_Apply</property>
+                <property name="use-underline">True</property>
+                <property name="visible">True</property>
+            </object>
+        </child>
+        <action-widgets>
+            <action-widget response="-7">close_button</action-widget>
+            <action-widget response="-10" default="yes">apply_button</action-widget>
+        </action-widgets>
+    </template>
 </interface>
