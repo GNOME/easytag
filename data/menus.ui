@@ -149,6 +149,12 @@
             </section>
             <section>
                 <item>
+                    <attribute name="action">win.log-show</attribute>
+                    <attribute name="label" translatable="yes">Show log</attribute>
+                </item>
+            </section>
+            <section>
+                <item>
                     <attribute name="action">win.file-artist-view</attribute>
                     <attribute name="label" translatable="yes">Directory Tree</attribute>
                     <attribute name="target">file</attribute>

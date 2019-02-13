@@ -1624,6 +1624,9 @@ et_application_window_init (EtApplicationWindow *self)
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
 
+    action = g_settings_create_action (MainSettings, "log-show");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
     action = g_settings_create_action (MainSettings, "browse-show-hidden");
     g_action_map_add_action (G_ACTION_MAP (self), action);
     g_object_unref (action);
