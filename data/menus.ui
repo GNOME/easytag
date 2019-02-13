@@ -28,6 +28,71 @@
         </section>
     </menu>
 
+    <menu id='primary-menu'>
+        <section>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;s</attribute>
+                <attribute name="action">win.save-force</attribute>
+                <attribute name="label" translatable="yes">_Force Save Files</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;b</attribute>
+                <attribute name="action">win.show-cddb</attribute>
+                <attribute name="label" translatable="yes">CDD_B Search…</attribute>
+            </item>
+        </section>
+        <section>
+        <!-- XXX confusing naming -->
+            <item>
+                <attribute name="action">win.undo-last-changes</attribute>
+                <attribute name="label" translatable="yes">Undo Last Changes</attribute>
+            </item>
+            <item>
+                <attribute name="action">win.redo-last-changes</attribute>
+                <attribute name="label" translatable="yes">Redo Last Changes</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;t</attribute>
+                <attribute name="action">win.show-load-filenames</attribute>
+                <attribute name="label" translatable="yes">Load Filenames From a Text File…</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;w</attribute>
+                <attribute name="action">win.show-playlist</attribute>
+                <attribute name="label" translatable="yes">Generate Playlist…</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="action">win.log-show</attribute>
+                <attribute name="label" translatable="yes">Show log</attribute>
+            </item>
+            <item>
+                <attribute name="action">win.preferences</attribute>
+                <attribute name="label" translatable="yes">_Preferences</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+                <attribute name="action">app.shortcuts</attribute>
+            </item>
+            <item>
+                <attribute name="accel">F1</attribute>
+                <attribute name="label" translatable="yes">_Help</attribute>
+                <attribute name="action">app.help</attribute>
+            </item>
+            <item>
+                <attribute name="label" translatable="yes">_About</attribute>
+                <attribute name="action">app.about</attribute>
+            </item>
+        </section>
+    </menu>
+
     <menu id='menubar'>
         <submenu>
             <attribute name="label" translatable="yes">_File</attribute>

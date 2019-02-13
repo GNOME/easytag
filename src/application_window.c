@@ -1652,19 +1652,25 @@ et_application_window_init (EtApplicationWindow *self)
     g_signal_connect (self, "window-state-event",
                       G_CALLBACK (on_window_state_event), NULL);
 
-    /* Mainvbox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
+    /* Mainvbox for "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (self), main_vbox);
 
-    /* Menu bar and tool bar. */
+    /* Header bar. */
     {
         GtkBuilder *builder;
-        GtkWidget *toolbar;
+        GtkWidget *headerbar;
+        GtkWidget *primary_menu_btn;
+        GMenuModel *primary_menu_model;
 
-        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/toolbar.ui");
+        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/headerbar.ui");
+        gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui", NULL);
 
-        toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
-        gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
+        headerbar = GTK_WIDGET (gtk_builder_get_object (builder, "headerbar"));
+        primary_menu_btn = GTK_WIDGET (gtk_builder_get_object (builder, "primary_menu_btn"));
+        primary_menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "primary-menu"));
+        gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(primary_menu_btn), primary_menu_model);
+        gtk_window_set_titlebar (GTK_WINDOW(window), headerbar);
 
         g_object_unref (builder);
     }
