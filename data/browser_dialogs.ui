@@ -8,6 +8,7 @@
             <object class="GtkBox" id="open_directory_vbox">
                 <child>
                     <object class="GtkGrid" id="open_directory_grid">
+                        <property name="margin">6</property>
                         <property name="column-spacing">12</property>
                         <property name="row-spacing">6</property>
                         <property name="visible">True</property>
@@ -86,6 +87,7 @@
             <object class="GtkBox" id="open_files_vbox">
                 <child>
                     <object class="GtkGrid" id="open_files_grid">
+                        <property name="margin">6</property>
                         <property name="column-spacing">12</property>
                         <property name="row-spacing">6</property>
                         <property name="visible">True</property>

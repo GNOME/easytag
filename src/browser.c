@@ -51,6 +51,7 @@ typedef struct
 {
     GtkWidget *files_label;
     GtkWidget *open_button;
+    GtkWidget *browser_menu_button;
 
     GtkWidget *entry_combo;
     GtkListStore *entry_model;
@@ -878,7 +879,7 @@ Browser_Tree_Node_Selected (EtBrowser *self, GtkTreeSelection *selection)
 
     et_application_window_update_et_file_from_ui (ET_APPLICATION_WINDOW (MainWindow));
 
-    /* FIXME: Not clean to put this here. */
+    /* XXX: Not clean to put this here. */
     et_application_window_update_actions (ET_APPLICATION_WINDOW (MainWindow));
 
     /* Check if all files have been saved before changing the directory */
@@ -2624,8 +2625,7 @@ Browser_Album_List_Load_Files (EtBrowser *self,
         etfile     = (ET_File *)etfilelist->data;
         albumname  = ((File_Tag *)etfile->FileTag->data)->album;
 
-        /* TODO: Make the icon use the symbolic variant. */
-        icon = g_themed_icon_new_with_default_fallbacks ("media-optical-cd-audio");
+        icon = g_themed_icon_new_with_default_fallbacks ("media-optical-cd-audio-symbolic");
 
         /* Add the new row. */
         gtk_list_store_insert_with_values (priv->album_model, &iter, G_MAXINT,
@@ -3936,6 +3936,11 @@ create_browser (EtBrowser *self)
                                                              G_CALLBACK (Browser_Album_List_Row_Selected),
                                                              self);
 
+    /* Create Popover Menu for the menu button*/
+    menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
+                                                       "secondary-menu"));
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(priv->browser_menu_button), menu_model);
+
     /* Create Popup Menu on browser album list. */
     menu_model = G_MENU_MODEL (gtk_builder_get_object (builder,
                                                        "directory-album-menu"));
@@ -4988,6 +4993,8 @@ void et_browser_class_init (EtBrowserClass *klass)
                                                   files_label);
     gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
                                                   open_button);
+    gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
+                                                  browser_menu_button);
     gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
                                                   entry_model);
     gtk_widget_class_bind_template_child_private (widget_class, EtBrowser,
