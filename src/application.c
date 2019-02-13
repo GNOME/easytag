@@ -190,6 +190,8 @@ common_init (EtApplication *self)
 
     gtk_widget_show (MainWindow);
 
+    gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW (window), FALSE);
+
     /* Starting messages */
     Log_Print (LOG_OK, _("Starting EasyTAG version %s…"), PACKAGE_VERSION);
 #ifdef G_OS_WIN32
@@ -531,7 +533,6 @@ static void
 et_application_startup (GApplication *application)
 {
     GtkBuilder *builder;
-    GMenuModel *appmenu;
     GMenuModel *menubar;
 
     g_action_map_add_action_entries (G_ACTION_MAP (application), actions,
@@ -543,8 +544,12 @@ et_application_startup (GApplication *application)
     g_set_application_name (_(PACKAGE_NAME));
     builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/menus.ui");
 
-    appmenu = G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu"));
-    gtk_application_set_app_menu (GTK_APPLICATION (application), appmenu);
+    if (gtk_application_prefers_app_menu(GTK_APPLICATION(application)))
+    {
+        GMenuModel *appmenu;
+        appmenu = G_MENU_MODEL (gtk_builder_get_object (builder, "app-menu"));
+        gtk_application_set_app_menu (GTK_APPLICATION (application), appmenu);
+    }
 
     menubar = G_MENU_MODEL (gtk_builder_get_object (builder, "menubar"));
     gtk_application_set_menubar (GTK_APPLICATION (application), menubar);
