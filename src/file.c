@@ -1704,9 +1704,9 @@ et_file_check_saved (const ET_File *ETFile)
  * And set ALL other values of the list to FALSE.
  */
 static void
-Set_Saved_Value_Of_File_Tag (File_Tag *FileTag, gboolean saved)
+Unset_Saved_Value_Of_File_Tag (File_Tag *FileTag, gpointer *unused)
 {
-    if (FileTag) FileTag->saved = saved;
+    if (FileTag) FileTag->saved = FALSE;
 }
 
 static void
@@ -1715,21 +1715,20 @@ ET_Mark_File_Tag_As_Saved (ET_File *ETFile)
     File_Tag *FileTag;
     GList *FileTagList;
 
-    FileTag     = (File_Tag *)ETFile->FileTag->data;    // The current FileTag, to set to TRUE
+    FileTag     = (File_Tag *)ETFile->FileTag->data; // The current FileTag, to set to TRUE
     FileTagList = ETFile->FileTagList;
-    g_list_foreach(FileTagList,(GFunc)Set_Saved_Value_Of_File_Tag,FALSE); // All other FileTag set to FALSE
+    g_list_foreach(FileTagList, (GFunc)Unset_Saved_Value_Of_File_Tag, NULL); // All other FileTag set to FALSE
     FileTag->saved = TRUE; // The current FileTag set to TRUE
 }
-
 
 void ET_Mark_File_Name_As_Saved (ET_File *ETFile)
 {
     File_Name *FileNameNew;
     GList *FileNameList;
 
-    FileNameNew  = (File_Name *)ETFile->FileNameNew->data;    // The current FileName, to set to TRUE
+    FileNameNew  = (File_Name *)ETFile->FileNameNew->data; // The current FileName, to set to TRUE
     FileNameList = ETFile->FileNameList;
-    g_list_foreach(FileNameList,(GFunc)Set_Saved_Value_Of_File_Tag,FALSE);
+    g_list_foreach(FileNameList, (GFunc)Unset_Saved_Value_Of_File_Tag, NULL);
     FileNameNew->saved = TRUE;
 }
 
