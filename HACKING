@@ -4,23 +4,20 @@ Hacking on EasyTAG
 Contributing
 ------------
 
-If you have a suggestion or found a bug, please either file a bug:
+If you have a suggestion or found a bug, please either file an issue:
 
-https://bugzilla.gnome.org/enter_bug.cgi?product=easytag
+https://gitlab.gnome.org/GNOME/easytag/issues/new
 
 or bring it up on the mailing list:
 
 easytag-list@gnome.org
 
-Patches are best filed on Bugzilla, but a pull request is also fine. For
-patches, please:
+Patches are best filed as merge requests in Gitlab. For commits, please:
 
 * keep the first line of the commit messages at 50 characters or less
 * do not add a prefix to the commit message, for example "build:"
-* provide patches created with "git format-patch"
 * add a link to the bug report or mailing list archives where the patch was
-  discussed, for example "bug 987654" for GNOME Bugzilla or a URL for other
-  services
+  discussed, for example a URL for the issue
 
 Coding Style
 ------------
