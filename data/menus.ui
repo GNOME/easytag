@@ -2,6 +2,16 @@
     <menu id='app-menu'>
         <section>
             <item>
+                <attribute name="action">win.preferences</attribute>
+                <attribute name="label" translatable="yes">_Preferences</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+                <attribute name="action">app.shortcuts</attribute>
+            </item>
+            <item>
                 <attribute name="accel">F1</attribute>
                 <attribute name="label" translatable="yes">_Help</attribute>
                 <attribute name="action">app.help</attribute>
@@ -17,6 +27,7 @@
             </item>
         </section>
     </menu>
+
     <menu id='menubar'>
         <submenu>
             <attribute name="label" translatable="yes">_File</attribute>

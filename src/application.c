@@ -78,6 +78,21 @@ on_help (GSimpleAction *action,
 }
 
 static void
+on_shortcuts (GSimpleAction *action,
+              GVariant *parameter,
+              gpointer user_data)
+{
+    GtkBuilder *builder;
+    GtkWindow *dialog;
+
+    builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/shortcuts.ui");
+    dialog = GTK_WINDOW (gtk_builder_get_object (builder, "shortcuts-dialog"));
+    gtk_window_present(dialog);
+
+    g_object_unref (builder);
+}
+
+static void
 on_about (GSimpleAction *action,
           GVariant *parameter,
           gpointer user_data)
@@ -95,6 +110,7 @@ on_quit (GSimpleAction *action,
 
 static const GActionEntry actions[] =
 {
+    { "shortcuts", on_shortcuts },
     { "help", on_help },
     { "about", on_about },
     { "quit", on_quit }
