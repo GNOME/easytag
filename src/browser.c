@@ -263,19 +263,6 @@ et_browser_go_desktop (EtBrowser *self)
 }
 
 /*
- * Load documents directory
- */
-void
-et_browser_go_documents (EtBrowser *self)
-{
-    GFile *file;
-
-    file = g_file_new_for_path (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
-    et_browser_select_dir (self, file);
-    g_object_unref (file);
-}
-
-/*
  * Load downloads directory
  */
 void

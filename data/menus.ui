@@ -93,6 +93,134 @@
         </section>
     </menu>
 
+    <menu id='secondary-menu'>
+        <section>
+            <attribute name="display-hint">horizontal-buttons</attribute>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;Home</attribute>
+                <attribute name="action">win.go-first</attribute>
+                <attribute name="label" translatable="yes">First File</attribute>
+                <attribute name="verb-icon">go-first-symbolic</attribute>
+            </item>
+            <item>
+                <attribute name="accel">Page_Up</attribute>
+                <attribute name="action">win.go-previous</attribute>
+                <attribute name="label" translatable="yes">Previous File</attribute>
+                <attribute name="verb-icon">go-previous-symbolic</attribute>
+            </item>
+            <item>
+                <attribute name="accel">Page_Down</attribute>
+                <attribute name="action">win.go-next</attribute>
+                <attribute name="label" translatable="yes">Next File</attribute>
+                <attribute name="verb-icon">go-next-symbolic</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;End</attribute>
+                <attribute name="action">win.go-last</attribute>
+                <attribute name="label" translatable="yes">Last File</attribute>
+                <attribute name="verb-icon">go-last-symbolic</attribute>
+            </item>
+        </section>
+        <section>
+            <submenu>
+                <attribute name="label" translatable="yes">_Go</attribute>
+                <!-- TODO this whole submenu could not exist, these entries should be listed in the combobox/entry -->
+                <section>
+                    <item>
+                        <attribute name="accel">&lt;Alt&gt;Home</attribute>
+                        <attribute name="action">win.go-home</attribute>
+                        <attribute name="label" translatable="yes">_Home Directory</attribute>
+                    </item>
+                    <item>
+                        <attribute name="action">win.go-desktop</attribute>
+                        <attribute name="label" translatable="yes">Desktop Directory</attribute>
+                    </item>
+                    <item>
+                        <attribute name="action">win.go-downloads</attribute>
+                        <attribute name="label" translatable="yes">Downloads Directory</attribute>
+                    </item>
+                    <item>
+                        <attribute name="action">win.go-music</attribute>
+                        <attribute name="label" translatable="yes">Music Directory</attribute>
+                    </item>
+                </section>
+                <section>
+                    <item>
+                        <attribute name="accel">&lt;Alt&gt;Up</attribute>
+                        <attribute name="action">win.go-parent</attribute>
+                        <attribute name="label" translatable="yes">_Parent Directory</attribute>
+                    </item>
+                    <item>
+                        <attribute name="accel">&lt;Primary&gt;d</attribute>
+                        <attribute name="action">win.go-default</attribute>
+                        <attribute name="label" translatable="yes">_Default Directory</attribute>
+                    </item>
+                </section>
+            </submenu>
+        </section>
+        <section>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;a</attribute>
+                <attribute name="action">win.select-all</attribute>
+                <attribute name="label" translatable="yes">Select All</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;a</attribute>
+                <attribute name="action">win.unselect-all</attribute>
+                <attribute name="label" translatable="yes">Unselect All</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;i</attribute>
+                <attribute name="action">win.invert-selection</attribute>
+                <attribute name="label" translatable="yes">Invert File Selection</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;r</attribute>
+                <attribute name="action">win.reload-directory</attribute>
+                <attribute name="label" translatable="yes">Reload Directory</attribute>
+            </item>
+            <item>
+                <attribute name="action">win.set-default-path</attribute>
+                <attribute name="label" translatable="yes">Set _Current Path as Default</attribute>
+            </item>
+            <item>
+                <attribute name="accel">F2</attribute>
+                <attribute name="action">win.rename-directory</attribute>
+                <attribute name="label" translatable="yes">Rename Directory…</attribute>
+            </item>
+            <item>
+                <attribute name="action">win.browse-directory</attribute>
+                <attribute name="label" translatable="yes">Browse Directory With…</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="action">win.browse-subdir</attribute>
+                <attribute name="label" translatable="yes">Browse _Subdirectories</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;c</attribute>
+                <attribute name="action">win.collapse-tree</attribute>
+                <attribute name="label" translatable="yes">Collapse Tree</attribute>
+                <attribute name="hidden-when">action-disabled</attribute>
+            </item>
+            <item>
+                <attribute name="accel">&lt;Primary&gt;&lt;Shift&gt;r</attribute>
+                <attribute name="action">win.reload-tree</attribute>
+                <attribute name="label" translatable="yes">Reload Tree</attribute>
+                <attribute name="hidden-when">action-disabled</attribute>
+            </item>
+        </section>
+        <section>
+            <item>
+                <attribute name="action">win.browse-show-hidden</attribute>
+                <attribute name="label" translatable="yes">Show Hidden Directories</attribute>
+            </item>
+        </section>
+    </menu>
+
     <menu id='menubar'>
         <submenu>
             <attribute name="label" translatable="yes">_File</attribute>

@@ -1204,20 +1204,6 @@ on_go_desktop (GSimpleAction *action,
 }
 
 static void
-on_go_documents (GSimpleAction *action,
-                 GVariant *variant,
-                 gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_documents (ET_BROWSER (priv->browser));
-}
-
-static void
 on_go_downloads (GSimpleAction *action,
                  GVariant *variant,
                  gpointer user_data)
@@ -1529,7 +1515,6 @@ static const GActionEntry actions[] =
     /* Go menu. */
     { "go-home", on_go_home },
     { "go-desktop", on_go_desktop },
-    { "go-documents", on_go_documents },
     { "go-downloads", on_go_downloads },
     { "go-music", on_go_music },
     { "go-parent", on_go_parent },
@@ -2579,7 +2564,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "open-with", FALSE);
         set_action_state (self, "invert-selection", FALSE);
         set_action_state (self, "delete", FALSE);
-        /* FIXME: set_action_state (self, "sort-mode", FALSE); */
+        /* XXX set_action_state (self, "sort-mode", FALSE); */
         set_action_state (self, "go-previous", FALSE);
         set_action_state (self, "go-next", FALSE);
         set_action_state (self, "go-first", FALSE);
@@ -2595,7 +2580,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "show-load-filenames", FALSE);
         set_action_state (self, "show-playlist", FALSE);
         set_action_state (self, "run-player", FALSE);
-        /* FIXME set_action_state (self, "scan-mode", FALSE);*/
+        /* XXX set_action_state (self, "scan-mode", FALSE);*/
         set_action_state (self, "file-artist-view", FALSE);
 
         return;
