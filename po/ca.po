@@ -1259,7 +1259,7 @@ msgid ""
 "Try to use the encoding associated with your locale and if this fails, try "
 "the ISO-8859-1 character encoding"
 msgstr ""
-"Proveu d'usar la codificació associada amb la vostra localització i si això "
+"Proveu d'usar la codificació associada amb la vostra configuració local i si això "
 "falla, proveu la codificació de caràcters ISO-8859-1"
 
 #: ../data/preferences_dialog.ui.h:44
@@ -3159,7 +3159,7 @@ msgstr "Configuració local: «%s»"
 #: ../src/application.c:188
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
-msgstr "La localització del sistema és «%s», s'està usant «%s»"
+msgstr "La configuració local del sistema és «%s», s'està usant «%s»"
 
 #: ../src/application.c:193
 msgid "Unable to create setting directories"
