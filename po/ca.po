@@ -2233,7 +2233,7 @@ msgid ""
 "display all files"
 msgstr ""
 "Escriviu el text a cercar a la llista de fitxers, o deixeu el camp buit per "
-"mostrar totes els fitxers"
+"mostrar tots els fitxers"
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
@@ -2376,7 +2376,7 @@ msgstr "URL:"
 
 #: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
-msgstr "Copia aquesta URL als fitxers seleccionats"
+msgstr "Copia aquest URL als fitxers seleccionats"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
@@ -3154,7 +3154,7 @@ msgstr "S'està iniciant l'EasyTAG amb versió %s…"
 #: ../src/application.c:182
 #, c-format
 msgid "Setting locale: ‘%s’"
-msgstr "S'està configurant la localització: «%s»"
+msgstr "Configuració local: «%s»"
 
 #: ../src/application.c:188
 #, c-format
@@ -3675,7 +3675,7 @@ msgstr "Occidental (Windows-1252)"
 #, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
 msgstr ""
-"La cadena «%s» de UTF-8 no s'ha pogut convertir a la codificació de noms de "
+"La cadena «%s» d'UTF-8 no s'ha pogut convertir a la codificació de noms de "
 "fitxer: %s"
 
 #: ../src/charset.c:577
@@ -3700,7 +3700,7 @@ msgstr "Voleu continuar desant el fitxer?"
 
 #: ../src/easytag.c:299 ../src/easytag.c:320
 msgid "Saving files was stopped"
-msgstr "El desat de fitxers s'aturat"
+msgstr "El desat de fitxers s'ha aturat"
 
 #: ../src/easytag.c:322
 msgid "All files have been saved"
