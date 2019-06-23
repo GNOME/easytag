@@ -122,7 +122,7 @@ gboolean Add_String_To_Combo_List (GtkListStore *liststore, const gchar *str)
     }
 
     /* We add the string to the beginning of the list store. */
-    gtk_list_store_insert_with_values (liststore, &iter, -1, MISC_COMBO_TEXT,
+    gtk_list_store_insert_with_values (liststore, &iter, 0, MISC_COMBO_TEXT,
                                        string, -1);
 
     // Limit list size to HISTORY_MAX_LENGTH
