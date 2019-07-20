@@ -254,7 +254,8 @@ AS_IF([test "x$have_mp3" != "xno"],
 AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
       dnl Check which libs are required by id3lib, libid3.la is fucked up
       [LIBS_SAVE="$LIBS"
-       AC_SEARCH_LIBS([ID3Tag_Link], ["id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++"], [have_id3lib=yes], [have_id3lib=no])
+       AC_LANG_PUSH([C++])
+       AC_SEARCH_LIBS([ID3Tag_Link], ["id3" "id3 -lz"], [have_id3lib=yes], [have_id3lib=no])
         
        dnl expected version for cross compiling
        ID3LIB_MAJOR=3
@@ -272,6 +273,7 @@ AS_IF([test "x$have_mp3" = "xyes" -a "x$enable_id3v23" != "xno"],
     fclose(output);
     return 0;
 ]])], [. ./conftest.id3; AC_MSG_RESULT([${ID3LIB_MAJOR}.${ID3LIB_MINOR}.${ID3LIB_PATCH}])], [AC_MSG_ERROR([could not determine id3lib version])], [echo $ac_n "cross compiling; assuming ${ID3LIB_MAJOR}.${ID3LIB_MINOR}.${ID3LIB_PATCH} $ac_c"])
+       AC_LANG_POP([C++])
        LIBS="$LIBS_SAVE"
        AC_DEFINE_UNQUOTED([ID3LIB_MAJOR], [$ID3LIB_MAJOR], [id3lib major version])
        AC_DEFINE_UNQUOTED([ID3LIB_MINOR], [$ID3LIB_MINOR], [id3lib minor version])
