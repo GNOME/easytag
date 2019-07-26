@@ -19,7 +19,7 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "crèdits-traductor"
+msgstr "Ferran Roig <forums@ferranroig.com>, 2014"
 
 #. (itstool) path: credit/name
 #: C/cddb-search.page:11 C/file-rename.page:10 C/file-select.page:11
@@ -29,7 +29,7 @@ msgstr "crèdits-traductor"
 #: C/problems-ogg-split.page:17 C/scanner.page:11 C/starting.page:10
 #: C/tag-field.page:14 C/tag.page:13
 msgid "Ekaterina Gerasimova"
-msgstr "Ferran Roig"
+msgstr "Ekaterina Gerasimova"
 
 #. (itstool) path: info/desc
 #: C/cddb-search.page:17
@@ -886,7 +886,7 @@ msgstr ""
 #: C/playlist-generate.page:77
 msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
 msgstr ""
-"Seleccioneu <gui style=\"button\">Desa</gui > per crear la llista de "
+"Seleccioneu <gui style=\"button\">Desa</gui> per crear la llista de "
 "reproducció."
 
 #. (itstool) path: credit/name
