@@ -1306,7 +1306,7 @@ msgstr "Si completar automàticament l'etiqueta de data"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:87
 msgid "Automatically select the type of the image based on its filename"
 msgstr ""
-"Selecciona automàticament el tipus de la imatge en base al seu nom de fitxer"
+"Selecciona automàticament el tipus de la imatge segons el seu nom de fitxer"
 
 #: ../data/preferences_dialog.ui.h:52
 msgid ""
@@ -1314,7 +1314,7 @@ msgid ""
 "based on its filename"
 msgstr ""
 "Si, quan s'està afegint la coberta, seleccionar automàticament el tipus "
-"d'una imatge en base al seu nom de fitxer"
+"d'una imatge segons el seu nom de fitxer"
 
 #: ../data/preferences_dialog.ui.h:53
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:93
@@ -2752,7 +2752,7 @@ msgid ""
 "image based on its filename"
 msgstr ""
 "Si, quan s'afegeix la caràtula, seleccionar automàticament el tipus d'una "
-"imatge en base al seu nom de fitxer"
+"imatge segons el seu nom de fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Pad the track number tag field"
@@ -2808,7 +2808,7 @@ msgstr "Usa el CRC-32 com comentari per defecte"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Run the current scanner when loading filenames from a file"
 msgstr ""
-"Executa l'escànner actual quan s'estiguin carregant els noms de fitxer des "
+"Executa l'escàner actual quan s'estiguin carregant els noms de fitxer des "
 "d'un fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
@@ -3139,7 +3139,7 @@ msgstr ""
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
-msgstr "Mostra i edita copies als fitxers d'àudio"
+msgstr "Mostra i edita còpies als fitxers d'àudio"
 
 #: ../src/application.c:44
 msgid "Print the version and exit"
