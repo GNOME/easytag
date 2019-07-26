@@ -408,7 +408,7 @@ msgstr "Nombre de pistes"
 
 #: ../data/cddb_dialog.ui.h:44 ../data/load_files_dialog.ui.h:14
 msgid "Run the current scanner for each file"
-msgstr "Executa l'escànner actual per cada fitxer"
+msgstr "Executa l'escàner actual per cada fitxer"
 
 #: ../data/cddb_dialog.ui.h:45 ../data/org.gnome.EasyTAG.gschema.xml.h:28
 msgid ""
