@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: easytag 2.1.5\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
 "POT-Creation-Date: 2018-06-10 15:59+0000\n"
-"PO-Revision-Date: 2019-08-25 00:00+0900\n"
+"PO-Revision-Date: 2019-08-25 02:37+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -25,7 +25,7 @@ msgstr "EasyTAG"
 
 #: ../data/easytag.appdata.xml.in.h:3 ../data/easytag.desktop.in.h:3
 msgid "Edit audio file metadata"
-msgstr "音声ファイルのメタデータを編集します"
+msgstr "オーディオファイルのメタデータを編集します"
 
 #: ../data/easytag.appdata.xml.in.h:4
 msgid ""
@@ -48,7 +48,7 @@ msgstr ""
 
 #: ../data/easytag.desktop.in.h:2
 msgid "Audio File Metadata Editor"
-msgstr "音声ファイルメタデータエディター"
+msgstr "オーディオファイルメタデータエディター"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:5
@@ -353,7 +353,7 @@ msgid ""
 "will be processed if no line is selected.\\nYou can also reorder lines in "
 "this list before using the ‘apply’ button"
 msgstr ""
-"ファイル一覧にタグを適用する行を選択して下さい。何も選択しない場合、すべての行"
+"ファイル一覧にタグを適用する行を選択してください。何も選択しない場合、すべての行"
 "が処理されることにご注意ください。また ‘適用’ ボタンを押下する前に各行の順番を"
 "変更することができます。"
 
@@ -954,7 +954,7 @@ msgstr "ログを消去"
 
 #: ../data/playlist_dialog.ui.h:1
 msgid "Generate Playlist"
-msgstr "プレイリストを生成"
+msgstr "プレイリストの生成"
 
 #: ../data/playlist_dialog.ui.h:4
 msgid "Use directory name"
@@ -1004,11 +1004,11 @@ msgstr "内容"
 
 #: ../data/playlist_dialog.ui.h:15
 msgid "Write only list of files"
-msgstr "ファイルの一覧のみ"
+msgstr "ファイルの一覧のみ書き込む"
 
 #: ../data/playlist_dialog.ui.h:16
 msgid "Write information using filename"
-msgstr "ファイル名で使用する情報"
+msgstr "ファイル名で使用する情報を書き込む"
 
 #: ../data/playlist_dialog.ui.h:17
 msgid "Write information using:"
@@ -1053,7 +1053,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
 msgid "Expand the subdirectories of the selected directory"
-msgstr "選択したディレクトリのサブディレクトリも展開する"
+msgstr "選択したディレクトリのサブディレクトリを展開する"
 
 #: ../data/preferences_dialog.ui.h:10
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:10
@@ -1098,7 +1098,7 @@ msgstr "全般"
 #: ../data/preferences_dialog.ui.h:19
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:49
 msgid "Show audio file header summary"
-msgstr "音声ファイルのヘッダー概要を表示する"
+msgstr "オーディオファイルのヘッダー概要を表示する"
 
 #: ../data/preferences_dialog.ui.h:20
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
@@ -1839,7 +1839,7 @@ msgstr "%d: ディスク番号"
 #: ../data/scan_dialog.ui.h:28
 #, no-c-format
 msgid "%e: encoded by"
-msgstr "%e: エンコーディング"
+msgstr "%e: エンコーダー"
 
 #: ../data/scan_dialog.ui.h:30
 #, no-c-format
@@ -1895,12 +1895,6 @@ msgid "Prefix mask with current directory"
 msgstr "このディレクトリをマスクする接頭子"
 
 #: ../data/scan_dialog.ui.h:49
-#, fuzzy
-#| msgid ""
-#| "Select or type in a mask using codes (see Legend) to parse tag fields. "
-#| "Used to rename the file.\n"
-#| "Use / to make directories. If the first character is /, it's a absolute "
-#| "path, otherwise is relative to the old path."
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse tag fields. Used "
 "to rename the file.\n"
@@ -2270,7 +2264,7 @@ msgstr "著作権:"
 
 #: ../data/tag_area.ui.h:26
 msgid "Tag selected files with this copyright"
-msgstr "この著作権を選択したファイルにタグ付けします"
+msgstr "この著作権表示を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:27
 msgid "URL:"
@@ -3181,11 +3175,11 @@ msgstr "すべてのアルバム"
 
 #: ../src/browser.c:3831
 msgid "Select File"
-msgstr "ファイルを選択"
+msgstr "ファイルの選択"
 
 #: ../src/browser.c:3838
 msgid "Select Directory"
-msgstr "ディレクトリを選択"
+msgstr "ディレクトリの選択"
 
 #: ../src/browser.c:4107
 #, c-format
@@ -3350,12 +3344,12 @@ msgstr[0] "一致するアルバムが %u 個見つかりました"
 #: ../src/cddb_dialog.c:1980
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr "%d ページのデータの受信中 (アルバム %d/%d)…"
+msgstr "ページ %d のデータを受信中 (アルバム %d/%d)…"
 
 #: ../src/cddb_dialog.c:1982
 #, c-format
 msgid "Receiving data of page %d…"
-msgstr "%d ページのデータの受信中…"
+msgstr "ページ %d のデータを受信中…"
 
 #: ../src/cddb_dialog.c:2146
 #, c-format
@@ -3595,8 +3589,7 @@ msgstr "西洋 (Windows-1252)"
 #, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
 msgstr ""
-"UTF-8 の文字列 ‘%s’ をファイル名のエンコーディング (%s) に変換できませんでし"
-"た。"
+"UTF-8 の文字列 ‘%s’ をファイル名のエンコーディングに変換できませんでした: %s"
 
 #: ../src/charset.c:595
 msgid "Invalid UTF-8"
@@ -3605,8 +3598,7 @@ msgstr "不正な UTF-8"
 #: ../src/charset.c:652
 #, c-format
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
-msgstr ""
-"‘%s’ という文字列を UTF-8 (%s) エンコーディングに変換できませんでした。"
+msgstr "文字列 ‘%s’ を UTF-8 に変換できませんでした: %s"
 
 #: ../src/easytag.c:244
 #, c-format
@@ -3642,7 +3634,7 @@ msgstr "ファイル名とディレクトリ名の変更"
 
 #: ../src/easytag.c:571
 msgid "File and directory rename confirmation required"
-msgstr "ファイル名/ディレクトリ名変更の確認が必要です"
+msgstr "ファイル名/ディレクトリ名の変更確認が要求されました"
 
 #: ../src/easytag.c:572
 #, c-format
@@ -3651,7 +3643,7 @@ msgstr "ファイル名とディレクトリ名を ‘%s’ から ‘%s’ に�
 
 #: ../src/easytag.c:578
 msgid "Directory rename confirmation required"
-msgstr "ディレクトリ名変更の確認が必要です"
+msgstr "ディレクトリ名の変更確認が要求されました"
 
 #: ../src/easytag.c:579
 #, c-format
@@ -3660,7 +3652,7 @@ msgstr "ディレクトリ名を ‘%s’ から ‘%s’ に変更しますか?
 
 #: ../src/easytag.c:587
 msgid "File rename confirmation required"
-msgstr "ファイル名変更の確認が必要です"
+msgstr "ファイル名の変更確認が要求されました"
 
 #: ../src/easytag.c:588
 #, c-format
@@ -3844,7 +3836,7 @@ msgstr ""
 #: ../src/load_files_dialog.c:302
 #, c-format
 msgid "Error reading file ‘%s’"
-msgstr "ファイル ‘%s’ を読み込み中にエラー"
+msgstr "ファイル ‘%s’ の読み込み中にエラー"
 
 #: ../src/load_files_dialog.c:742 ../src/load_files_dialog.c:845
 msgid "Insert a blank line"
@@ -4038,7 +4030,7 @@ msgstr "‘%2$s’ にセパレーター ‘%1$s’ が見つかりません"
 #: ../src/scan_dialog.c:824
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
-msgstr "ファイル名 ‘%s’ システムのエンコーディングに変換できませんでした"
+msgstr "ファイル名 ‘%s’ をシステムのエンコーディングに変換できませんでした"
 
 #: ../src/scan_dialog.c:850
 msgid "New filename successfully scanned"
@@ -4060,28 +4052,22 @@ msgstr "新しいマスク(_M)"
 
 #. 'Scan selected files' button
 #: ../src/scan_dialog.c:2327
-#, fuzzy
-#| msgid "Scan File(s)"
 msgid "Scan Files"
-msgstr "ファイルをスキャンします"
+msgstr "ファイルをスキャン"
 
 #: ../src/scan_dialog.c:2333
-#, fuzzy
-#| msgid "Include only the selected files"
 msgid "Scan selected files"
-msgstr "指定したファイルのみ含める"
+msgstr "選択したファイルをスキャンする"
 
 #: ../src/scan_dialog.c:2758
 msgid "All tags have been scanned"
 msgstr "すべてのタグはスキャン済みです"
 
 #: ../src/search_dialog.c:636
-#, fuzzy, c-format
-#| msgid "Found : %d file(s)"
+#, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
-msgstr[0] "一致するファイル: %d 個"
-msgstr[1] "一致するファイル: %d 個"
+msgstr[0] "%d 個のファイルが見つかりました"
 
 #: ../src/search_dialog.c:718
 msgid "Ready to search…"
@@ -4226,11 +4212,11 @@ msgstr "選択したファイルからオリジナルアーティストを削除
 #: ../src/tag_area.c:593
 #, c-format
 msgid "Selected files tagged with copyright ‘%s’"
-msgstr "選択したファイルに著作権 ‘%s’ をタグ付けしました"
+msgstr "選択したファイルに著作権表示 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:598
 msgid "Removed copyright from selected files"
-msgstr "選択したファイルから著作権を削除しました"
+msgstr "選択したファイルから著作権表示を削除しました"
 
 #: ../src/tag_area.c:616
 #, c-format
@@ -4261,7 +4247,7 @@ msgstr "選択したファイルから画像を削除しました"
 #. Menu items
 #: ../src/tag_area.c:852
 msgid "Tag selected files with this field"
-msgstr "このフィールドを選択したファイルにタグ付けする"
+msgstr "選択したファイルにこのフィールドをタグ付けする"
 
 #: ../src/tag_area.c:882
 msgid "All uppercase"
@@ -4549,7 +4535,7 @@ msgstr "一時ファイル作成中にエラー"
 #: ../src/tags/id3v24_tag.c:1014 ../src/tags/id3v24_tag.c:1054
 #: ../src/tags/mp4_tag.cc:102 ../src/tags/ogg_header.c:277
 msgid "Error reading tags from file"
-msgstr "ファイルからタグの読み込み中にエラー"
+msgstr "ファイルからのタグ読み込み中にエラー"
 
 #: ../src/tags/monkeyaudio_header.c:69
 msgid "Monkey's Audio File"
@@ -4567,7 +4553,7 @@ msgstr "MP4 フォーマットが不正です"
 
 #: ../src/tags/mp4_header.cc:77
 msgid "Error reading properties from file"
-msgstr "ファイルからプロパティの読み込み中にエラー"
+msgstr "ファイルからのプロパティ読み込み中にエラー"
 
 #: ../src/tags/mp4_header.cc:131
 msgid "MP4/AAC File"
@@ -4587,7 +4573,7 @@ msgstr "ファイル ‘%s’ のオープン中にエラー: %s"
 #: ../src/tags/mp4_tag.cc:331
 #, c-format
 msgid "Error reading tags from file ‘%s’"
-msgstr "ファイル ‘%s’ からタグの読み込み中にエラー"
+msgstr "ファイル ‘%s’ からのタグ読み込み中にエラー"
 
 #: ../src/tags/mpeg_header.c:51
 msgid "Stereo"
