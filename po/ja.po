@@ -2,34 +2,37 @@
 # Copyright (C) 2000-2008 Free Software Foundation, Inc.
 # Takeshi Aihana <takeshi.aihana@gmail.com>, 2000-2007.
 # Hironao Komatsu <hironao@users.sourceforge.net>, 2008.
+# sicklylife <translation@sicklylife.jp>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag 2.1.5\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
 "POT-Creation-Date: 2018-06-10 15:59+0000\n"
-"PO-Revision-Date: 2008-02-23 16:03+0900\n"
-"Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
+"PO-Revision-Date: 2019-08-25 00:00+0900\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Name and summary taken from the desktop file.
 #: ../data/easytag.appdata.xml.in.h:2 ../data/easytag.desktop.in.h:1
 msgid "EasyTAG"
-msgstr ""
+msgstr "EasyTAG"
 
 #: ../data/easytag.appdata.xml.in.h:3 ../data/easytag.desktop.in.h:3
 msgid "Edit audio file metadata"
-msgstr ""
+msgstr "音声ファイルのメタデータを編集します"
 
 #: ../data/easytag.appdata.xml.in.h:4
 msgid ""
 "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
 msgstr ""
+"MP3、MP2、MP4/AAC、FLAC、Ogg Opus、Ogg Speex、Ogg Vorbis、MusePack、Monkey's Audio、WavPack ファイルのタグの表示と編集を行います。"
 
 #: ../data/easytag.appdata.xml.in.h:5
 msgid ""
@@ -44,52 +47,45 @@ msgid ""
 msgstr ""
 
 #: ../data/easytag.desktop.in.h:2
-#, fuzzy
 msgid "Audio File Metadata Editor"
-msgstr "マスクエディタの表示を ON/OFF します"
+msgstr "音声ファイルメタデータエディター"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:5
 msgid "mp3;tag;audio;music;"
-msgstr ""
+msgstr "mp3;tag;audio;music;タグ;音声;音楽;楽曲;オーディオ;ミュージック;"
 
 #: ../data/easytag-nautilus.metainfo.xml.in.h:1
 #: ../nautilus-extension/nautilus-easytag.c:247
 msgid "Open with EasyTAG"
-msgstr ""
+msgstr "EasyTAG で開く"
 
 #: ../data/easytag-nautilus.metainfo.xml.in.h:2
 msgid "Open directories and audio files with EasyTAG using the context menu"
 msgstr ""
 
 #: ../data/browser.ui.h:1
-#, fuzzy
-#| msgid "Enter a directory to browse."
 msgid "Choose a directory to show in the browser"
-msgstr "参照するフォルダを入力して下さい。"
+msgstr "ブラウザーで表示するディレクトリを選択する"
 
 #: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3795
 #: ../src/tag_area.c:1540
 msgid "_Open"
-msgstr ""
+msgstr "開く(_O)"
 
 #: ../data/browser.ui.h:3 ../src/application.c:131
-#, fuzzy
-#| msgid "Select a directory to browse."
 msgid "Select a directory to browse"
-msgstr "参照するフォルダを選択して下さい"
+msgstr "参照するディレクトリを選択する"
 
 #: ../data/browser.ui.h:4 ../src/easytag.c:993
-#, fuzzy
-#| msgid "No file to parse"
 msgid "No files"
-msgstr "解析するファイルがありません"
+msgstr "ファイルなし"
 
 #: ../data/browser.ui.h:5 ../data/cddb_dialog.ui.h:12
 #: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:58
 #: ../data/search_dialog.ui.h:14
 msgid "Artist"
-msgstr "演奏者"
+msgstr "アーティスト"
 
 #: ../data/browser.ui.h:6
 msgid "# Albums"
@@ -108,8 +104,6 @@ msgstr "アルバム名"
 #: ../data/browser.ui.h:9 ../data/cddb_dialog.ui.h:38
 #: ../data/playlist_dialog.ui.h:2 ../data/scan_dialog.ui.h:54
 #: ../data/search_dialog.ui.h:12
-#, fuzzy
-#| msgid "File Name"
 msgid "Filename"
 msgstr "ファイル名"
 
@@ -121,9 +115,8 @@ msgstr "タイトル"
 
 #: ../data/browser.ui.h:11 ../data/scan_dialog.ui.h:60
 #: ../data/search_dialog.ui.h:15
-#, fuzzy
 msgid "Album Artist"
-msgstr "演奏者"
+msgstr "アルバムアーティスト"
 
 #: ../data/browser.ui.h:12 ../data/cddb_dialog.ui.h:40
 #: ../data/search_dialog.ui.h:18
@@ -132,7 +125,7 @@ msgstr "制作年"
 
 #: ../data/browser.ui.h:13
 msgid "Disc"
-msgstr ""
+msgstr "ディスク"
 
 #: ../data/browser.ui.h:14 ../data/search_dialog.ui.h:19
 msgid "Track"
@@ -153,18 +146,16 @@ msgstr "コメント"
 #: ../data/scan_dialog.ui.h:68 ../data/search_dialog.ui.h:22
 #: ../src/picture.c:213
 msgid "Composer"
-msgstr "コンポーザ"
+msgstr "作曲者"
 
 #: ../data/browser.ui.h:18 ../data/search_dialog.ui.h:23
-#, fuzzy
-#| msgid "Orig. Artist"
 msgid "Original Artist"
-msgstr "演奏者:"
+msgstr "オリジナルアーティスト"
 
 #: ../data/browser.ui.h:19 ../data/scan_dialog.ui.h:72
 #: ../data/search_dialog.ui.h:24
 msgid "Copyright"
-msgstr "ライセンス"
+msgstr "著作権"
 
 #: ../data/browser.ui.h:20 ../data/scan_dialog.ui.h:74
 #: ../data/search_dialog.ui.h:25
@@ -174,27 +165,22 @@ msgstr "URL"
 #: ../data/browser.ui.h:21 ../data/scan_dialog.ui.h:76
 #: ../data/search_dialog.ui.h:26
 msgid "Encoded By"
-msgstr "エンコーダ"
+msgstr "エンコーダー"
 
 #: ../data/browser_dialogs.ui.h:1
-#, fuzzy
 msgid "Browse Directory With"
-msgstr "他のプログラムで参照 ..."
+msgstr "他のプログラムで参照"
 
 #: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
-msgstr ""
+msgstr "実行するプログラム"
 
 #: ../data/browser_dialogs.ui.h:3
-#, fuzzy
-#| msgid ""
-#| "Enter the program to run. It will receive the current directory as "
-#| "parameter."
 msgid ""
 "Enter the program to run; it will receive the current directory as a "
 "parameter"
 msgstr ""
-"実行するプログラム名を入力して下さい。引数は現在のフォルダ名になります。"
+"実行するプログラム名を入力して下さい。引数は現在のディレクトリ名になります。"
 
 #: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
 #: ../src/application_window.c:373 ../src/application_window.c:387
@@ -202,26 +188,18 @@ msgstr ""
 #: ../src/cddb_dialog.c:2462 ../src/easytag.c:479 ../src/easytag.c:486
 #: ../src/easytag.c:611 ../src/playlist_dialog.c:659 ../src/tag_area.c:1538
 #: ../src/tag_area.c:1867
-#, fuzzy
-#| msgid " Cancel "
 msgid "_Cancel"
-msgstr " キャンセル "
+msgstr "キャンセル(_C)"
 
 #: ../data/browser_dialogs.ui.h:6
-#, fuzzy
-#| msgid " Execute "
 msgid "_Execute"
-msgstr " 実行 "
+msgstr "実行(_E)"
 
 #: ../data/browser_dialogs.ui.h:7
-#, fuzzy
 msgid "Open Files With"
-msgstr "他のプログラムで開く..."
+msgstr "他のプログラムで開く"
 
 #: ../data/browser_dialogs.ui.h:8
-#, fuzzy
-#| msgid ""
-#| "Enter the program to run. It will receive the current file as parameter."
 msgid ""
 "Enter the program to run; it will receive the current files as a parameter"
 msgstr ""
@@ -229,106 +207,80 @@ msgstr ""
 
 #. Only directories changed
 #: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:577
-#, fuzzy
 msgid "Rename Directory"
-msgstr "フォルダ名の変更..."
+msgstr "ディレクトリ名を変更"
 
 #. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
 #: ../data/browser_dialogs.ui.h:11
 msgid "Literal name:"
-msgstr ""
+msgstr "手動で入力:"
 
 #: ../data/browser_dialogs.ui.h:12 ../data/playlist_dialog.ui.h:3
-#, fuzzy
-#| msgid "Use mask :"
 msgid "Use mask:"
-msgstr "使用するマスク :"
+msgstr "マスクを使用:"
 
 #: ../data/browser_dialogs.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:184
 msgid "Whether to use a mask when renaming directories"
-msgstr ""
+msgstr "ディレクトリ名変更時にマスクを使用するかどうか"
 
 #: ../data/browser_dialogs.ui.h:14
-#, fuzzy
-#| msgid ""
-#| "Select or type in a mask using codes (see Legend in Scanner Window) to "
-#| "rename the directory from tag fields."
 msgid ""
 "Select or type in a mask using codes (see Legend in Scanner Window) to "
 "rename the directory from tag fields"
 msgstr ""
-"タグフィールドからフォルダ名を変更するために使用するマスクのコード(凡例を参照"
-"のこと)を選択または入力して下さい"
+"タグフィールドからディレクトリ名を変更するために使用するマスクのコード (凡例を参照"
+"のこと) を選択または入力してください"
 
 #: ../data/browser_dialogs.ui.h:15
-#, fuzzy
 msgid "Rename directory preview"
-msgstr "フォルダ名変更のプレビュー..."
+msgstr "ディレクトリ名変更のプレビュー"
 
 #: ../data/browser_dialogs.ui.h:16
 msgid "_Rename"
-msgstr ""
+msgstr "名前を変更(_R)"
 
 #: ../data/cddb_dialog.ui.h:1 ../data/toolbar.ui.h:28
-#, fuzzy
 msgid "CDDB Search"
-msgstr "CDDB から検索します..."
+msgstr "CDDB 検索"
 
 #: ../data/cddb_dialog.ui.h:2
-#, fuzzy
-#| msgid "Search :"
 msgid "Search"
-msgstr "検索 :"
+msgstr "検索"
 
 #: ../data/cddb_dialog.ui.h:3
-#, fuzzy
-#| msgid "Enter the words to search (separated by a space or '+')"
 msgid "Enter the words to search (separated by a space or ‘+’)"
-msgstr "検索する単語を入力して下さい (区切り記号: スペース ' ' または '+')"
+msgstr "検索する単語を入力して下さい (区切り記号: スペース ' ' または ‘+’)"
 
 #: ../data/cddb_dialog.ui.h:4
-#, fuzzy
-#| msgid "Search :"
 msgid "_Search"
-msgstr "検索 :"
+msgstr "検索(_S)"
 
 #: ../data/cddb_dialog.ui.h:5
-#, fuzzy
-#| msgid "Search subdirectories"
 msgid "Search Using Selected _Files"
-msgstr "サブフォルダも参照する"
+msgstr "選択したファイルで検索(_F)"
 
 #: ../data/cddb_dialog.ui.h:6
-#, fuzzy
-#| msgid ""
-#| "Request automatically the CDDB database using the selected files (the "
-#| "order is important!) to generate the CddbID."
 msgid ""
 "Generate the CDDB disc ID using the selected files (the order is important)"
 msgstr ""
-"指定したファイルを使って CddbID を生成するようCDDBへ自動的に要求します (順番"
-"も関係します！)"
+"選択したファイルを使用して CDDB disc ID を生成します (順序も関係します)"
 
 #: ../data/cddb_dialog.ui.h:7 ../data/toolbar.ui.h:31
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: ../data/cddb_dialog.ui.h:8
-#, fuzzy
 msgid "Stop the search"
-msgstr "検索の停止..."
+msgstr "検索を停止する"
 
 #: ../data/cddb_dialog.ui.h:9
-#, fuzzy
-#| msgid "Manual Search"
 msgid "Manual Search Options"
-msgstr "手動検索"
+msgstr "手動検索のオプション"
 
 #. Translators: header for CDDB fields to use when searching
 #: ../data/cddb_dialog.ui.h:11
-#, fuzzy
 msgid "Search Fields"
-msgstr "ファイルを検索します..."
+msgstr "検索分野"
 
 #: ../data/cddb_dialog.ui.h:14
 msgid "Track Name"
@@ -340,10 +292,8 @@ msgid "Other"
 msgstr "その他"
 
 #: ../data/cddb_dialog.ui.h:16
-#, fuzzy
-#| msgid " Categories "
 msgid "Categories"
-msgstr " カテゴリ "
+msgstr "カテゴリー"
 
 #: ../data/cddb_dialog.ui.h:17
 msgid "Blues"
@@ -366,18 +316,16 @@ msgid "Jazz"
 msgstr "ジャズ"
 
 #: ../data/cddb_dialog.ui.h:22
-#, fuzzy
-#| msgid "Misc"
 msgid "Misc."
 msgstr "その他"
 
 #: ../data/cddb_dialog.ui.h:23
 msgid "New Age"
-msgstr ""
+msgstr "ニューエイジ"
 
 #: ../data/cddb_dialog.ui.h:24
 msgid "Reggae"
-msgstr "レゲ"
+msgstr "レゲエ"
 
 #: ../data/cddb_dialog.ui.h:25
 msgid "Rock"
@@ -388,80 +336,63 @@ msgid "Soundtrack"
 msgstr "サウンドトラック"
 
 #: ../data/cddb_dialog.ui.h:27
-#, fuzzy
-#| msgid "Results :"
 msgid "Results"
-msgstr "結果 :"
+msgstr "結果"
 
 #: ../data/cddb_dialog.ui.h:28
 msgid "Artist / Album"
-msgstr "演奏者 / アルバム"
+msgstr "アーティスト / アルバム"
 
 #: ../data/cddb_dialog.ui.h:29
 msgid "Category"
-msgstr "カテゴリ"
+msgstr "カテゴリー"
 
 #: ../data/cddb_dialog.ui.h:30
-#, fuzzy
-#| msgid ""
-#| "Select lines to 'apply' to your files list. All lines will be processed "
-#| "if no line is selected.\n"
-#| "You can also reorder lines in this list before using 'apply' button."
 msgid ""
 "Select lines from which tags will be applied to your files list. All lines "
 "will be processed if no line is selected.\\nYou can also reorder lines in "
 "this list before using the ‘apply’ button"
 msgstr ""
-"ファイル一覧に '適用' する行を選択して下さい。もし何も選択しないと、全ての行"
-"が処理されることに注意して下さい。\n"
-"また、[適用]ボタンを押下する前に各行の順番を変更することができます。"
+"ファイル一覧にタグを適用する行を選択して下さい。何も選択しない場合、すべての行"
+"が処理されることにご注意ください。また ‘適用’ ボタンを押下する前に各行の順番を"
+"変更することができます。"
 
 #. Translators: column header for track number.
 #: ../data/cddb_dialog.ui.h:32
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../data/cddb_dialog.ui.h:33
-#, fuzzy
-#| msgid "Illustration"
 msgid "Duration"
-msgstr "イラスト"
+msgstr "再生時間"
 
 #: ../data/cddb_dialog.ui.h:34
 msgid "Select all lines"
-msgstr "全ての行を選択します"
+msgstr "すべての行を選択する"
 
 #: ../data/cddb_dialog.ui.h:35
-#, fuzzy
-#| msgid "Invert lines selection"
 msgid "Invert line selection"
-msgstr "選択した行を未選択に反転します"
+msgstr "選択行を反転する"
 
 #: ../data/cddb_dialog.ui.h:36
 msgid "Unselect all lines"
-msgstr "全ての行を未選択にする"
+msgstr "すべての行を未選択にする"
 
 #: ../data/cddb_dialog.ui.h:37 ../data/menus.ui.h:24
-#, fuzzy
-#| msgid "Fill Tag"
 msgid "Fill Tags"
-msgstr "タグを付与する"
+msgstr "タグの付与"
 
 #: ../data/cddb_dialog.ui.h:41
-#, fuzzy
-#| msgid "Track Name"
 msgid "Track Number"
-msgstr "トラック名"
+msgstr ""
 
 #: ../data/cddb_dialog.ui.h:42
-#, fuzzy
-#| msgid "%l : number of tracks"
 msgid "Number of Tracks"
-msgstr "%l : トラック番号"
+msgstr ""
 
 #: ../data/cddb_dialog.ui.h:44 ../data/load_files_dialog.ui.h:14
 msgid "Run the current scanner for each file"
-msgstr "各ファイルに現在のスキャナを実行する"
+msgstr "各ファイルに現在のスキャナーを実行する"
 
 #: ../data/cddb_dialog.ui.h:45 ../data/org.gnome.EasyTAG.gschema.xml.h:38
 msgid ""
@@ -482,23 +413,17 @@ msgstr ""
 #: ../data/cddb_dialog.ui.h:48 ../data/search_dialog.ui.h:11
 #: ../src/load_files_dialog.c:1005 ../src/preferences_dialog.c:279
 #: ../src/scan_dialog.c:2323
-#, fuzzy
-#| msgid " Close "
 msgid "_Close"
-msgstr " 閉じる "
+msgstr "閉じる(_C)"
 
 #: ../data/cddb_dialog.ui.h:49 ../src/cddb_dialog.c:2463
 #: ../src/load_files_dialog.c:1006
-#, fuzzy
-#| msgid " Apply "
 msgid "_Apply"
-msgstr " 適用 "
+msgstr "適用(_A)"
 
 #: ../data/cddb_dialog.ui.h:50
-#, fuzzy
-#| msgid "Load the selected lines or all lines (if no line selected)."
 msgid "Load the selected lines or all lines (if no lines are selected)"
-msgstr "指定した行または (もし行が指定されなければ) 全ての行を読み込みます"
+msgstr "選択した行または (行を選択していない場合は) すべての行を読み込みます"
 
 #. Default values are MPEG data.
 #: ../data/file_area.ui.h:1 ../src/application_window.c:2208
@@ -508,7 +433,7 @@ msgstr "ファイル"
 
 #: ../data/file_area.ui.h:2
 msgid "0/0:"
-msgstr ""
+msgstr "0/0:"
 
 #. Nothing to display
 #. Version changed to encoder version
@@ -518,7 +443,7 @@ msgstr ""
 #: ../src/tags/musepack_header.c:84 ../src/tags/ogg_header.c:399
 #: ../src/tags/opus_header.c:227 ../src/tags/wavpack_header.c:140
 msgid "Encoder:"
-msgstr "エンコーダ:"
+msgstr "エンコーダー:"
 
 #: ../data/file_area.ui.h:4
 msgid "Bitrate:"
@@ -526,7 +451,7 @@ msgstr "ビットレート:"
 
 #: ../data/file_area.ui.h:5
 msgid "Sample rate:"
-msgstr ""
+msgstr "サンプリングレート:"
 
 #. Mode
 #: ../data/file_area.ui.h:6 ../src/file_area.c:160
@@ -539,14 +464,12 @@ msgid "Size:"
 msgstr "サイズ:"
 
 #: ../data/file_area.ui.h:8
-#, fuzzy
-#| msgid "Illustration"
 msgid "Duration:"
-msgstr "イラスト"
+msgstr "再生時間:"
 
 #: ../data/image_properties_dialog.ui.h:1
 msgid "Image Type"
-msgstr ""
+msgstr "画像の種類"
 
 #: ../data/image_properties_dialog.ui.h:2 ../src/picture.c:305
 msgid "Description"
@@ -554,37 +477,29 @@ msgstr "説明"
 
 #: ../data/image_properties_dialog.ui.h:4
 msgid "_Accept"
-msgstr ""
+msgstr "容認(_A)"
 
 #: ../data/log_area.ui.h:1 ../data/preferences_dialog.ui.h:15
 msgid "Log"
 msgstr "ログ"
 
 #: ../data/load_files_dialog.ui.h:1
-#, fuzzy
-#| msgid "Load the filenames from a TXT file"
 msgid "Load Filenames From a Text File"
-msgstr "TEXT ファイルからファイル名を読み込む"
+msgstr "テキストファイルからファイル名を読み込む"
 
 #: ../data/load_files_dialog.ui.h:2
-#, fuzzy
-#| msgid "File :"
 msgid "File:"
-msgstr "TEXT ファイル :"
+msgstr "ファイル:"
 
 #: ../data/load_files_dialog.ui.h:3
 msgid "Choose a Text File"
-msgstr ""
+msgstr "テキストファイルを選択"
 
 #: ../data/load_files_dialog.ui.h:4
-#, fuzzy
-#| msgid " Load "
 msgid "_Load"
-msgstr " 読み込む "
+msgstr "読み込む(_L)"
 
 #: ../data/load_files_dialog.ui.h:5
-#, fuzzy
-#| msgid "Content of TXT file"
 msgid "Content of Text File"
 msgstr "テキストファイルの内容"
 
@@ -599,28 +514,22 @@ msgstr "選択した行を削除する"
 #: ../data/load_files_dialog.ui.h:8 ../src/load_files_dialog.c:750
 #: ../src/load_files_dialog.c:853
 msgid "Delete all blank lines"
-msgstr "空行を全て削除する"
+msgstr "空行をすべて削除する"
 
 #: ../data/load_files_dialog.ui.h:9
-#, fuzzy
-#| msgid "Move up the selected line"
 msgid "Move the selected line up"
-msgstr "選択した行を上に移動"
+msgstr "選択した行を上に移動する"
 
 #: ../data/load_files_dialog.ui.h:10
-#, fuzzy
-#| msgid "Move up the selected line"
 msgid "Move the selected line down"
-msgstr "選択した行を上に移動"
+msgstr "選択した行を下に移動する"
 
 #: ../data/load_files_dialog.ui.h:11 ../src/load_files_dialog.c:768
 #: ../src/load_files_dialog.c:871
 msgid "Reload"
-msgstr "再読込"
+msgstr "再読み込み"
 
 #: ../data/load_files_dialog.ui.h:12
-#, fuzzy
-#| msgid "List of files"
 msgid "List of Files"
 msgstr "ファイルの一覧"
 
@@ -652,129 +561,100 @@ msgid "_File"
 msgstr "ファイル(_F)"
 
 #: ../data/menus.ui.h:5
-#, fuzzy
 msgid "Open Files With…"
-msgstr "他のプログラムで開く..."
+msgstr "他のプログラムで開く…"
 
 #: ../data/menus.ui.h:6
 msgid "Run Audio Player"
-msgstr "オーディオ・プレイヤーの起動"
+msgstr "音楽プレイヤーを起動"
 
 #: ../data/menus.ui.h:7 ../data/toolbar.ui.h:23
-#, fuzzy
-#| msgid "Invert Files Selection"
 msgid "Invert File Selection"
-msgstr "ファイル選択の反転"
+msgstr "ファイル選択を反転"
 
 #: ../data/menus.ui.h:8
-#, fuzzy
 msgid "Delete Files"
-msgstr "ファイルの削除..."
+msgstr "ファイルを削除"
 
 #: ../data/menus.ui.h:9
 msgid "Undo for File"
-msgstr ""
+msgstr "ファイルを元に戻す"
 
 #: ../data/menus.ui.h:10
-#, fuzzy
-#| msgid "Read Only File"
 msgid "Redo for File"
-msgstr "読み込み専用のファイルです"
+msgstr "ファイルをやり直す"
 
 #: ../data/menus.ui.h:11 ../data/toolbar.ui.h:17
-#, fuzzy
-#| msgid "_Save File(s)"
 msgid "_Save Files"
-msgstr "ファイルの保存(_S)"
+msgstr "ファイルを保存(_S)"
 
 #: ../data/menus.ui.h:12
-#, fuzzy
-#| msgid "_Force Saving File(s)"
 msgid "_Force Save Files"
-msgstr "ファイルの強制保存(_F)"
+msgstr "ファイルを強制保存(_F)"
 
 #: ../data/menus.ui.h:13
 msgid "_Edit"
-msgstr ""
+msgstr "編集(_E)"
 
 #: ../data/menus.ui.h:14 ../data/toolbar.ui.h:25
 msgid "_Find…"
-msgstr ""
+msgstr "検索(_F)…"
 
 #: ../data/menus.ui.h:15
-#, fuzzy
-#| msgid "Select All Files"
 msgid "Select All"
-msgstr "全ファイルの選択"
+msgstr "すべて選択"
 
 #: ../data/menus.ui.h:16
-#, fuzzy
-#| msgid "Unselect All Files"
 msgid "Unselect All"
-msgstr "全ファイルの未選択"
+msgstr "すべて未選択"
 
 #: ../data/menus.ui.h:17
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #: ../data/menus.ui.h:18
 msgid "Redo"
-msgstr ""
+msgstr "やり直す"
 
 #: ../data/menus.ui.h:19 ../data/toolbar.ui.h:11
-#, fuzzy
-#| msgid "_Remove Tag(s)"
 msgid "_Remove Tags"
-msgstr "タグの削除(_R)"
+msgstr "タグを削除(_R)"
 
 #: ../data/menus.ui.h:20
-#, fuzzy
 msgid "_Preferences"
-msgstr "設定(_P)..."
+msgstr "設定(_P)"
 
 #: ../data/menus.ui.h:21
 msgid "_View"
-msgstr ""
+msgstr "表示(_V)"
 
 #: ../data/menus.ui.h:22
-#, fuzzy
-#| msgid "Scanner"
 msgid "Show Scanner"
-msgstr "スキャナ"
+msgstr "スキャナーを表示"
 
 #: ../data/menus.ui.h:23
-#, fuzzy
-#| msgid "Scanner"
 msgid "Scanner Mode"
-msgstr "スキャナ"
+msgstr "スキャナーモード"
 
 #: ../data/menus.ui.h:25
-#, fuzzy
-#| msgid "Rename File and Directory"
 msgid "Rename Files and Directories"
-msgstr "ファイル名とフォルダ名の変更"
+msgstr "ファイル名とディレクトリ名の変更"
 
 #: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:109
 msgid "Process Fields"
-msgstr "フィールドを編集する"
+msgstr "フィールドの編集"
 
 #: ../data/menus.ui.h:27 ../data/toolbar.ui.h:19
-#, fuzzy
-#| msgid "Directory renamed"
 msgid "Directory Tree"
-msgstr "フォルダ名を変更しました"
+msgstr "ディレクトリツリー"
 
 #: ../data/menus.ui.h:28 ../data/toolbar.ui.h:21
-#, fuzzy
-#| msgid "Artist & Album"
 msgid "Artists and Albums"
-msgstr "演奏者 / アルバム"
+msgstr "アーティスト / アルバム"
 
 #: ../data/menus.ui.h:29
-#, fuzzy
-#| msgid "Sort list by tag"
 msgid "Sort List by Tag"
-msgstr "タグ順で並び替え"
+msgstr "タグで一覧を並べ替え"
 
 #: ../data/menus.ui.h:30
 msgid "Ascending by track number"
@@ -794,21 +674,19 @@ msgstr "タイトルで降順"
 
 #: ../data/menus.ui.h:34
 msgid "Ascending by artist"
-msgstr "演奏者で昇順"
+msgstr "アーティストで昇順"
 
 #: ../data/menus.ui.h:35
 msgid "Descending by artist"
-msgstr "演奏者で降順"
+msgstr "アーティストで降順"
 
 #: ../data/menus.ui.h:36
-#, fuzzy
 msgid "Ascending by album artist"
-msgstr "演奏者で昇順"
+msgstr "アルバムアーティストで昇順"
 
 #: ../data/menus.ui.h:37
-#, fuzzy
 msgid "Descending by album artist"
-msgstr "演奏者で降順"
+msgstr "アルバムアーティストで降順"
 
 #: ../data/menus.ui.h:38
 msgid "Ascending by album"
@@ -844,49 +722,47 @@ msgstr "コメントで降順"
 
 #: ../data/menus.ui.h:46
 msgid "Ascending by composer"
-msgstr "コンポーザで昇順"
+msgstr "作曲者で昇順"
 
 #: ../data/menus.ui.h:47
 msgid "Descending by composer"
-msgstr "コンポーザで降順"
+msgstr "作曲者で降順"
 
 #: ../data/menus.ui.h:48
 msgid "Ascending by original artist"
-msgstr "オリジナルの演奏者で昇順"
+msgstr "オリジナルアーティストで昇順"
 
 #: ../data/menus.ui.h:49
 msgid "Descending by original artist"
-msgstr "オリジナルの演奏者で降順"
+msgstr "オリジナルアーティストで降順"
 
 #: ../data/menus.ui.h:50
 msgid "Ascending by copyright"
-msgstr "ライセンスで昇順"
+msgstr "著作権で昇順"
 
 #: ../data/menus.ui.h:51
 msgid "Descending by copyright"
-msgstr "ライセンスで降順"
+msgstr "著作権で降順"
 
 #: ../data/menus.ui.h:52
 msgid "Ascending by URL"
-msgstr "URLで昇順"
+msgstr "URL で昇順"
 
 #: ../data/menus.ui.h:53
 msgid "Descending by URL"
-msgstr "URLで降順"
+msgstr "URL で降順"
 
 #: ../data/menus.ui.h:54
 msgid "Ascending by encoder name"
-msgstr "エンコーディングで昇順"
+msgstr "エンコーダーで昇順"
 
 #: ../data/menus.ui.h:55
 msgid "Descending by encoder name"
-msgstr "エンコーディングで降順"
+msgstr "エンコーダーで降順"
 
 #: ../data/menus.ui.h:56
-#, fuzzy
-#| msgid "Sort list by property"
 msgid "Sort List by Property"
-msgstr "プロパティ順で並び替え"
+msgstr "プロパティで一覧を並べ替え"
 
 #: ../data/menus.ui.h:57
 msgid "Ascending by filename"
@@ -922,55 +798,43 @@ msgstr "サイズで降順"
 
 #: ../data/menus.ui.h:65
 msgid "Ascending by duration"
-msgstr "演奏時間で昇順"
+msgstr "再生時間で昇順"
 
 #: ../data/menus.ui.h:66
 msgid "Descending by duration"
-msgstr "演奏時間で降順"
+msgstr "再生時間で降順"
 
 #: ../data/menus.ui.h:67
-#, fuzzy
-#| msgid "Ascending by bitrate"
 msgid "Ascending by bit rate"
 msgstr "ビットレートで昇順"
 
 #: ../data/menus.ui.h:68
-#, fuzzy
-#| msgid "Descending by bitrate"
 msgid "Descending by bit rate"
 msgstr "ビットレートで降順"
 
 #: ../data/menus.ui.h:69
-#, fuzzy
-#| msgid "Ascending by samplerate"
 msgid "Ascending by sample rate"
 msgstr "サンプリングレートで昇順"
 
 #: ../data/menus.ui.h:70
-#, fuzzy
-#| msgid "Descending by samplerate"
 msgid "Descending by sample rate"
 msgstr "サンプリングレートで降順"
 
 #: ../data/menus.ui.h:71
-#, fuzzy
-#| msgid "_Collapse Tree"
 msgid "Collapse Tree"
-msgstr "ツリーを折り畳む(_C)"
+msgstr "ツリーを折り畳む"
 
 #: ../data/menus.ui.h:72
-#, fuzzy
-#| msgid "Reload"
 msgid "Reload Tree"
-msgstr "再読込"
+msgstr "ツリーを再読み込み"
 
 #: ../data/menus.ui.h:73
 msgid "Reload Directory"
-msgstr "フォルダの再読み込み"
+msgstr "ディレクトリを再読み込み"
 
 #: ../data/menus.ui.h:74
 msgid "Show Hidden Directories"
-msgstr "隠しフォルダを表示する"
+msgstr "隠しディレクトリを表示"
 
 #: ../data/menus.ui.h:75
 msgid "_Browser"
@@ -978,85 +842,67 @@ msgstr "参照(_B)"
 
 #: ../data/menus.ui.h:76
 msgid "Set _Current Path as Default"
-msgstr "このフォルダをデフォルトに(_C)"
+msgstr "このディレクトリをデフォルトに設定(_C)"
 
 #: ../data/menus.ui.h:77
-#, fuzzy
 msgid "Rename Directory…"
-msgstr "フォルダ名の変更..."
+msgstr "ディレクトリ名を変更…"
 
 #: ../data/menus.ui.h:78
-#, fuzzy
 msgid "Browse Directory With…"
-msgstr "他のプログラムで参照 ..."
+msgstr "他のプログラムで参照…"
 
 #: ../data/menus.ui.h:79
-#, fuzzy
-#| msgid "Browse _Sub-directories"
 msgid "Browse _Subdirectories"
-msgstr "サブフォルダを参照する(_S)"
+msgstr "サブディレクトリを参照(_S)"
 
 #: ../data/menus.ui.h:80
 msgid "_Miscellaneous"
-msgstr ""
+msgstr "その他(_M)"
 
 #: ../data/menus.ui.h:81
-#, fuzzy
 msgid "CDD_B Search…"
-msgstr "CDDB から検索します..."
+msgstr "CDDB 検索(_B)…"
 
 #: ../data/menus.ui.h:82
-#, fuzzy
 msgid "Load Filenames From a Text File…"
-msgstr "TXT からファイル名の読み込み..."
+msgstr "テキストファイルからファイル名を読み込む…"
 
 #: ../data/menus.ui.h:83 ../data/toolbar.ui.h:29
-#, fuzzy
-#| msgid "Generate a playlist"
 msgid "Generate Playlist…"
-msgstr "演奏一覧の生成"
+msgstr "プレイリストを生成…"
 
 #: ../data/menus.ui.h:84
 msgid "_Go"
-msgstr ""
+msgstr "移動(_G)"
 
 #: ../data/menus.ui.h:85
-#, fuzzy
-#| msgid "Go to _Home Directory"
 msgid "_Home Directory"
-msgstr "ホームへ(_H)"
+msgstr "ホームディレクトリ(_H)"
 
 #: ../data/menus.ui.h:86
-#, fuzzy
 msgid "Desktop Directory"
-msgstr "デフォルトのフォルダへ移動します"
+msgstr "デスクトップ"
 
 #: ../data/menus.ui.h:87
-#, fuzzy
 msgid "Documents Directory"
-msgstr "ホーム・フォルダへ移動します"
+msgstr "ドキュメントディレクトリ"
 
 #: ../data/menus.ui.h:88
-#, fuzzy
 msgid "Downloads Directory"
-msgstr "ホーム・フォルダへ移動します"
+msgstr "ダウンロードディレクトリ"
 
 #: ../data/menus.ui.h:89
-#, fuzzy
 msgid "Music Directory"
-msgstr "ホーム・フォルダへ移動します"
+msgstr "音楽ディレクトリ"
 
 #: ../data/menus.ui.h:90
-#, fuzzy
-#| msgid "Go to parent directory"
 msgid "_Parent Directory"
-msgstr "上のフォルダへ移動します"
+msgstr "親ディレクトリ(_P)"
 
 #: ../data/menus.ui.h:91
-#, fuzzy
-#| msgid "Default directory :"
 msgid "_Default Directory"
-msgstr "デフォルトのフォルダ :"
+msgstr "デフォルトのディレクトリ(_D)"
 
 #: ../data/menus.ui.h:92 ../data/toolbar.ui.h:1
 msgid "_First File"
@@ -1064,7 +910,7 @@ msgstr "先頭のファイル(_F)"
 
 #: ../data/menus.ui.h:93
 msgid "Previous File"
-msgstr "前のファイルへジャンプします"
+msgstr "前のファイル"
 
 #: ../data/menus.ui.h:94 ../data/toolbar.ui.h:5
 msgid "_Next File"
@@ -1075,61 +921,48 @@ msgid "_Last File"
 msgstr "最後のファイル(_L)"
 
 #: ../data/menus.ui.h:96
-#, fuzzy
-#| msgid "Go to Home Directory"
 msgid "Home Directory"
-msgstr "ホーム・フォルダへ移動します"
+msgstr "ホームディレクトリ"
 
 #: ../data/menus.ui.h:97
-#, fuzzy
-#| msgid "Default directory :"
 msgid "Default Directory"
-msgstr "デフォルトのフォルダ :"
+msgstr "デフォルトのディレクトリ"
 
 #: ../data/menus.ui.h:98
 msgid "Set Current Path as Default"
-msgstr "このパスをデフォルト・フォルダにセットします"
+msgstr "このディレクトリをデフォルトに設定"
 
 #: ../data/menus.ui.h:100
-#, fuzzy
-#| msgid "Browse _Sub-directories"
 msgid "Browse Subdirectories"
-msgstr "サブフォルダを参照する(_S)"
+msgstr "サブディレクトリを参照"
 
 #: ../data/menus.ui.h:101
 msgid "Invert Selection"
-msgstr "選択範囲の反転"
+msgstr "選択を反転"
 
 #: ../data/menus.ui.h:102
-#, fuzzy
 msgid "CDDB Search Files…"
-msgstr "CDDB 検索..."
+msgstr "ファイルで CDDB 検索…"
 
 #: ../data/menus.ui.h:103
 msgid "Find…"
-msgstr ""
+msgstr "検索…"
 
 #: ../data/menus.ui.h:104
-#, fuzzy
-#| msgid "Clean Log"
 msgid "Clear Log"
-msgstr "ログの消去"
+msgstr "ログを消去"
 
 #: ../data/playlist_dialog.ui.h:1
-#, fuzzy
-#| msgid "Generate a playlist"
 msgid "Generate Playlist"
-msgstr "演奏一覧の生成"
+msgstr "プレイリストを生成"
 
 #: ../data/playlist_dialog.ui.h:4
 msgid "Use directory name"
-msgstr "フォルダ名を使用する"
+msgstr "ディレクトリ名を使用する"
 
 #: ../data/playlist_dialog.ui.h:5
-#, fuzzy
-#| msgid "Log Options"
 msgid "Options"
-msgstr "ログのオプション"
+msgstr "オプション"
 
 #: ../data/playlist_dialog.ui.h:6
 msgid "Include only the selected files"
@@ -1142,25 +975,23 @@ msgstr ""
 
 #: ../data/playlist_dialog.ui.h:8
 msgid "Use full path for files in playlist"
-msgstr "演奏一覧の中でファイルのフルパス名を使用する"
+msgstr "プレイリスト内でファイルのフルパスを使用する"
 
 #: ../data/playlist_dialog.ui.h:9
 msgid "Use relative path for files in playlist"
-msgstr "演奏一覧の中でファイルに関連するパス名を使用する"
+msgstr "プレイリスト内でファイルの相対パスを使用する"
 
 #: ../data/playlist_dialog.ui.h:10
 msgid "Create playlist in the parent directory"
-msgstr "演奏一覧を親フォルダに生成する"
+msgstr "プレイリストを親ディレクトリに生成する"
 
 #: ../data/playlist_dialog.ui.h:11 ../data/org.gnome.EasyTAG.gschema.xml.h:164
-#, fuzzy
-#| msgid "Create playlist in the parent directory"
 msgid "Whether to create the playlist in the parent directory"
-msgstr "演奏一覧を親フォルダに生成する"
+msgstr ""
 
 #: ../data/playlist_dialog.ui.h:12
 msgid "Use DOS directory separator"
-msgstr "DOS フォルダの区切りを使用する"
+msgstr "DOS のパス区切り文字を使用する"
 
 #: ../data/playlist_dialog.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:166
 msgid ""
@@ -1168,52 +999,41 @@ msgid ""
 msgstr ""
 
 #: ../data/playlist_dialog.ui.h:14
-#, fuzzy
-#| msgid "Playlist Content"
 msgid "Content"
-msgstr "演奏一覧の内容"
+msgstr "内容"
 
 #: ../data/playlist_dialog.ui.h:15
 msgid "Write only list of files"
-msgstr "演奏一覧ファイルの保存のみ"
+msgstr "ファイルの一覧のみ"
 
 #: ../data/playlist_dialog.ui.h:16
-#, fuzzy
-#| msgid "Write info using filename"
 msgid "Write information using filename"
-msgstr "ファイル名で使用する情報の保存のみ"
+msgstr "ファイル名で使用する情報"
 
 #: ../data/playlist_dialog.ui.h:17
-#, fuzzy
-#| msgid "Write info using :"
 msgid "Write information using:"
-msgstr "書き込む情報 :"
+msgstr "書き込む情報:"
 
 #: ../data/preferences_dialog.ui.h:1
-#, fuzzy
 msgid "Preferences"
-msgstr "設定..."
+msgstr "設定"
 
 #: ../data/preferences_dialog.ui.h:2
 msgid "Browser"
 msgstr "参照"
 
 #: ../data/preferences_dialog.ui.h:3
-#, fuzzy
-#| msgid "Default directory :"
 msgid "Default Directory:"
-msgstr "デフォルトのフォルダ :"
+msgstr "デフォルトのディレクトリ:"
 
 #: ../data/preferences_dialog.ui.h:4 ../data/org.gnome.EasyTAG.gschema.xml.h:4
-#, fuzzy
-#| msgid "New default path for files selected"
 msgid "The default path to search for music files"
-msgstr "新しいデフォルトパスが指定されました"
+msgstr "音楽ファイルを検索するデフォルトのパス"
 
 #: ../data/preferences_dialog.ui.h:5
 msgid ""
 "Load on startup the default directory or the directory passed as argument"
-msgstr "起動時にデフォルトのファルダや起動引数のフォルダを読み込む"
+msgstr "起動時にデフォルトのディレクトリや起動引数のディレクトリを読み込む"
 
 #: ../data/preferences_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:2
 msgid ""
@@ -1222,25 +1042,18 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:5
-#, fuzzy
-#| msgid "Browse _Sub-directories"
 msgid "Browse subdirectories"
-msgstr "サブフォルダを参照する(_S)"
+msgstr "サブディレクトリを参照する"
 
 #: ../data/preferences_dialog.ui.h:8 ../data/org.gnome.EasyTAG.gschema.xml.h:6
-#, fuzzy
-#| msgid ""
-#| "Search subdirectories for files when reading a directory into the tree."
 msgid ""
 "Whether to search subdirectories for audio files when reading a directory in "
 "the browser"
-msgstr "ツリーの中にあるフォルダを読み込んだら、サブフォルダも同時に検索します"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
-#, fuzzy
-#| msgid "Show subdirectories when selecting a directory"
 msgid "Expand the subdirectories of the selected directory"
-msgstr "フォルダが指定されたら、サブフォルダも表示する"
+msgstr "選択したディレクトリのサブディレクトリも展開する"
 
 #: ../data/preferences_dialog.ui.h:10
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:10
@@ -1251,21 +1064,17 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:11
 msgid "Search hidden directories"
-msgstr "隠しフォルダも参照する"
+msgstr "隠しディレクトリも参照する"
 
 #: ../data/preferences_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:8
-#, fuzzy
-#| msgid ""
-#| "Search subdirectories for files when reading a directory into the tree."
 msgid ""
 "Whether to show hidden directories when showing a directory in the browser"
-msgstr "ツリーの中にあるフォルダを読み込んだら、サブフォルダも同時に検索します"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:13
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:53
-#, fuzzy
 msgid "Sort files case-sensitively"
-msgstr "大小文字を無視する"
+msgstr "大小文字を区別してファイルを並べ替える"
 
 #: ../data/preferences_dialog.ui.h:14
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:54
@@ -1275,25 +1084,21 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:16
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:57
 msgid "Show the log"
-msgstr ""
+msgstr "ログを表示する"
 
 #: ../data/preferences_dialog.ui.h:17
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:58
-#, fuzzy
-#| msgid "Center of the main window"
 msgid "Whether to show the log in the main window"
-msgstr "メイン・ウィンドウの中央"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:18
-#, fuzzy
-#| msgid "General:\n"
 msgid "General"
-msgstr "全般:\n"
+msgstr "全般"
 
 #: ../data/preferences_dialog.ui.h:19
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:49
 msgid "Show audio file header summary"
-msgstr ""
+msgstr "音声ファイルのヘッダー概要を表示する"
 
 #: ../data/preferences_dialog.ui.h:20
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
@@ -1303,8 +1108,6 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:21
-#, fuzzy
-#| msgid "Display changed files in list using :"
 msgid "Display changed files in list using:"
 msgstr "変更されたファイルを表示するスタイル:"
 
@@ -1317,10 +1120,8 @@ msgid "Bold style"
 msgstr "太字"
 
 #: ../data/preferences_dialog.ui.h:24
-#, fuzzy
-#| msgid "User Interface"
 msgid "Interface"
-msgstr "ユーザ・インタフェース"
+msgstr "インターフェース"
 
 #: ../data/preferences_dialog.ui.h:25
 msgid "File Settings"
@@ -1328,48 +1129,35 @@ msgstr "ファイルの設定"
 
 #: ../data/preferences_dialog.ui.h:26
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:45
-#, fuzzy
-#| msgid "Preserve modification time of the file"
 msgid "Preserve modification time when writing files"
-msgstr "ファイルの変更日時を保存する"
+msgstr "ファイル書き込み時に変更日時を保存する"
 
 #: ../data/preferences_dialog.ui.h:27
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:46
-#, fuzzy
-#| msgid "Preserve modification time of the file"
 msgid "Whether to preserve the existing modification time when editing files"
-msgstr "ファイルの変更日時を保存する"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:28
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:47
-#, fuzzy
-#| msgid "Preserve modification time of the file"
 msgid "Update parent directory modification time when writing files"
-msgstr "ファイルの変更日時を保存する"
+msgstr "ファイル書き込み時に親ディレクトリの変更日時を更新する"
 
 #: ../data/preferences_dialog.ui.h:29
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:48
-#, fuzzy
-#| msgid ""
-#| "Preserve the modification time (in file properties) when saving the file."
 msgid ""
 "Whether to update the modification time on the parent directory when editing "
 "files"
-msgstr "ファイルを保存する時にプロパティの中にある変更日時を保存します"
+msgstr ""
 
 #. Translators: a section header in the Files tab of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:31
-#, fuzzy
-#| msgid "File Name"
 msgid "Filenames"
 msgstr "ファイル名"
 
 #: ../data/preferences_dialog.ui.h:32
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:191
-#, fuzzy
-#| msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgid "Replace illegal characters when renaming"
-msgstr "ファイル名にある不正な文字を置き換える (Windows と CD-ROM 向け)"
+msgstr "名前変更時に不正な文字を置き換える"
 
 #: ../data/preferences_dialog.ui.h:33
 msgid ""
@@ -1378,51 +1166,40 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:34
-#, fuzzy
-#| msgid "Convert filename extension to :"
 msgid "Convert filename extension to:"
-msgstr "変換後の拡張子 :"
+msgstr "変換後の拡張子:"
 
 #: ../data/preferences_dialog.ui.h:35
 msgid "Lower Case"
 msgstr "小文字"
 
 #: ../data/preferences_dialog.ui.h:36
-#, fuzzy
-#| msgid "For example, the extension will be converted to '.mp3'"
 msgid "For example, the extension will be converted to ‘.mp3’"
-msgstr "たとえば、変換後の拡張子は '.mp3' になります"
+msgstr "たとえば、変換後の拡張子は ‘.mp3’ になります"
 
 #: ../data/preferences_dialog.ui.h:37
 msgid "Upper Case"
 msgstr "大文字"
 
 #: ../data/preferences_dialog.ui.h:38
-#, fuzzy
-#| msgid "For example, the extension will be converted to '.MP3'"
 msgid "For example, the extension will be converted to ‘.MP3’"
-msgstr "たとえば、変換後の拡張子は '.MP3' になります"
+msgstr "たとえば、変換後の拡張子は ‘.MP3’ になります"
 
 #: ../data/preferences_dialog.ui.h:39
 msgid "No Change"
 msgstr "変更しない"
 
 #: ../data/preferences_dialog.ui.h:40
-#, fuzzy
-#| msgid "The extension will not be converted"
 msgid "The extension will not be modified"
-msgstr "拡張子は変更しません"
+msgstr "拡張子を修正しません"
 
 #: ../data/preferences_dialog.ui.h:41
-#, fuzzy
-#| msgid "Filename translation"
 msgid "Filename Encoding"
-msgstr "ファイル名の翻訳"
+msgstr "ファイル名のエンコーディング"
 
 #: ../data/preferences_dialog.ui.h:42
-#, fuzzy
 msgid "Try another character encoding"
-msgstr "別のエンコーディングを試す"
+msgstr "別の文字エンコーディングを試す"
 
 #: ../data/preferences_dialog.ui.h:43
 msgid ""
@@ -1431,9 +1208,8 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:44
-#, fuzzy
 msgid "Transliterate characters into the system character encoding"
-msgstr "別のエンコーディングを試す"
+msgstr "システムの文字エンコーディングに変換する"
 
 #: ../data/preferences_dialog.ui.h:45
 msgid ""
@@ -1442,35 +1218,23 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:46
-#, fuzzy
-#| msgid ""
-#| "Force using the system character encoding and silently discard some "
-#| "characters"
 msgid ""
 "Use the system character encoding and silently discard unsupported characters"
-msgstr "システムのエンコーディングに強制的に変換して変換できない文字は無視する"
+msgstr "システムの文字エンコーディングを使用して未サポートの文字は警告なしで削除する"
 
 #: ../data/preferences_dialog.ui.h:47
-#, fuzzy
-#| msgid ""
-#| "With this option, when a characters cannot be represented in the target "
-#| "character set, it will be silently discarded."
 msgid ""
 "Discard characters which cannot be represented in the target character "
 "encoding"
 msgstr ""
-"このオプションを指定すると、文字が対象となる文字セットで表現できない時は無視"
-"して表示しません"
 
 #: ../data/preferences_dialog.ui.h:48
-#, fuzzy
-#| msgid "File"
 msgid "Files"
 msgstr "ファイル"
 
 #: ../data/preferences_dialog.ui.h:49
 msgid "Automatically complete date field"
-msgstr ""
+msgstr "日付フィールドに自動入力する"
 
 #: ../data/preferences_dialog.ui.h:50
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:92
@@ -1480,7 +1244,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:51
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:97
 msgid "Automatically select the type of the image based on its filename"
-msgstr ""
+msgstr "ファイル名を基にして画像を自動選択する"
 
 #: ../data/preferences_dialog.ui.h:52
 msgid ""
@@ -1491,7 +1255,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:53
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:103
 msgid "Preserve the tag field focus"
-msgstr ""
+msgstr "タグフィールドのフォーカスを維持する"
 
 #: ../data/preferences_dialog.ui.h:54
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:104
@@ -1500,7 +1264,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:55
 msgid "Pad the number of digits in the disc field to:"
-msgstr ""
+msgstr "ディスクフィールドの桁数を次に増やす:"
 
 #: ../data/preferences_dialog.ui.h:56
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:94
@@ -1509,7 +1273,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:57
 msgid "Pad the number of digits in the track field to:"
-msgstr ""
+msgstr "トラックフィールドの桁数を次に増やす:"
 
 #: ../data/preferences_dialog.ui.h:58
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:100
@@ -1517,9 +1281,8 @@ msgid "Whether the track number tag field should be padded with leading zeroes"
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:59
-#, fuzzy
 msgid "Splitting"
-msgstr "タグの設定"
+msgstr "分割"
 
 #: ../data/preferences_dialog.ui.h:60
 msgid ""
@@ -1558,10 +1321,8 @@ msgid "Whether to split composer fields at a “ - ” separator in Ogg comments
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:73
-#, fuzzy
-#| msgid "Orig. Artist"
 msgid "Original artist"
-msgstr "演奏者:"
+msgstr "オリジナルアーティスト"
 
 #: ../data/preferences_dialog.ui.h:74
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:214
@@ -1571,14 +1332,12 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:75
 msgid "Tags"
-msgstr ""
+msgstr "タグ"
 
 #: ../data/preferences_dialog.ui.h:76
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:61
-#, fuzzy
-#| msgid "Strip tags if all fields are set to blank"
 msgid "Strip ID3 tags if all ID3 tags are empty"
-msgstr "タグの全てのフィールドが空白の場合は削除する"
+msgstr "ID3 タグがすべて空の場合は ID3 を削除する"
 
 #: ../data/preferences_dialog.ui.h:77
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:62
@@ -1588,30 +1347,22 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:78
-#, fuzzy
-#| msgid "Use non standard character set for reading ID3 tags: "
 msgid "Non-standard encoding for reading ID3 tags:"
-msgstr "ID3 タグを読み込む際に非標準の文字セットを使用する:"
+msgstr "ID3 タグ読み込みのための非標準エンコーディング:"
 
 #: ../data/preferences_dialog.ui.h:79
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:60
-#, fuzzy
-#| msgid "Use non standard character set for reading ID3 tags: "
 msgid "Whether to use a non-standard character encoding when reading ID3 tags"
-msgstr "ID3 タグを読み込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:80
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:70
-#, fuzzy
-#| msgid "Use non standard character set for reading ID3 tags: "
 msgid "Choose the character set to be used when reading ID3v1 and ID3v2 tags"
-msgstr "ID3 タグを読み込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:81
-#, fuzzy
-#| msgid "ID3v2 tags"
 msgid "ID3v2"
-msgstr "ID3v2 タグ"
+msgstr "ID3v2"
 
 #: ../data/preferences_dialog.ui.h:82
 msgid "Write ID3v2 tag"
@@ -1627,30 +1378,22 @@ msgid "Version:"
 msgstr "バージョン:"
 
 #: ../data/preferences_dialog.ui.h:85
-#, fuzzy
-#| msgid ""
-#| "Select the ID3v2 tag version to write:\n"
-#| " - ID3v2.3 is written using id3lib,\n"
-#| " - ID3v2.4 is written using libid3tag (recommended)."
 msgid ""
 "Select the ID3v2 tag version to write:\n"
 "• ID3v2.3 is written using id3lib,\n"
 "• ID3v2.4 is written using libid3tag (recommended)"
 msgstr ""
-"書き込み時の ID3v2 タグのバージョンを選んでください:\n"
-" - ID3v2.3 には id3libを使います\n"
-" - ID3v2.4 には libid3tagを使います (推奨)"
+"書き込み時の ID3v2 タグのバージョンを選択してください:\n"
+"• ID3v2.3 には id3lib を使用します\n"
+"• ID3v2.4 には libid3tag を使用します (推奨)"
 
 #: ../data/preferences_dialog.ui.h:88
-#, fuzzy
 msgid "Character encoding:"
-msgstr "別のエンコーディングを試す"
+msgstr "文字エンコーディング:"
 
 #: ../data/preferences_dialog.ui.h:89
-#, fuzzy
-#| msgid "Unicode "
 msgid "Unicode"
-msgstr "Unicode "
+msgstr "Unicode"
 
 #: ../data/preferences_dialog.ui.h:90
 msgid ""
@@ -1658,33 +1401,24 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:92
-#, fuzzy
-#| msgid "Use non standard character set for writing ID3 tags: "
 msgid ""
 "Override the standard Unicode character encoding to be used when writing "
 "ID3v2 tags"
-msgstr "ID3 タグを書き込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:93
 msgid "When encoding conversion fails:"
-msgstr ""
+msgstr "エンコーディング変換に失敗した場合:"
 
 #: ../data/preferences_dialog.ui.h:94
 msgid "Report error"
-msgstr ""
+msgstr "エラーを報告"
 
 #: ../data/preferences_dialog.ui.h:95
-#, fuzzy
-#| msgid ""
-#| "With this option, when a character cannot be represented in the target "
-#| "character set, it can be approximated through one or several similarly "
-#| "looking characters."
 msgid ""
 "Display an error message when a character cannot be represented in the "
 "target character encoding and keep the original character"
 msgstr ""
-"このオプションを指定すると、文字が対象となる文字セットで表現できない時は、そ"
-"の文字に似た一個以上の文字に近似します"
 
 #: ../data/preferences_dialog.ui.h:96
 msgid "Transliterate"
@@ -1692,11 +1426,11 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:97
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
 
 #: ../data/preferences_dialog.ui.h:98
 msgid "Automatically convert old ID3v2 tag versions"
-msgstr "古いバージョン ID3v2 タグを自動的に変換する"
+msgstr "古いバージョンの ID3v2 タグを自動的に変換する"
 
 #: ../data/preferences_dialog.ui.h:99
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:76
@@ -1706,10 +1440,8 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:100
-#, fuzzy
-#| msgid "Use CRC32"
 msgid "Use CRC-32"
-msgstr "CRC32 を使う"
+msgstr "CRC32 を使用する"
 
 #: ../data/preferences_dialog.ui.h:101
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:80
@@ -1718,22 +1450,18 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:102
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:77
-#, fuzzy
-#| msgid "Set Compression in the ID3v2 tags"
 msgid "Compress data in ID3v2 tags"
-msgstr "ID3v2 タグを圧縮します"
+msgstr "ID3v2 タグのデータを圧縮する"
 
 #: ../data/preferences_dialog.ui.h:103
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:78
-#, fuzzy
-#| msgid "Set Compression in the ID3v2 tags"
 msgid "Whether to compress data in ID3v2 tags"
-msgstr "ID3v2 タグを圧縮します"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:104
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:81
 msgid "Use text-only genre in ID3v2 tags"
-msgstr ""
+msgstr "ID3v2 タグのテキストのみのジャンルを使用する"
 
 #: ../data/preferences_dialog.ui.h:105
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:82
@@ -1743,16 +1471,12 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:106
-#, fuzzy
-#| msgid "ID3v1 tags"
 msgid "ID3v1"
-msgstr "ID3v1 タグ"
+msgstr "ID3v1"
 
 #: ../data/preferences_dialog.ui.h:107
-#, fuzzy
-#| msgid "Write ID3v1.x tag"
 msgid "Write ID3v1 tag"
-msgstr "ID3v1.x でタグを書き込む"
+msgstr "ID3v1 でタグを書き込む"
 
 #: ../data/preferences_dialog.ui.h:108
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
@@ -1760,52 +1484,40 @@ msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:109
-#, fuzzy
-#| msgid "Character Set for writing ID3 tags"
 msgid "Choose the character set to be used when writing ID3v1 tag"
-msgstr "ID3 タグ書き込み時の文字セット"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:110
-#, fuzzy
-#| msgid "ID3 Tag"
 msgid "ID3 Tags"
 msgstr "ID3 タグ"
 
 #: ../data/preferences_dialog.ui.h:111
-#, fuzzy
-#| msgid "Fill Tag Scanner - Character Conversion"
 msgid "Character Conversion"
-msgstr "タグ付与スキャナ - 文字セットの変換"
+msgstr "文字の変換"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:113
-#, fuzzy
-#| msgid "Fill Tag"
 msgid "Fill Tag Scanner"
-msgstr "タグを付与する"
+msgstr "タグの付与"
 
 #: ../data/preferences_dialog.ui.h:115
-#, fuzzy, no-c-format
-#| msgid "Convert '_' and '%20' to spaces"
+#, no-c-format
 msgid "Convert underscores and ‘%20’ to spaces"
-msgstr "'_' と '%20' をスペースに変換する"
+msgstr "アンダースコア ‘_’ と ‘%20’ をスペースに変換する"
 
 #: ../data/preferences_dialog.ui.h:117
-#, fuzzy, no-c-format
-#| msgid "Convert space ' ' to underscore '_'"
+#, no-c-format
 msgid "Convert spaces and ‘%20’ to underscores"
-msgstr "スペース ' ' をアンダースコア '_' に変換する"
+msgstr "スペースと ‘%20’ をアンダースコア ‘_’ に変換する"
 
 #: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
-msgstr ""
+msgstr "変換しない"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:120
-#, fuzzy
-#| msgid "Rename File and Directory"
 msgid "Rename File and Directory Scanner"
-msgstr "ファイル名とフォルダ名の変更"
+msgstr "ファイル名とディレクトリ名の変更"
 
 #: ../data/preferences_dialog.ui.h:121 ../data/scan_dialog.ui.h:91
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:149 ../src/tag_area.c:910
@@ -1814,14 +1526,12 @@ msgstr "スペースを削除する"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:123
-#, fuzzy
-#| msgid "Process Fields"
 msgid "Process Fields Scanner"
-msgstr "フィールドを編集する"
+msgstr "フィールドの編集"
 
 #: ../data/preferences_dialog.ui.h:124
 msgid "Upper-case the first letters of all words"
-msgstr ""
+msgstr "単語の一文字目を大文字にする"
 
 #: ../data/preferences_dialog.ui.h:125
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:146
@@ -1835,8 +1545,6 @@ msgid "Fields"
 msgstr "フィールド"
 
 #: ../data/preferences_dialog.ui.h:127
-#, fuzzy
-#| msgid "Overwrite fields when scanning tag"
 msgid "Overwrite fields when scanning tags"
 msgstr "タグのスキャン時にフィールドを上書きする"
 
@@ -1848,10 +1556,8 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:129
-#, fuzzy
-#| msgid "Set this text as default comment :"
 msgid "Set this text as default comment:"
-msgstr "このテキストをデフォルトのコメントにする :"
+msgstr "このテキストをデフォルトのコメントにする:"
 
 #: ../data/preferences_dialog.ui.h:130
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:111
@@ -1867,55 +1573,42 @@ msgstr "デフォルトのコメントに CRC32 を使用する (ID3 タグが�
 
 #: ../data/preferences_dialog.ui.h:132
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:115
-#, fuzzy
 msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
 "files with ID3 tags only"
-msgstr "デフォルトのコメントに CRC32 を使用する (ID3 タグが付いたファイルのみ)"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:133
 msgid "Scanner"
-msgstr "スキャナ"
+msgstr "スキャナー"
 
 #: ../data/preferences_dialog.ui.h:134
-#, fuzzy
-#| msgid "Automatic Search"
 msgid "Automatic Search Servers"
-msgstr "自動検索"
+msgstr "自動検索するサーバー"
 
 #: ../data/preferences_dialog.ui.h:135
-#, fuzzy
-#| msgid "Host Name :"
 msgid "Host:"
-msgstr "ホスト名 :"
+msgstr "ホスト:"
 
 #: ../data/preferences_dialog.ui.h:136
-#, fuzzy
-#| msgid "Port :"
 msgid "Port:"
-msgstr "ポート番号 :"
+msgstr "ポート:"
 
 #: ../data/preferences_dialog.ui.h:137
-#, fuzzy
-#| msgid "CGI Path :"
 msgid "CGI Path:"
-msgstr "CGI パス名 :"
+msgstr "CGI パス:"
 
 #: ../data/preferences_dialog.ui.h:138
-#, fuzzy
-#| msgid "Manual Search"
 msgid "Manual Search Server"
-msgstr "手動検索"
+msgstr "手動検索するサーバー"
 
 #: ../data/preferences_dialog.ui.h:139
 msgid "Proxy"
-msgstr ""
+msgstr "プロキシ"
 
 #: ../data/preferences_dialog.ui.h:140
-#, fuzzy
-#| msgid "Use a proxy"
 msgid "Use a proxy server"
-msgstr "プロキシを使う"
+msgstr "プロキシサーバーを使用する"
 
 #: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:28
@@ -1933,10 +1626,8 @@ msgid "Port for a proxy to access remote CDDB"
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:144
-#, fuzzy
-#| msgid "User Name :"
 msgid "User:"
-msgstr "ユーザ名 :"
+msgstr "ユーザー:"
 
 #: ../data/preferences_dialog.ui.h:145
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:34
@@ -1944,10 +1635,8 @@ msgid "Username for a proxy to access remote CDDB"
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:146
-#, fuzzy
-#| msgid "User Password :"
 msgid "Password:"
-msgstr "ユーザ・パスワード :"
+msgstr "パスワード:"
 
 #: ../data/preferences_dialog.ui.h:147
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
@@ -1955,10 +1644,8 @@ msgid "Password for a proxy to access remote CDDB"
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:148
-#, fuzzy
-#| msgid "Results :"
 msgid "Results List"
-msgstr "結果 :"
+msgstr "結果一覧"
 
 #: ../data/preferences_dialog.ui.h:149
 #, fuzzy
@@ -1977,18 +1664,15 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:151
-#, fuzzy
-#| msgid ""
-#| "Use the Levenshtein algorithm (DLM) to match lines (using title) with "
-#| "audio files (using filename)"
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
-msgstr "楽曲ファイルの名前に一致するタイトルに DLM を適用する"
+msgstr "検索結果 (タイトル) と楽曲ファイル (ファイル名) のマッチにレーベン"
+"シュタインアルゴリズム (DLM) を使用する"
 
 #: ../data/preferences_dialog.ui.h:153
 msgid "CDDB"
-msgstr ""
+msgstr "CDDB"
 
 #: ../data/preferences_dialog.ui.h:154
 msgid "Confirmation"
@@ -1996,10 +1680,8 @@ msgstr "確認メッセージ"
 
 #: ../data/preferences_dialog.ui.h:155
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
-#, fuzzy
-#| msgid "Confirm writing of file tag"
 msgid "Confirm before writing tags"
-msgstr "タグの書き込みを確認する"
+msgstr "タグを書き込む前に確認する"
 
 #: ../data/preferences_dialog.ui.h:156
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:117
@@ -2010,10 +1692,8 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:157
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
-#, fuzzy
-#| msgid "Confirm renaming of file"
 msgid "Confirm before renaming a file"
-msgstr "ファイル名の変更を確認する"
+msgstr "ファイル名を変更する前に確認する"
 
 #: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:119
@@ -2022,10 +1702,8 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:159
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:122
-#, fuzzy
-#| msgid "Confirm deleting of file"
 msgid "Confirm before deleting a file"
-msgstr "ファイルの削除を確認する"
+msgstr "ファイルを削除する前に確認する"
 
 #: ../data/preferences_dialog.ui.h:160
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
@@ -2034,10 +1712,8 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:161
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:120
-#, fuzzy
-#| msgid "Confirm writing of playlist"
 msgid "Confirm before writing a playlist"
-msgstr "演奏一覧の書き込みを確認する"
+msgstr "プレイリストを書き込む前に確認する"
 
 #: ../data/preferences_dialog.ui.h:162
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:121
@@ -2046,10 +1722,8 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:163
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:124
-#, fuzzy
-#| msgid "Confirm renaming of file"
 msgid "Confirm before losing unsaved changes to files"
-msgstr "ファイル名の変更を確認する"
+msgstr "ファイルへの変更を保存せずに破棄する前に確認する"
 
 #: ../data/preferences_dialog.ui.h:164
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:125
@@ -2059,211 +1733,166 @@ msgid ""
 msgstr ""
 
 #: ../data/preferences_dialog.ui.h:165
-#, fuzzy
-#| msgid "Scanner Window"
 msgid "Scanner Dialog"
-msgstr "スキャナ・ウィンドウ"
+msgstr "スキャナーダイアログ"
 
 #: ../data/preferences_dialog.ui.h:166
-#, fuzzy
-#| msgid "Open the Scanner Window on startup"
 msgid "Show the scanner dialog on startup"
-msgstr "起動時にスキャナ・ウィンドウを開く"
+msgstr "起動時にスキャナーダイアログを表示する"
 
 #: ../data/preferences_dialog.ui.h:167
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:198
-#, fuzzy
-#| msgid "Open the Scanner Window on startup"
 msgid "Whether to show the scanner window on application startup"
-msgstr "起動時にスキャナ・ウィンドウを開く"
+msgstr ""
 
 #: ../data/preferences_dialog.ui.h:168
 msgid "Application"
-msgstr ""
+msgstr "アプリケーション"
 
 #: ../data/scan_dialog.ui.h:1
-#, fuzzy
-#| msgid "Tag and File Name scan"
 msgid "Tag and Filename Scan"
 msgstr "タグとファイル名のスキャン"
 
 #: ../data/scan_dialog.ui.h:2
-#, fuzzy
-#| msgid ""
-#| "Select or type in a mask using codes (see Legend) to parse file name and "
-#| "path. Used to fill in tag fields."
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "directory. Used to fill in tag fields"
 msgstr ""
-"ファイル名とパス名を解析するために使用するマスクのコード(凡例を参照のこと)を"
-"選択または入力して下さい (タグフィールドを埋めるときに使用します)"
+"ファイル名とディレクトリ名を解析するために使用するマスクのコード (凡例を参照のこ"
+"と) を選択または入力してください (タグフィールドを埋める際に使用します)"
 
 #: ../data/scan_dialog.ui.h:3
-#, fuzzy
 msgid "Fill tag preview"
-msgstr "タグの埋め込みのプレビュー..."
+msgstr "タグ埋め込みのプレビュー"
 
 #: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
-msgstr "マスク・エディタ"
+msgstr "マスクエディター"
 
 #: ../data/scan_dialog.ui.h:5
-#, fuzzy
-#| msgid "Create New Mask"
 msgid "Create a new mask"
-msgstr "新しいマスクを作成します"
+msgstr "新しいマスクを作成する"
 
 #: ../data/scan_dialog.ui.h:6
-#, fuzzy
-#| msgid "Move up the selected line"
 msgid "Move the selected mask up"
-msgstr "選択した行を上に移動"
+msgstr "選択したマスクを上に移動する"
 
 #: ../data/scan_dialog.ui.h:7
-#, fuzzy
-#| msgid "Move up the selected line"
 msgid "Move the selected mask down"
-msgstr "選択した行を上に移動"
+msgstr "選択したマスクを下に移動する"
 
 #: ../data/scan_dialog.ui.h:8
-#, fuzzy
-#| msgid "Delete the selected line"
 msgid "Duplicate the selected mask"
-msgstr "選択した行を削除する"
+msgstr "選択したマスクを複製する"
 
 #: ../data/scan_dialog.ui.h:9
-#, fuzzy
-#| msgid "Add Default Masks"
 msgid "Add default masks"
-msgstr "デフォルト・マスクを追加します"
+msgstr "デフォルトマスクを追加する"
 
 #: ../data/scan_dialog.ui.h:10
-#, fuzzy
-#| msgid "Move up the selected line"
 msgid "Remove the selected mask"
-msgstr "選択した行を上に移動"
+msgstr "選択したマスクを削除する"
 
 #: ../data/scan_dialog.ui.h:11
-#, fuzzy
-#| msgid "Save Masks"
 msgid "Save masks"
-msgstr "マスクを保存します"
+msgstr "マスクを保存する"
 
 #: ../data/scan_dialog.ui.h:12
 msgid "Legend"
 msgstr "凡例"
 
 #: ../data/scan_dialog.ui.h:14
-#, fuzzy, no-c-format
-#| msgid "%a : artist"
+#, no-c-format
 msgid "%a: artist"
-msgstr "%a : 演奏者"
+msgstr "%a: アーティスト"
 
 #: ../data/scan_dialog.ui.h:16
-#, fuzzy, no-c-format
+#, no-c-format
 msgid "%z: album artist"
-msgstr "%a : 演奏者"
+msgstr "%z: アルバムアーティスト"
 
 #: ../data/scan_dialog.ui.h:18
-#, fuzzy, no-c-format
-#| msgid "%b : album"
+#, no-c-format
 msgid "%b: album"
-msgstr "%b : アルバム"
+msgstr "%b: アルバム"
 
 #: ../data/scan_dialog.ui.h:20
-#, fuzzy, no-c-format
-#| msgid "%c : comment"
+#, no-c-format
 msgid "%c: comment"
-msgstr "%c : コメント"
+msgstr "%c: コメント"
 
 #: ../data/scan_dialog.ui.h:22
-#, fuzzy, no-c-format
-#| msgid "%p : composer"
+#, no-c-format
 msgid "%p: composer"
-msgstr "%p : コンポーザ"
+msgstr "%p: 作曲者"
 
 #: ../data/scan_dialog.ui.h:24
-#, fuzzy, no-c-format
-#| msgid "%r : copyright"
+#, no-c-format
 msgid "%r: copyright"
-msgstr "%r : ライセンス"
+msgstr "%r: 著作権"
 
 #: ../data/scan_dialog.ui.h:26
-#, fuzzy, no-c-format
-#| msgid "%d : disc number"
+#, no-c-format
 msgid "%d: disc number"
-msgstr "%d : ディスクの番号"
+msgstr "%d: ディスク番号"
 
 #: ../data/scan_dialog.ui.h:28
-#, fuzzy, no-c-format
-#| msgid "%e : encoded by"
+#, no-c-format
 msgid "%e: encoded by"
-msgstr "%e : エンコーディング"
+msgstr "%e: エンコーディング"
 
 #: ../data/scan_dialog.ui.h:30
-#, fuzzy, no-c-format
-#| msgid "%g : genre"
+#, no-c-format
 msgid "%g: genre"
-msgstr "%g : ジャンル"
+msgstr "%g: ジャンル"
 
 #: ../data/scan_dialog.ui.h:32
-#, fuzzy, no-c-format
-#| msgid "%i : ignored"
+#, no-c-format
 msgid "%i: ignored"
-msgstr "%i : 無視"
+msgstr "%i: 無視"
 
 #: ../data/scan_dialog.ui.h:34
-#, fuzzy, no-c-format
-#| msgid "%l : number of tracks"
+#, no-c-format
 msgid "%l: number of tracks"
-msgstr "%l : トラック番号"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:36
-#, fuzzy, no-c-format
-#| msgid "%o : orig. artist"
+#, no-c-format
 msgid "%o: original artist"
-msgstr "%o : 演奏者"
+msgstr "%o: オリジナルアーティスト"
 
 #: ../data/scan_dialog.ui.h:38
-#, fuzzy, no-c-format
-#| msgid "Ascending track number"
+#, no-c-format
 msgid "%n: track number"
-msgstr "トラック番号で昇順"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:40
-#, fuzzy, no-c-format
-#| msgid "%t : title"
+#, no-c-format
 msgid "%t: title"
-msgstr "%t : タイトル"
+msgstr "%t: タイトル"
 
 #: ../data/scan_dialog.ui.h:42
-#, fuzzy, no-c-format
-#| msgid "%u : URL"
+#, no-c-format
 msgid "%u: URL"
-msgstr "%u : URL"
+msgstr "%u: URL"
 
 #: ../data/scan_dialog.ui.h:44
-#, fuzzy, no-c-format
-#| msgid "%l : number of tracks"
+#, no-c-format
 msgid "%x: number of discs"
-msgstr "%l : トラック番号"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:46
-#, fuzzy, no-c-format
-#| msgid "%y : year"
+#, no-c-format
 msgid "%y: year"
-msgstr "%y : 制作年"
+msgstr "%y: 制作年"
 
 #: ../data/scan_dialog.ui.h:47
 msgid "Fill Tag"
-msgstr "タグを付与する"
+msgstr "タグの付与"
 
 #: ../data/scan_dialog.ui.h:48
-#, fuzzy
-#| msgid "Prefix mask with current path"
 msgid "Prefix mask with current directory"
-msgstr "このパスをマスクする接頭子"
+msgstr "このディレクトリをマスクする接頭子"
 
 #: ../data/scan_dialog.ui.h:49
 #, fuzzy
@@ -2278,94 +1907,83 @@ msgid ""
 "Use ‘/’ to make directories. If the first character is ‘/’, it is an "
 "absolute path, otherwise it is relative to the old path"
 msgstr ""
-"タグを解析するために使用するコード (凡例を参照のこと) を選択するか入力して下"
-"さい (ファイル名の変更で使用します)\n"
-"フォルダを作成するには '/' を使い、もし先頭に '/' が付いていると絶対パスとし"
-"て扱い、それ以外は相対パスとして扱います"
+"タグを解析するために使用するコード (凡例を参照のこと) を選択するか入力してく"
+"ださい (ファイル名の変更で使用します)。\n"
+"ディレクトリを作成するには ‘/’ を使用し、先頭に ‘/’ が付いている場合は絶対パス"
+"、それ以外は相対パスとして扱います。"
 
 #: ../data/scan_dialog.ui.h:51
-#, fuzzy
 msgid "Rename file preview"
-msgstr "ファイル名変更のプレビュー..."
+msgstr "ファイル名変更のプレビュー"
 
 #. Only filename changed
 #: ../data/scan_dialog.ui.h:52 ../src/easytag.c:586
-#, fuzzy
 msgid "Rename File"
-msgstr "ファイル名の変更中..."
+msgstr "ファイル名の変更"
 
 #: ../data/scan_dialog.ui.h:53
-#, fuzzy
-#| msgid "Fields"
 msgid "Tag Fields"
-msgstr "フィールド"
+msgstr "タグフィールド"
 
 #: ../data/scan_dialog.ui.h:55
-#, fuzzy
-#| msgid "Process file name field"
 msgid "Process filename"
-msgstr "プロセスファイル名・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:57
 msgid "Process title field"
-msgstr "プロセスタイトル・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:59
-#, fuzzy
-#| msgid "Process file artist field"
 msgid "Process artist field"
-msgstr "プロセスファイル・演奏者フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:61
-#, fuzzy
 msgid "Process album artist field"
-msgstr "プロセスファイル・演奏者フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:63
 msgid "Process album field"
-msgstr "プロセスアルバム・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:65
 msgid "Process genre field"
-msgstr "プロセス・ジャンル・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:67
 msgid "Process comment field"
-msgstr "プロセスコメント・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:69
 msgid "Process composer field"
-msgstr "プロセス・コンポーザ・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:70
 msgid "Orig. Artist"
-msgstr "演奏者:"
+msgstr "オリジナルアーティスト"
 
 #: ../data/scan_dialog.ui.h:71
 msgid "Process original artist field"
-msgstr "プロセス・オリジナルの演奏者フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:73
 msgid "Process copyright field"
-msgstr "プロセス・ライセンス・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:75
 msgid "Process URL field"
-msgstr "プロセス URL フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:77
-#, fuzzy
-#| msgid "Process encoder name field"
 msgid "Process encoded-by field"
-msgstr "プロセス・エンコーディング・フィールド"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:78
 msgid "Capitalization"
-msgstr ""
+msgstr "大文字化"
 
 #: ../data/scan_dialog.ui.h:79
 msgid "Capitalize all"
-msgstr ""
+msgstr "すべて大文字にする"
 
 #: ../data/scan_dialog.ui.h:80 ../data/org.gnome.EasyTAG.gschema.xml.h:140
 msgid ""
@@ -2373,10 +1991,8 @@ msgid ""
 msgstr ""
 
 #: ../data/scan_dialog.ui.h:81
-#, fuzzy
-#| msgid "Lower Case"
 msgid "Lowercase all"
-msgstr "小文字"
+msgstr "すべて小文字にする"
 
 #: ../data/scan_dialog.ui.h:82 ../data/org.gnome.EasyTAG.gschema.xml.h:138
 msgid ""
@@ -2385,7 +2001,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:83
 msgid "Capitalize first letter"
-msgstr ""
+msgstr "先頭の一文字を大文字にする"
 
 #: ../data/scan_dialog.ui.h:84 ../data/org.gnome.EasyTAG.gschema.xml.h:142
 msgid ""
@@ -2393,23 +2009,18 @@ msgid ""
 msgstr ""
 
 #: ../data/scan_dialog.ui.h:85
-#, fuzzy
-#| msgid "First letter uppercase of each word"
 msgid "Capitalize the first letter of each word"
-msgstr "単語の最初の文字だけ大文字にする"
+msgstr "各単語の一文字目を大文字にする"
 
 #: ../data/scan_dialog.ui.h:86 ../data/org.gnome.EasyTAG.gschema.xml.h:144
-#, fuzzy
-#| msgid ""
-#| "Don't uppercase first letter of words for some prepositions and articles."
 msgid ""
 "Whether to upper-case the first letter of each word when processing tag "
 "fields"
-msgstr "前置詞や箇条書きの場合は先頭にある文字を大文字にしない"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:87
 msgid "Detect Roman numerals"
-msgstr "ローマ数字を検出します"
+msgstr "ローマ数字を検出する"
 
 #: ../data/scan_dialog.ui.h:88 ../data/org.gnome.EasyTAG.gschema.xml.h:148
 msgid ""
@@ -2419,19 +2030,17 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
-msgstr ""
+msgstr "変更しない"
 
 #: ../data/scan_dialog.ui.h:90
 msgid "Spaces Conversions"
-msgstr ""
+msgstr "スペースの変換"
 
 #: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:150
 msgid "Whether to remove all spaces when processing tag fields"
 msgstr ""
 
 #: ../data/scan_dialog.ui.h:93
-#, fuzzy
-#| msgid "Insert space before uppercase letter"
 msgid "Insert a space before uppercase letters"
 msgstr "大文字の前にスペースを挿入する"
 
@@ -2441,67 +2050,51 @@ msgid ""
 msgstr ""
 
 #: ../data/scan_dialog.ui.h:95
-#, fuzzy
-#| msgid "Remove duplicate spaces or underscores"
 msgid "Remove duplicate spaces and underscores"
-msgstr "重複したスペースまたはアンダースコアを削除する"
+msgstr "重複したスペースとアンダースコアを削除する"
 
 #: ../data/scan_dialog.ui.h:96 ../data/org.gnome.EasyTAG.gschema.xml.h:154
-#, fuzzy
-#| msgid "Remove duplicate spaces or underscores"
 msgid ""
 "Whether to remove duplicate spaces and underscores when processing tag fields"
-msgstr "重複したスペースまたはアンダースコアを削除する"
+msgstr ""
 
 #: ../data/scan_dialog.ui.h:97
 msgid "Do not change word separators"
-msgstr ""
+msgstr "変更しない"
 
 #: ../data/scan_dialog.ui.h:98
-#, fuzzy
-#| msgid "Fill Tag Scanner - Character Conversion"
 msgid "Character Conversions"
-msgstr "タグ付与スキャナ - 文字セットの変換"
+msgstr "文字の変換"
 
 #: ../data/scan_dialog.ui.h:100 ../src/tag_area.c:866
-#, fuzzy, no-c-format
-#| msgid "Convert '_' and '%20' to spaces"
+#, no-c-format
 msgid "Convert ‘_’ and ‘%20’ to spaces"
-msgstr "'_' と '%20' をスペースに変換する"
+msgstr "‘_’ と ‘%20’ をスペースに変換する"
 
 #: ../data/scan_dialog.ui.h:102
-#, fuzzy, no-c-format
-#| msgid ""
-#| "The underscore character or the string '%20' are replaced by one space. "
-#| "Example, before: 'Text%20In%20An_Entry', after: 'Text In An Entry'."
+#, no-c-format
 msgid ""
 "The underscore character or the string ‘%20’ is replaced by one space. "
 "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
 msgstr ""
-"アンダースコアまたは文字列 %20 を一つのスペースに置き換えます (例: 変換前"
-"='Text%20In%20An_Entry' 変換後='Text In An Entry')"
+"アンダースコアまたは文字列 ‘%20’ を一つのスペースに置き換えます (例: 変換前"
+"=‘Text%20In%20An_Entry‘ 変換後=‘Text In An Entry’)"
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:872
-#, fuzzy
-#| msgid "Convert space ' ' to underscore '_'"
 msgid "Convert spaces to underscores"
-msgstr "スペース ' ' をアンダースコア '_' に変換する"
+msgstr "スペースをアンダースコアに変換する"
 
 #: ../data/scan_dialog.ui.h:104
-#, fuzzy
-#| msgid ""
-#| "The space character is replaced by one underscore character. Example, "
-#| "before: 'Text In An Entry', after: 'Text_In_An_Entry'."
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
 msgstr ""
-"スペースを一つのアンダースコアに置き換えます (例: 変換前='Text In An Entry' "
-"変換後='Text_In_An_Entry')"
+"スペースを一つのアンダースコアに置き換えます (例: 変換前=‘Text In An Entry’ "
+"変換後=‘Text_In_An_Entry’)"
 
 #: ../data/scan_dialog.ui.h:105
 msgid "Convert:"
-msgstr "変換 :"
+msgstr "変換:"
 
 #: ../data/scan_dialog.ui.h:106
 #, fuzzy
@@ -2514,58 +2107,46 @@ msgstr "→"
 
 #: ../data/scan_dialog.ui.h:108
 msgid "Do not convert"
-msgstr ""
+msgstr "変換しない"
 
 #: ../data/scan_dialog.ui.h:110
 msgid "Show / Hide Masks Editor"
-msgstr "マスクエディタの表示を ON/OFF します"
+msgstr "マスクエディターの表示/非表示を切り替える"
 
 #: ../data/scan_dialog.ui.h:111
 msgid "Show / Hide Legend"
-msgstr "凡例の表示を ON/OFF します"
+msgstr "凡例の表示/非表示を切り替える"
 
 #: ../data/scan_dialog.ui.h:112
-#, fuzzy
 msgid "Scanner Preferences"
-msgstr "設定..."
+msgstr "スキャナーの設定"
 
 #: ../data/search_dialog.ui.h:1
-#, fuzzy
-#| msgid "# Files"
 msgid "Find Files"
-msgstr "# ファイル"
+msgstr "ファイル検索"
 
 #: ../data/search_dialog.ui.h:2
-#, fuzzy
-#| msgid "Search :"
 msgid "Search:"
-msgstr "検索 :"
+msgstr "検索:"
 
 #: ../data/search_dialog.ui.h:3
-#, fuzzy
-#| msgid ""
-#| "Type the word to search into files. Or type nothing to display all files."
 msgid ""
 "Type the text to search for in the file list, or leave the field empty to "
 "display all files"
 msgstr ""
-"ファイルから検索する単語を入力して下さい (何も入力しないと全てのファイルを表"
-"示します)"
+"ファイル一覧から検索する文字を入力してください (何も入力しないと、すべてのファイル"
+"を表示します)"
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
-msgstr ""
+msgstr "検索(_F)"
 
 #: ../data/search_dialog.ui.h:5
-#, fuzzy
-#| msgid "In :"
 msgid "In:"
-msgstr "対象 :"
+msgstr "対象:"
 
 #. This option is for the previous
 #: ../data/search_dialog.ui.h:7
-#, fuzzy
-#| msgid "the File Name"
 msgid "the Filename"
 msgstr "ファイル名"
 
@@ -2576,7 +2157,7 @@ msgstr "タグ"
 
 #: ../data/search_dialog.ui.h:10
 msgid "Case sensitive"
-msgstr "大小文字を無視する"
+msgstr "大小文字を区別する"
 
 #: ../data/search_dialog.ui.h:17
 msgid "CD"
@@ -2596,21 +2177,19 @@ msgstr "このタイトルを選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:4
 msgid "Artist:"
-msgstr "演奏者:"
+msgstr "アーティスト:"
 
 #: ../data/tag_area.ui.h:5
 msgid "Tag selected files with this artist"
-msgstr "この演奏者を選択したファイルにタグ付けします"
+msgstr "このアーティストを選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:6
-#, fuzzy
 msgid "Album artist:"
-msgstr "演奏者:"
+msgstr ""
 
 #: ../data/tag_area.ui.h:7
-#, fuzzy
 msgid "Tag selected files with this album artist"
-msgstr "この演奏者を選択したファイルにタグ付けします"
+msgstr "このアルバムアーティストを選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:8
 msgid "Album:"
@@ -2637,27 +2216,20 @@ msgid "Tag selected files with this year"
 msgstr "この制作年を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:14
-#, fuzzy
-#| msgid ""
-#| "Number selected tracks sequentially. Starts at 01 in each subdirectory."
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory"
 msgstr ""
-"選択したトラック番号を順番に付与します (各サブフォルダは 01 から開始します)"
+"選択したトラック番号を順番に付与します (各サブディレクトリは 01 から開始します)"
 
 #: ../data/tag_area.ui.h:15
 msgid "Track #:"
-msgstr "トラック #:"
+msgstr ""
 
 #: ../data/tag_area.ui.h:16
-#, fuzzy
-#| msgid ""
-#| "Set the number of files, in the same directory of the displayed file, to "
-#| "the selected tracks."
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks"
 msgstr ""
-"表示されているファイルと同じフォルダで、選択したトラック数に対するファイル数"
+"表示されているファイルと同じディレクトリで、選択したトラック数に対するファイル数"
 "をセットします"
 
 #: ../data/tag_area.ui.h:17
@@ -2678,29 +2250,27 @@ msgstr "このコメントを選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:21
 msgid "Composer:"
-msgstr "コンポーザ:"
+msgstr "作曲者:"
 
 #: ../data/tag_area.ui.h:22
 msgid "Tag selected files with this composer"
-msgstr "このコンポーザを選択したファイルにタグ付けします"
+msgstr "この作曲者を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:23
-#, fuzzy
-#| msgid "Orig. Artist:"
 msgid "Orig. artist:"
-msgstr "演奏者:"
+msgstr ""
 
 #: ../data/tag_area.ui.h:24
 msgid "Tag selected files with this original artist"
-msgstr "この演奏者を選択したファイルにタグ付けします"
+msgstr "このオリジナルアーティストを選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:25
 msgid "Copyright:"
-msgstr "ライセンス:"
+msgstr "著作権:"
 
 #: ../data/tag_area.ui.h:26
 msgid "Tag selected files with this copyright"
-msgstr "このライセンスを選択したファイルにタグ付けします"
+msgstr "この著作権を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:27
 msgid "URL:"
@@ -2708,243 +2278,187 @@ msgstr "URL:"
 
 #: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
-msgstr "このURLを選択したファイルにタグ付けします"
+msgstr "この URL を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
-msgstr "エンコーダ:"
+msgstr "エンコーダー:"
 
 #: ../data/tag_area.ui.h:30
 msgid "Tag selected files with this encoder name"
-msgstr "このエンコーダを選択したファイルにタグ付けします"
+msgstr "このエンコーダー名を選択したファイルにタグ付けします"
 
 #: ../data/tag_area.ui.h:31
 msgid "Common"
 msgstr "共通"
 
 #: ../data/tag_area.ui.h:32
-#, fuzzy
-#| msgid "You can use drag and drop to add picture."
 msgid "You can use drag and drop to add an image"
-msgstr "画像をドラッグ＆ドロップして追加できます"
+msgstr "ドラッグ＆ドロップで画像を追加できます"
 
 #: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
-msgstr ""
+msgstr "タグに画像を追加する"
 
 #: ../data/tag_area.ui.h:34
 msgid "Remove selected images from the tag"
-msgstr ""
+msgstr "選択した画像をタグから削除する"
 
 #: ../data/tag_area.ui.h:35
-#, fuzzy
-#| msgid "Save the selected pictures on the hard disk."
 msgid "Save the selected images to files"
-msgstr "選択した画像を保存します"
+msgstr "選択した画像をファイルに保存する"
 
 #: ../data/tag_area.ui.h:36
 msgid "Edit image properties"
-msgstr ""
+msgstr "画像のプロパティを編集する"
 
 #: ../data/tag_area.ui.h:37
-#, fuzzy
-#| msgid "Tag selected files with these pictures"
 msgid "Tag selected files with these images"
-msgstr "これらの画像を選択したファイルにタグ付けします"
+msgstr "これらの画像を選択したファイルにタグ付けする"
 
 #: ../data/tag_area.ui.h:38 ../src/tag_area.c:3264 ../src/tag_area.c:3267
 msgid "Images"
-msgstr ""
+msgstr "画像"
 
 #: ../data/toolbar.ui.h:2
-#, fuzzy
-#| msgid "First File"
 msgid "First file"
-msgstr "先頭のファイルへジャンプします"
+msgstr "先頭のファイル"
 
 #: ../data/toolbar.ui.h:3
 msgid "_Previous File"
 msgstr "前のファイル(_P)"
 
 #: ../data/toolbar.ui.h:4
-#, fuzzy
-#| msgid "Previous File"
 msgid "Previous file"
-msgstr "前のファイルへジャンプします"
+msgstr "前のファイル"
 
 #: ../data/toolbar.ui.h:6
-#, fuzzy
-#| msgid "Next File"
 msgid "Next file"
-msgstr "次のファイルへジャンプします"
+msgstr "次のファイル"
 
 #: ../data/toolbar.ui.h:8
-#, fuzzy
-#| msgid "Last File"
 msgid "Last file"
-msgstr "最後のファイルへジャンプします"
+msgstr "最後のファイル"
 
 #: ../data/toolbar.ui.h:9
-#, fuzzy
-#| msgid "Scanner"
 msgid "_Show Scanner"
-msgstr "スキャナ"
+msgstr "スキャナーを表示(_S)"
 
 #: ../data/toolbar.ui.h:10
-#, fuzzy
-#| msgid "Scanner"
 msgid "Show scanner"
-msgstr "スキャナ"
+msgstr "スキャナーを表示する"
 
 #: ../data/toolbar.ui.h:12
-#, fuzzy
-#| msgid "Remove Tag(s)"
 msgid "Remove tags"
-msgstr "タグを削除します"
+msgstr "タグを削除する"
 
 #: ../data/toolbar.ui.h:13
 msgid "_Undo"
-msgstr ""
+msgstr "元に戻す(_U)"
 
 #: ../data/toolbar.ui.h:14
 msgid "Undo for file"
-msgstr ""
+msgstr "ファイルを元に戻す"
 
 #: ../data/toolbar.ui.h:15
 msgid "R_edo"
-msgstr ""
+msgstr "やり直す(_E)"
 
 #: ../data/toolbar.ui.h:16
 msgid "Redo for file"
-msgstr ""
+msgstr "ファイルをやり直す"
 
 #: ../data/toolbar.ui.h:18
-#, fuzzy
-#| msgid "Removed genre from selected files."
 msgid "Save changes to selected files"
-msgstr "選択したファイルからジャンルを削除しました"
+msgstr "選択したファイルに変更を保存する"
 
 #: ../data/toolbar.ui.h:20
-#, fuzzy
 msgid "Browse directory tree"
-msgstr "他のプログラムで参照 ..."
+msgstr "ディレクトリツリーを閲覧する"
 
 #: ../data/toolbar.ui.h:22
 msgid "Browse artists and albums"
-msgstr ""
+msgstr "アーティストとアルバムを閲覧する"
 
 #: ../data/toolbar.ui.h:24
-#, fuzzy
-#| msgid "Invert lines selection"
 msgid "Invert file selection"
-msgstr "選択した行を未選択に反転します"
+msgstr "ファイル選択を反転する"
 
 #: ../data/toolbar.ui.h:26
 msgid "Search filenames and tags"
-msgstr ""
+msgstr "ファイル名とタグを検索する"
 
 #: ../data/toolbar.ui.h:27
-#, fuzzy
 msgid "CDDB Search…"
-msgstr "CDDB から検索します..."
+msgstr "CDDB 検索…"
 
 #: ../data/toolbar.ui.h:30
 msgid "Generate a playlist"
-msgstr "演奏一覧の生成"
+msgstr "プレイリストを生成する"
 
 #: ../data/toolbar.ui.h:32
 msgid "Stop the current action"
-msgstr "現在の処理を中止します"
+msgstr "現在の処理を中止する"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:1
-#, fuzzy
-#| msgid "Load on startup the directory"
 msgid "Load on startup"
-msgstr "起動時にフォルダを読み込む"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:3
-#, fuzzy
-#| msgid "Add Default Masks"
 msgid "Default path"
-msgstr "デフォルト・マスクを追加します"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:7
-#, fuzzy
-#| msgid "Show Hidden Directories"
 msgid "Show hidden directories while browsing"
-msgstr "隠しフォルダを表示する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:11
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "CDDB server hostname for automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:12
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "The CDDB server to use for the automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:13
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "CDDB server port for automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:14
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "The CDDB server port to use for the automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:15
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "CDDB server path for automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:16
-#, fuzzy
-#| msgid "Server Settings for Automatic Search"
 msgid "The CDDB server path to use for the automatic search"
-msgstr "自動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:17
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "CDDB server hostname for manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:18
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "The CDDB server to use for a manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:19
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "CDDB server port for manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:20
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "The CDDB server port to use for a manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:21
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "CDDB server path for manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:22
-#, fuzzy
-#| msgid "Server Settings for Manual Search"
 msgid "The CDDB server path to use for a manual search"
-msgstr "手動検索のサーバ側の設定"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:23
 msgid "Use DLM to match CDDB results to files"
@@ -3007,10 +2521,8 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:51
-#, fuzzy
-#| msgid "Display changed files in list using :"
 msgid "Show changed files in bold"
-msgstr "変更されたファイルを表示するスタイル:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:52
 msgid ""
@@ -3027,28 +2539,20 @@ msgid "Sort files in ascending or descending order for the selected type"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:59
-#, fuzzy
-#| msgid "Use non standard character set for reading ID3 tags: "
 msgid "Use a non-standard character encoding when reading ID3 tags"
-msgstr "ID3 タグを読み込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:63
-#, fuzzy
-#| msgid "Write ID3v1.x tag"
 msgid "Write ID3v1 tags"
-msgstr "ID3v1.x でタグを書き込む"
+msgstr "ID3v1 でタグを書き込む"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:65
-#, fuzzy
-#| msgid "Character Set for writing ID3 tags"
 msgid "The character set for writing ID3v1 tags"
-msgstr "ID3 タグ書き込み時の文字セット"
+msgstr "ID3v1 タグ書き込み時の文字セット"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:66
-#, fuzzy
-#| msgid "Character Set for writing ID3 tags"
 msgid "Choose the character set to be used when writing ID3v1 tags"
-msgstr "ID3 タグ書き込み時の文字セット"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:67
 msgid "Encoding options when writing ID3v1 tags"
@@ -3061,14 +2565,10 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:69
-#, fuzzy
-#| msgid "Character Set for reading ID3 tags"
 msgid "The character set for reading ID3v1 and ID3v2 tags"
-msgstr "ID3 タグ読み込み時の文字セット"
+msgstr "ID3v1/ID3v2 タグ読み込み時の文字セット"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:71
-#, fuzzy
-#| msgid "Write ID3v2 tag"
 msgid "Write ID3v2 tags"
 msgstr "ID3v2 でタグを書き込む"
 
@@ -3081,53 +2581,37 @@ msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
-#, fuzzy
-#| msgid "Automatically convert old ID3v2 tag versions"
 msgid "Convert old ID3 tag versions to new ones"
-msgstr "古いバージョン ID3v2 タグを自動的に変換する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:79
-#, fuzzy
-#| msgid "Set CRC32 in the ID3v2 tags"
 msgid "Use CRC-32 in ID3v2 tags"
-msgstr "ID3v2 に CRC32 を書き込む"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:83
-#, fuzzy
-#| msgid "Use non standard character set for reading ID3 tags: "
 msgid "Use Unicode character encoding in ID3v2 tags"
-msgstr "ID3 タグを読み込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:84
-#, fuzzy
-#| msgid "Use non standard character set for writing ID3 tags: "
 msgid "Whether to use a Unicode character set when writing ID3v2 tags"
-msgstr "ID3 タグを書き込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:85
-#, fuzzy
-#| msgid "Use non standard character set for writing ID3 tags: "
 msgid "The Unicode character set for writing ID3v2 tags"
-msgstr "ID3 タグを書き込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:86
-#, fuzzy
-#| msgid "Use non standard character set for writing ID3 tags: "
 msgid "Choose the Unicode character set to be used when writing ID3v2 tags"
-msgstr "ID3 タグを書き込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:87
-#, fuzzy
-#| msgid "Character Set for writing ID3 tags"
 msgid "The character set for writing ID3v2 tags"
-msgstr "ID3 タグ書き込み時の文字セット"
+msgstr "ID3v2 タグ書き込み時の文字セット"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:88
-#, fuzzy
-#| msgid "Use non standard character set for writing ID3 tags: "
 msgid ""
 "Override the typical Unicode character set to be used when writing ID3v2 tags"
-msgstr "ID3 タグを書き込む際に非標準の文字セットを使用する:"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Encoding options when writing ID3v2 tags"
@@ -3144,10 +2628,8 @@ msgid "Automatically complete the date"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:93
-#, fuzzy
-#| msgid "%d : disc number"
 msgid "Pad the disc number tag field"
-msgstr "%d : ディスクの番号"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "The length of the disc number field"
@@ -3195,10 +2677,8 @@ msgid "Overwrite tag field"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:110
-#, fuzzy
-#| msgid "Set this text as default comment :"
 msgid "Set the default comment"
-msgstr "このテキストをデフォルトのコメントにする :"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:112
 msgid "Default comment for filling tags"
@@ -3209,32 +2689,24 @@ msgid "The default comment to use when filling tags"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:114
-#, fuzzy
-#| msgid "Set this text as default comment :"
 msgid "Use the CRC-32 as the default comment"
-msgstr "このテキストをデフォルトのコメントにする :"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:126
-#, fuzzy
-#| msgid "Run the current scanner for each file"
 msgid "Run the current scanner when loading filenames from a file"
-msgstr "各ファイルに現在のスキャナを実行する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:128
-#, fuzzy
-#| msgid "Process title field"
 msgid "Process these tag fields"
-msgstr "プロセスタイトル・フィールド"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:129
 msgid "The tag fields to process when using the scanner"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:130
-#, fuzzy
-#| msgid "Overwrite fields when scanning tag"
 msgid "Convert tag fields when processing"
-msgstr "タグのスキャン時にフィールドを上書きする"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:132
 #, no-c-format
@@ -3244,9 +2716,8 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:133
-#, fuzzy
 msgid "Convert characters in tags"
-msgstr "別のエンコーディングを試す"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:134
 msgid ""
@@ -3277,37 +2748,28 @@ msgid "Upper-case the first letter of the tag"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:143
-#, fuzzy
-#| msgid "First letter uppercase of each word"
 msgid "Upper-case the first letter of each word"
-msgstr "単語の最初の文字だけ大文字にする"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:145
 msgid "Upper-case prepositions"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:147
-#, fuzzy
-#| msgid "Detect Roman numerals"
 msgid "Detect roman numerals"
-msgstr "ローマ数字を検出します"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:151
-#, fuzzy
-#| msgid "Insert space before uppercase letter"
 msgid "Insert spaces before capital letters"
-msgstr "大文字の前にスペースを挿入する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:153
-#, fuzzy
-#| msgid "Remove duplicate spaces or underscores"
 msgid "Remove duplicate spaces"
-msgstr "重複したスペースまたはアンダースコアを削除する"
+msgstr "重複したスペースを削除する"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:155
-#, fuzzy
 msgid "Playlist filename mask"
-msgstr "画像ファイルを読み込んでいません..."
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:156
 msgid "The default filename mask to use for a new playlist"
@@ -3322,40 +2784,28 @@ msgid "Whether to use a filename mask when creating playlists"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:159
-#, fuzzy
-#| msgid "Create playlist in the parent directory"
 msgid "Create playlists with only the selected files"
-msgstr "演奏一覧を親フォルダに生成する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:161
-#, fuzzy
-#| msgid "Use relative path for files in playlist"
 msgid "Use relative paths when creating playlists"
-msgstr "演奏一覧の中でファイルに関連するパス名を使用する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:162
-#, fuzzy
-#| msgid "Use relative path for files in playlist"
 msgid "Whether to use relative paths for files when creating playlists"
-msgstr "演奏一覧の中でファイルに関連するパス名を使用する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:163
-#, fuzzy
-#| msgid "Create playlist in the parent directory"
 msgid "Create the playlist in the parent directory"
-msgstr "演奏一覧を親フォルダに生成する"
+msgstr "プレイリストを親ディレクトリに生成する"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:165
-#, fuzzy
-#| msgid "Use full path for files in playlist"
 msgid "Use DOS separators for playlists"
-msgstr "演奏一覧の中でファイルのフルパス名を使用する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:167
-#, fuzzy
-#| msgid "Generate a playlist"
 msgid "Content of generated playlists"
-msgstr "演奏一覧の生成"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:168
 msgid ""
@@ -3368,10 +2818,8 @@ msgid "Playlist default mask"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:170
-#, fuzzy
-#| msgid "Use full path for files in playlist"
 msgid "The default mask to use for files in a playlist"
-msgstr "演奏一覧の中でファイルのフルパス名を使用する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:171
 msgid "Search for files case-sensitively"
@@ -3382,20 +2830,16 @@ msgid "Whether matches when searching for files are case-sensitive"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:173
-#, fuzzy
-#| msgid "Search a file"
 msgid "Search in filenames"
-msgstr "ファイルの検索"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:174
 msgid "Perform the search on filenames"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:175
-#, fuzzy
-#| msgid "Search In :"
 msgid "Search in tags"
-msgstr "検索対象 :"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:176
 msgid "Perform the search on tags"
@@ -3412,21 +2856,16 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:179
-#, fuzzy
-#| msgid "Confirm renaming of file"
 msgid "Mask for renaming files"
-msgstr "ファイル名の変更を確認する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:180
-#, fuzzy
 msgid "The default mask to use when renaming files"
-msgstr "残りのファイルに対して処理を繰り返します"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:181
-#, fuzzy
-#| msgid "Search hidden directories"
 msgid "Mask for renaming directories"
-msgstr "隠しフォルダも参照する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:182
 msgid "The default mask to use when renaming directories"
@@ -3437,10 +2876,8 @@ msgid "Use a mask when renaming directories"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:185
-#, fuzzy
-#| msgid "Convert space ' ' to underscore '_'"
 msgid "Convert spaces and underscores when renaming files"
-msgstr "スペース ' ' をアンダースコア '_' に変換する"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:186
 msgid "Whether to convert to spaces or underscores when renaming files"
@@ -3468,38 +2905,30 @@ msgid ""
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:192
-#, fuzzy
-#| msgid "Replace illegal characters in filename (for Windows and CD-Rom)"
 msgid ""
 "Whether to replace illegal characters in a filename when using the rename "
 "function"
-msgstr "ファイル名にある不正な文字を置き換える (Windows と CD-ROM 向け)"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:193
-#, fuzzy
-#| msgid "Show / Hide Masks Editor"
 msgid "Show the scanner mask editor"
-msgstr "マスクエディタの表示を ON/OFF します"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:194
 msgid "Whether to show the scanner mask editor in the tag scanner"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:195
-#, fuzzy
-#| msgid "Show / Hide Legend"
 msgid "Show the scanner legend"
-msgstr "凡例の表示を ON/OFF します"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:196
 msgid "Whether to show the scanner legend in the tag scanner"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:197
-#, fuzzy
-#| msgid "Open the Scanner Window on startup"
 msgid "Show the scanner window on startup"
-msgstr "起動時にスキャナ・ウィンドウを開く"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:199
 msgid "The scan mode"
@@ -3526,22 +2955,16 @@ msgid "Split Ogg genre fields"
 msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:209
-#, fuzzy
-#| msgid "Process comment field"
 msgid "Split Ogg comment fields"
-msgstr "プロセスコメント・フィールド"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:211
-#, fuzzy
-#| msgid "Process composer field"
 msgid "Split Ogg composer fields"
-msgstr "プロセス・コンポーザ・フィールド"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:213
-#, fuzzy
-#| msgid "Process original artist field"
 msgid "Split Ogg original artist fields"
-msgstr "プロセス・オリジナルの演奏者フィールド"
+msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:215
 msgid "Page to show in the preferences dialog"
@@ -3560,15 +2983,16 @@ msgid "Open the selected directory in EasyTAG"
 msgstr ""
 
 #: ../nautilus-extension/nautilus-easytag.c:248
-#, fuzzy
-#| msgid "Include only the selected files"
 msgid "Open the selected files in EasyTAG"
-msgstr "指定したファイルのみ含める"
+msgstr ""
 
 #. Translators: put your own name here to appear in the about dialog.
 #: ../src/about.c:88
 msgid "translator-credits"
 msgstr ""
+"相花 毅 <takeshi.aihana@gmail.com>\n"
+"Hironao Komatsu <hironao@users.sourceforge.net>\n"
+"sicklylife <translation@sicklylife.jp>"
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
@@ -3576,38 +3000,32 @@ msgstr ""
 
 #: ../src/application.c:44
 msgid "Print the version and exit"
-msgstr ""
+msgstr "バージョンを表示して終了する"
 
 #. Starting messages
 #: ../src/application.c:178
-#, fuzzy, c-format
+#, c-format
 msgid "Starting EasyTAG version %s…"
-msgstr "EasyTAG %s (PID: %d)の起動中..."
+msgstr "EasyTAG バージョン %s を起動…"
 
 #: ../src/application.c:182
-#, fuzzy, c-format
-#| msgid "Setting locale : '%s'"
+#, c-format
 msgid "Setting locale: ‘%s’"
-msgstr "ロケールを '%s' に設定"
+msgstr "ロケールを ‘%s’ に設定"
 
 #: ../src/application.c:188
 #, c-format
 msgid "System locale is ‘%s’, using ‘%s’"
-msgstr ""
+msgstr "システムロケールは ‘%s’、‘%s’ を使用"
 
 #: ../src/application.c:193
-#, fuzzy
 msgid "Unable to create setting directories"
-msgstr ""
-"変更するフォルダを生成できません\n"
-"'%s'\n"
-"(%s)"
+msgstr "設定ディレクトリを作成できません"
 
 #: ../src/application.c:334
-#, fuzzy, c-format
-#| msgid "Web Page: %s"
+#, c-format
 msgid "Website: %s"
-msgstr "ウェブページ: %s"
+msgstr "ウェブサイト: %s"
 
 #: ../src/application.c:343
 msgid "- Tag and rename audio files"
@@ -3619,79 +3037,67 @@ msgid "Error while querying information for file ‘%s’: %s"
 msgstr ""
 
 #: ../src/application.c:478 ../src/application.c:485
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open path ‘%s’"
-msgstr "ファイル '%s' (%s) が開けません"
+msgstr "パス ‘%s’ を開けません"
 
 #: ../src/application_window.c:367 ../src/application_window.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Do you really want to delete the file ‘%s’?"
-msgstr ""
-"次のファイルを完全に削除しても宜しいですか？\n"
-"'%s'"
+msgstr "本当に ‘%s’ を削除しますか?"
 
 #: ../src/application_window.c:370 ../src/easytag.c:474 ../src/easytag.c:607
-#, fuzzy
 msgid "Repeat action for the remaining files"
-msgstr "残りのファイルに対して処理を繰り返します"
+msgstr "残りのファイルに対して処理を繰り返す"
 
 #: ../src/application_window.c:372
 msgid "_Skip"
-msgstr ""
+msgstr "スキップ(_S)"
 
 #: ../src/application_window.c:374 ../src/application_window.c:388
-#, fuzzy
 msgid "_Delete"
-msgstr "ファイルの削除..."
+msgstr "削除(_D)"
 
 #: ../src/application_window.c:376 ../src/application_window.c:386
-#, fuzzy
 msgid "Delete File"
-msgstr "ファイルの削除..."
+msgstr "ファイルの削除"
 
 #: ../src/application_window.c:413
-#, fuzzy, c-format
-#| msgid "File '%s' deleted"
+#, c-format
 msgid "File ‘%s’ deleted"
-msgstr "ファイル '%s' が削除されました"
+msgstr "‘%s’ を削除しました"
 
 #: ../src/application_window.c:588
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot delete file ‘%s’"
-msgstr "ファイル '%s' (%s) が開けません"
+msgstr "‘%s’ を削除できません"
 
 #: ../src/application_window.c:612
-#, fuzzy
 msgid "Some files were not deleted"
-msgstr "全てのファイルが削除されました..."
+msgstr "いくつかのファイルは削除されませんでした"
 
 #: ../src/application_window.c:614
-#, fuzzy
 msgid "All files have been deleted"
-msgstr "全てのファイルが削除されました..."
+msgstr "すべてのファイルを削除しました"
 
 #: ../src/application_window.c:943
 msgid "All tags have been removed"
-msgstr "全てのタグが削除されています"
+msgstr "すべてのタグを削除しました"
 
 #: ../src/application_window.c:1502 ../src/browser.c:360 ../src/browser.c:403
 #: ../src/browser.c:437 ../src/browser.c:4605 ../src/browser.c:4680
 #, c-format
 msgid "Failed to launch program ‘%s’"
-msgstr ""
+msgstr "‘%s’ の起動に失敗しました"
 
 #: ../src/application_window.c:2016
-#, fuzzy, c-format
+#, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
-msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
+msgstr "ファイル名 ‘%s’ をシステムのエンコーディングに変換できませんでした"
 
 #: ../src/application_window.c:2019
-#, fuzzy
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr ""
-"ファイル名をシステムのエンコーディングに\n"
-"変換できませんでした : '%s'\n"
-"(環境変数 G_FILENAME_ENCODING を設定してみて下さい)"
+msgstr "環境変数 G_FILENAME_ENCODING を設定してみてください"
 
 #: ../src/application_window.c:2021 ../src/scan_dialog.c:826
 msgid "Filename translation"
@@ -3699,12 +3105,10 @@ msgstr "ファイル名の翻訳"
 
 #. And refresh the number of files in this directory
 #: ../src/application_window.c:2182
-#, fuzzy, c-format
-#| msgid "Other file icon"
+#, c-format
 msgid "One file"
 msgid_plural "%u files"
-msgstr[0] "別の種類のアイコン"
-msgstr[1] "別の種類のアイコン"
+msgstr[0] "%u 個のファイル"
 
 #. Bitrate
 #: ../src/application_window.c:2215 ../src/tags/flac_header.c:189
@@ -3727,155 +3131,124 @@ msgid "%d Hz"
 msgstr "%d Hz"
 
 #: ../src/application_window.c:2373 ../src/easytag.c:926
-#, fuzzy, c-format
-#| msgid "File: '%s'"
+#, c-format
 msgid "File: ‘%s’"
-msgstr "ファイル: '%s'"
+msgstr "ファイル: ‘%s’"
 
 #. Quit EasyTAG.
 #: ../src/application_window.c:3000
-#, fuzzy
-#| msgid "EasyTAG: Normal exit."
 msgid "Normal exit"
-msgstr "EasyTAG: 正常に終了しました。"
+msgstr ""
 
 #: ../src/application_window.c:3034 ../src/browser.c:871
-#, fuzzy
 msgid "Some files have been modified but not saved"
-msgstr "全てのファイルが保存されました..."
+msgstr "いくつかのファイルが変更されていますが保存していません"
 
 #: ../src/application_window.c:3035 ../src/browser.c:875 ../src/easytag.c:248
 #: ../src/easytag.c:478 ../src/easytag.c:610 ../src/easytag.c:618
 msgid "_Discard"
-msgstr ""
+msgstr "破棄(_D)"
 
 #: ../src/application_window.c:3037 ../src/browser.c:877 ../src/easytag.c:249
 #: ../src/easytag.c:480 ../src/easytag.c:487 ../src/easytag.c:612
 #: ../src/easytag.c:619 ../src/playlist_dialog.c:660 ../src/tag_area.c:1869
-#, fuzzy
 msgid "_Save"
-msgstr " 保存 "
+msgstr "保存(_S)"
 
 #: ../src/application_window.c:3041 ../src/easytag.c:254
 msgid "Quit"
 msgstr "終了します"
 
 #: ../src/application_window.c:3044
-#, fuzzy
 msgid "Do you want to save them before quitting?"
-msgstr ""
-"ファイル名を変更しますか？\n"
-"'%s'\n"
-"=>\n"
-"'%s'"
+msgstr "終了する前に保存しますか?"
 
 #: ../src/browser.c:572
-#, fuzzy
-#| msgid "Enter a directory to browse."
 msgid "New default directory selected for browser"
-msgstr "参照するフォルダを入力して下さい。"
+msgstr ""
 
 #: ../src/browser.c:874
-#, fuzzy
 msgid "Do you want to save them before changing directory?"
-msgstr ""
-"ファイル名を変更しますか？\n"
-"'%s'\n"
-"=>\n"
-"'%s'"
+msgstr "ディレクトリを変更する前に保存しますか?"
 
 #: ../src/browser.c:881
 msgid "Confirm Directory Change"
-msgstr ""
+msgstr "ディレクトリ変更の確認"
 
 #: ../src/browser.c:2579
-#, fuzzy
-#| msgid "<All albums>"
 msgid "All albums"
-msgstr "<全てのアルバム>"
+msgstr "すべてのアルバム"
 
 #: ../src/browser.c:3831
-#, fuzzy
 msgid "Select File"
-msgstr "ファイルの削除..."
+msgstr "ファイルを選択"
 
 #: ../src/browser.c:3838
-#, fuzzy
 msgid "Select Directory"
-msgstr "フォルダの選択..."
+msgstr "ディレクトリを選択"
 
 #: ../src/browser.c:4107
-#, fuzzy, c-format
-#| msgid "Rename the directory '%s' to : "
+#, c-format
 msgid "Rename the directory ‘%s’ to:"
-msgstr "変更後のフォルダ '%s' の名前 : "
+msgstr "‘%s’ の名前を次に変更:"
 
 #: ../src/browser.c:4243
-#, fuzzy
 msgid "You must type a directory name"
-msgstr "フォルダ名を入力して下さい！"
+msgstr "ディレクトリ名を入力してください"
 
 #: ../src/browser.c:4244 ../src/browser.c:4266
-#, fuzzy
 msgid "Directory Name Error"
-msgstr "フォルダ名を変更しました"
+msgstr "ディレクトリ名エラー"
 
 #: ../src/browser.c:4262
-#, fuzzy, c-format
+#, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
-msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
+msgstr "‘%s’ をファイル名のエンコーディングに変換できませんでした"
 
 #: ../src/browser.c:4265
 msgid "Please use another name."
-msgstr ""
+msgstr "別の名前を使用してください。"
 
 #: ../src/browser.c:4337
-#, fuzzy, c-format
+#, c-format
 msgid "The directory name ‘%s’ already exists."
-msgstr ""
-"演奏一覧ファイル '%s' は既に存在します！\n"
-"上書きしますか？"
+msgstr "‘%s’ はすでに存在します。"
 
 #: ../src/browser.c:4338 ../src/easytag.c:665
-#, fuzzy
 msgid "Rename File Error"
-msgstr "ファイル名とフォルダ名の変更"
+msgstr "ファイル名変更エラー"
 
 #: ../src/browser.c:4377 ../src/browser.c:4406
-#, fuzzy
 msgid "Rename Directory Error"
-msgstr "フォルダ名の変更..."
+msgstr "ディレクトリ名変更エラー"
 
 #: ../src/browser.c:4447
 msgid "Directory renamed"
-msgstr "フォルダ名を変更しました"
+msgstr "ディレクトリ名を変更しました"
 
 #: ../src/browser.c:4597 ../src/browser.c:4672
-#, fuzzy, c-format
+#, c-format
 msgid "Executed command ‘%s’"
-msgstr "コマンドと引数 : '%s %s'"
+msgstr "コマンド ‘%s’ を実行しました"
 
 #: ../src/cddb_dialog.c:294
-#, fuzzy, c-format
-#| msgid ""
-#| "Album: '%s', artist: '%s', length: '%s', year: '%s', genre: '%s', ID: '%s'"
+#, c-format
 msgid ""
 "Album: ‘%s’, artist: ‘%s’, length: ‘%s’, year: ‘%s’, genre: ‘%s’, disc ID: "
 "‘%s’"
 msgstr ""
-"アルバム: '%s', 演奏者: '%s', 時間: '%s', 制作年: '%s', ジャンル: '%s', ID: "
-"'%s'"
+"アルバム: ‘%s’, アーティスト: ‘%s’, 時間: ‘%s’, 制作年: ‘%s’, ジャンル: ‘%s’, ディスク ID: "
+"‘%s’"
 
 #: ../src/cddb_dialog.c:612
-#, fuzzy, c-format
+#, c-format
 msgid "Resolving host '%s'…"
-msgstr "ホスト '%s' の検索中 ..."
+msgstr ""
 
 #: ../src/cddb_dialog.c:654
-#, fuzzy, c-format
-#| msgid "Can't create a new socket (%s)!"
+#, c-format
 msgid "Cannot create a new socket ‘%s’"
-msgstr "新しいソケット (%s) を生成できません！"
+msgstr ""
 
 #: ../src/cddb_dialog.c:668
 msgid "Cannot set options on the newly-created socket"
@@ -3883,27 +3256,24 @@ msgstr ""
 
 #. Open connection to the server.
 #: ../src/cddb_dialog.c:672
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to host ‘%s’, port ‘%d’…"
-msgstr "ホスト '%s' (ポート '%d') に接続中 ..."
+msgstr ""
 
 #: ../src/cddb_dialog.c:685
-#, fuzzy, c-format
-#| msgid "Can't connect to host '%s' (%s)!"
+#, c-format
 msgid "Cannot connect to host ‘%s’: %s"
-msgstr "ホスト '%s' (%s) に接続できません！"
+msgstr ""
 
 #: ../src/cddb_dialog.c:709
-#, fuzzy, c-format
-#| msgid "Can't resolve host '%s' (%s)!"
+#, c-format
 msgid "Cannot resolve host ‘%s’: %s"
-msgstr "ホスト '%s' (%s) の名前解決ができません！"
+msgstr ""
 
 #: ../src/cddb_dialog.c:722
-#, fuzzy, c-format
-#| msgid "Connected to host '%s'"
+#, c-format
 msgid "Connected to host ‘%s’"
-msgstr "ホスト '%s' に接続しました"
+msgstr ""
 
 #: ../src/cddb_dialog.c:809
 #, c-format
@@ -3911,21 +3281,19 @@ msgid "Error while writing CDDB results to file ‘%s’"
 msgstr ""
 
 #: ../src/cddb_dialog.c:820
-#, fuzzy, c-format
+#, c-format
 msgid "Receiving data (%s)…"
-msgstr "データ (%s) の受信中 ..."
+msgstr ""
 
 #: ../src/cddb_dialog.c:833
-#, fuzzy, c-format
-#| msgid "Error when reading cddb response (%s)!"
+#, c-format
 msgid "Error when reading CDDB response ‘%s’"
-msgstr "cddb からの応答 (%s) の読み込み中にエラー！"
+msgstr ""
 
 #: ../src/cddb_dialog.c:840
-#, fuzzy, c-format
-#| msgid "Can't create file '%s' (%s)"
+#, c-format
 msgid "Cannot create file ‘%s’: %s"
-msgstr "ファイル '%s' (%s) を生成できません"
+msgstr ""
 
 #. g_print("Request Cddb_Get_Album_Tracks_List : '%s'\n", cddb_in);
 #. Send the request
@@ -3934,129 +3302,113 @@ msgstr "ファイル '%s' (%s) を生成できません"
 #. g_print("Request Cddb_Search_Album_List_From_String_Gnudb : '%s'\n", cddb_in);
 #. Send the request
 #: ../src/cddb_dialog.c:973 ../src/cddb_dialog.c:1611 ../src/cddb_dialog.c:1957
-#, fuzzy
 msgid "Sending request…"
-msgstr "リクエストの送信中 ..."
+msgstr "リクエストを送信中…"
 
 #: ../src/cddb_dialog.c:977 ../src/cddb_dialog.c:1615 ../src/cddb_dialog.c:1961
 #: ../src/cddb_dialog.c:3269
-#, fuzzy, c-format
-#| msgid "Can't send the request (%s)!"
+#, c-format
 msgid "Cannot send the request ‘%s’"
-msgstr "リクエスト (%s) を送信できません！"
+msgstr ""
 
 #. Read the answer
 #.
 #. * Read the answer
 #.
 #: ../src/cddb_dialog.c:989 ../src/cddb_dialog.c:1642 ../src/cddb_dialog.c:3287
-#, fuzzy
 msgid "Receiving data…"
-msgstr "データの受信中 ..."
+msgstr "データを受信中…"
 
 #: ../src/cddb_dialog.c:996 ../src/cddb_dialog.c:1649 ../src/cddb_dialog.c:1992
 #: ../src/cddb_dialog.c:3294
-#, fuzzy
-#| msgid "The server returned a wrong answer!"
 msgid "The server returned a bad response"
-msgstr "サーバがおかしなデータを返してきました！"
+msgstr ""
 
 #: ../src/cddb_dialog.c:1012 ../src/cddb_dialog.c:1027
 #: ../src/cddb_dialog.c:1048 ../src/cddb_dialog.c:1662
 #: ../src/cddb_dialog.c:2008 ../src/cddb_dialog.c:3311
-#, fuzzy, c-format
-#| msgid "The server returned a wrong answer! (%s)"
+#, c-format
 msgid "The server returned a bad response ‘%s’"
-msgstr "サーバがおかしなデータを返してきました！ (%s)"
+msgstr ""
 
 #. Load the track list of the album
 #: ../src/cddb_dialog.c:1260
-#, fuzzy
 msgid "Loading album track list…"
-msgstr "アルバムのトラック一覧の読み込み中 ..."
+msgstr "アルバムのトラック一覧を読み込み中…"
 
 #: ../src/cddb_dialog.c:1809
-#, fuzzy, c-format
-#| msgid "Sorry, the web-based search is currently down!"
+#, c-format
 msgid "Sorry, the web-based search is currently not available"
-msgstr "すみません、現在ウエブ検索はダウンしています！"
+msgstr "申し訳ありませんが、ウェブ検索は現在利用できません"
 
 #: ../src/cddb_dialog.c:1812 ../src/cddb_dialog.c:2179
-#, fuzzy, c-format
-#| msgid "Found %d matching album(s)"
+#, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
-msgstr[0] "一致するアルバムが %d 個見つかりました"
-msgstr[1] "一致するアルバムが %d 個見つかりました"
+msgstr[0] "一致するアルバムが %u 個見つかりました"
 
 #: ../src/cddb_dialog.c:1980
-#, fuzzy, c-format
+#, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr "%d ページのデータの受信中 (アルバム %d/%d)..."
+msgstr "%d ページのデータの受信中 (アルバム %d/%d)…"
 
 #: ../src/cddb_dialog.c:1982
-#, fuzzy, c-format
+#, c-format
 msgid "Receiving data of page %d…"
-msgstr "%d ページのデータの受信中..."
+msgstr "%d ページのデータの受信中…"
 
 #: ../src/cddb_dialog.c:2146
-#, fuzzy, c-format
+#, c-format
 msgid "More results to load…"
-msgstr "さらに読み込んだ結果..."
+msgstr ""
 
 #: ../src/cddb_dialog.c:2461
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr ""
 
 #: ../src/cddb_dialog.c:2467
-#, fuzzy
 msgid "Write Tag from CDDB"
-msgstr "CDDB からタグの書き込み中..."
+msgstr "CDDB からタグを書き込む"
 
 #: ../src/cddb_dialog.c:2782
-#, fuzzy
 msgid "Ready to search"
-msgstr "検索の準備完了..."
+msgstr "検索準備完了"
 
 #: ../src/cddb_dialog.c:2871 ../src/load_files_dialog.c:272
 #: ../src/setting.c:329
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open file ‘%s’: %s"
-msgstr "ファイル '%s' (%s) が開けません"
+msgstr ""
 
 #: ../src/cddb_dialog.c:3097
-#, fuzzy, c-format
-#| msgid "No file selected!"
+#, c-format
 msgid "No file selected"
-msgstr "ファイルが選択されていません！"
+msgstr "ファイルを選択していません"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
 #: ../src/cddb_dialog.c:3105
-#, fuzzy, c-format
+#, c-format
 msgid "More than 99 files selected. Cannot send request"
-msgstr "ファイル選択が99個を越えています。リクエストを送信できません！"
+msgstr "選択ファイル数が 99 を超えているためリクエストを送信できません"
 
 #: ../src/cddb_dialog.c:3111
-#, fuzzy, c-format
-#| msgid "No file selected!"
+#, c-format
 msgid "One file selected"
 msgid_plural "%u files selected"
-msgstr[0] "ファイルが選択されていません！"
-msgstr[1] "ファイルが選択されていません！"
+msgstr[0] "%u 個のファイルを選択しました"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 #: ../src/cddb_dialog.c:3259
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
-msgstr "リクエストの要求中 (CddbId: %s, トラック番号: %d, サイズ: %d) ..."
+msgstr ""
 
 #: ../src/cddb_dialog.c:3427
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
 msgstr[0] ""
-msgstr[1] ""
 
 #: ../src/charset.c:46
 msgid "Arabic (IBM-864)"
@@ -4240,12 +3592,10 @@ msgid "Western (Windows-1252)"
 msgstr "西洋 (Windows-1252)"
 
 #: ../src/charset.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The UTF-8 string '%s' couldn't be converted into filename encoding (%s)."
+#, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
 msgstr ""
-"UTF-8 の文字列 '%s' をファイル名のエンコーディング (%s) に変換できませんでし"
+"UTF-8 の文字列 ‘%s’ をファイル名のエンコーディング (%s) に変換できませんでし"
 "た。"
 
 #: ../src/charset.c:595
@@ -4253,126 +3603,93 @@ msgid "Invalid UTF-8"
 msgstr "不正な UTF-8"
 
 #: ../src/charset.c:652
-#, fuzzy, c-format
-#| msgid "The string '%s' couldn't be converted into UTF-8 (%s)."
+#, c-format
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
 msgstr ""
-"'%s' という文字列を UTF-8 (%s) エンコーディングに変換できませんでした。"
+"‘%s’ という文字列を UTF-8 (%s) エンコーディングに変換できませんでした。"
 
 #: ../src/easytag.c:244
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "外部のプログラムによって %d 個のファイルが変更されました"
 
 #: ../src/easytag.c:253
-#, fuzzy
 msgid "Do you want to continue saving the file?"
-msgstr ""
-"次のファイル にタグを書き込みますか？\n"
-"%s"
+msgstr "ファイルの保存を続行しますか?"
 
 #: ../src/easytag.c:314 ../src/easytag.c:335
 msgid "Saving files was stopped"
-msgstr ""
+msgstr "ファイルの保存を中止しました"
 
 #: ../src/easytag.c:337
-#, fuzzy
 msgid "All files have been saved"
-msgstr "全てのファイルが保存されました..."
+msgstr "すべてのファイルを保存しました"
 
 #: ../src/easytag.c:467
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
-msgstr ""
-"次のファイル にタグを書き込みますか？\n"
-"%s"
+msgstr "‘%s’ のタグを書き込みますか?"
 
 #: ../src/easytag.c:469
-#, fuzzy
 msgid "Confirm Tag Writing"
-msgstr "確認メッセージ"
+msgstr "タグ書き込みの確認"
 
 #. Directories and filename changed
 #: ../src/easytag.c:570
 msgid "Rename File and Directory"
-msgstr "ファイル名とフォルダ名の変更"
+msgstr "ファイル名とディレクトリ名の変更"
 
 #: ../src/easytag.c:571
 msgid "File and directory rename confirmation required"
-msgstr ""
+msgstr "ファイル名/ディレクトリ名変更の確認が必要です"
 
 #: ../src/easytag.c:572
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
-msgstr ""
-"ファイル名とフォルダ名を変更しますか？\n"
-"'%s'\n"
-"=>\n"
-"'%s'"
+msgstr "ファイル名とディレクトリ名を ‘%s’ から ‘%s’ に変更しますか?"
 
 #: ../src/easytag.c:578
-#, fuzzy
 msgid "Directory rename confirmation required"
-msgstr "フォルダ名を変更しました"
+msgstr "ディレクトリ名変更の確認が必要です"
 
 #: ../src/easytag.c:579
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
-msgstr ""
-"フォルダ名を変更しますか？\n"
-"'%s'\n"
-"=>\n"
-"'%s'"
+msgstr "ディレクトリ名を ‘%s’ から ‘%s’ に変更しますか?"
 
 #: ../src/easytag.c:587
 msgid "File rename confirmation required"
-msgstr ""
+msgstr "ファイル名変更の確認が必要です"
 
 #: ../src/easytag.c:588
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
-msgstr ""
-"ファイル名を変更しますか？\n"
-"'%s'\n"
-"=>\n"
-"'%s'"
+msgstr "ファイル名を ‘%s’ から ‘%s’ に変更しますか?"
 
 #: ../src/easytag.c:658
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
-msgstr ""
-"ファイル '%s' の名前を変更できません\n"
-"=>\n"
-"'%s'\n"
-"(%s)"
+msgstr "ファイル名を ‘%s’ から ‘%s’ に変更できません"
 
 #: ../src/easytag.c:672
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
-msgstr ""
-"ファイル '%s' の名前を変更できません\n"
-"=>\n"
-"'%s'\n"
-"(%s)"
+msgstr "ファイル名を ‘%s’ から ‘%s’ に変更できません: %s"
 
 #: ../src/easytag.c:677
-#, fuzzy
 msgid "File(s) not renamed"
-msgstr "ファイル名は変更されませんでした..."
+msgstr "ファイル名は変更されませんでした"
 
 #: ../src/easytag.c:739
-#, fuzzy, c-format
-#| msgid "Writing tag of '%s'"
+#, c-format
 msgid "Writing tag of ‘%s’"
-msgstr "'%s' のタグが書き込まれました"
+msgstr "‘%s’ のタグを書き込み中"
 
 #: ../src/easytag.c:747
-#, fuzzy, c-format
-#| msgid "Written tag of '%s'"
+#, c-format
 msgid "Wrote tag of ‘%s’"
-msgstr "'%s' のタグが書き込まれました"
+msgstr "‘%s’ のタグを書き込みました"
 
 #: ../src/easytag.c:767
 msgid ""
@@ -4403,87 +3720,70 @@ msgstr ""
 "ファイル : %s"
 
 #: ../src/easytag.c:795
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot write tag in file ‘%s’"
 msgstr ""
-"ファイル '%s' にタグを書き込めません！\n"
-"(%s)"
+"‘%s’ にタグを書き込めません"
 
 #: ../src/easytag.c:800
-#, fuzzy
 msgid "Tag Write Error"
-msgstr " 書き込み "
+msgstr "タグ書き込みエラー"
 
 #: ../src/easytag.c:876 ../src/easytag.c:1110
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot read directory ‘%s’"
-msgstr ""
-"フォルダを読み込めません:\n"
-"'%s'\n"
-"(%s)"
+msgstr "ディレクトリ ‘%s’ を読み込めません"
 
 #: ../src/easytag.c:880
-#, fuzzy
 msgid "Directory Read Error"
-msgstr "フォルダ名を変更しました"
+msgstr "ディレクトリ読み込みエラー"
 
 #. Read the directory recursively
 #: ../src/easytag.c:901
-#, fuzzy, c-format
+#, c-format
 msgid "Search in progress…"
-msgstr "検索中..."
+msgstr "検索中…"
 
 #: ../src/easytag.c:973
-#, fuzzy, c-format
-#| msgid "Found %d file(s) in this directory and subdirectories."
+#, c-format
 msgid "Found one file in this directory and subdirectories"
 msgid_plural "Found %u files in this directory and subdirectories"
-msgstr[0] "このフォルダ配下に %d 個のファイルが見つかりました"
-msgstr[1] "このフォルダ配下に %d 個のファイルが見つかりました"
+msgstr[0] "このディレクトリとサブディレクトリ内に %u 個のファイルが見つかりました"
 
 #: ../src/easytag.c:980
-#, fuzzy, c-format
-#| msgid "Found %d file(s) in this directory."
+#, c-format
 msgid "Found one file in this directory"
 msgid_plural "Found %u files in this directory"
-msgstr[0] "このフォルダの中に %d 個のファイルが見つかりました"
-msgstr[1] "このフォルダの中に %d 個のファイルが見つかりました"
+msgstr[0] "このディレクトリ内に %u 個のファイルが見つかりました"
 
 #: ../src/easytag.c:997
-#, fuzzy
-#| msgid "No file found in this directory and subdirectories!"
 msgid "No file found in this directory and subdirectories"
-msgstr "このフォルダ配下にはファイルがありませんでした！"
+msgstr "このディレクトリとサブディレクトリ内にファイルは見つかりませんでした"
 
 #: ../src/easytag.c:999
-#, fuzzy
-#| msgid "No file found in this directory!"
 msgid "No file found in this directory"
-msgstr "このフォルダの中にはファイルがありませんでした！"
+msgstr "このディレクトリ内にファイルは見つかりませんでした"
 
 #: ../src/easytag.c:1075
 #, c-format
 msgid "Error opening directory ‘%s’: %s"
-msgstr ""
+msgstr "ディレクトリ ‘%s’ を開く際にエラー: %s"
 
 #: ../src/easytag.c:1130
-#, fuzzy
 msgid "Searching for audio files…"
-msgstr "検索中..."
+msgstr "オーディオファイルを検索中…"
 
 #: ../src/easytag.c:1131
-#, fuzzy
 msgid "Searching"
-msgstr "検索中..."
+msgstr "検索中"
 
 #: ../src/easytag.c:1132
 msgid "_Stop"
-msgstr ""
+msgstr "停止(_S)"
 
 #: ../src/file_area.c:244 ../src/file_area.c:299
-#, fuzzy
 msgid "File not found"
-msgstr "ファイル名は変更されませんでした..."
+msgstr "ファイルが見つかりませんでした"
 
 #: ../src/file_area.c:249 ../src/load_files_dialog.c:232
 #, c-format
@@ -4491,45 +3791,43 @@ msgid "Cannot query file information ‘%s’"
 msgstr ""
 
 #: ../src/file_area.c:283
-#, fuzzy
-#| msgid "Read Only File"
 msgid "Read-only file"
 msgstr "読み込み専用のファイルです"
 
 #: ../src/file_list.c:245
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "‘%s’ から ID3 タグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:256
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "Ogg ファイル ‘%s’ からタグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:267
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "FLAC ファイル ‘%s’ からタグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:277
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "‘%s’ から APE タグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:287
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "MP4 ファイル ‘%s’ からタグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:298
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "WavPack ファイル ‘%s’ からタグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:309
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "Opus ファイル ‘%s’ からタグを読み込む際にエラー: %s"
 
 #: ../src/file_list.c:345
 #, c-format
@@ -4546,7 +3844,7 @@ msgstr ""
 #: ../src/load_files_dialog.c:302
 #, c-format
 msgid "Error reading file ‘%s’"
-msgstr ""
+msgstr "ファイル ‘%s’ を読み込み中にエラー"
 
 #: ../src/load_files_dialog.c:742 ../src/load_files_dialog.c:845
 msgid "Insert a blank line"
@@ -4557,26 +3855,20 @@ msgid "Delete this line"
 msgstr "この行を削除する"
 
 #: ../src/load_files_dialog.c:757 ../src/load_files_dialog.c:860
-#, fuzzy
-#| msgid "Move up this line"
 msgid "Move this line up"
-msgstr "この行を上に移動します"
+msgstr "この行を上に移動する"
 
 #: ../src/load_files_dialog.c:761 ../src/load_files_dialog.c:864
-#, fuzzy
-#| msgid "Move up this line"
 msgid "Move this line down"
-msgstr "この行を上に移動します"
+msgstr "この行を下に移動する"
 
 #: ../src/misc.c:182
-#, fuzzy
-#| msgid "You must type a program name!"
 msgid "You must type a program name"
-msgstr "プログラム名を入力して下さい！"
+msgstr "プログラム名を入力してください"
 
 #: ../src/misc.c:183
 msgid "Program Name Error"
-msgstr ""
+msgstr "プログラム名エラー"
 
 #: ../src/picture.c:174
 msgid "JPEG image"
@@ -4587,20 +3879,16 @@ msgid "PNG image"
 msgstr "PNG 画像"
 
 #: ../src/picture.c:178
-#, fuzzy
-#| msgid "PNG image"
 msgid "GIF image"
-msgstr "PNG 画像"
+msgstr "GIF 画像"
 
 #: ../src/picture.c:181
 msgid "Unknown image"
-msgstr "不明"
+msgstr "不明な画像"
 
 #: ../src/picture.c:193
-#, fuzzy
-#| msgid "32x32 pixel PNG file icon"
 msgid "32×32 pixel PNG file icon"
-msgstr "PNG 形式のアイコン"
+msgstr "32×32 ピクセルの PNG 形式アイコン"
 
 #: ../src/picture.c:195
 msgid "Other file icon"
@@ -4619,10 +3907,8 @@ msgid "Leaflet page"
 msgstr "チラシ"
 
 #: ../src/picture.c:203
-#, fuzzy
-#| msgid "Media (e.g. label side of CD)"
 msgid "Media (such as label side of CD)"
-msgstr "メディア (例: CDのラベル)"
+msgstr "メディア (CD のラベルなど)"
 
 #: ../src/picture.c:205
 msgid "Lead artist/lead performer/soloist"
@@ -4661,10 +3947,8 @@ msgid "Movie/video screen capture"
 msgstr "映画/ビデオのキャプチャ"
 
 #: ../src/picture.c:225
-#, fuzzy
-#| msgid "A bright coloured fish"
 msgid "A bright colored fish"
-msgstr "A bright coloured fish"
+msgstr ""
 
 #: ../src/picture.c:227
 msgid "Illustration"
@@ -4679,10 +3963,8 @@ msgid "Publisher/studio logotype"
 msgstr "販売元/スタジオのロゴ"
 
 #: ../src/picture.c:235
-#, fuzzy
-#| msgid "Unknown image"
 msgid "Unknown image type"
-msgstr "不明"
+msgstr "不明な画像形式"
 
 #: ../src/picture.c:298 ../src/picture.c:304
 msgid "pixels"
@@ -4693,37 +3975,28 @@ msgid "Type"
 msgstr "種類"
 
 #: ../src/playlist_dialog.c:545
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot write playlist file ‘%s’"
 msgstr ""
-"演奏一覧ファイル '%s' を書き込めません！\n"
-"(%s)"
+"プレイリストファイル ‘%s’ を書き込めません"
 
 #: ../src/playlist_dialog.c:549
-#, fuzzy
 msgid "Playlist File Error"
-msgstr "画像ファイルを読み込んでいません..."
+msgstr "プレイリストファイルエラー"
 
 #: ../src/playlist_dialog.c:557
-#, fuzzy, c-format
-#| msgid "Written playlist file '%s'"
+#, c-format
 msgid "Wrote playlist file ‘%s’"
-msgstr "演奏一覧ファイル '%s' が書き込まれました"
+msgstr "プレイリストファイル ‘%s’ を書き込みました"
 
 #: ../src/playlist_dialog.c:640 ../src/scan_dialog.c:2621
 #: ../src/scan_dialog.c:2684
-#, fuzzy
-#| msgid "Invalid Scanner Mask"
 msgid "Invalid scanner mask"
-msgstr "スキャナマスクが正しくありません"
+msgstr "スキャナーマスクが正しくありません"
 
 #: ../src/preferences_dialog.c:897
-#, fuzzy
 msgid "The selected default path is invalid"
-msgstr ""
-" 'デフォルトパス名' に指定したパス名が正しくありません！\n"
-"'%s'\n"
-"(%s) "
+msgstr "選択したデフォルトパスは正しくありません"
 
 #: ../src/preferences_dialog.c:899
 #, c-format
@@ -4731,11 +4004,12 @@ msgid ""
 "Path: ‘%s’\n"
 "Error: %s"
 msgstr ""
+"パス: ‘%s’\n"
+"エラー: %s"
 
 #: ../src/preferences_dialog.c:903
-#, fuzzy
 msgid "Invalid Path Error"
-msgstr "タグのバージョンが正しくありません"
+msgstr "不正なパスエラー"
 
 #: ../src/scan_dialog.c:412
 #, c-format
@@ -4743,49 +4017,46 @@ msgid "Cannot calculate CRC value of file ‘%s’"
 msgstr ""
 
 #: ../src/scan_dialog.c:427
-#, fuzzy
 msgid "Tag successfully scanned"
-msgstr "タグのスキャンが完了しました..."
+msgstr "タグのスキャンに成功しました"
 
 #: ../src/scan_dialog.c:430
-#, fuzzy, c-format
+#, c-format
 msgid "Tag successfully scanned ‘%s’"
-msgstr "タグのスキャンが成功しました...(%s)"
+msgstr "‘%s’ のタグのスキャンに成功しました"
 
 #: ../src/scan_dialog.c:473
-#, fuzzy, c-format
+#, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
-msgstr "Tag scanner: 拡張子 '%s' は ファイル名 '%s' の中に見つかりません！"
+msgstr "拡張子 ‘%s’ がファイル名 ‘%s’ の中に見つかりません"
 
 #: ../src/scan_dialog.c:565 ../src/scan_dialog.c:596
-#, fuzzy, c-format
-#| msgid "Scan Error: can't find separator '%s' within '%s'"
+#, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
-msgstr "スキャンエラー: セパレータ '%s' ('%s' の中にある) が見つかりません"
+msgstr "‘%2$s’ にセパレーター ‘%1$s’ が見つかりません"
 
 #: ../src/scan_dialog.c:824
-#, fuzzy, c-format
+#, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
-msgstr "ファイル '%s' をシステムのエンコーディングに変換できませんでした"
+msgstr "ファイル名 ‘%s’ システムのエンコーディングに変換できませんでした"
 
 #: ../src/scan_dialog.c:850
-#, fuzzy
 msgid "New filename successfully scanned"
-msgstr "新しいファイル名のスキャンが完了しました..."
+msgstr "新しいファイル名のスキャンに成功しました"
 
 #: ../src/scan_dialog.c:854
-#, fuzzy, c-format
+#, c-format
 msgid "New filename successfully scanned ‘%s’"
-msgstr "新しいファイル名のスキャンが完了しました...(%s)"
+msgstr "新しいファイル名 ‘%s’ のスキャンに成功しました"
 
 #: ../src/scan_dialog.c:1223
 #, c-format
 msgid "Error while processing fields ‘%s’"
-msgstr ""
+msgstr "フィールド ‘%s’ の処理中にエラー"
 
 #: ../src/scan_dialog.c:2099
 msgid "New_mask"
-msgstr "新しいマスク"
+msgstr "新しいマスク(_M)"
 
 #. 'Scan selected files' button
 #: ../src/scan_dialog.c:2327
@@ -4802,7 +4073,7 @@ msgstr "指定したファイルのみ含める"
 
 #: ../src/scan_dialog.c:2758
 msgid "All tags have been scanned"
-msgstr "全てのタグはスキャン済みです"
+msgstr "すべてのタグはスキャン済みです"
 
 #: ../src/search_dialog.c:636
 #, fuzzy, c-format
@@ -4813,15 +4084,13 @@ msgstr[0] "一致するファイル: %d 個"
 msgstr[1] "一致するファイル: %d 個"
 
 #: ../src/search_dialog.c:718
-#, fuzzy
 msgid "Ready to search…"
-msgstr "検索の準備完了..."
+msgstr "検索準備完了…"
 
 #: ../src/setting.c:246
-#, fuzzy, c-format
-#| msgid "ERROR: Can't write list to file: %s (%s)"
+#, c-format
 msgid "Cannot write list to file ‘%s’: %s"
-msgstr "エラー: 一覧をファイルに書き込めません: %s (%s)"
+msgstr "一覧を ‘%s’ に書き込めません: %s"
 
 #. Fall back to defaults.
 #: ../src/setting.c:352
@@ -4836,221 +4105,171 @@ msgid "Loading default ‘Rename File’ masks…"
 msgstr "デフォルトの 'ファイル名変更' マスクをロード中..."
 
 #: ../src/status_bar.c:143
-#, fuzzy
 msgid "Ready to start"
-msgstr "起動完了..."
+msgstr ""
 
 #: ../src/tag_area.c:185
-#, fuzzy, c-format
-#| msgid "Selected files tagged with title '%s'."
+#, c-format
 msgid "Selected files tagged with title ‘%s’"
-msgstr "選択したファイルにタイトル '%s' をタグ付けしました"
+msgstr "選択したファイルにタイトル ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:190
-#, fuzzy
-#| msgid "Removed title from selected files."
 msgid "Removed title from selected files"
 msgstr "選択したファイルからタイトルを削除しました"
 
 #: ../src/tag_area.c:208
-#, fuzzy, c-format
-#| msgid "Selected files tagged with artist '%s'."
+#, c-format
 msgid "Selected files tagged with artist ‘%s’"
-msgstr "選択したファイルに演奏者 '%s' をタグ付けしました"
+msgstr "選択したファイルにアーティスト ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:213
-#, fuzzy
-#| msgid "Removed artist from selected files."
 msgid "Removed artist from selected files"
-msgstr "選択したファイルから演奏者を削除しました"
+msgstr "選択したファイルからアーティストを削除しました"
 
 #: ../src/tag_area.c:231
-#, fuzzy, c-format
+#, c-format
 msgid "Selected files tagged with album artist ‘%s’"
-msgstr "選択したファイルに演奏者 '%s' をタグ付けしました"
+msgstr "選択したファイルにアルバムアーティスト ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:236
-#, fuzzy
 msgid "Removed album artist from selected files"
-msgstr "選択したファイルから演奏者を削除しました"
+msgstr "選択したファイルからアルバムアーティストを削除しました"
 
 #: ../src/tag_area.c:254
-#, fuzzy, c-format
-#| msgid "Selected files tagged with album '%s'."
+#, c-format
 msgid "Selected files tagged with album ‘%s’"
-msgstr "選択したファイルにアルバム名 '%s' をタグ付けしました"
+msgstr "選択したファイルにアルバム名 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:259
-#, fuzzy
-#| msgid "Removed album name from selected files."
 msgid "Removed album name from selected files"
 msgstr "選択したファイルからアルバム名を削除しました"
 
 #: ../src/tag_area.c:297
-#, fuzzy, c-format
-#| msgid "Selected files tagged with disc number '%s'."
+#, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
-msgstr "選択したファイルにディスク番号 '%s' をタグ付けしました"
+msgstr "選択したファイルにディスク番号 ‘%s/%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:304
-#, fuzzy, c-format
-#| msgid "Selected files tagged with disc number '%s'."
+#, c-format
 msgid "Selected files tagged with disc number like ‘xx’"
-msgstr "選択したファイルにディスク番号 '%s' をタグ付けしました"
+msgstr "選択したファイルにディスク番号 ‘xx’ をタグ付けしました"
 
 #: ../src/tag_area.c:309
-#, fuzzy
-#| msgid "Removed disc number from selected files."
 msgid "Removed disc number from selected files"
 msgstr "選択したファイルからディスク番号を削除しました"
 
 #: ../src/tag_area.c:329
-#, fuzzy, c-format
-#| msgid "Selected files tagged with year '%s'."
+#, c-format
 msgid "Selected files tagged with year ‘%s’"
-msgstr "選択したファイルに制作年 '%s' をタグ付けしました"
+msgstr "選択したファイルに制作年 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:334
-#, fuzzy
-#| msgid "Removed year from selected files."
 msgid "Removed year from selected files"
 msgstr "選択したファイルから制作年を削除しました"
 
 #: ../src/tag_area.c:364 ../src/tag_area.c:469
-#, fuzzy, c-format
-#| msgid "Selected files tagged with track like 'xx/%s'."
+#, c-format
 msgid "Selected files tagged with track like ‘xx/%s’"
-msgstr "選択したファイルにトラック番号 'xx/%s' をタグ付けしました"
+msgstr "選択したファイルにトラック番号 ‘xx/%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:368
-#, fuzzy, c-format
-#| msgid "Selected files tagged with track like 'xx'."
+#, c-format
 msgid "Selected files tagged with track like ‘xx’"
-msgstr "選択したファイルにトラック番号 'xx' をタグ付けしました"
+msgstr "選択したファイルにトラック番号 ‘xx’ をタグ付けしました"
 
 #: ../src/tag_area.c:373 ../src/tag_area.c:474
-#, fuzzy
-#| msgid "Removed track number from selected files."
 msgid "Removed track number from selected files"
 msgstr "選択したファイルからトラック番号を削除しました"
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
 #: ../src/tag_area.c:432
-#, fuzzy, c-format
-#| msgid "Selected tracks numbered sequentially."
+#, c-format
 msgid "Selected tracks numbered sequentially"
 msgstr "選択したトラック番号を順番に付与しました"
 
 #: ../src/tag_area.c:494
-#, fuzzy, c-format
-#| msgid "Selected files tagged with genre '%s'."
+#, c-format
 msgid "Selected files tagged with genre ‘%s’"
-msgstr "選択したファイルにジャンル '%s' をタグ付けしました"
+msgstr "選択したファイルにジャンル ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:499
-#, fuzzy
-#| msgid "Removed genre from selected files."
 msgid "Removed genre from selected files"
 msgstr "選択したファイルからジャンルを削除しました"
 
 #: ../src/tag_area.c:524
-#, fuzzy, c-format
-#| msgid "Selected files tagged with comment '%s'."
+#, c-format
 msgid "Selected files tagged with comment ‘%s’"
-msgstr "選択したファイルにコメント '%s' をタグ付けしました"
+msgstr "選択したファイルにコメント ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:529
-#, fuzzy
-#| msgid "Removed comment from selected files."
 msgid "Removed comment from selected files"
 msgstr "選択したファイルからコメントを削除しました"
 
 #: ../src/tag_area.c:547
-#, fuzzy, c-format
-#| msgid "Selected files tagged with composer '%s'."
+#, c-format
 msgid "Selected files tagged with composer ‘%s’"
-msgstr "選択したファイルにコンポーザ '%s' をタグ付けしました"
+msgstr "選択したファイルに作曲者 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:552
-#, fuzzy
-#| msgid "Removed composer from selected files."
 msgid "Removed composer from selected files"
-msgstr "選択したファイルからコンポーザを削除しました"
+msgstr "選択したファイルから作曲者を削除しました"
 
 #: ../src/tag_area.c:570
-#, fuzzy, c-format
-#| msgid "Selected files tagged with original artist '%s'."
+#, c-format
 msgid "Selected files tagged with original artist ‘%s’"
-msgstr "選択したファイルにオリジナルの演奏者 '%s' をタグ付けしました"
+msgstr "選択したファイルにオリジナルアーティスト ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:575
-#, fuzzy
-#| msgid "Removed original artist from selected files."
 msgid "Removed original artist from selected files"
-msgstr "選択したファイルからオリジナル演奏者を削除しました"
+msgstr "選択したファイルからオリジナルアーティストを削除しました"
 
 #: ../src/tag_area.c:593
-#, fuzzy, c-format
-#| msgid "Selected files tagged with copyright '%s'."
+#, c-format
 msgid "Selected files tagged with copyright ‘%s’"
-msgstr "選択したファイルにライセンス '%s' をタグ付けしました"
+msgstr "選択したファイルに著作権 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:598
-#, fuzzy
-#| msgid "Removed copyright from selected files."
 msgid "Removed copyright from selected files"
-msgstr "選択したファイルからライセンスを削除しました"
+msgstr "選択したファイルから著作権を削除しました"
 
 #: ../src/tag_area.c:616
-#, fuzzy, c-format
-#| msgid "Selected files tagged with URL '%s'."
+#, c-format
 msgid "Selected files tagged with URL ‘%s’"
-msgstr "選択したファイルに URL '%s' をタグ付けしました"
+msgstr "選択したファイルに URL ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:621
-#, fuzzy
-#| msgid "Removed URL from selected files."
 msgid "Removed URL from selected files"
 msgstr "選択したファイルから URL を削除しました"
 
 #: ../src/tag_area.c:639
-#, fuzzy, c-format
-#| msgid "Selected files tagged with encoder name '%s'."
+#, c-format
 msgid "Selected files tagged with encoder name ‘%s’"
-msgstr "選択したファイルにエンコーディング '%s' をタグ付けしました"
+msgstr "選択したファイルにエンコーダー名 ‘%s’ をタグ付けしました"
 
 #: ../src/tag_area.c:644
-#, fuzzy
-#| msgid "Removed encoder name from selected files."
 msgid "Removed encoder name from selected files"
-msgstr "選択したファイルからエンコーディングを削除しました"
+msgstr "選択したファイルからエンコーダー名を削除しました"
 
 #: ../src/tag_area.c:680
-#, fuzzy
-#| msgid "Selected files tagged with pictures."
 msgid "Selected files tagged with images"
-msgstr "選択したファイルに画像 '%s' をタグ付けしました"
+msgstr "選択したファイルに画像をタグ付けしました"
 
 #: ../src/tag_area.c:684
-#, fuzzy
-#| msgid "Removed title from selected files."
 msgid "Removed images from selected files"
-msgstr "選択したファイルからタイトルを削除しました"
+msgstr "選択したファイルから画像を削除しました"
 
 #. Menu items
 #: ../src/tag_area.c:852
 msgid "Tag selected files with this field"
-msgstr "選択したファイルにこのフィールドをタグ付けします"
+msgstr "このフィールドを選択したファイルにタグ付けする"
 
 #: ../src/tag_area.c:882
 msgid "All uppercase"
-msgstr "全て大文字にする"
+msgstr "すべて大文字にする"
 
 #: ../src/tag_area.c:888
-#, fuzzy
-#| msgid "All downcase"
 msgid "All lowercase"
-msgstr "全て小文字にする"
+msgstr "すべて小文字にする"
 
 #: ../src/tag_area.c:894
 msgid "First letter uppercase"
@@ -5069,10 +4288,8 @@ msgid "Remove duplicate spaces or underscores"
 msgstr "重複したスペースまたはアンダースコアを削除する"
 
 #: ../src/tag_area.c:928
-#, fuzzy
-#| msgid "Remove spaces"
 msgid "Remove all text"
-msgstr "スペースを削除する"
+msgstr "すべての文字を削除する"
 
 #: ../src/tag_area.c:1289 ../src/tag_area.c:1382
 #, c-format
@@ -5090,7 +4307,7 @@ msgstr ""
 
 #: ../src/tag_area.c:1371
 msgid "Cannot display the image"
-msgstr ""
+msgstr "画像を表示できません"
 
 #: ../src/tag_area.c:1373
 #, fuzzy
@@ -5101,58 +4318,53 @@ msgstr ""
 "め、画像を表示できません。"
 
 #: ../src/tag_area.c:1375
-#, fuzzy
 msgid "Load Image File"
-msgstr "画像ファイルの読み込み中..."
+msgstr "画像ファイルの読み込み"
 
 #: ../src/tag_area.c:1420 ../src/tag_area.c:1445
-#, fuzzy, c-format
+#, c-format
 msgid "Image file not loaded ‘%s’"
-msgstr "画像ファイルを読み込んでいません..."
+msgstr ""
 
 #: ../src/tag_area.c:1437
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot open file ‘%s’"
-msgstr "ファイル '%s' (%s) が開けません"
+msgstr "ファイル ‘%s’ を開けません"
 
 #: ../src/tag_area.c:1441
-#, fuzzy
 msgid "Image File Error"
-msgstr "ファイル名とフォルダ名の変更"
+msgstr "画像ファイルエラー"
 
 #: ../src/tag_area.c:1452
-#, fuzzy
 msgid "Image file loaded"
-msgstr "画像ファイルを読み込んでいません..."
+msgstr "画像ファイルを読み込みました"
 
 #: ../src/tag_area.c:1535
 msgid "Add Images"
-msgstr ""
+msgstr "画像の追加"
 
 #: ../src/tag_area.c:1545 ../src/tag_area.c:1876
 msgid "All Files"
-msgstr "全てのファイル"
+msgstr "すべてのファイル"
 
 #: ../src/tag_area.c:1552 ../src/tag_area.c:1883
 msgid "PNG and JPEG"
 msgstr "PNG と JPEG"
 
 #: ../src/tag_area.c:1670
-#, fuzzy, c-format
-#| msgid "Picture Properties %d/%d"
+#, c-format
 msgid "Image Properties %d/%d"
-msgstr "画像 %d/%d のプロパティ "
+msgstr "画像 %d/%d のプロパティ"
 
 #: ../src/tag_area.c:1862
-#, fuzzy, c-format
-#| msgid "Save picture %d/%d"
+#, c-format
 msgid "Save Image %d/%d"
 msgstr "画像 %d/%d の保存"
 
 #: ../src/tag_area.c:1942
-#, fuzzy, c-format
+#, c-format
 msgid "Image file not saved ‘%s’"
-msgstr "画像ファイルを読み込んでいません..."
+msgstr ""
 
 #: ../src/tag_area.c:2186
 msgid "Tag selected files with this genre"
@@ -5184,29 +4396,28 @@ msgstr "Wavpack タグ"
 
 #: ../src/tag_area.c:2987
 msgid "Opus Tag"
-msgstr ""
+msgstr "Opus タグ"
 
 #: ../src/tag_area.c:3245
 #, c-format
 msgid "Images (%u)"
-msgstr ""
+msgstr "画像 (%u)"
 
 #: ../src/tags/ape_tag.c:90 ../src/tags/mp4_header.cc:58
 #: ../src/tags/mp4_header.cc:67 ../src/tags/mp4_tag.cc:73
 #: ../src/tags/mp4_tag.cc:86 ../src/tags/mp4_tag.cc:92
 #: ../src/tags/ogg_header.c:227
-#, fuzzy, c-format
-#| msgid "ERROR while opening file: '%s' (%s)."
+#, c-format
 msgid "Error while opening file: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "ファイルのオープン中にエラー: %s"
 
 #: ../src/tags/ape_tag.c:372
 msgid "Failed to write APE tag"
-msgstr ""
+msgstr "APE タグの書き込みに失敗"
 
 #: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:225
 msgid "Error opening FLAC file"
-msgstr ""
+msgstr "FLAC ファイルのオープン中にエラー"
 
 #: ../src/tags/flac_header.c:182
 msgid "FLAC File"
@@ -5224,56 +4435,48 @@ msgstr "チャンネル数:"
 
 #: ../src/tags/flac_tag.c:761 ../src/tags/flac_tag.c:794
 #: ../src/tags/flac_tag.c:808
-#, fuzzy, c-format
-#| msgid "ERROR while opening file: '%s' as FLAC (%s)."
+#, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
-msgstr "FLACファイルのオープン中にエラー: '%s' (%s)"
+msgstr "ファイル ‘%s’ をFLAC としてオープン中にエラー: %s"
 
 #: ../src/tags/flac_tag.c:1108 ../src/tags/flac_tag.c:1120
 #: ../src/tags/flac_tag.c:1140
-#, fuzzy, c-format
-#| msgid "ERROR: Failed to write comments to file '%s' (%s)."
+#, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
-msgstr "ERROR: ファイル '%s' (%s) にコメントを書き込むのに失敗しました。"
+msgstr "ファイル ‘%s’ にコメントを書き込むのに失敗: %s"
 
 #: ../src/tags/id3_tag.c:217
-#, fuzzy
 msgid "Corrupted file"
-msgstr "壊れたファイル..."
+msgstr "破損ファイル"
 
 #: ../src/tags/id3_tag.c:635
-#, fuzzy, c-format
-#| msgid "Removed tag of '%s'"
+#, c-format
 msgid "Removed tag of ‘%s’"
-msgstr "'%s' のタグを削除しました"
+msgstr "‘%s’ のタグを削除しました"
 
 #: ../src/tags/id3_tag.c:642 ../src/tags/id3_tag.c:726
-#, fuzzy, c-format
-#| msgid "Error while removing ID3v1 tag of '%s' (%s)"
+#, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
-msgstr "'%s' (%s) の ID3v1 タグの削除中にエラー"
+msgstr "‘%s’ の ID3v1 タグ削除中にエラー: %s"
 
 #: ../src/tags/id3_tag.c:651 ../src/tags/id3_tag.c:689
-#, fuzzy, c-format
-#| msgid "Error while removing ID3v2 tag of '%s' (%s)"
+#, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
-msgstr "'%s' (%s) の ID3v2 タグの削除中にエラー"
+msgstr "‘%s’ の ID3v2 タグ削除中にエラー: %s"
 
 #: ../src/tags/id3_tag.c:677
-#, fuzzy, c-format
-#| msgid "Error while updating ID3v2 tag of '%s' (%s)"
+#, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
-msgstr "'%s' (%s) の ID3v2 タグの更新中にエラー"
+msgstr "‘%s’ の ID3v2 タグ更新中にエラー: %s"
 
 #: ../src/tags/id3_tag.c:714
-#, fuzzy, c-format
-#| msgid "Error while updating ID3v1 tag of '%s' (%s)"
+#, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
-msgstr "'%s' (%s) の ID3v1 タグの更新中にエラー"
+msgstr "‘%s’ の ID3v1 タグ更新中にエラー: %s"
 
 #: ../src/tags/id3_tag.c:760
 msgid "Buggy id3lib"
-msgstr ""
+msgstr "不具合のある id3lib"
 
 #: ../src/tags/id3_tag.c:781
 msgid "No error reported"
@@ -5301,7 +4504,7 @@ msgstr "バッファが小さすぎます"
 
 #: ../src/tags/id3_tag.c:793
 msgid "Invalid frame ID"
-msgstr "フレーム ID が正しくありません。"
+msgstr "フレーム ID が正しくありません"
 
 #: ../src/tags/id3_tag.c:795
 msgid "Requested field not found"
@@ -5313,7 +4516,7 @@ msgstr "フィールドの種類が不明です"
 
 #: ../src/tags/id3_tag.c:799
 msgid "Tag is already attached to a file"
-msgstr "既にタグがファイルについています"
+msgstr "すでにタグがファイルについています"
 
 #: ../src/tags/id3_tag.c:801
 msgid "Invalid tag version"
@@ -5332,14 +4535,12 @@ msgid "Error in compression/uncompression"
 msgstr "圧縮/非圧縮エラーです"
 
 #: ../src/tags/id3_tag.c:809
-#, fuzzy
-#| msgid "Unknown error message!"
 msgid "Unknown error message"
-msgstr "不明なエラーです！"
+msgstr "不明なエラーです"
 
 #: ../src/tags/id3_tag.c:1553
 msgid "Error while creating temporary file"
-msgstr ""
+msgstr "一時ファイル作成中にエラー"
 
 #: ../src/tags/id3v24_tag.c:135 ../src/tags/id3v24_tag.c:190
 #: ../src/tags/id3v24_tag.c:228 ../src/tags/id3v24_tag.c:238
@@ -5347,13 +4548,12 @@ msgstr ""
 #: ../src/tags/id3v24_tag.c:981 ../src/tags/id3v24_tag.c:988
 #: ../src/tags/id3v24_tag.c:1014 ../src/tags/id3v24_tag.c:1054
 #: ../src/tags/mp4_tag.cc:102 ../src/tags/ogg_header.c:277
-#, fuzzy
 msgid "Error reading tags from file"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "ファイルからタグの読み込み中にエラー"
 
 #: ../src/tags/monkeyaudio_header.c:69
 msgid "Monkey's Audio File"
-msgstr "Monkey's オーディオ・ファイル"
+msgstr "Monkey's オーディオファイル"
 
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:72 ../src/tags/musepack_header.c:73
@@ -5367,7 +4567,7 @@ msgstr "MP4 フォーマットが不正です"
 
 #: ../src/tags/mp4_header.cc:77
 msgid "Error reading properties from file"
-msgstr ""
+msgstr "ファイルからプロパティの読み込み中にエラー"
 
 #: ../src/tags/mp4_header.cc:131
 msgid "MP4/AAC File"
@@ -5380,15 +4580,14 @@ msgstr "〜%d KB/秒"
 
 #: ../src/tags/mp4_tag.cc:298 ../src/tags/mp4_tag.cc:314
 #: ../src/tags/mp4_tag.cc:320
-#, fuzzy, c-format
-#| msgid "ERROR while opening file: '%s' (%s)."
+#, c-format
 msgid "Error while opening file ‘%s’: %s"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "ファイル ‘%s’ のオープン中にエラー: %s"
 
 #: ../src/tags/mp4_tag.cc:331
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading tags from file ‘%s’"
-msgstr "ファイルのオープン中にエラー: '%s' (%s)"
+msgstr "ファイル ‘%s’ からタグの読み込み中にエラー"
 
 #: ../src/tags/mpeg_header.c:51
 msgid "Stereo"
@@ -5424,57 +4623,36 @@ msgid "MusePack File"
 msgstr "MusePack ファイル"
 
 #: ../src/tags/ogg_header.c:243
-#, fuzzy
-#| msgid ""
-#| "Ogg Vorbis: The specified bitstream does not exist or the file has been "
-#| "initialized improperly (file: '%s')."
 msgid ""
 "The specified bitstream does not exist or the file has been initialized "
 "improperly"
 msgstr ""
-"Ogg Vorbis: このビットストリームは存在しないか、あるいは初期化が不適正です "
-"(ファイル: '%s')"
+"このビットストリームは存在しないか、あるいは初期化が不適正です"
 
 #: ../src/tags/ogg_header.c:262
-#, fuzzy
-#| msgid "Ogg Vorbis: Read from media returned an error (file: '%s')."
 msgid "Read from media returned an error"
-msgstr "Ogg Vorbis: メディアからの読み込み時にエラー (ファイル: '%s')"
+msgstr "メディアからの読み込み時にエラー"
 
 #: ../src/tags/ogg_header.c:265
-#, fuzzy
-#| msgid "Ogg Vorbis: Bitstream is not Vorbis data (file: '%s')."
 msgid "Bitstream is not Vorbis data"
-msgstr ""
-"Ogg Vorbis: ビットストリームは Vorbis データではありません。(ファイル '%s')"
+msgstr "ビットストリームは Vorbis データではありません"
 
 #: ../src/tags/ogg_header.c:268
-#, fuzzy
-#| msgid "Ogg Vorbis: Vorbis version mismatch (file: '%s')."
 msgid "Vorbis version mismatch"
-msgstr "Ogg Vorbis: Vorbis のバージョンが合いません (ファイル: '%s')"
+msgstr "Vorbis のバージョンが合いません"
 
 #: ../src/tags/ogg_header.c:271
-#, fuzzy
-#| msgid "Ogg Vorbis: Invalid Vorbis bitstream header (file: '%s')."
 msgid "Invalid Vorbis bitstream header"
-msgstr "Ogg Vorbis: Vorbisのヘッダが不正です (ファイル: '%s')"
+msgstr "Vorbis のヘッダーが不正です"
 
 #: ../src/tags/ogg_header.c:274
-#, fuzzy
-#| msgid ""
-#| "Ogg Vorbis: Internal logic fault, indicates a bug or heap/stack "
-#| "corruption (file: '%s')."
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
-msgstr ""
-"Ogg Vorbis: 内部ロジックの誤り――ヒープやスタックが破壊されるバグです (ファイ"
-"ル: '%s')"
+msgstr "内部ロジックの誤り――ヒープやスタックが破壊されるバグです"
 
 #: ../src/tags/ogg_header.c:325
-#, fuzzy, c-format
-#| msgid "ERROR: Failed to open file: '%s' as vorbis (%s)."
+#, c-format
 msgid "Failed to open file as Vorbis: %s"
-msgstr "ERROR: ファイル '%s' を vorbis (%s) として開くのに失敗しました。"
+msgstr "ファイルを Vorbis として開くのに失敗: %s"
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
@@ -5485,10 +4663,8 @@ msgid "Speex File"
 msgstr "Speex ファイル"
 
 #: ../src/tags/opus_header.c:224
-#, fuzzy
-#| msgid "Last File"
 msgid "Opus File"
-msgstr "最後のファイルへジャンプします"
+msgstr "Opus ファイル"
 
 #: ../src/tags/wavpack_header.c:137
 msgid "Wavpack File"
@@ -5730,7 +4906,7 @@ msgstr "Wavpack ファイル"
 
 #, fuzzy
 #~ msgid "Write Playlist…"
-#~ msgstr "演奏一覧の書き込み中..."
+#~ msgstr "プレイリストの書き込み中..."
 
 #~ msgid "_Settings"
 #~ msgstr "設定(_S)"
@@ -6243,23 +5419,23 @@ msgstr "Wavpack ファイル"
 #~ msgstr "TB"
 
 #~ msgid "M3U Playlist Name"
-#~ msgstr "M3U 演奏一覧の名前"
+#~ msgstr "M3U プレイリストの名前"
 
 #~ msgid "Edit Masks"
 #~ msgstr "マスクの編集"
 
 #~ msgid "Playlist Options"
-#~ msgstr "演奏一覧のオプション"
+#~ msgstr "プレイリストのオプション"
 
 #~ msgid ""
 #~ "If activated, only the selected files will be written in the playlist "
 #~ "file. Else, all the files will be written."
 #~ msgstr ""
-#~ "これを有効にすると、選択したファイルのみ演奏一覧へ書き込まれます (無効にす"
+#~ "これを有効にすると、選択したファイルのみプレイリストへ書き込まれます (無効にす"
 #~ "ると、全てのファイルが書き込まれます)"
 
 #~ msgid "If activated, the playlist will be created in the parent directory."
-#~ msgstr "これを有効にすると、演奏一覧を親フォルダに生成します"
+#~ msgstr "これを有効にすると、プレイリストを親フォルダに生成します"
 
 #~ msgid ""
 #~ "This option replaces the UNIX directory separator '/' into DOS separator "
@@ -6271,7 +5447,7 @@ msgstr "Wavpack ファイル"
 #, fuzzy
 #~ msgid "Playlist file '%s' already exists"
 #~ msgstr ""
-#~ "演奏一覧ファイル '%s' は既に存在します！\n"
+#~ "プレイリストファイル '%s' は既に存在します！\n"
 #~ "上書きしますか？"
 
 #, fuzzy
@@ -6282,7 +5458,7 @@ msgstr "Wavpack ファイル"
 
 #, fuzzy
 #~ msgid "Write Playlist"
-#~ msgstr "演奏一覧の書き込み中..."
+#~ msgstr "プレイリストの書き込み中..."
 
 #~ msgid "Encoded by"
 #~ msgstr "エンコーダ"
@@ -6480,7 +5656,7 @@ msgstr "Wavpack ファイル"
 #~ "for the program (as 'xmms -p') before to receive files as other arguments."
 #~ msgstr ""
 #~ "サウンド・ファイルを演奏するプログラムを入力して下さい: 引数として (`xmms "
-#~ "-p` のように)、演奏一覧のファイル名を指定する引数をプログラムに引き渡すこ"
+#~ "-p` のように)、プレイリストのファイル名を指定する引数をプログラムに引き渡すこ"
 #~ "とが可能です"
 
 #~ msgid "Show log view in main window"
@@ -7138,7 +6314,7 @@ msgstr "Wavpack ファイル"
 #~ msgstr "CDデータベースの検索(_B)..."
 
 #~ msgid "Write Playlist ..."
-#~ msgstr "演奏一覧の書き込み..."
+#~ msgstr "プレイリストの書き込み..."
 
 #~ msgid "Preferences ..."
 #~ msgstr "設定..."
