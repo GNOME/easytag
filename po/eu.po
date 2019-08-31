@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: easytag easytag-2-4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2019-01-07 19:52+0000\n"
-"PO-Revision-Date: 2019-04-07 10:00+0100\n"
+"POT-Creation-Date: 2019-04-07 12:12+0000\n"
+"PO-Revision-Date: 2019-08-31 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -29,41 +29,41 @@ msgstr "Editatu audio-fitxategien metadatuak"
 msgid ""
 "View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
 "Vorbis, MusePack, Monkey's Audio and WavPack files."
-msgstr ""
+msgstr "Ikusi eta editatu etiketak MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg Vorbis, MusePack, Monkey's Audio eta WavPack fitxategietan."
 
 #: ../data/easytag.appdata.xml.in.h:5
 msgid ""
 "Look up albums in online databases, bulk edit tags, create playlists and "
 "rename a collection of files."
-msgstr ""
+msgstr "Bilatu albumak lineako datu-baseetan, editatu etiketak multzoka, sortu erreprodukzio-zerrendak eta aldatu izena fitxategi bildumei."
 
 #: ../data/easytag.appdata.xml.in.h:6
 msgid ""
 "A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
 "Windows."
-msgstr ""
+msgstr "GTK+ interfaze sotil eta atseginak erraztu egiten du etiketak jartzea GNU/Linux eta Windows sistemetan."
 
 #: ../data/easytag.desktop.in.h:2
 msgid "Audio File Metadata Editor"
-msgstr ""
+msgstr "Audio-fitxategien metadatuen editorea"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/easytag.desktop.in.h:5
 msgid "mp3;tag;audio;music;"
-msgstr ""
+msgstr "mp3;etiketa;audioa;musika;"
 
 #: ../data/easytag-nautilus.metainfo.xml.in.h:1
 #: ../nautilus-extension/nautilus-easytag.c:247
 msgid "Open with EasyTAG"
-msgstr ""
+msgstr "Ireki EasyTAG aplikazioarekin"
 
 #: ../data/easytag-nautilus.metainfo.xml.in.h:2
 msgid "Open directories and audio files with EasyTAG using the context menu"
-msgstr ""
+msgstr "Ireki direktorioak eta audio-fitxategiak EasyTAG erabilita, testuinguru-menuaren bidez"
 
 #: ../data/browser.ui.h:1
 msgid "Choose a directory to show in the browser"
-msgstr ""
+msgstr "Aukeratu arakatzailean erakutsiko den direktorioa"
 
 #: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3795
 #: ../src/tag_area.c:1540
@@ -72,11 +72,11 @@ msgstr "_Ireki"
 
 #: ../data/browser.ui.h:3 ../src/application.c:131
 msgid "Select a directory to browse"
-msgstr ""
+msgstr "Hautatu arakatuko den direktorioa"
 
 #: ../data/browser.ui.h:4 ../src/easytag.c:993
 msgid "No files"
-msgstr ""
+msgstr "Fitxategirik ez"
 
 #: ../data/browser.ui.h:5 ../data/cddb_dialog.ui.h:12
 #: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:58
@@ -86,11 +86,11 @@ msgstr "Artista"
 
 #: ../data/browser.ui.h:6
 msgid "# Albums"
-msgstr ""
+msgstr "# Albumak"
 
 #: ../data/browser.ui.h:7
 msgid "# Files"
-msgstr ""
+msgstr "# Fitxategiak"
 
 #: ../data/browser.ui.h:8 ../data/cddb_dialog.ui.h:13
 #: ../data/preferences_dialog.ui.h:65 ../data/scan_dialog.ui.h:62
@@ -113,7 +113,7 @@ msgstr "Titulua"
 #: ../data/browser.ui.h:11 ../data/scan_dialog.ui.h:60
 #: ../data/search_dialog.ui.h:15
 msgid "Album Artist"
-msgstr ""
+msgstr "Albumaren artista"
 
 #: ../data/browser.ui.h:12 ../data/cddb_dialog.ui.h:40
 #: ../data/search_dialog.ui.h:18
@@ -162,11 +162,11 @@ msgstr "URLa"
 #: ../data/browser.ui.h:21 ../data/scan_dialog.ui.h:76
 #: ../data/search_dialog.ui.h:26
 msgid "Encoded By"
-msgstr ""
+msgstr "Kodeketa:"
 
 #: ../data/browser_dialogs.ui.h:1
 msgid "Browse Directory With"
-msgstr ""
+msgstr "Arakatu direktorioa honekin…"
 
 #: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
@@ -176,7 +176,7 @@ msgstr "Exekutatu programa"
 msgid ""
 "Enter the program to run; it will receive the current directory as a "
 "parameter"
-msgstr ""
+msgstr "Sartu exekutatuko den programa; uneko direktorioa jasoko du parametro modura"
 
 #: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
 #: ../src/application_window.c:373 ../src/application_window.c:387
@@ -193,30 +193,30 @@ msgstr "_Exekutatu"
 
 #: ../data/browser_dialogs.ui.h:7
 msgid "Open Files With"
-msgstr ""
+msgstr "Ireki fitxategiak honekin…"
 
 #: ../data/browser_dialogs.ui.h:8
 msgid ""
 "Enter the program to run; it will receive the current files as a parameter"
-msgstr ""
+msgstr "Sartu exekutatuko den programa; uneko fitxategia jasoko du parametro modura"
 
 #. Only directories changed
 #: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:577
 msgid "Rename Directory"
-msgstr ""
+msgstr "Aldatu direktorioaren izena"
 
 #. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
 #: ../data/browser_dialogs.ui.h:11
 msgid "Literal name:"
-msgstr ""
+msgstr "Izen literala:"
 
 #: ../data/browser_dialogs.ui.h:12 ../data/playlist_dialog.ui.h:3
 msgid "Use mask:"
-msgstr ""
+msgstr "Erabili maskara:"
 
 #: ../data/browser_dialogs.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:184
 msgid "Whether to use a mask when renaming directories"
-msgstr ""
+msgstr "Maskara bat erabiliko den ala ez direktorioen izenak aldatzean"
 
 #: ../data/browser_dialogs.ui.h:14
 msgid ""
@@ -226,7 +226,7 @@ msgstr ""
 
 #: ../data/browser_dialogs.ui.h:15
 msgid "Rename directory preview"
-msgstr ""
+msgstr "Aldatu direktorioaren aurrebistaren izena"
 
 #: ../data/browser_dialogs.ui.h:16
 msgid "_Rename"
@@ -234,7 +234,7 @@ msgstr "_Aldatu izena"
 
 #: ../data/cddb_dialog.ui.h:1 ../data/toolbar.ui.h:28
 msgid "CDDB Search"
-msgstr ""
+msgstr "CDDB bilaketa"
 
 #: ../data/cddb_dialog.ui.h:2
 msgid "Search"
@@ -250,7 +250,7 @@ msgstr "_Bilatu"
 
 #: ../data/cddb_dialog.ui.h:5
 msgid "Search Using Selected _Files"
-msgstr ""
+msgstr "Bilatu hautatutako _fitxategiak erabilita"
 
 #: ../data/cddb_dialog.ui.h:6
 msgid ""
@@ -259,24 +259,24 @@ msgstr ""
 
 #: ../data/cddb_dialog.ui.h:7 ../data/toolbar.ui.h:31
 msgid "Stop"
-msgstr ""
+msgstr "Gelditu"
 
 #: ../data/cddb_dialog.ui.h:8
 msgid "Stop the search"
-msgstr ""
+msgstr "Gelditu bilaketa"
 
 #: ../data/cddb_dialog.ui.h:9
 msgid "Manual Search Options"
-msgstr ""
+msgstr "Eskuzko bilaketaren aukerak"
 
 #. Translators: header for CDDB fields to use when searching
 #: ../data/cddb_dialog.ui.h:11
 msgid "Search Fields"
-msgstr ""
+msgstr "Bilatu eremuak"
 
 #: ../data/cddb_dialog.ui.h:14
 msgid "Track Name"
-msgstr ""
+msgstr "Pistaren izena"
 
 #: ../data/cddb_dialog.ui.h:15 ../data/preferences_dialog.ui.h:91
 #: ../src/picture.c:191
@@ -297,7 +297,7 @@ msgstr "Klasikoa"
 
 #: ../data/cddb_dialog.ui.h:19
 msgid "Country"
-msgstr "Country"
+msgstr "Herrialdea"
 
 #: ../data/cddb_dialog.ui.h:20
 msgid "Folk"
@@ -333,7 +333,7 @@ msgstr "Emaitzak"
 
 #: ../data/cddb_dialog.ui.h:28
 msgid "Artist / Album"
-msgstr ""
+msgstr "Artista / Albuma"
 
 #: ../data/cddb_dialog.ui.h:29
 msgid "Category"
@@ -349,7 +349,7 @@ msgstr ""
 #. Translators: column header for track number.
 #: ../data/cddb_dialog.ui.h:32
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../data/cddb_dialog.ui.h:33
 msgid "Duration"
@@ -357,19 +357,19 @@ msgstr "Iraupena"
 
 #: ../data/cddb_dialog.ui.h:34
 msgid "Select all lines"
-msgstr ""
+msgstr "Hautatu lerro guztiak"
 
 #: ../data/cddb_dialog.ui.h:35
 msgid "Invert line selection"
-msgstr ""
+msgstr "Alderantzikatu lerroen hautapena"
 
 #: ../data/cddb_dialog.ui.h:36
 msgid "Unselect all lines"
-msgstr ""
+msgstr "Desautatu lerro guztiak"
 
 #: ../data/cddb_dialog.ui.h:37 ../data/menus.ui.h:24
 msgid "Fill Tags"
-msgstr ""
+msgstr "Bete etiketak"
 
 #: ../data/cddb_dialog.ui.h:41
 msgid "Track Number"
@@ -377,11 +377,11 @@ msgstr "Pista-zenbakia"
 
 #: ../data/cddb_dialog.ui.h:42
 msgid "Number of Tracks"
-msgstr ""
+msgstr "Pista kopurua"
 
 #: ../data/cddb_dialog.ui.h:44 ../data/load_files_dialog.ui.h:14
 msgid "Run the current scanner for each file"
-msgstr ""
+msgstr "Exekutatu uneko eskanerra fitxategi bakoitzeko"
 
 #: ../data/cddb_dialog.ui.h:45 ../data/org.gnome.EasyTAG.gschema.xml.h:38
 msgid ""
@@ -403,7 +403,7 @@ msgstr ""
 #: ../src/load_files_dialog.c:1005 ../src/preferences_dialog.c:279
 #: ../src/scan_dialog.c:2323
 msgid "_Close"
-msgstr "_Itxi"
+msgstr "It_xi"
 
 #: ../data/cddb_dialog.ui.h:49 ../src/cddb_dialog.c:2463
 #: ../src/load_files_dialog.c:1006
@@ -474,7 +474,7 @@ msgstr "Egunkaria"
 
 #: ../data/load_files_dialog.ui.h:1
 msgid "Load Filenames From a Text File"
-msgstr ""
+msgstr "Kargatu fitxategi-izenak testu-fitxategi batetik"
 
 #: ../data/load_files_dialog.ui.h:2
 msgid "File:"
@@ -482,7 +482,7 @@ msgstr "Fitxategia:"
 
 #: ../data/load_files_dialog.ui.h:3
 msgid "Choose a Text File"
-msgstr ""
+msgstr "Hautatu testu-fitxategi bat"
 
 #: ../data/load_files_dialog.ui.h:4
 msgid "_Load"
@@ -490,28 +490,28 @@ msgstr "_Kargatu"
 
 #: ../data/load_files_dialog.ui.h:5
 msgid "Content of Text File"
-msgstr ""
+msgstr "Testu-fitxategiaren edukia"
 
 #: ../data/load_files_dialog.ui.h:6
 msgid "Insert a blank line before the selected line"
-msgstr ""
+msgstr "Txertatu lerro zuria hautatutako lerroaren aurretik"
 
 #: ../data/load_files_dialog.ui.h:7
 msgid "Delete the selected line"
-msgstr ""
+msgstr "Ezabatu hautatutako lerroa"
 
 #: ../data/load_files_dialog.ui.h:8 ../src/load_files_dialog.c:750
 #: ../src/load_files_dialog.c:853
 msgid "Delete all blank lines"
-msgstr ""
+msgstr "Ezabatu lerro zuri guztiak"
 
 #: ../data/load_files_dialog.ui.h:9
 msgid "Move the selected line up"
-msgstr ""
+msgstr "Mugitu hautatutako lerroa gora"
 
 #: ../data/load_files_dialog.ui.h:10
 msgid "Move the selected line down"
-msgstr ""
+msgstr "Mugitu hautatutako lerroa behera"
 
 #: ../data/load_files_dialog.ui.h:11 ../src/load_files_dialog.c:768
 #: ../src/load_files_dialog.c:871
@@ -520,11 +520,11 @@ msgstr "Birkargatu"
 
 #: ../data/load_files_dialog.ui.h:12
 msgid "List of Files"
-msgstr ""
+msgstr "Fitxategien zerrenda"
 
 #: ../data/load_files_dialog.ui.h:13
 msgid "Selected line:"
-msgstr ""
+msgstr "Hautatutako lerroa:"
 
 #: ../data/load_files_dialog.ui.h:15
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:127
@@ -551,15 +551,15 @@ msgstr "_Fitxategia"
 
 #: ../data/menus.ui.h:5
 msgid "Open Files With…"
-msgstr "Ireki fitxategiak honekin..."
+msgstr "Ireki fitxategiak honekin…"
 
 #: ../data/menus.ui.h:6
 msgid "Run Audio Player"
-msgstr ""
+msgstr "Exekutatu audio-erreproduzigailua"
 
 #: ../data/menus.ui.h:7 ../data/toolbar.ui.h:23
 msgid "Invert File Selection"
-msgstr ""
+msgstr "Alderantzikatu fitxategi-hautapena"
 
 #: ../data/menus.ui.h:8
 msgid "Delete Files"
@@ -579,7 +579,7 @@ msgstr "_Gorde fitxategiak"
 
 #: ../data/menus.ui.h:12
 msgid "_Force Save Files"
-msgstr ""
+msgstr "Be_hartu fitxategiak gordetzea"
 
 #: ../data/menus.ui.h:13
 msgid "_Edit"
@@ -595,7 +595,7 @@ msgstr "Hautatu dena"
 
 #: ../data/menus.ui.h:16
 msgid "Unselect All"
-msgstr ""
+msgstr "Desautatu _denak"
 
 #: ../data/menus.ui.h:17
 msgid "Undo"
@@ -607,7 +607,7 @@ msgstr "Berregin"
 
 #: ../data/menus.ui.h:19 ../data/toolbar.ui.h:11
 msgid "_Remove Tags"
-msgstr ""
+msgstr "_Kendu etiketak"
 
 #: ../data/menus.ui.h:20
 msgid "_Preferences"
@@ -619,55 +619,55 @@ msgstr "_Ikusi"
 
 #: ../data/menus.ui.h:22
 msgid "Show Scanner"
-msgstr ""
+msgstr "Erakutsi eskanerra"
 
 #: ../data/menus.ui.h:23
 msgid "Scanner Mode"
-msgstr ""
+msgstr "Eskaner modua"
 
 #: ../data/menus.ui.h:25
 msgid "Rename Files and Directories"
-msgstr ""
+msgstr "Aldatu fitxategien eta direktorioen izenak"
 
 #: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:109
 msgid "Process Fields"
-msgstr ""
+msgstr "Prozesatu eremuak"
 
 #: ../data/menus.ui.h:27 ../data/toolbar.ui.h:19
 msgid "Directory Tree"
-msgstr ""
+msgstr "Direktorio-zuhaitza"
 
 #: ../data/menus.ui.h:28 ../data/toolbar.ui.h:21
 msgid "Artists and Albums"
-msgstr ""
+msgstr "Artistak eta albumak"
 
 #: ../data/menus.ui.h:29
 msgid "Sort List by Tag"
-msgstr ""
+msgstr "Ordenatu zerrenda etiketen arabera"
 
 #: ../data/menus.ui.h:30
 msgid "Ascending by track number"
-msgstr ""
+msgstr "Gorantz pista-zenbakiaren arabera"
 
 #: ../data/menus.ui.h:31
 msgid "Descending by track number"
-msgstr ""
+msgstr "Beherantz pista-zenbakiaren arabera"
 
 #: ../data/menus.ui.h:32
 msgid "Ascending by title"
-msgstr ""
+msgstr "Gorantz tituluaren arabera"
 
 #: ../data/menus.ui.h:33
 msgid "Descending by title"
-msgstr ""
+msgstr "Beherantz tituluaren arabera"
 
 #: ../data/menus.ui.h:34
 msgid "Ascending by artist"
-msgstr ""
+msgstr "Gorantz artistaren arabera"
 
 #: ../data/menus.ui.h:35
 msgid "Descending by artist"
-msgstr ""
+msgstr "Beherantz artistaren arabera"
 
 #: ../data/menus.ui.h:36
 msgid "Ascending by album artist"
@@ -679,155 +679,155 @@ msgstr ""
 
 #: ../data/menus.ui.h:38
 msgid "Ascending by album"
-msgstr ""
+msgstr "Gorantz albumaren arabera"
 
 #: ../data/menus.ui.h:39
 msgid "Descending by album"
-msgstr ""
+msgstr "Beherantz albumaren arabera"
 
 #: ../data/menus.ui.h:40
 msgid "Ascending by year"
-msgstr ""
+msgstr "Gorantz urtearen arabera"
 
 #: ../data/menus.ui.h:41
 msgid "Descending by year"
-msgstr ""
+msgstr "Beherantz urtearen arabera"
 
 #: ../data/menus.ui.h:42
 msgid "Ascending by genre"
-msgstr ""
+msgstr "Gorantz generoaren arabera"
 
 #: ../data/menus.ui.h:43
 msgid "Descending by genre"
-msgstr ""
+msgstr "Beherantz generoaren arabera"
 
 #: ../data/menus.ui.h:44
 msgid "Ascending by comment"
-msgstr ""
+msgstr "Gorantz iruzkinen arabera"
 
 #: ../data/menus.ui.h:45
 msgid "Descending by comment"
-msgstr ""
+msgstr "Beherantz iruzkinen arabera"
 
 #: ../data/menus.ui.h:46
 msgid "Ascending by composer"
-msgstr ""
+msgstr "Gorantz konpositorearen arabera"
 
 #: ../data/menus.ui.h:47
 msgid "Descending by composer"
-msgstr ""
+msgstr "Beherantz konpositorearen arabera"
 
 #: ../data/menus.ui.h:48
 msgid "Ascending by original artist"
-msgstr ""
+msgstr "Gorantz jatorrizko artistaren arabera"
 
 #: ../data/menus.ui.h:49
 msgid "Descending by original artist"
-msgstr ""
+msgstr "Beherantz jatorrizko artistaren arabera"
 
 #: ../data/menus.ui.h:50
 msgid "Ascending by copyright"
-msgstr ""
+msgstr "Gorantz copyright-aren arabera"
 
 #: ../data/menus.ui.h:51
 msgid "Descending by copyright"
-msgstr ""
+msgstr "Beherantz copyright-aren arabera"
 
 #: ../data/menus.ui.h:52
 msgid "Ascending by URL"
-msgstr ""
+msgstr "Gorantz URLaren arabera"
 
 #: ../data/menus.ui.h:53
 msgid "Descending by URL"
-msgstr ""
+msgstr "Beherantz URLaren arabera"
 
 #: ../data/menus.ui.h:54
 msgid "Ascending by encoder name"
-msgstr ""
+msgstr "Gorantz kodetzaile-izenaren arabera"
 
 #: ../data/menus.ui.h:55
 msgid "Descending by encoder name"
-msgstr ""
+msgstr "Beherantz kodetzaile-izenaren arabera"
 
 #: ../data/menus.ui.h:56
 msgid "Sort List by Property"
-msgstr ""
+msgstr "Ordenatu zerrenda propietatearen arabera"
 
 #: ../data/menus.ui.h:57
 msgid "Ascending by filename"
-msgstr ""
+msgstr "Gorantz fitxategi-izenaren arabera"
 
 #: ../data/menus.ui.h:58
 msgid "Descending by filename"
-msgstr ""
+msgstr "Beherantz fitxategi-izenaren arabera"
 
 #: ../data/menus.ui.h:59
 msgid "Ascending by creation date"
-msgstr ""
+msgstr "Gorantz sorrera-dataren arabera"
 
 #: ../data/menus.ui.h:60
 msgid "Descending by creation date"
-msgstr ""
+msgstr "Beherantz sorrera-dataren arabera"
 
 #: ../data/menus.ui.h:61
 msgid "Ascending by file type"
-msgstr ""
+msgstr "Gorantz fitxategi motaren arabera"
 
 #: ../data/menus.ui.h:62
 msgid "Descending by file type"
-msgstr ""
+msgstr "Beherantz fitxategi motaren arabera"
 
 #: ../data/menus.ui.h:63
 msgid "Ascending by file size"
-msgstr ""
+msgstr "Gorantz fitxategi tamainaren arabera"
 
 #: ../data/menus.ui.h:64
 msgid "Descending by file size"
-msgstr ""
+msgstr "Beherantz fitxategi tamainaren arabera"
 
 #: ../data/menus.ui.h:65
 msgid "Ascending by duration"
-msgstr ""
+msgstr "Gorantz iraupenaren arabera"
 
 #: ../data/menus.ui.h:66
 msgid "Descending by duration"
-msgstr ""
+msgstr "Beherantz iraupenaren arabera"
 
 #: ../data/menus.ui.h:67
 msgid "Ascending by bit rate"
-msgstr ""
+msgstr "Gorantz bit-emariaren arabera"
 
 #: ../data/menus.ui.h:68
 msgid "Descending by bit rate"
-msgstr ""
+msgstr "Beherantz bit-emariaren arabera"
 
 #: ../data/menus.ui.h:69
 msgid "Ascending by sample rate"
-msgstr ""
+msgstr "Gorantz lagin-emariaren arabera"
 
 #: ../data/menus.ui.h:70
 msgid "Descending by sample rate"
-msgstr ""
+msgstr "Beherantz lagin-emariaren arabera"
 
 #: ../data/menus.ui.h:71
 msgid "Collapse Tree"
-msgstr ""
+msgstr "Tolestu zuhaitza"
 
 #: ../data/menus.ui.h:72
 msgid "Reload Tree"
-msgstr ""
+msgstr "Birkargatu zuhaitza"
 
 #: ../data/menus.ui.h:73
 msgid "Reload Directory"
-msgstr ""
+msgstr "Birkargatu direktorioa"
 
 #: ../data/menus.ui.h:74
 msgid "Show Hidden Directories"
-msgstr ""
+msgstr "Erakutsi ezkutuko direktorioak"
 
 #: ../data/menus.ui.h:75
 msgid "_Browser"
-msgstr ""
+msgstr "_Arakatzailea"
 
 #: ../data/menus.ui.h:76
 msgid "Set _Current Path as Default"
@@ -835,99 +835,99 @@ msgstr ""
 
 #: ../data/menus.ui.h:77
 msgid "Rename Directory…"
-msgstr ""
+msgstr "Aldatu direktorioaren izena…"
 
 #: ../data/menus.ui.h:78
 msgid "Browse Directory With…"
-msgstr ""
+msgstr "Arakatu direktorioa honekin…"
 
 #: ../data/menus.ui.h:79
 msgid "Browse _Subdirectories"
-msgstr ""
+msgstr "Arakatu a_zpidirektorioak"
 
 #: ../data/menus.ui.h:80
 msgid "_Miscellaneous"
-msgstr ""
+msgstr "_Bestelakoak"
 
 #: ../data/menus.ui.h:81
 msgid "CDD_B Search…"
-msgstr ""
+msgstr "CDD_B bilaketa…"
 
 #: ../data/menus.ui.h:82
 msgid "Load Filenames From a Text File…"
-msgstr ""
+msgstr "Kargatu fitxategi-izenak testu-fitxategi batetik…"
 
 #: ../data/menus.ui.h:83 ../data/toolbar.ui.h:29
 msgid "Generate Playlist…"
-msgstr ""
+msgstr "Sortu erreprodukzio-zerrenda…"
 
 #: ../data/menus.ui.h:84
 msgid "_Go"
-msgstr "_Go"
+msgstr "_Joan"
 
 #: ../data/menus.ui.h:85
 msgid "_Home Directory"
-msgstr ""
+msgstr "Direktorio _nagusia"
 
 #: ../data/menus.ui.h:86
 msgid "Desktop Directory"
-msgstr ""
+msgstr "Mahaiganaren direktorioa"
 
 #: ../data/menus.ui.h:87
 msgid "Documents Directory"
-msgstr ""
+msgstr "Dokumentuen direktorioa"
 
 #: ../data/menus.ui.h:88
 msgid "Downloads Directory"
-msgstr ""
+msgstr "Deskargen direktorioa"
 
 #: ../data/menus.ui.h:89
 msgid "Music Directory"
-msgstr ""
+msgstr "Musikaren direktorioa"
 
 #: ../data/menus.ui.h:90
 msgid "_Parent Directory"
-msgstr ""
+msgstr "Direktorio _gurasoa"
 
 #: ../data/menus.ui.h:91
 msgid "_Default Directory"
-msgstr ""
+msgstr "Direktorio _lehenetsia"
 
 #: ../data/menus.ui.h:92 ../data/toolbar.ui.h:1
 msgid "_First File"
-msgstr ""
+msgstr "_Lehen fitxategia"
 
 #: ../data/menus.ui.h:93
 msgid "Previous File"
-msgstr ""
+msgstr "Aurreko fitxategia"
 
 #: ../data/menus.ui.h:94 ../data/toolbar.ui.h:5
 msgid "_Next File"
-msgstr ""
+msgstr "_Hurrengo fitxategia"
 
 #: ../data/menus.ui.h:95 ../data/toolbar.ui.h:7
 msgid "_Last File"
-msgstr ""
+msgstr "A_zken fitxategia"
 
 #: ../data/menus.ui.h:96
 msgid "Home Directory"
-msgstr ""
+msgstr "DIrektorio nagusia"
 
 #: ../data/menus.ui.h:97
 msgid "Default Directory"
-msgstr ""
+msgstr "Direktorio lehenetsia"
 
 #: ../data/menus.ui.h:98
 msgid "Set Current Path as Default"
-msgstr ""
+msgstr "Ezarri uneko bidea lehenetsi gisa"
 
 #: ../data/menus.ui.h:100
 msgid "Browse Subdirectories"
-msgstr ""
+msgstr "Arakatu azpidirektorioak"
 
 #: ../data/menus.ui.h:101
 msgid "Invert Selection"
-msgstr ""
+msgstr "Alderantzikatu hautapena"
 
 #: ../data/menus.ui.h:102
 msgid "CDDB Search Files…"
@@ -939,15 +939,15 @@ msgstr "Bilatu…"
 
 #: ../data/menus.ui.h:104
 msgid "Clear Log"
-msgstr ""
+msgstr "Garbitu egunkaria"
 
 #: ../data/playlist_dialog.ui.h:1
 msgid "Generate Playlist"
-msgstr ""
+msgstr "Sortu erreprodukzio-zerrenda"
 
 #: ../data/playlist_dialog.ui.h:4
 msgid "Use directory name"
-msgstr ""
+msgstr "Erabili direktorio-izena"
 
 #: ../data/playlist_dialog.ui.h:5
 msgid "Options"
@@ -955,12 +955,12 @@ msgstr "Aukerak"
 
 #: ../data/playlist_dialog.ui.h:6
 msgid "Include only the selected files"
-msgstr ""
+msgstr "Sartu hautatutako fitxategiak soilik"
 
 #: ../data/playlist_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:160
 msgid ""
 "Whether to use only the selected files or all files when creating playlists"
-msgstr ""
+msgstr "Hautatutako fitxategiak soilik ala fitxategi guztiak erabiliko diren erreprodukzio-zerrendak sortzean"
 
 #: ../data/playlist_dialog.ui.h:8
 msgid "Use full path for files in playlist"
@@ -1073,12 +1073,12 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:16
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:57
 msgid "Show the log"
-msgstr ""
+msgstr "Erakutsi egunkaria"
 
 #: ../data/preferences_dialog.ui.h:17
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:58
 msgid "Whether to show the log in the main window"
-msgstr ""
+msgstr "Leiho nagusian egunkaria erakutsiko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:18
 msgid "General"
@@ -1102,19 +1102,19 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:22
 msgid "Red color"
-msgstr ""
+msgstr "Kolore gorria"
 
 #: ../data/preferences_dialog.ui.h:23
 msgid "Bold style"
-msgstr ""
+msgstr "Estilo lodia"
 
 #: ../data/preferences_dialog.ui.h:24
 msgid "Interface"
-msgstr ""
+msgstr "Interfazea"
 
 #: ../data/preferences_dialog.ui.h:25
 msgid "File Settings"
-msgstr ""
+msgstr "Fitxategi-ezarpenak"
 
 #: ../data/preferences_dialog.ui.h:26
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:45
@@ -1141,7 +1141,7 @@ msgstr ""
 #. Translators: a section header in the Files tab of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:31
 msgid "Filenames"
-msgstr ""
+msgstr "Fitxategi-izenak"
 
 #: ../data/preferences_dialog.ui.h:32
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:191
@@ -1160,35 +1160,35 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:35
 msgid "Lower Case"
-msgstr ""
+msgstr "Minuskula"
 
 #: ../data/preferences_dialog.ui.h:36
 msgid "For example, the extension will be converted to ‘.mp3’"
-msgstr ""
+msgstr "Adibidez, luzapena ‘.mp3’ bihurtuko da"
 
 #: ../data/preferences_dialog.ui.h:37
 msgid "Upper Case"
-msgstr ""
+msgstr "Maiuskula"
 
 #: ../data/preferences_dialog.ui.h:38
 msgid "For example, the extension will be converted to ‘.MP3’"
-msgstr ""
+msgstr "Adibidez, luzapena ‘.MP3’ bihurtuko da"
 
 #: ../data/preferences_dialog.ui.h:39
 msgid "No Change"
-msgstr ""
+msgstr "Aldaketarik ez"
 
 #: ../data/preferences_dialog.ui.h:40
 msgid "The extension will not be modified"
-msgstr ""
+msgstr "Luzapena ez da aldatuko"
 
 #: ../data/preferences_dialog.ui.h:41
 msgid "Filename Encoding"
-msgstr ""
+msgstr "Fitxategi-izenaren kodeketa"
 
 #: ../data/preferences_dialog.ui.h:42
 msgid "Try another character encoding"
-msgstr ""
+msgstr "Probatu beste karaktere-kodeketa bat"
 
 #: ../data/preferences_dialog.ui.h:43
 msgid ""
@@ -1412,7 +1412,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:97
 msgid "Discard"
-msgstr ""
+msgstr "Baztertu"
 
 #: ../data/preferences_dialog.ui.h:98
 msgid "Automatically convert old ID3v2 tag versions"
@@ -1458,11 +1458,11 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:106
 msgid "ID3v1"
-msgstr ""
+msgstr "ID3v1"
 
 #: ../data/preferences_dialog.ui.h:107
 msgid "Write ID3v1 tag"
-msgstr ""
+msgstr "Idatzi ID3v1 etiketa"
 
 #: ../data/preferences_dialog.ui.h:108
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
@@ -1475,11 +1475,11 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:110
 msgid "ID3 Tags"
-msgstr ""
+msgstr "ID3 etiketak"
 
 #: ../data/preferences_dialog.ui.h:111
 msgid "Character Conversion"
-msgstr ""
+msgstr "Karaktere-bihurketa"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:113
@@ -1498,17 +1498,17 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
-msgstr ""
+msgstr "Bihurketarik ez"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:120
 msgid "Rename File and Directory Scanner"
-msgstr ""
+msgstr "Aldatu izena fitxategien eta direktorioen eskanerrari"
 
 #: ../data/preferences_dialog.ui.h:121 ../data/scan_dialog.ui.h:91
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:149 ../src/tag_area.c:910
 msgid "Remove spaces"
-msgstr ""
+msgstr "Kendu zuriuneak"
 
 #. Translators: a section header in the Scanner section of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:123
@@ -1528,7 +1528,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:126
 msgid "Fields"
-msgstr ""
+msgstr "Eremuak"
 
 #: ../data/preferences_dialog.ui.h:127
 msgid "Overwrite fields when scanning tags"
@@ -1565,7 +1565,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:133
 msgid "Scanner"
-msgstr ""
+msgstr "Eskanerra"
 
 #: ../data/preferences_dialog.ui.h:134
 msgid "Automatic Search Servers"
@@ -1581,7 +1581,7 @@ msgstr "Ataka:"
 
 #: ../data/preferences_dialog.ui.h:137
 msgid "CGI Path:"
-msgstr ""
+msgstr "CGI bidea:"
 
 #: ../data/preferences_dialog.ui.h:138
 msgid "Manual Search Server"
@@ -1593,12 +1593,12 @@ msgstr "Proxy-a"
 
 #: ../data/preferences_dialog.ui.h:140
 msgid "Use a proxy server"
-msgstr ""
+msgstr "Erabili proxy-zerbitzaria"
 
 #: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:28
 msgid "Whether to access remote CDDB through a proxy"
-msgstr ""
+msgstr "Urruneko CDDBa atzitzeko proxy bat erabiliko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:142
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
@@ -1630,7 +1630,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:148
 msgid "Results List"
-msgstr ""
+msgstr "Emaitzen zerrenda"
 
 #: ../data/preferences_dialog.ui.h:149
 msgid ""
@@ -1652,16 +1652,16 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:153
 msgid "CDDB"
-msgstr ""
+msgstr "CDDB"
 
 #: ../data/preferences_dialog.ui.h:154
 msgid "Confirmation"
-msgstr ""
+msgstr "Berrespena"
 
 #: ../data/preferences_dialog.ui.h:155
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Confirm before writing tags"
-msgstr ""
+msgstr "Baieztatu etiketak idatzi baino lehen"
 
 #: ../data/preferences_dialog.ui.h:156
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:117
@@ -1673,7 +1673,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:157
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
 msgid "Confirm before renaming a file"
-msgstr ""
+msgstr "Baieztatu fitxategi baten izena aldatu baino lehen"
 
 #: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:119
@@ -1683,7 +1683,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:159
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:122
 msgid "Confirm before deleting a file"
-msgstr ""
+msgstr "Baieztatu fitxategi bat ezabatu baino lehen"
 
 #: ../data/preferences_dialog.ui.h:160
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
@@ -1693,7 +1693,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:161
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:120
 msgid "Confirm before writing a playlist"
-msgstr ""
+msgstr "Baieztatu erreprodukzio-zerrenda bat idatzi baino lehen"
 
 #: ../data/preferences_dialog.ui.h:162
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:121
@@ -1714,11 +1714,11 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:165
 msgid "Scanner Dialog"
-msgstr ""
+msgstr "Eskanerraren elkarrizketa-koadroa"
 
 #: ../data/preferences_dialog.ui.h:166
 msgid "Show the scanner dialog on startup"
-msgstr ""
+msgstr "Erakutsi eskanerraren elkarrizketa-koadroa abioan"
 
 #: ../data/preferences_dialog.ui.h:167
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:198
@@ -1745,44 +1745,44 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
-msgstr ""
+msgstr "Maskara-editorea"
 
 #: ../data/scan_dialog.ui.h:5
 msgid "Create a new mask"
-msgstr ""
+msgstr "Sortu maskara berria"
 
 #: ../data/scan_dialog.ui.h:6
 msgid "Move the selected mask up"
-msgstr ""
+msgstr "Mugitu hautatutako maskara gora"
 
 #: ../data/scan_dialog.ui.h:7
 msgid "Move the selected mask down"
-msgstr ""
+msgstr "Mugitu hautatutako maskara behera"
 
 #: ../data/scan_dialog.ui.h:8
 msgid "Duplicate the selected mask"
-msgstr ""
+msgstr "Bikoiztu hautatutako maskara"
 
 #: ../data/scan_dialog.ui.h:9
 msgid "Add default masks"
-msgstr ""
+msgstr "Gehitu maskara lehenetsiak"
 
 #: ../data/scan_dialog.ui.h:10
 msgid "Remove the selected mask"
-msgstr ""
+msgstr "Kendu hautatutako maskara"
 
 #: ../data/scan_dialog.ui.h:11
 msgid "Save masks"
-msgstr ""
+msgstr "Gorde maskarak"
 
 #: ../data/scan_dialog.ui.h:12
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 #: ../data/scan_dialog.ui.h:14
 #, no-c-format
 msgid "%a: artist"
-msgstr ""
+msgstr "%a: artista"
 
 #: ../data/scan_dialog.ui.h:16
 #, no-c-format
@@ -1792,22 +1792,22 @@ msgstr ""
 #: ../data/scan_dialog.ui.h:18
 #, no-c-format
 msgid "%b: album"
-msgstr ""
+msgstr "%b: albuma"
 
 #: ../data/scan_dialog.ui.h:20
 #, no-c-format
 msgid "%c: comment"
-msgstr ""
+msgstr "%c: iruzkina"
 
 #: ../data/scan_dialog.ui.h:22
 #, no-c-format
 msgid "%p: composer"
-msgstr ""
+msgstr "%p: konpositorea"
 
 #: ../data/scan_dialog.ui.h:24
 #, no-c-format
 msgid "%r: copyright"
-msgstr ""
+msgstr "%r: copyright-a"
 
 #: ../data/scan_dialog.ui.h:26
 #, no-c-format
@@ -1822,12 +1822,12 @@ msgstr ""
 #: ../data/scan_dialog.ui.h:30
 #, no-c-format
 msgid "%g: genre"
-msgstr ""
+msgstr "%g: generoa"
 
 #: ../data/scan_dialog.ui.h:32
 #, no-c-format
 msgid "%i: ignored"
-msgstr ""
+msgstr "%i: ezikusia"
 
 #: ../data/scan_dialog.ui.h:34
 #, no-c-format
@@ -1837,36 +1837,36 @@ msgstr ""
 #: ../data/scan_dialog.ui.h:36
 #, no-c-format
 msgid "%o: original artist"
-msgstr ""
+msgstr "%o: jatorrizko artista"
 
 #: ../data/scan_dialog.ui.h:38
 #, no-c-format
 msgid "%n: track number"
-msgstr ""
+msgstr "%n: pista-zenbakia"
 
 #: ../data/scan_dialog.ui.h:40
 #, no-c-format
 msgid "%t: title"
-msgstr ""
+msgstr "%t: titulua"
 
 #: ../data/scan_dialog.ui.h:42
 #, no-c-format
 msgid "%u: URL"
-msgstr ""
+msgstr "%u: URLa"
 
 #: ../data/scan_dialog.ui.h:44
 #, no-c-format
 msgid "%x: number of discs"
-msgstr ""
+msgstr "%x: disko kopurua"
 
 #: ../data/scan_dialog.ui.h:46
 #, no-c-format
 msgid "%y: year"
-msgstr ""
+msgstr "%y: urtea"
 
 #: ../data/scan_dialog.ui.h:47
 msgid "Fill Tag"
-msgstr ""
+msgstr "Bete etiketa"
 
 #: ../data/scan_dialog.ui.h:48
 msgid "Prefix mask with current directory"
@@ -1887,15 +1887,15 @@ msgstr ""
 #. Only filename changed
 #: ../data/scan_dialog.ui.h:52 ../src/easytag.c:586
 msgid "Rename File"
-msgstr ""
+msgstr "Aldatu fitxategiaren izena"
 
 #: ../data/scan_dialog.ui.h:53
 msgid "Tag Fields"
-msgstr ""
+msgstr "Etiketa-eremuak"
 
 #: ../data/scan_dialog.ui.h:55
 msgid "Process filename"
-msgstr ""
+msgstr "Prozesatu fitxategi-izena"
 
 #: ../data/scan_dialog.ui.h:57
 msgid "Process title field"
@@ -2066,11 +2066,11 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:107
 msgid "to: "
-msgstr ""
+msgstr "hona: "
 
 #: ../data/scan_dialog.ui.h:108
 msgid "Do not convert"
-msgstr ""
+msgstr "Ez bihurtu"
 
 #: ../data/scan_dialog.ui.h:110
 msgid "Show / Hide Masks Editor"
@@ -2082,15 +2082,15 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:112
 msgid "Scanner Preferences"
-msgstr ""
+msgstr "Eskaner-hobespenak"
 
 #: ../data/search_dialog.ui.h:1
 msgid "Find Files"
-msgstr ""
+msgstr "Aurkitu fitxategiak"
 
 #: ../data/search_dialog.ui.h:2
 msgid "Search:"
-msgstr ""
+msgstr "Bilatu:"
 
 #: ../data/search_dialog.ui.h:3
 msgid ""
@@ -2100,11 +2100,11 @@ msgstr ""
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
-msgstr "_Bilatu"
+msgstr "A_urkitu"
 
 #: ../data/search_dialog.ui.h:5
 msgid "In:"
-msgstr ""
+msgstr "Hemen:"
 
 #. This option is for the previous
 #: ../data/search_dialog.ui.h:7
@@ -2122,7 +2122,7 @@ msgstr "Maiuskulak/minuskulak"
 
 #: ../data/search_dialog.ui.h:17
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../data/tag_area.ui.h:1 ../src/tag_area.c:3010
 msgid "Tag"
@@ -2196,7 +2196,7 @@ msgstr ""
 
 #: ../data/tag_area.ui.h:18
 msgid "Genre:"
-msgstr ""
+msgstr "Generoa:"
 
 #: ../data/tag_area.ui.h:19
 msgid "Comment:"
@@ -2204,23 +2204,23 @@ msgstr "Iruzkina:"
 
 #: ../data/tag_area.ui.h:20
 msgid "Tag selected files with this comment"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak iruzkin honekin"
 
 #: ../data/tag_area.ui.h:21
 msgid "Composer:"
-msgstr ""
+msgstr "Konpositorea:"
 
 #: ../data/tag_area.ui.h:22
 msgid "Tag selected files with this composer"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak konpositore honekin"
 
 #: ../data/tag_area.ui.h:23
 msgid "Orig. artist:"
-msgstr ""
+msgstr "Jatorrizko artista:"
 
 #: ../data/tag_area.ui.h:24
 msgid "Tag selected files with this original artist"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak jatorrizko artista honekin"
 
 #: ../data/tag_area.ui.h:25
 msgid "Copyright:"
@@ -2228,7 +2228,7 @@ msgstr "Copyright-a:"
 
 #: ../data/tag_area.ui.h:26
 msgid "Tag selected files with this copyright"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak copyright honekin"
 
 #: ../data/tag_area.ui.h:27
 msgid "URL:"
@@ -2236,15 +2236,15 @@ msgstr "URLa:"
 
 #: ../data/tag_area.ui.h:28
 msgid "Tag selected files with this URL"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak URL honekin"
 
 #: ../data/tag_area.ui.h:29
 msgid "Encoded by:"
-msgstr ""
+msgstr "Kodetzailea:"
 
 #: ../data/tag_area.ui.h:30
 msgid "Tag selected files with this encoder name"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak kodetzaile-izen honekin"
 
 #: ../data/tag_area.ui.h:31
 msgid "Common"
@@ -2256,23 +2256,23 @@ msgstr ""
 
 #: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
-msgstr ""
+msgstr "Gehitu irudiak etiketari"
 
 #: ../data/tag_area.ui.h:34
 msgid "Remove selected images from the tag"
-msgstr ""
+msgstr "Kendu hautatutako irudiak etiketatik"
 
 #: ../data/tag_area.ui.h:35
 msgid "Save the selected images to files"
-msgstr ""
+msgstr "Gorde hautatutako irudiak fitxategietan"
 
 #: ../data/tag_area.ui.h:36
 msgid "Edit image properties"
-msgstr ""
+msgstr "Editatu irudi-propietateak"
 
 #: ../data/tag_area.ui.h:37
 msgid "Tag selected files with these images"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak irudi hauekin"
 
 #: ../data/tag_area.ui.h:38 ../src/tag_area.c:3264 ../src/tag_area.c:3267
 msgid "Images"
@@ -2280,35 +2280,35 @@ msgstr "Irudiak"
 
 #: ../data/toolbar.ui.h:2
 msgid "First file"
-msgstr ""
+msgstr "Lehen fitxategia"
 
 #: ../data/toolbar.ui.h:3
 msgid "_Previous File"
-msgstr ""
+msgstr "_Aurreko fitxategia"
 
 #: ../data/toolbar.ui.h:4
 msgid "Previous file"
-msgstr ""
+msgstr "Aurreko fitxategia"
 
 #: ../data/toolbar.ui.h:6
 msgid "Next file"
-msgstr ""
+msgstr "Hurrengo fitxategia"
 
 #: ../data/toolbar.ui.h:8
 msgid "Last file"
-msgstr ""
+msgstr "Azken fitxategia"
 
 #: ../data/toolbar.ui.h:9
 msgid "_Show Scanner"
-msgstr ""
+msgstr "_Erakutsi eskanerra"
 
 #: ../data/toolbar.ui.h:10
 msgid "Show scanner"
-msgstr ""
+msgstr "Erakutsi eskanerra"
 
 #: ../data/toolbar.ui.h:12
 msgid "Remove tags"
-msgstr ""
+msgstr "Kendu etiketak"
 
 #: ../data/toolbar.ui.h:13
 msgid "_Undo"
@@ -2316,7 +2316,7 @@ msgstr "_Desegin"
 
 #: ../data/toolbar.ui.h:14
 msgid "Undo for file"
-msgstr ""
+msgstr "Desegin fitxategirako"
 
 #: ../data/toolbar.ui.h:15
 msgid "R_edo"
@@ -2324,47 +2324,47 @@ msgstr ""
 
 #: ../data/toolbar.ui.h:16
 msgid "Redo for file"
-msgstr ""
+msgstr "Berregin fitxategirako"
 
 #: ../data/toolbar.ui.h:18
 msgid "Save changes to selected files"
-msgstr ""
+msgstr "Gorde aldaketak hautatutako fitxategietan"
 
 #: ../data/toolbar.ui.h:20
 msgid "Browse directory tree"
-msgstr ""
+msgstr "Arakatu direktorio-zuhaitze"
 
 #: ../data/toolbar.ui.h:22
 msgid "Browse artists and albums"
-msgstr ""
+msgstr "Arakatu artistak eta albumak"
 
 #: ../data/toolbar.ui.h:24
 msgid "Invert file selection"
-msgstr ""
+msgstr "Alderantzikatu fitxategi-hautapena"
 
 #: ../data/toolbar.ui.h:26
 msgid "Search filenames and tags"
-msgstr ""
+msgstr "Bilatu fitxategi-izenak eta etiketak"
 
 #: ../data/toolbar.ui.h:27
 msgid "CDDB Search…"
-msgstr ""
+msgstr "CDDB bilaketa…"
 
 #: ../data/toolbar.ui.h:30
 msgid "Generate a playlist"
-msgstr ""
+msgstr "Sortu erreprodukzio-zerrenda"
 
 #: ../data/toolbar.ui.h:32
 msgid "Stop the current action"
-msgstr ""
+msgstr "Gelditu uneko ekintza"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:1
 msgid "Load on startup"
-msgstr ""
+msgstr "Kargatu abioan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:3
 msgid "Default path"
-msgstr ""
+msgstr "Bide-izen lehenetsia"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:7
 msgid "Show hidden directories while browsing"
@@ -2955,7 +2955,7 @@ msgstr ""
 
 #: ../src/application.c:44
 msgid "Print the version and exit"
-msgstr ""
+msgstr "Inprimatu bertsioa eta irten"
 
 #. Starting messages
 #: ../src/application.c:178
@@ -3015,7 +3015,7 @@ msgstr "Ez_abatu"
 
 #: ../src/application_window.c:376 ../src/application_window.c:386
 msgid "Delete File"
-msgstr ""
+msgstr "Ezabatu fitxategia"
 
 #: ../src/application_window.c:413
 #, c-format
@@ -3133,15 +3133,15 @@ msgstr ""
 
 #: ../src/browser.c:2579
 msgid "All albums"
-msgstr ""
+msgstr "Album guztiak"
 
 #: ../src/browser.c:3831
 msgid "Select File"
-msgstr ""
+msgstr "Hautatu fitxategia"
 
 #: ../src/browser.c:3838
 msgid "Select Directory"
-msgstr ""
+msgstr "Hautatu direktorioa"
 
 #: ../src/browser.c:4107
 #, c-format
@@ -3338,7 +3338,7 @@ msgstr ""
 #: ../src/cddb_dialog.c:3097
 #, c-format
 msgid "No file selected"
-msgstr ""
+msgstr "Ez da fitxategirik hautatu"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
@@ -3351,8 +3351,8 @@ msgstr ""
 #, c-format
 msgid "One file selected"
 msgid_plural "%u files selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fitxategi bat hautatu da"
+msgstr[1] "%u fitxategi hautatu dira"
 
 #. g_print("Request Cddb_Search_Album_From_Selected_Files : '%s'\n", cddb_in);
 #: ../src/cddb_dialog.c:3259
@@ -3369,79 +3369,79 @@ msgstr[1] ""
 
 #: ../src/charset.c:46
 msgid "Arabic (IBM-864)"
-msgstr ""
+msgstr "Arabiarra (IBM-864)"
 
 #: ../src/charset.c:47
 msgid "Arabic (ISO-8859-6)"
-msgstr ""
+msgstr "Arabiarra (ISO-8859-6)"
 
 #: ../src/charset.c:48
 msgid "Arabic (Windows-1256)"
-msgstr ""
+msgstr "Arabiarra (Windows-1256)"
 
 #: ../src/charset.c:49
 msgid "Baltic (ISO-8859-13)"
-msgstr ""
+msgstr "Baltikokoa (ISO-8859-13)"
 
 #: ../src/charset.c:50
 msgid "Baltic (ISO-8859-4)"
-msgstr ""
+msgstr "Baltikokoa (ISO-8859-4)"
 
 #: ../src/charset.c:51
 msgid "Baltic (Windows-1257)"
-msgstr ""
+msgstr "Baltikokoa (Windows-1257)"
 
 #: ../src/charset.c:52
 msgid "Celtic (ISO-8859-14)"
-msgstr ""
+msgstr "Zeltikoa (ISO-8859-14)"
 
 #: ../src/charset.c:53
 msgid "Central European (IBM-852)"
-msgstr ""
+msgstr "Europako Erdialdekoa (IBM-852)"
 
 #: ../src/charset.c:54
 msgid "Central European (ISO-8859-2)"
-msgstr ""
+msgstr "Europako Erdialdekoa (ISO-8859-2)"
 
 #: ../src/charset.c:55
 msgid "Central European (Windows-1250)"
-msgstr ""
+msgstr "Europako Erdialdekoa (Windows-1250)"
 
 #: ../src/charset.c:56
 msgid "Chinese Simplified (GB18030)"
-msgstr ""
+msgstr "Txinatar soildua (GB18030)"
 
 #: ../src/charset.c:57
 msgid "Chinese Simplified (GB2312)"
-msgstr ""
+msgstr "Txinatar soildua (GB2312)"
 
 #: ../src/charset.c:58
 msgid "Chinese Traditional (Big5)"
-msgstr ""
+msgstr "Txinatar tradizionala (Big5)"
 
 #: ../src/charset.c:59
 msgid "Chinese Traditional (Big5-HKSCS)"
-msgstr ""
+msgstr "Txinatar tradizionala (Big5-HKSCS)"
 
 #: ../src/charset.c:60
 msgid "Cyrillic (IBM-855)"
-msgstr ""
+msgstr "Zirilikoa (IBM-855)"
 
 #: ../src/charset.c:61
 msgid "Cyrillic (ISO-8859-5)"
-msgstr ""
+msgstr "Zirilikoa (ISO-8859-5)"
 
 #: ../src/charset.c:62
 msgid "Cyrillic (ISO-IR-111)"
-msgstr ""
+msgstr "Zirilikoa (ISO-IR-111)"
 
 #: ../src/charset.c:63
 msgid "Cyrillic (KOI8-R)"
-msgstr ""
+msgstr "Zirilikoa (KOI8-R)"
 
 #: ../src/charset.c:64
 msgid "Cyrillic (Windows-1251)"
-msgstr ""
+msgstr "Zirilikoa (Windows-1251)"
 
 #: ../src/charset.c:65
 msgid "Cyrillic/Russian (CP-866)"
@@ -3457,64 +3457,64 @@ msgstr ""
 
 #: ../src/charset.c:68
 msgid "Greek (ISO-8859-7)"
-msgstr ""
+msgstr "Grekoa (ISO-8859-7)"
 
 #: ../src/charset.c:69
 msgid "Greek (Windows-1253)"
-msgstr ""
+msgstr "Grekoa (Windows-1253)"
 
 #: ../src/charset.c:70
 msgid "Hebrew (IBM-862)"
-msgstr ""
+msgstr "Hebrearra (IBM-862)"
 
 #: ../src/charset.c:71
 msgid "Hebrew (Windows-1255)"
-msgstr ""
+msgstr "Hebrearra (Windows-1255)"
 
 #: ../src/charset.c:72
 msgid "Japanese (EUC-JP)"
-msgstr ""
+msgstr "Japoniarra (EUC-JP)"
 
 #: ../src/charset.c:73
 msgid "Japanese (ISO-2022-JP)"
-msgstr ""
+msgstr "Japoniarra (ISO-2022-JP)"
 
 #: ../src/charset.c:74
 msgid "Japanese (Shift_JIS)"
-msgstr ""
+msgstr "Japoniarra (Shift_JIS)"
 
 #: ../src/charset.c:75
 msgid "Korean (EUC-KR)"
-msgstr ""
+msgstr "Korearra (EUC-KR)"
 
 #: ../src/charset.c:76
 msgid "Nordic (ISO-8859-10)"
-msgstr ""
+msgstr "Nordikoa (ISO-8859-10)"
 
 #: ../src/charset.c:77
 msgid "South European (ISO-8859-3)"
-msgstr ""
+msgstr "Europako Hegoaldekoa (ISO-8859-3)"
 
 #: ../src/charset.c:78
 msgid "Thai (TIS-620)"
-msgstr ""
+msgstr "Thailandiarra (TIS-620)"
 
 #: ../src/charset.c:79
 msgid "Turkish (IBM-857)"
-msgstr ""
+msgstr "Turkiarra (IBM-857)"
 
 #: ../src/charset.c:80
 msgid "Turkish (ISO-8859-9)"
-msgstr ""
+msgstr "Turkiarra (ISO-8859-9)"
 
 #: ../src/charset.c:81
 msgid "Turkish (Windows-1254)"
-msgstr ""
+msgstr "Turkiarra (Windows-1254)"
 
 #. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
 #: ../src/charset.c:83
 msgid "Unicode (UTF-8)"
-msgstr ""
+msgstr "Unicode (UTF-8)"
 
 #. {N_("Unicode (UTF-16BE)"),                "UTF-16BE"      },
 #. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
@@ -3522,31 +3522,31 @@ msgstr ""
 #. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
 #: ../src/charset.c:90
 msgid "Vietnamese (VISCII)"
-msgstr ""
+msgstr "Vietnamdarra (VISCII)"
 
 #: ../src/charset.c:91
 msgid "Vietnamese (Windows-1258)"
-msgstr ""
+msgstr "Vietnamdarra (Windows-1258)"
 
 #: ../src/charset.c:92
 msgid "Visual Hebrew (ISO-8859-8)"
-msgstr ""
+msgstr "Hebrear bisuala (ISO-8859-8)"
 
 #: ../src/charset.c:93
 msgid "Western (IBM-850)"
-msgstr ""
+msgstr "Mendebaldekoa (IBM-850)"
 
 #: ../src/charset.c:94
 msgid "Western (ISO-8859-1)"
-msgstr ""
+msgstr "Mendebaldekoa (ISO-8859-1)"
 
 #: ../src/charset.c:95
 msgid "Western (ISO-8859-15)"
-msgstr ""
+msgstr "Mendebaldekoa (ISO-8859-15)"
 
 #: ../src/charset.c:96
 msgid "Western (Windows-1252)"
-msgstr ""
+msgstr "Mendebaldekoa (Windows-1252)"
 
 #: ../src/charset.c:594
 #, c-format
@@ -3555,7 +3555,7 @@ msgstr ""
 
 #: ../src/charset.c:595
 msgid "Invalid UTF-8"
-msgstr ""
+msgstr "Baliogabeko UTF-8"
 
 #: ../src/charset.c:652
 #, c-format
@@ -3818,35 +3818,35 @@ msgstr ""
 
 #: ../src/picture.c:174
 msgid "JPEG image"
-msgstr ""
+msgstr "JPEG irudia"
 
 #: ../src/picture.c:176
 msgid "PNG image"
-msgstr ""
+msgstr "PNG irudia"
 
 #: ../src/picture.c:178
 msgid "GIF image"
-msgstr ""
+msgstr "GIF irudia"
 
 #: ../src/picture.c:181
 msgid "Unknown image"
-msgstr ""
+msgstr "Irudi ezezaguna"
 
 #: ../src/picture.c:193
 msgid "32×32 pixel PNG file icon"
-msgstr ""
+msgstr "32×32 pixeleko PNG fitxategi-ikonoa"
 
 #: ../src/picture.c:195
 msgid "Other file icon"
-msgstr ""
+msgstr "Beste fitxategi-ikono bat"
 
 #: ../src/picture.c:197
 msgid "Cover (front)"
-msgstr ""
+msgstr "Azala (aurrealdea)"
 
 #: ../src/picture.c:199
 msgid "Cover (back)"
-msgstr ""
+msgstr "Azala (atzealdea)"
 
 #: ../src/picture.c:201
 msgid "Leaflet page"
@@ -3866,23 +3866,23 @@ msgstr ""
 
 #: ../src/picture.c:209
 msgid "Conductor"
-msgstr ""
+msgstr "Zuzendaria"
 
 #: ../src/picture.c:211
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda/orkestra"
 
 #: ../src/picture.c:215
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Letren/testuen idazlea"
 
 #: ../src/picture.c:217
 msgid "Recording location"
-msgstr ""
+msgstr "Grabazioaren kokalekua"
 
 #: ../src/picture.c:219
 msgid "During recording"
-msgstr ""
+msgstr "Grabazioan zehar"
 
 #: ../src/picture.c:221
 msgid "During performance"
@@ -3914,7 +3914,7 @@ msgstr ""
 
 #: ../src/picture.c:298 ../src/picture.c:304
 msgid "pixels"
-msgstr ""
+msgstr "pixel"
 
 #: ../src/picture.c:298 ../src/picture.c:304
 msgid "Type"
@@ -4004,26 +4004,26 @@ msgstr ""
 #. 'Scan selected files' button
 #: ../src/scan_dialog.c:2327
 msgid "Scan Files"
-msgstr ""
+msgstr "Eskaneatu fitxategiak"
 
 #: ../src/scan_dialog.c:2333
 msgid "Scan selected files"
-msgstr ""
+msgstr "Eskaneatu hautatutako fitxategiak"
 
 #: ../src/scan_dialog.c:2758
 msgid "All tags have been scanned"
-msgstr ""
+msgstr "Etiketa guztiak eskaneatu dira"
 
 #: ../src/search_dialog.c:636
 #, c-format
 msgid "Found one file"
 msgid_plural "Found %d files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fitxategi bat aurkitu da"
+msgstr[1] "%d fitxategi aurkitu dira"
 
 #: ../src/search_dialog.c:718
 msgid "Ready to search…"
-msgstr ""
+msgstr "Bilaketarako prest…"
 
 #: ../src/setting.c:246
 #, c-format
@@ -4042,7 +4042,7 @@ msgstr ""
 
 #: ../src/status_bar.c:143
 msgid "Ready to start"
-msgstr ""
+msgstr "Hasteko prest"
 
 #: ../src/tag_area.c:185
 #, c-format
@@ -4201,15 +4201,15 @@ msgstr ""
 
 #: ../src/tag_area.c:882
 msgid "All uppercase"
-msgstr ""
+msgstr "Dena maiuskuletan"
 
 #: ../src/tag_area.c:888
 msgid "All lowercase"
-msgstr ""
+msgstr "Dena minuskuletan"
 
 #: ../src/tag_area.c:894
 msgid "First letter uppercase"
-msgstr ""
+msgstr "Lehen letra maiuskuletan"
 
 #: ../src/tag_area.c:900
 msgid "First letter uppercase of each word"
@@ -4225,7 +4225,7 @@ msgstr ""
 
 #: ../src/tag_area.c:928
 msgid "Remove all text"
-msgstr ""
+msgstr "Kendu testu guztia"
 
 #: ../src/tag_area.c:1289 ../src/tag_area.c:1382
 #, c-format
@@ -4249,7 +4249,7 @@ msgstr ""
 
 #: ../src/tag_area.c:1375
 msgid "Load Image File"
-msgstr ""
+msgstr "Kargatu irudi-fitxategia"
 
 #: ../src/tag_area.c:1420 ../src/tag_area.c:1445
 #, c-format
@@ -4263,15 +4263,15 @@ msgstr ""
 
 #: ../src/tag_area.c:1441
 msgid "Image File Error"
-msgstr ""
+msgstr "Irudi-fitxategiaren errorea"
 
 #: ../src/tag_area.c:1452
 msgid "Image file loaded"
-msgstr ""
+msgstr "Irudi-fitxategia kargatu da"
 
 #: ../src/tag_area.c:1535
 msgid "Add Images"
-msgstr ""
+msgstr "Gehitu irudiak"
 
 #: ../src/tag_area.c:1545 ../src/tag_area.c:1876
 msgid "All Files"
@@ -4279,7 +4279,7 @@ msgstr "Fitxategi guztiak"
 
 #: ../src/tag_area.c:1552 ../src/tag_area.c:1883
 msgid "PNG and JPEG"
-msgstr ""
+msgstr "PNG eta JPEG"
 
 #: ../src/tag_area.c:1670
 #, c-format
@@ -4302,36 +4302,36 @@ msgstr ""
 
 #: ../src/tag_area.c:2959
 msgid "ID3 Tag"
-msgstr ""
+msgstr "ID3 etiketa"
 
 #: ../src/tag_area.c:2964
 msgid "Ogg Vorbis Tag"
-msgstr ""
+msgstr "Ogg Vorbis etiketa"
 
 #: ../src/tag_area.c:2969
 msgid "FLAC Vorbis Tag"
-msgstr ""
+msgstr "FLAC Vorbis etiketa"
 
 #: ../src/tag_area.c:2973
 msgid "APE Tag"
-msgstr ""
+msgstr "APE etiketa"
 
 #: ../src/tag_area.c:2977
 msgid "MP4/M4A/AAC Tag"
-msgstr ""
+msgstr "MP4/M4A/AAC etiketa"
 
 #: ../src/tag_area.c:2982
 msgid "Wavpack Tag"
-msgstr ""
+msgstr "Wavpack etiketa"
 
 #: ../src/tag_area.c:2987
 msgid "Opus Tag"
-msgstr ""
+msgstr "Opus etiketa"
 
 #: ../src/tag_area.c:3245
 #, c-format
 msgid "Images (%u)"
-msgstr ""
+msgstr "Irudiak (%u)"
 
 #: ../src/tags/ape_tag.c:90 ../src/tags/mp4_header.cc:58
 #: ../src/tags/mp4_header.cc:67 ../src/tags/mp4_tag.cc:73
@@ -4488,7 +4488,7 @@ msgstr ""
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:72 ../src/tags/musepack_header.c:73
 msgid "Profile:"
-msgstr ""
+msgstr "Profila:"
 
 #: ../src/tags/mp4_header.cc:68 ../src/tags/mp4_tag.cc:93
 #: ../src/tags/mp4_tag.cc:321
@@ -4501,12 +4501,12 @@ msgstr ""
 
 #: ../src/tags/mp4_header.cc:131
 msgid "MP4/AAC File"
-msgstr ""
+msgstr "MP4/AAC fitxategia"
 
 #: ../src/tags/mp4_header.cc:140 ../src/tags/mpeg_header.c:270
 #, c-format
 msgid "~%d kb/s"
-msgstr ""
+msgstr "~%d kb/s"
 
 #: ../src/tags/mp4_tag.cc:298 ../src/tags/mp4_tag.cc:314
 #: ../src/tags/mp4_tag.cc:320
@@ -4525,32 +4525,32 @@ msgstr "Estereoa"
 
 #: ../src/tags/mpeg_header.c:52
 msgid "Joint stereo"
-msgstr ""
+msgstr "Estereo bateratua"
 
 #: ../src/tags/mpeg_header.c:53
 msgid "Dual channel"
-msgstr ""
+msgstr "Kanal duala"
 
 #: ../src/tags/mpeg_header.c:54
 msgid "Single channel"
-msgstr ""
+msgstr "Kanal bakuna"
 
 #: ../src/tags/mpeg_header.c:238
 msgid "MP3 File"
-msgstr ""
+msgstr "MP3 fitxategia"
 
 #: ../src/tags/mpeg_header.c:242
 msgid "MP2 File"
-msgstr ""
+msgstr "MP2 fitxategia"
 
 #. MPEG, Layer versions
 #: ../src/tags/mpeg_header.c:250
 msgid "MPEG"
-msgstr ""
+msgstr "MPEG"
 
 #: ../src/tags/musepack_header.c:70
 msgid "MusePack File"
-msgstr ""
+msgstr "MusePack fitxategia"
 
 #: ../src/tags/ogg_header.c:243
 msgid ""
@@ -4585,16 +4585,16 @@ msgstr ""
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
-msgstr ""
+msgstr "Ogg Vorbis fitxategia"
 
 #: ../src/tags/ogg_header.c:391
 msgid "Speex File"
-msgstr ""
+msgstr "Speex fitxategia"
 
 #: ../src/tags/opus_header.c:224
 msgid "Opus File"
-msgstr ""
+msgstr "Opus fitxategia"
 
 #: ../src/tags/wavpack_header.c:137
 msgid "Wavpack File"
-msgstr ""
+msgstr "Wavpack fitxategia"
