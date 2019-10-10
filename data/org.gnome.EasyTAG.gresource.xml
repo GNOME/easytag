@@ -5,6 +5,7 @@
         <file preprocess='xml-stripblanks'>browser_dialogs.ui</file>
         <file preprocess='xml-stripblanks'>cddb_dialog.ui</file>
         <file preprocess='xml-stripblanks'>file_area.ui</file>
+        <file preprocess='xml-stripblanks'>headerbar.ui</file>
         <file preprocess='xml-stripblanks'>image_properties_dialog.ui</file>
         <file preprocess='xml-stripblanks'>log_area.ui</file>
         <file preprocess='xml-stripblanks'>load_files_dialog.ui</file>
@@ -13,8 +14,8 @@
         <file preprocess='xml-stripblanks'>preferences_dialog.ui</file>
         <file preprocess='xml-stripblanks'>scan_dialog.ui</file>
         <file preprocess='xml-stripblanks'>search_dialog.ui</file>
+        <file preprocess='xml-stripblanks'>shortcuts.ui</file>
         <file preprocess='xml-stripblanks'>tag_area.ui</file>
-        <file preprocess='xml-stripblanks'>toolbar.ui</file>
         <file preprocess='to-pixdata'>images/all-lowercase.png</file>
         <file preprocess='to-pixdata'>images/all-uppercase.png</file>
         <file preprocess='to-pixdata'>images/artist-album.png</file>
@@ -24,7 +25,6 @@
         <file preprocess='to-pixdata'>images/freedb.png</file>
         <file preprocess='to-pixdata'>images/gnudb.png</file>
         <file preprocess='to-pixdata'>images/invert-selection.png</file>
-        <file preprocess='to-pixdata'>images/mask.png</file>
         <file preprocess='to-pixdata'>images/musicbrainz.png</file>
         <file preprocess='to-pixdata'>images/red-lines.png</file>
         <file preprocess='to-pixdata'>images/sequence-track.png</file>

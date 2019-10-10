@@ -105,12 +105,13 @@
                                         <child>
                                             <object class="GtkToolbar" id="file_content_bar">
                                                 <property name="visible">True</property>
+                                                <property name="icon_size">1</property>
                                                 <style>
                                                     <class name="inline-toolbar"/>
                                                 </style>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_insert_blank">
-                                                        <property name="icon-name">list-add</property>
+                                                        <property name="icon-name">list-add-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_content_insert_blank_clicked" swapped="yes"/>
@@ -118,7 +119,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_remove">
-                                                        <property name="icon-name">list-remove</property>
+                                                        <property name="icon-name">list-remove-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Delete the selected line</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_content_remove_clicked" swapped="yes"/>
@@ -126,7 +127,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_remove_blank">
-                                                        <property name="icon-name">edit-delete</property>
+                                                        <property name="icon-name">edit-delete-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_content_delete_all_blank_clicked" swapped="yes"/>
@@ -134,7 +135,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_up">
-                                                        <property name="icon-name">go-up</property>
+                                                        <property name="icon-name">go-up-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected line up</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_content_move_up_clicked" swapped="yes"/>
@@ -142,7 +143,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_down">
-                                                        <property name="icon-name">go-down</property>
+                                                        <property name="icon-name">go-down-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected line down</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_content_move_down_clicked" swapped="yes"/>
@@ -150,7 +151,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="content_reload">
-                                                        <property name="icon-name">view-refresh</property>
+                                                        <property name="icon-name">view-refresh-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Reload</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_load_file_content_view_reload_clicked" swapped="yes"/>
@@ -200,12 +201,13 @@
                                         <child>
                                             <object class="GtkToolbar" id="file_name_bar">
                                                 <property name="visible">True</property>
+                                                <property name="icon_size">1</property>
                                                 <style>
                                                     <class name="inline-toolbar"/>
                                                 </style>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_insert_blank">
-                                                        <property name="icon-name">list-add</property>
+                                                        <property name="icon-name">list-add-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Insert a blank line before the selected line</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_name_insert_blank_clicked" swapped="yes"/>
@@ -213,7 +215,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_remove">
-                                                        <property name="icon-name">list-remove</property>
+                                                        <property name="icon-name">list-remove-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Delete the selected line</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_name_remove_clicked" swapped="yes"/>
@@ -221,7 +223,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_remove_blank">
-                                                        <property name="icon-name">edit-delete</property>
+                                                        <property name="icon-name">edit-delete-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Delete all blank lines</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_name_delete_all_blank_clicked" swapped="yes"/>
@@ -229,7 +231,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_up">
-                                                        <property name="icon-name">go-up</property>
+                                                        <property name="icon-name">go-up-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected line up</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_name_move_up_clicked" swapped="yes"/>
@@ -237,7 +239,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_down">
-                                                        <property name="icon-name">go-down</property>
+                                                        <property name="icon-name">go-down-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected line down</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_name_move_down_clicked" swapped="yes"/>
@@ -245,7 +247,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="name_reload">
-                                                        <property name="icon-name">view-refresh</property>
+                                                        <property name="icon-name">view-refresh-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Reload</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="on_load_file_name_view_reload_clicked" swapped="yes"/>

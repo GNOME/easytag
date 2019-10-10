@@ -102,12 +102,13 @@
                                             <object class="GtkToolbar" id="editor_toolbar">
                                                 <property name="margin-left">12</property>
                                                 <property name="visible">True</property>
+                                                <property name="icon_size">1</property>
                                                 <style>
                                                     <class name="inline-toolbar"/>
                                                 </style>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_new_button">
-                                                        <property name="icon-name">document-new</property>
+                                                        <property name="icon-name">document-new-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Create a new mask</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_New" swapped="yes"/>
@@ -115,7 +116,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_up_button">
-                                                        <property name="icon-name">go-up</property>
+                                                        <property name="icon-name">go-up-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected mask up</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Move_Up" swapped="yes"/>
@@ -123,7 +124,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_down_button">
-                                                        <property name="icon-name">go-down</property>
+                                                        <property name="icon-name">go-down-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Move the selected mask down</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Move_Down" swapped="yes"/>
@@ -131,7 +132,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_copy_button">
-                                                        <property name="icon-name">edit-copy</property>
+                                                        <property name="icon-name">edit-copy-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Duplicate the selected mask</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Duplicate" swapped="yes"/>
@@ -139,7 +140,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_add_button">
-                                                        <property name="icon-name">list-add</property>
+                                                        <property name="icon-name">list-add-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Add default masks</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Add" swapped="yes"/>
@@ -147,7 +148,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_remove_button">
-                                                        <property name="icon-name">list-remove</property>
+                                                        <property name="icon-name">list-remove-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Remove the selected mask</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Remove" swapped="yes"/>
@@ -155,7 +156,7 @@
                                                 </child>
                                                 <child>
                                                     <object class="GtkToolButton" id="mask_save_button">
-                                                        <property name="icon-name">document-save</property>
+                                                        <property name="icon-name">document-save-symbolic</property>
                                                         <property name="tooltip-text" translatable="yes">Save masks</property>
                                                         <property name="visible">True</property>
                                                         <signal name="clicked" handler="Mask_Editor_List_Save" swapped="yes"/>
@@ -415,7 +416,7 @@
                                                 <signal name="clicked" handler="Scan_Rename_File_Prefix_Path" swapped="yes"/>
                                                 <child>
                                                     <object class="GtkImage" id="rename_prefix_image">
-                                                        <property name="icon-name">folder-new</property>
+                                                        <property name="icon-name">folder-new-symbolic</property>
                                                         <property name="visible">True</property>
                                                     </object>
                                                 </child>
@@ -834,7 +835,7 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                         </child>
                                         <child>
                                             <object class="GtkLabel" id="convert_to_label">
-                <!-- FIXME: translation context. -->
+                                                <!-- FIXME: translation context. -->
                                                 <property name="label" translatable="yes">to: </property>
                                                 <property name="visible">True</property>
                                             </object>
@@ -866,14 +867,15 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                             <object class="GtkBox" id="action_box">
                                 <property name="orientation">horizontal</property>
                                 <property name="visible">True</property>
+                                <property name="spacing">2</property>
                                 <child>
                                     <object class="GtkToggleButton" id="mask_editor_toggle">
                                         <property name="tooltip-text" translatable="yes">Show / Hide Masks Editor</property>
                                         <property name="visible">True</property>
                                         <signal name="toggled" handler="Scan_Toggle_Mask_Editor_Button" swapped="yes"/>
                                         <child>
-                                            <object class="GtkImage" id="mask_toggle_image">
-                                                <property name="resource">/org/gnome/EasyTAG/images/mask.png</property>
+                                            <object class="GtkImage">
+                                                <property name="icon-name">document-edit-symbolic</property>
                                                 <property name="visible">True</property>
                                             </object>
                                         </child>
@@ -885,21 +887,27 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                                         <property name="visible">True</property>
                                         <signal name="toggled" handler="Scan_Toggle_Legend_Button" swapped="yes"/>
                                         <child>
-                                            <object class="GtkImage" id="scanner_legend_image">
-                                                <property name="icon-name">help-faq</property>
+                                            <object class="GtkImage">
+                                                <property name="icon-name">help-faq-symbolic</property>
                                                 <property name="visible">True</property>
                                             </object>
                                         </child>
                                     </object>
                                 </child>
                                 <child>
+                                    <object class="GtkSeparator">
+                                        <property name="visible">True</property>
+                                    </object>
+                                </child>
+                                <child>
                                     <object class="GtkButton" id="scanner_preferences_button">
                                         <property name="tooltip-text" translatable="yes">Scanner Preferences</property>
                                         <property name="visible">True</property>
+                                        <property name="relief">none</property>
                                         <signal name="clicked" handler="Scan_Option_Button"/>
                                         <child>
-                                            <object class="GtkImage" id="scanner_preferences_image">
-                                                <property name="icon-name">preferences-other</property>
+                                            <object class="GtkImage">
+                                                <property name="icon-name">preferences-other-symbolic</property>
                                                 <property name="visible">True</property>
                                             </object>
                                         </child>
@@ -924,6 +932,9 @@ Use ‘/’ to make directories. If the first character is ‘/’, it is an abs
                 <property name="label" translatable="yes">Scan Files</property>
                 <property name="tooltip-text" translatable="yes">Scan selected files</property>
                 <property name="visible">True</property>
+                <style>
+                    <class name="suggested-action"/>
+                </style>
             </object>
         </child>
         <action-widgets>

@@ -67,6 +67,7 @@
         <property name="visible">True</property>
         <child>
             <object class="GtkGrid" id="browser_grid">
+                <property name="margin-top">6</property>
                 <property name="column-spacing">6</property>
                 <property name="row-spacing">6</property>
                 <property name="visible">True</property>
@@ -78,6 +79,7 @@
                         <property name="hexpand">True</property>
                         <property name="tooltip-text" translatable="yes">Choose a directory to show in the browser</property>
                         <property name="visible">True</property>
+                        <property name="margin-left">6</property>
                     </object>
                     <packing>
                         <property name="left-attach">0</property>
@@ -86,7 +88,7 @@
                 </child>
                 <child>
                     <object class="GtkButton" id="open_button">
-                        <property name="label" translatable="yes">_Open</property>
+                        <property name="label" translatable="yes">_Browse</property>
                         <property name="tooltip-text" translatable="yes">Select a directory to browse</property>
                         <property name="use-underline">True</property>
                         <property name="visible">True</property>
@@ -103,6 +105,24 @@
                     </object>
                     <packing>
                         <property name="left-attach">2</property>
+                        <property name="top-attach">0</property>
+                    </packing>
+                </child>
+                <child>
+                    <object class="GtkMenuButton" id="browser_menu_button">
+                        <property name="tooltip-text" translatable="yes">More Browser Options</property>
+                        <property name="use-underline">True</property>
+                        <property name="visible">True</property>
+                        <property name="margin-right">6</property>
+                        <child>
+                            <object class="GtkImage">
+                                <property name="icon-name">view-more-symbolic</property>
+                                <property name="visible">True</property>
+                            </object>
+                        </child>
+                    </object>
+                    <packing>
+                        <property name="left-attach">3</property>
                         <property name="top-attach">0</property>
                     </packing>
                 </child>
@@ -553,7 +573,7 @@
                     <packing>
                         <property name="left-attach">0</property>
                         <property name="top-attach">1</property>
-                        <property name="width">3</property>
+                        <property name="width">4</property>
                     </packing>
                 </child>
             </object>

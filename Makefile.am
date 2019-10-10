@@ -316,7 +316,6 @@ images = \
 	data/images/freedb.png \
 	data/images/gnudb.png \
 	data/images/invert-selection.png \
-	data/images/mask.png \
 	data/images/musicbrainz.png \
 	data/images/red-lines.png \
 	data/images/sequence-track.png \

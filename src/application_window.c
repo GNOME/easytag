@@ -1204,20 +1204,6 @@ on_go_desktop (GSimpleAction *action,
 }
 
 static void
-on_go_documents (GSimpleAction *action,
-                 GVariant *variant,
-                 gpointer user_data)
-{
-    EtApplicationWindowPrivate *priv;
-    EtApplicationWindow *self;
-
-    self = ET_APPLICATION_WINDOW (user_data);
-    priv = et_application_window_get_instance_private (self);
-
-    et_browser_go_documents (ET_BROWSER (priv->browser));
-}
-
-static void
 on_go_downloads (GSimpleAction *action,
                  GVariant *variant,
                  gpointer user_data)
@@ -1529,7 +1515,6 @@ static const GActionEntry actions[] =
     /* Go menu. */
     { "go-home", on_go_home },
     { "go-desktop", on_go_desktop },
-    { "go-documents", on_go_documents },
     { "go-downloads", on_go_downloads },
     { "go-music", on_go_music },
     { "go-parent", on_go_parent },
@@ -1624,6 +1609,9 @@ et_application_window_init (EtApplicationWindow *self)
     g_action_map_add_action_entries (G_ACTION_MAP (self), actions,
                                      G_N_ELEMENTS (actions), self);
 
+    action = g_settings_create_action (MainSettings, "log-show");
+    g_action_map_add_action (G_ACTION_MAP (self), action);
+    g_object_unref (action);
     action = g_settings_create_action (MainSettings, "browse-show-hidden");
     g_action_map_add_action (G_ACTION_MAP (self), action);
     g_object_unref (action);
@@ -1649,19 +1637,25 @@ et_application_window_init (EtApplicationWindow *self)
     g_signal_connect (self, "window-state-event",
                       G_CALLBACK (on_window_state_event), NULL);
 
-    /* Mainvbox for Menu bar + Tool bar + "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
+    /* Mainvbox for "Browser Area & FileArea & TagArea" + Log Area + "Status bar & Progress bar" */
     main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (self), main_vbox);
 
-    /* Menu bar and tool bar. */
+    /* Header bar. */
     {
         GtkBuilder *builder;
-        GtkWidget *toolbar;
+        GtkWidget *headerbar;
+        GtkWidget *primary_menu_btn;
+        GMenuModel *primary_menu_model;
 
-        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/toolbar.ui");
+        builder = gtk_builder_new_from_resource ("/org/gnome/EasyTAG/headerbar.ui");
+        gtk_builder_add_from_resource (builder, "/org/gnome/EasyTAG/menus.ui", NULL);
 
-        toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "main_toolbar"));
-        gtk_box_pack_start (GTK_BOX (main_vbox), toolbar, FALSE, FALSE, 0);
+        headerbar = GTK_WIDGET (gtk_builder_get_object (builder, "headerbar"));
+        primary_menu_btn = GTK_WIDGET (gtk_builder_get_object (builder, "primary_menu_btn"));
+        primary_menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "primary-menu"));
+        gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(primary_menu_btn), primary_menu_model);
+        gtk_window_set_titlebar (GTK_WINDOW(window), headerbar);
 
         g_object_unref (builder);
     }
@@ -2570,7 +2564,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "open-with", FALSE);
         set_action_state (self, "invert-selection", FALSE);
         set_action_state (self, "delete", FALSE);
-        /* FIXME: set_action_state (self, "sort-mode", FALSE); */
+        /* XXX set_action_state (self, "sort-mode", FALSE); */
         set_action_state (self, "go-previous", FALSE);
         set_action_state (self, "go-next", FALSE);
         set_action_state (self, "go-first", FALSE);
@@ -2586,7 +2580,7 @@ et_application_window_update_actions (EtApplicationWindow *self)
         set_action_state (self, "show-load-filenames", FALSE);
         set_action_state (self, "show-playlist", FALSE);
         set_action_state (self, "run-player", FALSE);
-        /* FIXME set_action_state (self, "scan-mode", FALSE);*/
+        /* XXX set_action_state (self, "scan-mode", FALSE);*/
         set_action_state (self, "file-artist-view", FALSE);
 
         return;
