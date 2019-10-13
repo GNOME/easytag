@@ -4190,7 +4190,7 @@ msgstr "Preparat per començar"
 #: ../src/tag_area.c:169
 #, c-format
 msgid "Selected files tagged with title ‘%s’"
-msgstr "Els fitxers seleccionats s'han etiquetat amb el títol «%s»."
+msgstr "Els fitxers seleccionats s'han etiquetat amb el títol «%s»"
 
 #: ../src/tag_area.c:174
 msgid "Removed title from selected files"
@@ -4217,7 +4217,7 @@ msgstr "S'ha suprimit l'artista de l'àlbum dels fitxers seleccionats"
 #: ../src/tag_area.c:238
 #, c-format
 msgid "Selected files tagged with album ‘%s’"
-msgstr "Els fitxers seleccionats s'han etiquetat amb l'àlbum «%s»."
+msgstr "Els fitxers seleccionats s'han etiquetat amb l'àlbum «%s»"
 
 #: ../src/tag_area.c:243
 msgid "Removed album name from selected files"
@@ -4384,7 +4384,7 @@ msgid ""
 "how to create the image buffer"
 msgstr ""
 "No es pot mostrar la imatge ja que no s'han llegit prou dades per determinar "
-"com crear la memòria intermèdia d'imatges."
+"com crear la memòria intermèdia d'imatges"
 
 #: ../src/tag_area.c:1355
 msgid "Cannot display the image"
@@ -4708,7 +4708,7 @@ msgid ""
 "improperly"
 msgstr ""
 "El flux de bits especificat no existeix o el fitxer s'ha inicialitzat de "
-"forma indeguda (fitxer: «%s»)."
+"forma indeguda"
 
 #: ../src/tags/ogg_header.c:262
 msgid "Read from media returned an error"
@@ -4728,7 +4728,7 @@ msgstr "La capçalera de flux de bits Vorbis no és vàlida"
 
 #: ../src/tags/ogg_header.c:274
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
-msgstr "Fallada lògica interna, indica un error o corrupció a la memòria/pila."
+msgstr "Fallada lògica interna, indica un error o corrupció a la memòria/pila"
 
 #: ../src/tags/ogg_header.c:325
 #, c-format
