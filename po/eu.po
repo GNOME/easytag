@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: easytag easytag-2-4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2019-08-31 10:42+0000\n"
-"PO-Revision-Date: 2019-10-05 10:00+0100\n"
+"POT-Creation-Date: 2019-10-05 10:08+0000\n"
+"PO-Revision-Date: 2019-10-25 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -346,7 +346,7 @@ msgid ""
 "Select lines from which tags will be applied to your files list. All lines "
 "will be processed if no line is selected.\\nYou can also reorder lines in "
 "this list before using the ‘apply’ button"
-msgstr ""
+msgstr "Hautatu zure fitxategien zerrendari aplikatuko zaizkion etiketak dituzten lerroak. Lerro guztiak prozesatuko dira bat ere ez bada hautatzen.\\n Zerrendako lerroak berrantolatu ditzakezu ‘aplikatu’ botoia erabili baino lehen"
 
 #. Translators: column header for track number.
 #: ../data/cddb_dialog.ui.h:32
@@ -1046,7 +1046,7 @@ msgstr "Arakatu azpidirektorioak"
 msgid ""
 "Whether to search subdirectories for audio files when reading a directory in "
 "the browser"
-msgstr ""
+msgstr "Azpidirektorioak arakatuko diren ala ez audio-fitxategiak bilatzeko arakatzailean direktorio bat irakurtzen denean "
 
 #: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
 msgid "Expand the subdirectories of the selected directory"
@@ -1057,7 +1057,7 @@ msgstr "Hedatu hautatutako direktorioaren azpidirektorioak"
 msgid ""
 "Whether to expand the subdirectories of a node in the directory browser when "
 "selecting it"
-msgstr ""
+msgstr "Nodo bateko azpidirektorioak hedatuko diren ala ez haiek direktorioen arakatzailean hautatzean"
 
 #: ../data/preferences_dialog.ui.h:11
 msgid "Search hidden directories"
@@ -1127,12 +1127,12 @@ msgstr "Fitxategi-ezarpenak"
 #: ../data/preferences_dialog.ui.h:26
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:35
 msgid "Preserve modification time when writing files"
-msgstr ""
+msgstr "Mantendu aldaketa-ordua fitxategiak idaztean"
 
 #: ../data/preferences_dialog.ui.h:27
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
 msgid "Whether to preserve the existing modification time when editing files"
-msgstr ""
+msgstr "Lehendik dagoen aldaketa-ordua mantenduko den ala ez fitxategiak editatzean"
 
 #: ../data/preferences_dialog.ui.h:28
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:37
@@ -1144,7 +1144,7 @@ msgstr "Eguneratu direktorio gurasoaren aldaketa-ordua fitxategiak idaztean"
 msgid ""
 "Whether to update the modification time on the parent directory when editing "
 "files"
-msgstr ""
+msgstr "Direktorio gurasoaren aldaketa-ordua eguneratuko den ala ez fitxategiak editatzean"
 
 #. Translators: a section header in the Files tab of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:31
@@ -1160,7 +1160,7 @@ msgstr "Ordeztu legez kanpoko karaktereak izena aldatzean"
 msgid ""
 "Convert characters which cannot be represented in filenames on the FAT32/16 "
 "and Joliet filesystems (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, ‘<’, ‘>’, ‘|’)"
-msgstr ""
+msgstr "Bihurtu FAT32/16 eta Joliet fitxategi-sistemetako fitxategi-izenetan erabili ezin diren karaktereak (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, ‘<’, ‘>’, ‘|’)"
 
 #: ../data/preferences_dialog.ui.h:34
 msgid "Convert filename extension to:"
@@ -1206,7 +1206,7 @@ msgstr "Saiatu zure hizkuntzari lotutako kodeketa erabiltzen, eta horrek huts eg
 
 #: ../data/preferences_dialog.ui.h:44
 msgid "Transliterate characters into the system character encoding"
-msgstr ""
+msgstr "Transliteratu karaktereak sistemaren karaktere-kodeketara"
 
 #: ../data/preferences_dialog.ui.h:45
 msgid ""
@@ -1241,91 +1241,91 @@ msgstr "Dataren etiketa automatikoki osatuko den ala ez"
 #: ../data/preferences_dialog.ui.h:51
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:87
 msgid "Automatically select the type of the image based on its filename"
-msgstr ""
+msgstr "Automatikoki hautatu irudi mota haren fitxategi-izenean oinarrituta"
 
 #: ../data/preferences_dialog.ui.h:52
 msgid ""
 "Whether to, when adding cover art, automatically select a type for an image "
 "based on its filename"
-msgstr ""
+msgstr "Albumaren azala gehitzean, irudi baterako mota bat automatikoki hautatuko den ala ez, haren fitxategi-izenean oinarrituta"
 
 #: ../data/preferences_dialog.ui.h:53
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:93
 msgid "Preserve the tag field focus"
-msgstr ""
+msgstr "Eutsi etiketa-eremuaren fokuari"
 
 #: ../data/preferences_dialog.ui.h:54
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:94
 msgid "Whether to preserve focus on the current tag field when switching file"
-msgstr ""
+msgstr "Uneko etiketa-eremuaren fokuari eutsiko zaion ala ez fitxategiz aldatzean"
 
 #: ../data/preferences_dialog.ui.h:55
 msgid "Pad the number of digits in the disc field to:"
-msgstr ""
+msgstr "Bete disko-eremuaren digitu kopurua honenbeste:"
 
 #: ../data/preferences_dialog.ui.h:56
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:84
 msgid "Whether the disc number tag field should be padded with leading zeroes"
-msgstr ""
+msgstr "Disko-zenbakiaren etiketa-eremua aurretik zeroak sartuta beteko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:57
 msgid "Pad the number of digits in the track field to:"
-msgstr ""
+msgstr "Bete pista-eremuaren digitu kopurua honenbeste:"
 
 #: ../data/preferences_dialog.ui.h:58
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:90
 msgid "Whether the track number tag field should be padded with leading zeroes"
-msgstr ""
+msgstr "Pista-zenbakiaren etiketa-eremua aurretik zeroak sartuta beteko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:59
 msgid "Splitting"
-msgstr ""
+msgstr "Zatiketa"
 
 #: ../data/preferences_dialog.ui.h:60
 msgid ""
 "For Vorbis tags, selected fields will be split at dashes and saved as "
 "separate tags"
-msgstr ""
+msgstr "Vorbis etiketetan, hautatutako eremuak marratxoak dauden tokietan zatituko dira eta etiketa bereizi gisa gordeko dira"
 
 #: ../data/preferences_dialog.ui.h:62
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:186
 msgid "Whether to split title fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Tituluen eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:64
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:188
 msgid "Whether to split artist fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Artisten eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:66
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:190
 msgid "Whether to split album fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Albumen eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:68
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:192
 msgid "Whether to split genre fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Generoen eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:70
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:194
 msgid "Whether to split comment fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Iruzkinen eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:72
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:196
 msgid "Whether to split composer fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Konposatzaileen eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:73
 msgid "Original artist"
-msgstr ""
+msgstr "Jatorrizko artista"
 
 #: ../data/preferences_dialog.ui.h:74
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:198
 msgid ""
 "Whether to split original artist fields at a “ - ” separator in Ogg comments"
-msgstr ""
+msgstr "Jatorrizko artisten eremuak “ - ” bereizlearekin zatituko diren ala ez Ogg iruzkinetan"
 
 #: ../data/preferences_dialog.ui.h:75
 msgid "Tags"
@@ -1334,28 +1334,28 @@ msgstr "Etiketak"
 #: ../data/preferences_dialog.ui.h:76
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:51
 msgid "Strip ID3 tags if all ID3 tags are empty"
-msgstr ""
+msgstr "Kendu ID3 etiketak ID3 etiketa guztiak hutsik badaude"
 
 #: ../data/preferences_dialog.ui.h:77
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:52
 msgid ""
 "Whether to remove the ID3 tag from the audio file if all the individual tag "
 "fields are empty"
-msgstr ""
+msgstr "ID3 etiketa audio-fitxategitik kenduko den ala ez banakako etiketa-eremu guztiak hutsik badaude"
 
 #: ../data/preferences_dialog.ui.h:78
 msgid "Non-standard encoding for reading ID3 tags:"
-msgstr ""
+msgstr "Estandarra ez den kodeketa ID3 etiketak irakurtzeko:"
 
 #: ../data/preferences_dialog.ui.h:79
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
 msgid "Whether to use a non-standard character encoding when reading ID3 tags"
-msgstr ""
+msgstr "Estandarra ez den karaktere-kodeketa bat erabiliko den ala ez ID3 etiketak irakurtzeko"
 
 #: ../data/preferences_dialog.ui.h:80
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:60
 msgid "Choose the character set to be used when reading ID3v1 and ID3v2 tags"
-msgstr ""
+msgstr "Aukeratu ID3v1 eta ID3v2 etiketak irakurtzean erabiliko den karaktere-jokoa"
 
 #: ../data/preferences_dialog.ui.h:81
 msgid "ID3v2"
@@ -1368,7 +1368,7 @@ msgstr "Idatzi ID3v2 etiketa"
 #: ../data/preferences_dialog.ui.h:83
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:62
 msgid "Whether to write ID3v2 tags when writing ID3 tags into audio files"
-msgstr ""
+msgstr "ID3v2 etiketak idatziko diren ala ez audio-fitxategietan ID3 etiketak idaztean"
 
 #: ../data/preferences_dialog.ui.h:84
 msgid "Version:"
@@ -1379,7 +1379,9 @@ msgid ""
 "Select the ID3v2 tag version to write:\n"
 "• ID3v2.3 is written using id3lib,\n"
 "• ID3v2.4 is written using libid3tag (recommended)"
-msgstr ""
+msgstr "Hautatu idatziko den ID3v2 etiketa-bertsioa:\n"
+"• ID3v2.3 id3lib erabilita idatziko da,\n"
+"• ID3v2.4 libid3tag erabilita idatziko da (gomendatua)"
 
 #: ../data/preferences_dialog.ui.h:88
 msgid "Character encoding:"
@@ -1398,7 +1400,7 @@ msgstr "Hautatu ID3v2 etiketak idaztean erabiliko den Unicode karaktere-kodeketa
 msgid ""
 "Override the standard Unicode character encoding to be used when writing "
 "ID3v2 tags"
-msgstr ""
+msgstr "Gainidatzi ID3v2 etiketak idaztean erabili behar den Unicode karaktere-kodeketa estandarra"
 
 #: ../data/preferences_dialog.ui.h:93
 msgid "When encoding conversion fails:"
@@ -1445,12 +1447,12 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:102
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:67
 msgid "Compress data in ID3v2 tags"
-msgstr "Konprimitu ID3v2 etiketen datuak"
+msgstr "Konprimatu ID3v2 etiketen datuak"
 
 #: ../data/preferences_dialog.ui.h:103
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:68
 msgid "Whether to compress data in ID3v2 tags"
-msgstr "ID3v2 etiketen datuak konprimituko diren ala ez"
+msgstr "ID3v2 etiketen datuak konprimatuko diren ala ez"
 
 #: ../data/preferences_dialog.ui.h:104
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:71
@@ -1475,11 +1477,11 @@ msgstr "Idatzi ID3v1 etiketa"
 #: ../data/preferences_dialog.ui.h:108
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:54
 msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
-msgstr ""
+msgstr "ID3v1 etiketak idatziko diren ala ez audio-fitxategietan ID3 etiketak idaztean"
 
 #: ../data/preferences_dialog.ui.h:109
 msgid "Choose the character set to be used when writing ID3v1 tag"
-msgstr ""
+msgstr "Aukeratu ID3v1 etiketa idaztean erabiliko den karaktere-jokoa"
 
 #: ../data/preferences_dialog.ui.h:110
 msgid "ID3 Tags"
@@ -1502,7 +1504,7 @@ msgstr "Bihurtu azpimarrak eta ‘%20’ karaktereak zuriune"
 #: ../data/preferences_dialog.ui.h:117
 #, no-c-format
 msgid "Convert spaces and ‘%20’ to underscores"
-msgstr ""
+msgstr "Bihurtu zuriuneak eta ‘%20’ karaktereak azpimarra"
 
 #: ../data/preferences_dialog.ui.h:118
 msgid "No conversion"
@@ -1532,7 +1534,7 @@ msgstr "Maiuskulak hitz guztien lehen letran"
 msgid ""
 "Whether to upper-case the first letter of all words, including prepositions "
 "and other short words such as “feat.”, when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean hitz guztien lehen letra maiuskulaz idatziko diren ala ez"
 
 #: ../data/preferences_dialog.ui.h:126
 msgid "Fields"
@@ -1547,7 +1549,7 @@ msgstr "Gainidatzi eremuak etiketak eskaneatzean"
 msgid ""
 "Whether to overwrite the tag field values when filling tags. Otherwise, only "
 "blank tag fields will be filled"
-msgstr ""
+msgstr "Etiketa-eremuaren balioak gainidatziko diren ala ez etiketak betetzean. Bestela, etiketa-eremu hutsak soilik beteko dira"
 
 #: ../data/preferences_dialog.ui.h:129
 msgid "Set this text as default comment:"
@@ -1558,18 +1560,18 @@ msgstr "Ezarri testu hau iruzkin lehenetsi gisa:"
 msgid ""
 "Whether to set the comment tag field to the provided default value when "
 "filling tags"
-msgstr ""
+msgstr "Iruzkinen etiketa-eremuan balio lehenetsia ezarriko den ala ez etiketak betetzean"
 
 #: ../data/preferences_dialog.ui.h:131
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
-msgstr ""
+msgstr "Erabili CRC-32 iruzkin lehenetsi gisa (ID3 etiketak dituzten fitxategietan soilik)"
 
 #: ../data/preferences_dialog.ui.h:132
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:105
 msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
 "files with ID3 tags only"
-msgstr ""
+msgstr "Audio-fitxategien datuetako CRC-32 erabiliko den ala ez iruzkin lehenetsi gisa, ID3 etiketak dituzten fitxategietan soilik"
 
 #: ../data/preferences_dialog.ui.h:133
 msgid "Scanner"
@@ -1602,7 +1604,7 @@ msgstr "Emaitzen zerrenda"
 #: ../data/preferences_dialog.ui.h:140
 msgid ""
 "Select corresponding file (according to position or DLM if activated below)"
-msgstr ""
+msgstr "Hautatu dagokion fitxategia (DLMaren kokalekuaren arabera, behean aktibatuta badago)"
 
 #: ../data/preferences_dialog.ui.h:141
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:26
@@ -1635,7 +1637,7 @@ msgstr "Baieztatu etiketak idatzi baino lehen"
 msgid ""
 "Whether to ask for confirmation from the user before writing tags to audio "
 "files"
-msgstr ""
+msgstr "Audio-fitxategien etiketak idatzi baino lehen erabiltzailearen baieztapena eskatuko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:148
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:108
@@ -1645,7 +1647,7 @@ msgstr "Baieztatu fitxategi baten izena aldatu baino lehen"
 #: ../data/preferences_dialog.ui.h:149
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:109
 msgid "Whether to ask for confirmation from the user before renaming a file"
-msgstr ""
+msgstr "Fitxategi baten izena aldatu baino lehen erabiltzailearen baieztapena eskatuko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:150
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:112
@@ -1655,7 +1657,7 @@ msgstr "Baieztatu fitxategi bat ezabatu baino lehen"
 #: ../data/preferences_dialog.ui.h:151
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:113
 msgid "Whether to ask for confirmation from the user before deleting a file"
-msgstr ""
+msgstr "Fitxategi bat ezabatu baino lehen erabiltzailearen baieztapena eskatuko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:152
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:110
@@ -1665,19 +1667,19 @@ msgstr "Baieztatu erreprodukzio-zerrenda bat idatzi baino lehen"
 #: ../data/preferences_dialog.ui.h:153
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:111
 msgid "Whether to ask for confirmation from the user before writing a playlist"
-msgstr ""
+msgstr "Erreprodukzio-zerrenda bat idatzi baino lehen erabiltzailearen baieztapena eskatuko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:154
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:114
 msgid "Confirm before losing unsaved changes to files"
-msgstr ""
+msgstr "Baieztatu fitxategietan gorde gabeko aldaketak galdu baino lehen"
 
 #: ../data/preferences_dialog.ui.h:155
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:115
 msgid ""
 "Whether to ask for confirmation from the user before performing an operation "
 "that would lose unsaved changes on files"
-msgstr ""
+msgstr "Fitxategietan egindako gorde gabeko aldaketak galduko dituen eragiketa bat egin baino lehen erabiltzailearen baieztapena eskatuko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:156
 msgid "Scanner Dialog"
@@ -1690,7 +1692,7 @@ msgstr "Erakutsi eskanerraren elkarrizketa-koadroa abioan"
 #: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:182
 msgid "Whether to show the scanner window on application startup"
-msgstr ""
+msgstr "Aplikazioaren abioan eskanerraren leihoa erakutsiko den ala ez"
 
 #: ../data/preferences_dialog.ui.h:159
 msgid "Application"
@@ -1698,7 +1700,7 @@ msgstr "Aplikazioa"
 
 #: ../data/scan_dialog.ui.h:1
 msgid "Tag and Filename Scan"
-msgstr ""
+msgstr "Etiketen eta fitxategi-izenen eskaneatzea"
 
 #: ../data/scan_dialog.ui.h:2
 msgid ""
@@ -1708,7 +1710,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:3
 msgid "Fill tag preview"
-msgstr ""
+msgstr "Bete etiketa-aurrebista"
 
 #: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
@@ -1837,7 +1839,7 @@ msgstr "Bete etiketa"
 
 #: ../data/scan_dialog.ui.h:48
 msgid "Prefix mask with current directory"
-msgstr ""
+msgstr "Ezarri aurrizkia maskarari uneko direktorioarekin"
 
 #: ../data/scan_dialog.ui.h:49
 msgid ""
@@ -1849,7 +1851,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:51
 msgid "Rename file preview"
-msgstr ""
+msgstr "Aldatu fitxategi-aurrebistaren izena"
 
 #. Only filename changed
 #: ../data/scan_dialog.ui.h:52 ../src/easytag.c:571
@@ -1923,7 +1925,7 @@ msgstr "Maiuskulak denetan"
 #: ../data/scan_dialog.ui.h:80
 msgid ""
 "Whether to upper-case all characters of the tag when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean karaktere guztiak maiuskulaz idatziko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:81
 msgid "Lowercase all"
@@ -1932,7 +1934,7 @@ msgstr "Minuskulak denetan"
 #: ../data/scan_dialog.ui.h:82
 msgid ""
 "Whether to lower-case all characters of the tag when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean karaktere guztiak minuskulaz idatziko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:83
 msgid "Capitalize first letter"
@@ -1941,7 +1943,7 @@ msgstr "Maiuskulak lehen letran"
 #: ../data/scan_dialog.ui.h:84
 msgid ""
 "Whether to upper-case the first letter of the tag when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean etiketaren lehen letra maiuskulaz idatziko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:85
 msgid "Capitalize the first letter of each word"
@@ -1951,7 +1953,7 @@ msgstr "Maiuskulak hitz bakoitzaren lehen letran"
 msgid ""
 "Whether to upper-case the first letter of each word when processing tag "
 "fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean hitz bakoitzaren lehen letra maiuskulaz idatziko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:87
 msgid "Detect Roman numerals"
@@ -1982,16 +1984,16 @@ msgstr "Txertatu zuriune bat maiuskulen aurretik"
 #: ../data/scan_dialog.ui.h:94 ../data/org.gnome.EasyTAG.gschema.xml.h:136
 msgid ""
 "Whether to insert spaces before capital letters when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean maiuskulen aurretik zuriuneak txertatuko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:95
 msgid "Remove duplicate spaces and underscores"
-msgstr ""
+msgstr "Kendu zuriune eta azpimarra bikoiztuak"
 
 #: ../data/scan_dialog.ui.h:96 ../data/org.gnome.EasyTAG.gschema.xml.h:138
 msgid ""
 "Whether to remove duplicate spaces and underscores when processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean zuriune eta azpimarra bikoiztuak kenduko diren ala ez"
 
 #: ../data/scan_dialog.ui.h:97
 msgid "Do not change word separators"
@@ -2004,7 +2006,7 @@ msgstr "Karaktere-bihurketak"
 #: ../data/scan_dialog.ui.h:100 ../src/tag_area.c:850
 #, no-c-format
 msgid "Convert ‘_’ and ‘%20’ to spaces"
-msgstr ""
+msgstr "Bihurtu ‘_’ eta ‘%20’ karaktereak zuriune"
 
 #: ../data/scan_dialog.ui.h:102
 #, no-c-format
@@ -2015,7 +2017,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:856
 msgid "Convert spaces to underscores"
-msgstr ""
+msgstr "Bihurtu zuriuneak azpimarra"
 
 #: ../data/scan_dialog.ui.h:104
 msgid ""
@@ -2071,7 +2073,7 @@ msgstr "Bilatu:"
 msgid ""
 "Type the text to search for in the file list, or leave the field empty to "
 "display all files"
-msgstr ""
+msgstr "Idatzi fitxategi-zerrendan bilatuko den testua, edo utzi eremua hutsik fitxategi guztiak bistaratzeko"
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
@@ -2081,12 +2083,12 @@ msgstr "A_urkitu"
 msgid "In:"
 msgstr "Hemen:"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
 #: ../data/search_dialog.ui.h:7
 msgid "the Filename"
 msgstr "fitxategi-izena"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
 #: ../data/search_dialog.ui.h:9
 msgid "the Tag"
 msgstr "etiketa"
@@ -2153,11 +2155,11 @@ msgstr "Etiketatu hautatutako fitxategiak urte honekin"
 
 #: ../data/tag_area.ui.h:14
 msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory"
-msgstr ""
+msgstr "Zenbakitu hautatutako pistak sekuentzia bati jarraituta. 01 balioarekin hasten da azpidirektorio bakoitzean"
 
 #: ../data/tag_area.ui.h:15
 msgid "Track #:"
-msgstr ""
+msgstr "# pista:"
 
 #: ../data/tag_area.ui.h:16
 msgid ""
@@ -2401,7 +2403,7 @@ msgstr "Erabili DLM CDDB emaitzak fitxategiekin parekatzeko"
 msgid ""
 "Select the file with the position which matches the position of the CDDB "
 "result"
-msgstr ""
+msgstr "Hautatu CDDB emaitzaren kokalekuarekin bat datorren kokalekua duen fitxategia"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:27
 msgid "Run the scanner on CDDB results"
@@ -2413,7 +2415,7 @@ msgstr "Eskuzko CDDB bilaketan erabiliko diren eremuak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
 msgid "Which fields to search for matches of the returned CDDB results"
-msgstr ""
+msgstr "Itzulitako CDDB emaitzekin bat etortzeak bilatuko diren eremuak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:31
 msgid "The categories to use in a CDDB search"
@@ -2421,7 +2423,7 @@ msgstr "CDDB bilaketa batean erabiliko diren kategoriak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:32
 msgid "Which categories to search for matches in the returned CDDB results"
-msgstr ""
+msgstr "Zein kategoriak arakatuko diren itzulitako CDDB emaitzekin bat etortzeak bilatzeko"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:33
 msgid "The tag fields to set when matching against CDDB results"
@@ -2465,11 +2467,11 @@ msgstr "ID3v1 etiketak idazteko karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:56
 msgid "Choose the character set to be used when writing ID3v1 tags"
-msgstr ""
+msgstr "Aukeratu ID3v1 etiketak idaztean erabiliko den karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:57
 msgid "Encoding options when writing ID3v1 tags"
-msgstr ""
+msgstr "ID3v1 etiketak idaztean erabiliko diren kodeketa-aukerak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:58
 msgid ""
@@ -2479,7 +2481,7 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:59
 msgid "The character set for reading ID3v1 and ID3v2 tags"
-msgstr ""
+msgstr "ID3v1 eta ID3v2 etiketak irakurtzeko karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:61
 msgid "Write ID3v2 tags"
@@ -2491,44 +2493,44 @@ msgstr "Gaitu ID3v2.4 euskarria"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
 msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
-msgstr ""
+msgstr "ID3v2.4 etiketak idatziko diren ala ez ID3v2 euskarria gaituta dagoenean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:65
 msgid "Convert old ID3 tag versions to new ones"
-msgstr ""
+msgstr "Bihurtu ID3 etiketa-bertsio zaharrak bertsio berri"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:69
 msgid "Use CRC-32 in ID3v2 tags"
-msgstr ""
+msgstr "Erabili CRC-32 ID3v2 etiketetan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:73
 msgid "Use Unicode character encoding in ID3v2 tags"
-msgstr ""
+msgstr "Erabili Unicode karaktere-kodeketa ID3v2 etiketetan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:74
 msgid "Whether to use a Unicode character set when writing ID3v2 tags"
-msgstr ""
+msgstr "Unicode karaktere-jokoa erabiliko den ala ez ID3v2 etiketak idaztean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "The Unicode character set for writing ID3v2 tags"
-msgstr ""
+msgstr "ID3v2 etiketak idazteko karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:76
 msgid "Choose the Unicode character set to be used when writing ID3v2 tags"
-msgstr ""
+msgstr "Hautatu ID3v2 etiketak idaztean erabiliko den Unicode karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:77
 msgid "The character set for writing ID3v2 tags"
-msgstr ""
+msgstr "ID3v2 etiketak idazteko karaktere-jokoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:78
 msgid ""
 "Override the typical Unicode character set to be used when writing ID3v2 tags"
-msgstr ""
+msgstr "Gainidatzi ID3v2 etiketak idaztean erabili behar den Unicode karaktere-joko tipikoa"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:79
 msgid "Encoding options when writing ID3v2 tags"
-msgstr ""
+msgstr "Kodeketa-aukerak ID3v2 etiketak idazteko"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:80
 msgid ""
@@ -2542,7 +2544,7 @@ msgstr "Automatikoki osatu data"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:83
 msgid "Pad the disc number tag field"
-msgstr ""
+msgstr "Bete disko-zenbakiaren etiketa-eremua"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:85
 msgid "The length of the disc number field"
@@ -2552,31 +2554,31 @@ msgstr "Disko-zenbakiaren eremuaren luzera"
 msgid ""
 "The length of the disc number field, which controls if the field is padded "
 "with leading zeroes"
-msgstr ""
+msgstr "Disko-zenbakiaren eremuaren luzera, eremua aurretik zeroak sartuta beteko den ala ez kontrolatzen duena"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:88
 msgid ""
 "Whether to, when adding cover art, automatically select the type for an "
 "image based on its filename"
-msgstr ""
+msgstr "Albumaren azala gehitzean, irudiaren mota automatikoki hautatuko den ala ez, haren fitxategi-izenean oinarrituta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Pad the track number tag field"
-msgstr ""
+msgstr "Bete pista-zenbakiaren etiketa-eremua"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:91
 msgid "The length of the track number field"
-msgstr ""
+msgstr "Pista-zenbakiaren eremuaren luzera"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:92
 msgid ""
 "The length of the track number field, which controls if the field is padded "
 "with leading zeroes"
-msgstr ""
+msgstr "Pista-zenbakiaren eremuaren luzera, eremua aurretik zeroak sartuta beteko den ala ez kontrolatzen duena"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "Convert spaces and underscores when filling tag fields"
-msgstr ""
+msgstr "Bihurtu zuriuneak eta azpimarrak etiketa-eremuak betetzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:97
 #, no-c-format
@@ -2752,13 +2754,13 @@ msgstr "Bilatu etiketetan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:161
 msgid "Mask for filling tags from filenames"
-msgstr ""
+msgstr "Maskara etiketak fitxategi-izenetatik betetzeko"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:162
 msgid ""
 "The default mask to use when automatically filling tags with information "
 "from filenames"
-msgstr ""
+msgstr "Etiketak fitxategi-izenetako informazioa erabilita automatikoki betetzen direnean erabiliko den maskara lehenetsia"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:163
 msgid "Mask for renaming files"
@@ -2782,11 +2784,11 @@ msgstr "Erabili maskara bat direktorioen izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:169
 msgid "Convert spaces and underscores when renaming files"
-msgstr ""
+msgstr "Bihurtu zuriuneak eta azpimarrak fitxategien izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:170
 msgid "Whether to convert to spaces or underscores when renaming files"
-msgstr ""
+msgstr "Bihurtu zuriuneak edo azpimarrak fitxategien izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:171
 msgid "How to modify filename extensions when renaming"
@@ -2995,11 +2997,11 @@ msgstr "Huts egin du  ‘%s’ programa abiarazteak"
 #: ../src/application_window.c:1988
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
-msgstr ""
+msgstr "Ezin izan da ‘%s’ fitxategi-izena bihurtu sistemako fitxategi-izenen kodeketara"
 
 #: ../src/application_window.c:1991
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
-msgstr ""
+msgstr "Saiatu G_FILENAME_ENCODING ingurune-aldagaia ezartzen."
 
 #: ../src/application_window.c:1993 ../src/scan_dialog.c:846
 msgid "Filename translation"
@@ -3070,7 +3072,7 @@ msgstr "Haiek gorde nahi dituzu direktorioz aldatu baino lehen?"
 
 #: ../src/browser.c:919
 msgid "Confirm Directory Change"
-msgstr "Baiztatu direktorio-aldaketa"
+msgstr "Baieztatu direktorio-aldaketa"
 
 #: ../src/browser.c:2618
 msgid "All albums"
@@ -3100,7 +3102,7 @@ msgstr "Errorea direktorio-izenean"
 #: ../src/browser.c:4299
 #, c-format
 msgid "Could not convert ‘%s’ into filename encoding"
-msgstr ""
+msgstr "Ezin izan da ‘%s’ fitxategi-izenen kodeketara bihurtu"
 
 #: ../src/browser.c:4302
 msgid "Please use another name."
@@ -3109,7 +3111,7 @@ msgstr "Erabili beste izen bat"
 #: ../src/browser.c:4374
 #, c-format
 msgid "The directory name ‘%s’ already exists."
-msgstr ""
+msgstr "‘%s’ direktorio-izena badago lehendik ere."
 
 #: ../src/browser.c:4375 ../src/easytag.c:650
 msgid "Rename File Error"
@@ -3153,12 +3155,12 @@ msgstr "Eskaria bidaltzen…"
 #: ../src/cddb_dialog.c:842
 #, c-format
 msgid "The server returned a bad response ‘%s’"
-msgstr ""
+msgstr "Zerbitzariak ‘%s’ erantzun okerra itzuli du"
 
 #. Load the track list of the album
 #: ../src/cddb_dialog.c:1036
 msgid "Loading album track list…"
-msgstr ""
+msgstr "Albumeko pisten zerrenda kargatzen…"
 
 #.
 #. * Read the answer
@@ -3170,24 +3172,24 @@ msgstr "Datuak jasotzen…"
 #: ../src/cddb_dialog.c:1520
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
-msgstr ""
+msgstr "Web bidezko bilaketa ez dago erabilgarri momentu honetan"
 
 #: ../src/cddb_dialog.c:1523 ../src/cddb_dialog.c:1856
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bat datorren album bat aurkitu da"
+msgstr[1] "Bat datozen %u album aurkitu dira"
 
 #: ../src/cddb_dialog.c:1671
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
-msgstr ""
+msgstr "%d. orriko datuak jasotzen (%d/%d album)…"
 
 #: ../src/cddb_dialog.c:1673
 #, c-format
 msgid "Receiving data of page %d…"
-msgstr ""
+msgstr "%d orriko datuak jasotzen…"
 
 #: ../src/cddb_dialog.c:1689
 msgid "The server returned a bad response"
@@ -3196,19 +3198,19 @@ msgstr "Zerbitzariak erantzun okerra itzuli du"
 #: ../src/cddb_dialog.c:1828
 #, c-format
 msgid "More results to load…"
-msgstr ""
+msgstr "Kargatzeko emaitza gehiago…"
 
 #: ../src/cddb_dialog.c:2138
 msgid "The number of CDDB results does not match the number of selected files"
-msgstr ""
+msgstr "CDDB emaitzen kopurua ez dator bat hautatutako fitxategien kopuruarekin"
 
 #: ../src/cddb_dialog.c:2144
 msgid "Write Tag from CDDB"
-msgstr ""
+msgstr "Idatzi etiketa CDDBtik"
 
 #: ../src/cddb_dialog.c:2459
 msgid "Ready to search"
-msgstr ""
+msgstr "Bilaketarako prest"
 
 #: ../src/cddb_dialog.c:2614
 #, c-format
@@ -3220,7 +3222,7 @@ msgstr "Ez da fitxategirik hautatu"
 #: ../src/cddb_dialog.c:2623
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
-msgstr ""
+msgstr "99 fitxategi baino gehiago hautatu dira. Ezin da eskaria bidali"
 
 #: ../src/cddb_dialog.c:2629
 #, c-format
@@ -3232,14 +3234,14 @@ msgstr[1] "%u fitxategi hautatu dira"
 #: ../src/cddb_dialog.c:2756
 #, c-format
 msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
-msgstr ""
+msgstr "Eskaria bidaltzen (diskoaren IDa: %s, #pistak: %u, diskoaren luzera: %u)…"
 
 #: ../src/cddb_dialog.c:2877
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "‘%s’ IDak bat datorren album bat eman du"
+msgstr[1] "‘%s’ IDak bat datozen %u album eman ditu"
 
 #: ../src/charset.c:46
 msgid "Arabic (IBM-864)"
@@ -3319,15 +3321,15 @@ msgstr "Zirilikoa (Windows-1251)"
 
 #: ../src/charset.c:65
 msgid "Cyrillic/Russian (CP-866)"
-msgstr ""
+msgstr "Zirilikoa/Errusiarra (CP-866)"
 
 #: ../src/charset.c:66
 msgid "Cyrillic/Ukrainian (KOI8-U)"
-msgstr ""
+msgstr "Zirilikoa/Ukrainarra (KOI8-U)"
 
 #: ../src/charset.c:67
 msgid "English (US-ASCII)"
-msgstr ""
+msgstr "Ingelesa (US-ASCII)"
 
 #: ../src/charset.c:68
 msgid "Greek (ISO-8859-7)"
@@ -3425,7 +3427,7 @@ msgstr "Mendebaldekoa (Windows-1252)"
 #: ../src/charset.c:576
 #, c-format
 msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
-msgstr ""
+msgstr "‘%s’ UTF-8 katea ezin da fitxategi-izenen kodeketara bihurtu: %s"
 
 #: ../src/charset.c:577
 msgid "Invalid UTF-8"
@@ -3434,18 +3436,18 @@ msgstr "Baliogabeko UTF-8"
 #: ../src/charset.c:634
 #, c-format
 msgid "The string ‘%s’ could not be converted into UTF-8: %s"
-msgstr ""
+msgstr "‘%s’ katea ezin da UTF-8ra bihurtu: %s"
 
 #: ../src/easytag.c:229
 #, c-format
 msgid "A file was changed by an external program"
 msgid_plural "%d files were changed by an external program"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fitxategi bat kanpoko programa batek aldatu du"
+msgstr[1] "%d fitxategi kanpoko programa batek aldatu ditu"
 
 #: ../src/easytag.c:238
 msgid "Do you want to continue saving the file?"
-msgstr ""
+msgstr "Fitxategia gordetzen jarraitu nahi duzu?"
 
 #: ../src/easytag.c:299 ../src/easytag.c:320
 msgid "Saving files was stopped"
@@ -3458,7 +3460,7 @@ msgstr "Fitxategi guztiak gorde dira"
 #: ../src/easytag.c:452
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
-msgstr ""
+msgstr "‘%s’ fitxategiaren etiketa idatzi nahi duzu?"
 
 #: ../src/easytag.c:454
 msgid "Confirm Tag Writing"
@@ -3471,7 +3473,7 @@ msgstr "Aldatu fitxategiaren eta direktorioaren izena"
 
 #: ../src/easytag.c:556
 msgid "File and directory rename confirmation required"
-msgstr ""
+msgstr "Fitxategien eta direktorioen izena aldatzeak baieztapena behar dute"
 
 #: ../src/easytag.c:557
 #, c-format
@@ -3480,7 +3482,7 @@ msgstr ""
 
 #: ../src/easytag.c:563
 msgid "Directory rename confirmation required"
-msgstr ""
+msgstr "Direktorioen izena aldatzeak baieztapena behar du"
 
 #: ../src/easytag.c:564
 #, c-format
@@ -3489,7 +3491,7 @@ msgstr ""
 
 #: ../src/easytag.c:572
 msgid "File rename confirmation required"
-msgstr ""
+msgstr "Fitxategien izena aldatzeak baieztapena behar du"
 
 #: ../src/easytag.c:573
 #, c-format
@@ -3541,7 +3543,7 @@ msgstr ""
 #: ../src/easytag.c:780
 #, c-format
 msgid "Cannot write tag in file ‘%s’"
-msgstr ""
+msgstr "Ezin izan da etiketa idatzi ‘%s’ fitxategian"
 
 #: ../src/easytag.c:785
 msgid "Tag Write Error"
@@ -3617,37 +3619,37 @@ msgstr "Irakurtzeko soilik den fitxategia"
 #: ../src/file_list.c:245
 #, c-format
 msgid "Error reading ID3 tag from file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ID3 etiketa ‘%s’ fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:256
 #, c-format
 msgid "Error reading tag from Ogg file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea etiketa ‘%s’ Ogg fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:267
 #, c-format
 msgid "Error reading tag from FLAC file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea etiketa ‘%s’ FLAC fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:277
 #, c-format
 msgid "Error reading APE tag from file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea APE etiketa ‘%s’ fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:287
 #, c-format
 msgid "Error reading tag from MP4 file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea etiketa ‘%s’ MP4 fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:298
 #, c-format
 msgid "Error reading tag from WavPack file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea etiketa ‘%s’ WavPack fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:309
 #, c-format
 msgid "Error reading tag from Opus file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea etiketa ‘%s’ Opus fitxategitik irakurtzean: %s"
 
 #: ../src/file_list.c:345
 #, c-format
@@ -3659,12 +3661,12 @@ msgstr ""
 #: ../src/file_list.c:501
 #, c-format
 msgid "Automatic corrections applied for file ‘%s’"
-msgstr ""
+msgstr "Zuzenketa automatikoa aplikatu zaio ‘%s’ fitxategiari"
 
 #: ../src/load_files_dialog.c:272 ../src/setting.c:329
 #, c-format
 msgid "Cannot open file ‘%s’: %s"
-msgstr ""
+msgstr "Ezin da ‘%s’ fitxategia ireki: %s"
 
 #: ../src/load_files_dialog.c:302
 #, c-format
@@ -3729,19 +3731,19 @@ msgstr "Azala (atzealdea)"
 
 #: ../src/picture.c:201
 msgid "Leaflet page"
-msgstr ""
+msgstr "Liburuxkaren orrialdea"
 
 #: ../src/picture.c:203
 msgid "Media (such as label side of CD)"
-msgstr ""
+msgstr "Multimedia (adibidez CDaren etiketaren aldea)"
 
 #: ../src/picture.c:205
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Aritsta nagusia/interprete nagusia/bakarlaria"
 
 #: ../src/picture.c:207
 msgid "Artist/performer"
-msgstr ""
+msgstr "Artista/interpretea"
 
 #: ../src/picture.c:209
 msgid "Conductor"
@@ -3765,15 +3767,15 @@ msgstr "Grabazioan zehar"
 
 #: ../src/picture.c:221
 msgid "During performance"
-msgstr ""
+msgstr "Joaldian zehar"
 
 #: ../src/picture.c:223
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Filmaren/bideoaren pantaila-kaptura"
 
 #: ../src/picture.c:225
 msgid "A bright colored fish"
-msgstr ""
+msgstr "Koloredun arrain distiratsua"
 
 #: ../src/picture.c:227
 msgid "Illustration"
@@ -3785,7 +3787,7 @@ msgstr "Bandaren/artistaren logotipoa"
 
 #: ../src/picture.c:231
 msgid "Publisher/studio logotype"
-msgstr ""
+msgstr "Argitaratzailearen/estudioaren logotipoa"
 
 #: ../src/picture.c:235
 msgid "Unknown image type"
@@ -3807,11 +3809,11 @@ msgstr ""
 #: ../src/playlist_dialog.c:530
 #, c-format
 msgid "Cannot write playlist file ‘%s’"
-msgstr ""
+msgstr "Ezin izan da ‘%s’ erreprodukzio-zerrendaren fitxategia idatzi"
 
 #: ../src/playlist_dialog.c:534
 msgid "Playlist File Error"
-msgstr ""
+msgstr "Erreprodukzio-zerrendaren fitxategiaren errorea"
 
 #: ../src/playlist_dialog.c:542
 #, c-format
@@ -3821,11 +3823,11 @@ msgstr ""
 #: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2639
 #: ../src/scan_dialog.c:2702
 msgid "Invalid scanner mask"
-msgstr ""
+msgstr "Eskanerraren maskara baliogabea"
 
 #: ../src/preferences_dialog.c:864
 msgid "The selected default path is invalid"
-msgstr ""
+msgstr "Hautatutako bide-izen lehenetsia baliogabea da"
 
 #: ../src/preferences_dialog.c:866
 #, c-format
@@ -3884,7 +3886,7 @@ msgstr ""
 
 #: ../src/scan_dialog.c:2119
 msgid "New_mask"
-msgstr ""
+msgstr "Maskara_berria"
 
 #: ../src/scan_dialog.c:2769
 msgid "All tags have been scanned"
@@ -4089,15 +4091,15 @@ msgstr "Lehen letra maiuskuletan"
 
 #: ../src/tag_area.c:884
 msgid "First letter uppercase of each word"
-msgstr ""
+msgstr "Hitz bakoitzaren lehen letra maiuskuletan"
 
 #: ../src/tag_area.c:900
 msgid "Insert space before uppercase letter"
-msgstr ""
+msgstr "Txertatu zuriunea letra maiuskulen aurretik"
 
 #: ../src/tag_area.c:906
 msgid "Remove duplicate spaces or underscores"
-msgstr ""
+msgstr "Kendu zuriune edo azpimarra bikoiztuak"
 
 #: ../src/tag_area.c:912
 msgid "Remove all text"
@@ -4116,7 +4118,7 @@ msgstr ""
 
 #: ../src/tag_area.c:1355
 msgid "Cannot display the image"
-msgstr ""
+msgstr "Ezin da irudia bistaratu"
 
 #: ../src/tag_area.c:1357
 msgid ""
@@ -4135,7 +4137,7 @@ msgstr ""
 #: ../src/tag_area.c:1421
 #, c-format
 msgid "Cannot open file ‘%s’"
-msgstr ""
+msgstr "Ezin da ‘%s’ fitxategia kargatu"
 
 #: ../src/tag_area.c:1425
 msgid "Image File Error"
@@ -4174,7 +4176,7 @@ msgstr ""
 
 #: ../src/tag_area.c:2167
 msgid "Tag selected files with this genre"
-msgstr ""
+msgstr "Etiketatu hautatutako fitxategiak genero honekin"
 
 #: ../src/tag_area.c:2940
 msgid "ID3 Tag"
@@ -4215,19 +4217,19 @@ msgstr "Irudiak (%u)"
 #: ../src/tags/ogg_header.c:227
 #, c-format
 msgid "Error while opening file: %s"
-msgstr ""
+msgstr "Errorea fitxategia irekitzean: %s"
 
 #: ../src/tags/ape_tag.c:372
 msgid "Failed to write APE tag"
-msgstr ""
+msgstr "Huts egin du APE etiketa idazteak"
 
 #: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:225
 msgid "Error opening FLAC file"
-msgstr ""
+msgstr "Errorea FLAC fitxategia irekitzean"
 
 #: ../src/tags/flac_header.c:182
 msgid "FLAC File"
-msgstr ""
+msgstr "FLAC fitxategia"
 
 #. Mode
 #. Mode
@@ -4253,7 +4255,7 @@ msgstr ""
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
-msgstr ""
+msgstr "Fitxategi hondatua"
 
 #: ../src/tags/id3_tag.c:635
 #, c-format
@@ -4282,31 +4284,31 @@ msgstr ""
 
 #: ../src/tags/id3_tag.c:760
 msgid "Buggy id3lib"
-msgstr ""
+msgstr "id3lib akastuna"
 
 #: ../src/tags/id3_tag.c:781
 msgid "No error reported"
-msgstr ""
+msgstr "Ez du errorerik eman"
 
 #: ../src/tags/id3_tag.c:783
 msgid "No available memory"
-msgstr ""
+msgstr "Ez dago memoriarik erabilgarri"
 
 #: ../src/tags/id3_tag.c:785
 msgid "No data to parse"
-msgstr ""
+msgstr "Ez dago daturik analizatzeko"
 
 #: ../src/tags/id3_tag.c:787
 msgid "Improperly formatted data"
-msgstr ""
+msgstr "Gaizki formateatutako datuak"
 
 #: ../src/tags/id3_tag.c:789
 msgid "No buffer to write to"
-msgstr ""
+msgstr "Ez dago bufferrik idazteko"
 
 #: ../src/tags/id3_tag.c:791
 msgid "Buffer is too small"
-msgstr ""
+msgstr "Bufferra txikiegia da"
 
 #: ../src/tags/id3_tag.c:793
 msgid "Invalid frame ID"
@@ -4318,35 +4320,35 @@ msgstr ""
 
 #: ../src/tags/id3_tag.c:797
 msgid "Unknown field type"
-msgstr ""
+msgstr "Eremu mota ezezaguna"
 
 #: ../src/tags/id3_tag.c:799
 msgid "Tag is already attached to a file"
-msgstr ""
+msgstr "Etiketa dagoeneko fitxategi bati erantsita dago"
 
 #: ../src/tags/id3_tag.c:801
 msgid "Invalid tag version"
-msgstr ""
+msgstr "Etiketa-bertsio baliogabea"
 
 #: ../src/tags/id3_tag.c:803
 msgid "No file to parse"
-msgstr ""
+msgstr "Ez dago fitxategirik analizatzeko"
 
 #: ../src/tags/id3_tag.c:805
 msgid "Attempting to write to a read-only file"
-msgstr ""
+msgstr "Irakurtzeko soilik den fitxategia idazteko saioa"
 
 #: ../src/tags/id3_tag.c:807
 msgid "Error in compression/uncompression"
-msgstr ""
+msgstr "Errorea konprimatzean/deskonprimatzean"
 
 #: ../src/tags/id3_tag.c:809
 msgid "Unknown error message"
-msgstr ""
+msgstr "Errore-mezu ezezaguna"
 
 #: ../src/tags/id3_tag.c:1553
 msgid "Error while creating temporary file"
-msgstr ""
+msgstr "Errorea aldi baterako fitxategia sortzean"
 
 #: ../src/tags/id3v24_tag.c:135 ../src/tags/id3v24_tag.c:190
 #: ../src/tags/id3v24_tag.c:228 ../src/tags/id3v24_tag.c:238
@@ -4355,11 +4357,11 @@ msgstr ""
 #: ../src/tags/id3v24_tag.c:1014 ../src/tags/id3v24_tag.c:1054
 #: ../src/tags/mp4_tag.cc:102 ../src/tags/ogg_header.c:277
 msgid "Error reading tags from file"
-msgstr ""
+msgstr "Errorea fitxategitik etiketak irakurtzean"
 
 #: ../src/tags/monkeyaudio_header.c:69
 msgid "Monkey's Audio File"
-msgstr ""
+msgstr "Monkey's Audio fitxategia"
 
 #. Mode changed to profile name
 #: ../src/tags/monkeyaudio_header.c:72 ../src/tags/musepack_header.c:73
@@ -4369,11 +4371,11 @@ msgstr "Profila:"
 #: ../src/tags/mp4_header.cc:68 ../src/tags/mp4_tag.cc:93
 #: ../src/tags/mp4_tag.cc:321
 msgid "MP4 format invalid"
-msgstr ""
+msgstr "MP4 formatu baliogabea"
 
 #: ../src/tags/mp4_header.cc:77
 msgid "Error reading properties from file"
-msgstr ""
+msgstr "Errorea propietateak fitxategitik irakurtzean"
 
 #: ../src/tags/mp4_header.cc:131
 msgid "MP4/AAC File"
@@ -4388,12 +4390,12 @@ msgstr "~%d kb/s"
 #: ../src/tags/mp4_tag.cc:320
 #, c-format
 msgid "Error while opening file ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategia irekitzean: %s"
 
 #: ../src/tags/mp4_tag.cc:331
 #, c-format
 msgid "Error reading tags from file ‘%s’"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategitik etiketak irakurtzean"
 
 #: ../src/tags/mpeg_header.c:51
 msgid "Stereo"
@@ -4432,7 +4434,7 @@ msgstr "MusePack fitxategia"
 msgid ""
 "The specified bitstream does not exist or the file has been initialized "
 "improperly"
-msgstr ""
+msgstr "Zehaztutako bit-korrontea ez da existitzen edo fitxategia gaizki hasieratu da"
 
 #: ../src/tags/ogg_header.c:262
 msgid "Read from media returned an error"
@@ -4440,11 +4442,11 @@ msgstr ""
 
 #: ../src/tags/ogg_header.c:265
 msgid "Bitstream is not Vorbis data"
-msgstr ""
+msgstr "Bit-korrontea ez da Vorbis datuena"
 
 #: ../src/tags/ogg_header.c:268
 msgid "Vorbis version mismatch"
-msgstr ""
+msgstr "Vorbis bertsioa ez dator bat"
 
 #: ../src/tags/ogg_header.c:271
 msgid "Invalid Vorbis bitstream header"
