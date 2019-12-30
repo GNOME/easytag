@@ -183,7 +183,7 @@ msgstr "Codificat per"
 
 #: ../data/browser_dialogs.ui.h:1
 msgid "Browse Directory With"
-msgstr "Navega pel directori"
+msgstr "Navega pel directori amb"
 
 #: ../data/browser_dialogs.ui.h:2
 msgid "Run Program"
@@ -295,7 +295,7 @@ msgstr "Opcions de cerca manual"
 #. Translators: header for CDDB fields to use when searching
 #: ../data/cddb_dialog.ui.h:11
 msgid "Search Fields"
-msgstr "Cerca els camps"
+msgstr "Camps de cerca"
 
 #: ../data/cddb_dialog.ui.h:14
 msgid "Track Name"
@@ -1521,7 +1521,7 @@ msgstr "Translitera"
 
 #: ../data/preferences_dialog.ui.h:97
 msgid "Discard"
-msgstr "Suprimeix"
+msgstr "Descarta"
 
 #: ../data/preferences_dialog.ui.h:98
 msgid "Automatically convert old ID3v2 tag versions"
@@ -3293,7 +3293,7 @@ msgstr "Alguns fitxers han estat modificats però no desats"
 #: ../src/application_window.c:3013 ../src/browser.c:913 ../src/easytag.c:233
 #: ../src/easytag.c:463 ../src/easytag.c:595 ../src/easytag.c:603
 msgid "_Discard"
-msgstr "_Suprimeix"
+msgstr "_Descarta"
 
 #: ../src/application_window.c:3019 ../src/easytag.c:239
 msgid "Quit"
@@ -3369,7 +3369,7 @@ msgstr "S'ha canviat el nom al directori"
 #: ../src/browser.c:4632 ../src/browser.c:4707
 #, c-format
 msgid "Executed command ‘%s’"
-msgstr "S'ha executat l'ordre %s"
+msgstr "S'ha executat l'ordre «%s»"
 
 #: ../src/cddb_dialog.c:280
 #, c-format
