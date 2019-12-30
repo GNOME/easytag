@@ -957,7 +957,7 @@ msgstr "Establecer la ruta actual como predeterminada"
 
 #: ../data/menus.ui.h:100
 msgid "Browse Subdirectories"
-msgstr "Explorarsubcarpetas"
+msgstr "Explorar subcarpetas"
 
 #: ../data/menus.ui.h:101
 msgid "Invert Selection"
