@@ -431,15 +431,17 @@ vcedit_supported_stream (EtOggState *state,
         result = ET_OGG_KIND_UNKNOWN;
 
 #ifdef ENABLE_SPEEX
-        SpeexHeader *speex;
-
-        /* Done after "Ogg test" to avoid to display an error message in
-         * function speex_packet_to_header() when the file is not Speex. */
-        if ((speex = speex_packet_to_header ((char*)(&header)->packet,
-                                             (&header)->bytes)))
         {
-            result = ET_OGG_KIND_SPEEX;
-            speex_header_free (speex);
+            SpeexHeader *speex;
+
+            /* Done after "Ogg test" to avoid displaying an error message in
+             * speex_packet_to_header() when the file is not Speex. */
+            if ((speex = speex_packet_to_header ((char*)(&header)->packet,
+                                                 (&header)->bytes)))
+            {
+                result = ET_OGG_KIND_SPEEX;
+                speex_header_free (speex);
+            }
         }
 #endif
 
