@@ -583,12 +583,10 @@ vcedit_open (EtOggState *state,
         case ET_OGG_KIND_OPUS:
 #endif
         case ET_OGG_KIND_UNKNOWN:
+        case ET_OGG_KIND_UNSUPPORTED:
             /* TODO: Translatable string. */
             g_set_error (error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
-                         "Ogg bitstream contains unknown data");
-            goto err;
-            break;
-        case ET_OGG_KIND_UNSUPPORTED:
+                         "Ogg bitstream contains unknown or unsupported data");
             goto err;
             break;
         default:
@@ -621,6 +619,7 @@ vcedit_open (EtOggState *state,
         case ET_OGG_KIND_OPUS:
 #endif
         case ET_OGG_KIND_UNKNOWN:
+        case ET_OGG_KIND_UNSUPPORTED:
         default:
             g_assert_not_reached ();
             break;
@@ -731,6 +730,7 @@ vcedit_open (EtOggState *state,
                         case ET_OGG_KIND_OPUS:
 #endif
                         case ET_OGG_KIND_UNKNOWN:
+                        case ET_OGG_KIND_UNSUPPORTED:
                         default:
                             g_assert_not_reached ();
                             break;
