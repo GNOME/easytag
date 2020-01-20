@@ -572,8 +572,12 @@ vcedit_open (EtOggState *state,
             state->oi = g_slice_new (OpusHead);
 
             /* TODO: Check for success. */
-            opus_head_parse (state->oi, (unsigned char*)(&header_main)->packet,
-                             (&header_main)->bytes);
+            if (opus_head_parse (state->oi, (unsigned char*)(&header_main)->packet,
+                                 (&header_main)->bytes)!= 0) {
+                g_set_error(error, ET_OGG_ERROR, ET_OGG_ERROR_INVALID,
+                            "Failed to parse opus header");
+                goto err;
+            }
             break;
 #endif
 #ifndef ENABLE_SPEEX
