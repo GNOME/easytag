@@ -283,7 +283,7 @@ et_file_list_sort_string (const gchar *str1,
 
     if (case_sensitive)
     {
-        result = et_normalized_strcmp0 (str1, str1);
+        result = et_normalized_strcmp0 (str1, str2);
     }
     else
     {
