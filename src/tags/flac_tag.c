@@ -530,8 +530,8 @@ flac_tag_read_file_tag (GFile *file,
 
             bytes = g_bytes_new (p->data, p->data_length);
         
-            pic = et_picture_new (p->type, (const gchar *)p->description,
-                                  0, 0, bytes);
+            pic = et_picture_new ((EtPictureType)p->type,
+                                  (const gchar *)p->description, 0, 0, bytes);
             g_bytes_unref (bytes);
 
             if (!prev_pic)
@@ -1010,8 +1010,8 @@ flac_tag_write_file_tag (const ET_File *ETFile,
                 picture_block = FLAC__metadata_object_new(FLAC__METADATA_TYPE_PICTURE);
                 
                 // Type
-                picture_block->data.picture.type = pic->type;
                 
+                picture_block->data.picture.type = (FLAC__StreamMetadata_Picture_Type)pic->type;
                 // Mime type
                 format = Picture_Format_From_Data(pic);
                 /* Safe to pass a const string, according to the FLAC API
