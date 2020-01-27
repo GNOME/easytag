@@ -47,7 +47,7 @@ msgid ""
 "Look up albums in online databases, bulk edit tags, create playlists and "
 "rename a collection of files."
 msgstr ""
-"Cerca àlbums en base de dades en línia, edita etiquetes lots, crea llistes "
+"Cerca àlbums en bases de dades en línia, edita etiquetes lots, crea llistes "
 "de reproducció i reanomena col·leccions de fitxers."
 
 #: ../data/org.gnome.EasyTAG.appdata.xml.in.h:6
