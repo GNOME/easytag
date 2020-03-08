@@ -34,7 +34,7 @@
 
 typedef struct
 {
-    GtkWidget *name_mask_radio;
+    GtkWidget *name_directory_radio;
     GtkWidget *name_mask_entry;
     GtkWidget *selected_files_check;
     GtkWidget *path_relative_radio;
@@ -642,8 +642,9 @@ create_playlist_dialog (EtPlaylistDialog *self)
     /* Playlist name */
     g_settings_bind (MainSettings, "playlist-filename-mask",
                      priv->name_mask_entry, "text", G_SETTINGS_BIND_DEFAULT);
-    g_settings_bind (MainSettings, "playlist-use-mask", priv->name_mask_radio,
-                     "active", G_SETTINGS_BIND_DEFAULT);
+    g_settings_bind (MainSettings, "playlist-use-mask",
+                     priv->name_directory_radio, "active",
+                     G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_INVERT_BOOLEAN);
 
     /* Playlist options */
     g_settings_bind (MainSettings, "playlist-selected-only",
@@ -714,7 +715,7 @@ et_playlist_dialog_class_init (EtPlaylistDialogClass *klass)
                                                  "/org/gnome/EasyTAG/playlist_dialog.ui");
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtPlaylistDialog,
-                                                  name_mask_radio);
+                                                  name_directory_radio);
     gtk_widget_class_bind_template_child_private (widget_class,
                                                   EtPlaylistDialog,
                                                   name_mask_entry);
