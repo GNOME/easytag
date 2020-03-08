@@ -114,6 +114,7 @@
             <attribute name="label" translatable="yes">_View</attribute>
             <section>
                 <item>
+                    <attribute name="accel">&lt;Alt&gt;s</attribute>
                     <attribute name="action">win.scanner</attribute>
                     <attribute name="label" translatable="yes">Show Scanner</attribute>
                 </item>
