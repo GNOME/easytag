@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
 "POT-Creation-Date: 2020-03-08 17:08+0000\n"
-"PO-Revision-Date: 2020-04-04 21:57+0300\n"
+"PO-Revision-Date: 2020-04-05 08:41+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -1583,7 +1583,7 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:109
 msgid "Choose the character set to be used when writing ID3v1 tag"
 msgstr ""
-"Виберіть кодування символів, яке буде використано при читанні записуванні"
+"Виберіть кодування символів, яке буде використано при записуванні"
 " мітки ID3v1"
 
 #: ../data/preferences_dialog.ui.h:110
@@ -2566,6 +2566,7 @@ msgid ""
 "Select the file with the position which matches the position of the CDDB "
 "result"
 msgstr ""
+"Позначати файл із позицією, яка відповідає позиції у результатах пошуку у CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:27
 msgid "Run the scanner on CDDB results"
@@ -2578,6 +2579,8 @@ msgstr "Поля, якими слід скористатися для пошук
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:30
 msgid "Which fields to search for matches of the returned CDDB results"
 msgstr ""
+"Визначає поля, для яких слід шукати відповідники у повернутих результатах"
+" пошуку у CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:31
 msgid "The categories to use in a CDDB search"
@@ -2586,16 +2589,22 @@ msgstr "Категорії, якими слід скористатися для 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:32
 msgid "Which categories to search for matches in the returned CDDB results"
 msgstr ""
+"Визначає категорії, для яких слід шукати відповідники у повернутих"
+" результатах пошуку у CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:33
 msgid "The tag fields to set when matching against CDDB results"
 msgstr ""
+"Поля міток, які слід заповнити при встановленні відповідності результатам"
+" пошуку у CDDB"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:34
 msgid ""
 "Which tag fields should be set when matching against selected files and CDDB "
 "results"
 msgstr ""
+"Поля міток, які слід заповнити при встановленні відповідності результатам"
+" пошуку у CDDB для вибраних файлів"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:41
 msgid "Show changed files in bold"
@@ -2606,10 +2615,12 @@ msgid ""
 "Whether to highlight changed files in the file list by making them bold, or "
 "alternatively by making them red"
 msgstr ""
+"Визначає, чи слід підсвічувати змінені файли у списку файлів напівжирним"
+" шрифтом або червоним кольором"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:45
 msgid "How to sort audio files in the file list"
-msgstr ""
+msgstr "Спосіб упорядковування файлів звукових даних у списку файлів"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:46
 msgid "Sort files in ascending or descending order for the selected type"
@@ -2632,7 +2643,7 @@ msgstr "Кодування символів для запису міток ID3v1
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:56
 msgid "Choose the character set to be used when writing ID3v1 tags"
 msgstr ""
-"Виберіть кодування символів, яке буде використано при читанні записуванні"
+"Виберіть кодування символів, яке буде використано при записуванні"
 " міток ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:57
@@ -2644,6 +2655,8 @@ msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v1 tags"
 msgstr ""
+"Додаткові параметри, які слід передати iconv() при перетворенні між"
+" кодуваннями при записів міток ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:59
 msgid "The character set for reading ID3v1 and ID3v2 tags"
@@ -2660,22 +2673,25 @@ msgstr "Увімкнути підтримку ID3v2.4"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
 msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
 msgstr ""
+"Визначає, чи слід записувати мітки ID3v2.4, якщо увімкнено підтримку ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:65
 msgid "Convert old ID3 tag versions to new ones"
-msgstr ""
+msgstr "Перетворити старі версії міток ID3 на нові"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:69
 msgid "Use CRC-32 in ID3v2 tags"
-msgstr ""
+msgstr "Використати CRC-32 у мітках ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:73
 msgid "Use Unicode character encoding in ID3v2 tags"
-msgstr ""
+msgstr "Використовувати кодування символів Юнікод у мітках ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:74
 msgid "Whether to use a Unicode character set when writing ID3v2 tags"
 msgstr ""
+"Визначає, чи слід використовувати кодування символів Юнікод, яке буде"
+" використано при записуванні міток ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "The Unicode character set for writing ID3v2 tags"
@@ -2707,6 +2723,8 @@ msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v2 tags"
 msgstr ""
+"Додаткові параметри, які слід передати iconv() при перетворенні між"
+" кодуваннями при записів міток ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:81
 msgid "Automatically complete the date"
@@ -2714,7 +2732,7 @@ msgstr "Автоматично доповнювати дату"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:83
 msgid "Pad the disc number tag field"
-msgstr ""
+msgstr "Доповнювати поле мітки номера диска"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:85
 msgid "The length of the disc number field"
@@ -2725,6 +2743,8 @@ msgid ""
 "The length of the disc number field, which controls if the field is padded "
 "with leading zeroes"
 msgstr ""
+"Довжина поля номера диска, яка визначає, чи слід доповнювати вміст поля"
+" початковими нулями"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:88
 msgid ""
@@ -2736,7 +2756,7 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
 msgid "Pad the track number tag field"
-msgstr ""
+msgstr "Доповнювати поле мітки номера доріжки"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:91
 msgid "The length of the track number field"
@@ -2747,6 +2767,8 @@ msgid ""
 "The length of the track number field, which controls if the field is padded "
 "with leading zeroes"
 msgstr ""
+"Довжина поля номера доріжки, яка визначає, чи слід доповнювати вміст поля"
+" початковими нулями"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "Convert spaces and underscores when filling tag fields"
@@ -2758,6 +2780,8 @@ msgid ""
 "Whether to convert to spaces (and %20) or underscores when filling tag "
 "fields from filenames"
 msgstr ""
+"Визначає, чи слід перетворювати пробіли (і %20) або символи підкреслювання"
+" при заповненні полів міток з назв файлів"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:98
 msgid "Overwrite tag field"
@@ -2777,11 +2801,11 @@ msgstr "Типовий коментар при заповненні міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:104
 msgid "Use the CRC-32 as the default comment"
-msgstr ""
+msgstr "Використовувати CRC-32 як типовий коментар"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Run the current scanner when loading filenames from a file"
-msgstr ""
+msgstr "Запускати поточний сканер при завантаженні назв файлів з файла"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:118
 msgid "Process these tag fields"
@@ -2789,7 +2813,7 @@ msgstr "Обробляти ці поля міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:119
 msgid "The tag fields to process when using the scanner"
-msgstr ""
+msgstr "Поля міток, які слід обробити при використанні сканера"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:120
 msgid "Convert tag fields when processing"
@@ -2801,6 +2825,8 @@ msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
 "processing tag fields"
 msgstr ""
+"Визначає, чи слід перетворювати пробіли (і %20), символи підкреслювання та"
+" інші символи при обробці полів міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
 msgid "Convert characters in tags"
@@ -2811,24 +2837,28 @@ msgid ""
 "Whether to convert characters of the tag from one value to another when "
 "processing tag fields"
 msgstr ""
+"Визначає, чи слід перетворювати символи міток з одного значення на інше під"
+" час обробки полів мітки"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:125
 msgid "Convert the following characters when processing tag fields"
-msgstr ""
+msgstr "Перетворювати вказані символи при обробці полів міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:126
 msgid ""
 "Replace any matched sequence of characters with this string when processing "
 "tag fields"
 msgstr ""
+"Замінювати будь-яку відповідну послідовність символів цим рядком при обробці"
+" полів міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:127
 msgid "Capitalize tag fields when processing"
-msgstr ""
+msgstr "Перетворювати регістр літер вмісту полів міток при обробці"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:128
 msgid "Whether to change the capitalization when processing tag fields"
-msgstr ""
+msgstr "Визначає, чи слід змінювати регістр літер при обробці полів міток"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:129
 msgid "Upper-case prepositions"
@@ -2857,11 +2887,13 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:141
 msgid "Use a filename mask when generating a playlist"
-msgstr ""
+msgstr "Використовувати маску назв файлів при створення списку відтворення"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:142
 msgid "Whether to use a filename mask when creating playlists"
 msgstr ""
+"Визначає, чи слід використовувати маску назв файлів при створенні списків"
+" відтворення"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:143
 msgid "Create playlists with only the selected files"
@@ -2874,6 +2906,8 @@ msgstr "Використовувати відносні шляхи при ств
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:146
 msgid "Whether to use relative paths for files when creating playlists"
 msgstr ""
+"Визначає, чи слід використовувати відносні шляхи для файлів при створенні"
+" списків відтворення"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:147
 msgid "Create the playlist in the parent directory"
@@ -2892,6 +2926,8 @@ msgid ""
 "Write a plain list of files, include extended information from the filename "
 "or extended information using a supplied mask"
 msgstr ""
+"Записувати простий список файлів, включати розширені відомості з назви файла"
+" або додаткові відомості на основі наданої маски"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:153
 msgid "Playlist default mask"
@@ -2976,6 +3012,8 @@ msgid ""
 "Change the file extension to all lower-case, all upper-case or do not change "
 "it"
 msgstr ""
+"Змінити регістр літер суфікса назви файла на нижній, верхній або не змінювати"
+" його"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:173
 msgid "Encoding options when renaming files"
@@ -2987,12 +3025,18 @@ msgid ""
 "choose whether to try another encoding, approximate the filesystem encoding "
 "with transliteration or discard the offending characters"
 msgstr ""
+"Якщо кодування назви файла не збігається із кодуванням файлової системи,"
+" визначає, чи слід намагатися скористатися іншим кодуванням, підлаштовуватися"
+" під кодування файлової системи за допомогою транслітерації або просто"
+" відкидати непридатні символи"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:176
 msgid ""
 "Whether to replace illegal characters in a filename when using the rename "
 "function"
 msgstr ""
+"Визначає, чи слід замінювати некоректні символи у назві файла при"
+" використанні функціональної можливості перейменовування"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:177
 msgid "Show the scanner mask editor"
