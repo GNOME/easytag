@@ -8,9 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=easytag"
-"&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-12-14 08:58+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
+"POT-Creation-Date: 2020-06-17 13:05+0000\n"
 "PO-Revision-Date: 2016-12-27 06:04-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
@@ -89,6 +88,7 @@ msgstr "_Abrir"
 msgid "Select a directory to browse"
 msgstr "Seleciona um diretório para navegar"
 
+#. Translators: No files, as in "0 files".
 #: ../data/browser.ui.h:4 ../src/easytag.c:978
 msgid "No files"
 msgstr "Nenhum arquivo"
@@ -196,9 +196,9 @@ msgstr ""
 "parâmetro"
 
 #: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
-#: ../src/application_window.c:367 ../src/application_window.c:381
-#: ../src/application_window.c:3014 ../src/browser.c:914 ../src/browser.c:3833
-#: ../src/cddb_dialog.c:2138 ../src/easytag.c:464 ../src/easytag.c:471
+#: ../src/application_window.c:368 ../src/application_window.c:382
+#: ../src/application_window.c:3015 ../src/browser.c:914 ../src/browser.c:3833
+#: ../src/cddb_dialog.c:2139 ../src/easytag.c:464 ../src/easytag.c:471
 #: ../src/easytag.c:596 ../src/tag_area.c:1522 ../src/tag_area.c:1848
 msgid "_Cancel"
 msgstr "_Cancelar"
@@ -370,8 +370,7 @@ msgid ""
 msgstr ""
 "Seleciona as linhas cujas etiquetas serão aplicadas em sua lista de "
 "arquivos. Todas as linhas serão processadas se nenhuma linha for selecionada."
-"\\n"
-"Você também pode reordenar as linhas nessa lista antes de usar o botão "
+"\\nVocê também pode reordenar as linhas nessa lista antes de usar o botão "
 "“aplicar”"
 
 #. Translators: column header for track number.
@@ -437,7 +436,7 @@ msgid "_Close"
 msgstr "_Fechar"
 
 #: ../data/cddb_dialog.ui.h:49 ../data/load_files_dialog.ui.h:17
-#: ../src/cddb_dialog.c:2139
+#: ../src/cddb_dialog.c:2140
 msgid "_Apply"
 msgstr "_Aplicar"
 
@@ -448,7 +447,7 @@ msgstr ""
 "selecionada)"
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/application_window.c:2179
+#: ../data/file_area.ui.h:1 ../src/application_window.c:2180
 #: ../src/file_area.c:155
 msgid "File"
 msgstr "Arquivo"
@@ -1042,7 +1041,7 @@ msgstr "Gravar informações usando o nome do arquivo"
 msgid "Write information using:"
 msgstr "Gravar informações usando:"
 
-#: ../data/playlist_dialog.ui.h:19 ../src/application_window.c:3015
+#: ../data/playlist_dialog.ui.h:19 ../src/application_window.c:3016
 #: ../src/browser.c:915 ../src/easytag.c:234 ../src/easytag.c:465
 #: ../src/easytag.c:472 ../src/easytag.c:597 ../src/easytag.c:604
 #: ../src/tag_area.c:1850
@@ -2252,12 +2251,12 @@ msgstr "_Localizar"
 msgid "In:"
 msgstr "Em:"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
 #: ../data/search_dialog.ui.h:7
 msgid "the Filename"
 msgstr "o nome do arquivo"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
 #: ../data/search_dialog.ui.h:9
 msgid "the Tag"
 msgstr "a etiqueta"
@@ -2862,12 +2861,10 @@ msgstr ""
 "sequência ao processar campos da etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:127
-#| msgid "Convert tag fields when processing"
 msgid "Capitalize tag fields when processing"
 msgstr "Maiusculizar campos das etiquetas ao processar"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:128
-#| msgid "Whether to remove all spaces when processing tag fields"
 msgid "Whether to change the capitalization when processing tag fields"
 msgstr "Se devem ser maiusculizados ao processar campos de etiqueta"
 
@@ -3180,7 +3177,7 @@ msgstr "Erro ao consultar informação do arquivo “%s”: %s"
 msgid "Cannot open path ‘%s’"
 msgstr "Não foi possível abrir o caminho “%s”"
 
-#: ../src/application_window.c:361 ../src/application_window.c:378
+#: ../src/application_window.c:361 ../src/application_window.c:379
 #, c-format
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Você deseja mesmo excluir o arquivo “%s”?"
@@ -3189,63 +3186,63 @@ msgstr "Você deseja mesmo excluir o arquivo “%s”?"
 msgid "Repeat action for the remaining files"
 msgstr "Repita esta ação para o resto dos arquivos"
 
-#: ../src/application_window.c:366
+#: ../src/application_window.c:367
 msgid "_Skip"
 msgstr "_Ignorar"
 
-#: ../src/application_window.c:368 ../src/application_window.c:382
+#: ../src/application_window.c:369 ../src/application_window.c:383
 msgid "_Delete"
 msgstr "_Excluir"
 
-#: ../src/application_window.c:370 ../src/application_window.c:380
+#: ../src/application_window.c:371 ../src/application_window.c:381
 msgid "Delete File"
 msgstr "Excluir arquivo"
 
-#: ../src/application_window.c:407
+#: ../src/application_window.c:408
 #, c-format
 msgid "File ‘%s’ deleted"
 msgstr "Arquivo “%s” excluído"
 
-#: ../src/application_window.c:582
+#: ../src/application_window.c:583
 #, c-format
 msgid "Cannot delete file ‘%s’"
 msgstr "Não foi possível excluir o arquivo “%s”"
 
-#: ../src/application_window.c:606
+#: ../src/application_window.c:607
 msgid "Some files were not deleted"
 msgstr "Alguns arquivos não foram excluídos"
 
-#: ../src/application_window.c:608
+#: ../src/application_window.c:609
 msgid "All files have been deleted"
 msgstr "Todos os arquivos foram excluídos"
 
-#: ../src/application_window.c:914
+#: ../src/application_window.c:915
 msgid "All tags have been removed"
 msgstr "Todas as etiquetas foram removidas"
 
-#: ../src/application_window.c:1473 ../src/browser.c:360 ../src/browser.c:403
+#: ../src/application_window.c:1474 ../src/browser.c:360 ../src/browser.c:403
 #: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
 #, c-format
 msgid "Failed to launch program ‘%s’"
 msgstr "Falha ao iniciar programa “%s”"
 
-#: ../src/application_window.c:1987
+#: ../src/application_window.c:1988
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
 msgstr ""
 "Não foi possível converter nome do arquivo “%s” para codificação de nomes de "
 "arquivos do sistema"
 
-#: ../src/application_window.c:1990
+#: ../src/application_window.c:1991
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Tente definir a variável de ambiente G_FILENAME_ENCODING."
 
-#: ../src/application_window.c:1992 ../src/scan_dialog.c:827
+#: ../src/application_window.c:1993 ../src/scan_dialog.c:846
 msgid "Filename translation"
 msgstr "Tradução do nome do arquivo"
 
 #. And refresh the number of files in this directory
-#: ../src/application_window.c:2153
+#: ../src/application_window.c:2154
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -3253,7 +3250,7 @@ msgstr[0] "Um arquivo"
 msgstr[1] "%u arquivos"
 
 #. Bitrate
-#: ../src/application_window.c:2186 ../src/tags/flac_header.c:189
+#: ../src/application_window.c:2187 ../src/tags/flac_header.c:189
 #: ../src/tags/monkeyaudio_header.c:76 ../src/tags/mp4_header.cc:144
 #: ../src/tags/mpeg_header.c:274 ../src/tags/musepack_header.c:78
 #: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:231
@@ -3263,7 +3260,7 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/application_window.c:2189 ../src/tags/flac_header.c:192
+#: ../src/application_window.c:2190 ../src/tags/flac_header.c:192
 #: ../src/tags/monkeyaudio_header.c:79 ../src/tags/mp4_header.cc:148
 #: ../src/tags/mpeg_header.c:279 ../src/tags/musepack_header.c:81
 #: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:234
@@ -3272,30 +3269,30 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/application_window.c:2344 ../src/easytag.c:911
+#: ../src/application_window.c:2345 ../src/easytag.c:911
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Arquivo: “%s”"
 
 #. Quit EasyTAG.
-#: ../src/application_window.c:2978
+#: ../src/application_window.c:2979
 msgid "Normal exit"
 msgstr "Saída normal"
 
-#: ../src/application_window.c:3012 ../src/browser.c:909
+#: ../src/application_window.c:3013 ../src/browser.c:909
 msgid "Some files have been modified but not saved"
 msgstr "Alguns arquivos foram modificados, mas não salvos"
 
-#: ../src/application_window.c:3013 ../src/browser.c:913 ../src/easytag.c:233
+#: ../src/application_window.c:3014 ../src/browser.c:913 ../src/easytag.c:233
 #: ../src/easytag.c:463 ../src/easytag.c:595 ../src/easytag.c:603
 msgid "_Discard"
 msgstr "_Descartar"
 
-#: ../src/application_window.c:3019 ../src/easytag.c:239
+#: ../src/application_window.c:3020 ../src/easytag.c:239
 msgid "Quit"
 msgstr "Sair"
 
-#: ../src/application_window.c:3022
+#: ../src/application_window.c:3023
 msgid "Do you want to save them before quitting?"
 msgstr "Você deseja salvá-los antes de sair?"
 
@@ -3381,105 +3378,105 @@ msgstr ""
 msgid "Cannot resolve host: ‘%s’: %s"
 msgstr "Não foi possível resolver o host: “%s”: %s"
 
-#: ../src/cddb_dialog.c:724
+#: ../src/cddb_dialog.c:725
 #, c-format
 msgid "Cannot connect to host: ‘%s’: %s"
 msgstr "Não foi possível conectar ao host: “%s”: %s"
 
 #. Send the request.
-#: ../src/cddb_dialog.c:797 ../src/cddb_dialog.c:1352 ../src/cddb_dialog.c:1640
+#: ../src/cddb_dialog.c:798 ../src/cddb_dialog.c:1353 ../src/cddb_dialog.c:1641
 msgid "Sending request…"
 msgstr "Enviando requisição…"
 
-#: ../src/cddb_dialog.c:841
+#: ../src/cddb_dialog.c:842
 #, c-format
 msgid "The server returned a bad response ‘%s’"
 msgstr "O servidor retornou uma resposta incorreta “%s”"
 
 #. Load the track list of the album
-#: ../src/cddb_dialog.c:1035
+#: ../src/cddb_dialog.c:1036
 msgid "Loading album track list…"
 msgstr "Carregando lista das faixas do álbum…"
 
 #.
 #. * Read the answer
 #.
-#: ../src/cddb_dialog.c:1382
+#: ../src/cddb_dialog.c:1383
 msgid "Receiving data…"
 msgstr "Recebendo dados…"
 
-#: ../src/cddb_dialog.c:1519
+#: ../src/cddb_dialog.c:1520
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Desculpe, mas a pesquisa na web não está disponível no momento"
 
-#: ../src/cddb_dialog.c:1522 ../src/cddb_dialog.c:1855
+#: ../src/cddb_dialog.c:1523 ../src/cddb_dialog.c:1856
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
 msgstr[0] "Encontrado um álbum correspondente"
 msgstr[1] "Encontrados %u álbuns correspondentes"
 
-#: ../src/cddb_dialog.c:1670
+#: ../src/cddb_dialog.c:1671
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Recebendo dados da página %d (álbum %d/%d)…"
 
-#: ../src/cddb_dialog.c:1672
+#: ../src/cddb_dialog.c:1673
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Recebendo dados da página %d…"
 
-#: ../src/cddb_dialog.c:1688
+#: ../src/cddb_dialog.c:1689
 msgid "The server returned a bad response"
 msgstr "O servidor retornou uma resposta incorreta"
 
-#: ../src/cddb_dialog.c:1827
+#: ../src/cddb_dialog.c:1828
 #, c-format
 msgid "More results to load…"
 msgstr "Mais resultados para carregar…"
 
-#: ../src/cddb_dialog.c:2137
+#: ../src/cddb_dialog.c:2138
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr ""
 "O número de resultados do CDDB não corresponde ao número de arquivos "
 "selecionados"
 
-#: ../src/cddb_dialog.c:2143
+#: ../src/cddb_dialog.c:2144
 msgid "Write Tag from CDDB"
 msgstr "Gravar etiqueta do CDDB"
 
-#: ../src/cddb_dialog.c:2458
+#: ../src/cddb_dialog.c:2459
 msgid "Ready to search"
 msgstr "Pronto para pesquisar"
 
-#: ../src/cddb_dialog.c:2613
+#: ../src/cddb_dialog.c:2614
 #, c-format
 msgid "No file selected"
 msgstr "Nenhum arquivo selecionado"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb_dialog.c:2622
+#: ../src/cddb_dialog.c:2623
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr ""
 "Foram selecionados mais de 99 arquivos. Não foi possível enviar a requisição"
 
-#: ../src/cddb_dialog.c:2628
+#: ../src/cddb_dialog.c:2629
 #, c-format
 msgid "One file selected"
 msgid_plural "%u files selected"
 msgstr[0] "Um arquivo selecionado"
 msgstr[1] "%u arquivos selecionados"
 
-#: ../src/cddb_dialog.c:2755
+#: ../src/cddb_dialog.c:2756
 #, c-format
 msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
 msgstr ""
 "Enviando requisição (ID do disco: %s, #faixas: %u, Duração do disco: %u)…"
 
-#: ../src/cddb_dialog.c:2876
+#: ../src/cddb_dialog.c:2877
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
@@ -3945,11 +3942,11 @@ msgstr "Mover esta linha para cima"
 msgid "Move this line down"
 msgstr "Mover esta linha para baixo"
 
-#: ../src/misc.c:182
+#: ../src/misc.c:176
 msgid "You must type a program name"
 msgstr "Você deve digitar o nome de um programa"
 
-#: ../src/misc.c:183
+#: ../src/misc.c:177
 msgid "Program Name Error"
 msgstr "Erro no nome do programa"
 
@@ -4057,9 +4054,8 @@ msgstr "pixels"
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:427
+#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:515
 #, c-format
-#| msgid "Input truncated or empty."
 msgid "Input truncated or empty"
 msgstr "Entrada truncada ou vazia"
 
@@ -4077,8 +4073,8 @@ msgstr "Erro no arquivo de lista de reprodução"
 msgid "Wrote playlist file ‘%s’"
 msgstr "Gravado arquivo de lista de reprodução “%s”"
 
-#: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2626
-#: ../src/scan_dialog.c:2689
+#: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2639
+#: ../src/scan_dialog.c:2702
 msgid "Invalid scanner mask"
 msgstr "Máscara de verificação inválida"
 
@@ -4099,56 +4095,56 @@ msgstr ""
 msgid "Invalid Path Error"
 msgstr "Erro de caminho inválido"
 
-#: ../src/scan_dialog.c:413
+#: ../src/scan_dialog.c:432
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
 msgstr "Não foi possível calcular o valor do CRC do arquivo “%s”"
 
-#: ../src/scan_dialog.c:428
+#: ../src/scan_dialog.c:447
 msgid "Tag successfully scanned"
 msgstr "Etiqueta verificada com sucesso"
 
-#: ../src/scan_dialog.c:431
+#: ../src/scan_dialog.c:450
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
 msgstr "Etiqueta verificada com sucesso “%s”"
 
-#: ../src/scan_dialog.c:474
+#: ../src/scan_dialog.c:493
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
 msgstr "A extensão “%s” não foi encontrada no nome de arquivo “%s”"
 
-#: ../src/scan_dialog.c:566 ../src/scan_dialog.c:597
+#: ../src/scan_dialog.c:585 ../src/scan_dialog.c:616
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
 msgstr "Não foi possível localizar o separador “%s” dentro de “%s”"
 
-#: ../src/scan_dialog.c:825
+#: ../src/scan_dialog.c:844
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
 msgstr ""
 "Não foi possível converter nome do arquivo “%s” para codificação de nome de "
 "arquivo do sistema"
 
-#: ../src/scan_dialog.c:851
+#: ../src/scan_dialog.c:870
 msgid "New filename successfully scanned"
 msgstr "Novo nome do arquivo verificado com sucesso"
 
-#: ../src/scan_dialog.c:855
+#: ../src/scan_dialog.c:874
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
 msgstr "Novo nome do arquivo verificado com sucesso “%s”"
 
-#: ../src/scan_dialog.c:1224
+#: ../src/scan_dialog.c:1243
 #, c-format
 msgid "Error while processing fields ‘%s’"
 msgstr "Erro ao processar campos “%s”"
 
-#: ../src/scan_dialog.c:2100
+#: ../src/scan_dialog.c:2119
 msgid "New_mask"
 msgstr "Nova_máscara"
 
-#: ../src/scan_dialog.c:2756
+#: ../src/scan_dialog.c:2769
 msgid "All tags have been scanned"
 msgstr "Todas as etiquetas foram verificadas"
 
@@ -6537,12 +6533,6 @@ msgstr "Arquivo Wavpack"
 
 #~ msgid "The filename '%s' exceeds %d characters and will be truncated!\n"
 #~ msgstr "O nome do arquivo '%s' excede %d caracteres e será truncado!\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "ERROR while opening file: '%s' (%s).\n"
-#~ "\a"
-#~ msgstr "ERRO ao abrir o arquivo: '%s' (%s)."
 
 #, fuzzy
 #~ msgid "Select file…"
