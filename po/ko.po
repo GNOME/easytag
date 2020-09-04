@@ -1,7 +1,7 @@
 # Korean translation for easytag.
 # Copyright (C) 2014 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
-# Seong-ho Cho <shcho@gnome.org>, 2014, 2015, 2017.
+# Seong-ho Cho <shcho@gnome.org>, 2014, 2015, 2017, 2020.
 #
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-02-26 06:38+0000\n"
-"PO-Revision-Date: 2017-03-21 00:24+0900\n"
+"PO-Revision-Date: 2020-08-30 23:45+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -403,7 +403,7 @@ msgstr "각각의 파일에 대해 현재 검색기 실행"
 msgid ""
 "Whether to run the tag scanner, with the current settings, on the CDDB "
 "results"
-msgstr "CDDB 결과에 대해 현재 설정으로 태그 탐색기를 실행할 지 여부"
+msgstr "CDDB 결과에 대해 현재 설정으로 태그 탐색기를 실행할지 여부"
 
 #: ../data/cddb_dialog.ui.h:46
 msgid "Match lines with the Levenshtein algorithm"
@@ -412,7 +412,7 @@ msgstr "레번슈타인 알고리즘으로 줄 비교"
 #: ../data/cddb_dialog.ui.h:47 ../data/preferences_dialog.ui.h:143
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
-msgstr "파일과 CDDB 결과를 비교할 때 DLM 알고리즘을 적용할 지 여부"
+msgstr "파일과 CDDB 결과를 비교할 때 DLM 알고리즘을 적용할지 여부"
 
 #: ../data/cddb_dialog.ui.h:48 ../data/load_files_dialog.ui.h:16
 #: ../data/playlist_dialog.ui.h:18 ../data/preferences_dialog.ui.h:160
@@ -547,7 +547,7 @@ msgid ""
 "Whether to run the currently selected scanner on filenames loaded from a "
 "text file"
 msgstr ""
-"텍스트 파일에서 불러온 파일 이름에 대해 현재 선택한 탐색기를 실행할 지 여부"
+"텍스트 파일에서 불러온 파일 이름에 대해 현재 선택한 탐색기를 실행할지 여부"
 
 #: ../data/menus.ui.h:1
 msgid "_Help"
@@ -976,7 +976,7 @@ msgstr "선택한 파일만 포함"
 #: ../data/playlist_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:144
 msgid ""
 "Whether to use only the selected files or all files when creating playlists"
-msgstr "재생 목록을 만들 때 선택한 파일 또는 모든 파일을 활용할 지 여부"
+msgstr "재생 목록을 만들 때 선택한 파일 또는 모든 파일을 활용할지 여부"
 
 #: ../data/playlist_dialog.ui.h:8
 msgid "Use full path for files in playlist"
@@ -1001,7 +1001,7 @@ msgstr "DOS 디렉터리 구분 문자 사용"
 #: ../data/playlist_dialog.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:150
 msgid ""
 "Whether to use backslash as directory separator when generating playlists"
-msgstr "재생 목록을 만들 때 디렉터리 구분 문자를 백슬래시로 사용할 지 여부"
+msgstr "재생 목록을 만들 때 디렉터리 구분 문자를 백슬래시로 사용할지 여부"
 
 #: ../data/playlist_dialog.ui.h:14
 msgid "Content"
@@ -1084,7 +1084,7 @@ msgstr "숨긴 디렉터리 검색"
 #: ../data/preferences_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:8
 msgid ""
 "Whether to show hidden directories when showing a directory in the browser"
-msgstr "브라우저에서 디렉터리를 표시할 때 숨긴 디렉터리를 표시할 지 여부"
+msgstr "브라우저에서 디렉터리를 표시할 때 숨긴 디렉터리를 표시할지 여부"
 
 #: ../data/preferences_dialog.ui.h:13
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:43
@@ -1094,7 +1094,7 @@ msgstr "대소문자별 파일 정렬"
 #: ../data/preferences_dialog.ui.h:14
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:44
 msgid "Whether file sorting is case-sensitive"
-msgstr "파일 정렬을 대소문자별로 할 지 여부"
+msgstr "대소문자별로 파일을 정렬할지 여부"
 
 #: ../data/preferences_dialog.ui.h:16
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:47
@@ -1120,7 +1120,7 @@ msgstr "오디오 파일 헤더 요약 정보 표시"
 msgid ""
 "Whether to show header information, such as bit rate and duration, for audio "
 "files"
-msgstr "오디오 파일의 비트 전송율, 길이와 같은 헤더 정보를 표시할 지 여부"
+msgstr "오디오 파일의 비트 전송율, 길이와 같은 헤더 정보를 표시할지 여부"
 
 #: ../data/preferences_dialog.ui.h:21
 msgid "Display changed files in list using:"
@@ -1150,7 +1150,7 @@ msgstr "파일 기록시 수정시간 보존"
 #: ../data/preferences_dialog.ui.h:27
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:36
 msgid "Whether to preserve the existing modification time when editing files"
-msgstr "파일을 편집할 때 기존 수정 시간을 보존할 지 여부"
+msgstr "파일을 편집할 때 기존 수정 시간을 보존할지 여부"
 
 #: ../data/preferences_dialog.ui.h:28
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:37
@@ -1162,7 +1162,7 @@ msgstr "파일 기록시 상위 디렉터리 수정 시간 업데이트"
 msgid ""
 "Whether to update the modification time on the parent directory when editing "
 "files"
-msgstr "파일을 편집할 때 상위 디렉터리의 수정 시간을 업데이트 할 지 여부"
+msgstr "파일을 편집할 때 상위 디렉터리의 수정 시간을 업데이트할지 여부"
 
 #. Translators: a section header in the Files tab of the preferences dialog.
 #: ../data/preferences_dialog.ui.h:31
@@ -1269,7 +1269,7 @@ msgstr "파일 이름에 따라 그림 형식을 자동으로 선택"
 msgid ""
 "Whether to, when adding cover art, automatically select a type for an image "
 "based on its filename"
-msgstr "표지를 추가할 때 파일 이름에 따라 그림 형식을 자동으로 선택할 지 여부"
+msgstr "표지를 추가할 때 파일 이름에 따라 그림 형식을 자동으로 선택할지 여부"
 
 #: ../data/preferences_dialog.ui.h:53
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:93
@@ -1279,7 +1279,7 @@ msgstr "태그 입력칸 포커스 유지"
 #: ../data/preferences_dialog.ui.h:54
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:94
 msgid "Whether to preserve focus on the current tag field when switching file"
-msgstr "파일을 전환할 때 현재 태그 입력창 포커스를 유지할 지 여부"
+msgstr "파일을 전환할 때 현재 태그 입력창 포커스를 유지할지 여부"
 
 #: ../data/preferences_dialog.ui.h:55
 msgid "Pad the number of digits in the disc field to:"
@@ -1366,7 +1366,7 @@ msgid ""
 "Whether to remove the ID3 tag from the audio file if all the individual tag "
 "fields are empty"
 msgstr ""
-"각각의 모든 태그 필드가 비어있을 때 오디오 파일에서 ID3 태그를 제거할 지 여부"
+"각각의 모든 태그 필드가 비어있을 때 오디오 파일에서 ID3 태그를 제거할지 여부"
 
 #: ../data/preferences_dialog.ui.h:78
 msgid "Non-standard encoding for reading ID3 tags:"
@@ -1375,7 +1375,7 @@ msgstr "ID3 태그를 읽을 때 사용할 비 표준 인코딩:"
 #: ../data/preferences_dialog.ui.h:79
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
 msgid "Whether to use a non-standard character encoding when reading ID3 tags"
-msgstr "ID3 태그를 읽을 때 비표준 문자 인코딩을 사용할 지 여부"
+msgstr "ID3 태그를 읽을 때 비표준 문자 인코딩을 사용할지 여부"
 
 #: ../data/preferences_dialog.ui.h:80
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:60
@@ -1393,7 +1393,7 @@ msgstr "ID3v2 태그 기록"
 #: ../data/preferences_dialog.ui.h:83
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:62
 msgid "Whether to write ID3v2 tags when writing ID3 tags into audio files"
-msgstr "오디오 파일에 ID3 태그를 기록할 때 ID3v2 태그를 기록할 지 여부"
+msgstr "오디오 파일에 ID3 태그를 기록할 때 ID3v2 태그를 기록할지 여부"
 
 #: ../data/preferences_dialog.ui.h:84
 msgid "Version:"
@@ -1463,7 +1463,7 @@ msgid ""
 "specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"
 msgstr ""
 "ID3v2.2와 같은 이전 명세로 작성한 태그를 ID3v2.3, ID3v2.4와 같은 새 버전으로 "
-"변환할 지 여부"
+"변환할지 여부"
 
 #: ../data/preferences_dialog.ui.h:100
 msgid "Use CRC-32"
@@ -1496,7 +1496,7 @@ msgid ""
 "when writing a genre field to ID3v2 tags"
 msgstr ""
 "장르 필드를 ID3v2 형식의 태그로 기록할 때 문자열만 사용하고 비 정수형 기반 "
-"ID3v1 장르 필드를 사용 안할 지 여부"
+"ID3v1 장르 필드를 사용 안할지 여부"
 
 #: ../data/preferences_dialog.ui.h:106
 msgid "ID3v1"
@@ -1509,7 +1509,7 @@ msgstr "ID3v1 태그 기록"
 #: ../data/preferences_dialog.ui.h:108
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:54
 msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
-msgstr "ID3 태그를 오디오 파일에 기록할 때 ID3v1 태그를 기록할 지 여부"
+msgstr "ID3 태그를 오디오 파일에 기록할 때 ID3v1 태그를 기록할지 여부"
 
 #: ../data/preferences_dialog.ui.h:109
 msgid "Choose the character set to be used when writing ID3v1 tag"
@@ -1596,7 +1596,7 @@ msgstr "기본 설명으로 다음 텍스트 설정:"
 msgid ""
 "Whether to set the comment tag field to the provided default value when "
 "filling tags"
-msgstr "태그를 채울 때 제시한 기본값에 주석 태그 필드를 설정할 지 여부"
+msgstr "태그를 채울 때 제시한 기본값에 주석 태그 필드를 설정할지 여부"
 
 #: ../data/preferences_dialog.ui.h:131
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
@@ -1608,7 +1608,7 @@ msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
 "files with ID3 tags only"
 msgstr ""
-"ID3 태그를 넣은 파일에만 오디오 파일 데이터의 기본 설명에 CRC-32를 사용할 지 "
+"ID3 태그를 넣은 파일에만 오디오 파일 데이터의 기본 설명에 CRC-32를 사용할지 "
 "여부"
 
 #: ../data/preferences_dialog.ui.h:133
@@ -1651,7 +1651,7 @@ msgstr ""
 msgid ""
 "Whether to select the file in the file list which matches the position in "
 "the CDDB results list"
-msgstr "CDDB 결과 목록에서 파일 목록과 일치하는 위치의 파일을 선택할 지 여부"
+msgstr "CDDB 결과 목록에서 파일 목록과 일치하는 위치의 파일을 선택할지 여부"
 
 #: ../data/preferences_dialog.ui.h:142
 msgid ""
@@ -1679,7 +1679,7 @@ msgstr "태그 기록 전 확인"
 msgid ""
 "Whether to ask for confirmation from the user before writing tags to audio "
 "files"
-msgstr "오디오 파일에 태그를 기록하기 전 사용자에게 확인을 요청할 지 여부"
+msgstr "오디오 파일에 태그를 기록하기 전 사용자에게 확인을 요청할지 여부"
 
 #: ../data/preferences_dialog.ui.h:148
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:108
@@ -1689,7 +1689,7 @@ msgstr "파일 이름 바꾸기 전 확인"
 #: ../data/preferences_dialog.ui.h:149
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:109
 msgid "Whether to ask for confirmation from the user before renaming a file"
-msgstr "파일 이름을 바꾸기 전 사용자에게 확인을 요청할 지 여부"
+msgstr "파일 이름을 바꾸기 전 사용자에게 확인을 요청할지 여부"
 
 #: ../data/preferences_dialog.ui.h:150
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:112
@@ -1699,7 +1699,7 @@ msgstr "파일 삭제 전 확인"
 #: ../data/preferences_dialog.ui.h:151
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:113
 msgid "Whether to ask for confirmation from the user before deleting a file"
-msgstr "파일을 삭제하기 전 사용자에게 확인을 요청할 지 여부"
+msgstr "파일을 삭제하기 전 사용자에게 확인을 요청할지 여부"
 
 #: ../data/preferences_dialog.ui.h:152
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:110
@@ -1709,7 +1709,7 @@ msgstr "재생 목록 기록 전 확인"
 #: ../data/preferences_dialog.ui.h:153
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:111
 msgid "Whether to ask for confirmation from the user before writing a playlist"
-msgstr "재생 목록을 기록하기 전 사용자에게 확인을 요청할 지 여부"
+msgstr "재생 목록을 기록하기 전 사용자에게 확인을 요청할지 여부"
 
 #: ../data/preferences_dialog.ui.h:154
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:114
@@ -1723,7 +1723,7 @@ msgid ""
 "that would lose unsaved changes on files"
 msgstr ""
 "파일에서 저장하지 않은 내용을 잃을 수 있는 동작을 수행하기 전 사용자에게 확인"
-"을 요청할 지 여부"
+"을 요청할지 여부"
 
 #: ../data/preferences_dialog.ui.h:156
 msgid "Scanner Dialog"
@@ -1736,7 +1736,7 @@ msgstr "시작할 때 검색기 대화상자 표시"
 #: ../data/preferences_dialog.ui.h:158
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:182
 msgid "Whether to show the scanner window on application startup"
-msgstr "프로그램을 시작할 때 검색기 창을 표시할 지 여부"
+msgstr "프로그램을 시작할 때 검색기 창을 표시할지 여부"
 
 #: ../data/preferences_dialog.ui.h:159
 msgid "Application"
@@ -1993,7 +1993,7 @@ msgstr "첫 글자를 대문자로"
 #: ../data/scan_dialog.ui.h:84
 msgid ""
 "Whether to upper-case the first letter of the tag when processing tag fields"
-msgstr "태그 필드를 처리할 때 태그 단어의 첫 글자를 대문자로 할 지 여부"
+msgstr "태그 필드를 처리할 때 태그 단어의 첫 글자를 대문자로 할지 여부"
 
 #: ../data/scan_dialog.ui.h:85
 msgid "Capitalize the first letter of each word"
@@ -2003,7 +2003,7 @@ msgstr "각 단어의 첫 글자를 대문자로 합니다"
 msgid ""
 "Whether to upper-case the first letter of each word when processing tag "
 "fields"
-msgstr "태그 필드를 처리할 때 각 단어의 첫 글자를 대문자로 할 지 여부"
+msgstr "태그 필드를 처리할 때 각 단어의 첫 글자를 대문자로 할지 여부"
 
 #: ../data/scan_dialog.ui.h:87
 msgid "Detect Roman numerals"
@@ -2014,7 +2014,7 @@ msgid ""
 "Whether to detect Roman numerals when applying upper-case conversions while "
 "processing tag fields"
 msgstr ""
-"태그 필드를 처리하는 동안 대문자 변환을 처리할 때 로마 숫자를 감지할 지 여부"
+"태그 필드를 처리하는 동안 대문자 변환을 처리할 때 로마 숫자를 감지할지 여부"
 
 #: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
@@ -2026,7 +2026,7 @@ msgstr "공백 변환"
 
 #: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:134
 msgid "Whether to remove all spaces when processing tag fields"
-msgstr "태그 필드를 처리할 때 모든 공백을 제거할 지 여부"
+msgstr "태그 필드를 처리할 때 모든 공백을 제거할지 여부"
 
 #: ../data/scan_dialog.ui.h:93
 msgid "Insert a space before uppercase letters"
@@ -2044,7 +2044,7 @@ msgstr "중복 공백 문자와 밑줄 문자 제거"
 #: ../data/scan_dialog.ui.h:96 ../data/org.gnome.EasyTAG.gschema.xml.h:138
 msgid ""
 "Whether to remove duplicate spaces and underscores when processing tag fields"
-msgstr "태그 필드를 처리할 때 중복 공백 문자와 밑줄 문자를 제거할 지 여부"
+msgstr "태그 필드를 처리할 때 중복 공백 문자와 밑줄 문자를 제거할지 여부"
 
 #: ../data/scan_dialog.ui.h:97
 msgid "Do not change word separators"
@@ -2503,7 +2503,7 @@ msgid ""
 "Whether to highlight changed files in the file list by making them bold, or "
 "alternatively by making them red"
 msgstr ""
-"파일 목록에서 바뀐 파일을 굵은 글씨로 표현할 지, 붉은 글씨로 표현할 지 여부"
+"파일 목록에서 바뀐 파일을 굵은 글씨로 표현할지, 붉은 글씨로 표현할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:45
 msgid "How to sort audio files in the file list"
@@ -2555,7 +2555,7 @@ msgstr "ID3v2.4 자원 활성화"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:64
 msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
-msgstr "ID3v2 지원을 활성화했을 때 ID3v2.4 태그를 기록할 지 여부"
+msgstr "ID3v2 지원을 활성화했을 때 ID3v2.4 태그를 기록할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:65
 msgid "Convert old ID3 tag versions to new ones"
@@ -2571,7 +2571,7 @@ msgstr "ID3v2 태그에 유니코드 문자 인코딩 사용"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:74
 msgid "Whether to use a Unicode character set when writing ID3v2 tags"
-msgstr "ID3v2 태그를 기록할 때 유니코드 문자 인코딩을 사용할 지 여부"
+msgstr "ID3v2 태그를 기록할 때 유니코드 문자 인코딩을 사용할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "The Unicode character set for writing ID3v2 tags"
@@ -2625,7 +2625,7 @@ msgid ""
 "Whether to, when adding cover art, automatically select the type for an "
 "image based on its filename"
 msgstr ""
-"표지 아트를 추가할 때 파일 이름을 기반으로 그림 형식을 자동으로 선택할 지 여"
+"표지 아트를 추가할 때 파일 이름을 기반으로 그림 형식을 자동으로 선택할지 여"
 "부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:89
@@ -2698,7 +2698,7 @@ msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
 "processing tag fields"
 msgstr ""
-"태그 필드를 처리할 때 공백(및 %20), 밑줄 문자 또는 기타 문자를을 변환할 지 여"
+"태그 필드를 처리할 때 공백(및 %20), 밑줄 문자 또는 기타 문자를을 변환할지 여"
 "부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:123
@@ -2710,7 +2710,7 @@ msgid ""
 "Whether to convert characters of the tag from one value to another when "
 "processing tag fields"
 msgstr ""
-"태그 필드를 처리할 때 어떤 값에서 다른 값으로 태그 문자를 변환할 지 여부"
+"태그 필드를 처리할 때 어떤 값에서 다른 값으로 태그 문자를 변환할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:125
 msgid "Convert the following characters when processing tag fields"
@@ -2760,7 +2760,7 @@ msgstr "재생 목록을 만들 때 파일 이름 마스크 사용"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:142
 msgid "Whether to use a filename mask when creating playlists"
-msgstr "재생 목록을 만들 때 파일 이름 마스크를 사용할 지 여부"
+msgstr "재생 목록을 만들 때 파일 이름 마스크를 사용할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:143
 msgid "Create playlists with only the selected files"
@@ -2772,7 +2772,7 @@ msgstr "재생 목록을 만들 때 상대 경로 사용"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:146
 msgid "Whether to use relative paths for files when creating playlists"
-msgstr "재생 목록을 만들 때 파일에 상대 경로를 사용할 지 여부"
+msgstr "재생 목록을 만들 때 파일에 상대 경로를 사용할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:147
 msgid "Create the playlist in the parent directory"
@@ -2808,7 +2808,7 @@ msgstr "대소문자별 파일 검색"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:156
 msgid "Whether matches when searching for files are case-sensitive"
-msgstr "파일을 검색할 때 대소문자를 구분하여 일치할 지 여부"
+msgstr "파일을 검색할 때 대소문자를 구분하여 일치할지 여부"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:157
 msgid "Search in filenames"
@@ -4562,1143 +4562,3 @@ msgstr "Opus 파일"
 msgid "Wavpack File"
 msgstr "Wavpack 파일"
 
-#~ msgid "Proxy"
-#~ msgstr "프록시"
-
-#~ msgid "Use a proxy server"
-#~ msgstr "프록시 서버 사용"
-
-#~ msgid "Whether to access remote CDDB through a proxy"
-#~ msgstr "프록시를 통해 원격 CDDB에 접근할 지 여부"
-
-#~ msgid "Hostname for a proxy to access remote CDDB"
-#~ msgstr "원격 CDDB에 접근할 프록시 호스트 이름"
-
-#~ msgid "Port for a proxy to access remote CDDB"
-#~ msgstr "원격 CDDB에 접근할 프록시 포트"
-
-#~ msgid "User:"
-#~ msgstr "사용자 이름:"
-
-#~ msgid "Username for a proxy to access remote CDDB"
-#~ msgstr "원격 CDDB에 접근할 프록시 사용자 이름"
-
-#~ msgid "Password:"
-#~ msgstr "사용자 암호:"
-
-#~ msgid "Password for a proxy to access remote CDDB"
-#~ msgstr "원격 CDDB에 접근할 프록시 암호"
-
-#~ msgid "Enable proxy for remote CDDB"
-#~ msgstr "원격 CDDB 프록시 활성화"
-
-#~ msgid "CDDB proxy hostname"
-#~ msgstr "CDDB 프록시 호스트 이름"
-
-#~ msgid "CDDB proxy port"
-#~ msgstr "CDDB 프록시 포트"
-
-#~ msgid "CDDB proxy username"
-#~ msgstr "CDDB 프록시 사용자 이름"
-
-#~ msgid "CDDB proxy password"
-#~ msgstr "CDDB 프록시 암호"
-
-#~ msgid "Lower-case all characters"
-#~ msgstr "모두 소문자로"
-
-#~ msgid "Upper-case all characters"
-#~ msgstr "모든 문자를 대문자로"
-
-#~ msgid "Upper-case the first letter of the tag"
-#~ msgstr "태그의 첫 글자를 대문자로"
-
-#~ msgid "Upper-case the first letter of each word"
-#~ msgstr "각 단어의 첫 글자를 대문자로"
-
-#~ msgid "Variable EASYTAGLANG defined, setting locale ‘%s’"
-#~ msgstr "EASYTAGLANG 변수를 설정했습니다. ‘%s’ 로캘 설정 중"
-
-#~ msgid "Resolving host '%s'…"
-#~ msgstr "'%s' 호스트 확인 중…"
-
-#~ msgid "Cannot create a new socket ‘%s’"
-#~ msgstr "새 ‘%s’ 소켓을 만들 수 없습니다"
-
-#~ msgid "Cannot set options on the newly-created socket"
-#~ msgstr "새로 만든 소켓에 옵션을 설정할 수 없습니다"
-
-#~ msgid "Connecting to host ‘%s’, port ‘%d’…"
-#~ msgstr "‘%s’ 호스트 ‘%d’번 포트에 연결 중…"
-
-#~ msgid "Connected to host ‘%s’"
-#~ msgstr "‘%s’ 호스트에 연결했습니다"
-
-#~ msgid "Error while writing CDDB results to file ‘%s’"
-#~ msgstr "CDDB 결과를 ‘%s’ 파일에 기록하는 중 오류"
-
-#~ msgid "Receiving data (%s)…"
-#~ msgstr "데이터 받는 중(%s)…"
-
-#~ msgid "Error when reading CDDB response ‘%s’"
-#~ msgstr "‘%s’ CDDB 응답을 읽는 중 오류"
-
-#~ msgid "Cannot create file ‘%s’: %s"
-#~ msgstr "‘%s’ 파일을 만들 수 없습니다: %s"
-
-#~ msgid "Cannot send the request ‘%s’"
-#~ msgstr "‘%s’ 요청을 보낼 수 없습니다"
-
-#~ msgid "The filename ‘%s’ could not be converted into UTF-8: %s"
-#~ msgstr "‘%s’ 파일 이름을 UTF-8로 변환할 수 없습니다: %s"
-
-#~ msgid "Error opening Monkey’s Audio file"
-#~ msgstr "Monkey 오디오 파일 여는 중 오류"
-
-#~ msgid "Error opening Musepack file"
-#~ msgstr "Musepack 파일 여는 중 오류"
-
-#~ msgid "Error while opening file: '%s' (%s)."
-#~ msgstr "파일을 여는 중 오류: '%s' (%s)."
-
-#~ msgid "Run a command on the selected files"
-#~ msgstr "선택한 파일에 대한 명령 실행"
-
-#~ msgid "Clear the current selection"
-#~ msgstr "현재 선택을 취소합니다"
-
-#~ msgid "Delete files"
-#~ msgstr "파일을 삭제합니다"
-
-#~ msgid "S_can Files"
-#~ msgstr "파일 검색(_C)"
-
-#~ msgid "_Undo Last Files Changes"
-#~ msgstr "최근 파일 바꾸기 취소(_U)"
-
-#~ msgid "Undo last files changes"
-#~ msgstr "최근의 파일 바꾸기 동작을 취소합니다"
-
-#~ msgid "R_edo Last Files Changes"
-#~ msgstr "최근 파일 바꾸기 다시 실행(_E)"
-
-#~ msgid "Redo last files changes"
-#~ msgstr "최근의 파일 바꾸기 동작을 다시 실행합니다"
-
-#~ msgid "Force saving files"
-#~ msgstr "강제로 파일 저장"
-
-#~ msgid "Undo Last Changes"
-#~ msgstr "최근 바뀐 내용 취소"
-
-#~ msgid "Undo last changes"
-#~ msgstr "최근에 바뀐 내용을 취소"
-
-#~ msgid "Redo Last Changes"
-#~ msgstr "최근 내용 바꾸기 다시 실행"
-
-#~ msgid "Redo last changes"
-#~ msgstr "최근의 내용 바꾸기 동작을 다시 실행"
-
-#~ msgid "Go to home directory"
-#~ msgstr "내 폴더로 이동"
-
-#~ msgid "Go to desktop directory"
-#~ msgstr "데스크톱 디렉터리로 이동"
-
-#~ msgid "Go to documents directory"
-#~ msgstr "문서 디렉터리로 이동"
-
-#~ msgid "Go to downloads directory"
-#~ msgstr "다운로드 디렉터리로 이동"
-
-#~ msgid "Go to music directory"
-#~ msgstr "음악 디렉터리로 이동"
-
-#~ msgid "Go to parent directory"
-#~ msgstr "상위 디렉터리로 이동"
-
-#~ msgid "Go to default directory"
-#~ msgstr "기본 디렉터리로 이동"
-
-#~ msgid "Set current path as default"
-#~ msgstr "현재 경로를 기본으로 설정합니다"
-
-#~ msgid "Rename directory"
-#~ msgstr "디렉터리 이름 바꾸기"
-
-#~ msgid "Reload directory"
-#~ msgstr "디렉터리 다시 불러오기"
-
-#~ msgid "Run a command on the directory"
-#~ msgstr "디렉터리에 대한 명령을 실행"
-
-#~ msgid "Reload directory tree"
-#~ msgstr "디렉터리 트리를 다시 불러옵니다"
-
-#~ msgid "CDDB search"
-#~ msgstr "CDDB 검색"
-
-#~ msgid "Load filenames from a text file"
-#~ msgstr "텍스트 파일에서 파일 이름 불러오기"
-
-#~ msgid "Run audio player"
-#~ msgstr "오디오 재생기를 실행합니다"
-
-#~ msgid "About"
-#~ msgstr "정보"
-
-#~ msgid "_File Operations"
-#~ msgstr "파일 처리(_F)"
-
-#~ msgid "S_canner"
-#~ msgstr "스캐너(_C)"
-
-#~ msgid "CDDB search files…"
-#~ msgstr "CDDB 파일 검색…"
-
-#~ msgid "Tree Browser"
-#~ msgstr "트리 탐색기"
-
-#~ msgid "View by directory tree"
-#~ msgstr "디렉터리 트리 모양으로 보기"
-
-#~ msgid "_Fill Tags…"
-#~ msgstr "태그 채우기(_F)…"
-
-#~ msgid "Fill tags"
-#~ msgstr "태그를 채웁니다"
-
-#~ msgid "Rename files and directories"
-#~ msgstr "파일 및 디렉터리 이름을 바꿉니다"
-
-#~ msgid "_Process Fields…"
-#~ msgstr "처리 필드(_P)…"
-
-#~ msgid "Could not merge UI, error was: %s\n"
-#~ msgstr "UI를 합칠 수 없습니다. 오류는 다음과 같습니다: %s\n"
-
-#~ msgid "Error: Searching for %s, could not find node %s in tree."
-#~ msgstr "오류: %s 검색 중, 트리에서 %s 노드를 찾을 수 없습니다."
-
-#~ msgid "Tree"
-#~ msgstr "트리"
-
-#~ msgid "Select a directory to browse."
-#~ msgstr "탐색할 디렉터리 경로를 선택하십시오."
-
-#~ msgid "Artist & Album"
-#~ msgstr "음악가 및 앨범"
-
-#~ msgid "If activated, it will use masks to rename directory."
-#~ msgstr "활성화 하면 디렉터리 이름을 바꿀 때 마스크를 사용합니다."
-
-#~ msgid "Program to run:"
-#~ msgstr "실행할 프로그램:"
-
-#~ msgid "Request CDDB"
-#~ msgstr "CDDB 요청"
-
-#~ msgid "Use local CDDB"
-#~ msgstr "로컬 CDDB 사용"
-
-#~ msgid ""
-#~ "When activating this option, after loading the fields, the current "
-#~ "selected scanner will be ran (the scanner window must be opened)."
-#~ msgstr ""
-#~ "이 옵션을 활성화 하면, 필드를 읽어들인 후 현재 선택한 검색기를 실행합니다"
-#~ "(검색기 창이 열려 있어야 함)."
-
-#~ msgid "Words:"
-#~ msgstr "단어:"
-
-#~ msgid "Search In:"
-#~ msgstr "다음에서 검색:"
-
-#~ msgid "All Fields"
-#~ msgstr "모든 필드"
-
-#~ msgid "All Categories"
-#~ msgstr "모든 분류"
-
-#~ msgid "included: funk, soul, rap, pop, industrial, metal, etc."
-#~ msgstr "포함: 펑크, 소울, 랩, 팝, 인더스트리얼, 메탈, 등"
-
-#~ msgid "movies, shows"
-#~ msgstr "영화, 쇼"
-
-#~ msgid "others that do not fit in the above categories"
-#~ msgstr "위 분류에 적합하지 않은 다른 장르"
-
-#~ msgid "Enter the words to search in the list below"
-#~ msgstr "아래 목록에서 검색할 단어를 입력하십시오"
-
-#~ msgid "Search Next"
-#~ msgstr "다음 검색"
-
-#~ msgid "Search Previous"
-#~ msgstr "이전 검색"
-
-#~ msgid "Show only red lines (or show all lines) in the 'Artist / Album' list"
-#~ msgstr "'음악가 / 앨범' 목록에 빨간 줄만(또는 모든 줄) 표시"
-
-#~ msgid "Set Into:"
-#~ msgstr "다음에 설정:"
-
-#~ msgid "All"
-#~ msgstr "모두"
-
-#~ msgid "Track #"
-#~ msgstr "트랙 번호"
-
-#~ msgid "# Tracks"
-#~ msgstr "트랙 갯수"
-
-#~ msgid ""
-#~ "When activating this option, the Levenshtein algorithm (DLM: Damerau-"
-#~ "Levenshtein Metric) will be used to match the CDDB title against every "
-#~ "filename in the current folder, and to select the best match. This will "
-#~ "be used when selecting the corresponding audio file, or applying CDDB "
-#~ "results, instead of using directly the position order."
-#~ msgstr ""
-#~ "이 옵션을 활성화하면, 현재 폴더의 모든 파일 이름에 대해 CDDB 제목 이름과 "
-#~ "일치하는지 비교하고 가장 일치하는 항목을 선택할 목적으로 레번슈타인 알고리"
-#~ "즘(DLM: 다임러-레번슈타인 측정)을 사용합니다. 각각의 오디오 파일을 선택하"
-#~ "거나, 위치 순서를 직접 활용하기보다 CDDB 결과를 적용할 때 사용합니다."
-
-#~ msgid "The path for 'Local CD Database' was not defined"
-#~ msgstr "'로컬 CD 데이터베이스' 경로를 정의하지 않았습니다"
-
-#~ msgid "Enter it in the preferences window before using this search."
-#~ msgstr "이 검색 기능을 사용하기 전에 기본 설정 창에 입력하십시오."
-
-#~ msgid "Local CD search"
-#~ msgstr "로컬 CD 검색"
-
-#~ msgid "Can't load file: '%s' (%s)."
-#~ msgstr "파일을 불러올 수 없습니다: '%s'(%s)"
-
-#~ msgid "Using libid3tag version %s"
-#~ msgstr "libid3tag 버전 %s 사용 중"
-
-#~ msgid "Using id3lib version %d.%d.%d"
-#~ msgstr "id3lib 버전 %d.%d.%d 사용 중"
-
-#~ msgid "Currently using locale '%s' (and eventually '%s')"
-#~ msgstr "'%s' 로캘을 사용하는 중입니다('%s'도 사용합니다)"
-
-#~ msgid "Frequency:"
-#~ msgstr "빈도:"
-
-#~ msgid "Select Mode and Mask, and redo the same action"
-#~ msgstr "모드와 마스크를 선택하고 동일 동작을 다시 실행하십시오."
-
-#~ msgid "Files have been partially deleted"
-#~ msgstr "파일을 일부 삭제했습니다"
-
-#~ msgid "Tag(s) written"
-#~ msgstr "태그를 기록함"
-
-#~ msgid "Cannot write tag in file '%s' (%s)"
-#~ msgstr "'%s' 파일의 태그를 기록할 수 없습니다(%s)"
-
-#~ msgid "Cannot read directory (%s)"
-#~ msgstr "디렉터리를 읽을 수 없습니다(%s)"
-
-#~ msgid "Convert ' ' to '_'"
-#~ msgstr "' '을 '_'로 치환"
-
-#~ msgid "Do you really want to quit?"
-#~ msgstr "정말 끝내시겠습니까?"
-
-#~ msgid "Error writing tag type %d to file %s (%s)"
-#~ msgstr "%d 태그 형식을 %s 파일에 기록 중 오류(%s)"
-
-#~ msgid "Picture block isn't valid: '%s'"
-#~ msgstr "픽처 블록이 유효하지 않습니다: %s"
-
-#~ msgid "Error while reading file: '%s' (%s)"
-#~ msgstr "파일 읽는 중 오류: '%s'(%s)"
-
-#~ msgid ""
-#~ "As the following corrupted file '%s' will cause an error in id3lib, it "
-#~ "will not be processed"
-#~ msgstr ""
-#~ "다음과 같이 '%s' 깨진 파일이 id3lib에서 오류를 일으켜, 처리하지 않겠습니다"
-
-#~ msgid "Updated tag of '%s'"
-#~ msgstr "'%s'의 태그를 업데이트했습니다"
-
-#~ msgid "Error while creating temporary file: '%s'"
-#~ msgstr "임시 파일을 만드는 중 오류: '%s'"
-
-#~ msgid "Error while writing to file: '%s' (%s)"
-#~ msgstr "파일에 기록하는 중 오류: '%s' (%s)"
-
-#~ msgid "Cannot write tag of file ‘%s’ (a byte was missing)"
-#~ msgid_plural "Cannot write tag of file ‘%s’ (%s bytes were missing)"
-#~ msgstr[0] "'%s' 파일에 태그를 기록할 수 없습니다(%s 바이트가 빠졌습니다)"
-
-#~ msgid "Cannot save tag of file '%s'"
-#~ msgstr "'%s' 파일의 태그를 저장할 수 없습니다"
-
-#~ msgid "Size error while saving tag of '%s'"
-#~ msgstr "'%s'의 태그를 저장하는 동안 크기 오류"
-
-#~ msgid "M3U Playlist Name"
-#~ msgstr "M3U 재생 목록 이름"
-
-#~ msgid "Playlist Options"
-#~ msgstr "재생 목록 옵션"
-
-#~ msgid ""
-#~ "If activated, only the selected files will be written in the playlist "
-#~ "file. Else, all the files will be written."
-#~ msgstr ""
-#~ "활성화하면, 선택한 파일만 재생 목록 파일에 기록합니다. 그렇지 않으면 모든 "
-#~ "파일을 기록합니다."
-
-#~ msgid "If activated, the playlist will be created in the parent directory."
-#~ msgstr "활성화하면, 재생 목록을 상위 디렉터리에 만듭니다."
-
-#~ msgid ""
-#~ "This option replaces the UNIX directory separator '/' into DOS separator "
-#~ "'\\'."
-#~ msgstr ""
-#~ "이 옵션은 UNIX 디렉터리 구분 문자 '/'를 DOS 구분 문자 '\\'로 바꿉니다."
-
-#~ msgid "Playlist Content"
-#~ msgstr "재생 목록 내용"
-
-#~ msgid "Move down the selected line"
-#~ msgstr "선택한 줄 아래로 이동"
-
-#~ msgid ""
-#~ "When activating this option, after loading the filenames, the current "
-#~ "selected scanner will be ran (the scanner window must be opened)."
-#~ msgstr ""
-#~ "이 옵션을 활성화 하면, 파일 이름을 불러온 후 현재 선택한 검색기를 실행합니"
-#~ "다(검색기 창이 열려있어야 합니다)."
-
-#~ msgid "Cannot retrieve file info (%s)"
-#~ msgstr "파일 정보를 가져올 수 없습니다(%s)"
-
-#~ msgid "Can't open file '%s' (%s)"
-#~ msgstr "'%s' 파일을 열 수 없습니다(%s)"
-
-#~ msgid "Move down this line"
-#~ msgstr "이 줄 아래로 이동"
-
-#~ msgid "Warning: The Ogg Vorbis file '%s' contains an ID3v2 tag."
-#~ msgstr "경고: '%s' Ogg Vorbis 파일에 ID3v2 태그가 있습니다."
-
-#~ msgid "Error with 'loader_write': %s"
-#~ msgstr "'loader_write'에서 오류: %s"
-
-#~ msgid "Error with 'loader_close': %s"
-#~ msgstr "'loader_close'에서 오류: %s"
-
-#~ msgid "Image Description:"
-#~ msgstr "그림 설명:"
-
-#~ msgid "Default directory:"
-#~ msgstr "기본 디렉터리:"
-
-#~ msgid ""
-#~ "Specify the directory where your files are located. This path will be "
-#~ "loaded when EasyTAG starts without parameter."
-#~ msgstr ""
-#~ "파일이 위치한 디렉터리를 지정하십시오. 이 경로는 매개변수 없이 이지태그를 "
-#~ "시작할 때 불러옵니다."
-
-#~ msgid ""
-#~ "Automatically search files, when EasyTAG starts, into the default "
-#~ "directory. Note that this path may be overridden by the parameter passed "
-#~ "to easytag (easytag /path_to/mp3_files)."
-#~ msgstr ""
-#~ "이지태그를 시작할 때 자동으로 검색한 파일을 기본 디렉터리에 넣습니다. 참고"
-#~ "로 이 경로는 매개변수로 전달한 경로로 바뀔 수 있습니다(easytag /path_to/"
-#~ "mp3_files)."
-
-#~ msgid "Search subdirectories"
-#~ msgstr "하위 디렉터리 검색"
-
-#~ msgid ""
-#~ "This expands the selected node into the file browser to display the sub-"
-#~ "directories."
-#~ msgstr ""
-#~ "이 옵션은 파일 탐색기에서 선택한 노드를 확장하여 하위 디렉터리를 표시합니"
-#~ "다."
-
-#~ msgid "Search hidden directories for files (directories starting by a '.')."
-#~ msgstr "파일에 대한 숨김 디렉터리를 검색합니다('.'으로 시작하는 디렉터리)."
-
-#~ msgid "Misc"
-#~ msgstr "기타"
-
-#~ msgid "Show header information of file"
-#~ msgstr "파일의 헤더 정보 표시"
-
-#~ msgid ""
-#~ "If activated, information about the file as the bitrate, the time, the "
-#~ "size, will be displayed under the filename entry."
-#~ msgstr ""
-#~ "활성화 하면, 비트전송율, 시간, 크기와 같은 파일의 정보를 파일 이름 항목 아"
-#~ "래에 표시합니다."
-
-#~ msgid "Sorting List Options"
-#~ msgstr "목록 정렬 옵션"
-
-#~ msgid "Sort the file list by:"
-#~ msgstr "파일 목록 정렬 방식:"
-
-#~ msgid "Ascending filename"
-#~ msgstr "파일 이름 기준 오름차순"
-
-#~ msgid "Descending filename"
-#~ msgstr "파일 이름 기준 내림차순"
-
-#~ msgid "Ascending title"
-#~ msgstr "제목 기준 오름차순"
-
-#~ msgid "Descending title"
-#~ msgstr "제목 기준 내림차순"
-
-#~ msgid "Ascending artist"
-#~ msgstr "음악가 기준 오름차순"
-
-#~ msgid "Descending artist"
-#~ msgstr "음악가 기준 내림차순"
-
-#~ msgid "Ascending album artist"
-#~ msgstr "앨범 음악가 기준 오름차순"
-
-#~ msgid "Descending album artist"
-#~ msgstr "앨범 음악가 기준 내림차순"
-
-#~ msgid "Ascending album"
-#~ msgstr "앨범 제목 기준 오름차순"
-
-#~ msgid "Descending album"
-#~ msgstr "앨범 제목 기준 내림차순"
-
-#~ msgid "Ascending year"
-#~ msgstr "연도별 오름차순"
-
-#~ msgid "Descending year"
-#~ msgstr "연도별 내림차순"
-
-#~ msgid "Ascending disc number"
-#~ msgstr "디스크 번호별 오름차순"
-
-#~ msgid "Descending disc number"
-#~ msgstr "디스크 번호별 내림차순"
-
-#~ msgid "Descending track number"
-#~ msgstr "트랙 번호 기준 내림차순"
-
-#~ msgid "Ascending genre"
-#~ msgstr "장르별 오름차순"
-
-#~ msgid "Descending genre"
-#~ msgstr "장르별 내림차순"
-
-#~ msgid "Ascending comment"
-#~ msgstr "설명 기준 오름차순"
-
-#~ msgid "Descending comment"
-#~ msgstr "설명 기준 내림차순"
-
-#~ msgid "Ascending composer"
-#~ msgstr "작곡가 기준 오름차순"
-
-#~ msgid "Descending composer"
-#~ msgstr "작곡기 기준 내림차순"
-
-#~ msgid "Ascending original artist"
-#~ msgstr "원작자 기준 오름차순"
-
-#~ msgid "Descending original artist"
-#~ msgstr "원작자 기준 내림차순"
-
-#~ msgid "Ascending copyright"
-#~ msgstr "저작권자 기준 오름차순"
-
-#~ msgid "Descending copyright"
-#~ msgstr "저작권자 기준 내림차순"
-
-#~ msgid "Ascending URL"
-#~ msgstr "URL 기준 오름차순"
-
-#~ msgid "Descending URL"
-#~ msgstr "URL 기준 내림차순"
-
-#~ msgid "Ascending encoded by"
-#~ msgstr "인코더 이름 기준 오름차순"
-
-#~ msgid "Descending encoded by"
-#~ msgstr "인코더 이름 기준 내림차순"
-
-#~ msgid "Ascending creation date"
-#~ msgstr "만든 날짜 기준 오름차순"
-
-#~ msgid "Descending creation date"
-#~ msgstr "만든 날짜 기준 내림차순"
-
-#~ msgid "Select the type of file sorting when loading a directory."
-#~ msgstr "디렉터리를 불러오는 동안 파일을 정렬할 형식을 선택하십시오."
-
-#~ msgid "If activated, the sorting of the list will be dependent on the case."
-#~ msgstr "활성화 하면 선택한 조건에 따라 목록을 정렬합니다."
-
-#~ msgid "File Audio Player"
-#~ msgstr "파일 오디오 재생기"
-
-#~ msgid "Player to run:"
-#~ msgstr "실행할 재생기:"
-
-#~ msgid ""
-#~ "Enter the program used to play the files. Some arguments can be passed "
-#~ "for the program (as 'xmms -p') before to receive files as other arguments."
-#~ msgstr ""
-#~ "파일을 재생하는데 사용할 프로그램을 입력하십시오. 일부 인자는 파일을 다른 "
-#~ "인자처럼 받기 전에 프로그램에 전달합니다('xmms -p')."
-
-#~ msgid "If activated, the log view would be visible in the main window."
-#~ msgstr "활성화 하면, 메인 창에 로그 보기가 나타납니다."
-
-#~ msgid "Max number of lines:"
-#~ msgstr "줄 최대 갯수:"
-
-#~ msgid "File Options"
-#~ msgstr "파일 옵션"
-
-#~ msgid ""
-#~ "Convert illegal characters for FAT32/16 and ISO9660 + Joliet filesystems "
-#~ "('\\', ':', ';', '*', '?', '\"', '<', '>', '|') of the filename to avoid "
-#~ "problem when renaming the file. This is useful when renaming the file "
-#~ "from the tag with the scanner."
-#~ msgstr ""
-#~ "파일 이름을 바꿀 때 FAT32/16과 ISO9660+졸리엣 파일 시스템에서 파일 이름의 "
-#~ "잘못된 문자를 변환하여 문제를 피합니다. 검색기에서 태그로 파일 이름을 바"
-#~ "꿀 때 유용합니다."
-
-#~ msgid ""
-#~ "Update modification time of the parent directory of the file (recommended "
-#~ "when using Amarok)"
-#~ msgstr "파일의 상위 디렉터리 수정 시간 업데이트(아마록 사용시 추천)"
-
-#~ msgid ""
-#~ "The modification time of the parent directory of the file will be updated "
-#~ "when saving tag the file. At the present time it is automatically done "
-#~ "only when renaming a file.\n"
-#~ "This feature is interesting when using applications like Amarok. For "
-#~ "performance reasons, they refresh file information by detecting changes "
-#~ "of the parent directory."
-#~ msgstr ""
-#~ "파일을 저장할 때 파일의 상위 디렉터리 수정 시간을 업데이트 합니다. 파일이 "
-#~ "남아 있으면 현재 시간으로 업데이트합니다.\n"
-#~ "이 기능은 아마록 같은 프로그램을 사용할 때 고려할 만합니다. 성능 문제로 인"
-#~ "해, 상위 디렉터리의 내용 바뀜을 감지하여 파일 정보를 새로 고칩니다."
-
-#~ msgid "Character Set for Filename"
-#~ msgstr "파일 이름 문자세트"
-
-#~ msgid ""
-#~ "Rules to apply if some characters can't be converted to the system "
-#~ "character encoding when writing filename:"
-#~ msgstr ""
-#~ "파일 이름을 기록할 때 시스템 문자 인코딩으로 일부 문자를 변환할 수 없다면 "
-#~ "적용할 규칙:"
-
-#~ msgid ""
-#~ "With this option, it will try the conversion to the encoding associated "
-#~ "to your locale (for example: ISO-8859-1 for 'fr', KOI8-R for 'ru', "
-#~ "ISO-8859-2 for 'ro'). If it fails, it will try the character encoding "
-#~ "ISO-8859-1."
-#~ msgstr ""
-#~ "이 옵션으로 기존에 적용한 로캘과 관련된 인코딩으로 변환을 시도합니다. "
-#~ "('fr'에는 ISO-8859-1로, 'ru'에는 KOI8-R로, 'ro'에는 ISO-8859-2로). 시도를 "
-#~ "실패하면 ISO-8859-1 문자 인코딩으로 시도합니다."
-
-#~ msgid ""
-#~ "Force using the system character encoding and activate the transliteration"
-#~ msgstr "시스템 문자 인코딩 사용을 강제하고 음역 활성화"
-
-#~ msgid ""
-#~ "With this option, when a character cannot be represented in the target "
-#~ "character set, it can be approximated through one or several similarly "
-#~ "looking characters."
-#~ msgstr ""
-#~ "이 옵션으로 대상 문자세트로 표현할 수 없는 문자가 있을 때, 평균적으로 사용"
-#~ "하는 문자 또는 비슷하게 보이는 문자로 치환합니다."
-
-#~ msgid "Tag Settings"
-#~ msgstr "태그 설정"
-
-#~ msgid "Tag Options"
-#~ msgstr "태그 옵션"
-
-#~ msgid "Auto completion of date if not complete"
-#~ msgstr "날짜를 완성하지 않았다면 자동 완성"
-
-#~ msgid ""
-#~ "Try to complete the year field if you enter only the last numerals of the "
-#~ "date (for instance, if the current year is 2005: 5 => 2005, 4 => 2004, 6 "
-#~ "=> 1996, 95 => 1995…)."
-#~ msgstr ""
-#~ "날짜의 마지막 숫자만 입력하면 연도 필드 완성을 시도합니다(2005: 5 => "
-#~ "2005, 4 => 2004, 96 => 1996, 95 => 1995…)."
-
-#~ msgid "Write the track field with the following number of digits:"
-#~ msgstr "다음 자리수만큼 트랙 필드 기록:"
-
-#~ msgid ""
-#~ "If activated, the track field is written using the number '0' as padding "
-#~ "to obtain a number with 'n' digits (for example, with two digits: '05', "
-#~ "'09', '10'…). Else it keeps the 'raw' track value."
-#~ msgstr ""
-#~ "활성화 하면 'n'자리를 채울 때 숫자 '0'을 사용하여 트랙 필드를 기록합니다"
-#~ "(예: 2자리 숫자: '05', '09', '10'…). 그렇지 않으면 ' 있는 그대로의 트랙 값"
-#~ "을 유지합니다."
-
-#~ msgid "Write the disc field with the following number of digits:"
-#~ msgstr "다음 자리수만큼 디스크 필드 가록:"
-
-#~ msgid ""
-#~ "Tag field focus when switching files in list with shortcuts Page Up/Page "
-#~ "Down:"
-#~ msgstr ""
-#~ "Page Up/Page Down 단축키를 활용하여 목록의 파일을 바꿀 때 태그 필드에 포커"
-#~ "스:"
-
-#~ msgid "Keep focus to the same tag field"
-#~ msgstr "동일한 태그 필드에 포커스 유지"
-
-#~ msgid "Return focus to the first tag field (i.e. 'Title' field)"
-#~ msgstr "처음 태그 필드로 포커스 반환(예: '제목' 필드)"
-
-#~ msgid "ID3 Tag Settings"
-#~ msgstr "ID3 태그 설정"
-
-#~ msgid "ID3 Tag Rules"
-#~ msgstr "ID3 태그 규칙"
-
-#~ msgid ""
-#~ "As ID3v2 tags may contain other data than Title, Artist, Album, Year, "
-#~ "Track, Genre or Comment (as an attached image, lyrics…), this option "
-#~ "allows you to strip the whole tag when these seven standard data fields "
-#~ "have been set to blank."
-#~ msgstr ""
-#~ "제목, 음악가, 앨범, 연도, 트랙, 장르, 설명 이외에도(첨부 그림, 가사와 같"
-#~ "이) ID3v2 태그에 다른 많은 데이터가 들어갈 수 있는 바와 같이, 이 옵션을 통"
-#~ "해 언급한 일곱개의 표준 데이터 필드를 이미 비웠다면 태그 전체를 없앨 수 있"
-#~ "도록 합니다."
-
-#~ msgid ""
-#~ "If activated, an old ID3v2 tag version (as ID3v2.2) will be updated to "
-#~ "the ID3v2.3 version."
-#~ msgstr ""
-#~ "활성화하면, 이전 ID3v2 태그 버전(ID3v2.2)을 ID3v2.3 버전으로 업데이트합니"
-#~ "다."
-
-#~ msgid "Use Compression"
-#~ msgstr "압축 사용"
-
-#~ msgid "Write Genre in text only"
-#~ msgstr "장르를 텍스트로만 기록"
-
-#~ msgid ""
-#~ "Don't use ID3v1 number references in genre tag. Enable this if you see "
-#~ "numbers as genre in your music player."
-#~ msgstr ""
-#~ "장르 태그에 ID3v1 숫자 참조를 사용하지 마십시오. 음악 재생기에서 숫자를 장"
-#~ "르로 표시할 때 활성화하십시오."
-
-#~ msgid ""
-#~ "If activated, an ID3v2.4 tag will be added or updated at the beginning of "
-#~ "the MP3 files. Else it will be stripped."
-#~ msgstr ""
-#~ "활성화하면, MP3 파일의 시작부분에 ID3v2.4 태그를 추가하거나 업데이트합니"
-#~ "다. 그렇지 않으면 태그를 없애버립니다."
-
-#~ msgid "Charset:"
-#~ msgstr "문자세트:"
-
-#~ msgid "Unicode type to use"
-#~ msgstr "사용할 유니코드 형식"
-
-#~ msgid "Character set used to write the tag data in the file."
-#~ msgstr "파일의 태그 데이터를 기록하는데 쓸 문자세트."
-
-#~ msgid "Additional settings for iconv():"
-#~ msgstr "iconv()에 대한 추가 설정:"
-
-#~ msgid "No"
-#~ msgstr "아니요"
-
-#~ msgid ""
-#~ "With this option, when a character cannot be represented in the target "
-#~ "character set, it isn't changed. But note that an error message will be "
-#~ "displayed for information."
-#~ msgstr ""
-#~ "이 옵션으로는, 대상 문자세트로 바꿀 수 없는 문자가 있으면 바꾸지 않습니"
-#~ "다. 그러나 해당 정보를 제공할 오류 메시지가 나타남을 참고하십시오."
-
-#~ msgid "//TRANSLIT"
-#~ msgstr "//TRANSLIT"
-
-#~ msgid "//IGNORE"
-#~ msgstr "//IGNORE"
-
-#~ msgid ""
-#~ "If activated, an ID3v1 tag will be added or updated at the end of the MP3 "
-#~ "files. Else it will be stripped."
-#~ msgstr ""
-#~ "활성화하면 MP3 파일 마지막 부분에 ID3v1 태그를 추가하거나 업데이트합니다. "
-#~ "그렇지 않으면 태그를 없앱니다."
-
-#~ msgid "Character set used to write ID3v1 tag data in the file."
-#~ msgstr "파일에 ID3v1 태그 데이터를 기록할 때 사용할 문자세트입니다."
-
-#~ msgid "Non-standard:"
-#~ msgstr "비표준:"
-
-#~ msgid ""
-#~ "This character set will be used when reading the tag data, to convert "
-#~ "each string found in an ISO-8859-1 field in the tag (for ID3v2 or/and "
-#~ "ID3v1 tag).\n"
-#~ "\n"
-#~ "For example:\n"
-#~ "  - In previous versions of EasyTAG, you could save UTF-8 strings in an "
-#~ "ISO-8859-1 field. This is not correct. To convert these tags to Unicode: "
-#~ "activate this option and select UTF-8. You must also activate above the "
-#~ "option 'Try to save tags to ISO-8859-1. If it isn't possible then use "
-#~ "UNICODE (recommended)' or 'Always save tags to UNICODE character set'.\n"
-#~ "  - If Unicode was not used, Russian people can select the character set "
-#~ "'Windows-1251' to load tags written under Windows. And 'KOI8-R' to load "
-#~ "tags written under Unix systems."
-#~ msgstr ""
-#~ "이 문자셋은 태그 데이터를 읽을 때, 태그(ID3v2 또는 ID3v1)에서 ISO-8859-1 "
-#~ "필드에서 찾은 각각의 문자열을 변환할 때 사용합니다.\n"
-#~ "\n"
-#~ "예:\n"
-#~ "  - 이전 버전의 이지태그에서는 ISO-8859-1 필드에 UTF-8 문자열을 저장할 수 "
-#~ "있었습니다. 이는 잘못된 방법입니다. 이 태그를 유니코드로 변환하려면 이 옵"
-#~ "션을 활성화 하고 UTF-8을 선택해야 합니다. 위의 'ISO-8859-1로 태그 저장을 "
-#~ "시도. 가능하지 않다면 유니코드 사용(추천)' 또는 '항상 유니코드 문자세트로 "
-#~ "태그 저장' 옵션도 활성화해야합니다.\n"
-#~ "  - 유니코드를 사용하지 않으면, 러시아 언어권 사람은 'Windows-1251' 문자세"
-#~ "트를 선택하여 윈도우에서 기록한 태그를 불러올 수 있습니다. 또한 유닉스 시"
-#~ "스템에서 기록한 태그를 불러오려면 'KOI8-R'을 사용합니다."
-
-#~ msgid "Character set used to read tag data in the file."
-#~ msgstr "파일의 태그 데이터를 읽을 때 사용할 문자세트입니다."
-
-#~ msgid "Convert underscore character '_' and string '%20' to space ' '"
-#~ msgstr "'_' 밑줄 문자와 '%20' 문자열을 ' ' 공백 문자로 치환"
-
-#~ msgid ""
-#~ "If activated, this conversion will be used when applying a mask from the "
-#~ "scanner for tags."
-#~ msgstr ""
-#~ "활성화 하면 태그 검색기에서 마스크를 적용할 때 주어진 변환을 사용합니다."
-
-#~ msgid "Rename File Scanner - Character Conversion"
-#~ msgstr "파일 이름 바꾸기 검색기 - 문자 변환"
-
-#~ msgid ""
-#~ "If activated, this conversion will be used when applying a mask from the "
-#~ "scanner for filenames."
-#~ msgstr ""
-#~ "활성화 하면 파일 이름 검색기에서 마스크를 적용할 때 주어진 변환을 사용합니"
-#~ "다."
-
-#~ msgid "Process Fields Scanner - Character Conversion"
-#~ msgstr "처리 필드 검색기 - 문자 변환"
-
-#~ msgid ""
-#~ "Don't convert first letter of words like prepositions, articles and words "
-#~ "like feat., when using the scanner 'First letter uppercase of each "
-#~ "word' (for example, you will obtain 'Text in an Entry' instead of 'Text "
-#~ "In An Entry')."
-#~ msgstr ""
-#~ "'각 단어의 첫번째 문자를 대문자로' 검색기를 사용한다면 전치사, 관사, "
-#~ "feat. 같은 단어의 첫 글자는 변환하지 않습니다('Text in an Entry'를 'Text "
-#~ "In An Entry'로 바꿉니다)."
-
-#~ msgid ""
-#~ "Activate this option to open automatically the scanner window when "
-#~ "EasyTAG starts."
-#~ msgstr ""
-#~ "이지태그를 시작할 때 검색기 창을 자동으로 열려면 이 옵션을 활성화하십시오."
-
-#~ msgid ""
-#~ "If activated, the scanner will replace existing text in fields by the new "
-#~ "one. If deactivated, only blank fields of the tag will be filled."
-#~ msgstr ""
-#~ "활성화 하면 검색기에서 기존 텍스트 필드를 새로운 내용으로 바꿉니다. 비활성"
-#~ "화 하면, 빈 태그 상태에만 채웁니다."
-
-#~ msgid ""
-#~ "Activate this option if you want to put the following string into the "
-#~ "comment field when using the 'Fill Tag' scanner."
-#~ msgstr ""
-#~ "'태그 채우기' 검색기를 사용할 때 설명 필드에 다음 문자열을 넣으려면 이 옵"
-#~ "션을 활성화하십시오."
-
-#~ msgid ""
-#~ "Calculates the CRC-32 value of the file and writes it into the comment "
-#~ "field when using the 'Fill Tag' scanner."
-#~ msgstr ""
-#~ "'태그 채우기' 검색기를 사용할때, 파일의 CRC-32 값을 계산해서 설명 필드에 "
-#~ "넣습니다."
-
-#~ msgid "Name:"
-#~ msgstr "이름:"
-
-#~ msgid "Local CDDB"
-#~ msgstr "로컬 CDDB"
-
-#~ msgid "Path:"
-#~ msgstr "경로:"
-
-#~ msgid ""
-#~ "Specify the directory where the local CD database is located. The local "
-#~ "CD database contains the eleven following directories 'blues', "
-#~ "'classical', 'country', 'data', 'folk', 'jazz', 'newage', 'reggae', "
-#~ "'rock', 'soundtrack' and 'misc'."
-#~ msgstr ""
-#~ "로컬 CD 데이터베이스 위치 디렉터리를 지정하십시오. 로컬 CD 데이터베이스에"
-#~ "는 '블루스', '클래식', '컨트리', '데이터', '포크', '재즈', '뉴에이지', '레"
-#~ "게', '록', '사운드트랙', '기타' 11개의 디렉터리가 있습니다."
-
-#~ msgid "Proxy Settings"
-#~ msgstr "프록시 설정"
-
-#~ msgid "Set active the settings of the proxy server."
-#~ msgstr "프록시 서버 설정을 활성화합니다."
-
-#~ msgid "Name of the proxy server."
-#~ msgstr "프록시 서버의 이름."
-
-#~ msgid "Port of the proxy server."
-#~ msgstr "프록시 서버의 포트."
-
-#~ msgid "Name of user for the the proxy server."
-#~ msgstr "프록시 서버의 사용자 이름."
-
-#~ msgid "Password of user for the proxy server."
-#~ msgstr "프록시 서버의 사용자 암호."
-
-#~ msgid "Track Name List"
-#~ msgstr "트랙 이름 목록"
-
-#~ msgid ""
-#~ "If activated, when selecting a line in the list of tracks name, the "
-#~ "corresponding audio file in the main list will be also selected."
-#~ msgstr ""
-#~ "활성화하면, 트랙 이름 목록에서 줄을 선택할 때, 주 목록의 각각의 오디오 파"
-#~ "일도 선택합니다."
-
-#~ msgid "Confirm exit from program"
-#~ msgstr "프로그램 빠져 나가기 확인"
-
-#~ msgid ""
-#~ "If activated, opens a dialog box to ask confirmation before exiting the "
-#~ "program."
-#~ msgstr ""
-#~ "활성화 하면, 프로그램을 빠져 나가기 전에 확인 질문을 하는 대화 상자를 엽니"
-#~ "다."
-
-#~ msgid "Confirm changing directory when there are unsaved changes"
-#~ msgstr "바뀐 내용을 저장하지 않았을 때 디렉터리 바꾸기 확인"
-
-#~ msgid "(Example: %.*d_-_Track_name_1.mp3)"
-#~ msgstr "(예: %.*d_-_트랙_이름_1.mp3)"
-
-#~ msgid "(Example: disc_%.*d_of_10/Track_name_1.mp3)"
-#~ msgstr "(예: %.*d_-_트랙_이름_1.mp3)"
-
-#~ msgid "Configuration saved"
-#~ msgstr "설정을 저장했습니다"
-
-#~ msgid "Configuration unchanged"
-#~ msgstr "설정을 바꾸지 않았습니다"
-
-#~ msgid "The audio file player '%s' cannot be found"
-#~ msgstr "'%s' 오디오 파일 재생기가 없습니다"
-
-#~ msgid "Audio Player Error"
-#~ msgstr "오디오 재생기 오류"
-
-#~ msgid "Scanner:"
-#~ msgstr "검색기:"
-
-#~ msgid "Select the type of scanner to use"
-#~ msgstr "사용할 검색기 형식 선택"
-
-#~ msgid "Select fields:"
-#~ msgstr "필드 선택:"
-
-#~ msgid ""
-#~ "The buttons on the right represent the fields which can be processed. "
-#~ "Select those which interest you"
-#~ msgstr ""
-#~ "오른편에 나타나는 단추는 처리할 수 있는 필드 항목입니다. 관심있는 항목을 "
-#~ "선택하십시오."
-
-#~ msgid "F"
-#~ msgstr "F"
-
-#~ msgid "T"
-#~ msgstr "T"
-
-#~ msgid "Ar"
-#~ msgstr "Ar"
-
-#~ msgid "AA"
-#~ msgstr "AA"
-
-#~ msgid "Al"
-#~ msgstr "Al"
-
-#~ msgid "G"
-#~ msgstr "G"
-
-#~ msgid "Cm"
-#~ msgstr "Cm"
-
-#~ msgid "Cp"
-#~ msgstr "Cp"
-
-#~ msgid "O"
-#~ msgstr "O"
-
-#~ msgid "Cr"
-#~ msgstr "Cr"
-
-#~ msgid "U"
-#~ msgstr "U"
-
-#~ msgid "E"
-#~ msgstr "E"
-
-#~ msgid "Select/Unselect all"
-#~ msgstr "모두 선택/선택 취소"
-
-#~ msgid ""
-#~ "Convert all words in all fields to upper case. Example, before: 'Text IN "
-#~ "AN entry', after: 'TEXT IN AN ENTRY'."
-#~ msgstr ""
-#~ "모든 내용의 모든 단어를 대문자로 바꿉니다. 'Text IN AN entry'를 'TEXT IN "
-#~ "AN ENTRY'로 바꿉니다."
-
-#~ msgid ""
-#~ "Convert all words in all fields to lower case. Example, before: 'TEXT IN "
-#~ "an entry', after: 'text in an entry'."
-#~ msgstr ""
-#~ "모든 내용의 모든 단어를 소문자로 바꿉니다. 'Text IN AN entry'를 'text in "
-#~ "an entry'로 바꿉니다."
-
-#~ msgid ""
-#~ "Convert the initial of the first word in all fields to upper case. "
-#~ "Example, before: 'text IN An ENTRY', after: 'Text in an entry'."
-#~ msgstr ""
-#~ "전체 내용의 첫번째 단어 첫글자를 대문자로 바꿉니다. 'text IN An ENTRY'를 "
-#~ "'Text in an entry'로 바꿉니다."
-
-#~ msgid ""
-#~ "Convert the initial of each word in all fields to upper case. Example, "
-#~ "before: 'Text in an ENTRY', after: 'Text In An Entry'."
-#~ msgstr ""
-#~ "각각의 단어의 첫 글자를 대문자로 바꿉니다. 'Text in an ENTRY'를 'Text In "
-#~ "An Entry'로 바꿉니다."
-
-#~ msgid ""
-#~ "Force to convert to upper case the Roman numerals. Example, before: 'ix. "
-#~ "text in an entry', after: 'IX. Text In An Entry'."
-#~ msgstr ""
-#~ "로마 숫자를 대문자로 강제로 바꿉니다. 'ix. text in an entry'를 'IX. Text "
-#~ "In An Entry'로 바꿉니다."
-
-#~ msgid ""
-#~ "All spaces between words are removed. Example, before: 'Text In An "
-#~ "Entry', after: 'TextInAnEntry'."
-#~ msgstr ""
-#~ "단어간의 모든 공백 문자를 제거합니다. 'Text In An Entry'를 "
-#~ "'TextInAnEntry'로 바꿉니다."
-
-#~ msgid ""
-#~ "A space is inserted before each upper case letter. Example, before: "
-#~ "'TextInAnEntry', after: 'Text In An Entry'."
-#~ msgstr ""
-#~ "각각의 대문자 앞에 공백 문자를 삽입합니다. 'TextInAnEntry'를 'Text In An "
-#~ "Entry'로 바꿉니다."
-
-#~ msgid ""
-#~ "Duplicate spaces and underscores are removed. Example, before: "
-#~ "'Text__In__An   Entry', after: 'Text_In_An Entry'."
-#~ msgstr ""
-#~ "중복 공백 문자나 밑줄 문자를 제거합니다. 'Text__In__An   Entry'를 "
-#~ "'Text_In_An Entry'로 바꿉니다."
-
-#~ msgid "%n: track"
-#~ msgstr "%n: 트랙"
-
-#~ msgid "Move Up this Mask"
-#~ msgstr "이 마스크 위로 이동"
-
-#~ msgid "Move Down this Mask"
-#~ msgstr "이 마스크 아래로 이동"
-
-#~ msgid "Duplicate Mask"
-#~ msgstr "마스크 복제"
-
-#~ msgid "Remove Mask"
-#~ msgstr "마스크 제거"
-
-#~ msgid "Copy: No row selected"
-#~ msgstr "복사: 선택한 행이 없습니다"
-
-#~ msgid "Remove: No row selected"
-#~ msgstr "제거: 선택한 행이 없습니다"
-
-#~ msgid "Move Up: No row selected"
-#~ msgstr "위로 이동: 선택한 행이 없습니다"
-
-#~ msgid "Move Down: No row selected"
-#~ msgstr "아래로 이동: 선택한 행이 없습니다"
-
-#~ msgid "Error: Cannot write configuration file: %s (%s)"
-#~ msgstr "오류: 설정 파일에 쓸 수 없습니다: %s (%s)"
-
-#~ msgid "Error while writing configuration file: %s"
-#~ msgstr "설정 파일에 기록하는 중 오류: %s"
-
-#~ msgid "Cannot open configuration file '%s' (%s)"
-#~ msgstr "'%s' 설정 파일을 열 수 없습니다 (%s)"
-
-#~ msgid "Loading default configuration"
-#~ msgstr "기본 설정 불러오는 중"
-
-#~ msgid "Cannot create or open file '%s' (%s)"
-#~ msgstr "'%s' 파일을 만들거나 열 수 없습니다 (%s)"
-
-#~ msgid "Error while writing list file: %s"
-#~ msgstr "목록 파일을 기록하는 중 오류: %s"
-
-#~ msgid "Loading default 'Rename Directory' masks…"
-#~ msgstr "'디렉터리 이름 바꾸기' 기본 마스크 불러오는 중…"
-
-#~ msgid "Migrating configuration from directory '%s' to '%s'"
-#~ msgstr "'%s' 디렉터리에서 '%s' 디렉터리로 설정 옮기는 중"
-
-#~ msgid "Failed to migrate configuration file '%s'"
-#~ msgstr "'%s' 설정 파일을 옮기는데 실패했습니다"
-
-#~ msgid "Error: Cannot create directory '%s' (%s)"
-#~ msgstr "오류: '%s' 디렉터리를 만들 수 없습니다(%s)"
-
-#~ msgid "File contains no audio track: '%s'"
-#~ msgstr "파일에 오디오 트랙이 없습니다: '%s'"
