@@ -1474,7 +1474,7 @@ msgid ""
 msgstr ""
 "Seleccioneu la versió de l'etiqueta ID3v2 per escriure:\n"
 " - S'escriu ID3v2.3 usant id3lib,\n"
-" - S'escriu ID3v2.4 usant libid3tag (recomanat)."
+" - S'escriu ID3v2.4 usant libid3tag (recomanat)"
 
 #: ../data/preferences_dialog.ui.h:88
 msgid "Character encoding:"
@@ -3769,7 +3769,7 @@ msgstr "S'està escrivint l'etiqueta de «%s»"
 #: ../src/easytag.c:732
 #, c-format
 msgid "Wrote tag of ‘%s’"
-msgstr "S'ha escrit l'etiqueta de «%s» "
+msgstr "S'ha escrit l'etiqueta de «%s»"
 
 #: ../src/easytag.c:752
 msgid ""
