@@ -493,7 +493,7 @@ msgid ""
 "\">Remove selected images from the tag</gui> button."
 msgstr ""
 "Per eliminar una imatge de l'etiqueta, seleccioneu-la i cliqueu el botó <gui "
-"style=\"button\">Elimina imatges seleccionades de l'etiqueta</gui>."
+"style=\"button\">Suprimeix les imatges seleccionades de l'etiqueta</gui>."
 
 #. (itstool) path: page/p
 #: C/image-delete.page:24
@@ -512,7 +512,7 @@ msgstr ""
 "També és possible eliminar totes les imatges de més d'un fitxer. Per fer-ho, "
 "seleccioneu els fitxers que voleu eliminar-los les imatges, elimineu totes "
 "les imatges des de la pestanya <gui style=\"tab\">Imatge</gui>, després "
-"cliqueu el botó <gui style=\"button\">Etiquetes seleccionades amb aquestes "
+"cliqueu el botó <gui style=\"button\">Etiqueta els fitxers seleccionats amb aquestes "
 "imatges</gui>. "
 
 #. (itstool) path: page/title

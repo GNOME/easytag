@@ -2412,7 +2412,7 @@ msgstr "Edita les propietats de la imatge"
 
 #: ../data/tag_area.ui.h:37
 msgid "Tag selected files with these images"
-msgstr "Copia aquestes imatges als fitxers seleccionats"
+msgstr "Etiqueta els fitxers seleccionats amb aquestes imatges"
 
 #: ../data/tag_area.ui.h:38 ../src/tag_area.c:3245 ../src/tag_area.c:3248
 msgid "Images"
