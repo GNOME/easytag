@@ -2396,7 +2396,7 @@ msgstr "Podeu usar arrossega i solta per afegir una imatge"
 
 #: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
-msgstr "Afegeix imatge a l'etiqueta"
+msgstr "Afegeix imatges a l'etiqueta"
 
 #: ../data/tag_area.ui.h:34
 msgid "Remove selected images from the tag"

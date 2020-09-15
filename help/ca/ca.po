@@ -529,8 +529,8 @@ msgid ""
 "description."
 msgstr ""
 "Si l'etiqueta del fitxer ja conté una imatge, podeu exportar-la seleccionant-"
-"la i clicant el botó <gui style=\"button\">Desa les imatges seleccionades a "
-"un fitxer</gui>. El nom per defecte és la descripció de la imatge."
+"la i clicant el botó <gui style=\"button\">Desa les imatges seleccionades "
+"als fitxers</gui>. El nom per defecte és la descripció de la imatge."
 
 #. (itstool) path: page/p
 #: C/image-export.page:26
@@ -539,7 +539,7 @@ msgid ""
 "\"button\">Save the selected images to files</gui> button."
 msgstr ""
 "Per exportar més d'una imatge, seleccioneu-les i cliqueu el botó <gui style="
-"\"button\">Desa les imatges seleccionades a un fitxer</gui>."
+"\"button\">Desa les imatges seleccionades als fitxers</gui>."
 
 #. (itstool) path: info/desc
 #: C/image.page:19
@@ -583,7 +583,7 @@ msgid ""
 msgstr ""
 "Un cop s'ha pujat la imatge, es marcarà automàticament com a caràtula i la "
 "descripció serà el nom del fitxer. Per canviar el <gui>tipus</gui> i la "
-"<gui>descripció</gui> cliqueu el botó <gui style=\"button\">Edita propietats "
+"<gui>descripció</gui> cliqueu el botó <gui style=\"button\">Edita les propietats "
 "de la imatge</gui>. Un cop fets els canvis cliqueu el botó <gui style="
 "\"button\">D'acord</gui> i s'aplicaran."
 
@@ -832,11 +832,11 @@ msgid ""
 "do not plan to move the audio files, in which case you can select <gui style="
 "\"radiobutton\">Use full path for files in playlist</gui>."
 msgstr ""
-"Seleccioneu <gui style=\"radiobutton\">Utilitza ruta relativa dels fitxers "
-"de la llista</gui> a no ser que només vulgueu utilitzar la llista de "
+"Seleccioneu <gui style=\"radiobutton\">Usa el camí relatiu per als fitxers "
+"de la llista de reproducció</gui> a no ser que només vulgueu utilitzar la llista de "
 "reproducció en el mateix ordinador i no tingueu previst moure els fitxers, "
-"en aquest cas podeu seleccionar <gui style=\"radiobutton\">Ruta sencera dels "
-"fitxers de la llista</gui>."
+"en aquest cas podeu seleccionar <gui style=\"radiobutton\">Usa el camí complet per als "
+"fitxers de la llista de reproducció</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:55
@@ -846,7 +846,7 @@ msgid ""
 "the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
 "saved in the directory selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
-"Seleccioneu <gui style=\"checkbox\">Crea llista en la carpeta actual</gui> "
+"Seleccioneu <gui style=\"checkbox\">Crea la llista de reproducció al directori pare</gui> "
 "si voleu desar la llista de reproducció en la mateixa carpeta on són els "
 "fitxers en el <gui style=\"group\">Navegador</gui>. Si no està seleccionat, "
 "la llista de reproducció es desarà en la carpeta seleccionada en el <gui "
@@ -861,7 +861,7 @@ msgid ""
 msgstr ""
 "Si voleu fer una llista de reproducció per utilitzar-la en un ordinador "
 "Windows, o en un sistema de fitxers <sys>NTFS</sys> o <sys>FAT</sys>, "
-"seleccioneu <gui style=\"checkbox\">Separador de directoris del DOS</gui>."
+"seleccioneu <gui style=\"checkbox\">Usa separador de directori DOS</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:68
@@ -1028,8 +1028,8 @@ msgstr ""
 "únic camp. Si l'aplicació que utilitzeu pot llegir camps múltiples d'un "
 "mateix tipus, podeu configurar l'EasyTAG per què separi els camps quan desi "
 "un fitxer. Els camps se separaran automàticament allà on aparegui el "
-"caràcter \" - \". Per exemple, si el camp conté \"David Bowie - Queen\", es "
-"desaran dos camps d'artista:  \"David Bowie\" i \"Queen\"."
+"caràcter «-». Per exemple, si el camp conté «David Bowie - Queen», es "
+"desaran dos camps d'artista: «David Bowie» i «Queen»."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:41
@@ -1040,7 +1040,7 @@ msgstr "Per separar camps quan es desin els fitxers:"
 #: C/problems-ogg-split.page:49
 msgid "Select the <gui style=\"tab\">Tag Settings</gui> tab"
 msgstr ""
-"Seleccioneu la pestanya <gui style=\"tab\">Configuració d'Etiqueta</gui>"
+"Seleccioneu la pestanya <gui style=\"tab\">Configuració d'etiqueta</gui>"
 
 #. (itstool) path: item/p
 #: C/problems-ogg-split.page:52
@@ -1199,7 +1199,7 @@ msgid ""
 "allows you to select which tag fields to process. It also allows for the "
 "filename to be processed as well."
 msgstr ""
-"<gui>Camps de procés</gui> és una funció sofisticada per cercar i reemplaçar "
+"<gui>Processa els camps</gui> és una funció sofisticada per cercar i reemplaçar "
 "que us permet triar quins camps d'etiqueta s'han de processar. També permet "
 "processar el nom de fitxer."
 
@@ -1230,7 +1230,7 @@ msgstr "Treballar amb <app>EasyTAG</app> per primera vegada"
 #. (itstool) path: page/title
 #: C/starting.page:19
 msgid "Start using <app>EasyTAG</app>"
-msgstr "Comenceu a treballar amb <app>EasyTAG</app>"
+msgstr "Començar a treballar amb <app>EasyTAG</app>"
 
 #. (itstool) path: page/p
 #: C/starting.page:21
