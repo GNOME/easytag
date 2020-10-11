@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 
 typedef enum // Picture types
 {
-    // Same values for FLAC, see: http://flac.sourceforge.net/api/group__flac__format.html#ga113
+    // Same values for FLAC, see: https://xiph.org/flac/api/group__flac__format.html#gaf6d3e836cee023e0b8d897f1fdc9825d
     ET_PICTURE_TYPE_OTHER = 0,
     ET_PICTURE_TYPE_FILE_ICON,
     ET_PICTURE_TYPE_OTHER_FILE_ICON,
