@@ -28,6 +28,12 @@
         <kudo>AppMenu</kudo>
         <kudo>ModernToolkit</kudo>
     </kudos>
+
+    <content_rating type="oars-1.1"/>
+    <releases>
+        <release version="2.4.3" date="2016-12-05"/>
+    </releases>
+
     <update_contact>amigadave@amigadave.com</update_contact>
     <translation type="gettext">easytag</translation>
 </component>
