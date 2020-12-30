@@ -280,9 +280,9 @@ msgid ""
 "\">the scanner</link>."
 msgstr ""
 "Els <em>Codis de format</em> es poden utilitzar, en l'<link xref=\"scanner"
-"\">Explorador</link>, per dividir un nom de fitxer i introduir-lo a "
-"l'etiqueta i per anomenar un fitxer o una llista de reproducció basant-se en "
-"el contingut de l'etiqueta."
+"\">Explorador</link>, per a dividir un nom de fitxer i introduir-lo a "
+"l'etiqueta i per a anomenar un fitxer o una llista de reproducció basant-se "
+"en el contingut de l'etiqueta."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:31
@@ -385,7 +385,7 @@ msgid ""
 msgstr ""
 "Codificat per: aquest camp fa referència a la persona que ha codificat el "
 "fitxer, però també s'utilitza pel nom de l'aplicació que s'ha utilitzat per "
-"codificar el fitxer"
+"a codificar el fitxer"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:109
@@ -604,7 +604,7 @@ msgstr ""
 "Podeu etiquetar múltiples fitxers amb la mateixa imatge seleccionant-los en "
 "la llista de fitxers, després seleccionant la imatge i clicant el botó <gui "
 "style=\"button\">Etiqueta els fitxers seleccionats amb aquestes imatges</"
-"gui>. Caldrà desar aquests canvis per incloure'ls al fitxer. "
+"gui>. Caldrà desar aquests canvis per a incloure'ls al fitxer. "
 
 #. (itstool) path: page/p
 #: C/image.page:48
@@ -821,9 +821,9 @@ msgid ""
 "Deselect it to include all the displayed files in the playlist."
 msgstr ""
 "Seleccioneu <gui style=\"checkbox\">Inclou només els fitxers seleccionats</"
-"gui> per incloure a la llista de reproducció només els fitxers seleccionats "
-"en la llista de fitxers. No el seleccioneu per incloure a la llista de "
-"reproducció tots els fitxers mostrats."
+"gui> per a incloure a la llista de reproducció només els fitxers "
+"seleccionats en la llista de fitxers. No el seleccioneu per a incloure a la "
+"llista de reproducció tots els fitxers mostrats."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:48
@@ -1071,7 +1071,7 @@ msgid ""
 msgstr ""
 "L'Explorador d'etiquetes serveix per a emplenar els camps de l'etiqueta "
 "basant-se amb el nom del fitxer; també pot reanomenar un fitxer i crear una "
-"carpeta nova basant-se amb els camps de l'etiqueta; i processar el text dels "
+"carpeta nova basant-se en els camps de l'etiqueta; i processar el text dels "
 "camps i el nom del fitxer."
 
 #. (itstool) path: section/title
@@ -1100,7 +1100,7 @@ msgid ""
 "parent directory."
 msgstr ""
 "Utilitzeu els <em xref=\"format-specifier\">Codis de format</em> i els "
-"<em>separadors</em> per dividir el nom del fitxer i el nom de la carpeta "
+"<em>separadors</em> per a dividir el nom del fitxer i el nom de la carpeta "
 "contenidora en els diferents camps d'etiqueta. Els <em>Codis de format</em>, "
 "com ara <input>%t</input> per al Títol, serveixen per a indicar els "
 "diferents camps d'etiqueta, trobareu un llistat de codis en la "
@@ -1137,7 +1137,7 @@ msgid ""
 "\">Scan Files</gui> button."
 msgstr ""
 "Per a emplenar els camps d'etiqueta dels fitxers seleccionats cliqueu el "
-"botó <gui style=\"button\">Explorador d'etiquetes</gui>."
+"botó <gui style=\"button\">Escaneja fitxers</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:53
@@ -1185,13 +1185,13 @@ msgid ""
 "To prepare the files for moving and renaming, press the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
-"Per preparar els fitxers que voleu moure o reanomenar, cliqueu el botó <gui "
-"style=\"button\">Explora Fitxers</gui>."
+"Per a preparar els fitxers que voleu moure o reanomenar, cliqueu el botó "
+"<gui style=\"button\">Explora Fitxers</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:72
 msgid "Bulk process tag fields and filename"
-msgstr "Procés per etiquetar camps i noms de fitxers a l'engròs"
+msgstr "Procés per a etiquetar camps i noms de fitxers a l'engròs"
 
 #. (itstool) path: section/p
 #: C/scanner.page:74
