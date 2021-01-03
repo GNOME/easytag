@@ -62,7 +62,8 @@ msgstr ""
 msgid "Audio File Metadata Editor"
 msgstr "Editor de metadades de fitxers de so"
 
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#. Translators: Search terms to find this application. Do NOT translate or
+#. localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/org.gnome.EasyTAG.desktop.in.h:5
 msgid "mp3;tag;audio;music;"
 msgstr "mp3;etiqueta;àudio;música;"
@@ -79,7 +80,7 @@ msgstr ""
 
 #: ../data/browser.ui.h:1
 msgid "Choose a directory to show in the browser"
-msgstr "Escull un directori per mostrar en el navegador"
+msgstr "Escull un directori per a mostrar en el navegador"
 
 #: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3834
 #: ../src/tag_area.c:1524
@@ -88,7 +89,7 @@ msgstr "_Obre"
 
 #: ../data/browser.ui.h:3 ../src/application.c:131
 msgid "Select a directory to browse"
-msgstr "Selecciona un directori per navegar"
+msgstr "Selecciona un directori per a navegar"
 
 #. Translators: No files, as in "0 files".
 #: ../data/browser.ui.h:4 ../src/easytag.c:978
@@ -215,26 +216,26 @@ msgstr "Obre fitxers amb"
 #: ../data/browser_dialogs.ui.h:8
 msgid ""
 "Enter the program to run; it will receive the current files as a parameter"
-msgstr ""
-"Introduïu el programa a executar; rebrà el fitxer actual com paràmetre"
+msgstr "Introduïu el programa a executar; rebrà el fitxer actual com paràmetre"
 
 #. Only directories changed
 #: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:562
 msgid "Rename Directory"
 msgstr "Canvia el nom al directori"
 
-#. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
+#. Translators: Used when renaming a directory to a literal name (entered in a
+#. text field) rather than using a name generated from a mask.
 #: ../data/browser_dialogs.ui.h:11
 msgid "Literal name:"
 msgstr "Nom literal:"
 
 #: ../data/browser_dialogs.ui.h:12 ../data/playlist_dialog.ui.h:3
 msgid "Use mask:"
-msgstr "Usa mascara:"
+msgstr "Usa màscara:"
 
 #: ../data/browser_dialogs.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:168
 msgid "Whether to use a mask when renaming directories"
-msgstr "Si s'ha d'usar una màscara per canviar el nom dels directoris"
+msgstr "Si s'ha d'usar una màscara per a canviar el nom dels directoris"
 
 #: ../data/browser_dialogs.ui.h:14
 msgid ""
@@ -242,7 +243,7 @@ msgid ""
 "rename the directory from tag fields"
 msgstr ""
 "Selecciona o escriu en la màscara usant codis (mireu la llegenda en la "
-"finestra de l'escàner) per canviar el nom del directori des dels camps "
+"finestra de l'escàner) per a canviar el nom del directori des dels camps "
 "d'etiquetes"
 
 #: ../data/browser_dialogs.ui.h:15
@@ -426,7 +427,8 @@ msgstr "Línies coincidents amb l'algoritme Levenshtein"
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:24
 msgid "Whether to use the DLM algorithm to match CDDB results to files"
 msgstr ""
-"Si usar l'algoritme DLM per fer concordar els resultats CDDB amb els fitxers"
+"Si usar l'algoritme DLM per a fer concordar els resultats CDDB amb els "
+"fitxers"
 
 #: ../data/cddb_dialog.ui.h:48 ../data/load_files_dialog.ui.h:16
 #: ../data/playlist_dialog.ui.h:18 ../data/preferences_dialog.ui.h:160
@@ -896,7 +898,7 @@ msgstr "Genera llista de reproducció..."
 
 #: ../data/menus.ui.h:84
 msgid "_Go"
-msgstr "_Vés"
+msgstr "_Ves"
 
 #: ../data/menus.ui.h:85
 msgid "_Home Directory"
@@ -1259,8 +1261,8 @@ msgid ""
 "Try to use the encoding associated with your locale and if this fails, try "
 "the ISO-8859-1 character encoding"
 msgstr ""
-"Proveu d'usar la codificació associada amb la vostra configuració local i si això "
-"falla, proveu la codificació de caràcters ISO-8859-1"
+"Proveu d'usar la codificació associada amb la vostra configuració local i si "
+"això falla, proveu la codificació de caràcters ISO-8859-1"
 
 #: ../data/preferences_dialog.ui.h:44
 msgid "Transliterate characters into the system character encoding"
@@ -1346,8 +1348,7 @@ msgstr "Completa el nombre de dígits al camp de pista a:"
 #: ../data/preferences_dialog.ui.h:58
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:90
 msgid "Whether the track number tag field should be padded with leading zeroes"
-msgstr ""
-"Si s'omple el camp de l'etiqueta de número de pista amb zeros inicials"
+msgstr "Si s'omple el camp de l'etiqueta de número de pista amb zeros inicials"
 
 #: ../data/preferences_dialog.ui.h:59
 msgid "Splitting"
@@ -1431,7 +1432,7 @@ msgstr ""
 
 #: ../data/preferences_dialog.ui.h:78
 msgid "Non-standard encoding for reading ID3 tags:"
-msgstr "Codificació no estàndard per llegir etiquetes ID3:"
+msgstr "Codificació no estàndard per a llegir etiquetes ID3:"
 
 #: ../data/preferences_dialog.ui.h:79
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:50
@@ -1472,7 +1473,7 @@ msgid ""
 "• ID3v2.3 is written using id3lib,\n"
 "• ID3v2.4 is written using libid3tag (recommended)"
 msgstr ""
-"Seleccioneu la versió de l'etiqueta ID3v2 per escriure:\n"
+"Seleccioneu la versió de l'etiqueta ID3v2 per a escriure:\n"
 " - S'escriu ID3v2.3 usant id3lib,\n"
 " - S'escriu ID3v2.4 usant libid3tag (recomanat)"
 
@@ -1600,7 +1601,8 @@ msgstr "Etiquetes ID3"
 msgid "Character Conversion"
 msgstr "Conversió de caràcters"
 
-#. Translators: a section header in the Scanner section of the preferences dialog.
+#. Translators: a section header in the Scanner section of the preferences
+#. dialog.
 #: ../data/preferences_dialog.ui.h:113
 msgid "Fill Tag Scanner"
 msgstr "Escàner d'emplenament d'etiquetes"
@@ -1619,7 +1621,8 @@ msgstr "Converteix espais i «%20» a «_»"
 msgid "No conversion"
 msgstr "Cap conversió"
 
-#. Translators: a section header in the Scanner section of the preferences dialog.
+#. Translators: a section header in the Scanner section of the preferences
+#. dialog.
 #: ../data/preferences_dialog.ui.h:120
 msgid "Rename File and Directory Scanner"
 msgstr "Escàner de canvi de nom de fitxers i directoris"
@@ -1629,7 +1632,8 @@ msgstr "Escàner de canvi de nom de fitxers i directoris"
 msgid "Remove spaces"
 msgstr "Treu els espais"
 
-#. Translators: a section header in the Scanner section of the preferences dialog.
+#. Translators: a section header in the Scanner section of the preferences
+#. dialog.
 #: ../data/preferences_dialog.ui.h:123
 msgid "Process Fields Scanner"
 msgstr "Escàner de processament de camps"
@@ -1837,7 +1841,7 @@ msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "directory. Used to fill in tag fields"
 msgstr ""
-"Selecciona o escriu en una màscara usant codis (mira la llegenda) per "
+"Selecciona o escriu en una màscara usant codis (mira la llegenda) per a "
 "analitzar el nom del fitxer i el directori. S'usa per omplir en camps "
 "d'etiquetes"
 
@@ -1847,11 +1851,11 @@ msgstr "Previsualització Emplenat d'etiqueta"
 
 #: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
-msgstr "Editor de mascares"
+msgstr "Editor de màscares"
 
 #: ../data/scan_dialog.ui.h:5
 msgid "Create a new mask"
-msgstr "Crea una mascara nova"
+msgstr "Crea una màscara nova"
 
 #: ../data/scan_dialog.ui.h:6
 msgid "Move the selected mask up"
@@ -1981,9 +1985,9 @@ msgid ""
 "Use ‘/’ to make directories. If the first character is ‘/’, it is an "
 "absolute path, otherwise it is relative to the old path"
 msgstr ""
-"Selecciona o escriu en una màscara usant codis (mira la llegenda) per "
-"analitzar els camps d'etiquetes. Usat per canviar el nom del fitxer.\n"
-"Usa «/» per crear directoris. Si el primer caràcter és «/», és un camí "
+"Selecciona o escriu en una màscara usant codis (mira la llegenda) per a "
+"analitzar els camps d'etiquetes. Usat per a canviar el nom del fitxer.\n"
+"Usa «/» per a crear directoris. Si el primer caràcter és «/», és un camí "
 "absolut, en cas contrari és relatiu a l'antic camí"
 
 #: ../data/scan_dialog.ui.h:51
@@ -2188,8 +2192,7 @@ msgstr "Converteix:"
 #: ../data/scan_dialog.ui.h:106
 msgid "Replace a string by another one. Note that the search is case sensitive"
 msgstr ""
-"Reemplaça una cadena per una altra. Noteu que la cerca detecta les "
-"majúscules"
+"Reemplaça una cadena per una altra. Noteu que la cerca detecta les majúscules"
 
 #: ../data/scan_dialog.ui.h:107
 msgid "to: "
@@ -2201,7 +2204,7 @@ msgstr "No converteixis"
 
 #: ../data/scan_dialog.ui.h:110
 msgid "Show / Hide Masks Editor"
-msgstr "Mostra / Amaga l'editor de mascares"
+msgstr "Mostra / Amaga l'editor de màscares"
 
 #: ../data/scan_dialog.ui.h:111
 msgid "Show / Hide Legend"
@@ -2233,7 +2236,7 @@ msgid ""
 "display all files"
 msgstr ""
 "Escriviu el text a cercar a la llista de fitxers, o deixeu el camp buit per "
-"mostrar tots els fitxers"
+"a mostrar tots els fitxers"
 
 #: ../data/search_dialog.ui.h:4
 msgid "_Find"
@@ -2392,7 +2395,7 @@ msgstr "Comú"
 
 #: ../data/tag_area.ui.h:32
 msgid "You can use drag and drop to add an image"
-msgstr "Podeu usar arrossega i solta per afegir una imatge"
+msgstr "Podeu usar arrossega i solta per a afegir una imatge"
 
 #: ../data/tag_area.ui.h:33
 msgid "Add images to the tag"
@@ -2639,7 +2642,7 @@ msgstr "Escriu les etiquetes ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:55
 msgid "The character set for writing ID3v1 tags"
-msgstr "El conjunt de caràcters per escriure les etiquetes ID3v1"
+msgstr "El conjunt de caràcters per a escriure les etiquetes ID3v1"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:56
 msgid "Choose the character set to be used when writing ID3v1 tags"
@@ -2660,7 +2663,7 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:59
 msgid "The character set for reading ID3v1 and ID3v2 tags"
-msgstr "El conjunt de caràcters per llegir les etiquetes ID3v1 i ID3v2"
+msgstr "El conjunt de caràcters per a llegir les etiquetes ID3v1 i ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:61
 msgid "Write ID3v2 tags"
@@ -2695,7 +2698,7 @@ msgstr ""
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:75
 msgid "The Unicode character set for writing ID3v2 tags"
 msgstr ""
-"El conjunt de caràcters Unicode a usar per escriure les etiquetes ID3v2"
+"El conjunt de caràcters Unicode a usar per a escriure les etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:76
 msgid "Choose the Unicode character set to be used when writing ID3v2 tags"
@@ -2705,7 +2708,7 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:77
 msgid "The character set for writing ID3v2 tags"
-msgstr "El conjunt de caràcters per escriure les etiquetes ID3v2"
+msgstr "El conjunt de caràcters per a escriure les etiquetes ID3v2"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:78
 msgid ""
@@ -2795,7 +2798,7 @@ msgstr "Establiu el comentari per defecte"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:102
 msgid "Default comment for filling tags"
-msgstr "Comentari predeterminat per completar etiquetes"
+msgstr "Comentari predeterminat per a completar etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:103
 msgid "The default comment to use when filling tags"
@@ -2976,7 +2979,7 @@ msgstr "Realitza la cerca sobre les etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:161
 msgid "Mask for filling tags from filenames"
-msgstr "Màscara per emplenar les etiquetes a partir dels noms de fitxer"
+msgstr "Màscara per a emplenar les etiquetes a partir dels noms de fitxer"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:162
 msgid ""
@@ -2996,7 +2999,7 @@ msgstr "La màscara per defecte a usar quan es canviïn els noms als fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:165
 msgid "Mask for renaming directories"
-msgstr "Màscara per canviar els noms als directoris"
+msgstr "Màscara per a canviar els noms als directoris"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:166
 msgid "The default mask to use when renaming directories"
@@ -3405,9 +3408,7 @@ msgstr "El servidor ha rebut una resposta incorrecta «%s»"
 msgid "Loading album track list…"
 msgstr "S'està carregant la llista de cançons de l'àlbum..."
 
-#.
 #. * Read the answer
-#.
 #: ../src/cddb_dialog.c:1382
 msgid "Receiving data…"
 msgstr "S'estan rebent dades..."
@@ -3441,7 +3442,7 @@ msgstr "El servidor ha rebut una resposta incorrecta"
 #: ../src/cddb_dialog.c:1827
 #, c-format
 msgid "More results to load…"
-msgstr "Més resultats per carregar..."
+msgstr "Més resultats per a carregar..."
 
 #: ../src/cddb_dialog.c:2137
 msgid "The number of CDDB results does not match the number of selected files"
@@ -3455,7 +3456,7 @@ msgstr "Escriu l'etiqueta des de CDDB"
 
 #: ../src/cddb_dialog.c:2458
 msgid "Ready to search"
-msgstr "A punt per cercar"
+msgstr "A punt per a cercar"
 
 #: ../src/cddb_dialog.c:2613
 #, c-format
@@ -3794,7 +3795,7 @@ msgstr ""
 "mostraran de forma correcta. Apliqueu el pegat src/id3lib/"
 "patch_id3lib_3.8.3_UTF16_writing_bug.diff a id3lib, el qual està disponible "
 "a les fonts del paquet EasyTAG.\n"
-"Nota per avisar que aquest missatge apareixerà sols una vegada.\n"
+"Nota per a avisar que aquest missatge apareixerà sols una vegada.\n"
 "\n"
 "Fitxer: %s"
 
@@ -4084,7 +4085,7 @@ msgstr "S'ha escrit el fitxer de llista de reproducció «%s»"
 #: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2639
 #: ../src/scan_dialog.c:2702
 msgid "Invalid scanner mask"
-msgstr "Mascara d'escàner invàlida"
+msgstr "Màscara d'escàner invàlida"
 
 #: ../src/preferences_dialog.c:864
 msgid "The selected default path is invalid"
@@ -4150,7 +4151,7 @@ msgstr "Error mentre es processaven els camps «%s»"
 
 #: ../src/scan_dialog.c:2119
 msgid "New_mask"
-msgstr "Mascara nova"
+msgstr "Màscara nova"
 
 #: ../src/scan_dialog.c:2769
 msgid "All tags have been scanned"
@@ -4165,7 +4166,7 @@ msgstr[1] "S'han trobat %d fitxers"
 
 #: ../src/search_dialog.c:718
 msgid "Ready to search…"
-msgstr "A punt per cercar..."
+msgstr "A punt per a cercar..."
 
 #: ../src/setting.c:246
 #, c-format
@@ -4185,7 +4186,7 @@ msgstr ""
 
 #: ../src/status_bar.c:143
 msgid "Ready to start"
-msgstr "Preparat per començar"
+msgstr "Preparat per a començar"
 
 #: ../src/tag_area.c:169
 #, c-format
@@ -4226,8 +4227,7 @@ msgstr "S'ha suprimit el nom de l'àlbum dels fitxers seleccionats"
 #: ../src/tag_area.c:281
 #, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
-msgstr ""
-"Els fitxers seleccionats s'han etiquetat amb el nombre de disc «%s/%s»"
+msgstr "Els fitxers seleccionats s'han etiquetat amb el nombre de disc «%s/%s»"
 
 #: ../src/tag_area.c:288
 #, c-format
@@ -4262,7 +4262,8 @@ msgstr "Els fitxers seleccionats s'han etiquetat amb la pista com «xx»"
 msgid "Removed track number from selected files"
 msgstr "S'ha suprimit el número de pista dels fitxers seleccionats"
 
-#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
+#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."),
+#. ETCore->ETFileSelectionList_Length);
 #: ../src/tag_area.c:416
 #, c-format
 msgid "Selected tracks numbered sequentially"
@@ -4383,8 +4384,8 @@ msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer"
 msgstr ""
-"No es pot mostrar la imatge ja que no s'han llegit prou dades per determinar "
-"com crear la memòria intermèdia d'imatges"
+"No es pot mostrar la imatge ja que no s'han llegit prou dades per a "
+"determinar com crear la memòria intermèdia d'imatges"
 
 #: ../src/tag_area.c:1355
 msgid "Cannot display the image"
@@ -4394,8 +4395,8 @@ msgstr "No es mostrarà la imatge"
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
 msgstr ""
-"No s'han llegit prou dades per determinar com crear la imatge de la memòria "
-"intermèdia."
+"No s'han llegit prou dades per a determinar com crear la imatge de la "
+"memòria intermèdia."
 
 #: ../src/tag_area.c:1359
 msgid "Load Image File"
@@ -4568,7 +4569,7 @@ msgstr "Sense memòria disponible"
 
 #: ../src/tags/id3_tag.c:785
 msgid "No data to parse"
-msgstr "Sense dates per analitzar"
+msgstr "Sense dates per a analitzar"
 
 #: ../src/tags/id3_tag.c:787
 msgid "Improperly formatted data"
@@ -4576,7 +4577,7 @@ msgstr "Dades amb format incorrecte"
 
 #: ../src/tags/id3_tag.c:789
 msgid "No buffer to write to"
-msgstr "No hi ha memòria intermèdia per escriure en"
+msgstr "No hi ha memòria intermèdia per a escriure en"
 
 #: ../src/tags/id3_tag.c:791
 msgid "Buffer is too small"
@@ -4604,7 +4605,7 @@ msgstr "Versió d'etiqueta invàlida"
 
 #: ../src/tags/id3_tag.c:803
 msgid "No file to parse"
-msgstr "Sense fitxer per analitzar"
+msgstr "Sense fitxer per a analitzar"
 
 #: ../src/tags/id3_tag.c:805
 msgid "Attempting to write to a read-only file"
@@ -4750,90 +4751,3 @@ msgstr "Fitxer Opus"
 #: ../src/tags/wavpack_header.c:137
 msgid "Wavpack File"
 msgstr "Fitxer Wavpack"
-
-#~ msgid "Proxy"
-#~ msgstr "Servidor intermediari"
-
-#~ msgid "Use a proxy server"
-#~ msgstr "Usa un servidor intermediari"
-
-#~ msgid "Whether to access remote CDDB through a proxy"
-#~ msgstr "Si accedir al CDDB remot usant un servidor intermediari"
-
-#~ msgid "Hostname for a proxy to access remote CDDB"
-#~ msgstr ""
-#~ "Nom d'amfitrió per a un servidor intermediari per accedir a un CDDB remot"
-
-#~ msgid "Port for a proxy to access remote CDDB"
-#~ msgstr "Port per a un servidor intermediari per accedir a un CDDB remot"
-
-#~ msgid "User:"
-#~ msgstr "Usuari:"
-
-#~ msgid "Username for a proxy to access remote CDDB"
-#~ msgstr ""
-#~ "Nom d'usuari per a un servidor intermediari per accedir a un CDDB remot"
-
-#~ msgid "Password:"
-#~ msgstr "Contrasenya:"
-
-#~ msgid "Password for a proxy to access remote CDDB"
-#~ msgstr ""
-#~ "Contrasenya per a un servidor intermediari per accedir a un CDDB remot"
-
-#~ msgid "Enable proxy for remote CDDB"
-#~ msgstr "Habilita el servidor intermediari per al CDDB remot"
-
-#~ msgid "CDDB proxy hostname"
-#~ msgstr "Nom d'amfitrió del servidor intermediari CDDB"
-
-#~ msgid "CDDB proxy port"
-#~ msgstr "Port del servidor intermediari del CDDB"
-
-#~ msgid "CDDB proxy username"
-#~ msgstr "Nom d'usuari del servidor intermediari del CDDB"
-
-#~ msgid "CDDB proxy password"
-#~ msgstr "Contrasenya del servidor intermediari del CDDB"
-
-#~ msgid "Lower-case all characters"
-#~ msgstr "Tots els caràcters en minúscules"
-
-#~ msgid "Upper-case all characters"
-#~ msgstr "Posa en majúscules tots els caràcters"
-
-#~ msgid "Upper-case the first letter of the tag"
-#~ msgstr "En majúscules la primera lletra de l'etiqueta"
-
-#~ msgid "Upper-case the first letter of each word"
-#~ msgstr "En majúscules la primera lletra de cada paraula"
-
-#~ msgid "Resolving host '%s'…"
-#~ msgstr "S'està resolent l'amfitrió «%s»..."
-
-#~ msgid "Cannot create a new socket ‘%s’"
-#~ msgstr "No es pot crear un sòcol nou «%s»"
-
-#~ msgid "Cannot set options on the newly-created socket"
-#~ msgstr "No es poden configurar les opcions al sòcol creat recentment"
-
-#~ msgid "Connecting to host ‘%s’, port ‘%d’…"
-#~ msgstr "S'està connectant amb l'amfitrió «%s», port «%d»…"
-
-#~ msgid "Connected to host ‘%s’"
-#~ msgstr "Connectat a l'amfitrió «%s»"
-
-#~ msgid "Error while writing CDDB results to file ‘%s’"
-#~ msgstr "Error mentre s'escrivien els resultats CDDB al fitxer «%s»"
-
-#~ msgid "Receiving data (%s)…"
-#~ msgstr "S'estan rebent dades (%s)…"
-
-#~ msgid "Error when reading CDDB response ‘%s’"
-#~ msgstr "Error mentre es llegia la resposta CDDB «%s»"
-
-#~ msgid "Cannot create file ‘%s’: %s"
-#~ msgstr "No es pot crear el fitxer  «%s» %s"
-
-#~ msgid "Cannot send the request ‘%s’"
-#~ msgstr "No es pot enviar la petició «%s»"
