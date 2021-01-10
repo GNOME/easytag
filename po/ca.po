@@ -1745,7 +1745,7 @@ msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
 msgstr ""
-"Usa l'algoritme Levenshtein (DLM) per concordar els resultats (usant el "
+"Usa l'algoritme Levenshtein (DLM) per a concordar els resultats (usant el "
 "títol) amb els fitxers d'àudio (usant el nom del fitxer)"
 
 #: ../data/preferences_dialog.ui.h:144
@@ -1842,7 +1842,7 @@ msgid ""
 "directory. Used to fill in tag fields"
 msgstr ""
 "Selecciona o escriu en una màscara usant codis (mira la llegenda) per a "
-"analitzar el nom del fitxer i el directori. S'usa per omplir en camps "
+"analitzar el nom del fitxer i el directori. S'usa per a omplir en camps "
 "d'etiquetes"
 
 #: ../data/scan_dialog.ui.h:3
@@ -2563,7 +2563,7 @@ msgstr "El camí del servidor CDDB a usar per a la cerca manual"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:23
 msgid "Use DLM to match CDDB results to files"
-msgstr "Usa DLM per concordar els resultats CDDB amb els fitxers"
+msgstr "Usa DLM per a concordar els resultats CDDB amb els fitxers"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:25
 msgid ""
@@ -3350,7 +3350,7 @@ msgstr "No s'ha pogut convertir «%s» a la codificació de noms de fitxer"
 
 #: ../src/browser.c:4302
 msgid "Please use another name."
-msgstr "Si us plau useu un altre nom."
+msgstr "Useu un altre nom."
 
 #: ../src/browser.c:4374
 #, c-format
@@ -3989,7 +3989,7 @@ msgstr "Cobertura (frontal)"
 
 #: ../src/picture.c:199
 msgid "Cover (back)"
-msgstr "Cobertura (darrera)"
+msgstr "Cobertura (darrere)"
 
 #: ../src/picture.c:201
 msgid "Leaflet page"
@@ -4005,7 +4005,7 @@ msgstr "Artista líder/intèrpret líder/solista"
 
 #: ../src/picture.c:207
 msgid "Artist/performer"
-msgstr "Artista / Interpret"
+msgstr "Artista / Intèrpret"
 
 #: ../src/picture.c:209
 msgid "Conductor"
@@ -4384,7 +4384,7 @@ msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer"
 msgstr ""
-"No es pot mostrar la imatge ja que no s'han llegit prou dades per a "
+"No es pot mostrar la imatge, ja que no s'han llegit prou dades per a "
 "determinar com crear la memòria intermèdia d'imatges"
 
 #: ../src/tag_area.c:1355
