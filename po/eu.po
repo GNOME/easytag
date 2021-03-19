@@ -1,14 +1,14 @@
 # Basque translation for easytag.
 # Copyright (C) 2019 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
-# Asier Sarasua Garmendia <asier.sarasua@gmail.com>, 2019.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2021.
 #
 msgid ""
 msgstr "Project-Id-Version: easytag easytag-2-4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2019-10-05 10:05+0000\n"
-"PO-Revision-Date: 2019-10-25 10:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
+"POT-Creation-Date: 2021-01-25 18:32+0000\n"
+"PO-Revision-Date: 2021-03-19 10:00+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -1038,7 +1038,7 @@ msgstr "Arakatu azpidirektorioak"
 msgid ""
 "Whether to search subdirectories for audio files when reading a directory in "
 "the browser"
-msgstr "Azpidirektorioak arakatuko diren ala ez audio-fitxategiak bilatzeko arakatzailean direktorio bat irakurtzen denean "
+msgstr "Azpidirektorioak arakatuko diren ala ez audio-fitxategiak bilatzeko arakatzailean direktorio bat irakurtzen denean"
 
 #: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
 msgid "Expand the subdirectories of the selected directory"
@@ -1425,7 +1425,7 @@ msgstr "Automatikoki bihurtu ID3v2 etiketa zaharren bertsioak"
 msgid ""
 "Whether to convert ID3 tags written against old version of the "
 "specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"
-msgstr ""
+msgstr "Espezifikazioaren bertsio zaharrak erabilita, adibidez ID3v2.2, idatzitako etiketak bertsio berrietara, adibidez ID3v2.3 edo ID3v2.4, bihurtuko diren ala ez"
 
 #: ../data/preferences_dialog.ui.h:100
 msgid "Use CRC-32"
@@ -1434,7 +1434,7 @@ msgstr "Erabili CRC-32"
 #: ../data/preferences_dialog.ui.h:101
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:80
 msgid "Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"
-msgstr ""
+msgstr "Audio-fitxategiaren datuen CRC-32 kontrol-batura bat kapsulatuko den ala ez ID3v2 etiketetan"
 
 #: ../data/preferences_dialog.ui.h:102
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:77
@@ -1456,7 +1456,7 @@ msgstr "Erabili testu soileko generoa ID3v2 etiketetan"
 msgid ""
 "Whether to use only a string, and not the integer-base ID3v1 genre field, "
 "when writing a genre field to ID3v2 tags"
-msgstr ""
+msgstr "Genero-eremu bat ID3v2 etiketetan idaztean, kate bat soilik erabiliko den ala zenbaki osoetan onarritutako ID3v1 genero-eremua erabiliko den"
 
 #: ../data/preferences_dialog.ui.h:106
 msgid "ID3v1"
@@ -1650,7 +1650,7 @@ msgstr ""
 msgid ""
 "Use the Levenshtein algorithm (DLM) to match results (using title) with "
 "audio files (using filename)"
-msgstr ""
+msgstr "Erabili Levenshtein algoritmoa (DLM) emaitzak (izenburua erabilita) eta audio-fitxategiak (fitxategi-izenak erabilita) parekatzeko"
 
 #: ../data/preferences_dialog.ui.h:153
 msgid "CDDB"
@@ -2845,30 +2845,30 @@ msgstr "Bihurtu zuriuneak edo azpimarrak fitxategien izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:187
 msgid "How to modify filename extensions when renaming"
-msgstr ""
+msgstr "Nola aldatu fitxategi-izenen luzapenak izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:188
 msgid ""
 "Change the file extension to all lower-case, all upper-case or do not change "
 "it"
-msgstr ""
+msgstr "Aldatu fitxategi-luzapena minuskuletara, maiuskuletara edo ez aldatu"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:189
 msgid "Encoding options when renaming files"
-msgstr ""
+msgstr "Kodeketa-aukerak fitxategien izenak aldatzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:190
 msgid ""
 "If the encoding of the filename does not match the filesystem encoding, "
 "choose whether to try another encoding, approximate the filesystem encoding "
 "with transliteration or discard the offending characters"
-msgstr ""
+msgstr "Fitxategi-izenaren kodeketa ez badator bat fitxategi-sistemaren kodeketarekin, aukeratu beste kodeketa bat erabiliko den, transliterazioen bidez fitxategi-sistemaren kodeketarekin bat egiteko saialdia egindo den ala okerrak diren karaktereak baztertuko diren"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:192
 msgid ""
 "Whether to replace illegal characters in a filename when using the rename "
 "function"
-msgstr ""
+msgstr "Izena aldateko funtzioa erabiltzean, fitxategi-izen bateko legez kanpoko karaktereak baztertuko diren ala ez"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:193
 msgid "Show the scanner mask editor"
@@ -3604,7 +3604,7 @@ msgstr "Fitxategien eta direktorioen izena aldatzeak baieztapena behar dute"
 #: ../src/easytag.c:572
 #, c-format
 msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
-msgstr ""
+msgstr "‘%s’ fitxategiaren eta direktorioaren izena aldatu eta ‘%s’ ezarri nahi diozu?"
 
 #: ../src/easytag.c:578
 msgid "Directory rename confirmation required"
@@ -3613,7 +3613,7 @@ msgstr "Direktorioen izena aldatzeak baieztapena behar du"
 #: ../src/easytag.c:579
 #, c-format
 msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
-msgstr ""
+msgstr "‘%s’ direktorioaren izena aldatu eta ‘%s’ ezarri nahi diozu?"
 
 #: ../src/easytag.c:587
 msgid "File rename confirmation required"
@@ -3622,17 +3622,17 @@ msgstr "Fitxategien izena aldatzeak baieztapena behar du"
 #: ../src/easytag.c:588
 #, c-format
 msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
-msgstr ""
+msgstr "‘%s’ fitxategiaren izena aldatu eta ‘%s’ ezarri nahi diozu?"
 
 #: ../src/easytag.c:658
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’"
-msgstr ""
+msgstr "Ezin izan da '%s' fitxategia ‘%s’ izenarekin aldatu"
 
 #: ../src/easytag.c:672
 #, c-format
 msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
-msgstr ""
+msgstr "Ezin izan da '%s' fitxategia %s izenarekin aldatu: %s"
 
 #: ../src/easytag.c:677
 msgid "File(s) not renamed"
@@ -3652,7 +3652,7 @@ msgstr ""
 msgid ""
 "You have tried to save this tag to Unicode but it was detected that your "
 "version of id3lib is buggy"
-msgstr ""
+msgstr "Etiketa hau Unicode kodeketarekin gordetzen saiatu zara, baina zure id3lib bertsioa akastuna dela detektatu da"
 
 #: ../src/easytag.c:772
 #, c-format
@@ -3736,7 +3736,7 @@ msgstr "Ez da fitxategia aurkitu"
 #: ../src/file_area.c:249 ../src/load_files_dialog.c:232
 #, c-format
 msgid "Cannot query file information ‘%s’"
-msgstr ""
+msgstr "Ezin da ‘%s’ fitxategi-informazioa kontsultatu"
 
 #: ../src/file_area.c:283
 msgid "Read-only file"
@@ -3782,7 +3782,7 @@ msgstr "Errorea etiketa ‘%s’ Opus fitxategitik irakurtzean: %s"
 msgid ""
 "The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
 "be lost when saving"
-msgstr ""
+msgstr "Badirudi ‘%s’ urte-balioa baliogabea dela ‘%s’ fitxategian. Informazioa galdu egingo da gordetzean"
 
 #: ../src/file_list.c:501
 #, c-format
@@ -3934,7 +3934,7 @@ msgstr "Erreprodukzio-zerrendaren fitxategiaren errorea"
 #: ../src/playlist_dialog.c:557
 #, c-format
 msgid "Wrote playlist file ‘%s’"
-msgstr ""
+msgstr "‘%s’ erreprodukzio-zerrenda idatzi da"
 
 #: ../src/playlist_dialog.c:640 ../src/scan_dialog.c:2621
 #: ../src/scan_dialog.c:2684
@@ -3960,7 +3960,7 @@ msgstr "Bide baliogabearen errorea"
 #: ../src/scan_dialog.c:412
 #, c-format
 msgid "Cannot calculate CRC value of file ‘%s’"
-msgstr ""
+msgstr "Ezin da ‘%s’ fitxategiaren CRC balioa kalkulatu"
 
 #: ../src/scan_dialog.c:427
 msgid "Tag successfully scanned"
@@ -3974,31 +3974,31 @@ msgstr ""
 #: ../src/scan_dialog.c:473
 #, c-format
 msgid "The extension ‘%s’ was not found in filename ‘%s’"
-msgstr ""
+msgstr "‘%s’ luzapena ez da aurkitu ‘%s’ fitxategi-izenean"
 
 #: ../src/scan_dialog.c:565 ../src/scan_dialog.c:596
 #, c-format
 msgid "Cannot find separator ‘%s’ within ‘%s’"
-msgstr ""
+msgstr "Ez da aurkitu ‘%s’ bereizlea ‘%s’ barruan"
 
 #: ../src/scan_dialog.c:824
 #, c-format
 msgid "Could not convert filename ‘%s’ into system filename encoding"
-msgstr ""
+msgstr "Ezin izan da ‘%s’ fitxategi-izena bihurtu sistemako fitxategi-izenen kodeketara"
 
 #: ../src/scan_dialog.c:850
 msgid "New filename successfully scanned"
-msgstr ""
+msgstr "Fitxategi-izen berria ongi eskaneatu da"
 
 #: ../src/scan_dialog.c:854
 #, c-format
 msgid "New filename successfully scanned ‘%s’"
-msgstr ""
+msgstr "‘%s’ fitxategi-izen berria ongi eskaneatu da"
 
 #: ../src/scan_dialog.c:1223
 #, c-format
 msgid "Error while processing fields ‘%s’"
-msgstr ""
+msgstr "Errorea ‘%s’ eremuak prozesatzean"
 
 #: ../src/scan_dialog.c:2099
 msgid "New_mask"
@@ -4031,17 +4031,17 @@ msgstr "Bilaketarako prest…"
 #: ../src/setting.c:246
 #, c-format
 msgid "Cannot write list to file ‘%s’: %s"
-msgstr ""
+msgstr "Ezin izan da zerrenda ‘%s’ fitxategian idatzi: %s"
 
 #. Fall back to defaults.
 #: ../src/setting.c:352
 msgid "Loading default ‘Fill Tag’ masks…"
-msgstr ""
+msgstr "'Bete etiketak' maskara lehenetsiak kargatzen…"
 
 #. Fall back to defaults.
 #: ../src/setting.c:382
 msgid "Loading default ‘Rename File’ masks…"
-msgstr ""
+msgstr "'Aldatu fitxategiaren izena' maskara lehenetsiak kargatzen…"
 
 #: ../src/status_bar.c:143
 msgid "Ready to start"
@@ -4050,157 +4050,157 @@ msgstr "Hasteko prest"
 #: ../src/tag_area.c:185
 #, c-format
 msgid "Selected files tagged with title ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ izenburuarekin etiketatu dira"
 
 #: ../src/tag_area.c:190
 msgid "Removed title from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien izenburua kendu da"
 
 #: ../src/tag_area.c:208
 #, c-format
 msgid "Selected files tagged with artist ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ artistarekin etiketatu dira"
 
 #: ../src/tag_area.c:213
 msgid "Removed artist from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien artista kendu da"
 
 #: ../src/tag_area.c:231
 #, c-format
 msgid "Selected files tagged with album artist ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ artistaren albumarekin etiketatu dira"
 
 #: ../src/tag_area.c:236
 msgid "Removed album artist from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien artistaren albuma kendu da"
 
 #: ../src/tag_area.c:254
 #, c-format
 msgid "Selected files tagged with album ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ albumarekin etiketatu dira"
 
 #: ../src/tag_area.c:259
 msgid "Removed album name from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien album-izena kendu da"
 
 #: ../src/tag_area.c:297
 #, c-format
 msgid "Selected files tagged with disc number ‘%s/%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s/%s’ disko-zenbakiarekin etiketatu dira"
 
 #: ../src/tag_area.c:304
 #, c-format
 msgid "Selected files tagged with disc number like ‘xx’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘xx’ disko-zenbakiarekin etiketatu dira"
 
 #: ../src/tag_area.c:309
 msgid "Removed disc number from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien disko-zenbakia kendu da"
 
 #: ../src/tag_area.c:329
 #, c-format
 msgid "Selected files tagged with year ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ urtearekin etiketatu dira"
 
 #: ../src/tag_area.c:334
 msgid "Removed year from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien urtea kendu da"
 
 #: ../src/tag_area.c:364 ../src/tag_area.c:469
 #, c-format
 msgid "Selected files tagged with track like ‘xx/%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘xx/%s’ pistarekin etiketatu dira"
 
 #: ../src/tag_area.c:368
 #, c-format
 msgid "Selected files tagged with track like ‘xx’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘xx’ pistarekin etiketatu dira"
 
 #: ../src/tag_area.c:373 ../src/tag_area.c:474
 msgid "Removed track number from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien pista-zenbakia kendu da"
 
 #. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
 #: ../src/tag_area.c:432
 #, c-format
 msgid "Selected tracks numbered sequentially"
-msgstr ""
+msgstr "Hautatutako pistak sekuentzia bati jarraituta zenbakitu dira"
 
 #: ../src/tag_area.c:494
 #, c-format
 msgid "Selected files tagged with genre ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ generoarekin etiketatu dira"
 
 #: ../src/tag_area.c:499
 msgid "Removed genre from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien generoa kendu da"
 
 #: ../src/tag_area.c:524
 #, c-format
 msgid "Selected files tagged with comment ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ iruzkinarekin etiketatu dira"
 
 #: ../src/tag_area.c:529
 msgid "Removed comment from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien iruzkina kendu da"
 
 #: ../src/tag_area.c:547
 #, c-format
 msgid "Selected files tagged with composer ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ konpositorearekin etiketatu dira"
 
 #: ../src/tag_area.c:552
 msgid "Removed composer from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien konpositorea kendu da"
 
 #: ../src/tag_area.c:570
 #, c-format
 msgid "Selected files tagged with original artist ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ jatorrizko artistarekin etiketatu dira"
 
 #: ../src/tag_area.c:575
 msgid "Removed original artist from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien jatorrizko artista kendu da"
 
 #: ../src/tag_area.c:593
 #, c-format
 msgid "Selected files tagged with copyright ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ copyright-arekin etiketatu dira"
 
 #: ../src/tag_area.c:598
 msgid "Removed copyright from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien copyright-a kendu da"
 
 #: ../src/tag_area.c:616
 #, c-format
 msgid "Selected files tagged with URL ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ URLarekin etiketatu dira"
 
 #: ../src/tag_area.c:621
 msgid "Removed URL from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien URLa kendu da"
 
 #: ../src/tag_area.c:639
 #, c-format
 msgid "Selected files tagged with encoder name ‘%s’"
-msgstr ""
+msgstr "Hautatutako fitxategiak ‘%s’ kodetzaile-izenarekin etiketatu dira"
 
 #: ../src/tag_area.c:644
 msgid "Removed encoder name from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien kodetzaile-izena kendu da"
 
 #: ../src/tag_area.c:680
 msgid "Selected files tagged with images"
-msgstr ""
+msgstr "Hautatutako fitxategiak irudiekin etiketatu dira"
 
 #: ../src/tag_area.c:684
 msgid "Removed images from selected files"
-msgstr ""
+msgstr "Hautatutako fitxategien irudiak kendu dira"
 
 #. Menu items
 #: ../src/tag_area.c:852
 msgid "Tag selected files with this field"
-msgstr ""
+msgstr "Etiketatu hautatutako eremuak eremu honekin"
 
 #: ../src/tag_area.c:882
 msgid "All uppercase"
@@ -4233,13 +4233,13 @@ msgstr "Kendu testu guztia"
 #: ../src/tag_area.c:1289 ../src/tag_area.c:1382
 #, c-format
 msgid "Error parsing image data ‘%s’"
-msgstr ""
+msgstr "Errorea ‘%s’ irudi-datuak analizatzean"
 
 #: ../src/tag_area.c:1364
 msgid ""
 "Cannot display the image because not enough data has been read to determine "
 "how to create the image buffer"
-msgstr ""
+msgstr "Ezin da irudia bistaratu ez delako aski daturik irakurri irudi-bufferra nola sortu zehazteko"
 
 #: ../src/tag_area.c:1371
 msgid "Cannot display the image"
@@ -4248,7 +4248,7 @@ msgstr "Ezin da irudia bistaratu"
 #: ../src/tag_area.c:1373
 msgid ""
 "Not enough data has been read to determine how to create the image buffer."
-msgstr ""
+msgstr "Ez da aski daturik irakurri irudi-bufferra nola sortu zehazteko"
 
 #: ../src/tag_area.c:1375
 msgid "Load Image File"
@@ -4257,7 +4257,7 @@ msgstr "Kargatu irudi-fitxategia"
 #: ../src/tag_area.c:1420 ../src/tag_area.c:1445
 #, c-format
 msgid "Image file not loaded ‘%s’"
-msgstr ""
+msgstr "‘%s’ irudi-fitxategia ez da kargatu"
 
 #: ../src/tag_area.c:1437
 #, c-format
@@ -4287,17 +4287,17 @@ msgstr "PNG eta JPEG"
 #: ../src/tag_area.c:1670
 #, c-format
 msgid "Image Properties %d/%d"
-msgstr ""
+msgstr "Irudi-propietateak: %d/%d"
 
 #: ../src/tag_area.c:1862
 #, c-format
 msgid "Save Image %d/%d"
-msgstr ""
+msgstr "Gorde irudia: %d/%d"
 
 #: ../src/tag_area.c:1942
 #, c-format
 msgid "Image file not saved ‘%s’"
-msgstr ""
+msgstr "‘%s’ irudi-fitxategia ez da gorde"
 
 #: ../src/tag_area.c:2186
 msgid "Tag selected files with this genre"
@@ -4370,13 +4370,13 @@ msgstr "Kanalak:"
 #: ../src/tags/flac_tag.c:808
 #, c-format
 msgid "Error while opening file ‘%s’ as FLAC: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategia FLAC gisa irekitzean: %s"
 
 #: ../src/tags/flac_tag.c:1108 ../src/tags/flac_tag.c:1120
 #: ../src/tags/flac_tag.c:1140
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
-msgstr ""
+msgstr "Huts egin du ‘%s’ fitxategian iruzkinak idazteak: %s"
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
@@ -4437,11 +4437,11 @@ msgstr "Bufferra txikiegia da"
 
 #: ../src/tags/id3_tag.c:793
 msgid "Invalid frame ID"
-msgstr ""
+msgstr "Markoaren ID baliogabea"
 
 #: ../src/tags/id3_tag.c:795
 msgid "Requested field not found"
-msgstr ""
+msgstr "Eskatutako fitxategia ez da aurkitu"
 
 #: ../src/tags/id3_tag.c:797
 msgid "Unknown field type"
@@ -4563,7 +4563,7 @@ msgstr "Zehaztutako bit-korrontea ez da existitzen edo fitxategia gaizki hasiera
 
 #: ../src/tags/ogg_header.c:262
 msgid "Read from media returned an error"
-msgstr ""
+msgstr "Multimediaren irakurketak errore bat eman du"
 
 #: ../src/tags/ogg_header.c:265
 msgid "Bitstream is not Vorbis data"
@@ -4575,16 +4575,16 @@ msgstr "Vorbis bertsioa ez dator bat"
 
 #: ../src/tags/ogg_header.c:271
 msgid "Invalid Vorbis bitstream header"
-msgstr ""
+msgstr "Vorbis bit-korrondearen goiburu baliogabea"
 
 #: ../src/tags/ogg_header.c:274
 msgid "Internal logic fault, indicates a bug or heap/stack corruption"
-msgstr ""
+msgstr "Barne-logikaren hutsegitea, akats bat dagoela edo pila hondatuta dagoela adierazten du"
 
 #: ../src/tags/ogg_header.c:325
 #, c-format
 msgid "Failed to open file as Vorbis: %s"
-msgstr ""
+msgstr "Huts egin du fitxategia VOrbis gisa irekitzeak: %s"
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
