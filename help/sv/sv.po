@@ -1,13 +1,14 @@
 # Swedish translation for easytag.
-# Copyright © 2015 easytag's COPYRIGHT HOLDER
+# Copyright © 2015-2021 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 # Marcus Gisslén <marcus.gisslen@gmail.com>, 2015.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-08-14 17:15+0000\n"
-"PO-Revision-Date: 2016-09-26 00:07+0200\n"
+"POT-Creation-Date: 2021-09-10 16:57+0000\n"
+"PO-Revision-Date: 2021-09-10 22:09+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 3.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -88,7 +89,7 @@ msgid ""
 "shown to the right. If the album is not the one that you wanted, try "
 "selecting another result in the list."
 msgstr ""
-"Välj ett album från resultatlistan och spårinformationen kommer att visas "
+"Välj ett album från resultatlistan så kommer spårinformationen att visas "
 "till höger. Om albumet inte är det du söker, försök med ett av de andra "
 "resultaten på listan."
 
@@ -186,8 +187,8 @@ msgstr "Välj <gui>Byt namn på fil</gui>-avsökaren."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
-"your files to be named <file>[artist] - [title].[extension]</file>, "
-"enter <input>%a - %t</input> into the renaming field."
+"your files to be named <file>[artist] - [title].[extension]</file>, enter "
+"<input>%a - %t</input> into the renaming field."
 msgstr ""
 "Använd <gui xref=\"format-specifier\">Avsökningssymboler</gui>, skriv in "
 "strukturen som du vill använda vid namngivning av filer. T.ex. om du vill "
@@ -654,12 +655,12 @@ msgstr "<key>Page Down</key>"
 #. (itstool) path: p/link
 #: C/legal.xml:4
 msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
-msgstr "Creative Commons Attribution-ShareAlike 3.0 Unported License"
+msgstr "Creative Commons Erkännande-DelaLika 3.0 Unported"
 
 #. (itstool) path: license/p
 #: C/legal.xml:3
 msgid "This work is licensed under a <_:link-1/>."
-msgstr "Detta verk är licenserat under <_:link-1/>."
+msgstr "Detta verk är licensierat under licensen <_:link-1/>."
 
 #. (itstool) path: info/desc
 #: C/playlist-generate.page:17
@@ -872,7 +873,7 @@ msgstr ""
 msgid ""
 "Split a single tag field into multiple fields when you save Ogg and FLAC "
 "files"
-msgstr "Dela upp ett taggfält i flera fält när du sparar Ogg och FLAC-filer"
+msgstr "Dela upp ett taggfält i flera fält när du sparar Ogg- och FLAC-filer"
 
 #. (itstool) path: page/title
 #: C/problems-ogg-split.page:26
@@ -888,7 +889,7 @@ msgid ""
 "<app>EasyTAG</app> automatically reads the extra fields, combining them "
 "together and showing them as if they were a single field."
 msgstr ""
-"I Ogg och FLAC-filer är det möjligt att ha fler än ett <link xref=\"tag"
+"I Ogg- och FLAC-filer är det möjligt att ha fler än ett <link xref=\"tag"
 "\">taggfält</link> för varje typ. T.ex. om två artister framför en sång kan "
 "det finnas två artistfält i en tagg, en för varje artist. <app>EasyTAG</app> "
 "läser automatiskt de extra fälten, lägger ihop dem och visar dem som om de "
@@ -988,11 +989,11 @@ msgstr ""
 #. (itstool) path: section/p
 #: C/scanner.page:42
 msgid ""
-"For example, if you keep your audio files using the <file>artist/"
-"album/01 track title.flac</file> directory structure and filenames, use the "
-"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
-"number and title from the filename, the album title from the parent "
-"directory and the artist from the grandparent directory."
+"For example, if you keep your audio files using the <file>artist/album/01 "
+"track title.flac</file> directory structure and filenames, use the <input>%a/"
+"%b/%n %t</input> <em>format string</em> to extract the track number and "
+"title from the filename, the album title from the parent directory and the "
+"artist from the grandparent directory."
 msgstr ""
 "T.ex. om du förvarar dina ljudfiler med filstrukturen <file>artist/album/01 "
 "spårtitel.flac</file>, använd <em>formatsträng</em> <input>%a/%b/%n %t</"
