@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2016-12-15 04:08+0000\n"
+"POT-Creation-Date: 2020-05-31 19:14+0000\n"
 "PO-Revision-Date: 2017-01-09 13:21+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
@@ -190,11 +190,6 @@ msgstr "Seleccione el analizador <gui>Renombrar archivo</gui>"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
-#| msgid ""
-#| "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the "
-#| "structure that you would like to use for the file naming. For example, if "
-#| "you wish your files to be named <file>[artist] - [title].[extension]</"
-#| "file>, enter <input>%a - %t</input> into the renaming field."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
@@ -682,7 +677,7 @@ msgstr "<key>Av Pág</key>"
 #. (itstool) path: p/link
 #: C/legal.xml:4
 msgid "Creative Commons Attribution-ShareAlike 3.0 Unported License"
-msgstr "Creative Commons de Atribución-Compartir Igual 3.0 sin soporte"
+msgstr "Creative Commons de Atribución-Compartir Igual 3.0 no portada"
 
 #. (itstool) path: license/p
 #: C/legal.xml:3
@@ -1031,12 +1026,6 @@ msgstr ""
 
 #. (itstool) path: section/p
 #: C/scanner.page:42
-#| msgid ""
-#| "For example, if you keep your audio files using the <file>artist/album/01 "
-#| "track title.flac</file> directory structure and filenames, use the <input>"
-#| "%a/%b/%n %t</input> <em>format string</em> to extract the track number "
-#| "and title from the filename, the album title from the parent directory "
-#| "and the artist from the grandparent directory."
 msgid ""
 "For example, if you keep your audio files using the <file>artist/"
 "album/01 track title.flac</file> directory structure and filenames, use the "
