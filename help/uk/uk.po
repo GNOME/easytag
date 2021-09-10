@@ -2,21 +2,20 @@
 # Copyright (C) 2020 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2020-12-01 22:41+0000\n"
-"PO-Revision-Date: 2020-12-16 17:15+0200\n"
+"POT-Creation-Date: 2021-09-10 16:57+0000\n"
+"PO-Revision-Date: 2021-09-10 21:22+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.11.70\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -50,9 +49,9 @@ msgid ""
 "databases using the <sys>CDDB</sys> protocol and automatically fill in "
 "several tag fields."
 msgstr ""
-"Якщо вашу музику упорядковано за альбомами, <app>EasyTAG</app> може виконати"
-" пошук у базах даних в інтернеті за допомогою протоколу <sys>CDDB</sys> і"
-" автоматично заповнити декілька полів міток."
+"Якщо вашу музику упорядковано за альбомами, <app>EasyTAG</app> може виконати "
+"пошук у базах даних в інтернеті за допомогою протоколу <sys>CDDB</sys> і "
+"автоматично заповнити декілька полів міток."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:29
@@ -61,9 +60,9 @@ msgid ""
 "want to search for. The ordering of the files must match the track order on "
 "the album."
 msgstr ""
-"<link xref=\"file-select\">Позначте усі файли</link> у альбомі, для яких слід"
-" виконати пошук. Упорядкування файлів має збігатися із порядком композицій в"
-" альбомі."
+"<link xref=\"file-select\">Позначте усі файли</link> у альбомі, для яких "
+"слід виконати пошук. Упорядкування файлів має збігатися із порядком "
+"композицій в альбомі."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:34
@@ -71,8 +70,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">CDDB Search…</gui></guiseq>."
 msgstr ""
-"Виберіть пункт <guiseq><gui style=\"menu\">Інше</gui> <gui style=\"menuitem\""
-">Пошук у CDDB…</gui></guiseq>."
+"Виберіть пункт <guiseq><gui style=\"menu\">Інше</gui> <gui style=\"menuitem"
+"\">Пошук у CDDB…</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:38
@@ -80,8 +79,8 @@ msgid ""
 "Press <gui style=\"button\">Search Using Selected Files</gui> and wait for "
 "the search to finish."
 msgstr ""
-"Натисніть кнопку <gui style=\"button\">Шукати на основі позначених файлів<"
-"/gui> і зачекайте на завершення пошуку."
+"Натисніть кнопку <gui style=\"button\">Шукати на основі позначених файлів</"
+"gui> і зачекайте на завершення пошуку."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:43
@@ -90,9 +89,9 @@ msgid ""
 "shown to the right. If the album is not the one that you wanted, try "
 "selecting another result in the list."
 msgstr ""
-"Виберіть альбом зі списку результатів. Відомості щодо композицій буду"
-" показано праворуч. Якщо альбом не є тим, який вам потрібен, спробуйте"
-" вибрати інший результат у списку."
+"Виберіть альбом зі списку результатів. Відомості щодо композицій буду "
+"показано праворуч. Якщо альбом не є тим, який вам потрібен, спробуйте "
+"вибрати інший результат у списку."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:46
@@ -102,10 +101,10 @@ msgid ""
 "gui> and wait for the search to finish, and check the results again to see "
 "if you can find an album which matches the tracks that you selected."
 msgstr ""
-"Якщо для вибраних вами композицій нічого не буде знайдено, введіть назву"
-" альбому у поле для пошуку. Натисніть кнопку <gui style=\"button\">Пошук</gui"
-"> і зачекайте на завершення пошуку. Потім ознайомтеся із результатами і"
-" знайдіть у них пункт альбому, який відповідає позначеним вами композиціям."
+"Якщо для вибраних вами композицій нічого не буде знайдено, введіть назву "
+"альбому у поле для пошуку. Натисніть кнопку <gui style=\"button\">Пошук</"
+"gui> і зачекайте на завершення пошуку. Потім ознайомтеся із результатами і "
+"знайдіть у них пункт альбому, який відповідає позначеним вами композиціям."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:53
@@ -117,12 +116,12 @@ msgid ""
 "style=\"checkbox\">Number of Tracks</gui> and <gui style=\"checkbox\">Genre</"
 "gui>."
 msgstr ""
-"Виберіть поля міток для заповнення, вибравши комбінацію <gui"
-" style=\"checkbox\">Назва файла</gui>, <gui style=\"checkbox\">Заголовок</gui"
-">, <gui style=\"checkbox\">Виконавець</gui>, <gui style=\"checkbox\">Альбом<"
-"/gui>, <gui style=\"checkbox\">Рік</gui>, <gui style=\"checkbox\">Номер"
-" доріжки</gui>, <gui style=\"checkbox\">Кількість доріжок</gui> і <gui"
-" style=\"checkbox\">Жанр</gui>."
+"Виберіть поля міток для заповнення, вибравши комбінацію <gui style=\"checkbox"
+"\">Назва файла</gui>, <gui style=\"checkbox\">Заголовок</gui>, <gui style="
+"\"checkbox\">Виконавець</gui>, <gui style=\"checkbox\">Альбом</gui>, <gui "
+"style=\"checkbox\">Рік</gui>, <gui style=\"checkbox\">Номер доріжки</gui>, "
+"<gui style=\"checkbox\">Кількість доріжок</gui> і <gui style=\"checkbox"
+"\">Жанр</gui>."
 
 #. (itstool) path: item/p
 #: C/cddb-search.page:64
@@ -130,8 +129,8 @@ msgid ""
 "To fill in the tags of the selected files using the details in the search "
 "result, press <gui style=\"button\">Apply</gui>."
 msgstr ""
-"Для заповнення полів міток позначених файлів на основі даних у результатах"
-" пошуку натисніть кнопку <gui style=\"button\">Застосувати</gui>."
+"Для заповнення полів міток позначених файлів на основі даних у результатах "
+"пошуку натисніть кнопку <gui style=\"button\">Застосувати</gui>."
 
 #. (itstool) path: page/p
 #: C/cddb-search.page:69
@@ -139,8 +138,8 @@ msgid ""
 "If you wish to tag only specific files, you can change your selection after "
 "the search is complete."
 msgstr ""
-"Якщо ви хочете додати мітки лише для вказаних файлів, ви можете змінити"
-" перелік позначених файлів після завершення пошуку."
+"Якщо ви хочете додати мітки лише для вказаних файлів, ви можете змінити "
+"перелік позначених файлів після завершення пошуку."
 
 #. (itstool) path: info/desc
 #: C/file-rename.page:17
@@ -158,9 +157,8 @@ msgid ""
 "You can rename your music files using the tags from within <app>EasyTAG</"
 "app>:"
 msgstr ""
-"Ви можете перейменувати ваші музичні файли на основі міток за допомогою"
-" програми <app>EasyTAG</"
-"app>:"
+"Ви можете перейменувати ваші музичні файли на основі міток за допомогою "
+"програми <app>EasyTAG</app>:"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:27
@@ -168,8 +166,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to rename "
 "in the file view."
 msgstr ""
-"<link xref=\"file-select\">Позначте пункти файлів</link>, які ви хочете"
-" перейменувати, на панелі перегляду файлів."
+"<link xref=\"file-select\">Позначте пункти файлів</link>, які ви хочете "
+"перейменувати, на панелі перегляду файлів."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:31
@@ -177,8 +175,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui> <gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Виберіть пункт меню <guiseq><gui style=\"menu\">Перегляд</gui><gui"
-" style=\"menuitem\">Показати сканер</gui></guiseq>."
+"Виберіть пункт меню <guiseq><gui style=\"menu\">Перегляд</gui><gui style="
+"\"menuitem\">Показати сканер</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:35
@@ -187,16 +185,21 @@ msgstr "Виберіть сканер <gui>Перейменувати файл</
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
+#| msgid ""
+#| "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the "
+#| "structure that you would like to use for the file naming. For example, if "
+#| "you wish your files to be named <file>[artist] - [title].[extension]</"
+#| "file>, enter <input>%a - %t</input> into the renaming field."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
-"your files to be named <file>[artist] - [title].[extension]</file>, "
-"enter <input>%a - %t</input> into the renaming field."
+"your files to be named <file>[artist] - [title].[extension]</file>, enter "
+"<input>%a - %t</input> into the renaming field."
 msgstr ""
-"За допомогою <gui xref=\"format-specifier\">умовних позначень</gui> вкажіть"
-" структуру назв файлів, якою ви хочете скористатися. Наприклад, якщо ви"
-" хочете, щоб ваші файли мали назви <file>[виконавець] - [заголовок].[суфікс"
-" назви]</file>, введіть <input>%a - %t</input> у полі перейменування."
+"За допомогою <gui xref=\"format-specifier\">умовних позначень</gui> вкажіть "
+"структуру назв файлів, якою ви хочете скористатися. Наприклад, якщо ви "
+"хочете, щоб ваші файли мали назви <file>[виконавець] - [заголовок].[суфікс "
+"назви]</file>, введіть <input>%a - %t</input> у полі перейменування."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:45
@@ -204,15 +207,15 @@ msgid ""
 "To apply the changes to the selected files, click <gui style=\"button\">Scan "
 "Files</gui>."
 msgstr ""
-"Щоб застосувати внесені зміни до позначених файлів, натисніть кнопку <gui"
-" style=\"button\">Сканувати файли</gui>."
+"Щоб застосувати внесені зміни до позначених файлів, натисніть кнопку <gui "
+"style=\"button\">Сканувати файли</gui>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:49
 msgid "Close the <gui style=\"dialog\">Tag and Filename Scan</gui> dialog."
 msgstr ""
-"Закрийте діалогове вікно <gui style=\"dialog\">Сканування міток і назв"
-" файлів</gui>."
+"Закрийте діалогове вікно <gui style=\"dialog\">Сканування міток і назв "
+"файлів</gui>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:52
@@ -220,15 +223,15 @@ msgid ""
 "To save the applied changes, select <guiseq><gui style=\"menu\">File</gui> "
 "<gui style=\"menuitem\">Save Files</gui></guiseq>."
 msgstr ""
-"Щоб зберегти внесені зміни, виберіть пункт меню <guiseq><gui style=\"menu\""
-">Файл</gui> <gui style=\"menuitem\">Зберегти файли</gui></guiseq>."
+"Щоб зберегти внесені зміни, виберіть пункт меню <guiseq><gui style=\"menu"
+"\">Файл</gui> <gui style=\"menuitem\">Зберегти файли</gui></guiseq>."
 
 #. (itstool) path: note/p
 #: C/file-rename.page:59
 msgid "If you close the application without saving, your changes will be lost."
 msgstr ""
-"Якщо ви завершите роботу програми без збереження змін, внесені зміни буде"
-" втрачено."
+"Якщо ви завершите роботу програми без збереження змін, внесені зміни буде "
+"втрачено."
 
 #. (itstool) path: info/desc
 #: C/file-select.page:17
@@ -250,13 +253,13 @@ msgid ""
 "another file to select all the files between the two, including the first "
 "and last file."
 msgstr ""
-"У <app>EasyTAG</app> передбачено декілька можливостей обробки файлів, які у"
-" певний момент позначено у списку файлів. Щоб позначити декілька файлів, ви"
-" можете або натиснути і утримувати клавішу <key>Ctrl</key>, одночасно"
-" клацаючи на пунктах файлів, які ви хочете позначити; або можете клацнути на"
-" пункті файла, потім натиснути і утримувати клавішу <key>Shift</key>, а потім"
-" клацнути на іншому файлі, щоб позначити усі файли між цими двома файлами,"
-" включно із першим і останнім файлом у діапазоні."
+"У <app>EasyTAG</app> передбачено декілька можливостей обробки файлів, які у "
+"певний момент позначено у списку файлів. Щоб позначити декілька файлів, ви "
+"можете або натиснути і утримувати клавішу <key>Ctrl</key>, одночасно "
+"клацаючи на пунктах файлів, які ви хочете позначити; або можете клацнути на "
+"пункті файла, потім натиснути і утримувати клавішу <key>Shift</key>, а потім "
+"клацнути на іншому файлі, щоб позначити усі файли між цими двома файлами, "
+"включно із першим і останнім файлом у діапазоні."
 
 #. (itstool) path: info/desc
 #: C/format-specifier.page:17
@@ -276,9 +279,9 @@ msgid ""
 "name a file or playlist based on existing tags using <link xref=\"scanner"
 "\">the scanner</link>."
 msgstr ""
-"<em>Специфікаторами формату</em> можна скористатися для поділу назви файла на"
-" вміст міток і для визначення назви файла або списку відтворення на основі"
-" наявних міток за допомогою <link xref=\"scanner\">сканера</link>."
+"<em>Специфікаторами формату</em> можна скористатися для поділу назви файла "
+"на вміст міток і для визначення назви файла або списку відтворення на основі "
+"наявних міток за допомогою <link xref=\"scanner\">сканера</link>."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:31
@@ -296,8 +299,8 @@ msgid ""
 "Artist: this is the artist or artists who created the track, this field may "
 "contact a featured artist as well as the album artist"
 msgstr ""
-"Виконавець: це виконавець або виконавці, якими було записано композицію; це"
-" поле може бути пов'язано із запрошеним виконавцем, а також виконавцем альбому"
+"Виконавець: це виконавець або виконавці, якими було записано композицію; це "
+"поле може бути пов'язано із запрошеним виконавцем, а також виконавцем альбому"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:53
@@ -325,8 +328,8 @@ msgid ""
 "Copyright holder: this is usually the artist, but it can also be the record "
 "label"
 msgstr ""
-"Власник авторських прав: зазвичай, це виконавець, але власником може бути і"
-" звукозаписувальна компанія."
+"Власник авторських прав: зазвичай, це виконавець, але власником може бути і "
+"звукозаписувальна компанія."
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:94
@@ -339,9 +342,9 @@ msgid ""
 "Encoded by: this is usually the person who encoded the file, but the field "
 "is also used for the application that was used to encode the file"
 msgstr ""
-"Кодувальник: це, зазвичай, особа, якою було виконано кодування файла, але у"
-" полі може також бути запис програми, за допомогою якої було виконано"
-" кодування файла"
+"Кодувальник: це, зазвичай, особа, якою було виконано кодування файла, але у "
+"полі може також бути запис програми, за допомогою якої було виконано "
+"кодування файла"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:112
@@ -354,9 +357,9 @@ msgid ""
 "Ignored: this format specifier can only be used in <gui>Fill Tag</gui> to "
 "specify parts of the file name which should be ignored"
 msgstr ""
-"Ігноровано: цим специфікатором формату можна скористатися в інструменті <gui"
-">Заповнити мітку</gui> для визначення частин назви файла, які слід"
-" проігнорувати"
+"Ігноровано: цим специфікатором формату можна скористатися в інструменті "
+"<gui>Заповнити мітку</gui> для визначення частин назви файла, які слід "
+"проігнорувати"
 
 #. (itstool) path: td/p
 #: C/format-specifier.page:130
@@ -409,15 +412,16 @@ msgid ""
 "To delete an image from a tag, select it and press the <gui style=\"button"
 "\">Remove selected images from the tag</gui> button."
 msgstr ""
-"Щоб вилучити зображення з мітки, позначте його і натисніть кнопку <gui"
-" style=\"button\">Вилучити позначені зображення з мітки</gui>."
+"Щоб вилучити зображення з мітки, позначте його і натисніть кнопку <gui style="
+"\"button\">Вилучити позначені зображення з мітки</gui>."
 
 #. (itstool) path: page/p
 #: C/image-delete.page:26
 msgid ""
 "To delete more than one image, select those images before deleting them."
 msgstr ""
-"Щоб вилучити декілька зображень, позначте ці зображення, перш ніж вилучати їх."
+"Щоб вилучити декілька зображень, позначте ці зображення, перш ніж вилучати "
+"їх."
 
 #. (itstool) path: page/p
 #: C/image-delete.page:29
@@ -427,9 +431,9 @@ msgid ""
 "images from the <gui style=\"tab\">Image</gui> tab, then press the <gui "
 "style=\"button\">Tag selected files with these images</gui> button."
 msgstr ""
-"Також можна вилучити усі зображення з декількох файлів. Для цього позначте"
-" файли, з яких ви хочете вилучити зображення, вилучіть усі зображення з"
-" вкладки <gui style=\"tab\">Зображення</gui>, потім натисніть кнопку <gui "
+"Також можна вилучити усі зображення з декількох файлів. Для цього позначте "
+"файли, з яких ви хочете вилучити зображення, вилучіть усі зображення з "
+"вкладки <gui style=\"tab\">Зображення</gui>, потім натисніть кнопку <gui "
 "style=\"button\">Позначити вибрані файли цими зображеннями</gui>."
 
 #. (itstool) path: info/desc
@@ -450,10 +454,10 @@ msgid ""
 "images to files</gui> button. The default filename will be the image "
 "description."
 msgstr ""
-"Якщо файл вже помічено зображенням, ви можете експортувати зображення з"
-" мітки, позначивши його і натиснувши кнопку <gui style=\"button\">Зберегти"
-" позначені зображення до файлів</gui>. Типовою назвою файла буде опис"
-" зображення."
+"Якщо файл вже помічено зображенням, ви можете експортувати зображення з "
+"мітки, позначивши його і натиснувши кнопку <gui style=\"button\">Зберегти "
+"позначені зображення до файлів</gui>. Типовою назвою файла буде опис "
+"зображення."
 
 #. (itstool) path: page/p
 #: C/image-export.page:28
@@ -461,9 +465,9 @@ msgid ""
 "To export a number of images, select these images, then press the <gui style="
 "\"button\">Save the selected images to files</gui> button."
 msgstr ""
-"Щоб експортувати декілька зображень, позначте ці зображення, а потім"
-" натисніть кнопку <gui style="
-"\"button\">Зберегти позначені зображення до файлів</gui>."
+"Щоб експортувати декілька зображень, позначте ці зображення, а потім "
+"натисніть кнопку <gui style=\"button\">Зберегти позначені зображення до "
+"файлів</gui>."
 
 #. (itstool) path: info/desc
 #: C/image.page:20
@@ -481,9 +485,9 @@ msgid ""
 "Most audio file formats support an <sys>image</sys> tag field which can be "
 "used to add cover art and other related images to the audio file."
 msgstr ""
-"У більшості форматі запису звукових даних передбачено підтримку поля мітки <"
-"sys>image</sys>, яким можна скористатися для додавання зображення обкладинки"
-" та інших пов'язаних зображень до файла звукових даних."
+"У більшості форматі запису звукових даних передбачено підтримку поля мітки "
+"<sys>image</sys>, яким можна скористатися для додавання зображення "
+"обкладинки та інших пов'язаних зображень до файла звукових даних."
 
 #. (itstool) path: page/p
 #: C/image.page:29
@@ -492,9 +496,9 @@ msgid ""
 "\">Images</gui> tab and press the <gui style=\"button\">Add images to the "
 "tag</gui> button. Select the image and confirm your selection."
 msgstr ""
-"Щоб додати до файла зображення, позначте файл, перейдіть на вкладку <gui"
-" style=\"tab\">Зображення</gui> і натисніть кнопку <gui style=\"button\""
-">Додати зображення до мітки</gui>. Виберіть зображення і підтвердьте вибір."
+"Щоб додати до файла зображення, позначте файл, перейдіть на вкладку <gui "
+"style=\"tab\">Зображення</gui> і натисніть кнопку <gui style=\"button"
+"\">Додати зображення до мітки</gui>. Виберіть зображення і підтвердьте вибір."
 
 #. (itstool) path: page/p
 #: C/image.page:34
@@ -505,12 +509,12 @@ msgid ""
 "properties</gui> button. Once you have made the changes, press <gui style="
 "\"button\">Accept</gui> to apply the changes."
 msgstr ""
-"Щойно зображення буде вивантажено, його буде позначено як зображення"
-" передньої частини обкладинки, а описом буде встановлено назву файла. Щоб"
-" змінити <gui>тип</gui> і <gui>опис</gui>, натисніть кнопку <gui"
-" style=\"button\">Редагувати властивості зображення</gui>. Щойно зміни буде"
-" внесено, натисніть кнопку <gui style=\"button\">Прийняти</gui>, щоб"
-" застосувати зміни."
+"Щойно зображення буде вивантажено, його буде позначено як зображення "
+"передньої частини обкладинки, а описом буде встановлено назву файла. Щоб "
+"змінити <gui>тип</gui> і <gui>опис</gui>, натисніть кнопку <gui style="
+"\"button\">Редагувати властивості зображення</gui>. Щойно зміни буде "
+"внесено, натисніть кнопку <gui style=\"button\">Прийняти</gui>, щоб "
+"застосувати зміни."
 
 #. (itstool) path: note/p
 #: C/image.page:41
@@ -525,11 +529,11 @@ msgid ""
 "\">Tag selected files with these images</gui> button. You will need to save "
 "these changes to write them to the files."
 msgstr ""
-"Ви можете додати те саме зображення до декількох файлів як мітку. Для цього"
-" позначте відповідні файли у списку файлів, потім позначте зображення і"
-" натисніть кнопку <gui style=\"button"
-"\">Позначити вибрані файли цими зображеннями</gui>. Вам слід зберегти внесені"
-" зміни, щоб записати їх до файлів."
+"Ви можете додати те саме зображення до декількох файлів як мітку. Для цього "
+"позначте відповідні файли у списку файлів, потім позначте зображення і "
+"натисніть кнопку <gui style=\"button\">Позначити вибрані файли цими "
+"зображеннями</gui>. Вам слід зберегти внесені зміни, щоб записати їх до "
+"файлів."
 
 #. (itstool) path: page/p
 #: C/image.page:49
@@ -537,9 +541,9 @@ msgid ""
 "You can work with more than one image at a time by selecting those images "
 "before you edit, apply, save to file or delete them."
 msgstr ""
-"Ви можете працювати одразу із декількома зображеннями — позначте ці"
-" зображення, перш ніж редагувати, застосовувати або зберігати їх до файла,"
-" або вилучте позначені зображення."
+"Ви можете працювати одразу із декількома зображеннями — позначте ці "
+"зображення, перш ніж редагувати, застосовувати або зберігати їх до файла, "
+"або вилучте позначені зображення."
 
 #. (itstool) path: info/title
 #: C/index.page:11 C/index.page:21
@@ -560,10 +564,9 @@ msgid ""
 "Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
 "and WavPack audio files."
 msgstr ""
-"Дізнайтеся про те, як скористатися <app>EasyTAG</app>, повноцінним редактором"
-" міток для роботи з файлами звукових даних FLAC, Monkey's Audio, MP2, MP3,"
-" MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis "
-"та WavPack."
+"Дізнайтеся про те, як скористатися <app>EasyTAG</app>, повноцінним "
+"редактором міток для роботи з файлами звукових даних FLAC, Monkey's Audio, "
+"MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis та WavPack."
 
 #. (itstool) path: page/title
 #: C/index.page:29
@@ -602,9 +605,9 @@ msgid ""
 "MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg Vorbis and WavPack "
 "audio files."
 msgstr ""
-"<app>EasyTAG</app> — повноцінний редактор міток для файлів звукових даних"
-" FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg"
-" Vorbis і WavPack."
+"<app>EasyTAG</app> — повноцінний редактор міток для файлів звукових даних "
+"FLAC, Monkey's Audio, MP2, MP3, MP4/AAC, MusePack, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis і WavPack."
 
 #. (itstool) path: page/title
 #: C/keyboard-shortcuts.page:20
@@ -617,9 +620,9 @@ msgid ""
 "<app>EasyTAG</app> has a number of keyboard shortcuts, most of which are "
 "listed in the menus. Here are some which are especially useful:"
 msgstr ""
-"У <app>EasyTAG</app> передбачено декілька комбінацій клавіш для керування"
-" програмою. Більшість цих комбінацій буде показано у меню програми. Ось лише"
-" декілька з них, які є особливо корисними:"
+"У <app>EasyTAG</app> передбачено декілька комбінацій клавіш для керування "
+"програмою. Більшість цих комбінацій буде показано у меню програми. Ось лише "
+"декілька з них, які є особливо корисними:"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:29
@@ -655,8 +658,8 @@ msgstr "<keyseq><key>Ctrl</key><key>F</key></keyseq>"
 #: C/keyboard-shortcuts.page:55
 msgid "Go to previous file while keeping focus on the same tag field"
 msgstr ""
-"Перейти до попереднього файла, зберігаючи фокусування на тому самому полі"
-" мітки"
+"Перейти до попереднього файла, зберігаючи фокусування на тому самому полі "
+"мітки"
 
 #. (itstool) path: td/p
 #: C/keyboard-shortcuts.page:58
@@ -700,8 +703,8 @@ msgid ""
 "You can create a M3U playlist for use with a music player based on the list "
 "of files shown in <app>EasyTAG</app>:"
 msgstr ""
-"Ви можете створити для використання у музичному програвачі список відтворення"
-" M3U на основі списку файлів, показаного в <app>EasyTAG</app>:"
+"Ви можете створити для використання у музичному програвачі список "
+"відтворення M3U на основі списку файлів, показаного в <app>EasyTAG</app>:"
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:27
@@ -709,8 +712,8 @@ msgid ""
 "<link xref=\"file-select\">Select the files</link> that you wish to be in "
 "the playlist from the list of files."
 msgstr ""
-"<link xref=\"file-select\">Позначте файли</link>, які ви хочете додати до"
-" списку відтворення, у списку файлів."
+"<link xref=\"file-select\">Позначте файли</link>, які ви хочете додати до "
+"списку відтворення, у списку файлів."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:31
@@ -718,8 +721,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">Miscellaneous</gui> <gui style=\"menuitem"
 "\">Generate Playlist…</gui></guiseq>."
 msgstr ""
-"Виберіть пункт меню <guiseq><gui style=\"menu\">Інше</gui> <gui"
-" style=\"menuitem\">Створити список відтворення…</gui></guiseq>."
+"Виберіть пункт меню <guiseq><gui style=\"menu\">Інше</gui> <gui style="
+"\"menuitem\">Створити список відтворення…</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:35
@@ -729,12 +732,11 @@ msgid ""
 "style=\"radiobutton\">Use directory name</gui> to name the playlist after "
 "the directory which is selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
-"Виберіть <gui style=\"radiobutton\">Маска</gui> і введіть маску за допомогою"
-" <link xref=\"format-specifier\">специфікаторів формату</link> або виберіть <"
-"gui "
-"style=\"radiobutton\">Використовувати назву каталогу</gui>, щоб назвати"
-" список відтворення за каталогом, який вибрано на панелі <gui style=\"group\""
-">Навігатор</gui>."
+"Виберіть <gui style=\"radiobutton\">Маска</gui> і введіть маску за допомогою "
+"<link xref=\"format-specifier\">специфікаторів формату</link> або виберіть "
+"<gui style=\"radiobutton\">Використовувати назву каталогу</gui>, щоб назвати "
+"список відтворення за каталогом, який вибрано на панелі <gui style=\"group"
+"\">Навігатор</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:42
@@ -743,10 +745,10 @@ msgid ""
 "the files which are selected in the file list when generating the playlist. "
 "Deselect it to include all the displayed files in the playlist."
 msgstr ""
-"Позначте пункт <gui style=\"checkbox\">Включити лише позначені файли</gui>,"
-" щоб скористатися файлами, які позначено у списку файлів на момент створення"
-" списку відтворення. Зніміть позначку з цього пункту, щоб включити до списку"
-" відтворення усі показані файли."
+"Позначте пункт <gui style=\"checkbox\">Включити лише позначені файли</gui>, "
+"щоб скористатися файлами, які позначено у списку файлів на момент створення "
+"списку відтворення. Зніміть позначку з цього пункту, щоб включити до списку "
+"відтворення усі показані файли."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:48
@@ -756,11 +758,11 @@ msgid ""
 "do not plan to move the audio files, in which case you can select <gui style="
 "\"radiobutton\">Use full path for files in playlist</gui>."
 msgstr ""
-"Позначте <gui style=\"radiobutton\">Відносний шлях до файлів у списку"
-" відтворення</gui>, якщо ви не плануєте використання списку відтворення лише"
-" на цьому комп'ютері і не плануєте пересувати файли звукових даних. Якщо це"
-" не так, позначте пункт <gui style=\"radiobutton\">Повний шлях для файлів у"
-" списку відтворення</gui>."
+"Позначте <gui style=\"radiobutton\">Відносний шлях до файлів у списку "
+"відтворення</gui>, якщо ви не плануєте використання списку відтворення лише "
+"на цьому комп'ютері і не плануєте пересувати файли звукових даних. Якщо це "
+"не так, позначте пункт <gui style=\"radiobutton\">Повний шлях для файлів у "
+"списку відтворення</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:55
@@ -770,12 +772,12 @@ msgid ""
 "the <gui style=\"group\">Browser</gui>. Otherwise, the playlist will be "
 "saved in the directory selected in the <gui style=\"group\">Browser</gui>."
 msgstr ""
-"Позначте пункт <gui style=\"checkbox\">Створювати список відтворення у"
-" батьківському каталозі</gui>, якщо ви хочете зберегти список відтворення у"
-" батьківському каталозі каталогу, який позначено на панелі <gui"
-" style=\"group\">Навігатор</gui>. Якщо пункт не буде позначено, список"
-" відтворення буде збережено до каталогу, який позначено на панелі <gui"
-" style=\"group\">Навігатор</gui>."
+"Позначте пункт <gui style=\"checkbox\">Створювати список відтворення у "
+"батьківському каталозі</gui>, якщо ви хочете зберегти список відтворення у "
+"батьківському каталозі каталогу, який позначено на панелі <gui style=\"group"
+"\">Навігатор</gui>. Якщо пункт не буде позначено, список відтворення буде "
+"збережено до каталогу, який позначено на панелі <gui style=\"group"
+"\">Навігатор</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:63
@@ -784,10 +786,9 @@ msgid ""
 "<sys>NTFS</sys> or <sys>FAT</sys> file system, select <gui style=\"checkbox"
 "\">Use DOS directory separator</gui>."
 msgstr ""
-"Якщо ви створюєте список відтворення для використання на комп'ютері під"
-" керуванням Windows або на файловій системі <sys>NTFS</sys> чи <sys>FAT</sys"
-">, позначте пункт <gui style=\"checkbox"
-"\">Роздільник каталогів DOS</gui>."
+"Якщо ви створюєте список відтворення для використання на комп'ютері під "
+"керуванням Windows або на файловій системі <sys>NTFS</sys> чи <sys>FAT</"
+"sys>, позначте пункт <gui style=\"checkbox\">Роздільник каталогів DOS</gui>."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:68
@@ -799,22 +800,21 @@ msgid ""
 "\"radiobutton\">Write info using</gui> and enter a mask, using format "
 "specifiers, to write custom extended information to the playlist."
 msgstr ""
-"Позначте пункт <gui style=\"radiobutton\">Записати лише список файлів</gui>,"
-" щоб створити список відтворення, який міститиме лише список файлів. Позначте"
-" пункт <gui style=\"radiobutton"
-"\">Записати відомості на основі назви файла</gui>, щоб програма також"
-" записала до файла списку вітворення розширені відомості, зокрема дані щодо"
-" тривалості відтворення звукового файла. Позначте пункт <gui"
-" style=\"radiobutton\">Записувати відомості за допомогою:</gui> і введіть"
-" маску з використанням специфікаторів формату, щоб записати до списку"
-" відтворення нетипові розширені дані."
+"Позначте пункт <gui style=\"radiobutton\">Записати лише список файлів</gui>, "
+"щоб створити список відтворення, який міститиме лише список файлів. Позначте "
+"пункт <gui style=\"radiobutton\">Записати відомості на основі назви файла</"
+"gui>, щоб програма також записала до файла списку вітворення розширені "
+"відомості, зокрема дані щодо тривалості відтворення звукового файла. "
+"Позначте пункт <gui style=\"radiobutton\">Записувати відомості за допомогою:"
+"</gui> і введіть маску з використанням специфікаторів формату, щоб записати "
+"до списку відтворення нетипові розширені дані."
 
 #. (itstool) path: item/p
 #: C/playlist-generate.page:77
 msgid "To generate the playlist, select <gui style=\"button\">Save</gui>."
 msgstr ""
-"Щоб створити список відтворення, натисніть кнопку <gui style=\"button\""
-">Зберегти</gui>."
+"Щоб створити список відтворення, натисніть кнопку <gui style=\"button"
+"\">Зберегти</gui>."
 
 #. (itstool) path: credit/name
 #: C/problems-id3.page:14 C/problems-ogg-split.page:14
@@ -825,8 +825,8 @@ msgstr "Девід Кінг (David King)"
 #: C/problems-id3.page:18
 msgid "Fix ID3 tags that show up blank or incorrect tags in other applications"
 msgstr ""
-"Виправлення помилок, пов'язаних із тим, що мітки ID3 не показують інші"
-" програми, або тим, що інші програми показують їх неправильно"
+"Виправлення помилок, пов'язаних із тим, що мітки ID3 не показують інші "
+"програми, або тим, що інші програми показують їх неправильно"
 
 #. (itstool) path: page/title
 #: C/problems-id3.page:22
@@ -841,11 +841,10 @@ msgid ""
 "ID3v1.1. The default version in <app>EasyTAG</app> is ID3v2.3, which is the "
 "most compatible."
 msgstr ""
-"Мітки <em>ID3</em>, які використовують у файлах MP3, можуть зберігатися у"
-" декількох різних версіях. В <app>EasyTAG</app> передбачено підтримку версій"
-" ID3v2.4, ID3v2.3 і "
-"ID3v1.1. Типовою версією в <app>EasyTAG</app> є версія ID3v2.3, яка є"
-" найсуміснішою."
+"Мітки <em>ID3</em>, які використовують у файлах MP3, можуть зберігатися у "
+"декількох різних версіях. В <app>EasyTAG</app> передбачено підтримку версій "
+"ID3v2.4, ID3v2.3 і ID3v1.1. Типовою версією в <app>EasyTAG</app> є версія "
+"ID3v2.3, яка є найсуміснішою."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:29
@@ -853,8 +852,8 @@ msgid ""
 "Many applications support the most recent version of the ID3 standard: "
 "ID3v2.4."
 msgstr ""
-"У багатьох програма передбачено підтримку найсвіжішої версії стандарту ID3 —"
-" ID3v2.4."
+"У багатьох програма передбачено підтримку найсвіжішої версії стандарту ID3 — "
+"ID3v2.4."
 
 #. (itstool) path: page/p
 #: C/problems-id3.page:32
@@ -864,11 +863,11 @@ msgid ""
 "a problem reading tags from your files, you should try changing the ID3 tag "
 "version settings in the preferences:"
 msgstr ""
-"У деяких програмах та на деяких пристроях може бути передбачено підтримку"
-" лише міток ID3v2.3 і ID3v1.1, а у деяких — лише підтримку міток ID3v1.1."
-" Якщо у іншій програмі або на іншому пристрої виникають проблеми із читанням"
-" міток з ваших файлів, вам слід спробувати змінити параметри версії ID3 у"
-" налаштуваннях програми:"
+"У деяких програмах та на деяких пристроях може бути передбачено підтримку "
+"лише міток ID3v2.3 і ID3v1.1, а у деяких — лише підтримку міток ID3v1.1. "
+"Якщо у іншій програмі або на іншому пристрої виникають проблеми із читанням "
+"міток з ваших файлів, вам слід спробувати змінити параметри версії ID3 у "
+"налаштуваннях програми:"
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:39 C/problems-ogg-split.page:46
@@ -876,9 +875,8 @@ msgid ""
 "Select <guiseq style=\"menuitem\"><gui style=\"menu\">Edit</gui><gui style="
 "\"menuitem\">Preferences</gui></guiseq>"
 msgstr ""
-"Виберіть пункт меню <guiseq style=\"menuitem\"><gui style=\"menu\">Зміни</gui"
-"> <gui"
-" style=\"menuitem\">Параметри</gui></guiseq>."
+"Виберіть пункт меню <guiseq style=\"menuitem\"><gui style=\"menu\">Зміни</"
+"gui> <gui style=\"menuitem\">Параметри</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:43
@@ -892,10 +890,10 @@ msgid ""
 "gui> setting in the <gui>Version</gui> drop-down list to use the most recent "
 "version of ID3v2, if your application or device supports it"
 msgstr ""
-"У розділі <gui style=\"group\">ID3v2</gui> виберіть варіант <gui>ID3v2.4</gui"
-"> у спадному списку <gui>Версія</gui>, щоб скористатися найсвіжішою версією"
-" ID3v2, якщо у вашій програмі або на вашому пристрої передбачено підтримку"
-" саме цієї версії."
+"У розділі <gui style=\"group\">ID3v2</gui> виберіть варіант <gui>ID3v2.4</"
+"gui> у спадному списку <gui>Версія</gui>, щоб скористатися найсвіжішою "
+"версією ID3v2, якщо у вашій програмі або на вашому пристрої передбачено "
+"підтримку саме цієї версії."
 
 #. (itstool) path: item/p
 #: C/problems-id3.page:52
@@ -904,9 +902,9 @@ msgid ""
 "the <gui style=\"group\">ID3v1 tags</gui> section, if your application or "
 "device only supports ID3v1"
 msgstr ""
-"Позначте пункт <gui style=\"check\">Записати мітку ID3v1</gui> у розділі <gui"
-" style=\"group\">Мітки ID3v1</gui>, якщо у вашій програмі або на вашому"
-" пристрою передбачено підтримку ID3v1."
+"Позначте пункт <gui style=\"check\">Записати мітку ID3v1</gui> у розділі "
+"<gui style=\"group\">Мітки ID3v1</gui>, якщо у вашій програмі або на вашому "
+"пристрою передбачено підтримку ID3v1."
 
 #. (itstool) path: info/desc
 #: C/problems-ogg-split.page:22
@@ -930,11 +928,11 @@ msgid ""
 "<app>EasyTAG</app> automatically reads the extra fields, combining them "
 "together and showing them as if they were a single field."
 msgstr ""
-"У файлах Ogg і FLAC може бути декілька <link xref=\"tag\">полів міток</link>"
-" одного типу. Наприклад, якщо у пісні два виконавця у мітці може бути два"
-" поля виконавця, по одному на кожного з виконавців. <app>EasyTAG</app>"
-" автоматично читає додаткові поля, поєднуючи їх і показуючи їх так, наче вони"
-" є єдиним полем."
+"У файлах Ogg і FLAC може бути декілька <link xref=\"tag\">полів міток</link> "
+"одного типу. Наприклад, якщо у пісні два виконавця у мітці може бути два "
+"поля виконавця, по одному на кожного з виконавців. <app>EasyTAG</app> "
+"автоматично читає додаткові поля, поєднуючи їх і показуючи їх так, наче вони "
+"є єдиним полем."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:34
@@ -947,13 +945,13 @@ msgid ""
 "the field \"David Bowie - Queen\", two fields would be saved: \"David Bowie"
 "\" and \"Queen\"."
 msgstr ""
-"У багатьох програмах не передбачено можливості належного читання поля із"
-" багатьма значеннями, тому за типових налаштувань програма зберігає дані з"
-" використанням одного поля на один запис. Якщо у програмі, якою ви"
-" користуєтеся, передбачено підтримку декількох полів одного типу, ви можете"
-" налаштувати EasyTAG на поділ полів при зберіганні файла. Поля буде"
-" автоматично поділено на роздільнику « - » у полі. Наприклад, у полі «David"
-" Bowie - Queen», буде збережено «David Bowie» і «Queen»."
+"У багатьох програмах не передбачено можливості належного читання поля із "
+"багатьма значеннями, тому за типових налаштувань програма зберігає дані з "
+"використанням одного поля на один запис. Якщо у програмі, якою ви "
+"користуєтеся, передбачено підтримку декількох полів одного типу, ви можете "
+"налаштувати EasyTAG на поділ полів при зберіганні файла. Поля буде "
+"автоматично поділено на роздільнику « - » у полі. Наприклад, у полі «David "
+"Bowie - Queen», буде збережено «David Bowie» і «Queen»."
 
 #. (itstool) path: page/p
 #: C/problems-ogg-split.page:42
@@ -971,8 +969,8 @@ msgid ""
 "In <gui style=\"group\">Splitting</gui> section, check the fields that you "
 "want to be split into multiple fields when saving"
 msgstr ""
-"У розділі <gui style=\"group\">Поділ</gui> позначте пункти полів, які ви"
-" хочете поділити на декілька полів під час зберігання."
+"У розділі <gui style=\"group\">Поділ</gui> позначте пункти полів, які ви "
+"хочете поділити на декілька полів під час зберігання."
 
 #. (itstool) path: info/desc
 #: C/scanner.page:18
@@ -991,9 +989,9 @@ msgid ""
 "file and create a new directory based on the filled fields, and process the "
 "text in fields and the filename."
 msgstr ""
-"Сканером можна скористатися для заповнення полів на основі назви файла,"
-" перейменовування файла і створення каталогу на основі заповнених полів і"
-" обробки тексту у полях та у назві файла."
+"Сканером можна скористатися для заповнення полів на основі назви файла, "
+"перейменовування файла і створення каталогу на основі заповнених полів і "
+"обробки тексту у полях та у назві файла."
 
 #. (itstool) path: section/title
 #: C/scanner.page:29
@@ -1006,8 +1004,8 @@ msgid ""
 "<gui>Fill Tag</gui> can be used to fill in tag fields based on the filename "
 "and its parent directories."
 msgstr ""
-"Пунктом <gui>Заповнити мітку</gui> можна скористатися для заповнення полів"
-" мітки на основі назви файла і його батьківських каталогів."
+"Пунктом <gui>Заповнити мітку</gui> можна скористатися для заповнення полів "
+"мітки на основі назви файла і його батьківських каталогів."
 
 #. (itstool) path: section/p
 #: C/scanner.page:34
@@ -1020,29 +1018,35 @@ msgid ""
 "the parent directories. Use <key>/</key> to add the <em>separator</em> for a "
 "parent directory."
 msgstr ""
-"Скористайтеся <em xref=\"format-specifier\">специфікаторами формату</em> та <"
-"em>роздільниками</em> для поділу даних з назви файла та батьківських"
-" каталогів мі різними полями мітки. <em>Специфікатори формату</em>, зокрема <"
-"input>%t</input> для заголовка композиції, які використовуються для"
-" позначення різних полів мітки, показано у розділі <gui>Умовні позначення<"
-"/gui>. <em>Роздільники</em> можуть бути будь-якою частиною назви файла або"
-" батьківських каталогів. Скористайтеся <key>/</key>, щоб додати <em"
-">роздільник</em> для батьківського каталогу."
+"Скористайтеся <em xref=\"format-specifier\">специфікаторами формату</em> та "
+"<em>роздільниками</em> для поділу даних з назви файла та батьківських "
+"каталогів мі різними полями мітки. <em>Специфікатори формату</em>, зокрема "
+"<input>%t</input> для заголовка композиції, які використовуються для "
+"позначення різних полів мітки, показано у розділі <gui>Умовні позначення</"
+"gui>. <em>Роздільники</em> можуть бути будь-якою частиною назви файла або "
+"батьківських каталогів. Скористайтеся <key>/</key>, щоб додати "
+"<em>роздільник</em> для батьківського каталогу."
 
 #. (itstool) path: section/p
 #: C/scanner.page:42
+#| msgid ""
+#| "For example, if you keep your audio files using the <file>artist/"
+#| "album/01 track title.flac</file> directory structure and filenames, use "
+#| "the <input>%a/%b/%n %t</input> <em>format string</em> to extract the "
+#| "track number and title from the filename, the album title from the parent "
+#| "directory and the artist from the grandparent directory."
 msgid ""
-"For example, if you keep your audio files using the <file>artist/"
-"album/01 track title.flac</file> directory structure and filenames, use the "
-"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
-"number and title from the filename, the album title from the parent "
-"directory and the artist from the grandparent directory."
+"For example, if you keep your audio files using the <file>artist/album/01 "
+"track title.flac</file> directory structure and filenames, use the <input>%a/"
+"%b/%n %t</input> <em>format string</em> to extract the track number and "
+"title from the filename, the album title from the parent directory and the "
+"artist from the grandparent directory."
 msgstr ""
-"Наприклад, якщо файли звукових даних у вас зберігаються у структурі каталогів"
-" із назвами файлів <file>виконавець/альбом/01 назва композиції.flac</file>,"
-" скористайтеся <input>%a/%b/%n %t</input> як <em>рядком форматування</em>,"
-" щоб видобути номер композиції та заголовок з назви файла, а назву альбому та"
-" виконавця з батьківських каталогів."
+"Наприклад, якщо файли звукових даних у вас зберігаються у структурі "
+"каталогів із назвами файлів <file>виконавець/альбом/01 назва композиції."
+"flac</file>, скористайтеся <input>%a/%b/%n %t</input> як <em>рядком "
+"форматування</em>, щоб видобути номер композиції та заголовок з назви файла, "
+"а назву альбому та виконавця з батьківських каталогів."
 
 #. (itstool) path: section/p
 #: C/scanner.page:48
@@ -1050,8 +1054,8 @@ msgid ""
 "Fill the tag fields for the selected files using the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
-"Заповніть поля мітки для позначених файлів за допомогою кнопки <gui"
-" style=\"button\">Сканувати файли</gui>."
+"Заповніть поля мітки для позначених файлів за допомогою кнопки <gui style="
+"\"button\">Сканувати файли</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:54
@@ -1066,10 +1070,10 @@ msgid ""
 "new directory hierarchy is specified, it will be created inside the "
 "directory where the file is currently located."
 msgstr ""
-"Інструментом <gui xref=\"file-rename\">Перейменувати файл</gui> можна"
-" скористатися для створення ієрархії каталогів і оновлення назв файлів на"
-" основі заповнених полів мітки. Якщо вказано нову ієрархію каталогів, її буде"
-" створено у каталозі, у якому зберігається файл."
+"Інструментом <gui xref=\"file-rename\">Перейменувати файл</gui> можна "
+"скористатися для створення ієрархії каталогів і оновлення назв файлів на "
+"основі заповнених полів мітки. Якщо вказано нову ієрархію каталогів, її буде "
+"створено у каталозі, у якому зберігається файл."
 
 #. (itstool) path: section/p
 #: C/scanner.page:61
@@ -1080,12 +1084,11 @@ msgid ""
 "file structure and filename. You will see a preview of the naming scheme "
 "below your specified format string."
 msgstr ""
-"Наприклад, якщо ваш файл із мітками зберігається у каталозі <file>Музика<"
-"/file>, ви можете скористатися <input>%a/%b/%n %t</input> як <em>рядком"
-" форматування</em>, для створення структури каталогів і файла <file"
-">Музика/виконавець/альбом/01 назва композиції.flac</file>. Попередній"
-" перегляд визначено схеми іменування буде показано під вказаним рядком"
-" форматування."
+"Наприклад, якщо ваш файл із мітками зберігається у каталозі <file>Музика</"
+"file>, ви можете скористатися <input>%a/%b/%n %t</input> як <em>рядком "
+"форматування</em>, для створення структури каталогів і файла <file>Музика/"
+"виконавець/альбом/01 назва композиції.flac</file>. Попередній перегляд "
+"визначено схеми іменування буде показано під вказаним рядком форматування."
 
 #. (itstool) path: section/p
 #: C/scanner.page:67
@@ -1093,8 +1096,8 @@ msgid ""
 "To prepare the files for moving and renaming, press the <gui style=\"button"
 "\">Scan Files</gui> button."
 msgstr ""
-"Для приготування файлів до пересування і перейменовування натисніть кнопку <"
-"gui style=\"button\">Сканувати файли</gui>."
+"Для приготування файлів до пересування і перейменовування натисніть кнопку "
+"<gui style=\"button\">Сканувати файли</gui>."
 
 #. (itstool) path: section/title
 #: C/scanner.page:73
@@ -1108,9 +1111,9 @@ msgid ""
 "allows you to select which tag fields to process. It also allows for the "
 "filename to be processed as well."
 msgstr ""
-"Інструмент <gui>Обробити поля</gui> є складним засобом пошуку і"
-" перейменування, за допомогою якого ви можете вибрати поля мітки, які слід"
-" обробити. У ньому також передбачено можливість обробки назв файлів."
+"Інструмент <gui>Обробити поля</gui> є складним засобом пошуку і "
+"перейменування, за допомогою якого ви можете вибрати поля мітки, які слід "
+"обробити. У ньому також передбачено можливість обробки назв файлів."
 
 #. (itstool) path: section/p
 #: C/scanner.page:79
@@ -1118,7 +1121,8 @@ msgid ""
 "Specify which fields to change by selecting them from the <gui>Tag Fields</"
 "gui> section."
 msgstr ""
-"Вкажіть, які поля слід змінити позначенням їх у розділі <gui>Поля мітки</gui>."
+"Вкажіть, які поля слід змінити позначенням їх у розділі <gui>Поля мітки</"
+"gui>."
 
 #. (itstool) path: section/p
 #: C/scanner.page:82
@@ -1126,9 +1130,9 @@ msgid ""
 "You can <gui>Convert</gui> characters for a simple find and replace, change "
 "capitalization and add or remove spaces."
 msgstr ""
-"Ви можете <gui>Перетворити</gui> символи для простого пошуку із заміною,"
-" змінити правила використання великих літер, а також додати або вилучити"
-" пробіли."
+"Ви можете <gui>Перетворити</gui> символи для простого пошуку із заміною, "
+"змінити правила використання великих літер, а також додати або вилучити "
+"пробіли."
 
 #. (itstool) path: info/desc
 #: C/starting.page:16
@@ -1147,10 +1151,10 @@ msgid ""
 "<file>Music</file> directory or your home directory for audio files. If you "
 "wish to skip the search, press the <gui style=\"button\">Stop</gui> button."
 msgstr ""
-"Після першого запуску <app>EasyTAG</app> програма виконає пошук файлів"
-" звукових даних у вашому каталозі <file>Музика</file> або домашньому каталозі"
-" користувача. Якщо ви хочете пропустити пошук, натисніть кнопку <gui"
-" style=\"button\">Зупинити</gui>."
+"Після першого запуску <app>EasyTAG</app> програма виконає пошук файлів "
+"звукових даних у вашому каталозі <file>Музика</file> або домашньому каталозі "
+"користувача. Якщо ви хочете пропустити пошук, натисніть кнопку <gui style="
+"\"button\">Зупинити</gui>."
 
 #. (itstool) path: page/p
 #: C/starting.page:25
@@ -1160,11 +1164,11 @@ msgid ""
 "updates to the tag metadata containers and will not be applied until you "
 "save the changes."
 msgstr ""
-"<app>EasyTAG</app> може застосовувати певні автоматичні виправлення до"
-" частини ваших файлів музичних творів. У списку відповідні файли буде"
-" позначено напівжирним шрифтом. Зазвичай, програма виконує оновлення"
-" контейнерів метаданих мітки і не застосовує внесені зміни, доки ви не"
-" накажете їх зберегти."
+"<app>EasyTAG</app> може застосовувати певні автоматичні виправлення до "
+"частини ваших файлів музичних творів. У списку відповідні файли буде "
+"позначено напівжирним шрифтом. Зазвичай, програма виконує оновлення "
+"контейнерів метаданих мітки і не застосовує внесені зміни, доки ви не "
+"накажете їх зберегти."
 
 #. (itstool) path: page/p
 #: C/starting.page:30
@@ -1176,13 +1180,13 @@ msgid ""
 "style=\"tab\">ID3 Tag Settings</gui> tab in the <gui style=\"dialog"
 "\">Preferences</gui> dialog."
 msgstr ""
-"Щоб зберегти внесені зміни, позначте усі файли, які має бути оброблено, і"
-" натисніть комбінацію клавіш <keyseq><key>Ctrl</key><key>S</key></keyseq>."
-" Автоматично внесені зміни не можна скасувати, але їх не буде збережено, якщо"
-" ви не позначите пункт файла і не накажете програмі зберегти зміни. Вимкнути"
-" якісь автоматичні оновлення можна за допомогою вкладки <gui style=\"tab\""
-">Параметри міток ID3</gui> у діалоговому вікні <gui style=\"dialog\""
-">Параметри</gui>."
+"Щоб зберегти внесені зміни, позначте усі файли, які має бути оброблено, і "
+"натисніть комбінацію клавіш <keyseq><key>Ctrl</key><key>S</key></keyseq>. "
+"Автоматично внесені зміни не можна скасувати, але їх не буде збережено, якщо "
+"ви не позначите пункт файла і не накажете програмі зберегти зміни. Вимкнути "
+"якісь автоматичні оновлення можна за допомогою вкладки <gui style=\"tab"
+"\">Параметри міток ID3</gui> у діалоговому вікні <gui style=\"dialog"
+"\">Параметри</gui>."
 
 #. (itstool) path: info/desc
 #: C/tag-capitalization.page:17
@@ -1200,8 +1204,8 @@ msgid ""
 "Tag capitalization can be changed for one or more tag fields in one or more "
 "files."
 msgstr ""
-"Ви можете змінити параметри використання великих літер у мітках для одного"
-" або декількох полів мітки в одному або декількох файлах."
+"Ви можете змінити параметри використання великих літер у мітках для одного "
+"або декількох полів мітки в одному або декількох файлах."
 
 #. (itstool) path: steps/title
 #: C/tag-capitalization.page:27
@@ -1219,8 +1223,8 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">View</gui><gui style=\"menuitem\">Show "
 "Scanner</gui></guiseq>."
 msgstr ""
-"Виберіть пункт меню <guiseq><gui style=\"menu\">Перегляд</gui><gui"
-" style=\"menuitem\">Показати сканер</gui></guiseq>."
+"Виберіть пункт меню <guiseq><gui style=\"menu\">Перегляд</gui><gui style="
+"\"menuitem\">Показати сканер</gui></guiseq>."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:36
@@ -1238,15 +1242,15 @@ msgid ""
 "There are a number of available options for changing the capitalization. "
 "Choose the one that you want."
 msgstr ""
-"Передбачено декілька варіантів правил використання великих літер. Виберіть"
-" той з них, який є бажаним для вас."
+"Передбачено декілька варіантів правил використання великих літер. Виберіть "
+"той з них, який є бажаним для вас."
 
 #. (itstool) path: item/p
 #: C/tag-capitalization.page:46
 msgid "Apply the changes by pressing <gui style=\"button\">Scan Files</gui>."
 msgstr ""
-"Застосуйте зміни натисканням кнопки <gui style=\"button\">Сканувати файли<"
-"/gui>."
+"Застосуйте зміни натисканням кнопки <gui style=\"button\">Сканувати файли</"
+"gui>."
 
 #. (itstool) path: page/p
 #: C/tag-capitalization.page:51
@@ -1256,10 +1260,10 @@ msgid ""
 "select the correct option before you press <gui style=\"button\">Scan Files</"
 "gui>."
 msgstr ""
-"Діалоговим вікном <gui>Сканер</gui> можна також скористатися для обробки"
-" перетворення пробілів та символів. Якщо ви не хочете вносити ніяких змін,"
-" виберіть відповідний варіант, перш ніж натиснете кнопку <gui"
-" style=\"button\">Сканувати файли</gui>."
+"Діалоговим вікном <gui>Сканер</gui> можна також скористатися для обробки "
+"перетворення пробілів та символів. Якщо ви не хочете вносити ніяких змін, "
+"виберіть відповідний варіант, перш ніж натиснете кнопку <gui style=\"button"
+"\">Сканувати файли</gui>."
 
 #. (itstool) path: info/desc
 #: C/tag-field.page:18
@@ -1277,8 +1281,8 @@ msgid ""
 "Audio files can support a number of different tag <em>fields</em> which "
 "depend on the file format."
 msgstr ""
-"У файлах звукових даних можуть зберігатися декілька різних <em>полів</em>"
-" мітки, перелік яких залежить від формату файла."
+"У файлах звукових даних можуть зберігатися декілька різних <em>полів</em> "
+"мітки, перелік яких залежить від формату файла."
 
 #. (itstool) path: steps/title
 #: C/tag-field.page:28
@@ -1302,9 +1306,9 @@ msgid ""
 "Select <guiseq><gui style=\"menu\">File</gui><gui style=\"menuitem\">Save "
 "files</gui></guiseq> to save your changes to the selected file."
 msgstr ""
-"Виберіть пункт меню <guiseq><gui style=\"menu\">Файл</gui><gui"
-" style=\"menuitem\">Зберегти файли</gui></guiseq>, щоб зберегти ваші зміни до"
-" вибраного файла."
+"Виберіть пункт меню <guiseq><gui style=\"menu\">Файл</gui><gui style="
+"\"menuitem\">Зберегти файли</gui></guiseq>, щоб зберегти ваші зміни до "
+"вибраного файла."
 
 #. (itstool) path: item/p
 #: C/tag-field.page:42
@@ -1312,9 +1316,9 @@ msgid ""
 "When you are asked to <gui>Confirm Tag Writing</gui>, press <gui style="
 "\"button\">Save</gui> to save the changes."
 msgstr ""
-"Якщо програма попросить вас про <gui>Підтвердження запису мітки</gui>,"
-" натисніть кнопку <gui style=\"button\">Зберегти</gui>, щоб зберегти внесені"
-" зміни."
+"Якщо програма попросить вас про <gui>Підтвердження запису мітки</gui>, "
+"натисніть кнопку <gui style=\"button\">Зберегти</gui>, щоб зберегти внесені "
+"зміни."
 
 #. (itstool) path: page/p
 #: C/tag-field.page:47
@@ -1324,10 +1328,10 @@ msgid ""
 "in the field that you want to tag. You will need to save these changes to "
 "write them to the files."
 msgstr ""
-"Ви можете додати те саме поле до міток декількох файлів одночасно. Для цього"
-" позначте відповідні файли у списку файлів, потім натисніть кнопку <gui"
-">Позначити вибрані файли цим […]</gui> у полі, яке слід використати у мітці."
-" Вам слід зберегти внесені зміни, щоб записати їх до файлів."
+"Ви можете додати те саме поле до міток декількох файлів одночасно. Для цього "
+"позначте відповідні файли у списку файлів, потім натисніть кнопку "
+"<gui>Позначити вибрані файли цим […]</gui> у полі, яке слід використати у "
+"мітці. Вам слід зберегти внесені зміни, щоб записати їх до файлів."
 
 #. (itstool) path: info/desc
 #: C/tag.page:17
@@ -1348,9 +1352,9 @@ msgid ""
 "fields using <app>EasyTAG</app>. The editable fields depend on the format of "
 "the file that you want to tag."
 msgstr ""
-"У файлі звукових даних можуть міститися <em>метадані</em> — відомості про сам"
-" файл, — які зберігаються у <em>мітці</em>. У кожній мітці може міститися"
-" одне або декілька <em>полів</em>, зокрема поле <gui>Заголовок</gui> або <gui"
-">Виконавець</gui>. Ви можете редагувати деякі з цих полів за допомогою <app"
-">EasyTAG</app>. Перелік придатних до редагування полів залежить від формату"
-" файла, мітку якого ви хочете змінити."
+"У файлі звукових даних можуть міститися <em>метадані</em> — відомості про "
+"сам файл, — які зберігаються у <em>мітці</em>. У кожній мітці може міститися "
+"одне або декілька <em>полів</em>, зокрема поле <gui>Заголовок</gui> або "
+"<gui>Виконавець</gui>. Ви можете редагувати деякі з цих полів за допомогою "
+"<app>EasyTAG</app>. Перелік придатних до редагування полів залежить від "
+"формату файла, мітку якого ви хочете змінити."
