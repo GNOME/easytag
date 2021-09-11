@@ -1,8 +1,8 @@
-# Danish translation of easytag.
+# Danish translation for easytag.
 # Copyright (C) 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the easytag package.
 # Morten Brix Pedersen <morten@wtf.dk>, 2004-2005.
-# Joe Hansen (joedalton2@yahoo.dk), 2013.
+# Joe Hansen <joedalton2@yahoo.dk>, 2013.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2016.
 # Fuld korrektur Alan Mortensen <alanmortensen.am@gmail.com>, 2016.
 #
@@ -12,19 +12,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: easytag\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=easytag&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-10-22 13:02+0000\n"
-"PO-Revision-Date: 2017-10-18 14:43+0200\n"
-"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
+"Project-Id-Version: easytag master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
+"POT-Creation-Date: 2020-06-17 13:05+0000\n"
+"PO-Revision-Date: 2020-11-30 00:00+0200\n"
+"Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
 
 #. Name and summary taken from the desktop file.
 #: ../data/org.gnome.EasyTAG.appdata.xml.in.h:2
@@ -200,9 +198,9 @@ msgstr ""
 "parameter"
 
 #: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
-#: ../src/application_window.c:367 ../src/application_window.c:381
-#: ../src/application_window.c:3014 ../src/browser.c:914 ../src/browser.c:3833
-#: ../src/cddb_dialog.c:2138 ../src/easytag.c:464 ../src/easytag.c:471
+#: ../src/application_window.c:368 ../src/application_window.c:382
+#: ../src/application_window.c:3015 ../src/browser.c:914 ../src/browser.c:3833
+#: ../src/cddb_dialog.c:2139 ../src/easytag.c:464 ../src/easytag.c:471
 #: ../src/easytag.c:596 ../src/tag_area.c:1522 ../src/tag_area.c:1848
 msgid "_Cancel"
 msgstr "_Annullér"
@@ -435,7 +433,7 @@ msgid "_Close"
 msgstr "_Luk"
 
 #: ../data/cddb_dialog.ui.h:49 ../data/load_files_dialog.ui.h:17
-#: ../src/cddb_dialog.c:2139
+#: ../src/cddb_dialog.c:2140
 msgid "_Apply"
 msgstr "An_vend"
 
@@ -446,7 +444,7 @@ msgstr ""
 "linjer)"
 
 #. Default values are MPEG data.
-#: ../data/file_area.ui.h:1 ../src/application_window.c:2179
+#: ../data/file_area.ui.h:1 ../src/application_window.c:2180
 #: ../src/file_area.c:155
 msgid "File"
 msgstr "Fil"
@@ -959,7 +957,7 @@ msgstr "Gennemse undermapper"
 
 #: ../data/menus.ui.h:101
 msgid "Invert Selection"
-msgstr "Omvend markering"
+msgstr "Omvend valg"
 
 #: ../data/menus.ui.h:102
 msgid "CDDB Search Files…"
@@ -1039,7 +1037,7 @@ msgstr "Skriv oplysninger ved hjælp af filnavn"
 msgid "Write information using:"
 msgstr "Skriv oplysninger med:"
 
-#: ../data/playlist_dialog.ui.h:19 ../src/application_window.c:3015
+#: ../data/playlist_dialog.ui.h:19 ../src/application_window.c:3016
 #: ../src/browser.c:915 ../src/easytag.c:234 ../src/easytag.c:465
 #: ../src/easytag.c:472 ../src/easytag.c:597 ../src/easytag.c:604
 #: ../src/tag_area.c:1850
@@ -2209,12 +2207,12 @@ msgstr "_Find"
 msgid "In:"
 msgstr "I:"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
 #: ../data/search_dialog.ui.h:7
 msgid "the Filename"
 msgstr "filnavnet"
 
-#. This option is for the previous
+#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
 #: ../data/search_dialog.ui.h:9
 msgid "the Tag"
 msgstr "mærket"
@@ -2446,7 +2444,7 @@ msgstr "Gennemse kunstnere og albummer"
 
 #: ../data/toolbar.ui.h:24
 msgid "Invert file selection"
-msgstr "Omvend filmarkering"
+msgstr "Omvend filvalg"
 
 #: ../data/toolbar.ui.h:26
 msgid "Search filenames and tags"
@@ -3063,12 +3061,13 @@ msgstr "Åbn de valgte filer i EasyTAG"
 #: ../src/about.c:88
 msgid "translator-credits"
 msgstr ""
-"Morten Brix Pedersen, 2004-2005.\n"
-"Joe Hansen, 2013.\n"
-"Ask Hjorth Larsen, 2016.\n"
+"Morten Brix Pedersen, 2004-2005\n"
+"Joe Hansen, 2013\n"
+"Ask Hjorth Larsen, 2016\n"
 "\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
+"Dansk-gruppen\n"
+"Websted http://dansk-gruppen.dk\n"
+"E-mail <dansk@dansk-gruppen.dk>"
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
@@ -3117,7 +3116,7 @@ msgstr "Fejl ved forespørgsel om information for filen “%s”: %s"
 msgid "Cannot open path ‘%s’"
 msgstr "Kan ikke åbne stien “%s”"
 
-#: ../src/application_window.c:361 ../src/application_window.c:378
+#: ../src/application_window.c:361 ../src/application_window.c:379
 #, c-format
 msgid "Do you really want to delete the file ‘%s’?"
 msgstr "Vil du virkelig slette filen “%s”?"
@@ -3126,62 +3125,62 @@ msgstr "Vil du virkelig slette filen “%s”?"
 msgid "Repeat action for the remaining files"
 msgstr "Gentag handling for resten af filerne"
 
-#: ../src/application_window.c:366
+#: ../src/application_window.c:367
 msgid "_Skip"
 msgstr "_Spring over"
 
-#: ../src/application_window.c:368 ../src/application_window.c:382
+#: ../src/application_window.c:369 ../src/application_window.c:383
 msgid "_Delete"
 msgstr "_Slet"
 
-#: ../src/application_window.c:370 ../src/application_window.c:380
+#: ../src/application_window.c:371 ../src/application_window.c:381
 msgid "Delete File"
 msgstr "Slet fil"
 
-#: ../src/application_window.c:407
+#: ../src/application_window.c:408
 #, c-format
 msgid "File ‘%s’ deleted"
 msgstr "Filen “%s” slettet"
 
-#: ../src/application_window.c:582
+#: ../src/application_window.c:583
 #, c-format
 msgid "Cannot delete file ‘%s’"
 msgstr "Kan ikke slette filen “%s”"
 
-#: ../src/application_window.c:606
+#: ../src/application_window.c:607
 msgid "Some files were not deleted"
 msgstr "Nogle filer blev ikke slettet"
 
-#: ../src/application_window.c:608
+#: ../src/application_window.c:609
 msgid "All files have been deleted"
 msgstr "Alle filer er blevet slettet"
 
-#: ../src/application_window.c:914
+#: ../src/application_window.c:915
 msgid "All tags have been removed"
 msgstr "Alle mærker er blevet fjernet"
 
-#: ../src/application_window.c:1473 ../src/browser.c:360 ../src/browser.c:403
+#: ../src/application_window.c:1474 ../src/browser.c:360 ../src/browser.c:403
 #: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
 #, c-format
 msgid "Failed to launch program ‘%s’"
 msgstr "Kunne ikke køre programmet “%s”"
 
-#: ../src/application_window.c:1987
+#: ../src/application_window.c:1988
 #, c-format
 msgid "Could not convert filename ‘%s’ to system filename encoding"
 msgstr ""
 "Kunne ikke konvertere filnavnet “%s” til systemets kodning for filnavne"
 
-#: ../src/application_window.c:1990
+#: ../src/application_window.c:1991
 msgid "Try setting the environment variable G_FILENAME_ENCODING."
 msgstr "Prøv at sætte miljøvariablen G_FILENAME_ENCODING."
 
-#: ../src/application_window.c:1992 ../src/scan_dialog.c:846
+#: ../src/application_window.c:1993 ../src/scan_dialog.c:846
 msgid "Filename translation"
 msgstr "Filnavnsoversættelse"
 
 #. And refresh the number of files in this directory
-#: ../src/application_window.c:2153
+#: ../src/application_window.c:2154
 #, c-format
 msgid "One file"
 msgid_plural "%u files"
@@ -3189,7 +3188,7 @@ msgstr[0] "En fil"
 msgstr[1] "%u filer"
 
 #. Bitrate
-#: ../src/application_window.c:2186 ../src/tags/flac_header.c:189
+#: ../src/application_window.c:2187 ../src/tags/flac_header.c:189
 #: ../src/tags/monkeyaudio_header.c:76 ../src/tags/mp4_header.cc:144
 #: ../src/tags/mpeg_header.c:274 ../src/tags/musepack_header.c:78
 #: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:231
@@ -3199,7 +3198,7 @@ msgid "%d kb/s"
 msgstr "%d kb/s"
 
 #. Samplerate
-#: ../src/application_window.c:2189 ../src/tags/flac_header.c:192
+#: ../src/application_window.c:2190 ../src/tags/flac_header.c:192
 #: ../src/tags/monkeyaudio_header.c:79 ../src/tags/mp4_header.cc:148
 #: ../src/tags/mpeg_header.c:279 ../src/tags/musepack_header.c:81
 #: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:234
@@ -3208,30 +3207,30 @@ msgstr "%d kb/s"
 msgid "%d Hz"
 msgstr "%d Hz"
 
-#: ../src/application_window.c:2344 ../src/easytag.c:911
+#: ../src/application_window.c:2345 ../src/easytag.c:911
 #, c-format
 msgid "File: ‘%s’"
 msgstr "Fil: “%s”"
 
 #. Quit EasyTAG.
-#: ../src/application_window.c:2978
+#: ../src/application_window.c:2979
 msgid "Normal exit"
 msgstr "Normal afslutning"
 
-#: ../src/application_window.c:3012 ../src/browser.c:909
+#: ../src/application_window.c:3013 ../src/browser.c:909
 msgid "Some files have been modified but not saved"
 msgstr "Nogle filer er blevet ændret, men ikke gemt"
 
-#: ../src/application_window.c:3013 ../src/browser.c:913 ../src/easytag.c:233
+#: ../src/application_window.c:3014 ../src/browser.c:913 ../src/easytag.c:233
 #: ../src/easytag.c:463 ../src/easytag.c:595 ../src/easytag.c:603
 msgid "_Discard"
 msgstr "_Forkast"
 
-#: ../src/application_window.c:3019 ../src/easytag.c:239
+#: ../src/application_window.c:3020 ../src/easytag.c:239
 msgid "Quit"
 msgstr "Afslut"
 
-#: ../src/application_window.c:3022
+#: ../src/application_window.c:3023
 msgid "Do you want to save them before quitting?"
 msgstr "Ønsker du at gemme dem før du afslutter?"
 
@@ -3317,101 +3316,101 @@ msgstr ""
 msgid "Cannot resolve host: ‘%s’: %s"
 msgstr "Kunne ikke slå værtsnavnet “%s” op: %s"
 
-#: ../src/cddb_dialog.c:724
+#: ../src/cddb_dialog.c:725
 #, c-format
 msgid "Cannot connect to host: ‘%s’: %s"
 msgstr "Kan ikke forbinde til værten “%s”: %s"
 
 #. Send the request.
-#: ../src/cddb_dialog.c:797 ../src/cddb_dialog.c:1352 ../src/cddb_dialog.c:1640
+#: ../src/cddb_dialog.c:798 ../src/cddb_dialog.c:1353 ../src/cddb_dialog.c:1641
 msgid "Sending request…"
 msgstr "Sender anmodning …"
 
-#: ../src/cddb_dialog.c:841
+#: ../src/cddb_dialog.c:842
 #, c-format
 msgid "The server returned a bad response ‘%s’"
 msgstr "Serveren returnerede et forkert svar: “%s”"
 
 #. Load the track list of the album
-#: ../src/cddb_dialog.c:1035
+#: ../src/cddb_dialog.c:1036
 msgid "Loading album track list…"
 msgstr "Henter albummets liste over spor …"
 
 #.
 #. * Read the answer
 #.
-#: ../src/cddb_dialog.c:1382
+#: ../src/cddb_dialog.c:1383
 msgid "Receiving data…"
 msgstr "Modtager data …"
 
-#: ../src/cddb_dialog.c:1519
+#: ../src/cddb_dialog.c:1520
 #, c-format
 msgid "Sorry, the web-based search is currently not available"
 msgstr "Desværre, den netbaserede søgning virker ikke i øjeblikket"
 
-#: ../src/cddb_dialog.c:1522 ../src/cddb_dialog.c:1855
+#: ../src/cddb_dialog.c:1523 ../src/cddb_dialog.c:1856
 #, c-format
 msgid "Found one matching album"
 msgid_plural "Found %u matching albums"
 msgstr[0] "Fandt et matchende album"
 msgstr[1] "Fandt %u matchende albummer"
 
-#: ../src/cddb_dialog.c:1670
+#: ../src/cddb_dialog.c:1671
 #, c-format
 msgid "Receiving data of page %d (album %d/%d)…"
 msgstr "Modtager data for side %d (album %d/%d) …"
 
-#: ../src/cddb_dialog.c:1672
+#: ../src/cddb_dialog.c:1673
 #, c-format
 msgid "Receiving data of page %d…"
 msgstr "Modtager data for side %d …"
 
-#: ../src/cddb_dialog.c:1688
+#: ../src/cddb_dialog.c:1689
 msgid "The server returned a bad response"
 msgstr "Serveren returnerede et ugyldigt udformet svar"
 
-#: ../src/cddb_dialog.c:1827
+#: ../src/cddb_dialog.c:1828
 #, c-format
 msgid "More results to load…"
 msgstr "Flere resultater at indlæse …"
 
-#: ../src/cddb_dialog.c:2137
+#: ../src/cddb_dialog.c:2138
 msgid "The number of CDDB results does not match the number of selected files"
 msgstr "Antallet af CDDB-resultater matcher ikke antallet af valgte filer"
 
-#: ../src/cddb_dialog.c:2143
+#: ../src/cddb_dialog.c:2144
 msgid "Write Tag from CDDB"
 msgstr "Skrive mærke fra CDDB"
 
-#: ../src/cddb_dialog.c:2458
+#: ../src/cddb_dialog.c:2459
 msgid "Ready to search"
 msgstr "Klar til at søge"
 
-#: ../src/cddb_dialog.c:2613
+#: ../src/cddb_dialog.c:2614
 #, c-format
 msgid "No file selected"
 msgstr "Ingen fil valgt"
 
 #. The CD redbook standard defines the maximum number of tracks as 99, any
 #. queries with more than 99 tracks will never return a result.
-#: ../src/cddb_dialog.c:2622
+#: ../src/cddb_dialog.c:2623
 #, c-format
 msgid "More than 99 files selected. Cannot send request"
 msgstr "Mere end 99 filer valgt. Kan ikke sende forespørgsel"
 
-#: ../src/cddb_dialog.c:2628
+#: ../src/cddb_dialog.c:2629
 #, c-format
 msgid "One file selected"
 msgid_plural "%u files selected"
 msgstr[0] "En fil valgt"
 msgstr[1] "%u filer valgt"
 
-#: ../src/cddb_dialog.c:2755
+#: ../src/cddb_dialog.c:2756
 #, c-format
 msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
 msgstr "Sender anmodning (disk-id: %s, #spor: %u, disklængde: %u) …"
 
-#: ../src/cddb_dialog.c:2876
+#: ../src/cddb_dialog.c:2877
 #, c-format
 msgid "DiscID ‘%s’ gave one matching album"
 msgid_plural "DiscID ‘%s’ gave %u matching albums"
@@ -3460,19 +3459,19 @@ msgstr "Centraleuropæisk (Windows-1250)"
 
 #: ../src/charset.c:56
 msgid "Chinese Simplified (GB18030)"
-msgstr "Simplificeret kinesisk (GB18030)"
+msgstr "Kinesisk, forenklet (GB18030)"
 
 #: ../src/charset.c:57
 msgid "Chinese Simplified (GB2312)"
-msgstr "Simplificeret kinesisk (GB2312)"
+msgstr "Kinesisk, forenklet (GB2312)"
 
 #: ../src/charset.c:58
 msgid "Chinese Traditional (Big5)"
-msgstr "Traditionelt kinesisk (Big5)"
+msgstr "Kinesisk, traditionel (Big5)"
 
 #: ../src/charset.c:59
 msgid "Chinese Traditional (Big5-HKSCS)"
-msgstr "Traditionelt kinesisk (Big5-HKSCS)"
+msgstr "Kinesisk, traditionel (Big5-HKSCS)"
 
 #: ../src/charset.c:60
 msgid "Cyrillic (IBM-855)"
@@ -3581,7 +3580,7 @@ msgstr "Vietnamesisk (Windows-1258)"
 
 #: ../src/charset.c:92
 msgid "Visual Hebrew (ISO-8859-8)"
-msgstr "Visuelt hebraisk (ISO-8859-8)"
+msgstr "Visuel hebraisk (ISO-8859-8)"
 
 #: ../src/charset.c:93
 msgid "Western (IBM-850)"
@@ -3988,7 +3987,7 @@ msgstr "billedpunkter"
 msgid "Type"
 msgstr "Type"
 
-#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:427
+#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:515
 #, c-format
 msgid "Input truncated or empty"
 msgstr "Input er afkortet eller tomt"
@@ -4449,7 +4448,7 @@ msgstr "Kunne ikke skrive kommentarer til filen “%s”: %s"
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
-msgstr "Ødelagt fil"
+msgstr "Beskadiget fil"
 
 #: ../src/tags/id3_tag.c:635
 #, c-format
@@ -4673,87 +4672,3 @@ msgstr "Opus-fil"
 #: ../src/tags/wavpack_header.c:137
 msgid "Wavpack File"
 msgstr "Wavpack-fil"
-
-#~ msgid "Proxy"
-#~ msgstr "Proxy"
-
-#~ msgid "Use a proxy server"
-#~ msgstr "Brug en proxyserver"
-
-#~ msgid "Whether to access remote CDDB through a proxy"
-#~ msgstr "Om fjern CDDB skal tilgås via proxy"
-
-#~ msgid "Hostname for a proxy to access remote CDDB"
-#~ msgstr "Værtsnavn til proxy for at tilgå fjern CDDB"
-
-#~ msgid "Port for a proxy to access remote CDDB"
-#~ msgstr "Port til proxy for at tilgå fjern CDDB"
-
-#~ msgid "User:"
-#~ msgstr "Bruger:"
-
-#~ msgid "Username for a proxy to access remote CDDB"
-#~ msgstr "Brugernavn til proxy for at tilgå fjern CDDB"
-
-#~ msgid "Password:"
-#~ msgstr "Adgangskode:"
-
-#~ msgid "Password for a proxy to access remote CDDB"
-#~ msgstr "Adgangskode til proxy for at tilgå fjern CDDB"
-
-#~ msgid "Enable proxy for remote CDDB"
-#~ msgstr "Slå proxy til for fjern CDDB"
-
-#~ msgid "CDDB proxy hostname"
-#~ msgstr "Værtsnavn for CDDB-proxy"
-
-#~ msgid "CDDB proxy port"
-#~ msgstr "Port til CDDB-proxy"
-
-#~ msgid "CDDB proxy username"
-#~ msgstr "Brugernavn til CDDB-proxy"
-
-#~ msgid "CDDB proxy password"
-#~ msgstr "Adgangskode til CDDB-proxy"
-
-#~ msgid "Lower-case all characters"
-#~ msgstr "Gør alle bogstaver små"
-
-#~ msgid "Upper-case all characters"
-#~ msgstr "Gør alle bogstaver store"
-
-#~ msgid "Upper-case the first letter of the tag"
-#~ msgstr "Gør mærkets forbogstav stort"
-
-#~ msgid "Upper-case the first letter of each word"
-#~ msgstr "Gør forbogstaver af alle ord store"
-
-#~ msgid "Resolving host '%s'…"
-#~ msgstr "Slår værtsnavn “%s” op …"
-
-#~ msgid "Cannot create a new socket ‘%s’"
-#~ msgstr "Kan ikke oprette ny sokkel “%s”"
-
-#~ msgid "Cannot set options on the newly-created socket"
-#~ msgstr "Kan ikke sætte indstillinger på den nyoprettede sokkel"
-
-#~ msgid "Connecting to host ‘%s’, port ‘%d’…"
-#~ msgstr "Forbinder til værten “%s”, port “%d” …"
-
-#~ msgid "Connected to host ‘%s’"
-#~ msgstr "Forbundet til værten “%s”"
-
-#~ msgid "Error while writing CDDB results to file ‘%s’"
-#~ msgstr "Fejl ved skrivning af CDDB-resultater til filen “%s”"
-
-#~ msgid "Receiving data (%s)…"
-#~ msgstr "Modtager svar (%s) …"
-
-#~ msgid "Error when reading CDDB response ‘%s’"
-#~ msgstr "Fejl ved læsning af CDDB-svaret “%s”"
-
-#~ msgid "Cannot create file ‘%s’: %s"
-#~ msgstr "Kan ikke oprette filen “%s”: %s"
-
-#~ msgid "Cannot send the request ‘%s’"
-#~ msgstr "Kunne ikke sende anmodningen “%s”"
