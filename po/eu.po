@@ -1,13 +1,13 @@
 # Basque translation for easytag.
 # Copyright (C) 2019 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2021.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2021, 2022.
 #
 msgid ""
 msgstr "Project-Id-Version: easytag easytag-2-4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2021-01-25 18:32+0000\n"
-"PO-Revision-Date: 2021-03-19 10:00+0100\n"
+"POT-Creation-Date: 2021-03-19 10:54+0000\n"
+"PO-Revision-Date: 2022-03-01 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -1526,7 +1526,7 @@ msgstr "Maiuskulak hitz guztien lehen letran"
 msgid ""
 "Whether to upper-case the first letter of all words, including prepositions "
 "and other short words such as “feat.”, when processing tag fields"
-msgstr "Etiketa-eremuak prozesatzean hitz guztien lehen letra maiuskulaz idatziko diren ala ez"
+msgstr "Etiketa-eremuak prozesatzean, hitz guztien lehen letra maiuskuletan idatziko den ala ez, baita preposizioetan eta beste hitz labur batzuetan ere, adibidez “feat.” hitzean"
 
 #: ../data/preferences_dialog.ui.h:126
 msgid "Fields"
@@ -1644,7 +1644,7 @@ msgstr "Hautatu dagokion fitxategia (DLMaren kokalekuaren arabera, behean aktiba
 msgid ""
 "Whether to select the file in the file list which matches the position in "
 "the CDDB results list"
-msgstr ""
+msgstr "CDDB emaitzaren kokalekuarekin bat datorren kokalekua duen fitxategia hautatuko den fitxategi-zerrendan"
 
 #: ../data/preferences_dialog.ui.h:151
 msgid ""
@@ -1739,7 +1739,7 @@ msgstr "Etiketen eta fitxategi-izenen eskaneatzea"
 msgid ""
 "Select or type in a mask using codes (see Legend) to parse filename and "
 "directory. Used to fill in tag fields"
-msgstr ""
+msgstr "Hautatu edo idatzi maskara bat kodeak erabilita (ikusi 'Legenda') fitxategi-izena eta direktorioa analizatzeko. Etiketa-eremuak betetzeko erabiltzen da."
 
 #: ../data/scan_dialog.ui.h:3
 msgid "Fill tag preview"
@@ -1880,7 +1880,7 @@ msgid ""
 "to rename the file.\n"
 "Use ‘/’ to make directories. If the first character is ‘/’, it is an "
 "absolute path, otherwise it is relative to the old path"
-msgstr ""
+msgstr "Hautatu edo idatzi maskara bat kodeak erabilita (ikusi 'Legenda') etiketa-eremuak analizatzeko. Fitxategiaren izena aldatzeko erabiltzen da. Erabili ‘/’ direktorioak sortzeko. Lehen karakterea ‘/’ bada, bide-izen absolutua da; bestela, bide-izen zaharrarekiko erlatiboa da."
 
 #: ../data/scan_dialog.ui.h:51
 msgid "Rename file preview"
@@ -1996,7 +1996,7 @@ msgstr "Detektatu zenbaki erromatarrak"
 msgid ""
 "Whether to detect Roman numerals when applying upper-case conversions while "
 "processing tag fields"
-msgstr ""
+msgstr "Zenbaki erromatarrak detektatuko diren ala ez etiketa-eremuak prozesatzen direnean maiuskulen bihurketak aplikatzean"
 
 #: ../data/scan_dialog.ui.h:89
 msgid "Do not change capitalization"
@@ -2046,7 +2046,7 @@ msgstr "Bihurtu ‘_’ eta ‘%20’ karaktereak zuriune"
 msgid ""
 "The underscore character or the string ‘%20’ is replaced by one space. "
 "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
-msgstr ""
+msgstr "‘%20’ katearen azpimarra-karakterea zuriune batekin ordezten da. Adibidea, aurretik: ‘Testu%20Bat%20Sarrera_Batean‘, ondoren: ‘Testu Bat Sarrera Batean’"
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:872
 msgid "Convert spaces to underscores"
@@ -2056,7 +2056,7 @@ msgstr "Bihurtu zuriuneak azpimarra"
 msgid ""
 "The space character is replaced by one underscore character. Example, "
 "before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
-msgstr ""
+msgstr "Zuriuneak azpimarra-karaktereekin ordezten dira: Adibidea, aurretik: ‘Testu Bat Sarrera Batean’, ondoren: ‘Testu_Bat_Sarrera_Batean’"
 
 #: ../data/scan_dialog.ui.h:105
 msgid "Convert:"
@@ -2190,7 +2190,7 @@ msgstr "# pista:"
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks"
-msgstr ""
+msgstr "Ezarri bistaratutako fitxategiaren direktorio bereko fitxategi kopurua hautatutako pistetara"
 
 #: ../data/tag_area.ui.h:17
 msgid "Tag selected files with this number of tracks"
@@ -2472,13 +2472,13 @@ msgstr "Zein kategoriak arakatuko diren itzulitako CDDB emaitzekin bat etortzeak
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:43
 msgid "The tag fields to set when matching against CDDB results"
-msgstr ""
+msgstr "Ezarriko diren etiketa-eremuak CDDB emaitzekin bat etortzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:44
 msgid ""
 "Which tag fields should be set when matching against selected files and CDDB "
 "results"
-msgstr ""
+msgstr "Zein etiketa-eremu ezarri behar diren hautatutako fitxategiekin eta CDDB emaitzekin bat etortzean"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:51
 msgid "Show changed files in bold"
@@ -2488,7 +2488,7 @@ msgstr "Erakutsi aldatutako fitxategiak letra lodian"
 msgid ""
 "Whether to highlight changed files in the file list by making them bold, or "
 "alternatively by making them red"
-msgstr ""
+msgstr "Fitxategi-zerrendan aldatutako fitxategiak nabarmenduko diren ala ez, testu lodiaren bidez edo gorriz margotuta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:55
 msgid "How to sort audio files in the file list"
@@ -2522,7 +2522,7 @@ msgstr "ID3v1 etiketak idaztean erabiliko diren kodeketa-aukerak"
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v1 tags"
-msgstr ""
+msgstr "ID3v1 etiketak idaztean kodeketa desberdinen arteko bihurketak egiten direnean, iconv() funtzioari pasatuko zaizkion aukera gehigarriak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:69
 msgid "The character set for reading ID3v1 and ID3v2 tags"
@@ -2581,7 +2581,7 @@ msgstr "Kodeketa-aukerak ID3v2 etiketak idazteko"
 msgid ""
 "Additional options to pass to iconv() when converting between encodings when "
 "writing ID3v2 tags"
-msgstr ""
+msgstr "ID3v2 etiketak idaztean kodeketa desberdinen arteko bihurketak egiten direnean, iconv() funtzioari pasatuko zaizkion aukera gehigarriak"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:91
 msgid "Automatically complete the date"
@@ -2630,7 +2630,7 @@ msgstr "Bihurtu zuriuneak eta azpimarrak etiketa-eremuak betetzean"
 msgid ""
 "Whether to convert to spaces (and %20) or underscores when filling tag "
 "fields from filenames"
-msgstr ""
+msgstr "Etiketa-eremuak fitxategi-izenetatik abiatuta betetzen direnean, zuriuneetara (eta %20 ikurretara) edo azpimarretara bihurtuko diren"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:108
 msgid "Overwrite tag field"
@@ -2673,7 +2673,7 @@ msgstr "Bihurtu etiketa-eremuak prozesatzean"
 msgid ""
 "Whether to convert to spaces (and %20), underscores or other characters when "
 "processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzen direnean, zuriuneetara (eta %20 ikurretara), azpimarretara edo beste karaktere batzuetara bihurtuko diren"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:133
 msgid "Convert characters in tags"
@@ -2683,7 +2683,7 @@ msgstr "Bihurtu karaktereak etiketa"
 msgid ""
 "Whether to convert characters of the tag from one value to another when "
 "processing tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzen direnean, etiketaren karaktereak balio batetik beste batera bihurtuko diren"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:135
 msgid "Convert the following characters when processing tag fields"
@@ -2693,7 +2693,7 @@ msgstr "Bihurtu hurrengo karaktereak etiketa-eremuak prozesatzean"
 msgid ""
 "Replace any matched sequence of characters with this string when processing "
 "tag fields"
-msgstr ""
+msgstr "Etiketa-eremuak prozesatzean, ordeztu bat datorren edozein karaktere-sekuentzia kate honekin"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:137
 msgid "Lower-case all characters"
@@ -2713,7 +2713,7 @@ msgstr "Maiuskulak hitz bakoitzaren lehen letran"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:145
 msgid "Upper-case prepositions"
-msgstr ""
+msgstr "Maiuskulak preposizioetan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:147
 msgid "Detect roman numerals"
@@ -2771,7 +2771,7 @@ msgstr "Sortutako erreprodukzio-zerrenden edukia"
 msgid ""
 "Write a plain list of files, include extended information from the filename "
 "or extended information using a supplied mask"
-msgstr ""
+msgstr "Idatzi eremuen zerrenda lau bat, sartu fitxategi-izeneko informazio hedatua edo emandako maskara baten bidezko informazio hedatua"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:169
 msgid "Playlist default mask"
@@ -2787,7 +2787,7 @@ msgstr "Bilatu fitxategiak maiuskulak eta minuskulak kontuan hartuta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:172
 msgid "Whether matches when searching for files are case-sensitive"
-msgstr ""
+msgstr "Fitxategiak bilatzean dauden bat etortzeek maiuskulak/minuskulak kontuan hartzen dituzten ala ez"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:173
 msgid "Search in filenames"
@@ -3641,12 +3641,12 @@ msgstr "Fitxategi(ar)en izenak ez dira aldatu"
 #: ../src/easytag.c:739
 #, c-format
 msgid "Writing tag of ‘%s’"
-msgstr ""
+msgstr "‘%s’ elementuaren etiketa idazten"
 
 #: ../src/easytag.c:747
 #, c-format
 msgid "Wrote tag of ‘%s’"
-msgstr ""
+msgstr "‘%s’ elementuaren etiketa idatzi da"
 
 #: ../src/easytag.c:767
 msgid ""
@@ -3664,7 +3664,10 @@ msgid ""
 "Note that this message will appear only once.\n"
 "\n"
 "File: %s"
-msgstr ""
+msgstr "Fitxategi hau birkargatzen bada, etiketako zenbait karaktere ez dira ondo bistaratuko. Aplikatu src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib adabakia arazoa konpontzeko. EasyTAG paketearen iturburuetan dago adabaki hori.\n"
+"Kontuan izan mezu hau behin bakarrik agertuko dela.\n"
+"\n"
+"Fitxategia: %s"
 
 #: ../src/easytag.c:795
 #, c-format
@@ -3969,7 +3972,7 @@ msgstr "Etiketa ongi eskaneatu da"
 #: ../src/scan_dialog.c:430
 #, c-format
 msgid "Tag successfully scanned ‘%s’"
-msgstr ""
+msgstr "Etiketa ongi eskaneatu da ‘%s’"
 
 #: ../src/scan_dialog.c:473
 #, c-format
@@ -4385,27 +4388,27 @@ msgstr "Fitxategi hondatua"
 #: ../src/tags/id3_tag.c:635
 #, c-format
 msgid "Removed tag of ‘%s’"
-msgstr ""
+msgstr "‘%s’ fitxategiaren etiketa kendu da"
 
 #: ../src/tags/id3_tag.c:642 ../src/tags/id3_tag.c:726
 #, c-format
 msgid "Error while removing ID3v1 tag of ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategiaren ID3v1 etiketa kentzean: %s"
 
 #: ../src/tags/id3_tag.c:651 ../src/tags/id3_tag.c:689
 #, c-format
 msgid "Error while removing ID3v2 tag of ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategiaren ID3v2 etiketa kentzean: %s"
 
 #: ../src/tags/id3_tag.c:677
 #, c-format
 msgid "Error while updating ID3v2 tag of ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategiaren ID3v2 etiketa eguneratzean: %s"
 
 #: ../src/tags/id3_tag.c:714
 #, c-format
 msgid "Error while updating ID3v1 tag of ‘%s’: %s"
-msgstr ""
+msgstr "Errorea ‘%s’ fitxategiaren ID3v1 etiketa eguneratzean: %s"
 
 #: ../src/tags/id3_tag.c:760
 msgid "Buggy id3lib"
