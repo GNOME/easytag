@@ -2,7 +2,7 @@
 # Copyright © 2015-2022 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 # Marcus Gisslén <marcus.gisslen@gmail.com>, 2015.
-# Anders Jonsson, <anders.jonsson@norsjovallen.se>, 2022.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2022.
 #
 msgid ""
 msgstr ""
