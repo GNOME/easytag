@@ -2,13 +2,13 @@
 # Copyright (C) 2014 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 #
-# Marek Černocký <marek@manet.cz>, 2014, 2015.
+# Marek Černocký <marek@manet.cz>, 2014, 2015, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: easytag master\n"
-"POT-Creation-Date: 2015-10-11 15:27+0000\n"
-"PO-Revision-Date: 2015-10-12 00:04+0200\n"
+"Project-Id-Version: easytag\n"
+"POT-Creation-Date: 2021-09-10 16:57+0000\n"
+"PO-Revision-Date: 2022-03-20 22:25+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -185,16 +185,22 @@ msgstr "Vyberte průzkumníka <gui>Přejmenovat soubory</gui>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
+#, fuzzy
+#| msgid ""
+#| "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the "
+#| "structure that you would like to use for the file naming. For example, if "
+#| "you wish your files to be named <file>[artist] - [title].[extension]</"
+#| "file>, enter <input>%a - %t</input> into the renaming field."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
-"your files to be named <file>[artist] - [title].[extension]</file>, "
-"enter <input>%a - %t</input> into the renaming field."
+"your files to be named <file>[artist] - [title].[extension]</file>, enter "
+"<input>%a - %t</input> into the renaming field."
 msgstr ""
 "Podle <gui xref=\"format-specifier\">legendy</gui> zapište strukturu názvu "
 "souboru, aby odpovídala tomu, jak chcete soubor pojmenovat. Když například "
-"chcete název ve tvaru <file>[umělec] - [název].[přípona]</file>, zadejte do "
-"pole pro přejmenování <input>%a - %t</input>"
+"chcete název ve tvaru <file>[umělec] – [název].[přípona]</file>, zadejte do "
+"pole pro přejmenování <input>%a – %t</input>"
 
 #. (itstool) path: item/p
 #: C/file-rename.page:45
@@ -1005,14 +1011,14 @@ msgstr ""
 #. (itstool) path: section/p
 #: C/scanner.page:42
 msgid ""
-"For example, if you keep your audio files using the <file>artist/"
-"album/01 track title.flac</file> directory structure and filenames, use the "
-"<input>%a/%b/%n %t</input> <em>format string</em> to extract the track "
-"number and title from the filename, the album title from the parent "
-"directory and the artist from the grandparent directory."
+"For example, if you keep your audio files using the <file>artist/album/01 "
+"track title.flac</file> directory structure and filenames, use the <input>%a/"
+"%b/%n %t</input> <em>format string</em> to extract the track number and "
+"title from the filename, the album title from the parent directory and the "
+"artist from the grandparent directory."
 msgstr ""
 "Když například své zvukové soubory uchováváte ve struktuře složek a s názvy "
-"souborů <file>umělec/album/01 název skladby.flac</file>, použijte "
+"souborů <file>umělec/album/01 název skladby.flac</file>, použijte "
 "<em>formátovací řetězec</em> <input>%a/%b/%n %t</input> k získání čísla "
 "skladby a názvu skladby z názvu souboru, názvu alba z názvu rodičovské "
 "složky a umělce z názvu prarodičovské složky."
