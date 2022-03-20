@@ -185,12 +185,6 @@ msgstr "Vyberte průzkumníka <gui>Přejmenovat soubory</gui>."
 
 #. (itstool) path: item/p
 #: C/file-rename.page:38
-#, fuzzy
-#| msgid ""
-#| "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the "
-#| "structure that you would like to use for the file naming. For example, if "
-#| "you wish your files to be named <file>[artist] - [title].[extension]</"
-#| "file>, enter <input>%a - %t</input> into the renaming field."
 msgid ""
 "Using the <gui xref=\"format-specifier\">Legend</gui>, type in the structure "
 "that you would like to use for the file naming. For example, if you wish "
