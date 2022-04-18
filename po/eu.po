@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: easytag easytag-2-4\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2021-03-26 13:10+0000\n"
-"PO-Revision-Date: 2022-03-13 10:00+0100\n"
+"POT-Creation-Date: 2022-03-20 21:32+0000\n"
+"PO-Revision-Date: 2022-04-18 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -2083,12 +2083,12 @@ msgstr "A_urkitu"
 msgid "In:"
 msgstr "Hemen:"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Filename'.
+#. This option is for the previous
 #: ../data/search_dialog.ui.h:7
 msgid "the Filename"
 msgstr "fitxategi-izena"
 
-#. This option is for the previous 'in' option. For instance, translate this as 'Search' 'In:' 'the Tag'.
+#. This option is for the previous
 #: ../data/search_dialog.ui.h:9
 msgid "the Tag"
 msgstr "etiketa"
@@ -2165,7 +2165,7 @@ msgstr "# pista:"
 msgid ""
 "Set the number of files, in the same directory of the displayed file, to the "
 "selected tracks"
-msgstr ""
+msgstr "Ezarri fitxategi kopurua, bistaratutako fitxategiaren direktorio berean, hautatutako pistetara"
 
 #: ../data/tag_area.ui.h:17
 msgid "Tag selected files with this number of tracks"
