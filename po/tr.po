@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2022-06-25 17:07+0000\n"
-"PO-Revision-Date: 2017-01-27 00:44+0300\n"
-"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"POT-Creation-Date: 2022-11-16 17:54+0000\n"
+"PO-Revision-Date: 2022-12-11 14:05+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-POOTLE-MTIME: 1428155469.000000\n"
 
 #. Name and summary taken from the desktop file.
@@ -32,7 +32,7 @@ msgstr "EasyTAG"
 #: ../data/org.gnome.EasyTAG.appdata.xml.in.h:3
 #: ../data/org.gnome.EasyTAG.desktop.in.h:3
 msgid "Edit audio file metadata"
-msgstr "Ses dosyası üstverilerini düzenleyin"
+msgstr "Ses dosyası üst verilerini düzenleyin"
 
 #: ../data/org.gnome.EasyTAG.appdata.xml.in.h:4
 msgid ""
@@ -60,7 +60,7 @@ msgstr ""
 
 #: ../data/org.gnome.EasyTAG.desktop.in.h:2
 msgid "Audio File Metadata Editor"
-msgstr "Ses Dosyası Üstveri Düzenleyici"
+msgstr "Ses Dosyası Üst Veri Düzenleyici"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: ../data/org.gnome.EasyTAG.desktop.in.h:5
@@ -2138,8 +2138,8 @@ msgid ""
 "The underscore character or the string ‘%20’ is replaced by one space. "
 "Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
 msgstr ""
-"‘%20’ metnini ya da altçizgiyi boşluk ile değiştir. Örnek, önce: ‘Bir"
-"%20Giriş_Metni‘, sonra: ‘Bir Giriş Metni’"
+"‘%20’ metnini ya da altçizgiyi boşluk ile değiştir. Örnek, önce: "
+"‘Bir%20Giriş_Metni‘, sonra: ‘Bir Giriş Metni’"
 
 #: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:856
 msgid "Convert spaces to underscores"
