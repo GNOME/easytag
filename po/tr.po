@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2022-11-16 17:54+0000\n"
-"PO-Revision-Date: 2022-12-11 14:05+0300\n"
+"POT-Creation-Date: 2023-01-25 16:07+0000\n"
+"PO-Revision-Date: 2023-03-06 16:55+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -1361,25 +1361,24 @@ msgstr ""
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:190
 msgid "Whether to split album fields at a “ - ” separator in Ogg comments"
 msgstr ""
-"Ogg açıklamalarında albüm alanlarının “ - ” ayırıcı ile ayrılıp ayrılmaması"
+"Ogg yorumlarında albüm alanlarının “ - ” ayırıcı ile ayrılıp ayrılmaması"
 
 #: ../data/preferences_dialog.ui.h:68
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:192
 msgid "Whether to split genre fields at a “ - ” separator in Ogg comments"
-msgstr ""
-"Ogg açıklamalarında tür alanlarının “ - ” ayırıcı ile ayrılıp ayrılmaması"
+msgstr "Ogg yorumlarında tür alanlarının “ - ” ayırıcı ile ayrılıp ayrılmaması"
 
 #: ../data/preferences_dialog.ui.h:70
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:194
 msgid "Whether to split comment fields at a “ - ” separator in Ogg comments"
 msgstr ""
-"Ogg açıklamalarında açıklama alanlarının “ - ” ayrıcı ile ayrılıp ayrılmaması"
+"Ogg yorumlarında yorum alanlarının “ - ” ayrıcı ile ayrılıp ayrılmaması"
 
 #: ../data/preferences_dialog.ui.h:72
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:196
 msgid "Whether to split composer fields at a “ - ” separator in Ogg comments"
 msgstr ""
-"Ogg açıklamalarında besteci alanlarının “ - ” ayrıcı ile ayrılıp ayrılmaması"
+"Ogg yorumlarında besteci alanlarının “ - ” ayrıcı ile ayrılıp ayrılmaması"
 
 #: ../data/preferences_dialog.ui.h:73
 msgid "Original artist"
@@ -1390,7 +1389,7 @@ msgstr "Asıl sanatçı"
 msgid ""
 "Whether to split original artist fields at a “ - ” separator in Ogg comments"
 msgstr ""
-"Ogg açıklamalarında asıl sanatçı alanlarının “ - ” ayırıcı ile ayrılıp "
+"Ogg yorumlarında asıl sanatçı alanlarının “ - ” ayırıcı ile ayrılıp "
 "ayrılmaması"
 
 #: ../data/preferences_dialog.ui.h:75
@@ -1653,13 +1652,13 @@ msgid ""
 "Whether to set the comment tag field to the provided default value when "
 "filling tags"
 msgstr ""
-"Etiket alanları doldurulurken sağlanan öntanımlı değere açıklama etiket "
+"Etiket alanları doldurulurken sağlanan öntanımlı değere yorum etiket "
 "alanının ayarlanıp ayarlanmaması"
 
 #: ../data/preferences_dialog.ui.h:131
 msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
 msgstr ""
-"Öntanımlı açıklama olarak CRC-32 kullan (sadece ID3 etiketli dosyalar için)"
+"Öntanımlı yorum olarak CRC-32 kullan (sadece ID3 etiketli dosyalar için)"
 
 #: ../data/preferences_dialog.ui.h:132
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:105
@@ -1667,8 +1666,8 @@ msgid ""
 "Whether to use the CRC-32 of the audio file data as the default comment, for "
 "files with ID3 tags only"
 msgstr ""
-"Sadece ID3 etiketli dosyalar için, öntanımlı açıklama olarak CRC-32 ses "
-"dosya verisinin kullanılıp kullanılmaması"
+"Sadece ID3 etiketli dosyalar için, öntanımlı yorum olarak CRC-32 ses dosya "
+"verisinin kullanılıp kullanılmaması"
 
 #: ../data/preferences_dialog.ui.h:133
 msgid "Scanner"
@@ -2751,19 +2750,19 @@ msgstr "Etiket alanlarını geçersiz kıl"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:100
 msgid "Set the default comment"
-msgstr "Öntanımlı açıklama ayarla"
+msgstr "Öntanımlı yorum ayarla"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:102
 msgid "Default comment for filling tags"
-msgstr "Etiketleri doldurmak için öntanımlı açıklama"
+msgstr "Etiketleri doldurmak için öntanımlı yorum"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:103
 msgid "The default comment to use when filling tags"
-msgstr "Etiketler doldurulurken kullanılacak öntanımlı açıklama"
+msgstr "Etiketler doldurulurken kullanılacak öntanımlı yorum"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:104
 msgid "Use the CRC-32 as the default comment"
-msgstr "Öntanımlı açıklama olarak CRC-32 kullan"
+msgstr "Öntanımlı yorum olarak CRC-32 kullan"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:116
 msgid "Run the current scanner when loading filenames from a file"
@@ -2987,7 +2986,7 @@ msgid ""
 msgstr ""
 "Eğer dosya adının kodlaması dosya sistemi kodlaması ile eşleşmezse, başka "
 "bir kodlamayı denemek için seçebilir, başka alfabe ile yazarak dosya "
-"sisteminin kodlamasına benzeştirebilir ya da sorun yaratan karakterleri "
+"sisteminin kodlamasına benzeştirebilir ya da sorun oluşturan karakterleri "
 "atabilirsiniz"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:176
@@ -3045,7 +3044,7 @@ msgstr "Ogg tür alanlarını ayır"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:193
 msgid "Split Ogg comment fields"
-msgstr "Ogg açıklama alanlarını ayır"
+msgstr "Ogg yorum alanlarını ayır"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:195
 msgid "Split Ogg composer fields"
@@ -3176,7 +3175,7 @@ msgstr "Bütün etiketler silindi"
 #: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
 #, c-format
 msgid "Failed to launch program ‘%s’"
-msgstr "Program ‘%s’ başlatılamadı"
+msgstr "‘%s’ programı başlatılamadı"
 
 #: ../src/application_window.c:1988
 #, c-format
@@ -4204,11 +4203,11 @@ msgstr "Seçilen dosyalardan tür silindi"
 #: ../src/tag_area.c:508
 #, c-format
 msgid "Selected files tagged with comment ‘%s’"
-msgstr "Seçilen dosyalar ‘%s’ açıklaması ile etiketlendi"
+msgstr "Seçilen dosyalar ‘%s’ yorumuyla etiketlendi"
 
 #: ../src/tag_area.c:513
 msgid "Removed comment from selected files"
-msgstr "Seçilen dosyalardan açıklama silindi"
+msgstr "Seçilen dosyalardan yorum silindi"
 
 #: ../src/tag_area.c:531
 #, c-format
@@ -4414,7 +4413,7 @@ msgstr "Dosya açılırken hata oluştu: %s"
 
 #: ../src/tags/ape_tag.c:372
 msgid "Failed to write APE tag"
-msgstr "APE etiketi yazılırken başarısız oldu"
+msgstr "APE etiketi yazılamadı"
 
 #: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:225
 msgid "Error opening FLAC file"
@@ -4444,7 +4443,7 @@ msgstr "‘%s’ dosyası FLAC olarak açılırken hata: %s"
 #: ../src/tags/flac_tag.c:1140
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
-msgstr "‘%s’ dosyasına açıklama yazılamadı: %s"
+msgstr "‘%s’ dosyasına yorum yazılamadı: %s"
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
