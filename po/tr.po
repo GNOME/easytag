@@ -1,5 +1,5 @@
 # Turkish translation for easytag.
-# Copyright (C) 2013-2022 easytag's COPYRIGHT HOLDER
+# Copyright (C) 2013-2023 easytag's COPYRIGHT HOLDER
 # This file is distributed under the same license as the easytag package.
 #
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2013.
@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2023-01-25 16:07+0000\n"
+"POT-Creation-Date: 2023-04-03 07:24+0000\n"
 "PO-Revision-Date: 2023-03-06 16:55+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,7 +622,7 @@ msgstr "_Bul…"
 
 #: ../data/menus.ui.h:15
 msgid "Select All"
-msgstr "Tümünü Seç"
+msgstr "Tümünü Seç"
 
 #: ../data/menus.ui.h:16
 msgid "Unselect All"
