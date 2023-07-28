@@ -35,7 +35,7 @@
     <key name="cddb-automatic-search-hostname" type="s">
       <summary>CDDB server hostname for automatic search</summary>
       <description>The CDDB server to use for the automatic search</description>
-      <default>'freedb.freedb.org'</default>
+      <default>'gnudb.gnudb.org'</default>
     </key>
 
     <key name="cddb-automatic-search-port" type="u">
@@ -54,7 +54,7 @@
     <key name="cddb-automatic-search-hostname2" type="s">
       <summary>CDDB server hostname for automatic search</summary>
       <description>The CDDB server to use for the automatic search</description>
-      <default>'freedb.musicbrainz.org'</default>
+      <default>'gnudb.gnudb.org'</default>
     </key>
 
     <key name="cddb-automatic-search-port2" type="u">
@@ -73,7 +73,7 @@
     <key name="cddb-manual-search-hostname" type="s">
       <summary>CDDB server hostname for manual search</summary>
       <description>The CDDB server to use for a manual search</description>
-      <default>'www.gnudb.org'</default>
+      <default>'gnudb.org'</default>
     </key>
 
     <key name="cddb-manual-search-port" type="u">
