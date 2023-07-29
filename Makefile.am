@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 AM_DISTCHECK_CONFIGURE_FLAGS = \
-	--enable-appdata-check \
+	--enable-appstream-util \
 	--enable-flac \
 	--enable-id3v23 \
 	--enable-ogg \
@@ -280,10 +280,10 @@ endif
 	$(AM_V_at)$(MKDIR_P) $(@D)
 	$(AM_V_at)touch $@
 
-@APPDATA_XML_RULES@
+@APPSTREAM_XML_RULES@
 @INTLTOOL_XML_RULE@
-appdata_in_files = data/org.gnome.EasyTAG.appdata.xml.in $(nautilus_appdata_in_file)
-appdata_XML = $(appdata_in_files:.xml.in=.xml)
+appstream_in_files = data/org.gnome.EasyTAG.appdata.xml.in $(nautilus_appdata_in_file)
+appstream_XML = $(appstream_in_files:.xml.in=.xml)
 
 @INTLTOOL_DESKTOP_RULE@
 desktopdir = $(datadir)/applications

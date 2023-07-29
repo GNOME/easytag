@@ -71,7 +71,7 @@ Installation
 * yelp (https://wiki.gnome.org/Apps/Yelp) is required at runtime for showing the user help
 * yelp-tools (https://git.gnome.org/browse/yelp-tools)
 * libc 6 (glibc 2.1) or greater
-* appdata-tools (https://github.com/hughsie/appdata-tools)
+* libappstream-glib (https://github.com/hughsie/appstream-glib)
 * intltool (if not deactivated by './configure --disable-nls')
 
 ### Compilation instructions
