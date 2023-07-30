@@ -585,7 +585,7 @@ cddb_track_frame_offset_free (CddbTrackFrameOffset *offset)
 static gboolean
 check_message_successful (SoupMessage *message)
 {
-    return message->status_code == SOUP_STATUS_OK;
+    return soup_message_get_status (message) == SOUP_STATUS_OK;
 }
 
 /*
@@ -706,24 +706,20 @@ static gchar *
 log_message_from_request_error (SoupMessage *message,
                                 GError *error)
 {
-    SoupURI *uri;
+    GUri *uri;
     gchar *msg;
 
     uri = soup_message_get_uri (message);
 
-    switch (message->status_code)
+    if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
     {
-        case SOUP_STATUS_CANT_RESOLVE:
-        case SOUP_STATUS_CANT_RESOLVE_PROXY:
-            msg = g_strdup_printf (_("Cannot resolve host: ‘%s’: %s"),
-                                   soup_uri_get_host (uri), error->message);
-            break;
-        case SOUP_STATUS_CANT_CONNECT:
-        case SOUP_STATUS_CANT_CONNECT_PROXY:
-        case SOUP_STATUS_TOO_MANY_REDIRECTS:
-        default:
-            msg = g_strdup_printf (_("Cannot connect to host: ‘%s’: %s"),
-                                   soup_uri_get_host (uri), error->message);
+        msg = g_strdup_printf (_("Cannot resolve host: ‘%s’: %s"),
+                               g_uri_get_host (uri), error->message);
+    }
+    else
+    {
+        msg = g_strdup_printf (_("Cannot connect to host: ‘%s’: %s"),
+                               g_uri_get_host (uri), error->message);
     }
 
     return msg;
@@ -2464,8 +2460,8 @@ create_cddb_dialog (EtCDDBDialog *self)
     /* The User-Agent header is not used by the CDDB protocol over HTTP, but it
      * is still good practice to set it appropriately. */
     /* FIXME: Enable a SoupLogger with g_parse_debug_string(). */
-    priv->session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
-                                                   PACKAGE_NAME " " PACKAGE_VERSION,
+    priv->session = soup_session_new_with_options ("user-agent",
+                                                   PACKAGE_NAME "/" PACKAGE_VERSION,
                                                    NULL);
 }
 

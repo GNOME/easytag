@@ -322,7 +322,7 @@ AS_IF([test "x$have_wavpack" != "xno"],
 dnl ################################################
 dnl # CDDB (libsoup)
 dnl ################################################
-CDDB_DEPS="libsoup-2.4 >= 2.42"
+CDDB_DEPS="libsoup-3.0 >= 3.2"
 AS_IF([test "x$enable_cddb" != "xno"],
       [PKG_CHECK_EXISTS([$CDDB_DEPS], [have_cddb=yes], [have_cddb=no])],
       [have_cddb=no])
@@ -352,14 +352,14 @@ AS_IF([test "x$have_libnautilus_extension" = "xno"],
 AM_CONDITIONAL([ENABLE_NAUTILUS_ACTIONS], [test x"$have_libnautilus_extension" != x"no"])
 
 dnl Check the pkg-config dependencies
-GIO_DEPS="gio-2.0 >= 2.40.0"
+GIO_DEPS="gio-2.0 >= 2.66.0"
 AC_SUBST([GLIB_DEPRECATION_FLAGS],
-         ["-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_40 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_40"])
+         ["-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_66 -DGLIB_VERSION_MAX_ALLOWED=GLIB_VERSION_2_66"])
 GTK_DEPS="gtk+-3.0 >= 3.14.0"
 AC_SUBST([GTK_DEPRECATION_FLAGS],
          ["-DGDK_VERSION_MIN_REQUIRED=GDK_VERSION_3_14 -DGDK_VERSION_MAX_ALLOWED=GDK_VERSION_3_14"])
 AC_SUBST([SOUP_DEPRECATION_FLAGS],
-         ["-DSOUP_VERSION_MIN_REQUIRED=SOUP_VERSION_2_42 -DSOUP_VERSION_MAX_ALLOWED=SOUP_VERSION_2_42"])
+         ["-DSOUP_VERSION_MIN_REQUIRED=SOUP_VERSION_3_2 -DSOUP_VERSION_MAX_ALLOWED=SOUP_VERSION_3_2"])
 PKG_CHECK_MODULES([EASYTAG], [$CDDB_DEPS $GIO_DEPS $GTK_DEPS $OPUS_DEPS $OGG_DEPS $SPEEX_DEPS $FLAC_DEPS $ID3TAG_DEPS $TAGLIB_DEPS $WAVPACK_DEPS])
 
 dnl Set warning flags
