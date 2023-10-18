@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2023-04-03 07:24+0000\n"
-"PO-Revision-Date: 2023-03-06 16:55+0300\n"
+"POT-Creation-Date: 2023-08-08 18:21+0000\n"
+"PO-Revision-Date: 2023-10-17 01:18+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-POOTLE-MTIME: 1428155469.000000\n"
 
 #. Name and summary taken from the desktop file.
@@ -203,7 +203,7 @@ msgstr ""
 #: ../src/cddb_dialog.c:2139 ../src/easytag.c:464 ../src/easytag.c:471
 #: ../src/easytag.c:596 ../src/tag_area.c:1522 ../src/tag_area.c:1848
 msgid "_Cancel"
-msgstr "_Vazgeç"
+msgstr "İ_ptal"
 
 #: ../data/browser_dialogs.ui.h:6
 msgid "_Execute"
@@ -1269,13 +1269,14 @@ msgstr ""
 #: ../data/preferences_dialog.ui.h:46
 msgid ""
 "Use the system character encoding and silently discard unsupported characters"
-msgstr "Sistem karakter kodlaması kullan ve desteklenmeyen karakterleri at"
+msgstr ""
+"Sistem karakter kodlaması kullan ve desteklenmeyen karakterleri gözden çıkar"
 
 #: ../data/preferences_dialog.ui.h:47
 msgid ""
 "Discard characters which cannot be represented in the target character "
 "encoding"
-msgstr "Hedef karakter kodlamasında olmayan karakterleri at"
+msgstr "Hedef karakter kodlamasında olmayan karakterleri gözden çıkar"
 
 #: ../data/preferences_dialog.ui.h:48
 msgid "Files"
@@ -1500,7 +1501,7 @@ msgstr "Başka dilde yaz"
 
 #: ../data/preferences_dialog.ui.h:97
 msgid "Discard"
-msgstr "Vazgeç"
+msgstr "Gözden Çıkar"
 
 #: ../data/preferences_dialog.ui.h:98
 msgid "Automatically convert old ID3v2 tag versions"
@@ -2987,7 +2988,7 @@ msgstr ""
 "Eğer dosya adının kodlaması dosya sistemi kodlaması ile eşleşmezse, başka "
 "bir kodlamayı denemek için seçebilir, başka alfabe ile yazarak dosya "
 "sisteminin kodlamasına benzeştirebilir ya da sorun oluşturan karakterleri "
-"atabilirsiniz"
+"gözden çıkarabilirsiniz"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:176
 msgid ""
@@ -3234,7 +3235,7 @@ msgstr "Bazı dosyalar değiştirildi ama kaydedilmedi"
 #: ../src/application_window.c:3014 ../src/browser.c:913 ../src/easytag.c:233
 #: ../src/easytag.c:463 ../src/easytag.c:595 ../src/easytag.c:603
 msgid "_Discard"
-msgstr "_Çıkar"
+msgstr "_Gözden Çıkar"
 
 #: ../src/application_window.c:3020 ../src/easytag.c:239
 msgid "Quit"
@@ -3991,7 +3992,7 @@ msgstr "piksel"
 msgid "Type"
 msgstr "Biçim"
 
-#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:515
+#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:517
 #, c-format
 msgid "Input truncated or empty"
 msgstr "Giriş kesildi veya boş"
