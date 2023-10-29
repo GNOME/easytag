@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: easytag\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues\n"
-"POT-Creation-Date: 2023-10-18 18:24+0000\n"
-"PO-Revision-Date: 2023-10-24 02:28+0300\n"
+"POT-Creation-Date: 2023-10-25 13:45+0000\n"
+"PO-Revision-Date: 2023-10-26 16:37+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -248,7 +248,7 @@ msgstr ""
 
 #: ../data/browser_dialogs.ui.h:15
 msgid "Rename directory preview"
-msgstr "Dizin yeniden adlandırma önizlemesix"
+msgstr "Dizin yeniden adlandırma ön izlemesi"
 
 #: ../data/browser_dialogs.ui.h:16
 msgid "_Rename"
@@ -1819,7 +1819,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:3
 msgid "Fill tag preview"
-msgstr "Etiket önizlemesini doldur"
+msgstr "Etiket ön izlemesini doldur"
 
 #: ../data/scan_dialog.ui.h:4
 msgid "Mask Editor"
@@ -1964,7 +1964,7 @@ msgstr ""
 
 #: ../data/scan_dialog.ui.h:51
 msgid "Rename file preview"
-msgstr "Dosya adı değiştirme önizlemesi"
+msgstr "Dosya adı değiştirme ön izlemesi"
 
 #. Only filename changed
 #: ../data/scan_dialog.ui.h:52 ../src/easytag.c:571
