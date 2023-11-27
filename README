@@ -57,19 +57,19 @@ Installation
 
 ### Requirements
 
-* GLib version greater than 2.38.0 (http://www.gtk.org)
-* GTK+ version greater than 3.14.0 (http://www.gtk.org)
-* libid3tag (http://www.underbit.com/products/mad) (if not deactivated by './configure --disable-mp3')
-* id3lib version greater than 3.7.12 (http://id3lib.sourceforge.net) (Recommended: id3lib-3.8.3) (if not deactivated by './configure --disable-id3v23')
-* flac (http://flac.sourceforge.net) (if not deactivated by './configure --disable-flac')
-* libogg and libvorbis (http://www.vorbis.com) (if not deactivated by './configure --disable-ogg')
+* GLib version greater than 2.38.0 (https://www.gtk.org)
+* GTK+ version greater than 3.14.0 (https://www.gtk.org)
+* libid3tag (https://www.underbit.com/products/mad) (if not deactivated by './configure --disable-mp3')
+* id3lib version greater than 3.7.12 (https://id3lib.sourceforge.net/) (Recommended: id3lib-3.8.3) (if not deactivated by './configure --disable-id3v23')
+* flac (https://xiph.org/flac/) (if not deactivated by './configure --disable-flac')
+* libogg and libvorbis (https://xiph.org/vorbis/) (if not deactivated by './configure --disable-ogg')
 * libnautilus-extension (https://wiki.gnome.org/Apps/Nautilus) (if not deactivated by ./configure --disable-nautilus-actions')
 * libsoup (https://wiki.gnome.org/Projects/libsoup) (if not deactivated for './configure --disable-cddb')
-* opus and opusfile (http://www.opus-codec.org/) (if not deactivated by './configure --disable-opus')
-* taglib (http://taglib.github.com/) (if not deactivated by './configure --disable-mp4')
-* wavpack (http://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
+* opus and opusfile (https://www.opus-codec.org/) (if not deactivated by './configure --disable-opus')
+* taglib (https://taglib.org/) (if not deactivated by './configure --disable-mp4')
+* wavpack (https://www.wavpack.com/) (if not deactivated by './configure --disable-wavpack')
 * yelp (https://wiki.gnome.org/Apps/Yelp) is required at runtime for showing the user help
-* yelp-tools (https://git.gnome.org/browse/yelp-tools)
+* yelp-tools (https://gitlab.gnome.org/GNOME/yelp-tools)
 * libc 6 (glibc 2.1) or greater
 * appdata-tools (https://github.com/hughsie/appdata-tools)
 * intltool (if not deactivated by './configure --disable-nls')
