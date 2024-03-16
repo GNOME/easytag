@@ -17,7 +17,7 @@
         GNU/Linux and Windows.</_p>
     </description>
     <url type="homepage">https://wiki.gnome.org/Apps/EasyTAG</url>
-    <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=easytag</url>
+    <url type="bugtracker">https://gitlab.gnome.org/GNOME/easytag/-/issues/</url>
     <url type="help">https://help.gnome.org/users/easytag/stable/</url>
     <screenshots>
         <screenshot type="default">
