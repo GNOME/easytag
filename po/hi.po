@@ -1,0 +1,4581 @@
+# Hindi translation for easytag-master.
+# Copyright (C) 2024 easytag's COPYRIGHT HOLDER
+# This file is distributed under the same license as the easytag package.
+# Scrambled 777 <weblate.scrambled777@simplelogin.com>,  2024.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: easytag master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/browse.cgi?product=easytag\n"
+"POT-Creation-Date: 2024-05-20 15:26+0000\n"
+"PO-Revision-Date: 2024-06-29 19:22+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#. Name and summary taken from the desktop file.
+#: ../data/org.gnome.EasyTAG.appdata.xml.in.h:2
+#: ../data/org.gnome.EasyTAG.desktop.in.h:1
+msgid "EasyTAG"
+msgstr "EasyTAG"
+
+#: ../data/org.gnome.EasyTAG.appdata.xml.in.h:3
+#: ../data/org.gnome.EasyTAG.desktop.in.h:3
+msgid "Edit audio file metadata"
+msgstr "ऑडियो फाइल मेटाडेटा संपादित करें"
+
+#: ../data/org.gnome.EasyTAG.appdata.xml.in.h:4
+msgid ""
+"View and edit tags for MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg "
+"Vorbis, MusePack, Monkey's Audio and WavPack files."
+msgstr ""
+"MP3, MP2, MP4/AAC, FLAC, Ogg Opus, Ogg Speex, Ogg Vorbis, MusePack, Monkey's "
+"Audio और WavPack फाइलों के लिए टैग देखें और संपादित करें।"
+
+#: ../data/org.gnome.EasyTAG.appdata.xml.in.h:5
+msgid ""
+"Look up albums in online databases, bulk edit tags, create playlists and "
+"rename a collection of files."
+msgstr ""
+"ऑनलाइन डेटाबेस में एल्बम देखें, टैग्स को बड़े पैमाने पर संपादित करें, प्लेलिस्ट बनाएं और फाइलों के "
+"संग्रह का नाम बदलें।"
+
+#: ../data/org.gnome.EasyTAG.appdata.xml.in.h:6
+msgid ""
+"A simple and nice GTK+ interface makes tagging easier under GNU/Linux and "
+"Windows."
+msgstr ""
+"सरल और अच्छा GTK+ इंटरफ़ेस GNU/Linux और Windows के अंतर्गत टैगिंग को आसान बनाता है।"
+
+#: ../data/org.gnome.EasyTAG.desktop.in.h:2
+msgid "Audio File Metadata Editor"
+msgstr "ऑडियो फाइल मेटाडेटा संपादक"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/org.gnome.EasyTAG.desktop.in.h:5
+msgid "mp3;tag;audio;music;"
+msgstr "mp3;टैग;ऑडियो;संगीत;"
+
+#: ../data/easytag-nautilus.metainfo.xml.in.h:1
+#: ../nautilus-extension/nautilus-easytag.c:247
+msgid "Open with EasyTAG"
+msgstr "EasyTAG से खोलें"
+
+#: ../data/easytag-nautilus.metainfo.xml.in.h:2
+msgid "Open directories and audio files with EasyTAG using the context menu"
+msgstr "संदर्भ मेनू का प्रयोग करके EasyTAG के साथ निर्देशिकाएं और ऑडियो फाइलें खोलें"
+
+#: ../data/browser.ui.h:1
+msgid "Choose a directory to show in the browser"
+msgstr "ब्राउज़र में दिखाने के लिए एक निर्देशिका चुनें"
+
+#: ../data/browser.ui.h:2 ../data/browser_dialogs.ui.h:4 ../src/browser.c:3834
+#: ../src/tag_area.c:1524
+msgid "_Open"
+msgstr "खोलें (_O)"
+
+#: ../data/browser.ui.h:3 ../src/application.c:131
+msgid "Select a directory to browse"
+msgstr "देखने हेतु निर्देशिका चुनें"
+
+#. Translators: No files, as in "0 files".
+#: ../data/browser.ui.h:4 ../src/easytag.c:978
+msgid "No files"
+msgstr "कोई फाइल नहीं"
+
+#: ../data/browser.ui.h:5 ../data/cddb_dialog.ui.h:12
+#: ../data/preferences_dialog.ui.h:63 ../data/scan_dialog.ui.h:58
+#: ../data/search_dialog.ui.h:14
+msgid "Artist"
+msgstr "कलाकार"
+
+#: ../data/browser.ui.h:6
+msgid "# Albums"
+msgstr "# एल्बम"
+
+#: ../data/browser.ui.h:7
+msgid "# Files"
+msgstr "# फाइलें"
+
+#: ../data/browser.ui.h:8 ../data/cddb_dialog.ui.h:13
+#: ../data/preferences_dialog.ui.h:65 ../data/scan_dialog.ui.h:62
+#: ../data/search_dialog.ui.h:16
+msgid "Album"
+msgstr "एल्बम"
+
+#: ../data/browser.ui.h:9 ../data/cddb_dialog.ui.h:38
+#: ../data/playlist_dialog.ui.h:2 ../data/scan_dialog.ui.h:54
+#: ../data/search_dialog.ui.h:12
+msgid "Filename"
+msgstr "फाइलनाम"
+
+#: ../data/browser.ui.h:10 ../data/cddb_dialog.ui.h:39
+#: ../data/preferences_dialog.ui.h:61 ../data/scan_dialog.ui.h:56
+#: ../data/search_dialog.ui.h:13
+msgid "Title"
+msgstr "शीर्षक"
+
+#: ../data/browser.ui.h:11 ../data/scan_dialog.ui.h:60
+#: ../data/search_dialog.ui.h:15
+msgid "Album Artist"
+msgstr "एल्बम कलाकार"
+
+#: ../data/browser.ui.h:12 ../data/cddb_dialog.ui.h:40
+#: ../data/search_dialog.ui.h:18
+msgid "Year"
+msgstr "वर्ष"
+
+#: ../data/browser.ui.h:13
+msgid "Disc"
+msgstr "डिस्क"
+
+#: ../data/browser.ui.h:14 ../data/search_dialog.ui.h:19
+msgid "Track"
+msgstr "ट्रैक"
+
+#: ../data/browser.ui.h:15 ../data/cddb_dialog.ui.h:43
+#: ../data/preferences_dialog.ui.h:67 ../data/scan_dialog.ui.h:64
+#: ../data/search_dialog.ui.h:20
+msgid "Genre"
+msgstr "शैली"
+
+#: ../data/browser.ui.h:16 ../data/preferences_dialog.ui.h:69
+#: ../data/scan_dialog.ui.h:66 ../data/search_dialog.ui.h:21
+msgid "Comment"
+msgstr "टिप्पणी"
+
+#: ../data/browser.ui.h:17 ../data/preferences_dialog.ui.h:71
+#: ../data/scan_dialog.ui.h:68 ../data/search_dialog.ui.h:22
+#: ../src/picture.c:213
+msgid "Composer"
+msgstr "संगीतकार"
+
+#: ../data/browser.ui.h:18 ../data/search_dialog.ui.h:23
+msgid "Original Artist"
+msgstr "मूल कलाकार"
+
+#: ../data/browser.ui.h:19 ../data/scan_dialog.ui.h:72
+#: ../data/search_dialog.ui.h:24
+msgid "Copyright"
+msgstr "कॉपीराइट"
+
+#: ../data/browser.ui.h:20 ../data/scan_dialog.ui.h:74
+#: ../data/search_dialog.ui.h:25
+msgid "URL"
+msgstr "URL"
+
+#: ../data/browser.ui.h:21 ../data/scan_dialog.ui.h:76
+#: ../data/search_dialog.ui.h:26
+msgid "Encoded By"
+msgstr "इनके द्वारा एनकोडेड"
+
+#: ../data/browser_dialogs.ui.h:1
+msgid "Browse Directory With"
+msgstr "इसके साथ निर्देशिका देखें"
+
+#: ../data/browser_dialogs.ui.h:2
+msgid "Run Program"
+msgstr "प्रोग्राम चलाएं"
+
+#: ../data/browser_dialogs.ui.h:3
+msgid ""
+"Enter the program to run; it will receive the current directory as a "
+"parameter"
+msgstr ""
+"चलाने के लिए प्रोग्राम दर्ज करें; यह पैरामीटर के रूप में वर्तमान निर्देशिका प्राप्त करेगा"
+
+#: ../data/browser_dialogs.ui.h:5 ../data/image_properties_dialog.ui.h:3
+#: ../src/application_window.c:368 ../src/application_window.c:382
+#: ../src/application_window.c:3015 ../src/browser.c:914 ../src/browser.c:3833
+#: ../src/cddb_dialog.c:2139 ../src/easytag.c:464 ../src/easytag.c:471
+#: ../src/easytag.c:596 ../src/tag_area.c:1522 ../src/tag_area.c:1848
+msgid "_Cancel"
+msgstr "रद्द करें (_C)"
+
+#: ../data/browser_dialogs.ui.h:6
+msgid "_Execute"
+msgstr "निष्पादित करें (_E)"
+
+#: ../data/browser_dialogs.ui.h:7
+msgid "Open Files With"
+msgstr "इसके साथ फाइलें खोलें"
+
+#: ../data/browser_dialogs.ui.h:8
+msgid ""
+"Enter the program to run; it will receive the current files as a parameter"
+msgstr ""
+"चलाने के लिए प्रोग्राम दर्ज करें; यह वर्तमान फाइलों को पैरामीटर के रूप में प्राप्त करेगा"
+
+#. Only directories changed
+#: ../data/browser_dialogs.ui.h:9 ../data/menus.ui.h:99 ../src/easytag.c:562
+msgid "Rename Directory"
+msgstr "निर्देशिका का नाम बदलें"
+
+#. Translators: Used when renaming a directory to a literal name (entered in a text field) rather than using a name generated from a mask.
+#: ../data/browser_dialogs.ui.h:11
+msgid "Literal name:"
+msgstr "शाब्दिक नाम:"
+
+#: ../data/browser_dialogs.ui.h:12 ../data/playlist_dialog.ui.h:3
+msgid "Use mask:"
+msgstr "मास्क का प्रयोग करें:"
+
+#: ../data/browser_dialogs.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:168
+msgid "Whether to use a mask when renaming directories"
+msgstr "क्या निर्देशिकाओं का नाम बदलते समय मास्क का प्रयोग करना है"
+
+#: ../data/browser_dialogs.ui.h:14
+msgid ""
+"Select or type in a mask using codes (see Legend in Scanner Window) to "
+"rename the directory from tag fields"
+msgstr ""
+"टैग क्षेत्रों से निर्देशिका का नाम बदलने के लिए कोड का प्रयोग करके मास्क चुनें या टाइप करें "
+"(स्कैनर खिड़की में किंवदंती देखें)"
+
+#: ../data/browser_dialogs.ui.h:15
+msgid "Rename directory preview"
+msgstr "निर्देशिका पूर्वावलोकन का नाम बदलें"
+
+#: ../data/browser_dialogs.ui.h:16
+msgid "_Rename"
+msgstr "नाम बदलें (_R)"
+
+#: ../data/cddb_dialog.ui.h:1 ../data/toolbar.ui.h:28
+msgid "CDDB Search"
+msgstr "CDDB खोज"
+
+#: ../data/cddb_dialog.ui.h:2
+msgid "Search"
+msgstr "खोजें"
+
+#: ../data/cddb_dialog.ui.h:3
+msgid "Enter the words to search (separated by a space or ‘+’)"
+msgstr "खोजने के लिए शब्द दर्ज करें (रिक्त स्थान या ‘+’ से अलग करके)"
+
+#: ../data/cddb_dialog.ui.h:4
+msgid "_Search"
+msgstr "खोजें (_S)"
+
+#: ../data/cddb_dialog.ui.h:5
+msgid "Search Using Selected _Files"
+msgstr "चयनित फाइलों का प्रयोग करके खोजें (_F)"
+
+#: ../data/cddb_dialog.ui.h:6
+msgid ""
+"Generate the CDDB disc ID using the selected files (the order is important)"
+msgstr "चयनित फाइलों का प्रयोग करके CDDB डिस्क आईडी उत्पन्न करें (क्रम महत्वपूर्ण है)"
+
+#: ../data/cddb_dialog.ui.h:7 ../data/toolbar.ui.h:31
+msgid "Stop"
+msgstr "रोकें"
+
+#: ../data/cddb_dialog.ui.h:8
+msgid "Stop the search"
+msgstr "खोज बंद करें"
+
+#: ../data/cddb_dialog.ui.h:9
+msgid "Manual Search Options"
+msgstr "हस्तचालित खोज विकल्प"
+
+#. Translators: header for CDDB fields to use when searching
+#: ../data/cddb_dialog.ui.h:11
+msgid "Search Fields"
+msgstr "खोज क्षेत्र"
+
+#: ../data/cddb_dialog.ui.h:14
+msgid "Track Name"
+msgstr "ट्रैक नाम"
+
+#: ../data/cddb_dialog.ui.h:15 ../data/preferences_dialog.ui.h:91
+#: ../src/picture.c:191
+msgid "Other"
+msgstr "अन्य"
+
+#: ../data/cddb_dialog.ui.h:16
+msgid "Categories"
+msgstr "श्रेणियां"
+
+#: ../data/cddb_dialog.ui.h:17
+msgid "Blues"
+msgstr "ब्लूज़"
+
+#: ../data/cddb_dialog.ui.h:18
+msgid "Classical"
+msgstr "शास्त्रीय"
+
+#: ../data/cddb_dialog.ui.h:19
+msgid "Country"
+msgstr "कंट्री"
+
+#: ../data/cddb_dialog.ui.h:20
+msgid "Folk"
+msgstr "लोक"
+
+#: ../data/cddb_dialog.ui.h:21
+msgid "Jazz"
+msgstr "जाज"
+
+#: ../data/cddb_dialog.ui.h:22
+msgid "Misc."
+msgstr "विविध"
+
+#: ../data/cddb_dialog.ui.h:23
+msgid "New Age"
+msgstr "न्यू ऐज"
+
+#: ../data/cddb_dialog.ui.h:24
+msgid "Reggae"
+msgstr "रेगे"
+
+#: ../data/cddb_dialog.ui.h:25
+msgid "Rock"
+msgstr "रॉक"
+
+#: ../data/cddb_dialog.ui.h:26
+msgid "Soundtrack"
+msgstr "साउंडट्रैक"
+
+#: ../data/cddb_dialog.ui.h:27
+msgid "Results"
+msgstr "परिणाम"
+
+#: ../data/cddb_dialog.ui.h:28
+msgid "Artist / Album"
+msgstr "कलाकार / एल्बम"
+
+#: ../data/cddb_dialog.ui.h:29
+msgid "Category"
+msgstr "श्रेणी"
+
+#: ../data/cddb_dialog.ui.h:30
+msgid ""
+"Select lines from which tags will be applied to your files list. All lines "
+"will be processed if no line is selected.\\nYou can also reorder lines in "
+"this list before using the ‘apply’ button"
+msgstr ""
+"उन पंक्तियों का चयन करें जिनसे टैग आपकी फाइल सूची पर लागू होंगे। यदि कोई पंक्ति चयनित नहीं "
+"है, तो सभी पंक्तियों पर कार्रवाई की जाएगी। आप 'लागू करें' बटन का प्रयोग करने से पहले इस "
+"सूची में पंक्तियों को पुनः क्रमित भी कर सकते हैं"
+
+#. Translators: column header for track number.
+#: ../data/cddb_dialog.ui.h:32
+msgid "#"
+msgstr "#"
+
+#: ../data/cddb_dialog.ui.h:33
+msgid "Duration"
+msgstr "अवधि"
+
+#: ../data/cddb_dialog.ui.h:34
+msgid "Select all lines"
+msgstr "सभी पंक्तियां चुनें"
+
+#: ../data/cddb_dialog.ui.h:35
+msgid "Invert line selection"
+msgstr "पंक्ति चयन उलटें"
+
+#: ../data/cddb_dialog.ui.h:36
+msgid "Unselect all lines"
+msgstr "सभी पंक्तियां अचयनित करें"
+
+#: ../data/cddb_dialog.ui.h:37 ../data/menus.ui.h:24
+msgid "Fill Tags"
+msgstr "टैग भरें"
+
+#: ../data/cddb_dialog.ui.h:41
+msgid "Track Number"
+msgstr "ट्रैक संख्या"
+
+#: ../data/cddb_dialog.ui.h:42
+msgid "Number of Tracks"
+msgstr "ट्रैक की संख्या"
+
+#: ../data/cddb_dialog.ui.h:44 ../data/load_files_dialog.ui.h:14
+msgid "Run the current scanner for each file"
+msgstr "प्रत्येक फाइल के लिए वर्तमान स्कैनर चलाएं"
+
+#: ../data/cddb_dialog.ui.h:45 ../data/org.gnome.EasyTAG.gschema.xml.h:28
+msgid ""
+"Whether to run the tag scanner, with the current settings, on the CDDB "
+"results"
+msgstr "क्या CDDB परिणामों पर, वर्तमान सेटिंग्स के साथ, टैग स्कैनर चलाना है"
+
+#: ../data/cddb_dialog.ui.h:46
+msgid "Match lines with the Levenshtein algorithm"
+msgstr "लेवेनशेटिन एल्गोरिथम के साथ पंक्तियों का मिलान करें"
+
+#: ../data/cddb_dialog.ui.h:47 ../data/preferences_dialog.ui.h:143
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:24
+msgid "Whether to use the DLM algorithm to match CDDB results to files"
+msgstr ""
+"क्या CDDB परिणामों को फाइलों से मिलान करने के लिए DLM एल्गोरिथ्म का प्रयोग करना है"
+
+#: ../data/cddb_dialog.ui.h:48 ../data/load_files_dialog.ui.h:16
+#: ../data/playlist_dialog.ui.h:18 ../data/preferences_dialog.ui.h:160
+#: ../data/scan_dialog.ui.h:113 ../data/search_dialog.ui.h:11
+msgid "_Close"
+msgstr "बंद करें (_C)"
+
+#: ../data/cddb_dialog.ui.h:49 ../data/load_files_dialog.ui.h:17
+#: ../src/cddb_dialog.c:2140
+msgid "_Apply"
+msgstr "लागू करें (_A)"
+
+#: ../data/cddb_dialog.ui.h:50
+msgid "Load the selected lines or all lines (if no lines are selected)"
+msgstr "चयनित पंक्तियों या सभी पंक्तियों को लोड करें (यदि कोई पंक्ति चयनित नहीं है)"
+
+#. Default values are MPEG data.
+#: ../data/file_area.ui.h:1 ../src/application_window.c:2180
+#: ../src/file_area.c:155
+msgid "File"
+msgstr "फाइल"
+
+#: ../data/file_area.ui.h:2
+msgid "0/0:"
+msgstr "0/0:"
+
+#. Nothing to display
+#. Version changed to encoder version
+#. Encoder version
+#: ../data/file_area.ui.h:3 ../src/file_area.c:156
+#: ../src/tags/flac_header.c:185 ../src/tags/monkeyaudio_header.c:82
+#: ../src/tags/musepack_header.c:84 ../src/tags/ogg_header.c:399
+#: ../src/tags/opus_header.c:227 ../src/tags/wavpack_header.c:140
+msgid "Encoder:"
+msgstr "एनकोडर:"
+
+#: ../data/file_area.ui.h:4
+msgid "Bitrate:"
+msgstr "बिटरेट:"
+
+#: ../data/file_area.ui.h:5
+msgid "Sample rate:"
+msgstr "नमूना दर:"
+
+#. Mode
+#: ../data/file_area.ui.h:6 ../src/file_area.c:160
+#: ../src/tags/mpeg_header.c:282
+msgid "Mode:"
+msgstr "मोड:"
+
+#: ../data/file_area.ui.h:7
+msgid "Size:"
+msgstr "आकार:"
+
+#: ../data/file_area.ui.h:8
+msgid "Duration:"
+msgstr "अवधि:"
+
+#: ../data/image_properties_dialog.ui.h:1
+msgid "Image Type"
+msgstr "छवि प्रकार"
+
+#: ../data/image_properties_dialog.ui.h:2 ../src/picture.c:305
+msgid "Description"
+msgstr "विवरण"
+
+#: ../data/image_properties_dialog.ui.h:4
+msgid "_Accept"
+msgstr "स्वीकारें (_A)"
+
+#: ../data/log_area.ui.h:1 ../data/preferences_dialog.ui.h:15
+msgid "Log"
+msgstr "लॉग"
+
+#: ../data/load_files_dialog.ui.h:1
+msgid "Load Filenames From a Text File"
+msgstr "पाठ फाइल से फाइल नाम लोड करें"
+
+#: ../data/load_files_dialog.ui.h:2
+msgid "File:"
+msgstr "फाइल:"
+
+#: ../data/load_files_dialog.ui.h:3
+msgid "Choose a Text File"
+msgstr "पाठ फाइल चुनें"
+
+#: ../data/load_files_dialog.ui.h:4
+msgid "_Load"
+msgstr "लोड करें (_L)"
+
+#: ../data/load_files_dialog.ui.h:5
+msgid "Content of Text File"
+msgstr "पाठ फाइल की सामग्री"
+
+#: ../data/load_files_dialog.ui.h:6
+msgid "Insert a blank line before the selected line"
+msgstr "चयनित पंक्ति से पहले एक रिक्त पंक्ति डालें"
+
+#: ../data/load_files_dialog.ui.h:7
+msgid "Delete the selected line"
+msgstr "चयनित पंक्ति मिटाएं"
+
+#: ../data/load_files_dialog.ui.h:8 ../src/load_files_dialog.c:750
+#: ../src/load_files_dialog.c:853
+msgid "Delete all blank lines"
+msgstr "सभी रिक्त पंक्तियां मिटाएं"
+
+#: ../data/load_files_dialog.ui.h:9
+msgid "Move the selected line up"
+msgstr "चयनित पंक्ति को ऊपर ले जाएं"
+
+#: ../data/load_files_dialog.ui.h:10
+msgid "Move the selected line down"
+msgstr "चयनित पंक्ति को नीचे ले जाएं"
+
+#: ../data/load_files_dialog.ui.h:11 ../src/load_files_dialog.c:768
+#: ../src/load_files_dialog.c:871
+msgid "Reload"
+msgstr "पुनः लोड करें"
+
+#: ../data/load_files_dialog.ui.h:12
+msgid "List of Files"
+msgstr "फाइलों की सूची"
+
+#: ../data/load_files_dialog.ui.h:13
+msgid "Selected line:"
+msgstr "चयनित पंक्ति:"
+
+#: ../data/load_files_dialog.ui.h:15
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:117
+msgid ""
+"Whether to run the currently selected scanner on filenames loaded from a "
+"text file"
+msgstr "क्या वर्तमान में चयनित स्कैनर को पाठ फाइल से लोड किए गए फाइल नामों पर चलाना है"
+
+#: ../data/menus.ui.h:1
+msgid "_Help"
+msgstr "सहायता (_H)"
+
+#: ../data/menus.ui.h:2
+msgid "_About"
+msgstr "परिचय (_A)"
+
+#: ../data/menus.ui.h:3
+msgid "_Quit"
+msgstr "छोड़ें (_Q)"
+
+#: ../data/menus.ui.h:4
+msgid "_File"
+msgstr "फाइल (_F)"
+
+#: ../data/menus.ui.h:5
+msgid "Open Files With…"
+msgstr "फाइलें खोलें…"
+
+#: ../data/menus.ui.h:6
+msgid "Run Audio Player"
+msgstr "ऑडियो प्लेयर चलाएं"
+
+#: ../data/menus.ui.h:7 ../data/toolbar.ui.h:23
+msgid "Invert File Selection"
+msgstr "फाइल चयन उलटें"
+
+#: ../data/menus.ui.h:8
+msgid "Delete Files"
+msgstr "फाइलें मिटाएं"
+
+#: ../data/menus.ui.h:9
+msgid "Undo for File"
+msgstr "फाइल के लिए पूर्ववत करें"
+
+#: ../data/menus.ui.h:10
+msgid "Redo for File"
+msgstr "फाइल के लिए पुनः करें"
+
+#: ../data/menus.ui.h:11 ../data/toolbar.ui.h:17
+msgid "_Save Files"
+msgstr "फाइलें सहेजें (_S)"
+
+#: ../data/menus.ui.h:12
+msgid "_Force Save Files"
+msgstr "बलपूर्वक फाइलें सहेजें (_F)"
+
+#: ../data/menus.ui.h:13
+msgid "_Edit"
+msgstr "संपादित करें (_E)"
+
+#: ../data/menus.ui.h:14 ../data/toolbar.ui.h:25
+msgid "_Find…"
+msgstr "खोजें (_F)…"
+
+#: ../data/menus.ui.h:15
+msgid "Select All"
+msgstr "सभी चुनें"
+
+#: ../data/menus.ui.h:16
+msgid "Unselect All"
+msgstr "सभी अचयनित करें"
+
+#: ../data/menus.ui.h:17
+msgid "Undo"
+msgstr "पूर्ववत करें"
+
+#: ../data/menus.ui.h:18
+msgid "Redo"
+msgstr "पुनः करें"
+
+#: ../data/menus.ui.h:19 ../data/toolbar.ui.h:11
+msgid "_Remove Tags"
+msgstr "टैग हटाएं (_R)"
+
+#: ../data/menus.ui.h:20
+msgid "_Preferences"
+msgstr "प्राथमिकताएं (_P)"
+
+#: ../data/menus.ui.h:21
+msgid "_View"
+msgstr "देखें (_V)"
+
+#: ../data/menus.ui.h:22
+msgid "Show Scanner"
+msgstr "स्कैनर दिखाएं"
+
+#: ../data/menus.ui.h:23
+msgid "Scanner Mode"
+msgstr "स्कैनर मोड"
+
+#: ../data/menus.ui.h:25
+msgid "Rename Files and Directories"
+msgstr "फाइलों और निर्देशिकाओं का नाम बदलें"
+
+#: ../data/menus.ui.h:26 ../data/scan_dialog.ui.h:109
+msgid "Process Fields"
+msgstr "क्षेत्रों को संसाधित करें"
+
+#: ../data/menus.ui.h:27 ../data/toolbar.ui.h:19
+msgid "Directory Tree"
+msgstr "निर्देशिका ट्री"
+
+#: ../data/menus.ui.h:28 ../data/toolbar.ui.h:21
+msgid "Artists and Albums"
+msgstr "कलाकार और एल्बम"
+
+#: ../data/menus.ui.h:29
+msgid "Sort List by Tag"
+msgstr "सूची को टैग अनुसार छांटें"
+
+#: ../data/menus.ui.h:30
+msgid "Ascending by track number"
+msgstr "ट्रैक संख्या द्वारा आरोही"
+
+#: ../data/menus.ui.h:31
+msgid "Descending by track number"
+msgstr "ट्रैक संख्या द्वारा अवरोही"
+
+#: ../data/menus.ui.h:32
+msgid "Ascending by title"
+msgstr "शीर्षक द्वारा आरोही"
+
+#: ../data/menus.ui.h:33
+msgid "Descending by title"
+msgstr "शीर्षक द्वारा अवरोही"
+
+#: ../data/menus.ui.h:34
+msgid "Ascending by artist"
+msgstr "कलाकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:35
+msgid "Descending by artist"
+msgstr "कलाकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:36
+msgid "Ascending by album artist"
+msgstr "एल्बम कलाकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:37
+msgid "Descending by album artist"
+msgstr "एल्बम कलाकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:38
+msgid "Ascending by album"
+msgstr "एल्बम द्वारा आरोही"
+
+#: ../data/menus.ui.h:39
+msgid "Descending by album"
+msgstr "एल्बम द्वारा अवरोही"
+
+#: ../data/menus.ui.h:40
+msgid "Ascending by year"
+msgstr "वर्ष द्वारा आरोही"
+
+#: ../data/menus.ui.h:41
+msgid "Descending by year"
+msgstr "वर्ष द्वारा अवरोही"
+
+#: ../data/menus.ui.h:42
+msgid "Ascending by genre"
+msgstr "शैली के द्वारा आरोही"
+
+#: ../data/menus.ui.h:43
+msgid "Descending by genre"
+msgstr "शैली के द्वारा अवरोही"
+
+#: ../data/menus.ui.h:44
+msgid "Ascending by comment"
+msgstr "टिप्पणी द्वारा आरोही"
+
+#: ../data/menus.ui.h:45
+msgid "Descending by comment"
+msgstr "टिप्पणी द्वारा अवरोही"
+
+#: ../data/menus.ui.h:46
+msgid "Ascending by composer"
+msgstr "संगीतकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:47
+msgid "Descending by composer"
+msgstr "संगीतकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:48
+msgid "Ascending by original artist"
+msgstr "मूल कलाकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:49
+msgid "Descending by original artist"
+msgstr "मूल कलाकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:50
+msgid "Ascending by copyright"
+msgstr "कॉपीराइट द्वारा आरोही"
+
+#: ../data/menus.ui.h:51
+msgid "Descending by copyright"
+msgstr "कॉपीराइट द्वारा अवरोही"
+
+#: ../data/menus.ui.h:52
+msgid "Ascending by URL"
+msgstr "URL द्वारा आरोही"
+
+#: ../data/menus.ui.h:53
+msgid "Descending by URL"
+msgstr "URL द्वारा अवरोही"
+
+#: ../data/menus.ui.h:54
+msgid "Ascending by encoder name"
+msgstr "एनकोडर नाम द्वारा आरोही"
+
+#: ../data/menus.ui.h:55
+msgid "Descending by encoder name"
+msgstr "एनकोडर नाम द्वारा अवरोही"
+
+#: ../data/menus.ui.h:56
+msgid "Sort List by Property"
+msgstr "गुण द्वारा सूची छांटें"
+
+#: ../data/menus.ui.h:57
+msgid "Ascending by filename"
+msgstr "फाइलनाम द्वारा आरोही"
+
+#: ../data/menus.ui.h:58
+msgid "Descending by filename"
+msgstr "फाइलनाम द्वारा अवरोही"
+
+#: ../data/menus.ui.h:59
+msgid "Ascending by creation date"
+msgstr "निर्माण तिथि द्वारा आरोही"
+
+#: ../data/menus.ui.h:60
+msgid "Descending by creation date"
+msgstr "निर्माण तिथि द्वारा अवरोही"
+
+#: ../data/menus.ui.h:61
+msgid "Ascending by file type"
+msgstr "फाइल प्रकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:62
+msgid "Descending by file type"
+msgstr "फाइल प्रकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:63
+msgid "Ascending by file size"
+msgstr "फाइल आकार द्वारा आरोही"
+
+#: ../data/menus.ui.h:64
+msgid "Descending by file size"
+msgstr "फाइल आकार द्वारा अवरोही"
+
+#: ../data/menus.ui.h:65
+msgid "Ascending by duration"
+msgstr "अवधि द्वारा आरोही"
+
+#: ../data/menus.ui.h:66
+msgid "Descending by duration"
+msgstr "अवधि द्वारा अवरोही"
+
+#: ../data/menus.ui.h:67
+msgid "Ascending by bit rate"
+msgstr "बिट दर द्वारा आरोही"
+
+#: ../data/menus.ui.h:68
+msgid "Descending by bit rate"
+msgstr "बिट दर द्वारा अवरोही"
+
+#: ../data/menus.ui.h:69
+msgid "Ascending by sample rate"
+msgstr "नमूना दर द्वारा आरोही"
+
+#: ../data/menus.ui.h:70
+msgid "Descending by sample rate"
+msgstr "नमूना दर द्वारा अवरोही"
+
+#: ../data/menus.ui.h:71
+msgid "Collapse Tree"
+msgstr "ट्री को संक्षिप्त करें"
+
+#: ../data/menus.ui.h:72
+msgid "Reload Tree"
+msgstr "ट्री को पुनः लोड करें"
+
+#: ../data/menus.ui.h:73
+msgid "Reload Directory"
+msgstr "निर्देशिका पुनः लोड करें"
+
+#: ../data/menus.ui.h:74
+msgid "Show Hidden Directories"
+msgstr "छिपी निर्देशिकाएं दिखाएं"
+
+#: ../data/menus.ui.h:75
+msgid "_Browser"
+msgstr "ब्राउज़र (_B)"
+
+#: ../data/menus.ui.h:76
+msgid "Set _Current Path as Default"
+msgstr "वर्तमान पथ को तयशुदा निर्धारित करें (_C)"
+
+#: ../data/menus.ui.h:77
+msgid "Rename Directory…"
+msgstr "निर्देशिका का नाम बदलें…"
+
+#: ../data/menus.ui.h:78
+msgid "Browse Directory With…"
+msgstr "इसके साथ निर्देशिका देखें…"
+
+#: ../data/menus.ui.h:79
+msgid "Browse _Subdirectories"
+msgstr "उपनिर्देशिकाएं देखें (_S)"
+
+#: ../data/menus.ui.h:80
+msgid "_Miscellaneous"
+msgstr "मिश्रित (_M)"
+
+#: ../data/menus.ui.h:81
+msgid "CDD_B Search…"
+msgstr "CDD_B खोज…"
+
+#: ../data/menus.ui.h:82
+msgid "Load Filenames From a Text File…"
+msgstr "पाठ फाइल से फाइल नाम लोड करें…"
+
+#: ../data/menus.ui.h:83 ../data/toolbar.ui.h:29
+msgid "Generate Playlist…"
+msgstr "प्लेलिस्ट बनाएं…"
+
+#: ../data/menus.ui.h:84
+msgid "_Go"
+msgstr "जायें (_G)"
+
+#: ../data/menus.ui.h:85
+msgid "_Home Directory"
+msgstr "गृह निर्देशिका (_H)"
+
+#: ../data/menus.ui.h:86
+msgid "Desktop Directory"
+msgstr "डेस्कटॉप निर्देशिका"
+
+#: ../data/menus.ui.h:87
+msgid "Documents Directory"
+msgstr "दस्तावेज़ निर्देशिका"
+
+#: ../data/menus.ui.h:88
+msgid "Downloads Directory"
+msgstr "डाउनलोड निर्देशिका"
+
+#: ../data/menus.ui.h:89
+msgid "Music Directory"
+msgstr "संगीत निर्देशिका"
+
+#: ../data/menus.ui.h:90
+msgid "_Parent Directory"
+msgstr "मूल निर्देशिका (_P)"
+
+#: ../data/menus.ui.h:91
+msgid "_Default Directory"
+msgstr "तयशुदा निर्देशिका (_D)"
+
+#: ../data/menus.ui.h:92 ../data/toolbar.ui.h:1
+msgid "_First File"
+msgstr "पहली फाइल (_F)"
+
+#: ../data/menus.ui.h:93
+msgid "Previous File"
+msgstr "पिछली फाइल"
+
+#: ../data/menus.ui.h:94 ../data/toolbar.ui.h:5
+msgid "_Next File"
+msgstr "अगली फाइल (_N)"
+
+#: ../data/menus.ui.h:95 ../data/toolbar.ui.h:7
+msgid "_Last File"
+msgstr "आखिरी फाइल (_L)"
+
+#: ../data/menus.ui.h:96
+msgid "Home Directory"
+msgstr "गृह निर्देशिका"
+
+#: ../data/menus.ui.h:97
+msgid "Default Directory"
+msgstr "तयशुदा निर्देशिका"
+
+#: ../data/menus.ui.h:98
+msgid "Set Current Path as Default"
+msgstr "वर्तमान पथ को तयशुदा के रूप में निर्धारित करें"
+
+#: ../data/menus.ui.h:100
+msgid "Browse Subdirectories"
+msgstr "उपनिर्देशिकाएं देखें"
+
+#: ../data/menus.ui.h:101
+msgid "Invert Selection"
+msgstr "चयन उल्टें"
+
+#: ../data/menus.ui.h:102
+msgid "CDDB Search Files…"
+msgstr "CDDB फाइलें खोजें…"
+
+#: ../data/menus.ui.h:103
+msgid "Find…"
+msgstr "खोजें…"
+
+#: ../data/menus.ui.h:104
+msgid "Clear Log"
+msgstr "लॉग साफ़ करें"
+
+#: ../data/playlist_dialog.ui.h:1
+msgid "Generate Playlist"
+msgstr "प्लेलिस्ट बनाएं"
+
+#: ../data/playlist_dialog.ui.h:4
+msgid "Use directory name"
+msgstr "निर्देशिका नाम का प्रयोग करें"
+
+#: ../data/playlist_dialog.ui.h:5
+msgid "Options"
+msgstr "विकल्प"
+
+#: ../data/playlist_dialog.ui.h:6
+msgid "Include only the selected files"
+msgstr "केवल चयनित फाइलें शामिल करें"
+
+#: ../data/playlist_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:144
+msgid ""
+"Whether to use only the selected files or all files when creating playlists"
+msgstr "क्या प्लेलिस्ट बनाते समय केवल चयनित फाइलों या सभी फाइलों का प्रयोग करना है"
+
+#: ../data/playlist_dialog.ui.h:8
+msgid "Use full path for files in playlist"
+msgstr "प्लेलिस्ट में फाइलों के लिए पूर्ण पथ का प्रयोग करें"
+
+#: ../data/playlist_dialog.ui.h:9
+msgid "Use relative path for files in playlist"
+msgstr "प्लेलिस्ट में फाइलों के लिए सापेक्ष पथ का प्रयोग करें"
+
+#: ../data/playlist_dialog.ui.h:10
+msgid "Create playlist in the parent directory"
+msgstr "मूल निर्देशिका में प्लेलिस्ट बनाएं"
+
+#: ../data/playlist_dialog.ui.h:11 ../data/org.gnome.EasyTAG.gschema.xml.h:148
+msgid "Whether to create the playlist in the parent directory"
+msgstr "क्या मूल निर्देशिका में प्लेलिस्ट बनानी है"
+
+#: ../data/playlist_dialog.ui.h:12
+msgid "Use DOS directory separator"
+msgstr "DOS निर्देशिका विभाजक का प्रयोग करें"
+
+#: ../data/playlist_dialog.ui.h:13 ../data/org.gnome.EasyTAG.gschema.xml.h:150
+msgid ""
+"Whether to use backslash as directory separator when generating playlists"
+msgstr "क्या प्लेलिस्ट बनाते समय बैकस्लैश को निर्देशिका विभाजक के रूप में प्रयोग करना है"
+
+#: ../data/playlist_dialog.ui.h:14
+msgid "Content"
+msgstr "अंतर्वस्तु"
+
+#: ../data/playlist_dialog.ui.h:15
+msgid "Write only list of files"
+msgstr "केवल फाइलों की सूची लिखें"
+
+#: ../data/playlist_dialog.ui.h:16
+msgid "Write information using filename"
+msgstr "फाइल नाम का प्रयोग करके जानकारी लिखें"
+
+#: ../data/playlist_dialog.ui.h:17
+msgid "Write information using:"
+msgstr "जानकारी का प्रयोग करके लिखें:"
+
+#: ../data/playlist_dialog.ui.h:19 ../src/application_window.c:3016
+#: ../src/browser.c:915 ../src/easytag.c:234 ../src/easytag.c:465
+#: ../src/easytag.c:472 ../src/easytag.c:597 ../src/easytag.c:604
+#: ../src/tag_area.c:1850
+msgid "_Save"
+msgstr "सहेजें (_S)"
+
+#: ../data/preferences_dialog.ui.h:1
+msgid "Preferences"
+msgstr "प्राथमिकताएं"
+
+#: ../data/preferences_dialog.ui.h:2
+msgid "Browser"
+msgstr "ब्राउज़र"
+
+#: ../data/preferences_dialog.ui.h:3
+msgid "Default Directory:"
+msgstr "तयशुदा निर्देशिका:"
+
+#: ../data/preferences_dialog.ui.h:4 ../data/org.gnome.EasyTAG.gschema.xml.h:4
+msgid "The default path to search for music files"
+msgstr "संगीत फाइलों को खोजने के लिए तयशुदा पथ"
+
+#: ../data/preferences_dialog.ui.h:5
+msgid ""
+"Load on startup the default directory or the directory passed as argument"
+msgstr "शुरुआत पर तयशुदा निर्देशिका या तर्क के रूप में पारित निर्देशिका लोड करें"
+
+#: ../data/preferences_dialog.ui.h:6 ../data/org.gnome.EasyTAG.gschema.xml.h:2
+msgid ""
+"Whether to load the default path (or the path passed as an argument) on "
+"application startup"
+msgstr "क्या अनुप्रयोग शुरुआत पर तयशुदा पथ (या तर्क के रूप में पारित पथ) लोड करना है"
+
+#: ../data/preferences_dialog.ui.h:7 ../data/org.gnome.EasyTAG.gschema.xml.h:5
+msgid "Browse subdirectories"
+msgstr "उपनिर्देशिकाएं देखें"
+
+#: ../data/preferences_dialog.ui.h:8 ../data/org.gnome.EasyTAG.gschema.xml.h:6
+msgid ""
+"Whether to search subdirectories for audio files when reading a directory in "
+"the browser"
+msgstr ""
+"क्या ब्राउज़र में किसी निर्देशिका को पढ़ते समय ऑडियो फाइलों के लिए उपनिर्देशिकाएं खोजनी हैं"
+
+#: ../data/preferences_dialog.ui.h:9 ../data/org.gnome.EasyTAG.gschema.xml.h:9
+msgid "Expand the subdirectories of the selected directory"
+msgstr "चयनित निर्देशिका की उपनिर्देशिकाओं का विस्तार करें"
+
+#: ../data/preferences_dialog.ui.h:10
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:10
+msgid ""
+"Whether to expand the subdirectories of a node in the directory browser when "
+"selecting it"
+msgstr ""
+"क्या किसी नोड का चयन करते समय निर्देशिका ब्राउज़र में उसकी उपनिर्देशिकाओं का विस्तार "
+"करना है"
+
+#: ../data/preferences_dialog.ui.h:11
+msgid "Search hidden directories"
+msgstr "छिपी निर्देशिकाएं खोजें"
+
+#: ../data/preferences_dialog.ui.h:12 ../data/org.gnome.EasyTAG.gschema.xml.h:8
+msgid ""
+"Whether to show hidden directories when showing a directory in the browser"
+msgstr "क्या ब्राउज़र में निर्देशिका दिखाते समय छिपी हुई निर्देशिकाएं दिखानी हैं"
+
+#: ../data/preferences_dialog.ui.h:13
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:43
+msgid "Sort files case-sensitively"
+msgstr "फाइलों को अक्षर-संवेदी रूप से छांटें"
+
+#: ../data/preferences_dialog.ui.h:14
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:44
+msgid "Whether file sorting is case-sensitive"
+msgstr "क्या फाइल छँटाई अक्षर-संवेदी है"
+
+#: ../data/preferences_dialog.ui.h:16
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:47
+msgid "Show the log"
+msgstr "लॉग दिखाएं"
+
+#: ../data/preferences_dialog.ui.h:17
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:48
+msgid "Whether to show the log in the main window"
+msgstr "क्या लॉग को मुख्य खिड़की में दिखाना है"
+
+#: ../data/preferences_dialog.ui.h:18
+msgid "General"
+msgstr "सामान्य"
+
+#: ../data/preferences_dialog.ui.h:19
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:39
+msgid "Show audio file header summary"
+msgstr "ऑडियो फाइल शीर्षलेख सारांश दिखाएं"
+
+#: ../data/preferences_dialog.ui.h:20
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:40
+msgid ""
+"Whether to show header information, such as bit rate and duration, for audio "
+"files"
+msgstr "क्या ऑडियो फाइलों के लिए शीर्षलेख जानकारी, जैसे कि बिट दर और अवधि, दिखानी है"
+
+#: ../data/preferences_dialog.ui.h:21
+msgid "Display changed files in list using:"
+msgstr "निम्न का प्रयोग करके सूची में परिवर्तित फाइलें प्रदर्शित करें:"
+
+#: ../data/preferences_dialog.ui.h:22
+msgid "Red color"
+msgstr "लाल रंग"
+
+#: ../data/preferences_dialog.ui.h:23
+msgid "Bold style"
+msgstr "बोल्ड शैली"
+
+#: ../data/preferences_dialog.ui.h:24
+msgid "Interface"
+msgstr "इंटरफ़ेस"
+
+#: ../data/preferences_dialog.ui.h:25
+msgid "File Settings"
+msgstr "फाइल सेटिंग्स"
+
+#: ../data/preferences_dialog.ui.h:26
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:35
+msgid "Preserve modification time when writing files"
+msgstr "फाइलें लिखते समय संशोधन समय सुरक्षित रखें"
+
+#: ../data/preferences_dialog.ui.h:27
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:36
+msgid "Whether to preserve the existing modification time when editing files"
+msgstr "क्या फाइलों को संपादित करते समय मौजूदा संशोधन समय को संरक्षित करना है"
+
+#: ../data/preferences_dialog.ui.h:28
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:37
+msgid "Update parent directory modification time when writing files"
+msgstr "फाइलें लिखते समय मूल निर्देशिका संशोधन समय को अद्यतन करें"
+
+#: ../data/preferences_dialog.ui.h:29
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:38
+msgid ""
+"Whether to update the modification time on the parent directory when editing "
+"files"
+msgstr "क्या फाइलों को संपादित करते समय मूल निर्देशिका पर संशोधन समय को अद्यतन करना है"
+
+#. Translators: a section header in the Files tab of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:31
+msgid "Filenames"
+msgstr "फाइलनाम"
+
+#: ../data/preferences_dialog.ui.h:32
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:175
+msgid "Replace illegal characters when renaming"
+msgstr "नाम बदलते समय अवैध वर्णों को बदलें"
+
+#: ../data/preferences_dialog.ui.h:33
+msgid ""
+"Convert characters which cannot be represented in filenames on the FAT32/16 "
+"and Joliet filesystems (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, ‘<’, ‘>’, ‘|’)"
+msgstr ""
+"उन वर्णों को परिवर्तित करें जिन्हें FAT32/16 और Joliet फाइलप्रणाली पर फाइल नामों में "
+"प्रदर्शित नहीं किया जा सकता (‘\\’, ‘:’, ‘;’, ‘*’, ‘?’, ‘\"’, ‘<’, ‘>’, ‘|’)"
+
+#: ../data/preferences_dialog.ui.h:34
+msgid "Convert filename extension to:"
+msgstr "फाइल नाम एक्सटेंशन को इसमें बदलें:"
+
+#: ../data/preferences_dialog.ui.h:35
+msgid "Lower Case"
+msgstr "छोटे अक्षर"
+
+#: ../data/preferences_dialog.ui.h:36
+msgid "For example, the extension will be converted to ‘.mp3’"
+msgstr "उदाहरण के लिए, एक्सटेंशन को ‘.mp3’ में बदल दिया जाएगा"
+
+#: ../data/preferences_dialog.ui.h:37
+msgid "Upper Case"
+msgstr "बड़े अक्षर"
+
+#: ../data/preferences_dialog.ui.h:38
+msgid "For example, the extension will be converted to ‘.MP3’"
+msgstr "उदाहरण के लिए, एक्सटेंशन को ‘.MP3’ में परिवर्तित कर दिया जाएगा"
+
+#: ../data/preferences_dialog.ui.h:39
+msgid "No Change"
+msgstr "कोई परिवर्तन नहीं"
+
+#: ../data/preferences_dialog.ui.h:40
+msgid "The extension will not be modified"
+msgstr "एक्सटेंशन को संशोधित नहीं किया जाएगा"
+
+#: ../data/preferences_dialog.ui.h:41
+msgid "Filename Encoding"
+msgstr "फाइलनाम एन्कोडिंग"
+
+#: ../data/preferences_dialog.ui.h:42
+msgid "Try another character encoding"
+msgstr "कोई अन्य वर्ण एनकोडिंग आज़माएं"
+
+#: ../data/preferences_dialog.ui.h:43
+msgid ""
+"Try to use the encoding associated with your locale and if this fails, try "
+"the ISO-8859-1 character encoding"
+msgstr ""
+"अपने लोकेल से संबद्ध एनकोडिंग का प्रयोग करने का प्रयास करें और यदि यह विफल हो जाए, तो "
+"ISO-8859-1 वर्ण एनकोडिंग का प्रयास करें"
+
+#: ../data/preferences_dialog.ui.h:44
+msgid "Transliterate characters into the system character encoding"
+msgstr "सिस्टम वर्ण एन्कोडिंग में वर्णों का लिप्यंतरण करें"
+
+#: ../data/preferences_dialog.ui.h:45
+msgid ""
+"Replace unsupported characters with a similar character from the target "
+"character encoding"
+msgstr "असमर्थित वर्णों को लक्ष्य वर्ण एन्कोडिंग से समान वर्ण से प्रतिस्थापित करें"
+
+#: ../data/preferences_dialog.ui.h:46
+msgid ""
+"Use the system character encoding and silently discard unsupported characters"
+msgstr "सिस्टम वर्ण एनकोडिंग का प्रयोग करें और असमर्थित वर्णों को चुपचाप हटा दें"
+
+#: ../data/preferences_dialog.ui.h:47
+msgid ""
+"Discard characters which cannot be represented in the target character "
+"encoding"
+msgstr "उन वर्णों को त्यागें जिन्हें लक्ष्य वर्ण एन्कोडिंग में प्रदर्शित नहीं किया जा सकता"
+
+#: ../data/preferences_dialog.ui.h:48
+msgid "Files"
+msgstr "फाइल"
+
+#: ../data/preferences_dialog.ui.h:49
+msgid "Automatically complete date field"
+msgstr "स्वचालित रूप से दिनांक क्षेत्र पूर्ण करें"
+
+#: ../data/preferences_dialog.ui.h:50
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:82
+msgid "Whether to automatically complete the date tag"
+msgstr "दिनांक टैग को स्वचालित रूप से पूरा करना है या नहीं"
+
+#: ../data/preferences_dialog.ui.h:51
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:87
+msgid "Automatically select the type of the image based on its filename"
+msgstr "फाइल नाम के आधार पर छवि के प्रकार का स्वचालित रूप से चयन करें"
+
+#: ../data/preferences_dialog.ui.h:52
+msgid ""
+"Whether to, when adding cover art, automatically select a type for an image "
+"based on its filename"
+msgstr ""
+"कवर आर्ट जोड़ते समय, फाइल नाम के आधार पर छवि के लिए स्वचालित रूप से प्रकार का चयन "
+"करना है या नहीं"
+
+#: ../data/preferences_dialog.ui.h:53
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:93
+msgid "Preserve the tag field focus"
+msgstr "टैग क्षेत्र फोकस को सुरक्षित रखें"
+
+#: ../data/preferences_dialog.ui.h:54
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:94
+msgid "Whether to preserve focus on the current tag field when switching file"
+msgstr "फाइल स्विच करते समय वर्तमान टैग क्षेत्र पर फोकस बनाए रखना है या नहीं"
+
+#: ../data/preferences_dialog.ui.h:55
+msgid "Pad the number of digits in the disc field to:"
+msgstr "डिस्क क्षेत्र में अंकों की संख्या बढ़ाएं:"
+
+#: ../data/preferences_dialog.ui.h:56
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:84
+msgid "Whether the disc number tag field should be padded with leading zeroes"
+msgstr "क्या डिस्क नंबर टैग क्षेत्र को अग्रणी शून्य से पैड किया जाना चाहिए"
+
+#: ../data/preferences_dialog.ui.h:57
+msgid "Pad the number of digits in the track field to:"
+msgstr "ट्रैक क्षेत्र में अंकों की संख्या बढ़ाएं:"
+
+#: ../data/preferences_dialog.ui.h:58
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:90
+msgid "Whether the track number tag field should be padded with leading zeroes"
+msgstr "क्या ट्रैक नंबर टैग क्षेत्र को अग्रणी शून्य से पैड किया जाना चाहिए"
+
+#: ../data/preferences_dialog.ui.h:59
+msgid "Splitting"
+msgstr "विभाजन"
+
+#: ../data/preferences_dialog.ui.h:60
+msgid ""
+"For Vorbis tags, selected fields will be split at dashes and saved as "
+"separate tags"
+msgstr ""
+"Vorbis टैग के लिए, चयनित क्षेत्रों डैश पर विभाजित किए जाएंगे और अलग टैग के रूप में सहेजे जाएंगे"
+
+#: ../data/preferences_dialog.ui.h:62
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:186
+msgid "Whether to split title fields at a “ - ” separator in Ogg comments"
+msgstr "Ogg टिप्पणियों में शीर्षक क्षेत्रों को “ - ” विभाजक पर विभाजित करना है या नहीं"
+
+#: ../data/preferences_dialog.ui.h:64
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:188
+msgid "Whether to split artist fields at a “ - ” separator in Ogg comments"
+msgstr "Ogg टिप्पणियों में कलाकार क्षेत्रों को “ - ” विभाजक पर विभाजित करना है या नहीं"
+
+#: ../data/preferences_dialog.ui.h:66
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:190
+msgid "Whether to split album fields at a “ - ” separator in Ogg comments"
+msgstr "क्या Ogg टिप्पणियों में एल्बम क्षेत्रों को “ - ” विभाजक पर विभाजित करना है"
+
+#: ../data/preferences_dialog.ui.h:68
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:192
+msgid "Whether to split genre fields at a “ - ” separator in Ogg comments"
+msgstr "क्या Ogg टिप्पणियों में शैली क्षेत्रों को “ - ” विभाजक पर विभाजित करना है"
+
+#: ../data/preferences_dialog.ui.h:70
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:194
+msgid "Whether to split comment fields at a “ - ” separator in Ogg comments"
+msgstr "क्या Ogg टिप्पणियों में टिप्पणी क्षेत्रों को “ - ” विभाजक पर विभाजित करना है"
+
+#: ../data/preferences_dialog.ui.h:72
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:196
+msgid "Whether to split composer fields at a “ - ” separator in Ogg comments"
+msgstr ""
+"क्या Ogg टिप्पणियों में संगीतकार क्षेत्रों को “ - ” विभाजक पर विभाजित किया जाना चाहिए"
+
+#: ../data/preferences_dialog.ui.h:73
+msgid "Original artist"
+msgstr "मूल कलाकार"
+
+#: ../data/preferences_dialog.ui.h:74
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:198
+msgid ""
+"Whether to split original artist fields at a “ - ” separator in Ogg comments"
+msgstr "क्या Ogg टिप्पणियों में मूल कलाकार क्षेत्रों को “ - ” विभाजक पर विभाजित करना है"
+
+#: ../data/preferences_dialog.ui.h:75
+msgid "Tags"
+msgstr "टैग"
+
+#: ../data/preferences_dialog.ui.h:76
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:51
+msgid "Strip ID3 tags if all ID3 tags are empty"
+msgstr "यदि सभी ID3 टैग रिक्त हों तो ID3 टैग हटा दें"
+
+#: ../data/preferences_dialog.ui.h:77
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:52
+msgid ""
+"Whether to remove the ID3 tag from the audio file if all the individual tag "
+"fields are empty"
+msgstr "यदि सभी व्यक्तिगत टैग क्षेत्र खाली हैं तो क्या ऑडियो फाइल से ID3 टैग को हटाना है"
+
+#: ../data/preferences_dialog.ui.h:78
+msgid "Non-standard encoding for reading ID3 tags:"
+msgstr "ID3 टैग पढ़ने के लिए गैर-मानक एन्कोडिंग:"
+
+#: ../data/preferences_dialog.ui.h:79
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:50
+msgid "Whether to use a non-standard character encoding when reading ID3 tags"
+msgstr "क्या ID3 टैग पढ़ते समय गैर-मानक वर्ण एन्कोडिंग का प्रयोग किया जाए"
+
+#: ../data/preferences_dialog.ui.h:80
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:60
+msgid "Choose the character set to be used when reading ID3v1 and ID3v2 tags"
+msgstr "ID3v1 और ID3v2 टैग पढ़ते समय प्रयोग किए जाने वाले वर्ण समूह का चयन करें"
+
+#: ../data/preferences_dialog.ui.h:81
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: ../data/preferences_dialog.ui.h:82
+msgid "Write ID3v2 tag"
+msgstr "ID3v2 टैग लिखें"
+
+#: ../data/preferences_dialog.ui.h:83
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:62
+msgid "Whether to write ID3v2 tags when writing ID3 tags into audio files"
+msgstr "ऑडियो फाइलों में ID3 टैग लिखते समय क्या ID3v2 टैग लिखना है"
+
+#: ../data/preferences_dialog.ui.h:84
+msgid "Version:"
+msgstr "संस्करण:"
+
+#: ../data/preferences_dialog.ui.h:85
+msgid ""
+"Select the ID3v2 tag version to write:\n"
+"• ID3v2.3 is written using id3lib,\n"
+"• ID3v2.4 is written using libid3tag (recommended)"
+msgstr ""
+"लिखने के लिए ID3v2 टैग संस्करण चुनें:\n"
+"• ID3v2.3 को id3lib का प्रयोग करके लिखा गया है,\n"
+"• ID3v2.4 को libid3tag का प्रयोग करके लिखा गया है (अनुशंसित)"
+
+#: ../data/preferences_dialog.ui.h:88
+msgid "Character encoding:"
+msgstr "वर्ण एनकोडिंग:"
+
+#: ../data/preferences_dialog.ui.h:89
+msgid "Unicode"
+msgstr "यूनिकोड"
+
+#: ../data/preferences_dialog.ui.h:90
+msgid ""
+"Choose the Unicode character encoding to be used when writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखते समय प्रयोग किए जाने वाले यूनिकोड वर्ण एन्कोडिंग का चयन करें"
+
+#: ../data/preferences_dialog.ui.h:92
+msgid ""
+"Override the standard Unicode character encoding to be used when writing "
+"ID3v2 tags"
+msgstr ""
+"ID3v2 टैग लिखते समय प्रयोग किए जाने वाले मानक यूनिकोड वर्ण एन्कोडिंग को अध्यारोहण करें"
+
+#: ../data/preferences_dialog.ui.h:93
+msgid "When encoding conversion fails:"
+msgstr "जब एनकोडिंग रूपांतरण विफल हो जाता है:"
+
+#: ../data/preferences_dialog.ui.h:94
+msgid "Report error"
+msgstr "त्रुटि रिपोर्ट करें"
+
+#: ../data/preferences_dialog.ui.h:95
+msgid ""
+"Display an error message when a character cannot be represented in the "
+"target character encoding and keep the original character"
+msgstr ""
+"जब कोई वर्ण लक्ष्य वर्ण एन्कोडिंग में प्रदर्शित नहीं किया जा सकता है तो त्रुटि संदेश प्रदर्शित "
+"करें और मूल वर्ण को बनाए रखें"
+
+#: ../data/preferences_dialog.ui.h:96
+msgid "Transliterate"
+msgstr "लिप्यन्तरण"
+
+#: ../data/preferences_dialog.ui.h:97
+msgid "Discard"
+msgstr "त्यागें"
+
+#: ../data/preferences_dialog.ui.h:98
+msgid "Automatically convert old ID3v2 tag versions"
+msgstr "पुराने ID3v2 टैग संस्करणों को स्वचालित रूप से परिवर्तित करें"
+
+#: ../data/preferences_dialog.ui.h:99
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:66
+msgid ""
+"Whether to convert ID3 tags written against old version of the "
+"specification, such as ID3v2.2, to newer ones, such as ID3v2.3 or ID3v2.4"
+msgstr ""
+"क्या विनिर्देश के पुराने संस्करण, जैसे ID3v2.2, के विरुद्ध लिखे गए ID3 टैग को नए, जैसे "
+"ID3v2.3 या ID3v2.4 में परिवर्तित करना है"
+
+#: ../data/preferences_dialog.ui.h:100
+msgid "Use CRC-32"
+msgstr "CRC-32 का प्रयोग करें"
+
+#: ../data/preferences_dialog.ui.h:101
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:70
+msgid "Whether to embed a CRC-32 checksum of the audio file data in ID3v2 tags"
+msgstr "क्या ID3v2 टैग में ऑडियो फाइल डेटा का CRC-32 चेकसम सन्निहित करना है"
+
+#: ../data/preferences_dialog.ui.h:102
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:67
+msgid "Compress data in ID3v2 tags"
+msgstr "ID3v2 टैग में डेटा संपीड़ित करें"
+
+#: ../data/preferences_dialog.ui.h:103
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:68
+msgid "Whether to compress data in ID3v2 tags"
+msgstr "क्या ID3v2 टैग में डेटा संपीड़ित करना है"
+
+#: ../data/preferences_dialog.ui.h:104
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:71
+msgid "Use text-only genre in ID3v2 tags"
+msgstr "ID3v2 टैग में केवल पाठ शैली का प्रयोग करें"
+
+#: ../data/preferences_dialog.ui.h:105
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:72
+msgid ""
+"Whether to use only a string, and not the integer-base ID3v1 genre field, "
+"when writing a genre field to ID3v2 tags"
+msgstr ""
+"ID3v2 टैग के लिए एक शैली क्षेत्र लिखते समय, क्या केवल एक स्ट्रिंग का प्रयोग करना है, पूर्णांक-"
+"आधार ID3v1 शैली क्षेत्र का नहीं"
+
+#: ../data/preferences_dialog.ui.h:106
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: ../data/preferences_dialog.ui.h:107
+msgid "Write ID3v1 tag"
+msgstr "ID3v1 टैग लिखें"
+
+#: ../data/preferences_dialog.ui.h:108
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:54
+msgid "Whether to write ID3v1 tags when writing ID3 tags into audio files"
+msgstr "ऑडियो फाइलों में ID3 टैग लिखते समय क्या ID3v1 टैग लिखना है"
+
+#: ../data/preferences_dialog.ui.h:109
+msgid "Choose the character set to be used when writing ID3v1 tag"
+msgstr "ID3v1 टैग लिखते समय प्रयोग किए जाने वाले वर्ण समूह का चयन करें"
+
+#: ../data/preferences_dialog.ui.h:110
+msgid "ID3 Tags"
+msgstr "ID3 टैग"
+
+#: ../data/preferences_dialog.ui.h:111
+msgid "Character Conversion"
+msgstr "वर्ण रूपांतरण"
+
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:113
+msgid "Fill Tag Scanner"
+msgstr "टैग स्कैनर भरें"
+
+#: ../data/preferences_dialog.ui.h:115
+#, no-c-format
+msgid "Convert underscores and ‘%20’ to spaces"
+msgstr "अंडरस्कोर और ‘%20’ को रिक्त स्थान में बदलें"
+
+#: ../data/preferences_dialog.ui.h:117
+#, no-c-format
+msgid "Convert spaces and ‘%20’ to underscores"
+msgstr "रिक्त स्थान और ‘%20’ को अंडरस्कोर में बदलें"
+
+#: ../data/preferences_dialog.ui.h:118
+msgid "No conversion"
+msgstr "कोई रूपांतरण नहीं"
+
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:120
+msgid "Rename File and Directory Scanner"
+msgstr "फाइल और निर्देशिका स्कैनर का नाम बदलें"
+
+#: ../data/preferences_dialog.ui.h:121 ../data/scan_dialog.ui.h:91
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:133 ../src/tag_area.c:894
+msgid "Remove spaces"
+msgstr "रिक्त स्थान हटाएं"
+
+#. Translators: a section header in the Scanner section of the preferences dialog.
+#: ../data/preferences_dialog.ui.h:123
+msgid "Process Fields Scanner"
+msgstr "क्षेत्र स्कैनर को संसाधित करें"
+
+#: ../data/preferences_dialog.ui.h:124
+msgid "Upper-case the first letters of all words"
+msgstr "सभी शब्दों के पहले अक्षर बड़े अक्षरों में लिखें"
+
+#: ../data/preferences_dialog.ui.h:125
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:130
+msgid ""
+"Whether to upper-case the first letter of all words, including prepositions "
+"and other short words such as “feat.”, when processing tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय, सभी शब्दों के पहले अक्षर को बड़े-वर्ण में लिखना है या नहीं, "
+"जिसमें पूर्वसर्ग और अन्य छोटे शब्द जैसे \"feat.\" शामिल हैं"
+
+#: ../data/preferences_dialog.ui.h:126
+msgid "Fields"
+msgstr "क्षेत्र"
+
+#: ../data/preferences_dialog.ui.h:127
+msgid "Overwrite fields when scanning tags"
+msgstr "टैग स्कैन करते समय क्षेत्रों को अधिलेखित करें"
+
+#: ../data/preferences_dialog.ui.h:128
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:99
+msgid ""
+"Whether to overwrite the tag field values when filling tags. Otherwise, only "
+"blank tag fields will be filled"
+msgstr ""
+"टैग भरते समय टैग क्षेत्र मानों को अधिलेखित करना है या नहीं। अन्यथा, केवल रिक्त टैग क्षेत्र ही "
+"भरे जाएंगे"
+
+#: ../data/preferences_dialog.ui.h:129
+msgid "Set this text as default comment:"
+msgstr "इस पाठ को तयशुदा टिप्पणी के रूप में निर्धारित करें:"
+
+#: ../data/preferences_dialog.ui.h:130
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:101
+msgid ""
+"Whether to set the comment tag field to the provided default value when "
+"filling tags"
+msgstr "क्या टैग भरते समय टिप्पणी टैग क्षेत्र को दिए गए तयशुदा मान पर निर्धारित करना है"
+
+#: ../data/preferences_dialog.ui.h:131
+msgid "Use CRC-32 as the default comment (for files with ID3 tags only)"
+msgstr "तयशुदा टिप्पणी के रूप में CRC-32 का प्रयोग करें (केवल ID3 टैग वाली फाइलों के लिए)"
+
+#: ../data/preferences_dialog.ui.h:132
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:105
+msgid ""
+"Whether to use the CRC-32 of the audio file data as the default comment, for "
+"files with ID3 tags only"
+msgstr ""
+"क्या ऑडियो फाइल डेटा के CRC-32 को तयशुदा टिप्पणी के रूप में प्रयोग किया जाना चाहिए, "
+"केवल ID3 टैग वाली फाइलों के लिए"
+
+#: ../data/preferences_dialog.ui.h:133
+msgid "Scanner"
+msgstr "स्कैनर"
+
+#: ../data/preferences_dialog.ui.h:134
+msgid "Automatic Search Servers"
+msgstr "सर्वरों को स्वचालित रूप से खोजें"
+
+#: ../data/preferences_dialog.ui.h:135
+msgid "Host:"
+msgstr "होस्ट:"
+
+#: ../data/preferences_dialog.ui.h:136
+msgid "Port:"
+msgstr "पोर्ट:"
+
+#: ../data/preferences_dialog.ui.h:137
+msgid "CGI Path:"
+msgstr "CGI पथ:"
+
+#: ../data/preferences_dialog.ui.h:138
+msgid "Manual Search Server"
+msgstr "मैनुअल खोज सर्वर"
+
+#: ../data/preferences_dialog.ui.h:139
+msgid "Results List"
+msgstr "परिणाम सूची"
+
+#: ../data/preferences_dialog.ui.h:140
+msgid ""
+"Select corresponding file (according to position or DLM if activated below)"
+msgstr "संगत फाइल का चयन करें (स्थिति के अनुसार या DLM यदि नीचे सक्रिय है)"
+
+#: ../data/preferences_dialog.ui.h:141
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:26
+msgid ""
+"Whether to select the file in the file list which matches the position in "
+"the CDDB results list"
+msgstr ""
+"क्या फाइल सूची में उस फाइल का चयन करना है जो CDDB परिणाम सूची में स्थिति से मेल खाती है"
+
+#: ../data/preferences_dialog.ui.h:142
+msgid ""
+"Use the Levenshtein algorithm (DLM) to match results (using title) with "
+"audio files (using filename)"
+msgstr ""
+"परिणामों (शीर्षक का प्रयोग करके) को ऑडियो फाइलों (फाइल नाम का प्रयोग करके) से मिलान "
+"करने के लिए लेवेनश्टाइन एल्गोरिथ्म (DLM) का प्रयोग करें"
+
+#: ../data/preferences_dialog.ui.h:144
+msgid "CDDB"
+msgstr "CDDB"
+
+#: ../data/preferences_dialog.ui.h:145
+msgid "Confirmation"
+msgstr "पुष्टीकरण"
+
+#: ../data/preferences_dialog.ui.h:146
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:106
+msgid "Confirm before writing tags"
+msgstr "टैग लिखने से पहले पुष्टि करें"
+
+#: ../data/preferences_dialog.ui.h:147
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:107
+msgid ""
+"Whether to ask for confirmation from the user before writing tags to audio "
+"files"
+msgstr "क्या ऑडियो फाइलों में टैग लिखने से पहले उपयोक्ता से पुष्टि मांगनी चाहिए"
+
+#: ../data/preferences_dialog.ui.h:148
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:108
+msgid "Confirm before renaming a file"
+msgstr "फाइल का नाम बदलने से पहले पुष्टि करें"
+
+#: ../data/preferences_dialog.ui.h:149
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:109
+msgid "Whether to ask for confirmation from the user before renaming a file"
+msgstr "क्या फाइल का नाम बदलने से पहले उपयोक्ता से पुष्टि लेनी है"
+
+#: ../data/preferences_dialog.ui.h:150
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:112
+msgid "Confirm before deleting a file"
+msgstr "फाइल हटाने से पहले पुष्टि करें"
+
+#: ../data/preferences_dialog.ui.h:151
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:113
+msgid "Whether to ask for confirmation from the user before deleting a file"
+msgstr "क्या किसी फाइल को हटाने से पहले उपयोक्ता से पुष्टि मांगनी है"
+
+#: ../data/preferences_dialog.ui.h:152
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:110
+msgid "Confirm before writing a playlist"
+msgstr "प्लेलिस्ट लिखने से पहले पुष्टि करें"
+
+#: ../data/preferences_dialog.ui.h:153
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:111
+msgid "Whether to ask for confirmation from the user before writing a playlist"
+msgstr "क्या प्लेलिस्ट लिखने से पहले उपयोक्ता से पुष्टि मांगनी है"
+
+#: ../data/preferences_dialog.ui.h:154
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:114
+msgid "Confirm before losing unsaved changes to files"
+msgstr "फाइलों में सहेजे न गए परिवर्तनों को खोने से पहले पुष्टि करें"
+
+#: ../data/preferences_dialog.ui.h:155
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:115
+msgid ""
+"Whether to ask for confirmation from the user before performing an operation "
+"that would lose unsaved changes on files"
+msgstr ""
+"क्या किसी ऐसे अभियान को करने से पहले उपयोक्ता से पुष्टि लेनी चाहिए जिससे फाइलों में सहेजे न "
+"गए परिवर्तन नष्ट हो जाएं"
+
+#: ../data/preferences_dialog.ui.h:156
+msgid "Scanner Dialog"
+msgstr "स्कैनर संवाद"
+
+#: ../data/preferences_dialog.ui.h:157
+msgid "Show the scanner dialog on startup"
+msgstr "शुरुआत पर स्कैनर संवाद दिखाएं"
+
+#: ../data/preferences_dialog.ui.h:158
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:182
+msgid "Whether to show the scanner window on application startup"
+msgstr "क्या अनुप्रयोग शुरुआत पर स्कैनर खिड़की दिखानी है"
+
+#: ../data/preferences_dialog.ui.h:159
+msgid "Application"
+msgstr "अनुप्रयोग"
+
+#: ../data/scan_dialog.ui.h:1
+msgid "Tag and Filename Scan"
+msgstr "टैग और फाइलनाम स्कैन"
+
+#: ../data/scan_dialog.ui.h:2
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse filename and "
+"directory. Used to fill in tag fields"
+msgstr ""
+"फाइल नाम और निर्देशिका का विश्लेषण करने के लिए कोड (किंवदंती देखें) का प्रयोग करके मास्क "
+"चुनें या टाइप करें। टैग क्षेत्र भरने के लिए प्रयोग किया जाता है"
+
+#: ../data/scan_dialog.ui.h:3
+msgid "Fill tag preview"
+msgstr "टैग पूर्वावलोकन भरें"
+
+#: ../data/scan_dialog.ui.h:4
+msgid "Mask Editor"
+msgstr "मास्क संपादक"
+
+#: ../data/scan_dialog.ui.h:5
+msgid "Create a new mask"
+msgstr "नया मास्क बनाएं"
+
+#: ../data/scan_dialog.ui.h:6
+msgid "Move the selected mask up"
+msgstr "चयनित मास्क को ऊपर ले जाएं"
+
+#: ../data/scan_dialog.ui.h:7
+msgid "Move the selected mask down"
+msgstr "चयनित मास्क को नीचे ले जाएं"
+
+#: ../data/scan_dialog.ui.h:8
+msgid "Duplicate the selected mask"
+msgstr "चयनित मास्क की प्रतिलिपि बनाएं"
+
+#: ../data/scan_dialog.ui.h:9
+msgid "Add default masks"
+msgstr "तयशुदा मास्क जोड़ें"
+
+#: ../data/scan_dialog.ui.h:10
+msgid "Remove the selected mask"
+msgstr "चयनित मास्क हटाएं"
+
+#: ../data/scan_dialog.ui.h:11
+msgid "Save masks"
+msgstr "मास्क सहेजें"
+
+#: ../data/scan_dialog.ui.h:12
+msgid "Legend"
+msgstr "किंवदंती"
+
+#: ../data/scan_dialog.ui.h:14
+#, no-c-format
+msgid "%a: artist"
+msgstr "%a: कलाकार"
+
+#: ../data/scan_dialog.ui.h:16
+#, no-c-format
+msgid "%z: album artist"
+msgstr "%z: एल्बम कलाकार"
+
+#: ../data/scan_dialog.ui.h:18
+#, no-c-format
+msgid "%b: album"
+msgstr "%b: एल्बम"
+
+#: ../data/scan_dialog.ui.h:20
+#, no-c-format
+msgid "%c: comment"
+msgstr "%c: टिप्पणी"
+
+#: ../data/scan_dialog.ui.h:22
+#, no-c-format
+msgid "%p: composer"
+msgstr "%p: संगीतकार"
+
+#: ../data/scan_dialog.ui.h:24
+#, no-c-format
+msgid "%r: copyright"
+msgstr "%r: कॉपीराइट"
+
+#: ../data/scan_dialog.ui.h:26
+#, no-c-format
+msgid "%d: disc number"
+msgstr "%d: डिस्क संख्या"
+
+#: ../data/scan_dialog.ui.h:28
+#, no-c-format
+msgid "%e: encoded by"
+msgstr "%e: इनके द्वारा एनकोड"
+
+#: ../data/scan_dialog.ui.h:30
+#, no-c-format
+msgid "%g: genre"
+msgstr "%g: शैली"
+
+#: ../data/scan_dialog.ui.h:32
+#, no-c-format
+msgid "%i: ignored"
+msgstr "%i: अनदेखा किया गया"
+
+#: ../data/scan_dialog.ui.h:34
+#, no-c-format
+msgid "%l: number of tracks"
+msgstr "%l: ट्रैक्स की संख्या"
+
+#: ../data/scan_dialog.ui.h:36
+#, no-c-format
+msgid "%o: original artist"
+msgstr "%o: मूल कलाकार"
+
+#: ../data/scan_dialog.ui.h:38
+#, no-c-format
+msgid "%n: track number"
+msgstr "%n: ट्रैक संख्या"
+
+#: ../data/scan_dialog.ui.h:40
+#, no-c-format
+msgid "%t: title"
+msgstr "%t: शीर्षक"
+
+#: ../data/scan_dialog.ui.h:42
+#, no-c-format
+msgid "%u: URL"
+msgstr "%u: URL"
+
+#: ../data/scan_dialog.ui.h:44
+#, no-c-format
+msgid "%x: number of discs"
+msgstr "%x: डिस्क की संख्या"
+
+#: ../data/scan_dialog.ui.h:46
+#, no-c-format
+msgid "%y: year"
+msgstr "%y: वर्ष"
+
+#: ../data/scan_dialog.ui.h:47
+msgid "Fill Tag"
+msgstr "टैग भरें"
+
+#: ../data/scan_dialog.ui.h:48
+msgid "Prefix mask with current directory"
+msgstr "वर्तमान निर्देशिका के साथ उपसर्ग मास्क"
+
+#: ../data/scan_dialog.ui.h:49
+msgid ""
+"Select or type in a mask using codes (see Legend) to parse tag fields. Used "
+"to rename the file.\n"
+"Use ‘/’ to make directories. If the first character is ‘/’, it is an "
+"absolute path, otherwise it is relative to the old path"
+msgstr ""
+"टैग क्षेत्रों का विश्लेषण करने के लिए कोड (किंवदंती देखें) का प्रयोग करके मास्क चुनें या टाइप "
+"करें। फाइल का नाम बदलने के लिए प्रयोग किया जाता है।\n"
+"निर्देशिका बनाने के लिए ‘/’ का प्रयोग करें। यदि पहला अक्षर ‘/’ है, तो यह एक निरपेक्ष पथ "
+"है, अन्यथा यह पुराने पथ से संबंधित है"
+
+#: ../data/scan_dialog.ui.h:51
+msgid "Rename file preview"
+msgstr "फाइल पूर्वावलोकन का नाम बदलें"
+
+#. Only filename changed
+#: ../data/scan_dialog.ui.h:52 ../src/easytag.c:571
+msgid "Rename File"
+msgstr "फाइल नाम बदलें"
+
+#: ../data/scan_dialog.ui.h:53
+msgid "Tag Fields"
+msgstr "टैग क्षेत्र"
+
+#: ../data/scan_dialog.ui.h:55
+msgid "Process filename"
+msgstr "फाइलनाम संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:57
+msgid "Process title field"
+msgstr "शीर्षक क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:59
+msgid "Process artist field"
+msgstr "कलाकार क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:61
+msgid "Process album artist field"
+msgstr "एल्बम कलाकार क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:63
+msgid "Process album field"
+msgstr "एल्बम क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:65
+msgid "Process genre field"
+msgstr "शैली क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:67
+msgid "Process comment field"
+msgstr "टिप्पणी क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:69
+msgid "Process composer field"
+msgstr "संगीतकार क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:70
+msgid "Orig. Artist"
+msgstr "मूल कलाकार"
+
+#: ../data/scan_dialog.ui.h:71
+msgid "Process original artist field"
+msgstr "मूल कलाकार क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:73
+msgid "Process copyright field"
+msgstr "कॉपीराइट क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:75
+msgid "Process URL field"
+msgstr "URL क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:77
+msgid "Process encoded-by field"
+msgstr "इनके-द्वारा-एन्कोड क्षेत्र को संसाधित करें"
+
+#: ../data/scan_dialog.ui.h:78
+msgid "Capitalization"
+msgstr "अक्षर बड़ा करें"
+
+#: ../data/scan_dialog.ui.h:79
+msgid "Capitalize all"
+msgstr "सभी अक्षरों को बड़ा करें"
+
+#: ../data/scan_dialog.ui.h:80
+msgid ""
+"Whether to upper-case all characters of the tag when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय टैग के सभी वर्णों को बड़े-अक्षर में लिखना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:81
+msgid "Lowercase all"
+msgstr "सभी अक्षरों को छोटा करें"
+
+#: ../data/scan_dialog.ui.h:82
+msgid ""
+"Whether to lower-case all characters of the tag when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय टैग के सभी वर्णों को छोटे-अक्षर में लिखना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:83
+msgid "Capitalize first letter"
+msgstr "पहला अक्षर बड़ा करें"
+
+#: ../data/scan_dialog.ui.h:84
+msgid ""
+"Whether to upper-case the first letter of the tag when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय टैग के पहले अक्षर को बड़े-अक्षर में लिखना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:85
+msgid "Capitalize the first letter of each word"
+msgstr "प्रत्येक शब्द का पहला अक्षर बड़ा लिखें"
+
+#: ../data/scan_dialog.ui.h:86
+msgid ""
+"Whether to upper-case the first letter of each word when processing tag "
+"fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय प्रत्येक शब्द के पहले अक्षर को बड़े अक्षर में लिखना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:87
+msgid "Detect Roman numerals"
+msgstr "रोमन अंकों का पता लगाएं"
+
+#: ../data/scan_dialog.ui.h:88 ../data/org.gnome.EasyTAG.gschema.xml.h:132
+msgid ""
+"Whether to detect Roman numerals when applying upper-case conversions while "
+"processing tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय बड़े-अक्षर रूपांतरण लागू करते समय रोमन अंकों का पता लगाना "
+"है या नहीं"
+
+#: ../data/scan_dialog.ui.h:89
+msgid "Do not change capitalization"
+msgstr "बड़े-अक्षरों में बदलाव न करें"
+
+#: ../data/scan_dialog.ui.h:90
+msgid "Spaces Conversions"
+msgstr "रिक्त स्थान रूपांतरण"
+
+#: ../data/scan_dialog.ui.h:92 ../data/org.gnome.EasyTAG.gschema.xml.h:134
+msgid "Whether to remove all spaces when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय सभी रिक्त स्थान हटाना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:93
+msgid "Insert a space before uppercase letters"
+msgstr "बड़े अक्षरों से पहले एक रिक्त स्थान डालें"
+
+#: ../data/scan_dialog.ui.h:94 ../data/org.gnome.EasyTAG.gschema.xml.h:136
+msgid ""
+"Whether to insert spaces before capital letters when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय बड़े अक्षरों से पहले रिक्त स्थान डालना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:95
+msgid "Remove duplicate spaces and underscores"
+msgstr "डुप्लिकेट रिक्त स्थान और अंडरस्कोर हटाएं"
+
+#: ../data/scan_dialog.ui.h:96 ../data/org.gnome.EasyTAG.gschema.xml.h:138
+msgid ""
+"Whether to remove duplicate spaces and underscores when processing tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय डुप्लिकेट रिक्त स्थान और अंडरस्कोर को हटाना है या नहीं"
+
+#: ../data/scan_dialog.ui.h:97
+msgid "Do not change word separators"
+msgstr "शब्द विभाजक न बदलें"
+
+#: ../data/scan_dialog.ui.h:98
+msgid "Character Conversions"
+msgstr "वर्ण रूपांतरण"
+
+#: ../data/scan_dialog.ui.h:100 ../src/tag_area.c:850
+#, no-c-format
+msgid "Convert ‘_’ and ‘%20’ to spaces"
+msgstr "‘_’ और ‘%20’ को रिक्त स्थान में बदलें"
+
+#: ../data/scan_dialog.ui.h:102
+#, no-c-format
+msgid ""
+"The underscore character or the string ‘%20’ is replaced by one space. "
+"Example, before: ‘Text%20In%20An_Entry‘, after: ‘Text In An Entry’"
+msgstr ""
+"अंडरस्कोर वर्ण या स्ट्रिंग '%20' को एक स्थान से बदल दिया गया है। उदाहरण के लिए, पहले: "
+"‘Text%20In%20An_Entry‘, बाद में: ‘Text In An Entry’"
+
+#: ../data/scan_dialog.ui.h:103 ../src/tag_area.c:856
+msgid "Convert spaces to underscores"
+msgstr "रिक्त स्थानों को अंडरस्कोर में बदलें"
+
+#: ../data/scan_dialog.ui.h:104
+msgid ""
+"The space character is replaced by one underscore character. Example, "
+"before: ‘Text In An Entry’, after: ‘Text_In_An_Entry’"
+msgstr ""
+"रिक्त वर्ण को एक अंडरस्कोर वर्ण से बदल दिया जाता है। उदाहरण के लिए, पहले: ‘Text In An "
+"Entry’, बाद में: ‘Text_In_An_Entry’"
+
+#: ../data/scan_dialog.ui.h:105
+msgid "Convert:"
+msgstr "रूपांतरित करें:"
+
+#: ../data/scan_dialog.ui.h:106
+msgid "Replace a string by another one. Note that the search is case sensitive"
+msgstr "एक स्ट्रिंग को दूसरे से बदलें। ध्यान दें कि खोज अक्षर संवेदनशील है"
+
+#: ../data/scan_dialog.ui.h:107
+msgid "to: "
+msgstr "इसमें: "
+
+#: ../data/scan_dialog.ui.h:108
+msgid "Do not convert"
+msgstr "रूपांतरित न करें"
+
+#: ../data/scan_dialog.ui.h:110
+msgid "Show / Hide Masks Editor"
+msgstr "मास्क संपादक दिखाएं / छिपाएं"
+
+#: ../data/scan_dialog.ui.h:111
+msgid "Show / Hide Legend"
+msgstr "किंवदंती दिखाएं / छिपाएं"
+
+#: ../data/scan_dialog.ui.h:112
+msgid "Scanner Preferences"
+msgstr "स्कैनर प्राथमिकताएं"
+
+#: ../data/scan_dialog.ui.h:114
+msgid "Scan Files"
+msgstr "फाइलें स्कैन करें"
+
+#: ../data/scan_dialog.ui.h:115
+msgid "Scan selected files"
+msgstr "चयनित फाइलें स्कैन करें"
+
+#: ../data/search_dialog.ui.h:1
+msgid "Find Files"
+msgstr "फाइलें खोजें"
+
+#: ../data/search_dialog.ui.h:2
+msgid "Search:"
+msgstr "खोजें:"
+
+#: ../data/search_dialog.ui.h:3
+msgid ""
+"Type the text to search for in the file list, or leave the field empty to "
+"display all files"
+msgstr ""
+"फाइल सूची में खोजने के लिए पाठ लिखें, या सभी फाइलें प्रदर्शित करने के लिए क्षेत्र को रिक्त "
+"छोड़ दें"
+
+#: ../data/search_dialog.ui.h:4
+msgid "_Find"
+msgstr "खोजें (_F)"
+
+#: ../data/search_dialog.ui.h:5
+msgid "In:"
+msgstr "अंदर:"
+
+#. This option is for the previous
+#: ../data/search_dialog.ui.h:7
+msgid "the Filename"
+msgstr "फाइल का नाम"
+
+#. This option is for the previous
+#: ../data/search_dialog.ui.h:9
+msgid "the Tag"
+msgstr "टैग"
+
+#: ../data/search_dialog.ui.h:10
+msgid "Case sensitive"
+msgstr "अक्षर संवेदनशील"
+
+#: ../data/search_dialog.ui.h:17
+msgid "CD"
+msgstr "CD"
+
+#: ../data/tag_area.ui.h:1 ../src/tag_area.c:2991
+msgid "Tag"
+msgstr "टैग"
+
+#: ../data/tag_area.ui.h:2
+msgid "Title:"
+msgstr "शीर्षक:"
+
+#: ../data/tag_area.ui.h:3
+msgid "Tag selected files with this title"
+msgstr "चयनित फाइलों को इस शीर्षक से टैग करें"
+
+#: ../data/tag_area.ui.h:4
+msgid "Artist:"
+msgstr "कलाकार:"
+
+#: ../data/tag_area.ui.h:5
+msgid "Tag selected files with this artist"
+msgstr "चयनित फाइलों को इस कलाकार के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:6
+msgid "Album artist:"
+msgstr "एल्बम कलाकार:"
+
+#: ../data/tag_area.ui.h:7
+msgid "Tag selected files with this album artist"
+msgstr "चयनित फाइलों को इस एल्बम कलाकार के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:8
+msgid "Album:"
+msgstr "एल्बम:"
+
+#: ../data/tag_area.ui.h:9
+msgid "Tag selected files with this album name"
+msgstr "चयनित फाइलों को इस एल्बम नाम से टैग करें"
+
+#: ../data/tag_area.ui.h:10
+msgid "CD:"
+msgstr "CD:"
+
+#: ../data/tag_area.ui.h:11
+msgid "Tag selected files with this disc number"
+msgstr "चयनित फाइलों को इस डिस्क संख्या से टैग करें"
+
+#: ../data/tag_area.ui.h:12
+msgid "Year:"
+msgstr "वर्ष:"
+
+#: ../data/tag_area.ui.h:13
+msgid "Tag selected files with this year"
+msgstr "चयनित फाइलों को इस वर्ष से टैग करें"
+
+#: ../data/tag_area.ui.h:14
+msgid "Number selected tracks sequentially. Starts at 01 in each subdirectory"
+msgstr "चयनित ट्रैक्स को क्रमिक रूप से क्रमांकित करें। प्रत्येक उपनिर्देशिका में 01 से शुरू होता है"
+
+#: ../data/tag_area.ui.h:15
+msgid "Track #:"
+msgstr "ट्रैक #:"
+
+#: ../data/tag_area.ui.h:16
+msgid ""
+"Set the number of files, in the same directory of the displayed file, to the "
+"selected tracks"
+msgstr ""
+"प्रदर्शित फाइल की समान निर्देशिका में चयनित ट्रैक्स के लिए फाइलों की संख्या निर्धारित करें"
+
+#: ../data/tag_area.ui.h:17
+msgid "Tag selected files with this number of tracks"
+msgstr "चयनित फाइलों को इस संख्या के ट्रैक के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:18
+msgid "Genre:"
+msgstr "शैली:"
+
+#: ../data/tag_area.ui.h:19
+msgid "Comment:"
+msgstr "टिप्पणी:"
+
+#: ../data/tag_area.ui.h:20
+msgid "Tag selected files with this comment"
+msgstr "चयनित फाइलों को इस टिप्पणी के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:21
+msgid "Composer:"
+msgstr "संगीतकार:"
+
+#: ../data/tag_area.ui.h:22
+msgid "Tag selected files with this composer"
+msgstr "चयनित फाइलों को इस संगीतकार के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:23
+msgid "Orig. artist:"
+msgstr "मूल कलाकार:"
+
+#: ../data/tag_area.ui.h:24
+msgid "Tag selected files with this original artist"
+msgstr "चयनित फाइलों को इस मूल कलाकार के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:25
+msgid "Copyright:"
+msgstr "कॉपीराइट:"
+
+#: ../data/tag_area.ui.h:26
+msgid "Tag selected files with this copyright"
+msgstr "चयनित फाइलों को इस कॉपीराइट के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:27
+msgid "URL:"
+msgstr "URL:"
+
+#: ../data/tag_area.ui.h:28
+msgid "Tag selected files with this URL"
+msgstr "चयनित फाइलों को इस URL से टैग करें"
+
+#: ../data/tag_area.ui.h:29
+msgid "Encoded by:"
+msgstr "इनके द्वारा एन्कोड:"
+
+#: ../data/tag_area.ui.h:30
+msgid "Tag selected files with this encoder name"
+msgstr "चयनित फाइलों को इस एनकोडर नाम से टैग करें"
+
+#: ../data/tag_area.ui.h:31
+msgid "Common"
+msgstr "आम"
+
+#: ../data/tag_area.ui.h:32
+msgid "You can use drag and drop to add an image"
+msgstr "आप छवि जोड़ने के लिए ड्रैग और ड्रॉप का प्रयोग कर सकते हैं"
+
+#: ../data/tag_area.ui.h:33
+msgid "Add images to the tag"
+msgstr "टैग में छवियां जोड़ें"
+
+#: ../data/tag_area.ui.h:34
+msgid "Remove selected images from the tag"
+msgstr "टैग से चयनित छवियां हटाएं"
+
+#: ../data/tag_area.ui.h:35
+msgid "Save the selected images to files"
+msgstr "चयनित छवियों को फाइलों में सहेजें"
+
+#: ../data/tag_area.ui.h:36
+msgid "Edit image properties"
+msgstr "छवि गुण संपादित करें"
+
+#: ../data/tag_area.ui.h:37
+msgid "Tag selected files with these images"
+msgstr "चयनित फाइलों को इन छवियों के साथ टैग करें"
+
+#: ../data/tag_area.ui.h:38 ../src/tag_area.c:3245 ../src/tag_area.c:3248
+msgid "Images"
+msgstr "छवियां"
+
+#: ../data/toolbar.ui.h:2
+msgid "First file"
+msgstr "पहली फाइल"
+
+#: ../data/toolbar.ui.h:3
+msgid "_Previous File"
+msgstr "पिछली फाइल (_P)"
+
+#: ../data/toolbar.ui.h:4
+msgid "Previous file"
+msgstr "पिछली फाइल"
+
+#: ../data/toolbar.ui.h:6
+msgid "Next file"
+msgstr "अगली फाइल"
+
+#: ../data/toolbar.ui.h:8
+msgid "Last file"
+msgstr "अंतिम फाइल"
+
+#: ../data/toolbar.ui.h:9
+msgid "_Show Scanner"
+msgstr "स्कैनर दिखाएं (_S)"
+
+#: ../data/toolbar.ui.h:10
+msgid "Show scanner"
+msgstr "स्कैनर दिखाएं"
+
+#: ../data/toolbar.ui.h:12
+msgid "Remove tags"
+msgstr "टैग हटाएं"
+
+#: ../data/toolbar.ui.h:13
+msgid "_Undo"
+msgstr "पूर्ववत करें (_U)"
+
+#: ../data/toolbar.ui.h:14
+msgid "Undo for file"
+msgstr "फाइल के लिए पूर्ववत करें"
+
+#: ../data/toolbar.ui.h:15
+msgid "R_edo"
+msgstr "पुनः करें (_e)"
+
+#: ../data/toolbar.ui.h:16
+msgid "Redo for file"
+msgstr "फाइल के लिए पुनः करें"
+
+#: ../data/toolbar.ui.h:18
+msgid "Save changes to selected files"
+msgstr "चयनित फाइलों में परिवर्तन सहेजें"
+
+#: ../data/toolbar.ui.h:20
+msgid "Browse directory tree"
+msgstr "डायरेक्टरी ट्री देखें"
+
+#: ../data/toolbar.ui.h:22
+msgid "Browse artists and albums"
+msgstr "कलाकार और एल्बम देखें"
+
+#: ../data/toolbar.ui.h:24
+msgid "Invert file selection"
+msgstr "फाइल चयन उलटें"
+
+#: ../data/toolbar.ui.h:26
+msgid "Search filenames and tags"
+msgstr "फाइल नाम और टैग खोजें"
+
+#: ../data/toolbar.ui.h:27
+msgid "CDDB Search…"
+msgstr "CDDB खोज…"
+
+#: ../data/toolbar.ui.h:30
+msgid "Generate a playlist"
+msgstr "प्लेलिस्ट बनाएं"
+
+#: ../data/toolbar.ui.h:32
+msgid "Stop the current action"
+msgstr "वर्तमान कार्रवाई रोकें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:1
+msgid "Load on startup"
+msgstr "शुरुआत पर लोड करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:3
+msgid "Default path"
+msgstr "तयशुदा पथ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:7
+msgid "Show hidden directories while browsing"
+msgstr "देखते समय छिपी हुई निर्देशिकाएं दिखाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:11
+msgid "CDDB server hostname for automatic search"
+msgstr "स्वचालित खोज के लिए CDDB सर्वर होस्टनाम"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:12
+msgid "The CDDB server to use for the automatic search"
+msgstr "स्वचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:13
+msgid "CDDB server port for automatic search"
+msgstr "स्वचालित खोज के लिए CDDB सर्वर पोर्ट"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:14
+msgid "The CDDB server port to use for the automatic search"
+msgstr "स्वचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर पोर्ट"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:15
+msgid "CDDB server path for automatic search"
+msgstr "स्वचालित खोज के लिए CDDB सर्वर पथ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:16
+msgid "The CDDB server path to use for the automatic search"
+msgstr "स्वचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर पथ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:17
+msgid "CDDB server hostname for manual search"
+msgstr "हस्तचालित खोज के लिए CDDB सर्वर होस्टनाम"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:18
+msgid "The CDDB server to use for a manual search"
+msgstr "हस्तचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:19
+msgid "CDDB server port for manual search"
+msgstr "हस्तचालित खोज के लिए CDDB सर्वर पोर्ट"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:20
+msgid "The CDDB server port to use for a manual search"
+msgstr "हस्तचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर पोर्ट"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:21
+msgid "CDDB server path for manual search"
+msgstr "हस्तचालित खोज के लिए CDDB सर्वर पथ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:22
+msgid "The CDDB server path to use for a manual search"
+msgstr "हस्तचालित खोज के लिए प्रयोग किया जाने वाला CDDB सर्वर पथ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:23
+msgid "Use DLM to match CDDB results to files"
+msgstr "CDDB परिणामों को फाइलों से मिलान करने के लिए DLM का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:25
+msgid ""
+"Select the file with the position which matches the position of the CDDB "
+"result"
+msgstr "उस फाइल का चयन करें जिसकी स्थिति CDDB परिणाम की स्थिति से मेल खाती हो"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:27
+msgid "Run the scanner on CDDB results"
+msgstr "CDDB परिणामों पर स्कैनर चलाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:29
+msgid "The fields to use in a manual CDDB search"
+msgstr "हस्तचालित CDDB खोज में प्रयोग किए जाने वाले क्षेत्र"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:30
+msgid "Which fields to search for matches of the returned CDDB results"
+msgstr "लौटाए गए CDDB परिणामों के मिलान के लिए किन क्षेत्रों में खोज करनी है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:31
+msgid "The categories to use in a CDDB search"
+msgstr "CDDB खोज में प्रयोग की जाने वाली श्रेणियां"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:32
+msgid "Which categories to search for matches in the returned CDDB results"
+msgstr "लौटाए गए CDDB परिणामों में मिलान के लिए कौन सी श्रेणियां खोजनी हैं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:33
+msgid "The tag fields to set when matching against CDDB results"
+msgstr "CDDB परिणामों से मिलान करते समय निर्धारित किए जाने वाले टैग क्षेत्र"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:34
+msgid ""
+"Which tag fields should be set when matching against selected files and CDDB "
+"results"
+msgstr ""
+"चयनित फाइलों और CDDB परिणामों के साथ मिलान करते समय कौन से टैग क्षेत्र निर्धारित किए "
+"जाने चाहिए"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:41
+msgid "Show changed files in bold"
+msgstr "परिवर्तित फाइलें बोल्ड में दिखाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:42
+msgid ""
+"Whether to highlight changed files in the file list by making them bold, or "
+"alternatively by making them red"
+msgstr ""
+"फाइल सूची में परिवर्तित फाइलों को बोल्ड करके चिन्हांकित करना है या वैकल्पिक रूप से उन्हें लाल "
+"करके चिन्हांकित करना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:45
+msgid "How to sort audio files in the file list"
+msgstr "फाइल सूची में ऑडियो फाइलों को कैसे क्रमबद्ध करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:46
+msgid "Sort files in ascending or descending order for the selected type"
+msgstr "चयनित प्रकार के लिए फाइलों को आरोही या अवरोही क्रम में छांटें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:49
+msgid "Use a non-standard character encoding when reading ID3 tags"
+msgstr "ID3 टैग पढ़ते समय गैर-मानक वर्ण एन्कोडिंग का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:53
+msgid "Write ID3v1 tags"
+msgstr "ID3v1 टैग लिखें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:55
+msgid "The character set for writing ID3v1 tags"
+msgstr "ID3v1 टैग लिखने के लिए वर्ण समूह"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:56
+msgid "Choose the character set to be used when writing ID3v1 tags"
+msgstr "ID3v1 टैग लिखते समय प्रयोग किए जाने वाले वर्ण समूह का चयन करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:57
+msgid "Encoding options when writing ID3v1 tags"
+msgstr "ID3v1 टैग लिखते समय एन्कोडिंग विकल्प"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:58
+msgid ""
+"Additional options to pass to iconv() when converting between encodings when "
+"writing ID3v1 tags"
+msgstr ""
+"ID3v1 टैग लिखते समय एन्कोडिंग के बीच रूपांतरण करते समय iconv() को देने हेतु अतिरिक्त विकल्प"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:59
+msgid "The character set for reading ID3v1 and ID3v2 tags"
+msgstr "ID3v1 और ID3v2 टैग पढ़ने के लिए वर्ण समूह"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:61
+msgid "Write ID3v2 tags"
+msgstr "ID3v2 टैग लिखें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:63
+msgid "Enable ID3v2.4 support"
+msgstr "ID3v2.4 समर्थन सक्षम करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:64
+msgid "Whether to write ID3v2.4 tags when ID3v2 support is enabled"
+msgstr "ID3v2 समर्थन सक्षम होने पर ID3v2.4 टैग लिखना है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:65
+msgid "Convert old ID3 tag versions to new ones"
+msgstr "पुराने ID3 टैग संस्करणों को नए में बदलें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:69
+msgid "Use CRC-32 in ID3v2 tags"
+msgstr "ID3v2 टैग में CRC-32 का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:73
+msgid "Use Unicode character encoding in ID3v2 tags"
+msgstr "ID3v2 टैग में यूनिकोड वर्ण एन्कोडिंग का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:74
+msgid "Whether to use a Unicode character set when writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखते समय यूनिकोड वर्ण समूह का प्रयोग करना है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:75
+msgid "The Unicode character set for writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखने के लिए यूनिकोड वर्ण समूह"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:76
+msgid "Choose the Unicode character set to be used when writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखते समय प्रयोग किए जाने वाले यूनिकोड वर्ण समूह का चयन करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:77
+msgid "The character set for writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखने के लिए वर्ण समूह"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:78
+msgid ""
+"Override the typical Unicode character set to be used when writing ID3v2 tags"
+msgstr ""
+"ID3v2 टैग लिखते समय प्रयोग किए जाने वाले विशिष्ट यूनिकोड वर्ण समूह को अध्यारोहण करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:79
+msgid "Encoding options when writing ID3v2 tags"
+msgstr "ID3v2 टैग लिखते समय एन्कोडिंग विकल्प"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:80
+msgid ""
+"Additional options to pass to iconv() when converting between encodings when "
+"writing ID3v2 tags"
+msgstr ""
+"ID3v2 टैग लिखते समय एन्कोडिंग के बीच रूपांतरण करते समय iconv() को पास करने के लिए "
+"अतिरिक्त विकल्प"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:81
+msgid "Automatically complete the date"
+msgstr "स्वचालित रूप से तिथि पूर्ण करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:83
+msgid "Pad the disc number tag field"
+msgstr "डिस्क नंबर टैग क्षेत्र को पैड करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:85
+msgid "The length of the disc number field"
+msgstr "डिस्क संख्या क्षेत्र की लंबाई"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:86
+msgid ""
+"The length of the disc number field, which controls if the field is padded "
+"with leading zeroes"
+msgstr ""
+"डिस्क संख्या क्षेत्र की लंबाई, जो नियंत्रित करती है कि क्षेत्र में अग्रणी शून्य लगा हुआ है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:88
+msgid ""
+"Whether to, when adding cover art, automatically select the type for an "
+"image based on its filename"
+msgstr ""
+"कवर आर्ट जोड़ते समय, फाइल नाम के आधार पर छवि के प्रकार का स्वचालित रूप से चयन करना है "
+"या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:89
+msgid "Pad the track number tag field"
+msgstr "ट्रैक नंबर टैग क्षेत्र को पैड करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:91
+msgid "The length of the track number field"
+msgstr "ट्रैक नंबर क्षेत्र की लंबाई"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:92
+msgid ""
+"The length of the track number field, which controls if the field is padded "
+"with leading zeroes"
+msgstr ""
+"ट्रैक नंबर क्षेत्र की लंबाई, जो नियंत्रित करती है कि क्षेत्र में अग्रणी शून्य लगा हुआ है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:95
+msgid "Convert spaces and underscores when filling tag fields"
+msgstr "टैग क्षेत्र भरते समय रिक्त स्थान और अंडरस्कोर परिवर्तित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:97
+#, no-c-format
+msgid ""
+"Whether to convert to spaces (and %20) or underscores when filling tag "
+"fields from filenames"
+msgstr ""
+"फाइल नामों से टैग क्षेत्र भरते समय रिक्त स्थान (और %20) या अंडरस्कोर में परिवर्तित करना है "
+"या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:98
+msgid "Overwrite tag field"
+msgstr "टैग क्षेत्र अधिलेखित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:100
+msgid "Set the default comment"
+msgstr "तयशुदा टिप्पणी निर्धारित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:102
+msgid "Default comment for filling tags"
+msgstr "टैग भरने के लिए तयशुदा टिप्पणी"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:103
+msgid "The default comment to use when filling tags"
+msgstr "टैग भरते समय प्रयोग की जाने वाली तयशुदा टिप्पणी"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:104
+msgid "Use the CRC-32 as the default comment"
+msgstr "तयशुदा टिप्पणी के रूप में CRC-32 का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:116
+msgid "Run the current scanner when loading filenames from a file"
+msgstr "किसी फाइल से फाइल नाम लोड करते समय वर्तमान स्कैनर चलाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:118
+msgid "Process these tag fields"
+msgstr "इन टैग क्षेत्रों को संसाधित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:119
+msgid "The tag fields to process when using the scanner"
+msgstr "स्कैनर का प्रयोग करते समय संसाधित करने के लिए टैग क्षेत्र"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:120
+msgid "Convert tag fields when processing"
+msgstr "प्रसंस्करण करते समय टैग क्षेत्र परिवर्तित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:122
+#, no-c-format
+msgid ""
+"Whether to convert to spaces (and %20), underscores or other characters when "
+"processing tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय रिक्त स्थान (और %20), अंडरस्कोर या अन्य वर्णों में "
+"परिवर्तित करना है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:123
+msgid "Convert characters in tags"
+msgstr "टैग में वर्ण परिवर्तित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:124
+msgid ""
+"Whether to convert characters of the tag from one value to another when "
+"processing tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय टैग के वर्णों को एक मान से दूसरे मान में परिवर्तित करना है "
+"या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:125
+msgid "Convert the following characters when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय निम्नलिखित वर्णों को परिवर्तित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:126
+msgid ""
+"Replace any matched sequence of characters with this string when processing "
+"tag fields"
+msgstr ""
+"टैग क्षेत्रों को संसाधित करते समय वर्णों के किसी भी मेल खाने वाले अनुक्रम को इस स्ट्रिंग से बदलें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:127
+msgid "Capitalize tag fields when processing"
+msgstr "प्रसंस्करण करते समय टैग क्षेत्र को बड़े अक्षरों में लिखें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:128
+msgid "Whether to change the capitalization when processing tag fields"
+msgstr "टैग क्षेत्रों को संसाधित करते समय बड़े अक्षरों को बदलना है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:129
+msgid "Upper-case prepositions"
+msgstr "बड़े अक्षर वाले पूर्वसर्ग"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:131
+msgid "Detect roman numerals"
+msgstr "रोमन अंकों का पता लगाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:135
+msgid "Insert spaces before capital letters"
+msgstr "बड़े अक्षरों से पहले रिक्त स्थान डालें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:137
+msgid "Remove duplicate spaces"
+msgstr "डुप्लिकेट रिक्त स्थान हटाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:139
+msgid "Playlist filename mask"
+msgstr "प्लेलिस्ट फाइल नाम मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:140
+msgid "The default filename mask to use for a new playlist"
+msgstr "नई प्लेलिस्ट के लिए प्रयोग किया जाने वाला तयशुदा फाइल नाम मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:141
+msgid "Use a filename mask when generating a playlist"
+msgstr "प्लेलिस्ट बनाते समय फाइल नाम मास्क का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:142
+msgid "Whether to use a filename mask when creating playlists"
+msgstr "प्लेलिस्ट बनाते समय फाइल नाम मास्क का प्रयोग करना है या नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:143
+msgid "Create playlists with only the selected files"
+msgstr "केवल चयनित फाइलों से प्लेलिस्ट बनाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:145
+msgid "Use relative paths when creating playlists"
+msgstr "प्लेलिस्ट बनाते समय सापेक्ष पथ का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:146
+msgid "Whether to use relative paths for files when creating playlists"
+msgstr "क्या प्लेलिस्ट बनाते समय फाइलों के लिए सापेक्ष पथों का प्रयोग करना चाहिए"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:147
+msgid "Create the playlist in the parent directory"
+msgstr "पैरेंट डायरेक्ट्री में प्लेलिस्ट बनाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:149
+msgid "Use DOS separators for playlists"
+msgstr "प्लेलिस्ट के लिए DOS विभाजक का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:151
+msgid "Content of generated playlists"
+msgstr "उत्पन्न प्लेलिस्ट की सामग्री"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:152
+msgid ""
+"Write a plain list of files, include extended information from the filename "
+"or extended information using a supplied mask"
+msgstr ""
+"फाइलों की एक सरल सूची लिखें, फाइल नाम से विस्तारित जानकारी या दिए गए मास्क का प्रयोग "
+"करके विस्तारित जानकारी शामिल करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:153
+msgid "Playlist default mask"
+msgstr "प्लेलिस्ट तयशुदा मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:154
+msgid "The default mask to use for files in a playlist"
+msgstr "प्लेलिस्ट में फाइलों के लिए प्रयोग किया जाने वाला तयशुदा मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:155
+msgid "Search for files case-sensitively"
+msgstr "फाइलों को अक्षर-संवेदी ढंग से खोजें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:156
+msgid "Whether matches when searching for files are case-sensitive"
+msgstr "क्या फाइलों की खोज करते समय मिलान अक्षर-संवेदी होते हैं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:157
+msgid "Search in filenames"
+msgstr "फाइल नामों में खोजें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:158
+msgid "Perform the search on filenames"
+msgstr "फाइल नामों पर खोज करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:159
+msgid "Search in tags"
+msgstr "टैग में खोजें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:160
+msgid "Perform the search on tags"
+msgstr "टैग पर खोज करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:161
+msgid "Mask for filling tags from filenames"
+msgstr "फाइल नामों से टैग भरने के लिए मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:162
+msgid ""
+"The default mask to use when automatically filling tags with information "
+"from filenames"
+msgstr ""
+"फाइल नामों से जानकारी के साथ टैग को स्वचालित रूप से भरते समय प्रयोग किया जाने वाला "
+"तयशुदा मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:163
+msgid "Mask for renaming files"
+msgstr "फाइलों का नाम बदलने के लिए मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:164
+msgid "The default mask to use when renaming files"
+msgstr "फाइलों का नाम बदलते समय प्रयोग किया जाने वाला तयशुदा मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:165
+msgid "Mask for renaming directories"
+msgstr "निर्देशिकाओं का नाम बदलने के लिए मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:166
+msgid "The default mask to use when renaming directories"
+msgstr "निर्देशिकाओं का नाम बदलते समय प्रयोग किया जाने वाला तयशुदा मास्क"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:167
+msgid "Use a mask when renaming directories"
+msgstr "निर्देशिकाओं का नाम बदलते समय मास्क का प्रयोग करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:169
+msgid "Convert spaces and underscores when renaming files"
+msgstr "फाइलों का नाम बदलते समय रिक्त स्थान और अंडरस्कोर परिवर्तित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:170
+msgid "Whether to convert to spaces or underscores when renaming files"
+msgstr "क्या फाइलों का नाम बदलते समय रिक्त स्थान या अंडरस्कोर में परिवर्तित करना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:171
+msgid "How to modify filename extensions when renaming"
+msgstr "नाम बदलते समय फाइल नाम एक्सटेंशन को कैसे संशोधित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:172
+msgid ""
+"Change the file extension to all lower-case, all upper-case or do not change "
+"it"
+msgstr "फाइल एक्सटेंशन को सभी छोटे-अक्षर, सभी बड़े अक्षर में बदलें या इसे न बदलें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:173
+msgid "Encoding options when renaming files"
+msgstr "फाइलों का नाम बदलते समय एनकोडिंग विकल्प"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:174
+msgid ""
+"If the encoding of the filename does not match the filesystem encoding, "
+"choose whether to try another encoding, approximate the filesystem encoding "
+"with transliteration or discard the offending characters"
+msgstr ""
+"यदि फाइल नाम की एनकोडिंग फाइलप्रणाली एनकोडिंग से मेल नहीं खाती है, तो चुनें कि क्या कोई "
+"अन्य एनकोडिंग आज़माना है, लिप्यंतरण के साथ फ़ाइलप्रणाली एनकोडिंग का अनुमान लगाना है या "
+"आपत्तिजनक वर्णों को हटाना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:176
+msgid ""
+"Whether to replace illegal characters in a filename when using the rename "
+"function"
+msgstr ""
+"नाम बदलें प्रकार्य का प्रयोग करते समय फाइल नाम में अवैध वर्णों को प्रतिस्थापित करना है या "
+"नहीं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:177
+msgid "Show the scanner mask editor"
+msgstr "स्कैनर मास्क संपादक दिखाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:178
+msgid "Whether to show the scanner mask editor in the tag scanner"
+msgstr "क्या स्कैनर मास्क एडिटर को टैग स्कैनर में दिखाना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:179
+msgid "Show the scanner legend"
+msgstr "स्कैनर किंवदंती दिखाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:180
+msgid "Whether to show the scanner legend in the tag scanner"
+msgstr "क्या टैग स्कैनर में स्कैनर किंवदंती दिखाना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:181
+msgid "Show the scanner window on startup"
+msgstr "शुरुआत पर स्कैनर खिड़की दिखाएं"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:183
+msgid "The scan mode"
+msgstr "स्कैन मोड"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:184
+msgid "Which type of scan to show in the scanner"
+msgstr "स्कैनर में किस प्रकार का स्कैन दिखाना है"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:185
+msgid "Split Ogg title fields"
+msgstr "Ogg शीर्षक क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:187
+msgid "Split Ogg artist fields"
+msgstr "Ogg कलाकार क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:189
+msgid "Split Ogg album fields"
+msgstr "Ogg एल्बम क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:191
+msgid "Split Ogg genre fields"
+msgstr "Ogg शैली क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:193
+msgid "Split Ogg comment fields"
+msgstr "Ogg टिप्पणी क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:195
+msgid "Split Ogg composer fields"
+msgstr "Ogg संगीतकार क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:197
+msgid "Split Ogg original artist fields"
+msgstr "Ogg मूल कलाकार क्षेत्र विभाजित करें"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:199
+msgid "Page to show in the preferences dialog"
+msgstr "प्राथमिकता संवाद में दिखाने के लिए पृष्ठ"
+
+#: ../data/org.gnome.EasyTAG.gschema.xml.h:200
+msgid "The page in the notebook of the preferences dialog"
+msgstr "प्राथमिकता संवाद की नोटबुक में पृष्ठ"
+
+#: ../nautilus-extension/nautilus-easytag.c:229
+msgid "Open in EasyTAG"
+msgstr "EasyTAG में खोलें"
+
+#: ../nautilus-extension/nautilus-easytag.c:230
+msgid "Open the selected directory in EasyTAG"
+msgstr "चयनित निर्देशिका को EasyTAG में खोलें"
+
+#: ../nautilus-extension/nautilus-easytag.c:248
+msgid "Open the selected files in EasyTAG"
+msgstr "चयनित फाइलों को EasyTAG में खोलें"
+
+#. Translators: put your own name here to appear in the about dialog.
+#: ../src/about.c:88
+msgid "translator-credits"
+msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
+
+#: ../src/about.c:98
+msgid "View and edit tags in audio files"
+msgstr "ऑडियो फाइलों में टैग देखें और संपादित करें"
+
+#: ../src/application.c:44
+msgid "Print the version and exit"
+msgstr "संस्करण छापें और बाहर निकलें"
+
+#. Starting messages
+#: ../src/application.c:178
+#, c-format
+msgid "Starting EasyTAG version %s…"
+msgstr "EasyTAG संस्करण %s प्रारंभ हो रहा है…"
+
+#: ../src/application.c:182
+#, c-format
+msgid "Setting locale: ‘%s’"
+msgstr "लोकेल निर्धारित किया जा रहा है: ‘%s’"
+
+#: ../src/application.c:188
+#, c-format
+msgid "System locale is ‘%s’, using ‘%s’"
+msgstr "सिस्टम लोकेल ‘%s’ है, ‘%s’ का प्रयोग किया जा रहा है"
+
+#: ../src/application.c:193
+msgid "Unable to create setting directories"
+msgstr "सेटिंग निर्देशिकाएं बनाने में असमर्थ"
+
+#: ../src/application.c:334
+#, c-format
+msgid "Website: %s"
+msgstr "वेबसाइट: %s"
+
+#: ../src/application.c:343
+msgid "- Tag and rename audio files"
+msgstr "- ऑडियो फाइलों को टैग और नाम बदलें"
+
+#: ../src/application.c:429 ../src/file_list.c:435
+#, c-format
+msgid "Error while querying information for file ‘%s’: %s"
+msgstr "फाइल '%s' के लिए जानकारी पूछते समय त्रुटि: %s"
+
+#: ../src/application.c:478 ../src/application.c:485
+#, c-format
+msgid "Cannot open path ‘%s’"
+msgstr "पथ ‘%s’ नहीं खोला जा सकता"
+
+#: ../src/application_window.c:361 ../src/application_window.c:379
+#, c-format
+msgid "Do you really want to delete the file ‘%s’?"
+msgstr "क्या आप सचमुच फाइल ‘%s’ को मिटाना चाहते हैं?"
+
+#: ../src/application_window.c:364 ../src/easytag.c:459 ../src/easytag.c:592
+msgid "Repeat action for the remaining files"
+msgstr "शेष फाइलों के लिए कार्रवाई दोहराएं"
+
+#: ../src/application_window.c:367
+msgid "_Skip"
+msgstr "छोड़ें (_S)"
+
+#: ../src/application_window.c:369 ../src/application_window.c:383
+msgid "_Delete"
+msgstr "मिटाएं (_D)"
+
+#: ../src/application_window.c:371 ../src/application_window.c:381
+msgid "Delete File"
+msgstr "फाइल मिटाएं"
+
+#: ../src/application_window.c:408
+#, c-format
+msgid "File ‘%s’ deleted"
+msgstr "फाइल ‘%s’ मिटाई गई"
+
+#: ../src/application_window.c:583
+#, c-format
+msgid "Cannot delete file ‘%s’"
+msgstr "फाइल ‘%s’ को मिटाया नहीं जा सकता"
+
+#: ../src/application_window.c:607
+msgid "Some files were not deleted"
+msgstr "कुछ फाइलें मिटाई नहीं गई"
+
+#: ../src/application_window.c:609
+msgid "All files have been deleted"
+msgstr "सभी फाइलें मिटा दी गई हैं"
+
+#: ../src/application_window.c:915
+msgid "All tags have been removed"
+msgstr "सभी टैग हटा दिए गए हैं"
+
+#: ../src/application_window.c:1474 ../src/browser.c:360 ../src/browser.c:403
+#: ../src/browser.c:437 ../src/browser.c:4640 ../src/browser.c:4715
+#, c-format
+msgid "Failed to launch program ‘%s’"
+msgstr "प्रोग्राम ‘%s’ शुरू करने में विफल"
+
+#: ../src/application_window.c:1988
+#, c-format
+msgid "Could not convert filename ‘%s’ to system filename encoding"
+msgstr "फाइलनाम ‘%s’ को सिस्टम फाइल नाम एनकोडिंग में परिवर्तित नहीं किया जा सका"
+
+#: ../src/application_window.c:1991
+msgid "Try setting the environment variable G_FILENAME_ENCODING."
+msgstr "पर्यावरण चर G_FILENAME_ENCODING निर्धारित करने का प्रयास करें।"
+
+#: ../src/application_window.c:1993 ../src/scan_dialog.c:846
+msgid "Filename translation"
+msgstr "फाइलनाम अनुवाद"
+
+#. And refresh the number of files in this directory
+#: ../src/application_window.c:2154
+#, c-format
+msgid "One file"
+msgid_plural "%u files"
+msgstr[0] "एक फाइल"
+msgstr[1] "%u फाइलें"
+
+#. Bitrate
+#: ../src/application_window.c:2187 ../src/tags/flac_header.c:189
+#: ../src/tags/monkeyaudio_header.c:76 ../src/tags/mp4_header.cc:144
+#: ../src/tags/mpeg_header.c:274 ../src/tags/musepack_header.c:78
+#: ../src/tags/ogg_header.c:411 ../src/tags/opus_header.c:231
+#: ../src/tags/wavpack_header.c:144
+#, c-format
+msgid "%d kb/s"
+msgstr "%d kb/s"
+
+#. Samplerate
+#: ../src/application_window.c:2190 ../src/tags/flac_header.c:192
+#: ../src/tags/monkeyaudio_header.c:79 ../src/tags/mp4_header.cc:148
+#: ../src/tags/mpeg_header.c:279 ../src/tags/musepack_header.c:81
+#: ../src/tags/ogg_header.c:414 ../src/tags/opus_header.c:234
+#: ../src/tags/wavpack_header.c:147
+#, c-format
+msgid "%d Hz"
+msgstr "%d Hz"
+
+#: ../src/application_window.c:2345 ../src/easytag.c:911
+#, c-format
+msgid "File: ‘%s’"
+msgstr "फाइल: ‘%s’"
+
+#. Quit EasyTAG.
+#: ../src/application_window.c:2979
+msgid "Normal exit"
+msgstr "सामान्य निकास"
+
+#: ../src/application_window.c:3013 ../src/browser.c:909
+msgid "Some files have been modified but not saved"
+msgstr "कुछ फाइलों को संशोधित किया गया है लेकिन सहेजा नहीं गया है"
+
+#: ../src/application_window.c:3014 ../src/browser.c:913 ../src/easytag.c:233
+#: ../src/easytag.c:463 ../src/easytag.c:595 ../src/easytag.c:603
+msgid "_Discard"
+msgstr "त्यागें (_D)"
+
+#: ../src/application_window.c:3020 ../src/easytag.c:239
+msgid "Quit"
+msgstr "बंद करें"
+
+#: ../src/application_window.c:3023
+msgid "Do you want to save them before quitting?"
+msgstr "क्या आप छोड़ने से पहले उन्हें सहेजना चाहते हैं?"
+
+#: ../src/browser.c:610
+msgid "New default directory selected for browser"
+msgstr "ब्राउज़र के लिए नई तयशुदा निर्देशिका चुनी गई"
+
+#: ../src/browser.c:912
+msgid "Do you want to save them before changing directory?"
+msgstr "क्या आप निर्देशिका बदलने से पहले उन्हें सहेजना चाहते हैं?"
+
+#: ../src/browser.c:919
+msgid "Confirm Directory Change"
+msgstr "निर्देशिका परिवर्तन की पुष्टि करें"
+
+#: ../src/browser.c:2618
+msgid "All albums"
+msgstr "सभी एल्बम"
+
+#: ../src/browser.c:3870
+msgid "Select File"
+msgstr "फाइल चुनें"
+
+#: ../src/browser.c:3877
+msgid "Select Directory"
+msgstr "निर्देशिका चुनें"
+
+#: ../src/browser.c:4144
+#, c-format
+msgid "Rename the directory ‘%s’ to:"
+msgstr "निर्देशिका ‘%s’ का नाम बदलें:"
+
+#: ../src/browser.c:4280
+msgid "You must type a directory name"
+msgstr "आपको एक निर्देशिका नाम टाइप करना होगा"
+
+#: ../src/browser.c:4281 ../src/browser.c:4303
+msgid "Directory Name Error"
+msgstr "निर्देशिका नाम त्रुटि"
+
+#: ../src/browser.c:4299
+#, c-format
+msgid "Could not convert ‘%s’ into filename encoding"
+msgstr "‘%s’ को फाइल नाम एनकोडिंग में परिवर्तित नहीं किया जा सका"
+
+#: ../src/browser.c:4302
+msgid "Please use another name."
+msgstr "कृपया कोई दूसरा नाम प्रयोग करें।"
+
+#: ../src/browser.c:4374
+#, c-format
+msgid "The directory name ‘%s’ already exists."
+msgstr "निर्देशिका नाम ‘%s’ पहले से मौजूद है।"
+
+#: ../src/browser.c:4375 ../src/easytag.c:650
+msgid "Rename File Error"
+msgstr "फाइल का नाम बदलने में त्रुटि"
+
+#: ../src/browser.c:4414 ../src/browser.c:4443
+msgid "Rename Directory Error"
+msgstr "निर्देशिका का नाम बदलने में त्रुटि"
+
+#: ../src/browser.c:4484
+msgid "Directory renamed"
+msgstr "निर्देशिका का नाम बदला गया"
+
+#: ../src/browser.c:4632 ../src/browser.c:4707
+#, c-format
+msgid "Executed command ‘%s’"
+msgstr "कमांड ‘%s’ निष्पादित किया गया"
+
+#: ../src/cddb_dialog.c:280
+#, c-format
+msgid ""
+"Album: ‘%s’, artist: ‘%s’, length: ‘%s’, year: ‘%s’, genre: ‘%s’, disc ID: "
+"‘%s’"
+msgstr ""
+"एल्बम: ‘%s’, कलाकार: ‘%s’, लंबाई: ‘%s’, वर्ष: ‘%s’, शैली: ‘%s’, डिस्क आईडी: ‘%s’"
+
+#: ../src/cddb_dialog.c:718
+#, c-format
+msgid "Cannot resolve host: ‘%s’: %s"
+msgstr "होस्ट का समाधान नहीं किया जा सकता: ‘%s’: %s"
+
+#: ../src/cddb_dialog.c:725
+#, c-format
+msgid "Cannot connect to host: ‘%s’: %s"
+msgstr "होस्ट नहीं जुड़ सकते: ‘%s’: %s"
+
+#. Send the request.
+#: ../src/cddb_dialog.c:798 ../src/cddb_dialog.c:1353 ../src/cddb_dialog.c:1641
+msgid "Sending request…"
+msgstr "अनुरोध भेजा जा रहा है…"
+
+#: ../src/cddb_dialog.c:842
+#, c-format
+msgid "The server returned a bad response ‘%s’"
+msgstr "सर्वर ने ख़राब प्रतिक्रिया ‘%s’ लौटाई"
+
+#. Load the track list of the album
+#: ../src/cddb_dialog.c:1036
+msgid "Loading album track list…"
+msgstr "एल्बम ट्रैक सूची लोड हो रही है…"
+
+#.
+#. * Read the answer
+#.
+#: ../src/cddb_dialog.c:1383
+msgid "Receiving data…"
+msgstr "डेटा प्राप्त किया जा रहा है…"
+
+#: ../src/cddb_dialog.c:1520
+#, c-format
+msgid "Sorry, the web-based search is currently not available"
+msgstr "क्षमा करें, वेब-आधारित खोज वर्तमान में उपलब्ध नहीं है"
+
+#: ../src/cddb_dialog.c:1523 ../src/cddb_dialog.c:1856
+#, c-format
+msgid "Found one matching album"
+msgid_plural "Found %u matching albums"
+msgstr[0] "एक मेल खाता एल्बम मिला"
+msgstr[1] "%u मेल खाते एल्बम मिले"
+
+#: ../src/cddb_dialog.c:1671
+#, c-format
+msgid "Receiving data of page %d (album %d/%d)…"
+msgstr "पृष्ठ %d (एल्बम %d/%d) का डेटा प्राप्त हो रहा है…"
+
+#: ../src/cddb_dialog.c:1673
+#, c-format
+msgid "Receiving data of page %d…"
+msgstr "पृष्ठ %d का डेटा प्राप्त हो रहा है…"
+
+#: ../src/cddb_dialog.c:1689
+msgid "The server returned a bad response"
+msgstr "सर्वर ने ख़राब प्रतिक्रिया दी"
+
+#: ../src/cddb_dialog.c:1828
+#, c-format
+msgid "More results to load…"
+msgstr "लोड करने के लिए और परिणाम…"
+
+#: ../src/cddb_dialog.c:2138
+msgid "The number of CDDB results does not match the number of selected files"
+msgstr "CDDB परिणामों की संख्या चयनित फाइलों की संख्या से मेल नहीं खाती"
+
+#: ../src/cddb_dialog.c:2144
+msgid "Write Tag from CDDB"
+msgstr "CDDB से टैग लिखें"
+
+#: ../src/cddb_dialog.c:2459
+msgid "Ready to search"
+msgstr "खोजने के लिए तैयार"
+
+#: ../src/cddb_dialog.c:2614
+#, c-format
+msgid "No file selected"
+msgstr "कोई फाइल चयनित नहीं"
+
+#. The CD redbook standard defines the maximum number of tracks as 99, any
+#. queries with more than 99 tracks will never return a result.
+#: ../src/cddb_dialog.c:2623
+#, c-format
+msgid "More than 99 files selected. Cannot send request"
+msgstr "99 से ज़्यादा फाइलें चुनी गई। अनुरोध नहीं भेजा जा सकता"
+
+#: ../src/cddb_dialog.c:2629
+#, c-format
+msgid "One file selected"
+msgid_plural "%u files selected"
+msgstr[0] "एक फाइल चयनित"
+msgstr[1] "%u फाइलें चयनित"
+
+#: ../src/cddb_dialog.c:2756
+#, c-format
+msgid "Sending request (disc ID: %s, #tracks: %u, Disc length: %u)…"
+msgstr "अनुरोध भेजा जा रहा है (डिस्क आईडी: %s, #ट्रैक: %u, डिस्क लंबाई: %u)…"
+
+#: ../src/cddb_dialog.c:2877
+#, c-format
+msgid "DiscID ‘%s’ gave one matching album"
+msgid_plural "DiscID ‘%s’ gave %u matching albums"
+msgstr[0] "डिस्कआईडी ‘%s’ ने एक मेल खाता एल्बम दिया"
+msgstr[1] "डिस्कआईडी ‘%s’ ने %u मेल खाते एल्बम दिए"
+
+#: ../src/charset.c:46
+msgid "Arabic (IBM-864)"
+msgstr "अरबी (IBM-864)"
+
+#: ../src/charset.c:47
+msgid "Arabic (ISO-8859-6)"
+msgstr "अरबी (ISO-8859-6)"
+
+#: ../src/charset.c:48
+msgid "Arabic (Windows-1256)"
+msgstr "अरबी (Windows-1256)"
+
+#: ../src/charset.c:49
+msgid "Baltic (ISO-8859-13)"
+msgstr "बाल्टिक (ISO-8859-13)"
+
+#: ../src/charset.c:50
+msgid "Baltic (ISO-8859-4)"
+msgstr "बाल्टिक (ISO-8859-4)"
+
+#: ../src/charset.c:51
+msgid "Baltic (Windows-1257)"
+msgstr "बाल्टिक (Windows-1257)"
+
+#: ../src/charset.c:52
+msgid "Celtic (ISO-8859-14)"
+msgstr "सेल्टिक (ISO-8859-14)"
+
+#: ../src/charset.c:53
+msgid "Central European (IBM-852)"
+msgstr "मध्य यूरोपीय (IBM-852)"
+
+#: ../src/charset.c:54
+msgid "Central European (ISO-8859-2)"
+msgstr "मध्य यूरोपीय (ISO-8859-2)"
+
+#: ../src/charset.c:55
+msgid "Central European (Windows-1250)"
+msgstr "मध्य यूरोपीय (Windows-1250)"
+
+#: ../src/charset.c:56
+msgid "Chinese Simplified (GB18030)"
+msgstr "चीनी सरलीकृत (GB18030)"
+
+#: ../src/charset.c:57
+msgid "Chinese Simplified (GB2312)"
+msgstr "चीनी सरलीकृत (GB18030)"
+
+#: ../src/charset.c:58
+msgid "Chinese Traditional (Big5)"
+msgstr "चीनी पारंपरिक (Big5)"
+
+#: ../src/charset.c:59
+msgid "Chinese Traditional (Big5-HKSCS)"
+msgstr "चीनी पारंपरिक (Big5-HKSCS)"
+
+#: ../src/charset.c:60
+msgid "Cyrillic (IBM-855)"
+msgstr "साइरिलिक (IBM-855)"
+
+#: ../src/charset.c:61
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "साइरिलिक (ISO-8859-5)"
+
+#: ../src/charset.c:62
+msgid "Cyrillic (ISO-IR-111)"
+msgstr "साइरिलिक (ISO-IR-111)"
+
+#: ../src/charset.c:63
+msgid "Cyrillic (KOI8-R)"
+msgstr "साइरिलिक (KOI8-R)"
+
+#: ../src/charset.c:64
+msgid "Cyrillic (Windows-1251)"
+msgstr "साइरिलिक (Windows-1251)"
+
+#: ../src/charset.c:65
+msgid "Cyrillic/Russian (CP-866)"
+msgstr "साइरिलिक/रूसी (CP-866)"
+
+#: ../src/charset.c:66
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "सिरिलिक/यूक्रेनी (KOI8-U)"
+
+#: ../src/charset.c:67
+msgid "English (US-ASCII)"
+msgstr "अंग्रेजी (US-ASCII)"
+
+#: ../src/charset.c:68
+msgid "Greek (ISO-8859-7)"
+msgstr "ग्रीक (ISO-8859-7)"
+
+#: ../src/charset.c:69
+msgid "Greek (Windows-1253)"
+msgstr "ग्रीक (Windows-1253)"
+
+#: ../src/charset.c:70
+msgid "Hebrew (IBM-862)"
+msgstr "हिब्रू (IBM-862)"
+
+#: ../src/charset.c:71
+msgid "Hebrew (Windows-1255)"
+msgstr "हिब्रू (Windows-1255)"
+
+#: ../src/charset.c:72
+msgid "Japanese (EUC-JP)"
+msgstr "जापानी (EUC-JP)"
+
+#: ../src/charset.c:73
+msgid "Japanese (ISO-2022-JP)"
+msgstr "जापानी (ISO-2022-JP)"
+
+#: ../src/charset.c:74
+msgid "Japanese (Shift_JIS)"
+msgstr "जापानी (Shift_JIS)"
+
+#: ../src/charset.c:75
+msgid "Korean (EUC-KR)"
+msgstr "कोरियाई (EUC-KR)"
+
+#: ../src/charset.c:76
+msgid "Nordic (ISO-8859-10)"
+msgstr "नोरडिक (ISO-8859-10)"
+
+#: ../src/charset.c:77
+msgid "South European (ISO-8859-3)"
+msgstr "दक्षिण यूरोपीय (ISO-8859-3)"
+
+#: ../src/charset.c:78
+msgid "Thai (TIS-620)"
+msgstr "थाई (TIS-620)"
+
+#: ../src/charset.c:79
+msgid "Turkish (IBM-857)"
+msgstr "तुर्की (IBM-857)"
+
+#: ../src/charset.c:80
+msgid "Turkish (ISO-8859-9)"
+msgstr "तुर्की (ISO-8859-9)"
+
+#: ../src/charset.c:81
+msgid "Turkish (Windows-1254)"
+msgstr "तुर्की (Windows-1254)"
+
+#. {N_("Unicode (UTF-7)"),                   "UTF-7"         },
+#: ../src/charset.c:83
+msgid "Unicode (UTF-8)"
+msgstr "यूनिकोड (UTF-8)"
+
+#. {N_("Unicode (UTF-16BE)"),                "UTF-16BE"      },
+#. {N_("Unicode (UTF-16LE)"),                "UTF-16LE"      },
+#. {N_("Unicode (UTF-32BE)"),                "UTF-32BE"      },
+#. {N_("Unicode (UTF-32LE)"),                "UTF-32LE"      },
+#: ../src/charset.c:90
+msgid "Vietnamese (VISCII)"
+msgstr "वियतनामी (VISCII)"
+
+#: ../src/charset.c:91
+msgid "Vietnamese (Windows-1258)"
+msgstr "वियतनामी (Windows-1258)"
+
+#: ../src/charset.c:92
+msgid "Visual Hebrew (ISO-8859-8)"
+msgstr "विजुअल हिब्रू (ISO-8859-8)"
+
+#: ../src/charset.c:93
+msgid "Western (IBM-850)"
+msgstr "पश्चिमी (IBM-850)"
+
+#: ../src/charset.c:94
+msgid "Western (ISO-8859-1)"
+msgstr "पश्चिमी (ISO-8859-1)"
+
+#: ../src/charset.c:95
+msgid "Western (ISO-8859-15)"
+msgstr "पश्चिमी (ISO-8859-15)"
+
+#: ../src/charset.c:96
+msgid "Western (Windows-1252)"
+msgstr "पश्चिमी (Windows-1252)"
+
+#: ../src/charset.c:576
+#, c-format
+msgid "The UTF-8 string ‘%s’ could not be converted into filename encoding: %s"
+msgstr "UTF-8 स्ट्रिंग ‘%s’ को फाइल नाम एन्कोडिंग में परिवर्तित नहीं किया जा सका: %s"
+
+#: ../src/charset.c:577
+msgid "Invalid UTF-8"
+msgstr "अमान्य UTF-8"
+
+#: ../src/charset.c:634
+#, c-format
+msgid "The string ‘%s’ could not be converted into UTF-8: %s"
+msgstr "स्ट्रिंग ‘%s’ को UTF-8 में परिवर्तित नहीं किया जा सका: %s"
+
+#: ../src/easytag.c:229
+#, c-format
+msgid "A file was changed by an external program"
+msgid_plural "%d files were changed by an external program"
+msgstr[0] "किसी बाहरी प्रोग्राम द्वारा फाइल परिवर्तित की गई"
+msgstr[1] "%d फाइलें किसी बाहरी प्रोग्राम द्वारा बदली गई"
+
+#: ../src/easytag.c:238
+msgid "Do you want to continue saving the file?"
+msgstr "क्या आप फाइल को सहेजना जारी रखना चाहते हैं?"
+
+#: ../src/easytag.c:299 ../src/easytag.c:320
+msgid "Saving files was stopped"
+msgstr "फाइलें सहेजना रोक दिया गया"
+
+#: ../src/easytag.c:322
+msgid "All files have been saved"
+msgstr "सभी फाइलें सहेजी गई"
+
+#: ../src/easytag.c:452
+#, c-format
+msgid "Do you want to write the tag of file ‘%s’?"
+msgstr "क्या आप फाइल ‘%s’ का टैग लिखना चाहते हैं?"
+
+#: ../src/easytag.c:454
+msgid "Confirm Tag Writing"
+msgstr "टैग लेखन की पुष्टि करें"
+
+#. Directories and filename changed
+#: ../src/easytag.c:555
+msgid "Rename File and Directory"
+msgstr "फाइल और निर्देशिका का नाम बदलें"
+
+#: ../src/easytag.c:556
+msgid "File and directory rename confirmation required"
+msgstr "फाइल और निर्देशिका नाम बदलने की पुष्टि आवश्यक है"
+
+#: ../src/easytag.c:557
+#, c-format
+msgid "Do you want to rename the file and directory ‘%s’ to ‘%s’?"
+msgstr "क्या आप फाइल और निर्देशिका ‘%s’ का नाम बदलकर ‘%s’ करना चाहते हैं?"
+
+#: ../src/easytag.c:563
+msgid "Directory rename confirmation required"
+msgstr "निर्देशिका नाम बदलने की पुष्टि आवश्यक है"
+
+#: ../src/easytag.c:564
+#, c-format
+msgid "Do you want to rename the directory ‘%s’ to ‘%s’?"
+msgstr "क्या आप निर्देशिका '%s' का नाम बदलकर '%s' करना चाहते हैं?"
+
+#: ../src/easytag.c:572
+msgid "File rename confirmation required"
+msgstr "फाइल नाम बदलने की पुष्टि आवश्यक है"
+
+#: ../src/easytag.c:573
+#, c-format
+msgid "Do you want to rename the file ‘%s’ to ‘%s’?"
+msgstr "क्या आप फाइल '%s' का नाम बदलकर '%s' करना चाहते हैं?"
+
+#: ../src/easytag.c:643
+#, c-format
+msgid "Cannot rename file ‘%s’ to ‘%s’"
+msgstr "फाइल ‘%s’ का नाम बदलकर ‘%s’ नहीं किया जा सकता"
+
+#: ../src/easytag.c:657
+#, c-format
+msgid "Cannot rename file ‘%s’ to ‘%s’: %s"
+msgstr "फाइल ‘%s’ का नाम बदलकर ‘%s’ नहीं किया जा सकता: %s"
+
+#: ../src/easytag.c:662
+msgid "File(s) not renamed"
+msgstr "फाइल(लों) का नाम नहीं बदला गया"
+
+#: ../src/easytag.c:724
+#, c-format
+msgid "Writing tag of ‘%s’"
+msgstr "‘%s’ का टैग लिखा जा रहा है"
+
+#: ../src/easytag.c:732
+#, c-format
+msgid "Wrote tag of ‘%s’"
+msgstr "‘%s’ का टैग लिखा गया"
+
+#: ../src/easytag.c:752
+msgid ""
+"You have tried to save this tag to Unicode but it was detected that your "
+"version of id3lib is buggy"
+msgstr ""
+"आपने इस टैग को यूनिकोड में सहेजने का प्रयास किया है लेकिन यह पाया गया है कि आपके id3lib "
+"के संस्करण में त्रुटियां हैं"
+
+#: ../src/easytag.c:757
+#, c-format
+msgid ""
+"If you reload this file, some characters in the tag may not be displayed "
+"correctly. Please, apply the patch src/id3lib/"
+"patch_id3lib_3.8.3_UTF16_writing_bug.diff to id3lib, which is available in "
+"the EasyTAG package sources.\n"
+"Note that this message will appear only once.\n"
+"\n"
+"File: %s"
+msgstr ""
+"यदि आप इस फाइल को पुनः लोड करते हैं, तो टैग में कुछ वर्ण सही ढंग से प्रदर्शित नहीं हो सकते "
+"हैं। कृपया, id3lib पर पैच src/id3lib/patch_id3lib_3.8.3_UTF16_writing_bug.diff "
+"लागू करें, जो EasyTAG पैकेज स्रोतों में उपलब्ध है।\n"
+"ध्यान रखें कि यह संदेश केवल एक बार दिखाई देगा।\n"
+"\n"
+"फाइल: %s"
+
+#: ../src/easytag.c:780
+#, c-format
+msgid "Cannot write tag in file ‘%s’"
+msgstr "फाइल ‘%s’ में टैग नहीं लिखा जा सकता"
+
+#: ../src/easytag.c:785
+msgid "Tag Write Error"
+msgstr "टैग लिखने में त्रुटि"
+
+#: ../src/easytag.c:861 ../src/easytag.c:1095
+#, c-format
+msgid "Cannot read directory ‘%s’"
+msgstr "निर्देशिका ‘%s’ को पढ़ा नहीं जा सकता"
+
+#: ../src/easytag.c:865
+msgid "Directory Read Error"
+msgstr "निर्देशिका पढ़ने में त्रुटि"
+
+#. Read the directory recursively
+#: ../src/easytag.c:886
+#, c-format
+msgid "Search in progress…"
+msgstr "खोज प्रगति पर है…"
+
+#: ../src/easytag.c:958
+#, c-format
+msgid "Found one file in this directory and subdirectories"
+msgid_plural "Found %u files in this directory and subdirectories"
+msgstr[0] "इस निर्देशिका और उपनिर्देशिकाओं में एक फाइल मिली"
+msgstr[1] "इस निर्देशिका और उपनिर्देशिकाओं में %u फाइलें मिलीं"
+
+#: ../src/easytag.c:965
+#, c-format
+msgid "Found one file in this directory"
+msgid_plural "Found %u files in this directory"
+msgstr[0] "इस निर्देशिका में एक फाइल मिली"
+msgstr[1] "इस निर्देशिका में %u फाइलें मिलीं"
+
+#: ../src/easytag.c:982
+msgid "No file found in this directory and subdirectories"
+msgstr "इस निर्देशिका और उपनिर्देशिकाओं में कोई फाइल नहीं मिली"
+
+#: ../src/easytag.c:984
+msgid "No file found in this directory"
+msgstr "इस निर्देशिका में कोई फाइल नहीं मिली"
+
+#: ../src/easytag.c:1060
+#, c-format
+msgid "Error opening directory ‘%s’: %s"
+msgstr "निर्देशिका ‘%s’ खोलने में त्रुटि: %s"
+
+#: ../src/easytag.c:1115
+msgid "Searching for audio files…"
+msgstr "ऑडियो फाइलें खोजी जा रही हैं…"
+
+#: ../src/easytag.c:1116
+msgid "Searching"
+msgstr "खोजा जा रहा है"
+
+#: ../src/easytag.c:1117
+msgid "_Stop"
+msgstr "रोकें (_S)"
+
+#: ../src/file_area.c:244 ../src/file_area.c:299
+msgid "File not found"
+msgstr "फाइल नहीं मिली"
+
+#: ../src/file_area.c:249 ../src/load_files_dialog.c:232
+#, c-format
+msgid "Cannot query file information ‘%s’"
+msgstr "फाइल जानकारी '%s' को क्वेरी नहीं किया जा सकता"
+
+#: ../src/file_area.c:283
+msgid "Read-only file"
+msgstr "केवल-पढ़ने योग्य फाइल"
+
+#: ../src/file_list.c:245
+#, c-format
+msgid "Error reading ID3 tag from file ‘%s’: %s"
+msgstr "फाइल ‘%s’ से ID3 टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:256
+#, c-format
+msgid "Error reading tag from Ogg file ‘%s’: %s"
+msgstr "Ogg फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:267
+#, c-format
+msgid "Error reading tag from FLAC file ‘%s’: %s"
+msgstr "FLAC फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:277
+#, c-format
+msgid "Error reading APE tag from file ‘%s’: %s"
+msgstr "APE फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:287
+#, c-format
+msgid "Error reading tag from MP4 file ‘%s’: %s"
+msgstr "MP4 फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:298
+#, c-format
+msgid "Error reading tag from WavPack file ‘%s’: %s"
+msgstr "WavPack फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:309
+#, c-format
+msgid "Error reading tag from Opus file ‘%s’: %s"
+msgstr "Opus फाइल ‘%s’ से टैग पढ़ने में त्रुटि: %s"
+
+#: ../src/file_list.c:345
+#, c-format
+msgid ""
+"The year value ‘%s’ seems to be invalid in file ‘%s’. The information will "
+"be lost when saving"
+msgstr "वर्ष मान ‘%s’ फाइल ‘%s’ में अमान्य प्रतीत होता है। सहेजते समय जानकारी खो जाएगी"
+
+#: ../src/file_list.c:501
+#, c-format
+msgid "Automatic corrections applied for file ‘%s’"
+msgstr "फाइल ‘%s’ के लिए स्वचालित सुधार लागू किए गए"
+
+#: ../src/load_files_dialog.c:272 ../src/setting.c:329
+#, c-format
+msgid "Cannot open file ‘%s’: %s"
+msgstr "फाइल ‘%s’ नहीं खोली जा सकी: %s"
+
+#: ../src/load_files_dialog.c:302
+#, c-format
+msgid "Error reading file ‘%s’"
+msgstr "फाइल ‘%s’ पढ़ने में त्रुटि"
+
+#: ../src/load_files_dialog.c:742 ../src/load_files_dialog.c:845
+msgid "Insert a blank line"
+msgstr "रिक्त पंक्ति डालें"
+
+#: ../src/load_files_dialog.c:746 ../src/load_files_dialog.c:849
+msgid "Delete this line"
+msgstr "इस पंक्ति को मिटाएं"
+
+#: ../src/load_files_dialog.c:757 ../src/load_files_dialog.c:860
+msgid "Move this line up"
+msgstr "इस पंक्ति को ऊपर ले जाएं"
+
+#: ../src/load_files_dialog.c:761 ../src/load_files_dialog.c:864
+msgid "Move this line down"
+msgstr "इस पंक्ति को नीचे ले जाएं"
+
+#: ../src/misc.c:176
+msgid "You must type a program name"
+msgstr "आपको प्रोग्राम का नाम लिखना होगा"
+
+#: ../src/misc.c:177
+msgid "Program Name Error"
+msgstr "प्रोग्राम नाम त्रुटि"
+
+#: ../src/picture.c:174
+msgid "JPEG image"
+msgstr "JPEG छवि"
+
+#: ../src/picture.c:176
+msgid "PNG image"
+msgstr "PNG छवि"
+
+#: ../src/picture.c:178
+msgid "GIF image"
+msgstr "GIF छवि"
+
+#: ../src/picture.c:181
+msgid "Unknown image"
+msgstr "अज्ञात छवि"
+
+#: ../src/picture.c:193
+msgid "32×32 pixel PNG file icon"
+msgstr "32×32 पिक्सेल PNG फाइल आइकन"
+
+#: ../src/picture.c:195
+msgid "Other file icon"
+msgstr "अन्य फाइल आइकन"
+
+#: ../src/picture.c:197
+msgid "Cover (front)"
+msgstr "कवर (सामने)"
+
+#: ../src/picture.c:199
+msgid "Cover (back)"
+msgstr "कवर (पीछे)"
+
+#: ../src/picture.c:201
+msgid "Leaflet page"
+msgstr "पत्रक पृष्ठ"
+
+#: ../src/picture.c:203
+msgid "Media (such as label side of CD)"
+msgstr "मीडिया (जैसे CD का लेबल पक्ष)"
+
+#: ../src/picture.c:205
+msgid "Lead artist/lead performer/soloist"
+msgstr "प्रमुख कलाकार/प्रमुख अदाकार/एकल कलाकार"
+
+#: ../src/picture.c:207
+msgid "Artist/performer"
+msgstr "कलाकार/अदाकार"
+
+#: ../src/picture.c:209
+msgid "Conductor"
+msgstr "कंडक्टर"
+
+#: ../src/picture.c:211
+msgid "Band/Orchestra"
+msgstr "बैंड/ऑर्केस्ट्रा"
+
+#: ../src/picture.c:215
+msgid "Lyricist/text writer"
+msgstr "गीतकार/पाठ लेखक"
+
+#: ../src/picture.c:217
+msgid "Recording location"
+msgstr "रिकॉर्डिंग स्थान"
+
+#: ../src/picture.c:219
+msgid "During recording"
+msgstr "रिकॉर्डिंग के दौरान"
+
+#: ../src/picture.c:221
+msgid "During performance"
+msgstr "प्रदर्शन के दौरान"
+
+#: ../src/picture.c:223
+msgid "Movie/video screen capture"
+msgstr "फिल्म/वीडियो स्क्रीन कैप्चर"
+
+#: ../src/picture.c:225
+msgid "A bright colored fish"
+msgstr "एक चमकीले रंग की मछली"
+
+#: ../src/picture.c:227
+msgid "Illustration"
+msgstr "चित्रण"
+
+#: ../src/picture.c:229
+msgid "Band/Artist logotype"
+msgstr "बैंड/कलाकार लोगोटाइप"
+
+#: ../src/picture.c:231
+msgid "Publisher/studio logotype"
+msgstr "प्रकाशक/स्टूडियो लोगोटाइप"
+
+#: ../src/picture.c:235
+msgid "Unknown image type"
+msgstr "अज्ञात छवि प्रकार"
+
+#: ../src/picture.c:298 ../src/picture.c:304
+msgid "pixels"
+msgstr "पिक्सल"
+
+#: ../src/picture.c:298 ../src/picture.c:304
+msgid "Type"
+msgstr "प्रकार"
+
+#: ../src/picture.c:478 ../src/tags/id3_tag.c:1515 ../src/tags/vcedit.c:517
+#, c-format
+msgid "Input truncated or empty"
+msgstr "इनपुट छोटा या रिक्त"
+
+#: ../src/playlist_dialog.c:530
+#, c-format
+msgid "Cannot write playlist file ‘%s’"
+msgstr "प्लेलिस्ट फाइल ‘%s’ नहीं लिखी जा सकती"
+
+#: ../src/playlist_dialog.c:534
+msgid "Playlist File Error"
+msgstr "प्लेलिस्ट फाइल त्रुटि"
+
+#: ../src/playlist_dialog.c:542
+#, c-format
+msgid "Wrote playlist file ‘%s’"
+msgstr "प्लेलिस्ट फाइल ‘%s’ लिखी"
+
+#: ../src/playlist_dialog.c:625 ../src/scan_dialog.c:2639
+#: ../src/scan_dialog.c:2702
+msgid "Invalid scanner mask"
+msgstr "अमान्य स्कैनर मास्क"
+
+#: ../src/preferences_dialog.c:864
+msgid "The selected default path is invalid"
+msgstr "चयनित तयशुदा पथ अमान्य है"
+
+#: ../src/preferences_dialog.c:866
+#, c-format
+msgid ""
+"Path: ‘%s’\n"
+"Error: %s"
+msgstr ""
+"पथ: ‘%s’\n"
+"त्रुटि: %s"
+
+#: ../src/preferences_dialog.c:870
+msgid "Invalid Path Error"
+msgstr "अमान्य पथ त्रुटि"
+
+#: ../src/scan_dialog.c:432
+#, c-format
+msgid "Cannot calculate CRC value of file ‘%s’"
+msgstr "फाइल '%s' के CRC मान की गणना नहीं की जा सकती"
+
+#: ../src/scan_dialog.c:447
+msgid "Tag successfully scanned"
+msgstr "टैग सफलतापूर्वक स्कैन किया गया"
+
+#: ../src/scan_dialog.c:450
+#, c-format
+msgid "Tag successfully scanned ‘%s’"
+msgstr "टैग ‘%s’ सफलतापूर्वक स्कैन किया गया"
+
+#: ../src/scan_dialog.c:493
+#, c-format
+msgid "The extension ‘%s’ was not found in filename ‘%s’"
+msgstr "फाइल नाम ‘%s’ में एक्सटेंशन ‘%s’ नहीं मिला"
+
+#: ../src/scan_dialog.c:585 ../src/scan_dialog.c:616
+#, c-format
+msgid "Cannot find separator ‘%s’ within ‘%s’"
+msgstr "‘%2$s’ के अंदर विभाजक ‘%1$s’ नहीं मिल सका"
+
+#: ../src/scan_dialog.c:844
+#, c-format
+msgid "Could not convert filename ‘%s’ into system filename encoding"
+msgstr "फाइल नाम ‘%s’ को सिस्टम फाइल नाम एनकोडिंग में परिवर्तित नहीं किया जा सका"
+
+#: ../src/scan_dialog.c:870
+msgid "New filename successfully scanned"
+msgstr "नया फाइल नाम सफलतापूर्वक स्कैन किया गया"
+
+#: ../src/scan_dialog.c:874
+#, c-format
+msgid "New filename successfully scanned ‘%s’"
+msgstr "नया फाइल नाम ‘%s’ सफलतापूर्वक स्कैन किया गया"
+
+#: ../src/scan_dialog.c:1243
+#, c-format
+msgid "Error while processing fields ‘%s’"
+msgstr "क्षेत्र ‘%s’ को संसाधित करते समय त्रुटि हुई"
+
+#: ../src/scan_dialog.c:2119
+msgid "New_mask"
+msgstr "नया मास्क (_m)"
+
+#: ../src/scan_dialog.c:2769
+msgid "All tags have been scanned"
+msgstr "सभी टैग स्कैन कर लिए गए हैं"
+
+#: ../src/search_dialog.c:636
+#, c-format
+msgid "Found one file"
+msgid_plural "Found %d files"
+msgstr[0] "एक फाइल मिली"
+msgstr[1] "%d फाइलें मिलीं"
+
+#: ../src/search_dialog.c:718
+msgid "Ready to search…"
+msgstr "खोजने के लिए तैयार…"
+
+#: ../src/setting.c:246
+#, c-format
+msgid "Cannot write list to file ‘%s’: %s"
+msgstr "सूची को फाइल ‘%s’ में नहीं लिखा जा सकता: %s"
+
+#. Fall back to defaults.
+#: ../src/setting.c:352
+msgid "Loading default ‘Fill Tag’ masks…"
+msgstr "तयशुदा ‘टैग भरें’ मास्क लोड हो रहा है…"
+
+#. Fall back to defaults.
+#: ../src/setting.c:382
+msgid "Loading default ‘Rename File’ masks…"
+msgstr "तयशुदा ‘फाइल का नाम बदलें’ मास्क लोड हो रहा है…"
+
+#: ../src/status_bar.c:143
+msgid "Ready to start"
+msgstr "शुरू करने के लिए तैयार"
+
+#: ../src/tag_area.c:169
+#, c-format
+msgid "Selected files tagged with title ‘%s’"
+msgstr "‘%s’ शीर्षक से टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:174
+msgid "Removed title from selected files"
+msgstr "चयनित फाइलों से शीर्षक हटा दिया गया"
+
+#: ../src/tag_area.c:192
+#, c-format
+msgid "Selected files tagged with artist ‘%s’"
+msgstr "कलाकार ‘%s’ के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:197
+msgid "Removed artist from selected files"
+msgstr "चयनित फाइलों से कलाकार को हटाया गया"
+
+#: ../src/tag_area.c:215
+#, c-format
+msgid "Selected files tagged with album artist ‘%s’"
+msgstr "एल्बम कलाकार ‘%s’ के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:220
+msgid "Removed album artist from selected files"
+msgstr "चयनित फाइलों से एल्बम कलाकार को हटाया गया"
+
+#: ../src/tag_area.c:238
+#, c-format
+msgid "Selected files tagged with album ‘%s’"
+msgstr "एल्बम ‘%s’ के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:243
+msgid "Removed album name from selected files"
+msgstr "चयनित फाइलों से एल्बम का नाम हटाया गया"
+
+#: ../src/tag_area.c:281
+#, c-format
+msgid "Selected files tagged with disc number ‘%s/%s’"
+msgstr "डिस्क संख्या ‘%s/%s’ से टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:288
+#, c-format
+msgid "Selected files tagged with disc number like ‘xx’"
+msgstr "चयनित फाइलें डिस्क संख्या जैसे ‘xx’ से टैग की गई हैं"
+
+#: ../src/tag_area.c:293
+msgid "Removed disc number from selected files"
+msgstr "चयनित फाइलों से डिस्क संख्या हटा दी गई"
+
+#: ../src/tag_area.c:313
+#, c-format
+msgid "Selected files tagged with year ‘%s’"
+msgstr "वर्ष ‘%s’ से टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:318
+msgid "Removed year from selected files"
+msgstr "चयनित फाइलों से वर्ष हटाया गया"
+
+#: ../src/tag_area.c:348 ../src/tag_area.c:453
+#, c-format
+msgid "Selected files tagged with track like ‘xx/%s’"
+msgstr "चयनित फाइलें ‘xx/%s’ जैसे ट्रैक से टैग की गई हैं"
+
+#: ../src/tag_area.c:352
+#, c-format
+msgid "Selected files tagged with track like ‘xx’"
+msgstr "‘xx’ जैसे ट्रैक के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:357 ../src/tag_area.c:458
+msgid "Removed track number from selected files"
+msgstr "चयनित फाइलों से ट्रैक संख्या हटाया गया"
+
+#. msg = g_strdup_printf(_("All %d tracks numbered sequentially."), ETCore->ETFileSelectionList_Length);
+#: ../src/tag_area.c:416
+#, c-format
+msgid "Selected tracks numbered sequentially"
+msgstr "चयनित ट्रैक क्रमिक रूप से क्रमांकित"
+
+#: ../src/tag_area.c:478
+#, c-format
+msgid "Selected files tagged with genre ‘%s’"
+msgstr "चयनित फाइलें शैली ‘%s’ के साथ टैग की गई हैं"
+
+#: ../src/tag_area.c:483
+msgid "Removed genre from selected files"
+msgstr "चयनित फाइलों से शैली हटा दी गई"
+
+#: ../src/tag_area.c:508
+#, c-format
+msgid "Selected files tagged with comment ‘%s’"
+msgstr "चयनित फाइलें टिप्पणी ‘%s’ के साथ टैग की गई हैं"
+
+#: ../src/tag_area.c:513
+msgid "Removed comment from selected files"
+msgstr "चयनित फाइलों से टिप्पणी हटा दी गई"
+
+#: ../src/tag_area.c:531
+#, c-format
+msgid "Selected files tagged with composer ‘%s’"
+msgstr "संगीतकार ‘%s’ के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:536
+msgid "Removed composer from selected files"
+msgstr "चयनित फाइलों से संगीतकार को हटाया गया"
+
+#: ../src/tag_area.c:554
+#, c-format
+msgid "Selected files tagged with original artist ‘%s’"
+msgstr "मूल कलाकार ‘%s’ के साथ टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:559
+msgid "Removed original artist from selected files"
+msgstr "चयनित फाइलों से मूल कलाकार को हटाया गया"
+
+#: ../src/tag_area.c:577
+#, c-format
+msgid "Selected files tagged with copyright ‘%s’"
+msgstr "चयनित फाइलें कॉपीराइट ‘%s’ के साथ टैग की गई हैं"
+
+#: ../src/tag_area.c:582
+msgid "Removed copyright from selected files"
+msgstr "चयनित फाइलों से कॉपीराइट हटा दिया गया"
+
+#: ../src/tag_area.c:600
+#, c-format
+msgid "Selected files tagged with URL ‘%s’"
+msgstr "URL ‘%s’ से टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:605
+msgid "Removed URL from selected files"
+msgstr "चयनित फाइलों से URL हटा दिया गया"
+
+#: ../src/tag_area.c:623
+#, c-format
+msgid "Selected files tagged with encoder name ‘%s’"
+msgstr "एनकोडर नाम ‘%s’ से टैग की गई चयनित फाइलें"
+
+#: ../src/tag_area.c:628
+msgid "Removed encoder name from selected files"
+msgstr "चयनित फाइलों से एनकोडर नाम हटाया गया"
+
+#: ../src/tag_area.c:664
+msgid "Selected files tagged with images"
+msgstr "चयनित फाइलें छवियों के साथ टैग की गई"
+
+#: ../src/tag_area.c:668
+msgid "Removed images from selected files"
+msgstr "चयनित फाइलों से छवियां हटा दी गई"
+
+#. Menu items
+#: ../src/tag_area.c:836
+msgid "Tag selected files with this field"
+msgstr "चयनित फाइलों को इस क्षेत्र से टैग करें"
+
+#: ../src/tag_area.c:866
+msgid "All uppercase"
+msgstr "सभी बड़े अक्षर"
+
+#: ../src/tag_area.c:872
+msgid "All lowercase"
+msgstr "सभी छोटे अक्षर"
+
+#: ../src/tag_area.c:878
+msgid "First letter uppercase"
+msgstr "पहला अक्षर बड़ा"
+
+#: ../src/tag_area.c:884
+msgid "First letter uppercase of each word"
+msgstr "प्रत्येक शब्द का पहला अक्षर बड़ा"
+
+#: ../src/tag_area.c:900
+msgid "Insert space before uppercase letter"
+msgstr "बड़े अक्षर से पहले स्थान डालें"
+
+#: ../src/tag_area.c:906
+msgid "Remove duplicate spaces or underscores"
+msgstr "डुप्लिकेट रिक्त स्थान या अंडरस्कोर हटाएं"
+
+#: ../src/tag_area.c:912
+msgid "Remove all text"
+msgstr "सभी पाठ हटाएं"
+
+#: ../src/tag_area.c:1273 ../src/tag_area.c:1366
+#, c-format
+msgid "Error parsing image data ‘%s’"
+msgstr "छवि डेटा ‘%s’ विश्लेषण में त्रुटि"
+
+#: ../src/tag_area.c:1348
+msgid ""
+"Cannot display the image because not enough data has been read to determine "
+"how to create the image buffer"
+msgstr ""
+"छवि प्रदर्शित नहीं की जा सकती क्योंकि छवि बफर बनाने का तरीका निर्धारित करने के लिए "
+"पर्याप्त डेटा नहीं पढ़ा गया है"
+
+#: ../src/tag_area.c:1355
+msgid "Cannot display the image"
+msgstr "छवि प्रदर्शित नहीं की जा सकती"
+
+#: ../src/tag_area.c:1357
+msgid ""
+"Not enough data has been read to determine how to create the image buffer."
+msgstr "छवि बफर बनाने का तरीका निर्धारित करने के लिए पर्याप्त डेटा नहीं पढ़ा गया है।"
+
+#: ../src/tag_area.c:1359
+msgid "Load Image File"
+msgstr "छवि फाइल लोड करें"
+
+#: ../src/tag_area.c:1404 ../src/tag_area.c:1429
+#, c-format
+msgid "Image file not loaded ‘%s’"
+msgstr "छवि फाइल ‘%s’ लोड नहीं हुई"
+
+#: ../src/tag_area.c:1421
+#, c-format
+msgid "Cannot open file ‘%s’"
+msgstr "फाइल ‘%s’ नहीं खोली जा सकती"
+
+#: ../src/tag_area.c:1425
+msgid "Image File Error"
+msgstr "छवि फाइल त्रुटि"
+
+#: ../src/tag_area.c:1436
+msgid "Image file loaded"
+msgstr "छवि फाइल लोड की गई"
+
+#: ../src/tag_area.c:1519
+msgid "Add Images"
+msgstr "छवियां जोड़ें"
+
+#: ../src/tag_area.c:1529 ../src/tag_area.c:1857
+msgid "All Files"
+msgstr "सभी फाइलें"
+
+#: ../src/tag_area.c:1536 ../src/tag_area.c:1864
+msgid "PNG and JPEG"
+msgstr "PNG और JPEG"
+
+#: ../src/tag_area.c:1654
+#, c-format
+msgid "Image Properties %d/%d"
+msgstr "छवि गुण %d/%d"
+
+#: ../src/tag_area.c:1843
+#, c-format
+msgid "Save Image %d/%d"
+msgstr "छवि सहेजें %d/%d"
+
+#: ../src/tag_area.c:1923
+#, c-format
+msgid "Image file not saved ‘%s’"
+msgstr "छवि फाइल ‘%s’ सहेजी नहीं गई"
+
+#: ../src/tag_area.c:2167
+msgid "Tag selected files with this genre"
+msgstr "चयनित फाइलों को इस शैली के साथ टैग करें"
+
+#: ../src/tag_area.c:2940
+msgid "ID3 Tag"
+msgstr "ID3 टैग"
+
+#: ../src/tag_area.c:2945
+msgid "Ogg Vorbis Tag"
+msgstr "Ogg Vorbis टैग"
+
+#: ../src/tag_area.c:2950
+msgid "FLAC Vorbis Tag"
+msgstr "FLAC Vorbis टैग"
+
+#: ../src/tag_area.c:2954
+msgid "APE Tag"
+msgstr "APE टैग"
+
+#: ../src/tag_area.c:2958
+msgid "MP4/M4A/AAC Tag"
+msgstr "MP4/M4A/AAC टैग"
+
+#: ../src/tag_area.c:2963
+msgid "Wavpack Tag"
+msgstr "Wavpack टैग"
+
+#: ../src/tag_area.c:2968
+msgid "Opus Tag"
+msgstr "Opus टैग"
+
+#: ../src/tag_area.c:3226
+#, c-format
+msgid "Images (%u)"
+msgstr "छवियां (%u)"
+
+#: ../src/tags/ape_tag.c:90 ../src/tags/mp4_header.cc:58
+#: ../src/tags/mp4_header.cc:67 ../src/tags/mp4_tag.cc:73
+#: ../src/tags/mp4_tag.cc:86 ../src/tags/mp4_tag.cc:92
+#: ../src/tags/ogg_header.c:227
+#, c-format
+msgid "Error while opening file: %s"
+msgstr "फाइल खोलते समय त्रुटि: %s"
+
+#: ../src/tags/ape_tag.c:372
+msgid "Failed to write APE tag"
+msgstr "APE टैग लिखने में विफल"
+
+#: ../src/tags/flac_header.c:85 ../src/tags/flac_tag.c:225
+msgid "Error opening FLAC file"
+msgstr "FLAC फाइल खोलने में त्रुटि"
+
+#: ../src/tags/flac_header.c:182
+msgid "FLAC File"
+msgstr "FLAC फाइल"
+
+#. Mode
+#. Mode
+#. mpeg4ip library seems to always return -1
+#. Mode
+#: ../src/tags/flac_header.c:195 ../src/tags/mp4_header.cc:152
+#: ../src/tags/ogg_header.c:417 ../src/tags/opus_header.c:237
+#: ../src/tags/wavpack_header.c:150
+msgid "Channels:"
+msgstr "चैनल:"
+
+#: ../src/tags/flac_tag.c:761 ../src/tags/flac_tag.c:794
+#: ../src/tags/flac_tag.c:808
+#, c-format
+msgid "Error while opening file ‘%s’ as FLAC: %s"
+msgstr "फाइल ‘%s’ को FLAC के रूप में खोलते समय त्रुटि हुई: %s"
+
+#: ../src/tags/flac_tag.c:1108 ../src/tags/flac_tag.c:1120
+#: ../src/tags/flac_tag.c:1140
+#, c-format
+msgid "Failed to write comments to file ‘%s’: %s"
+msgstr "फाइल ‘%s’ पर टिप्पणियां लिखने में विफल: %s"
+
+#: ../src/tags/id3_tag.c:217
+msgid "Corrupted file"
+msgstr "दूषित फाइल"
+
+#: ../src/tags/id3_tag.c:635
+#, c-format
+msgid "Removed tag of ‘%s’"
+msgstr "‘%s’ का टैग हटाया गया"
+
+#: ../src/tags/id3_tag.c:642 ../src/tags/id3_tag.c:726
+#, c-format
+msgid "Error while removing ID3v1 tag of ‘%s’: %s"
+msgstr "‘%s’ का ID3v1 टैग हटाते समय त्रुटि हुई: %s"
+
+#: ../src/tags/id3_tag.c:651 ../src/tags/id3_tag.c:689
+#, c-format
+msgid "Error while removing ID3v2 tag of ‘%s’: %s"
+msgstr "‘%s’ का ID3v2 टैग हटाते समय त्रुटि हुई: %s"
+
+#: ../src/tags/id3_tag.c:677
+#, c-format
+msgid "Error while updating ID3v2 tag of ‘%s’: %s"
+msgstr "'%s' के ID3v2 टैग को अद्यतन करते समय त्रुटि: %s"
+
+#: ../src/tags/id3_tag.c:714
+#, c-format
+msgid "Error while updating ID3v1 tag of ‘%s’: %s"
+msgstr "'%s' के ID3v1 टैग को अद्यतन करते समय त्रुटि: %s"
+
+#: ../src/tags/id3_tag.c:760
+msgid "Buggy id3lib"
+msgstr "बग्गी id3lib"
+
+#: ../src/tags/id3_tag.c:781
+msgid "No error reported"
+msgstr "कोई त्रुटि रिपोर्ट नहीं की गई"
+
+#: ../src/tags/id3_tag.c:783
+msgid "No available memory"
+msgstr "कोई मेमोरी उपलब्ध नहीं"
+
+#: ../src/tags/id3_tag.c:785
+msgid "No data to parse"
+msgstr "विश्लेषण हेतु कोई डेटा नहीं"
+
+#: ../src/tags/id3_tag.c:787
+msgid "Improperly formatted data"
+msgstr "अनुचित रूप से प्रारूपित डेटा"
+
+#: ../src/tags/id3_tag.c:789
+msgid "No buffer to write to"
+msgstr "लिखने के लिए कोई बफर नहीं"
+
+#: ../src/tags/id3_tag.c:791
+msgid "Buffer is too small"
+msgstr "बफर बहुत छोटा है"
+
+#: ../src/tags/id3_tag.c:793
+msgid "Invalid frame ID"
+msgstr "अमान्य फ़्रेम आईडी"
+
+#: ../src/tags/id3_tag.c:795
+msgid "Requested field not found"
+msgstr "अनुरोधित क्षेत्र नहीं मिला"
+
+#: ../src/tags/id3_tag.c:797
+msgid "Unknown field type"
+msgstr "अज्ञात क्षेत्र प्रकार"
+
+#: ../src/tags/id3_tag.c:799
+msgid "Tag is already attached to a file"
+msgstr "टैग पहले से ही फाइल से जुड़ा हुआ है"
+
+#: ../src/tags/id3_tag.c:801
+msgid "Invalid tag version"
+msgstr "अमान्य टैग संस्करण"
+
+#: ../src/tags/id3_tag.c:803
+msgid "No file to parse"
+msgstr "विश्लेषण हेतु कोई फाइल नहीं"
+
+#: ../src/tags/id3_tag.c:805
+msgid "Attempting to write to a read-only file"
+msgstr "केवल पढ़ने-योग्य फाइल में लिखने का प्रयास"
+
+#: ../src/tags/id3_tag.c:807
+msgid "Error in compression/uncompression"
+msgstr "संपीड़न/असंपीडन में त्रुटि"
+
+#: ../src/tags/id3_tag.c:809
+msgid "Unknown error message"
+msgstr "अज्ञात त्रुटि संदेश"
+
+#: ../src/tags/id3_tag.c:1553
+msgid "Error while creating temporary file"
+msgstr "अस्थायी फाइल बनाते समय त्रुटि"
+
+#: ../src/tags/id3v24_tag.c:135 ../src/tags/id3v24_tag.c:190
+#: ../src/tags/id3v24_tag.c:228 ../src/tags/id3v24_tag.c:238
+#: ../src/tags/id3v24_tag.c:247 ../src/tags/id3v24_tag.c:973
+#: ../src/tags/id3v24_tag.c:981 ../src/tags/id3v24_tag.c:988
+#: ../src/tags/id3v24_tag.c:1014 ../src/tags/id3v24_tag.c:1054
+#: ../src/tags/mp4_tag.cc:102 ../src/tags/ogg_header.c:277
+msgid "Error reading tags from file"
+msgstr "फाइल से टैग पढ़ने में त्रुटि"
+
+#: ../src/tags/monkeyaudio_header.c:69
+msgid "Monkey's Audio File"
+msgstr "मंकी ऑडियो फाइल"
+
+#. Mode changed to profile name
+#: ../src/tags/monkeyaudio_header.c:72 ../src/tags/musepack_header.c:73
+msgid "Profile:"
+msgstr "प्रोफाइल:"
+
+#: ../src/tags/mp4_header.cc:68 ../src/tags/mp4_tag.cc:93
+#: ../src/tags/mp4_tag.cc:321
+msgid "MP4 format invalid"
+msgstr "MP4 प्रारूप अमान्य"
+
+#: ../src/tags/mp4_header.cc:77
+msgid "Error reading properties from file"
+msgstr "फाइल से गुण पढ़ने में त्रुटि"
+
+#: ../src/tags/mp4_header.cc:131
+msgid "MP4/AAC File"
+msgstr "MP4/AAC फाइल"
+
+#: ../src/tags/mp4_header.cc:140 ../src/tags/mpeg_header.c:270
+#, c-format
+msgid "~%d kb/s"
+msgstr "~%d kb/s"
+
+#: ../src/tags/mp4_tag.cc:298 ../src/tags/mp4_tag.cc:314
+#: ../src/tags/mp4_tag.cc:320
+#, c-format
+msgid "Error while opening file ‘%s’: %s"
+msgstr "फाइल ‘%s’ खोलते समय त्रुटि हुई: %s"
+
+#: ../src/tags/mp4_tag.cc:331
+#, c-format
+msgid "Error reading tags from file ‘%s’"
+msgstr "फाइल ‘%s’ से टैग पढ़ने में त्रुटि"
+
+#: ../src/tags/mpeg_header.c:51
+msgid "Stereo"
+msgstr "स्टीरियो"
+
+#: ../src/tags/mpeg_header.c:52
+msgid "Joint stereo"
+msgstr "जॉइन्ट स्टीरियो"
+
+#: ../src/tags/mpeg_header.c:53
+msgid "Dual channel"
+msgstr "दोहरा चैनल"
+
+#: ../src/tags/mpeg_header.c:54
+msgid "Single channel"
+msgstr "एकल चैनल"
+
+#: ../src/tags/mpeg_header.c:238
+msgid "MP3 File"
+msgstr "MP3 फाइल"
+
+#: ../src/tags/mpeg_header.c:242
+msgid "MP2 File"
+msgstr "MP2 फाइल"
+
+#. MPEG, Layer versions
+#: ../src/tags/mpeg_header.c:250
+msgid "MPEG"
+msgstr "MPEG"
+
+#: ../src/tags/musepack_header.c:70
+msgid "MusePack File"
+msgstr "MusePack फाइल"
+
+#: ../src/tags/ogg_header.c:243
+msgid ""
+"The specified bitstream does not exist or the file has been initialized "
+"improperly"
+msgstr "निर्दिष्ट बिटस्ट्रीम मौजूद नहीं है या फाइल को अनुचित तरीके से आरंभ किया गया है"
+
+#: ../src/tags/ogg_header.c:262
+msgid "Read from media returned an error"
+msgstr "मीडिया से पढ़ने पर त्रुटि लौटी"
+
+#: ../src/tags/ogg_header.c:265
+msgid "Bitstream is not Vorbis data"
+msgstr "बिटस्ट्रीम Vorbis डेटा नहीं है"
+
+#: ../src/tags/ogg_header.c:268
+msgid "Vorbis version mismatch"
+msgstr "Vorbis संस्करण बेमेल"
+
+#: ../src/tags/ogg_header.c:271
+msgid "Invalid Vorbis bitstream header"
+msgstr "अमान्य Vorbis बिटस्ट्रीम हेडर"
+
+#: ../src/tags/ogg_header.c:274
+msgid "Internal logic fault, indicates a bug or heap/stack corruption"
+msgstr "आंतरिक तर्क दोष, बग या हीप/स्टैक भ्रष्टाचार को इंगित करता है"
+
+#: ../src/tags/ogg_header.c:325
+#, c-format
+msgid "Failed to open file as Vorbis: %s"
+msgstr "फाइल को Vorbis के रूप में खोलने में विफल: %s"
+
+#: ../src/tags/ogg_header.c:387
+msgid "Ogg Vorbis File"
+msgstr "Ogg Vorbis फाइल"
+
+#: ../src/tags/ogg_header.c:391
+msgid "Speex File"
+msgstr "Speex फाइल"
+
+#: ../src/tags/opus_header.c:224
+msgid "Opus File"
+msgstr "Opus फाइल"
+
+#: ../src/tags/wavpack_header.c:137
+msgid "Wavpack File"
+msgstr "Wavpack फाइल"
