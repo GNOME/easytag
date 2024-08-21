@@ -19,9 +19,11 @@
     <url type="homepage">https://wiki.gnome.org/Apps/EasyTAG</url>
     <url type="bugtracker">https://gitlab.gnome.org/GNOME/easytag/-/issues/</url>
     <url type="help">https://help.gnome.org/users/easytag/stable/</url>
+    <url type="translate">https://l10n.gnome.org/module/easytag/</url>
+    <url type="vcs-browser">https://gitlab.gnome.org/GNOME/easytag</url>
     <screenshots>
         <screenshot type="default">
-            <image>http://amigadave.com/temp/easytag-default.png</image>
+            <image>https://amigadave.com/temp/easytag-default.png</image>
         </screenshot>
     </screenshots>
     <kudos>
