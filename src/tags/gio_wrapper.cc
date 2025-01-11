@@ -47,7 +47,7 @@ GIO_InputStream::name () const
 }
 
 TagLib::ByteVector
-GIO_InputStream::readBlock (ulong len)
+GIO_InputStream::readBlock (size_t len)
 {
     if (error)
     {
@@ -95,7 +95,7 @@ GIO_InputStream::isOpen () const
 }
 
 void
-GIO_InputStream::seek (long int offset, TagLib::IOStream::Position p)
+GIO_InputStream::seek (TagLib::offset_t offset, TagLib::IOStream::Position p)
 {
     if (error)
     {
@@ -133,13 +133,13 @@ GIO_InputStream::clear ()
     }
 }
 
-long int
+TagLib::offset_t
 GIO_InputStream::tell () const
 {
     return g_seekable_tell (G_SEEKABLE (stream));
 }
 
-long int
+TagLib::offset_t
 GIO_InputStream::length ()
 {
     if (error)
@@ -161,7 +161,7 @@ GIO_InputStream::length ()
 }
 
 void
-GIO_InputStream::truncate (long int len)
+GIO_InputStream::truncate (TagLib::offset_t len)
 {
     g_warning ("%s", "Trying to truncate read-only file");
 }
@@ -200,7 +200,7 @@ GIO_IOStream::name () const
 }
 
 TagLib::ByteVector
-GIO_IOStream::readBlock (ulong len)
+GIO_IOStream::readBlock (size_t len)
 {
     if (error)
     {
@@ -400,7 +400,7 @@ GIO_IOStream::isOpen () const
 }
 
 void
-GIO_IOStream::seek (long int offset, TagLib::IOStream::Position p)
+GIO_IOStream::seek (TagLib::offset_t offset, TagLib::IOStream::Position p)
 {
     if (error)
     {
@@ -434,13 +434,13 @@ GIO_IOStream::clear ()
     g_clear_error (&error);
 }
 
-long int
+TagLib::offset_t
 GIO_IOStream::tell () const
 {
     return g_seekable_tell (G_SEEKABLE (stream));
 }
 
-long int
+TagLib::offset_t
 GIO_IOStream::length ()
 {
     long rv = -1;
@@ -464,7 +464,7 @@ GIO_IOStream::length ()
 }
 
 void
-GIO_IOStream::truncate (long int len)
+GIO_IOStream::truncate (TagLib::offset_t len)
 {
     if (error)
     {
