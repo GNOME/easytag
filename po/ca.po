@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=easytag&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2017-08-27 17:26+0000\n"
-"PO-Revision-Date: 2016-12-19 14:31+0100\n"
+"PO-Revision-Date: 2025-08-27 14:31+0100\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <Catalan <info@softcatala.org>>\n"
 "Language: ca\n"
@@ -2570,8 +2570,7 @@ msgid ""
 "Select the file with the position which matches the position of the CDDB "
 "result"
 msgstr ""
-"Seleccioneu el fitxer que concorda amb la posició que concorda amb la "
-"posició del resultat del CDDB"
+"Seleccioneu el fitxer que concorda amb la posició del resultat del CDDB "
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:27
 msgid "Run the scanner on CDDB results"
@@ -2776,7 +2775,7 @@ msgstr ""
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:95
 msgid "Convert spaces and underscores when filling tag fields"
 msgstr ""
-"Converteix els zeros i els caràcters de subratllat quan s'estiguin omplint "
+"Converteix els espais i els caràcters de subratllat quan s'estiguin omplint "
 "els camps d'etiqueta"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:97
@@ -3071,7 +3070,7 @@ msgstr "Mostra la llegenda de l'escàner"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:180
 msgid "Whether to show the scanner legend in the tag scanner"
-msgstr "Si s'ha de mostrar la llegenda de l'escàner a l'etiqueta escàner"
+msgstr "Si s'ha de mostrar la llegenda de l'escàner a l'escàner d'etiquetes"
 
 #: ../data/org.gnome.EasyTAG.gschema.xml.h:181
 msgid "Show the scanner window on startup"
@@ -3142,7 +3141,7 @@ msgstr ""
 
 #: ../src/about.c:98
 msgid "View and edit tags in audio files"
-msgstr "Mostra i edita còpies als fitxers d'àudio"
+msgstr "Mostra i edita etiquetes als fitxers d'àudio"
 
 #: ../src/application.c:44
 msgid "Print the version and exit"
@@ -3180,7 +3179,7 @@ msgstr "- Etiqueta i reanomena els fitxers d'àudio"
 #: ../src/application.c:429 ../src/file_list.c:435
 #, c-format
 msgid "Error while querying information for file ‘%s’: %s"
-msgstr "Error mentre s'estava consultant informació sobre el fitxer: «%s» %s"
+msgstr "Error mentre s'estava consultant informació sobre el fitxer «%s»: %s"
 
 #: ../src/application.c:478 ../src/application.c:485
 #, c-format
@@ -3401,7 +3400,7 @@ msgstr "S'està enviant la petició…"
 #: ../src/cddb_dialog.c:841
 #, c-format
 msgid "The server returned a bad response ‘%s’"
-msgstr "El servidor ha rebut una resposta incorrecta «%s»"
+msgstr "El servidor ha retornat una resposta incorrecta «%s»"
 
 #. Load the track list of the album
 #: ../src/cddb_dialog.c:1035
@@ -3710,7 +3709,7 @@ msgstr "Tots els fitxers s'han desat"
 #: ../src/easytag.c:452
 #, c-format
 msgid "Do you want to write the tag of file ‘%s’?"
-msgstr "Voleu escriure l'etiqueta del fitxer «%s» ?"
+msgstr "Voleu escriure l'etiqueta del fitxer «%s»?"
 
 #: ../src/easytag.c:454
 msgid "Confirm Tag Writing"
@@ -3795,7 +3794,7 @@ msgstr ""
 "mostraran de forma correcta. Apliqueu el pegat src/id3lib/"
 "patch_id3lib_3.8.3_UTF16_writing_bug.diff a id3lib, el qual està disponible "
 "a les fonts del paquet EasyTAG.\n"
-"Nota per a avisar que aquest missatge apareixerà sols una vegada.\n"
+"Nota: aquest missatge només apareixerà una vegada.\n"
 "\n"
 "Fitxer: %s"
 
@@ -4025,7 +4024,7 @@ msgstr "Lloc d'enregistrament"
 
 #: ../src/picture.c:219
 msgid "During recording"
-msgstr "Durada de l'enregistrament"
+msgstr "Durant l'enregistrament"
 
 #: ../src/picture.c:221
 msgid "During performance"
@@ -4344,7 +4343,7 @@ msgstr "S'han suprimit les imatges dels fitxers seleccionats"
 #. Menu items
 #: ../src/tag_area.c:836
 msgid "Tag selected files with this field"
-msgstr "Copia amb aquest camp els fitxers seleccionats"
+msgstr "Etiqueta amb aquest camp els fitxers seleccionats"
 
 #: ../src/tag_area.c:866
 msgid "All uppercase"
@@ -4389,7 +4388,7 @@ msgstr ""
 
 #: ../src/tag_area.c:1355
 msgid "Cannot display the image"
-msgstr "No es mostrarà la imatge"
+msgstr "No es pot mostrar la imatge"
 
 #: ../src/tag_area.c:1357
 msgid ""
@@ -4524,7 +4523,7 @@ msgstr "Error mentre s'obria el fitxer «%s» com FLAC: %s"
 #: ../src/tags/flac_tag.c:1140
 #, c-format
 msgid "Failed to write comments to file ‘%s’: %s"
-msgstr "No s'han pogut escriure comentaris al fitxer «%s» %s"
+msgstr "No s'han pogut escriure comentaris al fitxer «%s»: %s"
 
 #: ../src/tags/id3_tag.c:217
 msgid "Corrupted file"
@@ -4569,7 +4568,7 @@ msgstr "Sense memòria disponible"
 
 #: ../src/tags/id3_tag.c:785
 msgid "No data to parse"
-msgstr "Sense dates per a analitzar"
+msgstr "Sense dades per a analitzar"
 
 #: ../src/tags/id3_tag.c:787
 msgid "Improperly formatted data"
@@ -4688,11 +4687,11 @@ msgstr "Un sol canal"
 
 #: ../src/tags/mpeg_header.c:238
 msgid "MP3 File"
-msgstr "Etiqueta MP3"
+msgstr "Fitxer MP3"
 
 #: ../src/tags/mpeg_header.c:242
 msgid "MP2 File"
-msgstr "Etiqueta MP2"
+msgstr "Fitxer MP2"
 
 #. MPEG, Layer versions
 #: ../src/tags/mpeg_header.c:250
@@ -4738,7 +4737,7 @@ msgstr "No s'ha pogut obrir el fitxer com Vorbis: «%s»"
 
 #: ../src/tags/ogg_header.c:387
 msgid "Ogg Vorbis File"
-msgstr "Etiqueta Vorbis Ogg"
+msgstr "Fitxer Vorbis Ogg"
 
 #: ../src/tags/ogg_header.c:391
 msgid "Speex File"
