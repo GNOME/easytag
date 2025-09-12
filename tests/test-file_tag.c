@@ -105,6 +105,7 @@ file_tag_difference (void)
     File_Tag *tag1;
     File_Tag *tag2;
     GBytes *bytes;
+    EtPicture *picture;
 
     tag1 = et_file_tag_new ();
 
@@ -143,11 +144,11 @@ file_tag_difference (void)
 
     tag1 = et_file_tag_new ();
     bytes = g_bytes_new_static ("foo", 3);
+    picture = et_picture_new (ET_PICTURE_TYPE_FRONT_COVER, "", 0, 0, bytes);
 
-    et_file_tag_set_picture (tag1,
-                             et_picture_new (ET_PICTURE_TYPE_FRONT_COVER, "", 0, 0,
-                                             bytes));
+    et_file_tag_set_picture (tag1, picture);
 
+    et_picture_free (picture);
     g_bytes_unref (bytes);
 
     tag2 = et_file_tag_new ();
