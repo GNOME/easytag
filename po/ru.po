@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Easytag 1.99.11\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/easytag/issues/\n"
-"POT-Creation-Date: 2025-05-10 11:40+0000\n"
-"PO-Revision-Date: 2025-07-07 21:15+1000\n"
+"POT-Creation-Date: 2025-12-10 11:48+0000\n"
+"PO-Revision-Date: 2025-12-16 15:50+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -3980,7 +3980,7 @@ msgstr "Неизвестный тип изображения"
 
 #: ../src/picture.c:298 ../src/picture.c:304
 msgid "pixels"
-msgstr "пиксели"
+msgstr "пикселей"
 
 #: ../src/picture.c:298 ../src/picture.c:304
 msgid "Type"
