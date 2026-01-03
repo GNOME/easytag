@@ -94,7 +94,7 @@ Scan_Process_Fields_Remove_Space (gchar *string)
 gchar *
 Scan_Process_Fields_Insert_Space (const gchar *string)
 {
-    gchar *iter;
+    const gchar *iter;
     gunichar c;
     GString *string1;
 
