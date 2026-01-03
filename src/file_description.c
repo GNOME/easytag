@@ -20,6 +20,7 @@
 #include "file_description.h"
 
 #include <string.h>
+#include <strings.h>
 
 const ET_File_Description ETFileDescription[] =
 {

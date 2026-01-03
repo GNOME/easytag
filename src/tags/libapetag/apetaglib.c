@@ -17,12 +17,12 @@
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdarg.h>
 #include <string.h>
+#include <strings.h>
 #include <limits.h>
 #include <assert.h>
 #include <math.h>

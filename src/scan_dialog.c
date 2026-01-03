@@ -22,6 +22,7 @@
 #include "scan_dialog.h"
 
 #include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 #include <gdk/gdkkeysyms.h>
 #include <glib/gi18n.h>

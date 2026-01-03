@@ -21,6 +21,7 @@
 
 #include <glib/gi18n.h>
 #include <string.h>
+#include <strings.h>
 #include <errno.h>
 
 #include "id3_tag.h"
